@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>採用情報 | 株式会社スピアード</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; line-height: 1.7; }
+    :root {
+      --navy: #1B3A5C; --navy-dark: #0D2238; --navy-mid: #254E7A;
+      --navy-light: #E8EFF6; --gold: #C49A30; --gold-hover: #A87E22;
+      --off-white: #F7F5F0; --beige: #EDE8DC; --text: #1a1a1a;
+      --text-mid: #555; --text-light: #888; --border: #D8D0C0;
+      --teal: #2D8B7A; --teal-light: #E6F4F1;
+    }
+    h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
+
+    /* HEADER */
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:72px; background:rgba(13,34,56,.97); box-shadow:0 2px 24px rgba(0,0,0,.2); }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-img { height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
+    nav { display:flex; align-items:center; gap:28px; }
+    nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
+    nav a:hover { color:var(--gold); }
+    .btn-nav { background:var(--gold)!important; color:white!important; padding:9px 22px; border-radius:2px; font-size:.8rem!important; transition:background .2s!important; }
+    .btn-nav:hover { background:var(--gold-hover)!important; }
+    @media (max-width:900px) { header{padding:0 20px;} .nav-links{display:none!important;} .btn-nav{display:none!important;} .hamburger{display:flex;} }
+
+    /* PAGE HERO */
+    .page-hero { padding:130px 24px 72px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 60%,var(--navy-mid) 100%); text-align:center; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:64px 64px; }
+    .page-hero-en { font-family:'Playfair Display',serif; font-style:italic; font-size:.9rem; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:16px; position:relative; }
+    .page-hero-title { font-family:'Noto Serif JP',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:500; color:white; letter-spacing:.12em; position:relative; }
+    .page-hero-sub { font-size:.88rem; color:rgba(255,255,255,.65); margin-top:20px; line-height:2; position:relative; }
+
+    /* BACK LINK */
+    .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--text-mid); text-decoration:none; font-size:.8rem; letter-spacing:.08em; transition:color .2s; margin-bottom:40px; }
+    .back-link:hover { color:var(--navy); }
+
+    /* MAIN CONTENT */
+    .recruit-wrap { max-width:760px; margin:0 auto; padding:72px 24px 96px; }
+
+    /* Section block */
+    .r-section { margin-bottom:52px; }
+    .r-section-title {
+      font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:500;
+      color:var(--navy); letter-spacing:.1em;
+      padding:12px 18px; background:var(--navy-light);
+      border-left:3px solid var(--navy); border-radius:0 4px 4px 0;
+      margin-bottom:20px; display:flex; align-items:center; gap:8px;
+    }
+    .r-body { font-size:.9rem; color:var(--text-mid); line-height:2; }
+    .r-body p { margin-bottom:10px; }
+    .r-body ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:8px; }
+    .r-body ul li { display:flex; align-items:flex-start; gap:10px; }
+    .r-body ul li::before { content:''; width:6px; height:6px; min-width:6px; border-radius:50%; background:var(--navy); margin-top:8px; }
+    .r-body ul.teal li::before { background:var(--teal); }
+    .r-sub-label { font-size:.78rem; font-weight:600; letter-spacing:.08em; color:white; background:var(--navy-mid); padding:3px 10px; border-radius:2px; display:inline-block; margin:14px 0 10px; }
+    .r-sub-label.teal { background:var(--teal); }
+
+    /* Salary / conditions card */
+    .r-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .r-card { background:var(--off-white); border:1px solid var(--beige); border-radius:6px; padding:18px 20px; }
+    .r-card-label { font-size:.72rem; color:var(--text-light); letter-spacing:.1em; margin-bottom:6px; }
+    .r-card-value { font-size:.9rem; color:var(--text); font-weight:500; line-height:1.7; }
+    @media (max-width:560px) { .r-card-grid{grid-template-columns:1fr;} }
+
+    /* Flow steps */
+    .r-flow { list-style:none; display:flex; flex-direction:column; gap:0; }
+    .r-flow-step { display:flex; gap:16px; position:relative; padding-bottom:22px; }
+    .r-flow-step::after { content:''; position:absolute; left:14px; top:30px; bottom:0; width:1px; background:var(--beige); }
+    .r-flow-step:last-child::after { display:none; }
+    .r-flow-step:last-child { padding-bottom:0; }
+    .r-flow-num { width:28px; height:28px; min-width:28px; background:var(--navy); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; font-family:'Playfair Display',serif; position:relative; z-index:1; margin-top:2px; }
+    .r-flow-text { font-size:.9rem; color:var(--text-mid); line-height:1.9; padding-top:2px; }
+    .r-flow-text strong { color:var(--navy); font-weight:600; display:block; margin-bottom:2px; }
+
+    /* Message box */
+    .r-message { background:linear-gradient(135deg,var(--navy-dark),var(--navy)); color:white; border-radius:6px; padding:36px 40px; }
+    .r-message-quote { font-family:'Noto Serif JP',serif; font-size:1.05rem; color:var(--gold); letter-spacing:.06em; line-height:1.8; margin-bottom:20px; font-style:italic; }
+    .r-message-body { font-size:.88rem; color:rgba(255,255,255,.75); line-height:2.1; }
+    .r-message-sig { margin-top:20px; font-size:.82rem; color:rgba(255,255,255,.5); letter-spacing:.1em; }
+
+    /* CTA */
+    .r-cta { text-align:center; margin-top:60px; padding-top:52px; border-top:1px solid var(--beige); }
+    .r-cta-title { font-family:'Noto Serif JP',serif; font-size:1.2rem; color:var(--navy-dark); letter-spacing:.08em; margin-bottom:10px; }
+    .r-cta-sub { font-size:.85rem; color:var(--text-mid); margin-bottom:32px; line-height:1.9; }
+    .r-cta-btn { display:inline-block; background:var(--gold); color:white; padding:16px 52px; text-decoration:none; font-size:.95rem; font-weight:600; letter-spacing:.1em; border-radius:2px; transition:background .2s,transform .2s; }
+    .r-cta-btn:hover { background:var(--gold-hover); transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer { background:var(--navy-dark); color:rgba(255,255,255,.42); text-align:center; padding:36px 24px; font-size:.78rem; }
+    .footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+    .footer-links a { color:rgba(255,255,255,.42); text-decoration:none; transition:.2s; }
+    .footer-links a:hover { color:rgba(255,255,255,.8); }
+
+    /* EDIT MODE */
+    #edit-toolbar { position:fixed; bottom:28px; right:28px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:10px; font-family:'Noto Sans JP',sans-serif; }
+    #edit-btn { background:var(--navy); color:#fff; border:none; border-radius:30px; padding:12px 22px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 18px rgba(27,58,92,.35); transition:background .2s,transform .15s; letter-spacing:.04em; }
+    #edit-btn:hover { background:var(--navy-mid); transform:translateY(-2px); }
+    #edit-btn.active { background:#c0392b; }
+    #save-btn { display:none; align-items:center; gap:8px; background:var(--teal); color:#fff; border:none; border-radius:30px; padding:12px 22px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 18px rgba(45,139,122,.35); transition:background .2s,transform .15s; letter-spacing:.04em; }
+    #save-btn:hover { background:#22705f; transform:translateY(-2px); }
+    body.edit-mode [contenteditable="true"] { outline:2px dashed rgba(196,154,48,.6); border-radius:3px; background:rgba(196,154,48,.05); cursor:text; }
+    body.edit-mode [contenteditable="true"]:focus { outline:2px solid var(--gold); background:rgba(196,154,48,.1); }
+    #edit-hint { display:none; background:rgba(27,58,92,.92); color:#fff; font-size:12px; border-radius:8px; padding:8px 14px; pointer-events:none; letter-spacing:.03em; white-space:nowrap; }
+    body.edit-mode #edit-hint { display:block; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="logo"><img src="data:image/png;base64,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" alt="Speard" class="logo-img"></a>
+  <nav>
+    <div class="nav-links" style="display:flex;gap:28px;align-items:center;">
+      <a href="index.html#service">サービス</a>
+      <a href="index.html#about">代表ご挨拶</a>
+      <a href="index.html#company">会社概要</a>
+      <a href="guide.html">不動産ガイド</a>
+    </div>
+    <a href="index.html#contact" class="btn-nav">お問い合わせ</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#service">サービス</a>
+  <a href="index.html#about">代表ご挨拶</a>
+  <a href="index.html#company">会社概要</a>
+  <a href="guide.html">不動産ガイド</a>
+  <a href="recruit.html" style="color:var(--gold);">採用情報</a>
+  <a href="index.html#contact" class="btn-nav-mobile">お問い合わせ</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="page-hero-en">Recruit</span>
+  <h1 class="page-hero-title">採用情報</h1>
+  <p class="page-hero-sub">株式会社スピアードでは、一緒に働いてくれる方を募集しています。</p>
+</div>
+
+<!-- MAIN -->
+<div class="recruit-wrap">
+
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    ホームに戻る
+  </a>
+
+  <p class="r-body" style="margin-bottom:48px;font-size:.92rem;line-height:2.1;">この度は株式会社スピアードにご関心をお寄せいただきありがとうございます。<br>本ページでは、採用に関する基本情報をまとめています。</p>
+
+  <!-- 募集職種 -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      募集職種
+    </div>
+    <div class="r-body">
+      <p style="font-size:.97rem;font-weight:600;color:var(--navy);">不動産売買仲介営業</p>
+    </div>
+  </div>
+
+  <!-- 応募要件 -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      応募要件
+    </div>
+    <div class="r-body">
+      <span class="r-sub-label">必須要件</span>
+      <ul>
+        <li>社会人経験1年以上</li>
+        <li>誠実かつ丁寧なコミュニケーションができる方</li>
+        <li>顧客志向で、不動産の本質的価値に関心を持てる方</li>
+      </ul>
+      <span class="r-sub-label teal" style="margin-top:20px;">歓迎要件</span>
+      <ul class="teal">
+        <li>宅地建物取引士（取得見込み含む）</li>
+        <li>不動産業界での実務経験（売買仲介／賃貸仲介／買取再販／管理など）</li>
+        <li>SNS等での情報発信の経験</li>
+        <li>未経験者も大歓迎</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 求める人物像 -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      求める人物像
+    </div>
+    <div class="r-body">
+      <ul>
+        <li>誠実なコミュニケーションを大切にできる方</li>
+        <li>"提案力"で信頼される存在を目指したい方</li>
+        <li>裁量を持ち、少数精鋭のチームで価値ある仕事に挑みたい方</li>
+        <li>知識や経験の吸収に積極的で、マーケットへの好奇心を持てる方</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 勤務地・時間 / 給与 -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+      勤務条件・給与
+    </div>
+    <div class="r-card-grid">
+      <div class="r-card">
+        <div class="r-card-label">勤務地</div>
+        <div class="r-card-value">東京都内<br><span style="font-size:.82rem;color:var(--text-mid);">リモート対応あり</span></div>
+      </div>
+      <div class="r-card">
+        <div class="r-card-label">勤務時間</div>
+        <div class="r-card-value">9:30〜18:00<br><span style="font-size:.82rem;color:var(--text-mid);">休憩1時間</span></div>
+      </div>
+      <div class="r-card" style="grid-column:1/-1;">
+        <div class="r-card-label">給与</div>
+        <div class="r-card-value">月給25万円〜 ＋ インセンティブ（売上に応じた歩合支給）<br>
+          <span style="font-size:.82rem;color:var(--text-mid);">※ 経験・能力を考慮の上、最終決定　※ 試用期間6ヶ月<br>残業代は1分単位で支給・交通費支給</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 休日・休暇 -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      休日・休暇
+    </div>
+    <div class="r-body">
+      <ul>
+        <li>完全週休2日制（火曜＋水曜）</li>
+        <li>夏季休暇 ／ 年末年始休暇</li>
+        <li>有給休暇</li>
+        <li>慶弔休暇</li>
+      </ul>
+      <p style="margin-top:16px;padding:12px 16px;background:var(--off-white);border-radius:4px;font-size:.84rem;border-left:2px solid var(--gold);">無駄な社内会議や手入力業務は極力排除。<br>営業時間に集中できる環境を整えています。</p>
+    </div>
+  </div>
+
+  <!-- 選考フロー -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      選考フロー
+    </div>
+    <ul class="r-flow">
+      <li class="r-flow-step">
+        <div class="r-flow-num">1</div>
+        <div class="r-flow-text"><strong>書類選考</strong>履歴書・職務経歴書をご提出ください。</div>
+      </li>
+      <li class="r-flow-step">
+        <div class="r-flow-num">2</div>
+        <div class="r-flow-text"><strong>カジュアル面談（1〜2回）</strong>まずはお互いをよく知るための場です。お気軽にご参加ください。</div>
+      </li>
+      <li class="r-flow-step">
+        <div class="r-flow-num">3</div>
+        <div class="r-flow-text"><strong>内定</strong>面談後、1週間以内にご連絡いたします。</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 代表メッセージ -->
+  <div class="r-section">
+    <div class="r-section-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      代表メッセージ
+    </div>
+    <div class="r-message">
+      <p class="r-message-quote">「誰に相談するかで、人生が変わる。」</p>
+      <p class="r-message-body">スピアードはまだ成長途上の小さな組織ですが、1人ひとりの誠実な提案がブランドを形づくっています。<br><br>派手なセールスではなく、"信頼される提案" を共につくっていける仲間をお待ちしています。</p>
+      <p class="r-message-sig">代表取締役　南 和希</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="r-cta">
+    <h2 class="r-cta-title">ご応募はこちら</h2>
+    <p class="r-cta-sub">下記のフォームよりお気軽にご応募ください。<br>カジュアルな面談から始められます。</p>
+    <a href="https://docs.google.com/forms/d/1hW6l_tsz5kklwjOvuAmWq5t-vEC3uAGm5Cz1ybOXJ6M/edit" target="_blank" rel="noopener" class="r-cta-btn">応募フォームへ進む</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="index.html">ホーム</a>
+    <a href="index.html#service">サービス概要</a>
+    <a href="index.html#about">代表ご挨拶</a>
+    <a href="index.html#company">会社概要</a>
+    <a href="index.html#contact">お問い合わせ</a>
+    <a href="guide.html">不動産ガイド</a>
+  </div>
+  <p>&copy; 2025 SPEARD Inc. All Rights Reserved.</p>
+</footer>
+
+<!-- Edit mode toolbar -->
+<div id="edit-toolbar">
+  <div id="edit-hint">クリックした箇所を直接編集できます</div>
+  <button id="save-btn" onclick="saveHTML()">💾 保存してダウンロード</button>
+  <button id="edit-btn" onclick="toggleEditMode()">✏️ 編集モード</button>
+</div>
+
+<script>
+  // Header scroll
+  const header = document.getElementById('header');
+  if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+  // Edit mode
+  const EDITABLE = 'p, h1, h2, h3, li, .r-card-value, .r-message-body, .r-message-quote, .r-flow-text, .r-cta-sub, .r-cta-title, .page-hero-sub';
+  let editMode = false;
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = editMode ? 'true' : 'inherit'; });
+    const btn = document.getElementById('edit-btn');
+    const saveBtn = document.getElementById('save-btn');
+    btn.textContent = editMode ? '✕ 編集を終了' : '✏️ 編集モード';
+    btn.classList.toggle('active', editMode);
+    saveBtn.style.display = editMode ? 'flex' : 'none';
+  }
+  function saveHTML() {
+    document.querySelectorAll(EDITABLE).forEach(el => el.removeAttribute('contenteditable'));
+    document.body.classList.remove('edit-mode');
+    const toolbar = document.getElementById('edit-toolbar');
+    if (toolbar) toolbar.style.display = 'none';
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'recruit.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    if (toolbar) toolbar.style.display = '';
+    document.body.classList.add('edit-mode');
+    document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = 'true'; });
+  }
+</script>
+
+
+  // ハンバーガーメニュー
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+</body>
+</html>

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>不動産ガイド | 株式会社スピアード</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&amp;family=Noto+Sans+JP:wght@300;400;500;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; line-height: 1.7; }
+    :root {
+      --navy: #1B3A5C; --navy-dark: #0D2238; --navy-mid: #254E7A;
+      --navy-light: #E8EFF6; --gold: #C49A30; --gold-hover: #A87E22;
+      --off-white: #F7F5F0; --beige: #EDE8DC; --text: #1a1a1a;
+      --text-mid: #555; --text-light: #888; --border: #D8D0C0;
+      --teal: #2D8B7A; --teal-light: #E6F4F1; --orange: #D4622A;
+    }
+    h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
+
+    /* ===== HEADER ===== */
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; }
+    header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-img { height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
+    nav { display:flex; align-items:center; gap:28px; }
+    nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
+    nav a:hover { color:var(--gold); }
+    .btn-nav { background:var(--gold)!important; color:white!important; padding:9px 22px; border-radius:2px; font-size:.8rem!important; transition:background .2s!important; }
+    .btn-nav:hover { background:var(--gold-hover)!important; }
+    /* ハンバーガーメニュー */
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; }
+    .hamburger span { display:block; width:24px; height:2px; background:white; border-radius:2px; transition:all .3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display:none; position:fixed; top:108px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); letter-spacing:.05em; }
+    .mobile-menu a:last-child { border-bottom:none; }
+    .mobile-menu a.btn-nav-mobile { margin-top:12px; background:var(--gold); color:white!important; padding:13px 0; border-radius:2px; text-align:center; border:none; font-size:.88rem; }
+    @media (max-width:900px) {
+      header { padding:0 20px; }
+      .nav-links { display:none!important; }
+      .btn-nav { display:none!important; }
+      .hamburger { display:flex; }
+    }
+    .side-btns { position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:99; display:flex; flex-direction:column; }
+    .side-btn { writing-mode:vertical-rl; width:44px; padding:18px 0; display:flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; font-size:.65rem; letter-spacing:.18em; color:white; transition:background .2s; }
+    .s-guide { background:var(--navy-dark); } .s-guide:hover { background:var(--navy-mid); }
+    .s-contact { background:var(--gold); } .s-contact:hover { background:var(--gold-hover); }
+
+    /* ===== HERO ===== */
+    #home { height:100vh; min-height:700px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-mid) 100%); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    #home::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:64px 64px; }
+    #home::after { content:''; position:absolute; width:700px; height:700px; border-radius:50%; border:1px solid rgba(255,255,255,.05); right:-160px; top:50%; transform:translateY(-50%); pointer-events:none; }
+    .hero-circle { position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(255,255,255,.04); left:-80px; top:-60px; pointer-events:none; }
+    .hero-content { position:relative; z-index:2; text-align:center; color:white; padding:0 24px; max-width:860px; }
+    .hero-en { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:var(--gold); letter-spacing:.12em; margin-bottom:28px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .3s forwards; }
+    .hero-title { font-family:'Noto Serif JP',serif; font-size:clamp(2rem,5vw,3.8rem); font-weight:500; line-height:1.35; letter-spacing:.06em; margin-bottom:32px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .5s forwards; }
+    .hero-sub { font-size:.93rem; color:rgba(255,255,255,.72); line-height:2; margin-bottom:52px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .7s forwards; }
+    .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .9s forwards; }
+    .btn-primary { background:var(--gold); color:white; padding:15px 38px; text-decoration:none; font-size:.88rem; letter-spacing:.06em; border-radius:2px; transition:background .2s,transform .2s; display:inline-block; }
+    .btn-primary:hover { background:var(--gold-hover); transform:translateY(-2px); }
+    .btn-outline { border:1px solid rgba(255,255,255,.45); color:white; padding:15px 38px; text-decoration:none; font-size:.88rem; border-radius:2px; transition:.2s; display:inline-block; }
+    .btn-outline:hover { border-color:white; background:rgba(255,255,255,.08); transform:translateY(-2px); }
+    .scroll-indicator { position:absolute; bottom:44px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,.45); font-size:.65rem; letter-spacing:.18em; display:flex; flex-direction:column; align-items:center; gap:10px; animation:fadeIn 1s ease 1.4s both; }
+    .scroll-line { width:1px; height:44px; background:linear-gradient(to bottom,rgba(255,255,255,.45),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%,100%{opacity:.3;transform:scaleY(.6)} 50%{opacity:1;transform:scaleY(1)} }
+
+    /* ===== SECTION BASE ===== */
+    section { padding:104px 24px; }
+    .container { max-width:1080px; margin:0 auto; }
+    .section-header { text-align:center; margin-bottom:64px; }
+    .section-en { font-family:'Playfair Display',serif; font-style:italic; font-size:.88rem; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:14px; }
+    .section-title { font-family:'Noto Serif JP',serif; font-size:clamp(1.5rem,2.8vw,2.1rem); font-weight:500; color:var(--navy-dark); letter-spacing:.1em; margin-bottom:22px; }
+    .section-line { width:36px; height:1px; background:var(--gold); margin:0 auto 22px; }
+    .section-desc { color:var(--text-mid); font-size:.92rem; line-height:2; }
+    .fade-in { opacity:0; transform:translateY(28px); transition:opacity .75s ease,transform .75s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+    .fade-in:nth-child(2){transition-delay:.1s} .fade-in:nth-child(3){transition-delay:.2s} .fade-in:nth-child(4){transition-delay:.3s}
+
+    /* ===== SERVICE ===== */
+    #service { background:var(--off-white); }
+    .service-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:28px; }
+    .service-card { background:white; border-radius:4px; overflow:hidden; box-shadow:0 2px 20px rgba(0,0,0,.06); transition:transform .3s,box-shadow .3s; }
+    .service-card:hover { transform:translateY(-5px); box-shadow:0 10px 44px rgba(0,0,0,.12); }
+    .sc-hero { height:220px; position:relative; overflow:hidden; display:flex; align-items:flex-end; padding:28px; }
+    .sc-buy { background:linear-gradient(145deg,#1a4a7a,#2d6fa8); }
+    .sc-sell { background:linear-gradient(145deg,#0d2238,#1B3A5C); }
+    .sc-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:28px 28px; }
+    .sc-label { position:relative; z-index:1; color:white; }
+    .sc-label-en { font-family:'Playfair Display',serif; font-style:italic; font-size:.78rem; color:var(--gold); letter-spacing:.12em; display:block; margin-bottom:4px; }
+    .sc-label-ja { font-family:'Noto Serif JP',serif; font-size:1.7rem; font-weight:500; }
+    .sc-body { padding:28px; }
+    .sc-tagline { font-family:'Noto Serif JP',serif; font-size:.97rem; font-weight:500; color:var(--navy); margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--beige); }
+    .sc-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .sc-list li { font-size:.84rem; color:var(--text-mid); display:flex; gap:10px; align-items:flex-start; }
+    .sc-list li::before { content:''; width:6px; height:6px; min-width:6px; border-radius:50%; background:var(--navy); margin-top:7px; }
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+    .stat-card { padding:44px 28px; text-align:center; border-radius:4px; }
+    .stat-navy { background:var(--navy); color:white; } .stat-gold { background:var(--gold); color:white; }
+    .stat-label { font-size:.84rem; letter-spacing:.1em; opacity:.82; margin-bottom:14px; }
+    .stat-num { font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; line-height:1; }
+    .stat-unit { font-size:1.1rem; font-family:'Noto Sans JP',sans-serif; }
+
+    /* ===== GUIDE ===== */
+    #guide { background:white; }
+    .guide-tabs { display:flex; border-bottom:2px solid var(--beige); margin-bottom:48px; }
+    .guide-tab { padding:14px 32px; cursor:pointer; font-family:'Noto Serif JP',serif; font-size:.95rem; color:var(--text-mid); border-bottom:2px solid transparent; margin-bottom:-2px; letter-spacing:.06em; transition:.2s; user-select:none; display:flex; align-items:center; gap:8px; }
+    .guide-tab:hover:not(.active) { color:var(--navy-mid); }
+    .guide-tab.active { color:var(--navy); border-bottom-color:var(--navy); font-weight:500; }
+    .guide-tab svg { width:16px; height:16px; }
+    .guide-content { display:none; }
+    .guide-content.active { display:block; }
+
+    /* Overview card */
+    .guide-overview { border-radius:8px; padding:28px 32px; margin-bottom:40px; }
+    .guide-overview-buy { background:linear-gradient(135deg,#EEF4FF,#F0F8FF); border-left:4px solid var(--navy); }
+    .guide-overview-sell { background:linear-gradient(135deg,#EFF9F6,#F0FBF8); border-left:4px solid var(--teal); }
+    .guide-overview-title { font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:500; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+    .guide-overview-title.buy { color:var(--navy); }
+    .guide-overview-title.sell { color:var(--teal); }
+    .guide-overview-desc { font-size:.88rem; color:var(--text-mid); line-height:1.9; margin-bottom:20px; }
+    .guide-nav-btns { display:flex; gap:10px; flex-wrap:wrap; }
+    .guide-nav-btn { padding:8px 18px; border-radius:20px; font-size:.78rem; letter-spacing:.04em; cursor:pointer; text-decoration:none; transition:.2s; border:1.5px solid; }
+    .gnb-buy-active { background:var(--navy); color:white; border-color:var(--navy); }
+    .gnb-buy { background:white; color:var(--navy); border-color:var(--navy); }
+    .gnb-buy:hover { background:var(--navy); color:white; }
+    .gnb-sell-active { background:var(--teal); color:white; border-color:var(--teal); }
+    .gnb-sell { background:white; color:var(--teal); border-color:var(--teal); }
+    .gnb-sell:hover { background:var(--teal); color:white; }
+
+    /* Accordion */
+    .accordion { margin-bottom:14px; border:1px solid var(--beige); border-radius:6px; overflow:hidden; }
+    .acc-head { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; cursor:pointer; background:white; transition:background .2s; user-select:none; }
+    .acc-head:hover:not(.open-buy):not(.open-sell) { background:var(--off-white); }
+    .acc-head.open-buy { background:var(--navy); color:white; }
+    .acc-head.open-sell { background:var(--teal); color:white; }
+    .acc-head-left { display:flex; align-items:center; gap:16px; }
+    .acc-icon-wrap { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .2s; }
+    .icon-buy { background:var(--navy-light); color:var(--navy); }
+    .icon-sell { background:var(--teal-light); color:var(--teal); }
+    .acc-head.open-buy .acc-icon-wrap, .acc-head.open-sell .acc-icon-wrap { background:rgba(255,255,255,.15); color:white; }
+    .acc-icon-wrap svg { width:22px; height:22px; }
+    .acc-meta { font-size:.7rem; color:var(--text-light); letter-spacing:.08em; margin-bottom:2px; }
+    .acc-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:500; letter-spacing:.06em; }
+    .acc-chevron { width:22px; height:22px; position:relative; flex-shrink:0; }
+    .acc-chevron::before,.acc-chevron::after { content:''; position:absolute; top:50%; left:50%; width:13px; height:1px; background:currentColor; transform:translate(-50%,-50%); transition:.3s; }
+    .acc-chevron::after { transform:translate(-50%,-50%) rotate(90deg); }
+    .acc-head.open-buy .acc-chevron::after,.acc-head.open-sell .acc-chevron::after { transform:translate(-50%,-50%); opacity:0; }
+    .acc-body { max-height:0; overflow:hidden; transition:max-height .42s ease; }
+    .acc-body.open { max-height:9000px; }
+    .acc-inner { padding:32px 28px; border-top:1px solid var(--beige); }
+
+    /* Badges & Tags */
+    .lbadge { display:inline-flex; align-items:center; font-size:.68rem; font-weight:700; letter-spacing:.1em; padding:3px 10px; color:white; border-radius:2px; margin-bottom:14px; }
+    .lb-summary{background:var(--navy-dark)} .lb-major{background:var(--navy-mid)} .lb-object{background:#3a6ea8}
+    .lb-loan{background:#7b5ea7} .lb-check{background:#2d9e6b} .lb-tips{background:var(--gold)} .lb-caution{background:#c0392b}
+    .ttag { display:inline-block; font-size:.66rem; padding:2px 7px; border-radius:3px; margin-bottom:8px; letter-spacing:.04em; font-weight:500; }
+    .tt-keiyaku{background:#FFF3CD;color:#7d5a00;border:1px solid #f0c040}
+    .tt-kessai{background:#D4E6F1;color:#1B3A5C;border:1px solid #85c1e9}
+    .tt-shutoku{background:#D5F5E3;color:#1a6b44;border:1px solid #82e0aa}
+    .tt-yuushi{background:#E8DAEF;color:#5b2c8e;border:1px solid #c39bd3}
+    .tt-baikyaku{background:#FAE5D3;color:#873600;border:1px solid #f0b27a}
+
+    /* Summary highlight */
+    .summary-hl { background:var(--navy-light); border-radius:6px; padding:20px 24px; margin:0 0 24px; }
+    .summary-hl-sell { background:var(--teal-light); }
+    .shl-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .shl-label { font-size:.75rem; color:var(--text-mid); margin-bottom:6px; }
+    .shl-value { font-size:1.4rem; font-weight:700; color:var(--navy); }
+    .shl-value-sell { color:var(--teal); }
+    .shl-note { font-size:.75rem; color:var(--text-mid); margin-top:4px; }
+
+    /* Card grid */
+    .card-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0; }
+    .c-card { border:1px solid var(--beige); border-radius:6px; padding:18px; background:white; }
+    .c-card-name { font-size:.84rem; font-weight:500; color:var(--text); margin-bottom:4px; }
+    .c-card-amount { font-size:1.05rem; font-weight:700; margin:4px 0 8px; }
+    .ca-navy{color:var(--navy)} .ca-teal{color:var(--teal)} .ca-orange{color:var(--orange)}
+    .c-card-desc { font-size:.8rem; color:var(--text-mid); line-height:1.7; }
+    .c-card-note { font-size:.74rem; color:var(--text-light); margin-top:8px; border-top:1px dashed var(--beige); padding-top:8px; }
+
+    /* Steps */
+    .steps { list-style:none; }
+    .step { display:flex; gap:18px; position:relative; padding-bottom:26px; }
+    .step::after { content:''; position:absolute; left:14px; top:32px; bottom:0; width:1px; background:var(--beige); }
+    .step:last-child { padding-bottom:0; } .step:last-child::after { display:none; }
+    .step-dot { width:30px; height:30px; min-width:30px; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; margin-top:2px; position:relative; z-index:1; font-family:'Playfair Display',serif; }
+    .dot-buy{background:var(--navy)} .dot-sell{background:var(--teal)}
+    .step-body {}
+    .step-t { font-size:.92rem; font-weight:600; margin-bottom:6px; }
+    .st-buy{color:var(--navy)} .st-sell{color:var(--teal)}
+    .step-d { font-size:.83rem; color:var(--text-mid); line-height:1.85; }
+    .step-tip { margin-top:10px; background:var(--off-white); border-radius:4px; padding:10px 14px; font-size:.79rem; color:var(--text-mid); border-left:2px solid var(--gold); line-height:1.7; }
+
+    /* Phase sections for docs */
+    .phase-section { margin-bottom:32px; }
+    .phase-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--beige); }
+    .phase-num { background:var(--navy-dark); color:white; font-size:.72rem; font-weight:700; padding:4px 12px; border-radius:14px; letter-spacing:.06em; white-space:nowrap; }
+    .phase-num-sell { background:var(--teal); }
+    .phase-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:500; color:var(--navy-dark); }
+    .doc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .doc-card { border:1px solid var(--beige); border-radius:6px; padding:14px 16px; background:white; }
+    .doc-tag { font-size:.65rem; padding:2px 8px; border-radius:2px; display:inline-block; margin-bottom:8px; font-weight:500; letter-spacing:.04em; }
+    .dt-buy{background:var(--navy-light);color:var(--navy)}
+    .dt-sell{background:var(--teal-light);color:var(--teal)}
+    .dt-warn{background:#FEF9E7;color:#7d5a00;border:1px solid #f7dc6f}
+    .dt-kinyu{background:#F4ECF7;color:#6c3483}
+    .doc-name { font-size:.88rem; font-weight:500; color:var(--text); margin-bottom:4px; }
+    .doc-desc { font-size:.78rem; color:var(--text-mid); line-height:1.6; }
+    .doc-caution { font-size:.74rem; color:#c0392b; margin-top:6px; }
+
+    /* Mediation table */
+    .mediation-table-wrap { overflow-x:auto; margin:14px 0; border-radius:6px; border:1px solid var(--beige); }
+    .mediation-table { width:100%; border-collapse:collapse; font-size:.8rem; min-width:480px; }
+    .mediation-table th { padding:10px 12px; text-align:center; font-weight:500; font-size:.78rem; border-bottom:2px solid var(--beige); }
+    .th-row { text-align:left!important; background:var(--off-white); padding-left:14px!important; }
+    .th-ippan{background:#F0F4F8;color:var(--text-mid)}
+    .th-sennin{background:#E8F4FC;color:var(--navy)}
+    .th-senzoku{background:#EAF6F1;color:var(--teal)}
+    .mediation-table td { padding:10px 12px; border-bottom:1px solid var(--beige); vertical-align:middle; text-align:center; color:var(--text-mid); line-height:1.5; }
+    .td-row { text-align:left!important; font-weight:500; color:var(--text); background:var(--off-white); padding-left:14px!important; font-size:.8rem; }
+    .chk{color:#2d9e6b;font-weight:700} .crs{color:#bbb}
+
+    /* Info boxes */
+    .guide-intro { background:var(--navy-light); border-left:3px solid var(--navy); padding:16px 20px; border-radius:0 4px 4px 0; margin-bottom:28px; font-size:.87rem; color:var(--navy); line-height:1.9; }
+    .guide-intro-sell { background:var(--teal-light); border-left-color:var(--teal); color:#1a5a4a; }
+    .tips-box { background:#FFF8E8; border:1px solid #f0d080; border-radius:6px; padding:14px 18px; margin:12px 0; }
+    .tips-hd { display:flex; align-items:center; gap:8px; font-size:.8rem; font-weight:700; color:#7d5a00; margin-bottom:6px; }
+    .tips-bd { font-size:.82rem; color:var(--text-mid); line-height:1.8; }
+    .caution-box { background:#FEF2F2; border:1px solid #fcc; border-radius:6px; padding:14px 18px; margin:12px 0; }
+    .caution-hd { display:flex; align-items:center; gap:8px; font-size:.8rem; font-weight:700; color:#c0392b; margin-bottom:6px; }
+    .caution-bd { font-size:.82rem; color:var(--text-mid); line-height:1.8; }
+    .section-divider { border:none; border-top:1px solid var(--beige); margin:24px 0; }
+    .fee-note { margin-top:12px; font-size:.76rem; color:var(--text-light); line-height:1.7; }
+
+    /* About / President */
+    #about { background:#fff; }
+    #about .section-title { color:var(--navy-dark); }
+    .president-wrap { max-width:680px; margin:0 auto; text-align:center; }
+    .president-photo-wrap { margin-bottom:32px; position:relative; }
+    .president-photo { width:100%; max-width:400px; border-radius:4px; display:block; margin:0 auto; object-fit:cover; aspect-ratio:4/3; }
+    .president-photo-placeholder { width:100%; max-width:400px; aspect-ratio:4/3; background:var(--navy-light); border:2px dashed var(--border); border-radius:4px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto; color:var(--text-light); font-size:.82rem; gap:10px; }
+    .president-photo-placeholder svg { opacity:.35; }
+    .president-name-block { margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid var(--beige); }
+    .president-role { font-size:.8rem; color:var(--navy); letter-spacing:.16em; margin-bottom:10px; }
+    .president-name { font-family:'Noto Serif JP',serif; font-size:2rem; font-weight:500; color:var(--navy-dark); letter-spacing:.12em; margin-bottom:6px; }
+    .president-name-en { font-family:'Playfair Display',serif; font-size:.78rem; letter-spacing:.22em; color:var(--text-light); }
+    .president-message { text-align:left; }
+    .president-message p { font-size:.9rem; color:var(--text-mid); line-height:2.1; margin-bottom:20px; }
+    .president-message p:last-child { margin-bottom:0; }
+
+    /* Company */
+    #company { background:var(--off-white); }
+    .company-table { width:100%; border-collapse:collapse; }
+    .company-table tr { border-bottom:1px solid var(--border); }
+    .company-table th { width:180px; padding:20px 8px 20px 0; text-align:left; font-weight:500; font-size:.86rem; color:var(--navy); vertical-align:top; }
+    .company-table td { padding:20px 0; font-size:.86rem; color:var(--text-mid); line-height:1.85; }
+
+    /* Contact */
+    #contact { background:var(--navy); text-align:center; padding:88px 24px; }
+    #contact .section-title { color:white; }
+    #contact .section-desc { color:rgba(255,255,255,.68); margin-bottom:44px; }
+    .contact-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .btn-co { border:1px solid rgba(255,255,255,.45); color:white; padding:15px 38px; text-decoration:none; font-size:.88rem; border-radius:2px; display:inline-block; transition:.2s; }
+    .btn-co:hover { border-color:white; background:rgba(255,255,255,.08); transform:translateY(-2px); }
+
+    /* Footer */
+    footer { background:var(--navy-dark); color:rgba(255,255,255,.42); text-align:center; padding:36px 24px; font-size:.78rem; }
+    .footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+    .footer-links a { color:rgba(255,255,255,.42); text-decoration:none; transition:.2s; }
+    .footer-links a:hover { color:rgba(255,255,255,.8); }
+
+    /* Animations */
+    @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* Responsive */
+    @media (max-width:900px) { header{padding:0 24px;} .nav-links{display:none!important;} .service-grid{grid-template-columns:1fr;} }
+    @media (max-width:640px) { .card-grid-2,.doc-grid,.shl-grid{grid-template-columns:1fr;} .hero-btns{flex-direction:column;align-items:center;} .side-btns{display:none;} .stats-grid{grid-template-columns:1fr;} .guide-tab{padding:10px 14px;font-size:.84rem;} .acc-inner{padding:22px 16px;} }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-form-wrap { max-width:620px; margin:44px auto 0; }
+    .form-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:40px; }
+    .form-row { margin-bottom:22px; }
+    .form-row label { display:block; font-size:.8rem; color:rgba(255,255,255,.65); letter-spacing:.08em; margin-bottom:8px; }
+    .form-row label span { color:var(--gold); margin-left:2px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+      color:white; padding:12px 16px; border-radius:3px; font-size:.88rem;
+      font-family:'Noto Sans JP',sans-serif; outline:none; transition:border-color .2s;
+    }
+    .form-row input::placeholder, .form-row textarea::placeholder { color:rgba(255,255,255,.32); }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color:var(--gold); }
+    .form-row select { appearance:none; cursor:pointer; }
+    .form-row select option { background:#1B3A5C; color:white; }
+    .form-row textarea { resize:vertical; min-height:130px; line-height:1.75; }
+    .form-row-2col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-submit-btn { width:100%; padding:16px; background:var(--gold); color:white; border:none; border-radius:3px; font-size:.92rem; font-weight:600; letter-spacing:.1em; cursor:pointer; font-family:'Noto Sans JP',sans-serif; transition:background .2s,transform .15s; margin-top:8px; }
+    .form-submit-btn:hover { background:var(--gold-hover); transform:translateY(-2px); }
+    .form-success { display:none; text-align:center; padding:32px 0; }
+    .form-success-icon { font-size:2.5rem; margin-bottom:14px; }
+    .form-success-title { font-family:'Noto Serif JP',serif; font-size:1.1rem; color:white; margin-bottom:10px; }
+    .form-success-sub { font-size:.85rem; color:rgba(255,255,255,.62); line-height:1.9; }
+    .contact-info-row { display:flex; gap:28px; justify-content:center; flex-wrap:wrap; margin-top:36px; padding-top:32px; border-top:1px solid rgba(255,255,255,.12); }
+    .contact-info-item { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.72); font-size:.85rem; text-decoration:none; transition:color .2s; }
+    .contact-info-item:hover { color:var(--gold); }
+    .contact-info-item svg { flex-shrink:0; opacity:.7; }
+    @media (max-width:640px) { .form-row-2col { grid-template-columns:1fr; } .form-card { padding:28px 20px; } }
+
+
+    /* ===== GUIDE ILLUSTRATION ===== */
+    .guide-overview-inner { display:flex; align-items:center; gap:20px; }
+    .guide-overview-text { flex:1; min-width:0; }
+    .guide-illust { flex-shrink:0; width:130px; opacity:.92; }
+    @media (max-width:640px) { .guide-illust { display:none; } }
+
+  /* ===== EDIT MODE TOOLBAR ===== */
+  #edit-toolbar {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    font-family: var(--sans);
+  }
+  #edit-btn {
+    background: var(--navy); color: #fff; border: none; border-radius: 30px;
+    padding: 12px 22px; font-size: 14px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 4px 18px rgba(27,58,92,0.35); transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.04em;
+  }
+  #edit-btn:hover { background: var(--navy-mid); transform: translateY(-2px); }
+  #edit-btn.active { background: #c0392b; }
+  #save-btn {
+    display: none; align-items: center; gap: 8px;
+    background: var(--teal); color: #fff; border: none; border-radius: 30px;
+    padding: 12px 22px; font-size: 14px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 4px 18px rgba(45,139,122,0.35); transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.04em;
+  }
+  #save-btn:hover { background: #22705f; transform: translateY(-2px); }
+  body.edit-mode [contenteditable="true"] {
+    outline: 2px dashed rgba(196,154,48,0.6);
+    border-radius: 3px; min-width: 4px; min-height: 1em;
+    background: rgba(196,154,48,0.05);
+    cursor: text;
+  }
+  body.edit-mode [contenteditable="true"]:focus {
+    outline: 2px solid var(--gold);
+    background: rgba(196,154,48,0.1);
+  }
+  #edit-hint {
+    display: none; background: rgba(27,58,92,0.92); color: #fff;
+    font-size: 12px; border-radius: 8px; padding: 8px 14px;
+    pointer-events: none; letter-spacing: 0.03em; white-space: nowrap;
+  }
+  body.edit-mode #edit-hint { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header" class="scrolled">
+  <a href="index.html" class="logo">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAPl0lEQVR42u3ae3RcxX0H8O/vN3N3tbJs/MAGjCQnVAQjW4ZgmqY4YZMGiHNOaQ/HXRMsDJgYNz0nnBLSJCXhZLPhnJwmEJKGktOQJyAZ8EJ7IDQJaQleGsqjFcWSvUBjHpLs+oltSfu6987Mr3/sSpaNecVKMOl8/tHR3rtz7+zM/OY3cy/geZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7ned5vDf1uLiOETJ4n/s1nXOPS4pvgnUyEkH5Ev+bxTEYhndXIZBSQ5d9dh/Mj+OhkhVHME/IrLQCccP6N02I785xKNTzeUGKbCUtb0Xftjte5Jz+yj8UGzmzYoPJbMoIcOQA4ee19rS6kS2UsXBeNjXKlEiUtpU5EVBoNpDqckOqz2lUHAjEDQpXnxZUHd/X3lI++TtlGvXLyDusshHRaofAhB+TcMTuCF37ml0vD2FwVhdHFEtNM2V9BeGBff6UWaytqIWzECcRISA2B1MBSBZuyI8hOSPTUcbZ0cbGYj97yaM5kFPJ5e1g44an6sX6Xli5dF/T13RYfbTl6quba5d/+dWJ0ZPdHa5H7ZKUWLWedJNRCuLASwRoNIgagADDEWUhMYqsiUhORiAAQs5rvDD60f/8sDSB6y501n7cdHcuTcfPcTstOK9G/HtyUO/BOiaQLFl9ymqjgbAZ3743KdwC4C+m0RqFgftOCeSrCMoikUtr3viA1435SwcfEWbK1MQOxAoBBcFLvTI2IQVT/nBSINAiq3k+MI5YS5r/lkMwApP2Myz8XNc97QkSuZ4uvishLbV2rfoB0Wh/bCVyWAIgDp0lwJ6nEcghqAIB5845qiuEpvEvt4tCZsBzX10XEEDhipTmYpiEyCuD1eqI0goFyceXNN0Ymw0DOtXat+gaT+pqF++TQQM+KoYHe88XZv9W6+cq23SedVi8/y8dmA+cc0mk9vLn3u87Z70FgLbvKVJQ8ZRUmFgHABCIRcaQD5tQMJaDtLh79EjlaQYA6dCCJg4iBwBKxItIMCEw4ykinNdJpBcjrNHaWkc/btvd+fL7i4Fpnqr/Y3t/zJDozCWQyanhz73dtXH2KNC8DAKQ38sF5+VUR4A0ixJs557WOZdTEfsCRzyPsmcdIpzWxlImgiFiOqQaeKDDRpHXzTCUiLyOqXGunm4U77199w77Cum0gUY2B6gA4kGbSKc06qZxz250zLwKUbKnNilEomPrcQ69d0UyRAIBCLCRiJ8RtWLo0QDEfdW6BArJMylzMBg8BAEqn0cSImRTaDyZhh//4GXXw+Ph3JvdQObwMOiwj1vVjeVsvi+TQhG+i4wiK+QiFghGh+j1YmpIG1lPVsOIsgRNWjHncxbXvvDT7gnuQI9f6iQ2zT7ro7rOqpVJLWK7W68taQwLAVl4WFz4siH8aR9G/JhP4pNZNX3czKo+2L7niMeekQEH41PB/373jiNl0vrPeW7TeDWeYWZ3eHnXep5ecvrbY37MbyKjBTfmXJ85vZKXtXd1nDQ30Pg3k5MQz18zVYhPbNt2xfVIjNcJ5ziKTUa2/TpwFR9Vt/T2bD20ccgBkQeflJ7qUTBvuu+OFQ9byhYLp6OieESdl6eCW9Y+c9J5Ljg+SNGNoYP2Lk7P7UzpXt9smnh86fgE2amQpbkoa+KgTj8yGDSq/cqVN3/D4hyzxV8qVyiOV0MwIw6grDu27baU2G2U3MxodealSjWqWmk93UfnRJql+uSXmp3b1f3Zi3Tu/a+31Wgc3iK2BWUHEgICSmPCKoS133fd6y6D2rlX3KJ1a6ZyBiBskcdcNDvTe1QiR3Pp+JKgcXMcUfFTEtBJkrZBaCeA8Im4VkSfImL8aLK5/ZjxzbVty6YUkuBZEmwhYDCJS4i55sb9nDwB59+KPn2BZX0eC84j1ImfDe1qcuaxYhF3Q2TxXtP0UkV4tLnpOgJ8zBzcTCLGY92/v73mybdHFf8A6+U2INIuIAWQpQAGxPs6KXb6t/86Hjlznt2kOJuYPciL1JdU0/RoVNH+EVHAKiGZCHCBUAuDACUDcY+W+zz+y66JSFZkNCsuvTtYbQhqJlo2cqRlnTUisWsA0BwCwe/cROmROAFCcaFnjTNhT7/1qAVivb19yae8JSy5tBvLuhHiWIQGz0u8DuMUJnUPEfw/Iuc6ZbyudfL8wPXjKkkvnobDRti3qvoCcuyu2dPlQ/53XDPbfeZ5zrjMW+REAaVv88bMN+DkS91AcU9q5uF8F0y4uqcTiekiuAMC5zKod4EUEtELs952Lf2U5ePHkru5W1qkn4CQanDW0fGigZzk5ZAAiAkBO3DE1BwsTAYCplWJTOWBcVLFiIgeIBSAg4YlkmagJmQ0KD+5QyK+0qM62h4RgAYNIA1AQERKOXz/7zvCOvtsqgwM9q8WZjDj3PwCgVGJVwskDHR1XJ/r6bouHNq+/3sTVPRCrrlzRkR3cdPszQ/09Lw0P9P61icsbdbLlZOOwEiAhkltBbBLKrW5b3P219q7um5goQSJn1DsRf4GInhwcWP+z/33uzldEsLk+UVEAAIPF/E6yLgtiJ3CbhgbWf2awv+eqoYHeD+585kd7FHAzAceDR9fWQ/nVycEtvRsh5p9IBSA29phMsoiIaaJccRAREJOA1MGTxCK/0qLlJHlz04i8wVQyHsIyamig995UpM+G2O87G4vSyT+Jmvb+BQDM7cy0gMgKwd354I7pQJY7Oq5OAlkmwUYQiUAWzl+4eg7rZAeAhxwwAJL/gJONpIKLrJUP1yNWcOXQQO/yg/XGXIGwhokm7pskRSAmh2FkMmpB+vImAHTK0sxxArnQ2eiFwU33jwCgk0+ebYEsg1UFAMjysZVkEYvAihCxoqAJTARWAmdG4KRUgWAMoGmo59BTtT9MAKS1a1VXaOOX9hTzZaTT+vnCD8cAXNXe1X0qs/qggM4A0Ms6KXCOiSguxxUD5Nxxx61zQE6EVo0SSIhQ0gmZQRwITG3z8Oa7HjjShQc33X4AANrOvOJ8dmYlgLOdjUFmomEEVM+EhUQjn7fTOutZuYmCOUyqycHFk/cAgJyDrFIAYGCPtWWS0qQCEpERMVHRRZW7XW30OljzaRL8hFhqIKF6iOap2RtOp1W9EnRjk0qsmFgKdSxPptNZLQ6/IFYA0cikECMiEnBwQIAsj4wk68sUkdkA2BFtLIeje52tAcQrxr/V2ZlJTO5YCxatPv1dZ675JTn3RSdyh4j0MSu4QMeN5RVNLHnAALKcSs2SxujfJ2LHCNx20nsumQOASqUdCSDLBMQHx15Gve0NnM9kHABIpbKJ4P5wf4JOfP7mCxbpIPgbkCIAV5EKLhahuQDZxqCb2ic8IruY+HMABH23xdj687BQyBmwdIqzTMDPAICDZgEQKp2crqvTzwJybuvWW0IAYFJr4trYwLZZw//2yvMPjIk1v9JB8xntXd1/19FxdaJYzEfzF66e0754VbazMxM4sj8kUh9OhQcuHB7o/XcRmS0CG1N1d2PKEHFuBIAhSAnIub5T9jtkMmpw0+0HBLhfJ6dNCxL8BQDS13dbBcg5Ac0VEUNA+eDU83aG6EYYKuQ+vBfA3vd+sXBu02cf/lRUiy5SyWnaVSOIqwkBBtKYSwlTM4Ib+7TCfK/STZctWLL6QRh7vYLaZ5WsIBV026j85aHN658GQIm9oXMz6n2LtLq3/YxVK8TYnawSNxNUTCa6EIWCrc+fdI0x4SM60fL5UF5Z09516SAIp4rQjcViPmpf3D1CrFBLTP9m++LuQTClmLVKutQ3FixetSmK5HYKgouIlQbRn7YtWX3v8JbaUyjCAll22HqdiUp/rJMtn25fvOpsYlUQ51oBLGVmzYpubOvq/udhRP/wto7gbDbLgNC5X3n81GU3PPEkq6DAuikDJ9pWDhhxsQVIIJPSfpmiEVxfH9Jwf89PbFj+gBCPOuabjJJvCfHZzsUfGdq8Pje+IxUEuwSgpDXhCBFug/AXSSVuAvAsl8pnvvzs+sHx6XBooPdpF9WW2bj6PWL1Moj2Oydrhgd6vwqAnFKfMFHlbrA6DYQdELfMxtUfA/QuS/hPTnKHgnJROHKtgHsI8rEFQXPz+KjcPtC7jUz4ARtXvg5WSQEvc+LuFpEfWhPdApIbnXI/PZo18JSM4OKiRQSQo+CpBUHQ/L5yeae1oQEgjPoDB0OsEyCaBWB0PI2eygANgIa2rH8MwGNH3K+evD0oQkRkBjf1fOnI59LEtuW253KbAaw7Unn1nS9cclgBaw77/4nXfLgA0GAxvxPA5w87+NCUbh1PWRbtTGyiqq0v1Cc9cEi2JMTF24XwrYk5mGiqH8ALkFGTHgsSMhlVf9friA/7ac45fza9sQ/MB783+dycA7JcLwP86vKkfg2Mfz75mvX3y9LprEY6rcf/vvqepbFfPX6dxl54Oq0nyjxm9qKZiAQkEEtBIlCcgimPvgxrvqMTlR/sfHjdvtQ5t14FSP1RA7KMPWAgo7B9n0ImI3j2yB1OnIw3nkY6C2Bj/UBhnhxMRPIWhVeF70MatVzWSqdIAIguzXATP/RrPlDPOeQnyju8OEEe9Wvkj3zNQiFnAKBwyI0dVkYBBigcLKP+RTNV7XLUDZzPrHSNxMkQa1aJFKMSDlhTu2XGCZXbi7mVk97MkAgCQ3BlIOdQbLy1sRUWWwHqWjtWf2YspjEVmsYie1+j0vUf4zfsgzt2PFhpm9OtQBRMevfr9/pNzrdcOalnwrRxI3jjni1cqpng+aqRsb3hBY4St45VyjfHldqGERndy+XpM6uVsWmyv0SuKkG1VnvUBHPnSGl7TxMq/6hsJZWQkInCFDujFKLLdND852KqIBKICJRSsFH55wCeBiglJJpIJQU4QM49WnVRYU8xXz50w+DVdZy/cPVsHbgbALq8sdX4L9baG7dt6f2v+hsV77z3tqZ8BDcat2l4GCk785VUazgjNYg41TxWaSqpMJZq9S8ptqOG9B8lwmnTQxcFGkgIU7ImcQKQ76O6SxMROeGVCkgA0HASMFwgQmMmHPsxkVMEYQiUdTUW0HQiWQYZT9yEibAbxFubg+Y3UwcJJYgUxeuZ+OtRXHFBYlorw+1tPMuF5/3/CNGTlxsyqZDsl0HFYp7ynZmDYbKYP7T83Vve4Hobj7iR8eqJH0B6N2HePEE+7/CmX609/I2Nd9x7057neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neZ7neb9N/wduQbNjMeU82wAAAABJRU5ErkJggg==" alt="Speard" class="logo-img">
+  </a>
+  <nav>
+    <div class="nav-links" style="display:flex;gap:28px;align-items:center;">
+      <a href="index.html#service">サービス</a>
+      <a href="index.html#about">代表ご挨拶</a>
+      <a href="index.html#company">会社概要</a>
+      <a href="guide.html" style="color:var(--gold);">不動産ガイド</a>
+      <a href="recruit.html">採用情報</a>
+    </div>
+    <a href="index.html#contact" class="btn-nav">お問い合わせ</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#service">サービス</a>
+  <a href="index.html#about">代表ご挨拶</a>
+  <a href="index.html#company">会社概要</a>
+  <a href="guide.html" style="color:var(--gold);">不動産ガイド</a>
+  <a href="recruit.html">採用情報</a>
+  <a href="index.html#contact" class="btn-nav-mobile">お問い合わせ</a>
+</div>
+
+<div class="side-btns">
+  <a href="#guide" class="side-btn s-guide">GUIDE</a>
+  <a href="#contact" class="side-btn s-contact">CONTACT</a>
+</div>
+
+<!-- Back link -->
+<div style="padding:100px 48px 0;max-width:1080px;margin:0 auto;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--navy);text-decoration:none;font-size:.82rem;letter-spacing:.08em;transition:color .2s;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    ホームに戻る
+  </a>
+</div>
+
+<!-- ======= GUIDE ======= -->
+<section id="guide">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Real Estate Guide</span>
+      <h2 class="section-title">不動産ガイド</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">始めての不動産取引でも迷わないよう、<br>流れ・必要書類・費用まで、わかりやすくまとめました。</p>
+    </div>
+
+    <div class="guide-tabs fade-in visible">
+      <div class="guide-tab active" data-target="buy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+        不動産を買いたい
+      </div>
+      <div class="guide-tab" data-target="sell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>
+        不動産を売りたい
+      </div>
+    </div>
+
+    <!-- ===== BUY ===== -->
+    <div class="guide-content active" id="guide-buy">
+      <div class="guide-overview guide-overview-buy">
+        <div class="guide-overview-inner">
+          <div class="guide-overview-text">
+            <div class="guide-overview-title buy">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+              不動産購入ガイド
+            </div>
+            <div class="guide-overview-desc">初めて不動産を購入するとき、「何から始めればいいか分からない」という方がほとんどです。<div>物件探しから引渡しまで、全体の流れをつかんでおくだけで、焦らず動けるようになります。</div></div>
+            <div class="guide-nav-btns">
+              <a class="guide-nav-btn gnb-buy-active" href="#acc-buy-flow" onclick="openAcc('acc-buy-flow','buy')">購入の流れ</a>
+              <a class="guide-nav-btn gnb-buy" href="#acc-buy-docs" onclick="openAcc('acc-buy-docs','buy')">必要書類ガイド</a>
+              <a class="guide-nav-btn gnb-buy" href="#acc-buy-cost" onclick="openAcc('acc-buy-cost','buy')">諸費用の全体像</a>
+              <a href="index.html#contact" class="guide-nav-btn gnb-buy">購入相談をする</a>
+            </div>
+          </div>
+          <svg class="guide-illust" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- House outline - blends with navy-light bg -->
+            <path d="M34 52L60 28L86 52" stroke="rgba(27,58,92,0.22)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="37" y="52" width="46" height="34" rx="1" fill="rgba(27,58,92,0.05)" stroke="rgba(27,58,92,0.18)" stroke-width="1.5"/>
+            <rect x="50" y="62" width="11" height="14" rx="1" fill="rgba(27,58,92,0.08)" stroke="rgba(27,58,92,0.2)" stroke-width="1.2"/>
+            <rect x="65" y="60" width="10" height="10" rx="1" fill="rgba(27,58,92,0.06)" stroke="rgba(27,58,92,0.18)" stroke-width="1.2"/>
+            <!-- Chimney -->
+            <rect x="70" y="42" width="6" height="12" rx="0.5" fill="rgba(27,58,92,0.07)" stroke="rgba(27,58,92,0.18)" stroke-width="1.2"/>
+            <!-- Key -->
+            <circle cx="95" cy="32" r="7" stroke="rgba(196,154,48,0.55)" stroke-width="1.8" fill="none"/>
+            <line x1="101" y1="37" x2="110" y2="46" stroke="rgba(196,154,48,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="107" y1="44" x2="107" y2="48" stroke="rgba(196,154,48,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="104" y1="47" x2="104" y2="51" stroke="rgba(196,154,48,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+            <!-- People (simple silhouettes) -->
+            <circle cx="20" cy="64" r="6" fill="rgba(27,58,92,0.12)" stroke="rgba(27,58,92,0.22)" stroke-width="1.2"/>
+            <path d="M12 86 C12 76 16 72 20 72 C24 72 28 76 28 86" fill="rgba(27,58,92,0.1)" stroke="rgba(27,58,92,0.2)" stroke-width="1.2"/>
+            <circle cx="32" cy="62" r="5" fill="rgba(27,58,92,0.10)" stroke="rgba(27,58,92,0.2)" stroke-width="1.2"/>
+            <path d="M25 82 C25 74 28 70 32 70 C36 70 39 74 39 82" fill="rgba(27,58,92,0.08)" stroke="rgba(27,58,92,0.18)" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 購入の流れ -->
+      <div class="accordion fade-in visible" id="acc-buy-flow">
+        <div class="acc-head open-buy" onclick="toggleAcc(this,'buy')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-buy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div>
+            <div><div class="acc-meta">STEP BY STEP</div><div class="acc-title">購入の流れ ― 8つのステップ</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body open">
+          <div class="acc-inner">
+            <div class="guide-intro">不動産購入は複数のフェーズに分かれており、感情と理性のバランスを保ちながら進めることが大切です。<div>検討開始から引渡しまでを、分かりやすく整理しています。</div></div>
+            <ul class="steps">
+              <li class="step">
+                <div class="step-dot dot-buy">01</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">予算を固める</div>
+                  <div class="step-d">まず優先すべきは予算の確定です。「物件を見てから考える」という方も多いですが、最終局面で慌てないよう、先に進めておくことをお勧めします。</div><div class="step-d">ローンを組む場合は月々どれくらいの返済を上限にするか最初に確定しましょう。予算が定まることで、初めて「買うべき物件」を探せます。</div>
+                  <div class="step-tip"><strong>💡 ポイント：</strong>物件価格ではなく、月々の支払いベースで考えると判断しやすくなります。<br><span style="font-size: 0.79rem;">無理のない支払いラインを最初に明確に設定することで、ブレのない検討が可能になります。</span></div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">02</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">検討エリアを絞る</div>
+                  <div class="step-d">予算の目線が決まったら、エリアを絞ります。「どこでもいい」という状態では比較軸がなくなり、物件探しが進みません。</div><div class="step-d">通勤・通学時間、子育て環境、将来の売却を見越した資産性など、優先順位を紙に書き出してみましょう。</div>
+                  <div class="step-tip"><strong>💡 よくある失敗：</strong>エリアを絞らずに内見を繰り返すと、比較軸が定まらず、結果として決断できなくなります。<br>検討エリアは多くても3つまでに限定し、同一エリア内で複数物件を比較できる状態をつくることが重要です。<br>これにより、意思決定のスピードと精度が大きく向上します。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">03</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">物件チェックと内見</div>
+                  <div class="step-d">予算とエリアが決まってからが本格的な物件探しです。ポータルサイトでの絞り込みと、不動産会社への相談を並行して進めましょう。</div><div class="step-d">内見では間取りだけでなく、日当たり・騒音・共用部の管理状態・近隣の雰囲気なども確認します。</div>
+                  <div class="step-tip"><strong>💡 内見のコツ：</strong>間取りだけでなく、日当たり・騒音・共用部の管理状態・近隣の雰囲気なども確認します。<br></div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">04</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">購入申込み</div>
+                  <div class="step-d">良い物件が見つかったら、購入申込書（買付証明書）を提出します。タイミングが遅れると他の買主に先を越されることも。</div>
+                  <div class="step-tip"><strong>💡 人気物件：</strong>相場より高値の物件でも、指値交渉で数十万〜数百万円下がるケースがあります。状況を見ながら戦略的に進めましょう。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">05</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">住宅ローン事前審査と本審査</div>
+                  <div class="step-d">申込と並行して、住宅ローンの事前審査（仮審査）を行います。</div><div class="step-d">金融機関によって借入可能額や金利条件が異なるため、複数の銀行へ問い合わせることをお勧めします。</div><div class="step-d">事前審査は通常1週間ほどで結果が出ます。売買契約後に本申込を行い、本審査通過で融資が正式確定します。</div>
+                  <div class="tips-box">
+                    <div class="tips-hd">📋 審査で確認される主な項目</div>
+                    <div class="tips-bd">年収・勤続年数・現在の借入状況（カーローン・クレジットカードの分割払いも対象）・健康状態など。</div><div class="tips-bd">転職直後や他のローン残債がある場合は、事前に相談しておくと安心です。</div>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">06</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">売買契約の締結</div>
+                  <div class="step-d">宅地建物取引士から重要事項説明を受けた後、売買契約書に署名・捺印します。</div><div class="step-d">手付金（通常は物件価格の5〜10%）をこの時点で支払います。</div>
+                  <div class="caution-box">
+                    <div class="caution-hd">⚠️ 注意</div>
+                    <div class="caution-bd">重要事項説明書は専門用語が多く、その場で全て理解するのは難しいです。事前に見せてもらえるよう依頼し、不明点はその場で必ず確認しましょう。</div>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">07</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">引渡しまでの準備</div>
+                  <div class="step-d">本審査通過後、ローン契約・火災保険加入・引越し先の手配などを進めます。引渡し日の2〜3週間前には準備を完了させておくと安心です。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-buy">08</div>
+                <div class="step-body">
+                  <div class="step-t st-buy">残金決済・引渡し</div>
+                  <div class="step-d">ローン実行日に司法書士立会いのもと、残金の支払いと所有権移転登記を行います。</div><div class="step-d">この日に鍵を受け取り、新居の引渡しが完了です。当日は本人確認書類など手元に揃えておきましょう。</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 必要書類 買い -->
+      <div class="accordion fade-in visible" id="acc-buy-docs">
+        <div class="acc-head" onclick="toggleAcc(this,'buy')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-buy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></div>
+            <div><div class="acc-meta">DOCUMENTS</div><div class="acc-title">購入に必要な書類ガイド ― フェーズ別</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="guide-intro">不動産購入は複数のフェーズに分かれており、それぞれ期限のある公的書類が求められます。<div>早めに準備しておくと、いざという時に焦らずに済みます。</div></div>
+            <div class="phase-section">
+              <div class="phase-header"><span class="phase-num">Phase 01</span><span class="phase-title">購入申込・事前審査</span></div>
+              <div class="doc-grid">
+                <div class="doc-card"><span class="doc-tag dt-buy">本人確認</span><div class="doc-name">本人確認書類</div><div class="doc-desc">運転免許証、マイナンバーカードなど。<div>ペアローン利用時は連帯債務者分も必要です。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-buy">収入証明</span><div class="doc-name">収入証明書類</div><div class="doc-desc">給与所得者は前年分の源泉徴収票。<div>個人事業主は確定申告書（直近3期分）を用意します。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-buy">物件資料</span><div class="doc-name">物件概要書・間取図</div><div class="doc-desc">審査対象となる物件の資料。<div>通常、不動産会社から提供されるものを使用します。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-warn">要確認</span><div class="doc-name">既存借入の返済予定表</div><div class="doc-desc">カーローン等がある場合に必要。<div>残高と月々の返済額を確認します。</div></div><div class="doc-caution">⚠ 分割払いも審査対象になります</div></div>
+              </div>
+            </div>
+            <div class="phase-section">
+              <div class="phase-header"><span class="phase-num">Phase 02</span><span class="phase-title">売買契約・本審査</span></div>
+              <div class="doc-grid">
+                <div class="doc-card"><span class="doc-tag dt-buy">役所等</span><div class="doc-name">住民票・印鑑証明書</div><div class="doc-desc">住民票は家族全員の記載があるもの。（個人番号非記載）<br>「発行3ヵ月以内」のものをご用意ください。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-kinyu">金融機関</span><div class="doc-name">団体信用生命保険告知書</div><div class="doc-desc">健康状態を告知する重要書類。本審査時に金融機関指定の用紙へ記入します。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-buy">契約時</span><div class="doc-name">手付金・実印の用意</div><div class="doc-desc">契約には印鑑が必須。合わせて手付金や印紙等の準備も必要です。<br>印鑑は契約時は認印で可能ですが、決済までに実印が必要となります。<div>予め用意しておきましょう。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-warn">場合による</span><div class="doc-name">課税証明書・納税証明書</div><div class="doc-desc">本審査で追加を求められる場合があります。<br>特に個人事業主・法人代表者は必須項目です。</div></div>
+              </div>
+            </div>
+            <div class="phase-section">
+              <div class="phase-header"><span class="phase-num">Phase 03</span><span class="phase-title">決済・引き渡し</span></div>
+              <div class="doc-grid">
+                <div class="doc-card"><span class="doc-tag dt-kinyu">金融機関</span><div class="doc-name">金銭消費貸借契約書類</div><div class="doc-desc">ローン使用の場合は銀行との契約が必須。これに基づき融資が実行されます。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-buy">決済時</span><div class="doc-name">抵当権設定書類</div><div class="doc-desc">金融機関が物件に担保を設定するための書類。司法書士が同席し署名・捺印を行います。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-kinyu">保険</span><div class="doc-name">火災保険加入証</div><div class="doc-desc">融資使用の場合、火災保険の加入が義務付けられています。引渡し日から適用開始が必要です。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-buy">決済時</span><div class="doc-name">精算金・諸費用（現金）</div><div class="doc-desc">固定資産税精算金、登記費用、仲介手数料残額等の現金（または振込）準備が必要です。</div></div>
+              </div>
+            </div>
+            <div class="caution-box">
+              <div class="caution-hd">⚠️ 注意点</div>
+              <div class="caution-bd">公的書類は「有効期限」に注意してください。多くの金融機関が発行から3ヵ月以内を条件としています。また、共有名義で購入される場合は名義人全員分の書類が必要です。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 購入諸費用 -->
+      <div class="accordion fade-in visible" id="acc-buy-cost">
+        <div class="acc-head" onclick="toggleAcc(this,'buy')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-buy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg></div>
+            <div><div class="acc-meta">COSTS</div><div class="acc-title">購入の諸費用 ― 何にどれだけかかる？</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p style="font-size:.88rem;color:var(--text-mid);line-height:1.9;margin-bottom:20px;">物件価格の他に様々な諸費用が発生します。一般的な目安は物件価格の4〜8%程度ですが、物件種別や融資条件によって変動します。</p>
+            <div class="lbadge lb-summary">SUMMARY</div>
+            <div class="summary-hl">
+              <div class="shl-grid">
+                <div><div class="shl-label">新築・注文住宅の場合</div><div class="shl-value">物件価格の 約4〜6%</div></div>
+                <div><div class="shl-label">中古住宅・土地の場合</div><div class="shl-value">物件価格の 約7〜8%</div></div>
+              </div>
+            </div>
+            <hr class="section-divider">
+            <div class="lbadge lb-object">物件にかかる費用</div>
+            <div class="card-grid-2">
+              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-navy">数万円前後</div><div class="c-card-desc">売買契約書に貼付する税金。<span style="font-size: 0.8rem;">契約金額に応じて税額が定められています。</span><div><span style="font-size: 0.8rem;">（例：5,000万円～1億円の物件の契約書は3万円）。</span></div></div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-navy">登録免許税＋司法書士報酬</div><div class="c-card-desc">所有権移転登記や抵当権設定登記にかかる費用です。<div>物件の評価額や借入内容によって変動します。</div></div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">物件価格×3%＋6万円＋消費税（上限）</div><div class="c-card-desc">仲介会社へ支払う報酬です。<div>弊社では決済・引渡し完了と同時に頂戴しております。</div></div></div>
+              <div class="c-card"><span class="ttag tt-shutoku">取得後</span><div class="c-card-name">不動産取得税</div><div class="c-card-amount ca-navy">0円〜評価額の数%</div><div class="c-card-desc">取得後しばらくして納税通知書が届きます。<div>一定の要件を満たすと軽減措置により0円になる場合もあります。</div></div></div>
+            </div>
+            <hr class="section-divider">
+            <div class="lbadge lb-loan">住宅ローンにかかる費用</div>
+            <div class="card-grid-2">
+              <div class="c-card"><span class="ttag tt-yuushi">融資時</span><div class="c-card-name">融資事務手数料・保証料</div><div class="c-card-amount ca-orange">借入額の2.2%前後が目安</div><div class="c-card-desc">銀行によって手数料型か保証料型かが異なる場合があります。<div>金利と合わせてトータルコストを比較しましょう。</div></div></div>
+              <div class="c-card"><span class="ttag tt-yuushi">融資時</span><div class="c-card-name">火災保険・地震保険料</div><div class="c-card-amount ca-navy">10万〜40万円程度</div><div class="c-card-desc">建物の構造・補償内容・保険期間によって大きく異なります。<div>ローン期間に合わせた加入が一般的です。</div></div></div>
+            </div>
+            <hr class="section-divider">
+            <div class="lbadge lb-check">忘れがちな費用</div>
+            <div class="card-grid-2">
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主へ支払います。</div></div>
+              <div class="c-card"><span class="ttag tt-shutoku">入居後</span><div class="c-card-name">引越し・リフォーム費用</div><div class="c-card-amount ca-orange">物件条件により変動</div><div class="c-card-desc">中古物件の場合、リフォーム費用が追加でかかります。<div>購入前に見積もりも取っておくと安心です。</div></div></div>
+            </div>
+            <p class="fee-note">※ 上記はあくまで目安です。詳細は物件・融資条件によって異なりますので、お気軽にご相談ください。</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /buy -->
+
+    <!-- ===== SELL ===== -->
+    <div class="guide-content" id="guide-sell">
+      <div class="guide-overview guide-overview-sell">
+        <div class="guide-overview-inner">
+          <div class="guide-overview-text">
+            <div class="guide-overview-title sell">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"></rect><path d="M16 8h4l3 3v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              不動産売却ガイド
+            </div>
+            <div class="guide-overview-desc">売却は、情報収集と戦略がカギです。相場を知らずに進めると、相場より何百万円も低く売ってしまうリスクがあります。このガイドで全体像を把握し、後悔しない売却を目指しましょう。</div>
+            <div class="guide-nav-btns">
+              <a class="guide-nav-btn gnb-sell-active" href="#acc-sell-flow" onclick="openAcc('acc-sell-flow','sell')">売却の流れ</a>
+              <a class="guide-nav-btn gnb-sell" href="#acc-sell-docs" onclick="openAcc('acc-sell-docs','sell')">必要書類・持ち物</a>
+              <a class="guide-nav-btn gnb-sell" href="#acc-sell-cost" onclick="openAcc('acc-sell-cost','sell')">諸費用の全体像</a>
+              <a href="index.html#contact" class="guide-nav-btn gnb-sell">売却相談・査定依頼</a>
+            </div>
+          </div>
+          <svg class="guide-illust" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- House outline - teal tones -->
+            <path d="M20 56L46 32L72 56" stroke="rgba(45,139,122,0.22)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="23" y="56" width="46" height="32" rx="1" fill="rgba(45,139,122,0.05)" stroke="rgba(45,139,122,0.18)" stroke-width="1.5"/>
+            <rect x="35" y="65" width="10" height="13" rx="1" fill="rgba(45,139,122,0.08)" stroke="rgba(45,139,122,0.2)" stroke-width="1.2"/>
+            <rect x="51" y="63" width="11" height="11" rx="1" fill="rgba(45,139,122,0.06)" stroke="rgba(45,139,122,0.18)" stroke-width="1.2"/>
+            <!-- Sold tag -->
+            <rect x="60" y="38" width="22" height="12" rx="2" fill="rgba(45,139,122,0.12)" stroke="rgba(45,139,122,0.35)" stroke-width="1.2"/>
+            <line x1="71" y1="50" x2="71" y2="56" stroke="rgba(45,139,122,0.3)" stroke-width="1.2"/>
+            <text x="62" y="48" font-size="7" font-family="sans-serif" fill="rgba(45,139,122,0.7)" font-weight="600">SOLD</text>
+            <!-- Value upward trend graph -->
+            <rect x="78" y="52" width="38" height="36" rx="2" fill="rgba(45,139,122,0.04)" stroke="rgba(45,139,122,0.15)" stroke-width="1"/>
+            <polyline points="82,84 88,78 95,74 102,66 109,58 113,54" stroke="rgba(45,139,122,0.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="82" y1="84" x2="114" y2="84" stroke="rgba(45,139,122,0.2)" stroke-width="0.8"/>
+            <line x1="82" y1="84" x2="82" y2="54" stroke="rgba(45,139,122,0.2)" stroke-width="0.8"/>
+            <!-- Arrow at top -->
+            <path d="M108 50 L113 54 L116 49" stroke="rgba(196,154,48,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 売却の流れ -->
+      <div class="accordion fade-in visible" id="acc-sell-flow">
+        <div class="acc-head open-sell" onclick="toggleAcc(this,'sell')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-sell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div>
+            <div><div class="acc-meta">STEP BY STEP</div><div class="acc-title">売却の流れ ― 8つのステップ</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body open">
+          <div class="acc-inner">
+            <div class="guide-intro guide-intro-sell">不動産売却は「出口戦略」という重要な場面です。<div>マーケットと情報戦略だからこそ、全体像を掴んだ上で動くことで、納得感のある取引が可能になります。</div></div>
+            <ul class="steps">
+              <li class="step">
+                <div class="step-dot dot-sell">01</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">相場把握と査定依頼</div>
+                  <div class="step-d">まず「ざっくりした相場観」を持つことから始めます。市場に出ている自物件のポジションを把握することで、適正価格を掴む足がかりになります。</div><div class="step-d">査定はあくまで売出し価格の参考であり、成約する価格ではありません。数字だけに引きずられず、担当者の力を見る姿勢で依頼することをお勧めします。</div>
+                  <div class="step-tip"><strong>💡 ポイント：</strong>相場感を持っておくことで、客寄せに特化した非現実的な査定額に惑わされなくなります。複数社に依頼し、査定額とその根拠を比較しましょう。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">02</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">媒介契約の締結</div>
+                  <div class="step-d">売却を依頼するパートナーを決めます。</div><div class="step-d">どの契約形態にするかも重要で、売力のある会社を選ぶことが売却の成果を分ける大きな要素のひとつです。状況に応じて柔軟に判断しましょう。</div>
+                  <div class="tips-box">
+                    <div class="tips-hd">📌 媒介契約の3種類と選び方</div>
+                    <div class="tips-bd">売却の仲介を依頼する方法は3つあります。それぞれの違いを把握し、自分の売却方針に適したものを選びましょう。</div>
+                  </div>
+                  <div class="mediation-table-wrap">
+                    <table class="mediation-table">
+                      <thead>
+                        <tr>
+                          <th class="th-row">項目</th>
+                          <th class="th-ippan">一般媒介</th>
+                          <th class="th-sennin">専任媒介</th>
+                          <th class="th-senzoku">専属専任媒介</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td class="td-row">依頼社数</td><td>複数社OK</td><td>1社のみ</td><td>1社のみ</td></tr>
+                        <tr><td class="td-row">自己発見取引</td><td class="chk">○</td><td class="chk">○</td><td class="crs">✕</td></tr>
+                        <tr><td class="td-row">活動報告義務</td><td class="crs">なし</td><td>2週間に1回以上</td><td>1週間に1回以上</td></tr>
+                        <tr><td class="td-row">レインズ登録</td><td class="crs">任意</td><td>7営業日以内</td><td>5営業日以内</td></tr>
+                        <tr><td class="td-row">契約期間</td><td>規定なし</td><td colspan="2">最長3ヵ月</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">03</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">売却活動</div>
+                  <div class="step-d">媒介契約後、ポータルサイトへの掲載が始まります。第一印象を左右する「写真のクオリティ」は非常に重要です。</div><div class="step-d">掲載写真の構図・明るさ・角度は担当者と事前に確認しましょう。</div><div class="step-d">モデルルームのような「暮らしの見せ方」を意識することで、反響数と内見数が変わります。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">04</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">内覧対応と交渉</div>
+                  <div class="step-d">購入希望者による内覧が行われます。清潔さ・温度感・匂いの三点に気を配るだけで、印象は大きく変わります。</div><div class="step-d">購入申込みが入ったら、価格だけでなく引渡し時期の調整も伴います。</div><div class="step-d">買替えの場合は、次の住まいのスケジュールと連動するため、全体的な視点で交渉することが重要です。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">05</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">売買契約</div>
+                  <div class="step-d">買主と売買契約を締結します。物件の状況やリスクを正確に告知し、契約書・付属書類は全てコピーして保管しましょう。</div><div class="step-d">契約時に手付金を受取り、引渡し準備が開始します。</div>
+                  <div class="tips-box">
+                    <div class="tips-hd">📋 売買契約時の必要書類</div>
+                    <div class="tips-bd">実印・身分証明書、登記済証（権利証）・登記識別情報、印紙代（収入印紙）など。詳細は担当者に事前確認しましょう。</div>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">06</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">引渡しまでの準備</div>
+                  <div class="step-d">買主様のローン本審査通過後、一気に実務が動き出します。</div><div class="step-d">引渡しの手配、鍵の整理、ローンの完済手続きなど、担当者との綿密なスケジュール管理が必要です。特に買替えの場合、「引渡し時期調整」が重要になります。</div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">07</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">決済・引渡し</div>
+                  <div class="step-d">現金代金受領、所有権移転登記と同時に担保権の抹消も行います。</div><div class="step-d">抵当権抹消の準備不足があると当日の手続きが止まるため、銀行・司法書士との事前調整が欠かせません。</div>
+                  <div class="tips-box">
+                    <div class="tips-hd">📋 決済時の必要書類</div>
+                    <div class="tips-bd">実印・印鑑証明書（3ヵ月以内）、登記済証・登記識別情報、住民票（住所変更がある場合）、本人確認書類など。</div>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-dot dot-sell">08</div>
+                <div class="step-body">
+                  <div class="step-t st-sell">確定申告</div>
+                  <div class="step-d">売却益（譲渡所得）が発生した場合は、翌年2〜3月に確定申告が必要です。</div><div class="step-d">居住用財産の3,000万円特別控除や、10年超保有の軽減税率など、適用できる特例がないか確認しましょう。</div>
+                  <div class="caution-box">
+                    <div class="caution-hd">⚠️ 会社員でも確定申告が必要です</div>
+                    <div class="caution-bd">不動産売却益が出た場合は確定申告が必要です。申告を忘れると無申告加算税が発生することも。必要に応じて税理士にご相談ください。</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 必要書類 売り -->
+      <div class="accordion fade-in visible" id="acc-sell-docs">
+        <div class="acc-head" onclick="toggleAcc(this,'sell')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-sell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg></div>
+            <div><div class="acc-meta">DOCUMENTS</div><div class="acc-title">売却の必要書類・持ち物ガイド</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="guide-intro guide-intro-sell">査定から契約、決済まで、各段階でスムーズに手続きを進めるために。事前に揃えておくと安心な書類・持ち物リストです。</div>
+            <div class="phase-section">
+              <div class="phase-header"><span class="phase-num phase-num-sell">Phase 01</span><span class="phase-title">まず初めに準備するもの</span></div>
+              <div class="doc-grid">
+                <div class="doc-card"><span class="doc-tag dt-sell">権利証</span><div class="doc-name">登記済証または登記識別情報</div><div class="doc-desc">いわゆる「権利証」。所有者本人と確認するために必要。<div>紛失した場合は再発行ができないため、早めに担当者へご相談ください。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-sell">本人確認</span><div class="doc-name">本人確認書類・印鑑</div><div class="doc-desc">運転免許証やマイナンバーカード等。<div>本人確認も兼ね、実印と印鑑登録証明書も用意します。</div></div></div>
+                <div class="doc-card"><span class="doc-tag dt-sell">物件資料</span><div class="doc-name">間取図・物件パンフレット・長期修繕計画書</div><div class="doc-desc">マンションでは、正確な間取りや面積がわかる資料があると査定がスムーズです。購入時のパンフレットがあればご用意ください。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-sell">境界確認</span><div class="doc-name">土地測量図・境界確認書</div><div class="doc-desc">土地や一戸建ての場合に必要。<div>敷地面積に相違がないかを確認するために使用します。</div></div></div>
+              </div>
+            </div>
+            <div class="phase-section">
+              <div class="phase-header"><span class="phase-num phase-num-sell">Phase 02</span><span class="phase-title">売買契約・引き渡し時の持ち物</span></div>
+              <div class="doc-grid">
+                <div class="doc-card"><span class="doc-tag dt-sell">役所</span><div class="doc-name">住民票・印鑑証明書</div><div class="doc-desc">3ヵ月以内に発行されたもの。住所変更がある場合は変更後のものが必要です。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-sell">税金</span><div class="doc-name">固定資産税・都市計画税通知書</div><div class="doc-desc">引渡し時の日割り精算の計算に使用します。直近年度のものをご用意ください。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-sell">マンション</span><div class="doc-name">管理規約・議事録等</div><div class="doc-desc">マンションの場合のみ。管理組合に問い合わせて取得します。</div></div>
+                <div class="doc-card"><span class="doc-tag dt-warn">ローンあり</span><div class="doc-name">住宅ローン残高証明書</div><div class="doc-desc">ローン残債がある場合、完済手続きのために金融機関から取得します。</div><div class="doc-caution">⚠ 売却代金でローンが完済できるか事前確認が必要</div></div>
+              </div>
+            </div>
+            <div class="tips-box">
+              <div class="tips-hd">💡 早めに準備するメリット</div>
+              <div class="tips-bd">書類が揃っていると、査定から媒介契約までの流れがスムーズになります。特に権利証・固定資産税通知書は手元にあるかを先に確認しておきましょう。見つからない場合でも代替手続きがありますのでご相談ください。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 売却諸費用 -->
+      <div class="accordion fade-in visible" id="acc-sell-cost">
+        <div class="acc-head" onclick="toggleAcc(this,'sell')">
+          <div class="acc-head-left">
+            <div class="acc-icon-wrap icon-sell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg></div>
+            <div><div class="acc-meta">COSTS</div><div class="acc-title">売却の諸費用 ― 手取り額を正確に把握する</div></div>
+          </div>
+          <div class="acc-chevron"></div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p style="font-size:.88rem;color:var(--text-mid);line-height:1.9;margin-bottom:20px;">売却時も諸経費が発生します。各種諸費用を差し引いた「手取り額」を事前に把握することが、出口戦略の要です。</p>
+            <div class="lbadge lb-summary">SUMMARY</div>
+            <div class="summary-hl summary-hl-sell">
+              <div class="shl-label">一般的な諸費用の目安</div>
+              <div class="shl-value shl-value-sell">売却価格の 約4〜6%</div>
+              <div class="shl-note">※ 住宅ローンの完済費用や税金が別途発生する場合があります</div>
+            </div>
+            <hr class="section-divider">
+            <div class="lbadge lb-major">売却にかかる主な諸費用</div>
+            <div class="card-grid-2">
+              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-teal">数万円</div><div class="c-card-desc">売買契約書に貼付する税金。売却金額に応じて税額が決定されます。</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-teal">3～5万円程度</div><div class="c-card-desc">抵当権抹消や住所変更に関する登録免許税。司法書士報酬を含みます。</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">最大（売却価格の3%+6万円）＋税（上限）</div><div class="c-card-desc">仲介会社へ支払う報酬。弊社では決済・引渡し完了と同時に頂戴しております。</div></div>
+              <div class="c-card"><span class="ttag tt-baikyaku">売却後（翌年）</span><div class="c-card-name">譲渡所得税</div><div class="c-card-amount ca-teal">売却益が出た場合のみ</div><div class="c-card-desc">所有期間5年超か以下かで税率が異なります。<div>特別控除の適用で0円になる場合もあります。</div></div></div>
+            </div>
+            <hr class="section-divider">
+            <div class="lbadge lb-check">忘れがちな支出</div>
+            <div class="card-grid-2">
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">ローン一括返済手数料</div><div class="c-card-amount ca-teal">数千円〜数万円程度</div><div class="c-card-desc">金融機関によって手数料が異なります（無料の場合も）。<div>残債がある場合は事前確認を。</div></div></div>
+              <div class="c-card"><span class="ttag tt-baikyaku">引渡し前</span><div class="c-card-name">測量・解体費用</div><div class="c-card-amount ca-teal">物件条件により変動</div><div class="c-card-desc">土地売却時の境界測量、建物解体費用など。<div>必要かどうか確認しましょう。</div></div></div>
+            </div>
+            <div class="tips-box" style="margin-top:20px;">
+              <div class="tips-hd">💰 3,000万円特別控除について</div>
+              <div class="tips-bd">居住していた不動産を売却した場合、一定の要件を満たせば最大3,000万円の特別控除が適用できます。<div>適用条件の確認は税理士または当社担当者にご相談ください。</div></div>
+            </div>
+            <p class="fee-note">※ 税率・特例の詳細は国税庁ホームページまたは税理士にご確認ください。</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sell -->
+
+    <div style="text-align:center;margin-top:56px;" class="fade-in visible">
+      <p style="font-size:.88rem;color:var(--text-mid);margin-bottom:24px;">ご不明な点や個別相談は、お気軽にお問合せください。</p>
+      <a href="#contact" class="btn-primary">無料相談を申し込む</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section style="background:var(--navy);padding:72px 24px;text-align:center;">
+  <div class="container">
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:var(--gold);letter-spacing:.18em;margin-bottom:14px;">Free Consultation</p>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:500;color:white;letter-spacing:.1em;margin-bottom:16px;">ご不明点はお気軽にご相談ください</h2>
+    <div style="width:36px;height:1px;background:var(--gold);margin:0 auto 24px;"></div>
+    <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:36px;">無料でご対応しています。</p>
+    <a href="index.html#contact" style="background:var(--gold);color:white;padding:14px 36px;text-decoration:none;font-size:.88rem;border-radius:2px;letter-spacing:.06em;display:inline-block;transition:background .2s;">無料相談を申し込む</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="index.html">ホーム</a>
+    <a href="index.html#service">サービス概要</a>
+    <a href="index.html#about">代表ご挨拶</a>
+    <a href="index.html#company">会社概要</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </div>
+  <p>&copy; 2025 SPEARD Inc. All Rights Reserved.</p>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  document.querySelectorAll('.guide-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.target;
+      document.querySelectorAll('.guide-tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.guide-content').forEach(x => x.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('guide-' + t).classList.add('active');
+    });
+  });
+  function toggleAcc(head, type) {
+    const body = head.nextElementSibling;
+    const isOpen = head.classList.contains('open-' + type);
+    const parent = head.closest('.guide-content');
+    if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
+    if (!isOpen) { head.classList.add('open-' + type); body.classList.add('open'); }
+  }
+  function openAcc(id, type) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const head = el.querySelector('.acc-head'), body = el.querySelector('.acc-body');
+    if (!head || !body) return;
+    const parent = head.closest('.guide-content');
+    if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
+    head.classList.add('open-' + type);
+    body.classList.add('open');
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target, target = parseInt(el.dataset.target);
+        let n = 0; const step = Math.max(1, Math.ceil(target/55));
+        const t = setInterval(() => { n = Math.min(n+step, target); el.textContent = n; if(n>=target) clearInterval(t); }, 22);
+        cntObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => cntObs.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); window.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' }); }
+    });
+  });
+
+  // ===== CONTACT FORM =====
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const type = this.type.value;
+      const message = this.message.value.trim();
+      const phone = this.phone.value.trim();
+      if (!name || !email || !type || !message) {
+        alert('お名前・メールアドレス・種別・内容は必須項目です。');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('メールアドレスの形式が正しくありません。');
+        return;
+      }
+      const body = [
+        '【お問い合わせ種別】' + type,
+        '【お名前】' + name,
+        '【メールアドレス】' + email,
+        phone ? '【電話番号】' + phone : '',
+        '',
+        '【お問い合わせ内容】',
+        message
+      ].filter(Boolean).join('%0A');
+      const subject = encodeURIComponent('【スピアード】お問い合わせ：' + type);
+      window.location.href = 'mailto:k-minami@speard.jp?subject=' + subject + '&body=' + body;
+      setTimeout(() => {
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      }, 600);
+    });
+  }
+
+  // ===== IN-BROWSER EDIT MODE =====
+  const EDITABLE = 'p, h1, h2, h3, h4, li, td, th, .step-d, .step-t, .doc-desc, .doc-name, .c-card-desc, .c-card-name, .c-card-amount, .guide-overview-desc, .guide-intro, .tips-bd, .caution-bd, .about-text, .hero-sub, .section-desc, .fee-note, .mediation-note, .footer-copy, .acc-inner p, .shl-label, .shl-value, .shl-sub';
+  let editMode = false;
+
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    document.querySelectorAll(EDITABLE).forEach(el => {
+      el.contentEditable = editMode ? 'true' : 'inherit';
+    });
+    const btn = document.getElementById('edit-btn');
+    const saveBtn = document.getElementById('save-btn');
+    btn.textContent = editMode ? '✕ 編集を終了' : '✏️ 編集モード';
+    btn.classList.toggle('active', editMode);
+    saveBtn.style.display = editMode ? 'flex' : 'none';
+    if (editMode) {
+      // disable anchor clicks on editable elements so clicking places cursor
+      document.querySelectorAll(EDITABLE).forEach(el => {
+        el.addEventListener('click', stopPropagation, true);
+      });
+    } else {
+      document.querySelectorAll(EDITABLE).forEach(el => {
+        el.removeEventListener('click', stopPropagation, true);
+      });
+    }
+  }
+
+  function stopPropagation(e) { e.stopPropagation(); }
+
+  function saveHTML() {
+    // Temporarily remove contenteditable attrs and toolbar for clean export
+    document.querySelectorAll(EDITABLE).forEach(el => el.removeAttribute('contenteditable'));
+    document.body.classList.remove('edit-mode');
+    const toolbar = document.getElementById('edit-toolbar');
+    if (toolbar) toolbar.style.display = 'none';
+
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'guide.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+
+    // Restore state after export
+    if (toolbar) toolbar.style.display = '';
+    document.body.classList.add('edit-mode');
+    document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = 'true'; });
+  }
+</script>
+
+<!-- Edit mode toolbar -->
+<div id="edit-toolbar">
+  <div id="edit-hint">クリックした箇所を直接編集できます</div>
+  <button id="save-btn" onclick="saveHTML()">💾 保存してダウンロード</button>
+  <button id="edit-btn" onclick="toggleEditMode()">✏️ 編集モード</button>
+</div>
+
+
+  // ハンバーガーメニュー
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+</body>
+</html>
