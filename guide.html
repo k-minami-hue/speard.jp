@@ -107,7 +107,7 @@
     .stat-unit { font-size:1.1rem; font-family:'Noto Sans JP',sans-serif; }
 
     /* ===== GUIDE ===== */
-    #guide { background:white; }
+    #guide { background:white; padding:72px 24px; }
     .guide-tabs { display:none; border-bottom:2px solid var(--beige); margin-bottom:48px; }
     .guide-tabs.visible { display:flex; }
     .guide-tab { padding:14px 32px; cursor:pointer; font-family:'Noto Serif JP',serif; font-size:.95rem; color:var(--text-mid); border-bottom:2px solid transparent; margin-bottom:-2px; letter-spacing:.06em; transition:.2s; user-select:none; display:flex; align-items:center; gap:8px; }
@@ -219,11 +219,11 @@
     .step-tip { margin-top:10px; background:var(--off-white); border-radius:4px; padding:10px 14px; font-size:.79rem; color:var(--text-mid); border-left:2px solid var(--gold); line-height:1.7; }
     .step-tip-title { font-weight:700; display:block; margin-bottom:4px; color:#555; }
     .step-tip-body { display:block; }
-    /* SVGアイコン（スマホのみ表示） */
-    .step-icon { display:none; width:44px; height:44px; border-radius:50%; align-items:center; justify-content:center; margin-bottom:10px; flex-shrink:0; }
-    .step-icon svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-    li.step:has(.dot-buy) .step-icon { background:var(--navy-light); color:var(--navy); }
-    li.step:has(.dot-sell) .step-icon { background:var(--teal-light); color:var(--teal); }
+    /* SVGアイコン（全デバイスで表示） */
+    .step-icon { display:flex; width:56px; height:56px; border-radius:14px; align-items:center; justify-content:center; margin-bottom:12px; flex-shrink:0; box-shadow:0 2px 10px rgba(0,0,0,.08); }
+    .step-icon svg { width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    li.step:has(.dot-buy) .step-icon { background:linear-gradient(135deg,#dce8f8,#eef4ff); color:var(--navy); }
+    li.step:has(.dot-sell) .step-icon { background:linear-gradient(135deg,#c8ece4,#e6f4f1); color:var(--teal); }
 
     /* Phase sections for docs */
     .phase-section { margin-bottom:32px; }
@@ -348,8 +348,6 @@
       /* Guide intro mobile */
       .guide-intro { padding:14px 16px; font-size:.86rem; line-height:2; }
 
-      /* Step icon - show on mobile */
-      .step-icon { display:flex; }
     }
 
     /* ===== CONTACT FORM ===== */
@@ -517,9 +515,9 @@
             </div>
             <div class="guide-overview-desc">初めて不動産を購入するとき、「何から始めればいいか分からない」という方がほとんどです。<div>物件探しから引渡しまで、全体の流れをつかんでおくだけで、焦らず動けるようになります。</div></div>
             <div class="guide-nav-btns">
-              <a class="guide-nav-btn gnb-buy-active" href="#acc-buy-flow" onclick="openAcc('acc-buy-flow','buy')">購入の流れ</a>
-              <a class="guide-nav-btn gnb-buy" href="#acc-buy-docs" onclick="openAcc('acc-buy-docs','buy')">必要書類ガイド</a>
-              <a class="guide-nav-btn gnb-buy" href="#acc-buy-cost" onclick="openAcc('acc-buy-cost','buy')">諸費用の全体像</a>
+              <a class="guide-nav-btn gnb-buy-active" href="javascript:void(0)" onclick="openAcc('acc-buy-flow','buy')">購入の流れ</a>
+              <a class="guide-nav-btn gnb-buy" href="javascript:void(0)" onclick="openAcc('acc-buy-docs','buy')">必要書類ガイド</a>
+              <a class="guide-nav-btn gnb-buy" href="javascript:void(0)" onclick="openAcc('acc-buy-cost','buy')">諸費用の全体像</a>
               <a href="index.html#contact" class="guide-nav-btn gnb-buy">購入相談をする</a>
             </div>
           </div>
@@ -759,9 +757,9 @@
             </div>
             <div class="guide-overview-desc">売却は、情報収集と戦略がカギです。相場を知らずに進めると、相場より何百万円も低く売ってしまうリスクがあります。このガイドで全体像を把握し、後悔しない売却を目指しましょう。</div>
             <div class="guide-nav-btns">
-              <a class="guide-nav-btn gnb-sell-active" href="#acc-sell-flow" onclick="openAcc('acc-sell-flow','sell')">売却の流れ</a>
-              <a class="guide-nav-btn gnb-sell" href="#acc-sell-docs" onclick="openAcc('acc-sell-docs','sell')">必要書類・持ち物</a>
-              <a class="guide-nav-btn gnb-sell" href="#acc-sell-cost" onclick="openAcc('acc-sell-cost','sell')">諸費用の全体像</a>
+              <a class="guide-nav-btn gnb-sell-active" href="javascript:void(0)" onclick="openAcc('acc-sell-flow','sell')">売却の流れ</a>
+              <a class="guide-nav-btn gnb-sell" href="javascript:void(0)" onclick="openAcc('acc-sell-docs','sell')">必要書類・持ち物</a>
+              <a class="guide-nav-btn gnb-sell" href="javascript:void(0)" onclick="openAcc('acc-sell-cost','sell')">諸費用の全体像</a>
               <a href="index.html#contact" class="guide-nav-btn gnb-sell">売却相談・査定依頼</a>
             </div>
           </div>
@@ -1054,7 +1052,7 @@
     if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
     head.classList.add('open-' + type);
     body.classList.add('open');
-    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' }), 50);
   }
   const cntObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
