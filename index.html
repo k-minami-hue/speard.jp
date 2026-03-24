@@ -36,7 +36,7 @@
     .s-contact { background:var(--gold); } .s-contact:hover { background:var(--gold-hover); }
 
     /* ===== HERO ===== */
-    #home { height:100vh; min-height:700px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-mid) 100%); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    #home { height:100vh; min-height:700px; padding:0; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-mid) 100%); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     #home::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:64px 64px; }
     #home::after { content:''; position:absolute; width:700px; height:700px; border-radius:50%; border:1px solid rgba(255,255,255,.05); right:-160px; top:50%; transform:translateY(-50%); pointer-events:none; }
     .hero-circle { position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(255,255,255,.04); left:-80px; top:-60px; pointer-events:none; }
@@ -222,7 +222,7 @@
     .fee-note { margin-top:12px; font-size:.76rem; color:var(--text-light); line-height:1.7; }
 
     /* About / President */
-    #about { background:#fff; }
+    #about { background:#fff; padding-bottom:72px; }
     #about .section-title { color:var(--navy-dark); }
     .president-wrap { max-width:680px; margin:0 auto; text-align:center; }
     .president-photo-wrap { margin-bottom:32px; position:relative; }
@@ -238,7 +238,7 @@
     .president-message p:last-child { margin-bottom:0; }
 
     /* Company */
-    #company { background:var(--off-white); }
+    #company { background:var(--off-white); padding-bottom:72px; }
     .company-table { width:100%; border-collapse:collapse; }
     .company-table tr { border-bottom:1px solid var(--border); }
     .company-table th { width:180px; padding:20px 8px 20px 0; text-align:left; font-weight:500; font-size:.86rem; color:var(--navy); vertical-align:top; }
@@ -322,7 +322,7 @@
   /* ===== EDIT MODE TOOLBAR ===== */
   #edit-toolbar {
     position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    display: none; flex-direction: column; align-items: flex-end; gap: 10px;
     font-family: var(--sans);
   }
   #edit-btn {
@@ -394,7 +394,7 @@
 <section id="home">
   <div class="hero-circle"></div>
   <div class="hero-content">
-    <p class="hero-en"><br></p>
+    <p class="hero-en">Premium Real Estate Consulting</p>
     <h1 class="hero-title">不動産は、<br>人生を動かす決断だ。</h1>
     <p class="hero-sub">不動産取引は、人生を動かす決断。その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。<br>株式会社スピアードは、お客様の人生に寄り添い、未来を共に築くパートナーであり続けます。</p>
     <div class="hero-btns">
@@ -690,6 +690,12 @@
   }
 
   // ===== IN-BROWSER EDIT MODE =====
+  // 編集モードは専用URLでのみ有効
+  (function(){
+    const p = new URLSearchParams(location.search);
+    if (p.get('edit') === atob('c3BlYXJkX2VkaXRfMjAyNQ==')) {
+    document.getElementById('edit-toolbar').style.display = 'flex';
+  }
   const EDITABLE = 'p, h1, h2, h3, h4, li, td, th, .step-d, .step-t, .doc-desc, .doc-name, .c-card-desc, .c-card-name, .c-card-amount, .guide-overview-desc, .guide-intro, .tips-bd, .caution-bd, .about-text, .hero-sub, .section-desc, .fee-note, .mediation-note, .footer-copy, .acc-inner p, .shl-label, .shl-value, .shl-sub';
   let editMode = false;
 
@@ -748,6 +754,9 @@
   <button id="save-btn" onclick="saveHTML()" style="display: flex;">💾 保存してダウンロード</button>
   <button id="edit-btn" onclick="toggleEditMode()" class="active">✕ 編集を終了</button>
 </div>
+
+
+
 
 <script>
   // ハンバーガーメニュー

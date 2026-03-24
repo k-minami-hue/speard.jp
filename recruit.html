@@ -100,7 +100,7 @@
     .footer-links a:hover { color:rgba(255,255,255,.8); }
 
     /* EDIT MODE */
-    #edit-toolbar { position:fixed; bottom:28px; right:28px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:10px; font-family:'Noto Sans JP',sans-serif; }
+    #edit-toolbar { position:fixed; bottom:28px; right:28px; z-index:9999; display:none; flex-direction:column; align-items:flex-end; gap:10px; font-family:'Noto Sans JP',sans-serif; }
     #edit-btn { background:var(--navy); color:#fff; border:none; border-radius:30px; padding:12px 22px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 18px rgba(27,58,92,.35); transition:background .2s,transform .15s; letter-spacing:.04em; }
     #edit-btn:hover { background:var(--navy-mid); transform:translateY(-2px); }
     #edit-btn.active { background:#c0392b; }
@@ -316,7 +316,13 @@
   const header = document.getElementById('header');
   if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
 
-  // Edit mode
+  // 編集モードは専用URLでのみ有効（南様専用）
+  (function(){
+    const p = new URLSearchParams(location.search);
+    if (p.get('edit') === atob('c3BlYXJkX2VkaXRfMjAyNQ==')) {
+      document.getElementById('edit-toolbar').style.display = 'flex';
+    }
+  })();
   const EDITABLE = 'p, h1, h2, h3, li, .r-card-value, .r-message-body, .r-message-quote, .r-flow-text, .r-cta-sub, .r-cta-title, .page-hero-sub';
   let editMode = false;
   function toggleEditMode() {
@@ -346,6 +352,7 @@
     document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = 'true'; });
   }
 </script>
+
 
 <script>
   // ハンバーガーメニュー

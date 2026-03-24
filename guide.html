@@ -108,13 +108,33 @@
 
     /* ===== GUIDE ===== */
     #guide { background:white; }
-    .guide-tabs { display:flex; border-bottom:2px solid var(--beige); margin-bottom:48px; }
+    .guide-tabs { display:none; border-bottom:2px solid var(--beige); margin-bottom:48px; }
+    .guide-tabs.visible { display:flex; }
     .guide-tab { padding:14px 32px; cursor:pointer; font-family:'Noto Serif JP',serif; font-size:.95rem; color:var(--text-mid); border-bottom:2px solid transparent; margin-bottom:-2px; letter-spacing:.06em; transition:.2s; user-select:none; display:flex; align-items:center; gap:8px; }
     .guide-tab:hover:not(.active) { color:var(--navy-mid); }
     .guide-tab.active { color:var(--navy); border-bottom-color:var(--navy); font-weight:500; }
     .guide-tab svg { width:16px; height:16px; }
     .guide-content { display:none; }
     .guide-content.active { display:block; }
+
+    /* 選択カード */
+    .guide-select { display:flex; gap:24px; margin-bottom:48px; justify-content:center; }
+    .guide-select-card { flex:1; max-width:360px; border-radius:10px; padding:44px 32px; cursor:pointer; text-align:center; transition:transform .22s,box-shadow .22s; border:1.5px solid var(--beige); }
+    .guide-select-card:hover { transform:translateY(-5px); box-shadow:0 14px 44px rgba(0,0,0,.1); }
+    .guide-select-card.gs-buy { background:linear-gradient(140deg,#EEF4FF,#F4F8FF); border-color:#C8D8EE; }
+    .guide-select-card.gs-sell { background:linear-gradient(140deg,#EEF7F4,#F0FBF8); border-color:#B8DDD6; }
+    .gs-icon { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+    .guide-select-card.gs-buy .gs-icon { background:var(--navy); }
+    .guide-select-card.gs-sell .gs-icon { background:var(--teal); }
+    .gs-icon svg { width:26px; height:26px; stroke:white; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .gs-title { font-family:'Noto Serif JP',serif; font-size:1.12rem; font-weight:500; margin-bottom:10px; }
+    .guide-select-card.gs-buy .gs-title { color:var(--navy); }
+    .guide-select-card.gs-sell .gs-title { color:var(--teal); }
+    .gs-sub { font-size:.82rem; color:var(--text-mid); line-height:1.8; }
+    @media (max-width:640px) {
+      .guide-select { flex-direction:column; gap:14px; align-items:center; }
+      .guide-select-card { width:100%; max-width:100%; padding:28px 20px; }
+    }
 
     /* Overview card */
     .guide-overview { border-radius:8px; padding:28px 32px; margin-bottom:40px; }
@@ -194,8 +214,16 @@
     .step-body {}
     .step-t { font-size:.92rem; font-weight:600; margin-bottom:6px; }
     .st-buy{color:var(--navy)} .st-sell{color:var(--teal)}
-    .step-d { font-size:.83rem; color:var(--text-mid); line-height:1.85; }
+    .step-d { font-size:.83rem; color:var(--text-mid); line-height:1.9; margin-bottom:6px; }
+    .step-d:last-of-type { margin-bottom:0; }
     .step-tip { margin-top:10px; background:var(--off-white); border-radius:4px; padding:10px 14px; font-size:.79rem; color:var(--text-mid); border-left:2px solid var(--gold); line-height:1.7; }
+    .step-tip-title { font-weight:700; display:block; margin-bottom:4px; color:#555; }
+    .step-tip-body { display:block; }
+    /* SVGアイコン（スマホのみ表示） */
+    .step-icon { display:none; width:44px; height:44px; border-radius:50%; align-items:center; justify-content:center; margin-bottom:10px; flex-shrink:0; }
+    .step-icon svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    li.step:has(.dot-buy) .step-icon { background:var(--navy-light); color:var(--navy); }
+    li.step:has(.dot-sell) .step-icon { background:var(--teal-light); color:var(--teal); }
 
     /* Phase sections for docs */
     .phase-section { margin-bottom:32px; }
@@ -281,7 +309,48 @@
 
     /* Responsive */
     @media (max-width:900px) { header{padding:0 24px;} .nav-links{display:none!important;} .service-grid{grid-template-columns:1fr;} }
-    @media (max-width:640px) { .card-grid-2,.doc-grid,.shl-grid{grid-template-columns:1fr;} .hero-btns{flex-direction:column;align-items:center;} .side-btns{display:none;} .stats-grid{grid-template-columns:1fr;} .guide-tab{padding:10px 14px;font-size:.84rem;} .acc-inner{padding:22px 16px;} }
+    @media (max-width:640px) {
+      .card-grid-2,.doc-grid,.shl-grid{grid-template-columns:1fr;}
+      .hero-btns{flex-direction:column;align-items:center;}
+      .side-btns{display:none;}
+      .stats-grid{grid-template-columns:1fr;}
+      .guide-tab{padding:10px 14px;font-size:.84rem;}
+      .acc-inner{padding:20px 14px;}
+
+      /* Steps mobile improvement */
+      .step { gap:14px; padding-bottom:28px; }
+      .step-dot { width:34px; height:34px; min-width:34px; font-size:.75rem; }
+      .step-t { font-size:.95rem; margin-bottom:8px; }
+      .step-d { font-size:.85rem; line-height:1.9; margin-bottom:8px; }
+      .step-d:last-of-type { margin-bottom:0; }
+
+      /* Tip box mobile */
+      .step-tip {
+        font-size:.8rem;
+        line-height:1.8;
+        padding:12px 14px;
+        margin-top:12px;
+      }
+      .step-tip-title {
+        font-weight:700;
+        display:block;
+        margin-bottom:6px;
+        color:#555;
+      }
+      .step-tip-body {
+        color:var(--text-mid);
+      }
+
+      /* Tips/caution box mobile */
+      .tips-box,.caution-box { padding:12px 14px; margin:12px 0; }
+      .tips-bd,.caution-bd { font-size:.83rem; line-height:1.85; }
+
+      /* Guide intro mobile */
+      .guide-intro { padding:14px 16px; font-size:.86rem; line-height:2; }
+
+      /* Step icon - show on mobile */
+      .step-icon { display:flex; }
+    }
 
     /* ===== CONTACT FORM ===== */
     .contact-form-wrap { max-width:620px; margin:44px auto 0; }
@@ -322,7 +391,7 @@
   /* ===== EDIT MODE TOOLBAR ===== */
   #edit-toolbar {
     position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    display: none; flex-direction: column; align-items: flex-end; gap: 10px;
     font-family: var(--sans);
   }
   #edit-btn {
@@ -412,8 +481,22 @@
       <p class="section-desc">始めての不動産取引でも迷わないよう、<br>流れ・必要書類・費用まで、わかりやすくまとめました。</p>
     </div>
 
-    <div class="guide-tabs fade-in visible">
-      <div class="guide-tab active" data-target="buy">
+    <!-- 選択カード（未選択時に表示） -->
+    <div class="guide-select fade-in visible" id="guide-select">
+      <div class="guide-select-card gs-buy" onclick="selectGuide('buy')">
+        <div class="gs-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="gs-title">不動産を買いたい</div>
+        <div class="gs-sub">購入の流れ・必要書類<br>住宅ローン・諸費用まで</div>
+      </div>
+      <div class="guide-select-card gs-sell" onclick="selectGuide('sell')">
+        <div class="gs-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="gs-title">不動産を売りたい</div>
+        <div class="gs-sub">売却の流れ・媒介契約<br>諸費用・確定申告まで</div>
+      </div>
+    </div>
+
+    <div class="guide-tabs" id="guide-tabs">
+      <div class="guide-tab" data-target="buy">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
         不動産を買いたい
       </div>
@@ -424,7 +507,7 @@
     </div>
 
     <!-- ===== BUY ===== -->
-    <div class="guide-content active" id="guide-buy">
+    <div class="guide-content" id="guide-buy">
       <div class="guide-overview guide-overview-buy">
         <div class="guide-overview-inner">
           <div class="guide-overview-text">
@@ -478,69 +561,94 @@
               <li class="step">
                 <div class="step-dot dot-buy">01</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
                   <div class="step-t st-buy">予算を固める</div>
-                  <div class="step-d">まず優先すべきは予算の確定です。「物件を見てから考える」という方も多いですが、最終局面で慌てないよう、先に進めておくことをお勧めします。</div><div class="step-d">ローンを組む場合は月々どれくらいの返済を上限にするか最初に確定しましょう。予算が定まることで、初めて「買うべき物件」を探せます。</div>
-                  <div class="step-tip"><strong>💡 ポイント：</strong>物件価格ではなく、月々の支払いベースで考えると判断しやすくなります。<br><span style="font-size: 0.79rem;">無理のない支払いラインを最初に明確に設定することで、ブレのない検討が可能になります。</span></div>
+                  <div class="step-d">まず優先すべきは予算の確定です。「物件を見てから考える」という方も多いですが、最終局面で慌てないよう先に進めておくことをお勧めします。</div>
+                  <div class="step-d">ローンを組む場合は月々の返済上限を最初に決めましょう。予算が定まることで、「買うべき物件」が見えてきます。</div>
+                  <div class="step-tip">
+                    <span class="step-tip-title">💡 ポイント</span>
+                    <span class="step-tip-body">物件価格ではなく<strong>月々の支払いベース</strong>で考えると判断しやすくなります。</span>
+                  </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">02</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                   <div class="step-t st-buy">検討エリアを絞る</div>
-                  <div class="step-d">予算の目線が決まったら、エリアを絞ります。「どこでもいい」という状態では比較軸がなくなり、物件探しが進みません。</div><div class="step-d">通勤・通学時間、子育て環境、将来の売却を見越した資産性など、優先順位を紙に書き出してみましょう。</div>
-                  <div class="step-tip"><strong>💡 よくある失敗：</strong>エリアを絞らずに内見を繰り返すと、比較軸が定まらず、結果として決断できなくなります。<br>検討エリアは多くても3つまでに限定し、同一エリア内で複数物件を比較できる状態をつくることが重要です。<br>これにより、意思決定のスピードと精度が大きく向上します。</div>
+                  <div class="step-d">予算が決まったら、エリアを絞ります。「どこでもいい」という状態では比較軸がなくなり、物件探しが進みません。</div>
+                  <div class="step-d">通勤・通学時間、子育て環境、将来の資産性など、優先順位を書き出してみましょう。</div>
+                  <div class="step-tip">
+                    <span class="step-tip-title">⚠️ よくある失敗</span>
+                    <span class="step-tip-body">エリアを絞らずに内見を繰り返すと、比較軸が定まらず決断できなくなります。<br>検討エリアは<strong>多くても3つまで</strong>に絞るのがコツです。</span>
+                  </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">03</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
                   <div class="step-t st-buy">物件チェックと内見</div>
-                  <div class="step-d">予算とエリアが決まってからが本格的な物件探しです。ポータルサイトでの絞り込みと、不動産会社への相談を並行して進めましょう。</div><div class="step-d">内見では間取りだけでなく、日当たり・騒音・共用部の管理状態・近隣の雰囲気なども確認します。</div>
-                  <div class="step-tip"><strong>💡 内見のコツ：</strong>間取りだけでなく、日当たり・騒音・共用部の管理状態・近隣の雰囲気なども確認します。<br></div>
+                  <div class="step-d">予算とエリアが決まってからが本格的な物件探しです。ポータルサイトでの絞り込みと、不動産会社への相談を並行して進めましょう。</div>
+                  <div class="step-tip">
+                    <span class="step-tip-title">💡 内見のチェックポイント</span>
+                    <span class="step-tip-body">日当たり・騒音・共用部の清潔感・近隣の雰囲気など、間取り以外も忘れずに確認しましょう。</span>
+                  </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">04</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
                   <div class="step-t st-buy">購入申込み</div>
                   <div class="step-d">良い物件が見つかったら、購入申込書（買付証明書）を提出します。タイミングが遅れると他の買主に先を越されることも。</div>
-                  <div class="step-tip"><strong>💡 人気物件：</strong>相場より高値の物件でも、指値交渉で数十万〜数百万円下がるケースがあります。状況を見ながら戦略的に進めましょう。</div>
+                  <div class="step-tip">
+                    <span class="step-tip-title">💡 価格交渉について</span>
+                    <span class="step-tip-body">指値交渉で数十万〜数百万円下がるケースもあります。状況を見ながら戦略的に。</span>
+                  </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">05</div>
                 <div class="step-body">
-                  <div class="step-t st-buy">住宅ローン事前審査と本審査</div>
-                  <div class="step-d">申込と並行して、住宅ローンの事前審査（仮審査）を行います。</div><div class="step-d">金融機関によって借入可能額や金利条件が異なるため、複数の銀行へ問い合わせることをお勧めします。</div><div class="step-d">事前審査は通常1週間ほどで結果が出ます。売買契約後に本申込を行い、本審査通過で融資が正式確定します。</div>
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></span>
+                  <div class="step-t st-buy">住宅ローン審査</div>
+                  <div class="step-d">申込と並行して、住宅ローンの事前審査を行います。金融機関によって借入可能額や金利条件が異なるため、複数行への問い合わせをお勧めします。</div>
+                  <div class="step-d">事前審査は通常1週間ほどで結果が出ます。売買契約後に本申込→本審査通過で融資が正式確定します。</div>
                   <div class="tips-box">
-                    <div class="tips-hd">📋 審査で確認される主な項目</div>
-                    <div class="tips-bd">年収・勤続年数・現在の借入状況（カーローン・クレジットカードの分割払いも対象）・健康状態など。</div><div class="tips-bd">転職直後や他のローン残債がある場合は、事前に相談しておくと安心です。</div>
+                    <div class="tips-hd">📋 審査で見られる主な項目</div>
+                    <div class="tips-bd">年収・勤続年数・既存の借入（カーローン・分割払いも含む）・健康状態など。<br>転職直後やローン残債がある場合は、事前にご相談ください。</div>
                   </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">06</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
                   <div class="step-t st-buy">売買契約の締結</div>
-                  <div class="step-d">宅地建物取引士から重要事項説明を受けた後、売買契約書に署名・捺印します。</div><div class="step-d">手付金（通常は物件価格の5〜10%）をこの時点で支払います。</div>
+                  <div class="step-d">宅地建物取引士から重要事項説明を受けた後、売買契約書に署名・捺印します。手付金（通常は物件価格の5〜10%）をこの時点で支払います。</div>
                   <div class="caution-box">
                     <div class="caution-hd">⚠️ 注意</div>
-                    <div class="caution-bd">重要事項説明書は専門用語が多く、その場で全て理解するのは難しいです。事前に見せてもらえるよう依頼し、不明点はその場で必ず確認しましょう。</div>
+                    <div class="caution-bd">重要事項説明書は専門用語が多く、難解です。事前に見せてもらえるよう依頼し、不明点はその場で確認しましょう。</div>
                   </div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">07</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
                   <div class="step-t st-buy">引渡しまでの準備</div>
-                  <div class="step-d">本審査通過後、ローン契約・火災保険加入・引越し先の手配などを進めます。引渡し日の2〜3週間前には準備を完了させておくと安心です。</div>
+                  <div class="step-d">本審査通過後、ローン契約・火災保険加入・引越し先の手配などを進めます。</div>
+                  <div class="step-d">引渡し日の2〜3週間前には準備を完了させておくと安心です。</div>
                 </div>
               </li>
               <li class="step">
                 <div class="step-dot dot-buy">08</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>
                   <div class="step-t st-buy">残金決済・引渡し</div>
-                  <div class="step-d">ローン実行日に司法書士立会いのもと、残金の支払いと所有権移転登記を行います。</div><div class="step-d">この日に鍵を受け取り、新居の引渡しが完了です。当日は本人確認書類など手元に揃えておきましょう。</div>
+                  <div class="step-d">ローン実行日に司法書士立会いのもと、残金の支払いと所有権移転登記を行います。</div>
+                  <div class="step-d">この日に鍵を受け取り、新居の引渡しが完了です。本人確認書類などを忘れずに。</div>
                 </div>
               </li>
             </ul>
@@ -694,6 +802,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">01</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
                   <div class="step-t st-sell">相場把握と査定依頼</div>
                   <div class="step-d">まず「ざっくりした相場観」を持つことから始めます。市場に出ている自物件のポジションを把握することで、適正価格を掴む足がかりになります。</div><div class="step-d">査定はあくまで売出し価格の参考であり、成約する価格ではありません。数字だけに引きずられず、担当者の力を見る姿勢で依頼することをお勧めします。</div>
                   <div class="step-tip"><strong>💡 ポイント：</strong>相場感を持っておくことで、客寄せに特化した非現実的な査定額に惑わされなくなります。複数社に依頼し、査定額とその根拠を比較しましょう。</div>
@@ -702,6 +811,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">02</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
                   <div class="step-t st-sell">媒介契約の締結</div>
                   <div class="step-d">売却を依頼するパートナーを決めます。</div><div class="step-d">どの契約形態にするかも重要で、売力のある会社を選ぶことが売却の成果を分ける大きな要素のひとつです。状況に応じて柔軟に判断しましょう。</div>
                   <div class="tips-box">
@@ -732,6 +842,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">03</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                   <div class="step-t st-sell">売却活動</div>
                   <div class="step-d">媒介契約後、ポータルサイトへの掲載が始まります。第一印象を左右する「写真のクオリティ」は非常に重要です。</div><div class="step-d">掲載写真の構図・明るさ・角度は担当者と事前に確認しましょう。</div><div class="step-d">モデルルームのような「暮らしの見せ方」を意識することで、反響数と内見数が変わります。</div>
                 </div>
@@ -739,6 +850,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">04</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
                   <div class="step-t st-sell">内覧対応と交渉</div>
                   <div class="step-d">購入希望者による内覧が行われます。清潔さ・温度感・匂いの三点に気を配るだけで、印象は大きく変わります。</div><div class="step-d">購入申込みが入ったら、価格だけでなく引渡し時期の調整も伴います。</div><div class="step-d">買替えの場合は、次の住まいのスケジュールと連動するため、全体的な視点で交渉することが重要です。</div>
                 </div>
@@ -746,6 +858,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">05</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
                   <div class="step-t st-sell">売買契約</div>
                   <div class="step-d">買主と売買契約を締結します。物件の状況やリスクを正確に告知し、契約書・付属書類は全てコピーして保管しましょう。</div><div class="step-d">契約時に手付金を受取り、引渡し準備が開始します。</div>
                   <div class="tips-box">
@@ -757,6 +870,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">06</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
                   <div class="step-t st-sell">引渡しまでの準備</div>
                   <div class="step-d">買主様のローン本審査通過後、一気に実務が動き出します。</div><div class="step-d">引渡しの手配、鍵の整理、ローンの完済手続きなど、担当者との綿密なスケジュール管理が必要です。特に買替えの場合、「引渡し時期調整」が重要になります。</div>
                 </div>
@@ -764,6 +878,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">07</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
                   <div class="step-t st-sell">決済・引渡し</div>
                   <div class="step-d">現金代金受領、所有権移転登記と同時に担保権の抹消も行います。</div><div class="step-d">抵当権抹消の準備不足があると当日の手続きが止まるため、銀行・司法書士との事前調整が欠かせません。</div>
                   <div class="tips-box">
@@ -775,6 +890,7 @@
               <li class="step">
                 <div class="step-dot dot-sell">08</div>
                 <div class="step-body">
+                  <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
                   <div class="step-t st-sell">確定申告</div>
                   <div class="step-d">売却益（譲渡所得）が発生した場合は、翌年2〜3月に確定申告が必要です。</div><div class="step-d">居住用財産の3,000万円特別控除や、10年超保有の軽減税率など、適用できる特例がないか確認しましょう。</div>
                   <div class="caution-box">
@@ -903,6 +1019,16 @@
   window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  // ガイド選択カード
+  function selectGuide(type) {
+    document.getElementById('guide-select').style.display = 'none';
+    document.getElementById('guide-tabs').classList.add('visible');
+    document.querySelectorAll('.guide-tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.guide-content').forEach(x => x.classList.remove('active'));
+    const tab = document.querySelector('.guide-tab[data-target="' + type + '"]');
+    if (tab) tab.classList.add('active');
+    document.getElementById('guide-' + type).classList.add('active');
+  }
   document.querySelectorAll('.guide-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const t = tab.dataset.target;
@@ -985,6 +1111,13 @@
   }
 
   // ===== IN-BROWSER EDIT MODE =====
+  // 編集モードは専用URLでのみ有効（南様専用）
+  (function(){
+    const p = new URLSearchParams(location.search);
+    if (p.get('edit') === atob('c3BlYXJkX2VkaXRfMjAyNQ==')) {
+      document.getElementById('edit-toolbar').style.display = 'flex';
+    }
+  })();
   const EDITABLE = 'p, h1, h2, h3, h4, li, td, th, .step-d, .step-t, .doc-desc, .doc-name, .c-card-desc, .c-card-name, .c-card-amount, .guide-overview-desc, .guide-intro, .tips-bd, .caution-bd, .about-text, .hero-sub, .section-desc, .fee-note, .mediation-note, .footer-copy, .acc-inner p, .shl-label, .shl-value, .shl-sub';
   let editMode = false;
 
@@ -1044,6 +1177,7 @@
   <button id="edit-btn" onclick="toggleEditMode()">✏️ 編集モード</button>
 </div>
 
+
 <script>
   // ハンバーガーメニュー
   const hamburger = document.getElementById('hamburger');
@@ -1061,5 +1195,7 @@
     });
   }
 </script>
+</body>
+</html>
 </body>
 </html>
