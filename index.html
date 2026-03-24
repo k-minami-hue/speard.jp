@@ -19,11 +19,11 @@
     h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
 
     /* ===== HEADER ===== */
-    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; }
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:130px; transition:background .4s, box-shadow .4s; }
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo svg { width:36px; height:36px; }
-    .logo-img { height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-img { height:122px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
     .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
     nav { display:flex; align-items:center; gap:28px; }
     nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
@@ -270,7 +270,7 @@
     .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity:0; }
     .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display:none; position:fixed; top:108px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+    .mobile-menu { display:none; position:fixed; top:130px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
     .mobile-menu.open { display:flex; }
     .mobile-menu a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); letter-spacing:.05em; }
     .mobile-menu a:last-child { border-bottom:none; }
@@ -506,13 +506,13 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in visible">
       <span class="section-en">Contact Us</span>
       <h2 class="section-title" style="color:white;">お問い合わせ</h2>
       <div class="section-line"></div>
       <p class="section-desc" style="color:rgba(255,255,255,.65);">購入・売却のご相談は、まずはお気軽にどうぞ。<br>下記フォームまたはお電話・メールよりお問い合わせいただけます。</p>
     </div>
-    <div class="contact-form-wrap fade-in">
+    <div class="contact-form-wrap fade-in visible">
       <div class="form-card" id="contact-form-card">
         <form id="contact-form" novalidate>
           <div class="form-row-2col">
@@ -564,32 +564,96 @@
   </div>
 </section>
 
-<!-- GUIDE CTA -->
-<section style="background:var(--navy-light);padding:80px 24px;">
-  <div class="container" style="text-align:center;">
-    <div class="fade-in">
-      <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Real Estate Guide</span>
-      <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;color:var(--navy-dark);letter-spacing:.1em;margin-bottom:16px;">不動産ガイド</h2>
-      <div style="width:36px;height:1px;background:var(--gold);margin:0 auto 24px;"></div>
-      <p style="font-size:.9rem;color:var(--text-mid);line-height:2;max-width:480px;margin:0 auto 40px;">購入・売却の流れ、必要書類、費用の目安まで。<br>はじめての方にも分かりやすく、実務の観点からまとめています。</p>
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-        <a href="guide.html" style="background:var(--navy);color:white;padding:15px 42px;text-decoration:none;font-size:.88rem;letter-spacing:.08em;border-radius:2px;transition:background .2s,transform .2s;display:inline-block;" onmouseover="this.style.background='var(--navy-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--navy)';this.style.transform=''">不動産ガイドを読む</a>
-        <a href="#contact" style="border:1px solid var(--navy);color:var(--navy);padding:15px 42px;text-decoration:none;font-size:.88rem;border-radius:2px;display:inline-block;transition:.2s;" onmouseover="this.style.background='rgba(27,58,92,0.06)'" onmouseout="this.style.background=''">まずは相談する</a>
+<!-- GUIDE LANDING -->
+<section id="guide-landing" style="background:var(--off-white);padding:96px 24px;">
+  <div class="container">
+    <div class="section-header fade-in visible" style="margin-bottom:56px;">
+      <span class="section-en">Real Estate Guide</span>
+      <h2 class="section-title">不動産ガイド</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">購入・売却の全ステップを、実務の視点でわかりやすく解説。<br>はじめての方から経験者まで、判断に役立つ情報を網羅しています。</p>
+    </div>
+    <div class="fade-in visible" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:40px;">
+      <!-- 購入ガイドカード -->
+      <a href="guide.html" style="text-decoration:none;display:block;background:linear-gradient(145deg,#1a4a7a,#2d6fa8);border-radius:6px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12);transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 44px rgba(0,0,0,.18)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,.12)'">
+        <div style="padding:44px 36px 36px;">
+          <div style="width:60px;height:60px;background:rgba(255,255,255,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.14em;margin-bottom:8px;">Purchase Guide</div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:500;color:white;letter-spacing:.08em;margin-bottom:16px;">不動産を買いたい</h3>
+          <p style="font-size:.85rem;color:rgba(255,255,255,.72);line-height:1.9;margin-bottom:28px;">物件探しから引渡しまで8ステップで解説。住宅ローン・必要書類・諸費用まで網羅。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;">
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">購入の流れ</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">必要書類</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">諸費用</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">住宅ローン</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;color:var(--gold);font-size:.85rem;letter-spacing:.06em;font-weight:500;">
+            購入ガイドを読む
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </div>
+      </a>
+      <!-- 売却ガイドカード -->
+      <a href="guide.html" style="text-decoration:none;display:block;background:linear-gradient(145deg,#1a5c4e,#2d8b7a);border-radius:6px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12);transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 44px rgba(0,0,0,.18)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,0,0,.12)'">
+        <div style="padding:44px 36px 36px;">
+          <div style="width:60px;height:60px;background:rgba(255,255,255,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.14em;margin-bottom:8px;">Sale Guide</div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:500;color:white;letter-spacing:.08em;margin-bottom:16px;">不動産を売りたい</h3>
+          <p style="font-size:.85rem;color:rgba(255,255,255,.72);line-height:1.9;margin-bottom:28px;">査定依頼から引渡しまで8ステップで解説。媒介契約・諸費用・確定申告まで網羅。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;">
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">売却の流れ</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">必要書類</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">諸費用</span>
+            <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.06em;">確定申告</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;color:rgba(196,233,224,.9);font-size:.85rem;letter-spacing:.06em;font-weight:500;">
+            売却ガイドを読む
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- ポイント3つ -->
+    <div class="fade-in visible" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="background:white;border-radius:6px;padding:28px 24px;border:1px solid var(--beige);text-align:center;">
+        <div style="width:48px;height:48px;background:var(--navy-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;color:var(--navy-dark);margin-bottom:8px;">必要書類を網羅</div>
+        <p style="font-size:.8rem;color:var(--text-mid);line-height:1.8;">購入・売却それぞれで必要な書類を一覧でわかりやすく整理。</p>
+      </div>
+      <div style="background:white;border-radius:6px;padding:28px 24px;border:1px solid var(--beige);text-align:center;">
+        <div style="width:48px;height:48px;background:var(--navy-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;color:var(--navy-dark);margin-bottom:8px;">諸費用の目安</div>
+        <p style="font-size:.8rem;color:var(--text-mid);line-height:1.8;">仲介手数料・登記費用など、かかるコストを事前に把握できます。</p>
+      </div>
+      <div style="background:white;border-radius:6px;padding:28px 24px;border:1px solid var(--beige);text-align:center;">
+        <div style="width:48px;height:48px;background:var(--navy-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;color:var(--navy-dark);margin-bottom:8px;">スケジュール感がわかる</div>
+        <p style="font-size:.8rem;color:var(--text-mid);line-height:1.8;">各ステップにかかる期間の目安も記載。全体像を把握して安心して進められます。</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- RECRUIT -->
-<section id="recruit" style="background:#fff;padding:96px 24px;text-align:center;">
+<section id="recruit" style="background:#fff;padding:80px 24px;text-align:center;">
   <div class="container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in visible">
       <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.14em;">採用情報</h2>
       <span class="section-en" style="display:block;margin-top:6px;">Recruit</span>
       <div class="section-line"></div>
       <p class="section-desc" style="margin-top:8px;">株式会社スピアードでは、一緒に働いてくれる方を募集しています。</p>
     </div>
-    <div class="fade-in" style="margin-top:8px;">
+    <div class="fade-in visible" style="margin-top:8px;">
       <a href="recruit.html" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:white;padding:15px 38px;text-decoration:none;font-size:.92rem;letter-spacing:.08em;border-radius:30px;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--navy-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--navy)';this.style.transform=''">採用情報に関してはこちら <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
     </div>
   </div>

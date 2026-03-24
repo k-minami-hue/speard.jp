@@ -20,10 +20,10 @@
     h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
 
     /* ===== HEADER ===== */
-    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; }
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:130px; transition:background .4s, box-shadow .4s; }
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .logo-img { height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-img { height:122px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
     .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
     nav { display:flex; align-items:center; gap:28px; }
     nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
@@ -36,7 +36,7 @@
     .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity:0; }
     .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display:none; position:fixed; top:108px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+    .mobile-menu { display:none; position:fixed; top:130px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
     .mobile-menu.open { display:flex; }
     .mobile-menu a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); letter-spacing:.05em; }
     .mobile-menu a:last-child { border-bottom:none; }
@@ -1048,11 +1048,23 @@
     if (!el) return;
     const head = el.querySelector('.acc-head'), body = el.querySelector('.acc-body');
     if (!head || !body) return;
+    // すでに開いている場合はレイアウト変化なしで即スクロール
+    if (body.classList.contains('open')) {
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 130, behavior: 'smooth' });
+      return;
+    }
+    // 他を閉じてターゲットを開く
     const parent = head.closest('.guide-content');
-    if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
+    if (parent) parent.querySelectorAll('.acc-head').forEach(h => {
+      h.classList.remove('open-buy','open-sell');
+      h.nextElementSibling.classList.remove('open');
+    });
     head.classList.add('open-' + type);
     body.classList.add('open');
-    setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' }), 50);
+    // CSSトランジション(400ms)完了後に正確な位置へスクロール
+    setTimeout(() => {
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 130, behavior: 'smooth' });
+    }, 420);
   }
   const cntObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
