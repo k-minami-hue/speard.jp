@@ -613,12 +613,15 @@
     /* PC/SP テキスト切り替え */
     .hero-sub-sp { display: none; }
     .hero-sub-pc { display: block; }
+    /* スマホ専用改行 */
+    .br-sp { display: none; }
 
     /* ===== MOBILE OVERRIDES ===== */
     @media (max-width: 640px) {
       /* ヘッダー */
       header { height: 64px; padding: 0 16px; }
-      .logo-img { height: 72px; }
+      .logo-img { height: 88px; }
+      .br-sp { display: block; height: 0; }
       .mobile-menu { top: 64px; }
 
       /* ヒーローSP/PC切り替え */
@@ -803,7 +806,7 @@
       <span class="section-en">Our Service</span>
       <h2 class="section-title">サービス概要</h2>
       <div class="section-line"></div>
-      <p class="section-desc">信頼と実績に裏打ちされた提案力で、最適な不動産取引を支援します。</p>
+      <p class="section-desc">信頼と実績に裏打ちされた提案力で、<span class="br-sp"></span>最適な不動産取引を支援します。</p>
     </div>
     <div class="service-grid">
       <div class="service-card fade-in visible" onclick="showPage('guide');setTimeout(()=>{const t=document.querySelector('.guide-tab[data-target=\"buy\"]');if(t)t.click();},100);" style="cursor:pointer;">
