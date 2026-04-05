@@ -610,7 +610,114 @@
     .contact-card-row { display: flex; gap: 12px; font-size: .88rem; color: var(--text-mid); line-height: 1.9; }
     .contact-card-label { color: var(--navy); font-weight: 500; min-width: 80px; flex-shrink: 0; }
 
-    
+    /* ===== MOBILE OVERRIDES ===== */
+    @media (max-width: 640px) {
+      /* ヘッダー */
+      header { height: 64px; padding: 0 16px; }
+      .logo-img { height: 50px; }
+      .mobile-menu { top: 64px; }
+
+      /* ヒーロー */
+      #home { min-height: 100svh; }
+      .hero-content { padding: 0 18px; }
+      .hero-en { font-size: .78rem; margin-bottom: 14px; }
+      .hero-title { font-size: 1.72rem; line-height: 1.5; letter-spacing: .03em; margin-bottom: 20px; }
+      .hero-sub { font-size: .79rem; line-height: 1.85; margin-bottom: 32px; }
+      .btn-primary, .btn-outline { padding: 13px 0; font-size: .83rem; width: 220px; text-align: center; }
+      .scroll-indicator { bottom: 24px; }
+
+      /* セクション共通 */
+      section { padding: 64px 18px; }
+      .section-header { margin-bottom: 40px; }
+      .section-title { font-size: 1.35rem; letter-spacing: .06em; }
+      .section-desc { font-size: .84rem; }
+
+      /* サービスカード */
+      .sc-hero { height: 150px; padding: 20px; }
+      .sc-label-ja { font-size: 1.35rem; }
+      .sc-body { padding: 20px; }
+      .sc-tagline { font-size: .88rem; }
+      .sc-list li { font-size: .8rem; }
+      .stat-card { padding: 30px 18px; }
+      .stat-num { font-size: 2.8rem; }
+
+      /* ガイドタブ */
+      .guide-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+      .guide-tab { flex-shrink: 0; padding: 10px 14px; font-size: .78rem; }
+
+      /* ガイドオーバービュー */
+      .guide-overview { padding: 18px 16px; margin-bottom: 24px; }
+      .guide-overview-title { font-size: .95rem; }
+      .guide-overview-desc { font-size: .8rem; line-height: 1.8; margin-bottom: 16px; }
+      .guide-nav-btns { gap: 7px; }
+      .guide-nav-btn { padding: 6px 12px; font-size: .72rem; }
+
+      /* アコーディオン */
+      .acc-head { padding: 14px 14px; }
+      .acc-head-left { gap: 12px; }
+      .acc-icon-wrap { width: 34px; height: 34px; }
+      .acc-icon-wrap svg { width: 17px; height: 17px; }
+      .acc-meta { font-size: .62rem; }
+      .acc-title { font-size: .88rem; letter-spacing: .03em; }
+      .acc-inner { padding: 18px 14px; }
+
+      /* ステップ */
+      .step-t { font-size: .88rem; }
+      .step-d { font-size: .8rem; line-height: 1.8; }
+      .step-tip { font-size: .77rem; padding: 10px 12px; }
+      .guide-intro { padding: 12px 14px; font-size: .8rem; line-height: 1.8; }
+
+      /* ステップマップ */
+      .step-map-label { font-size: .68rem; }
+      .step-map-icon { width: 36px; height: 36px; }
+
+      /* 書類カード */
+      .phase-title { font-size: .9rem; }
+      .doc-card-top { padding: 12px 12px 8px; gap: 10px; }
+      .doc-icon-circle { width: 34px; height: 34px; }
+      .doc-icon-circle svg { width: 15px; height: 15px; }
+      .doc-name { font-size: .82rem; }
+      .doc-tag { font-size: .58rem; }
+      .doc-card-body { padding: 0 12px 12px; }
+      .doc-desc { font-size: .76rem; line-height: 1.75; }
+
+      /* 費用カード */
+      .c-card { padding: 14px 14px; }
+      .c-card-name { font-size: .88rem; }
+      .c-card-amount { font-size: .8rem; }
+      .c-card-desc { font-size: .77rem; }
+      .lbadge { font-size: .64rem; }
+
+      /* tips/caution */
+      .tips-box, .caution-box { padding: 12px 14px; }
+      .tips-hd, .caution-hd { font-size: .76rem; }
+      .tips-bd, .caution-bd { font-size: .78rem; line-height: 1.75; }
+
+      /* 仲介テーブル */
+      .mediation-table { font-size: .7rem; min-width: 360px; }
+      .mediation-table th, .mediation-table td { padding: 7px 6px; }
+
+      /* 問合せ */
+      .contact-info-row { flex-direction: column; align-items: center; gap: 14px; }
+      .form-card { padding: 22px 14px; }
+
+      /* ページヒーロー（採用等） */
+      .page-hero { padding-top: 64px; }
+      .page-hero-inner { padding-top: 32px; }
+      .page-hero-title { font-size: 1.45rem; letter-spacing: .06em; }
+      .page-hero-sub { font-size: .8rem; line-height: 1.8; }
+
+      /* 採用メッセージ */
+      .r-message { padding: 22px 18px; }
+      .r-message-quote { font-size: .9rem; }
+      .r-message-body { font-size: .8rem; }
+      .r-cta-btn { padding: 14px 36px; font-size: .88rem; }
+
+      /* サマリーハイライト */
+      .summary-hl { padding: 16px 16px; }
+      .shl-value { font-size: 1.1rem; }
+    }
+
   </style>
 </head>
 <body>
