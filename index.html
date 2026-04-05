@@ -88,7 +88,7 @@
     h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
 
     /* ===== HEADER ===== */
-    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; }
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; background: rgba(13,34,56,.97); }
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo svg { width:36px; height:36px; }
@@ -1444,16 +1444,16 @@
           </div>
           <div class="r-card">
             <div class="r-card-label">アクセス</div>
-            <div class="r-card-value" style="font-size:.82rem;color:var(--text-mid);margin-bottom:4px;">東京メトロ銀座線・東京メトロ半蔵門線・都営大江戸線</div>
+            <div class="r-card-value" style="font-size:.82rem;color:var(--text-mid);margin-bottom:4px;">東京メトロ銀座線・半蔵門線・都営大江戸線</div>
             <div class="r-card-value">青山一丁目駅 5番出口 徒歩2分。</div>
           </div>
           <div class="r-card">
             <div class="r-card-label">勤務時間</div>
-            <div class="r-card-value">フレックスタイム制。<br><span style="font-size:.82rem;color:var(--text-mid);">コアタイム 10:00〜15:00。</span></div>
+            <div class="r-card-value">9:30〜18:00</div>
           </div>
           <div class="r-card">
             <div class="r-card-label">給与</div>
-            <div class="r-card-value">月給30万円以上。<br><span style="font-size:.82rem;color:var(--text-mid);">経験・能力を考慮のうえ決定。</span></div>
+            <div class="r-card-value">月給25万円〜<br><span style="font-size:.82rem;color:var(--text-mid);">営業成績に応じた賞与支給（年2回）</span></div>
           </div>
           <div class="r-card" style="grid-column:1/-1;">
             <div class="r-card-label">福利厚生</div>
@@ -1924,7 +1924,7 @@
 
       <div style="background:var(--navy);border-radius:6px;padding:52px 32px;text-align:center;margin-top:80px;">
         <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Contact Us</span>
-        <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">解決しない場合はお気軽にどうぞ</h2>
+        <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">その他の事もお気軽にどうぞ</h2>
         <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">どんな些細なことでも、まずはご相談ください。</p>
         <a href="javascript:void(0)" onclick="goToContact()" style="display:inline-block;background:var(--gold);color:white;padding:14px 40px;text-decoration:none;font-size:.88rem;border-radius:2px;letter-spacing:.08em;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--gold-hover)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--gold)';this.style.transform=''">お問合せはこちら</a>
       </div>
@@ -1955,7 +1955,7 @@
 
           <div class="access-block">
             <div class="access-block-label">最寄り駅</div>
-            <div class="access-block-sub">東京メトロ銀座線・東京メトロ半蔵門線・都営大江戸線</div>
+            <div class="access-block-sub">東京メトロ銀座線・半蔵門線・都営大江戸線</div>
             <div class="access-block-main">青山一丁目駅 5番出口 徒歩2分</div>
           </div>
 
@@ -1989,8 +1989,6 @@
 <footer>
   <div class="footer-links">
     <a href="javascript:void(0)" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
-    <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('service'),100);return false;">サービス概要</a>
-    <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('about'),100);return false;">私たちについて</a>
     <a href="javascript:void(0)" onclick="showPage('guide');return false;">不動産ガイド</a>
     <a href="javascript:void(0)" onclick="showPage('voices');return false;">お客様の声</a>
     <a href="javascript:void(0)" onclick="showPage('faq');return false;">よくあるご質問</a>
