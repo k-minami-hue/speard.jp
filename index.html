@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>株式会社スピアード | 首都圏マンション売買仲介</title>
-  <meta name="description" content="株式会社スピアード｜首都圏マンションの売買仲介専門会社。資産性を重視した提案で、購入・売却・投資の意思決定をサポートします。神奈川県・東京都対応。">
+  <title>株式会社スピアード | 23区内に特化した不動産仲介会社</title>
+  <meta name="description" content="23区内に特化した不動産仲介会社。資産性を重視したマンション売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
   <link rel="icon" type="image/png" href="logo.png">
   <meta name="keywords" content="不動産仲介,マンション売買,首都圏マンション,資産性,不動産購入,マンション売却,武蔵小杉,湾岸,都心,タワーマンション,スピアード,神奈川,東京,不動産会社">
   <meta name="author" content="株式会社スピアード">
@@ -14,15 +14,15 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://speard.jp/">
-  <meta property="og:title" content="株式会社スピアード | 首都圏マンション売買仲介">
-  <meta property="og:description" content="資産性を重視したマンション売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
+  <meta property="og:title" content="株式会社スピアード | 23区内に特化した不動産仲介会社">
+  <meta property="og:description" content="23区内に特化した不動産仲介会社。資産性を重視したマンション売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
   <meta property="og:site_name" content="株式会社スピアード">
   <meta property="og:locale" content="ja_JP">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="株式会社スピアード | 首都圏マンション売買仲介">
-  <meta name="twitter:description" content="資産性を重視したマンション売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
+  <meta name="twitter:title" content="株式会社スピアード | 23区内に特化した不動産仲介会社">
+  <meta name="twitter:description" content="23区内に特化した不動産仲介会社。資産性を重視したマンション売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
 
   <!-- JSON-LD 構造化データ -->
   <script type="application/ld+json">
@@ -35,7 +35,7 @@
     "alternateName": "SPEARD Inc.",
     "url": "https://speard.jp",
     "logo": "https://speard.jp/logo.png",
-    "description": "首都圏マンションの売買仲介専門会社。資産性を重視した提案で購入・売却をサポートします。",
+    "description": "23区内に特化した不動産仲介会社。資産性を重視したマンション売買仲介の専門会社。",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "南青山2-2-8 DFビル10F",
@@ -610,12 +610,35 @@
     .contact-card-row { display: flex; gap: 12px; font-size: .88rem; color: var(--text-mid); line-height: 1.9; }
     .contact-card-label { color: var(--navy); font-weight: 500; min-width: 80px; flex-shrink: 0; }
 
+    /* PC/SP テキスト切り替え */
+    .hero-sub-sp { display: none; }
+    .hero-sub-pc { display: block; }
+
     /* ===== MOBILE OVERRIDES ===== */
     @media (max-width: 640px) {
       /* ヘッダー */
       header { height: 64px; padding: 0 16px; }
-      .logo-img { height: 50px; }
+      .logo-img { height: 72px; }
       .mobile-menu { top: 64px; }
+
+      /* ヒーローSP/PC切り替え */
+      .hero-sub-pc { display: none; }
+      .hero-sub-sp { display: block; }
+
+      /* 本文 両端揃え（1文字余り防止） */
+      .president-message p,
+      .step-d, .step-tip,
+      .guide-intro, .guide-overview-desc,
+      .tips-bd, .caution-bd,
+      .doc-desc, .c-card-desc,
+      .section-desc, .faq-text,
+      .r-message-body, .r-flow-text,
+      .acc-inner p {
+        text-align: justify;
+        text-justify: inter-ideograph;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
 
       /* ヒーロー */
       #home { min-height: 100svh; }
@@ -763,7 +786,8 @@
   <div class="hero-content">
     <p class="hero-en"><br></p>
     <h1 class="hero-title">不動産は、<br>人生を動かす決断だ。</h1>
-    <p class="hero-sub">不動産取引は、人生を動かす決断。その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。<br>株式会社スピアードは、お客様の人生に寄り添い、未来を共に築くパートナーであり続けます。</p>
+    <p class="hero-sub hero-sub-pc">不動産取引は、人生を動かす決断。その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。<br>株式会社スピアードは、お客様の人生に寄り添い、未来を共に築くパートナーであり続けます。</p>
+    <p class="hero-sub hero-sub-sp">不動産取引は、人生を動かす決断。<br>その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。</p>
     <div class="hero-btns">
       <a href="#contact" class="btn-primary">無料相談を申し込む</a>
       <a href="#service" class="btn-outline">サービス詳細を見る</a>
@@ -836,10 +860,10 @@
         <div class="president-name-en">KAZUKI MINAMI</div>
       </div>
       <div class="president-message">
-        <p>本当にお客様のためになる提案とは、<br>時には「その物件は買うべきではない」と率直にお伝えすること。<br>誠実さを貫き、納得のある意思決定を支えること。<br>それが私たちの役割です。</p>
-        <p>私自身も不動産の購入と売却を複数経験してきました。<br>取引の中で感じる不安や迷い、<br>決断の先にある安心感まで、実体験として理解しています。<br>だからこそ、常にお客様の視点で考えています。</p>
-        <p>市場動向、エリア特性、価格推移を的確に分析し、<br>購入では「居住性と資産性」、<br>売却では「価格とスピード」の最適なバランスを追求します。</p>
-        <p>不動産の取引は、人生における大きな意思決定です。<br>その重みを理解し、誠実に寄り添いながら、<br>最良の選択を支援してまいります。</p>
+        <p>本当にお客様のためになる提案とは、時には「その物件は買うべきではない」と率直にお伝えすること。誠実さを貫き、納得のある意思決定を支えること。それが私たちの役割です。</p>
+        <p>私自身も不動産の購入と売却を複数経験してきました。取引の中で感じる不安や迷い、決断の先にある安心感まで、実体験として理解しています。だからこそ、常にお客様の視点で考えています。</p>
+        <p>市場動向、エリア特性、価格推移を的確に分析し、購入では「居住性と資産性」、売却では「価格とスピード」の最適なバランスを追求します。</p>
+        <p>不動産の取引は、人生における大きな意思決定です。その重みを理解し、誠実に寄り添いながら、最良の選択を支援してまいります。</p>
       </div>
     </div>
   </div>
