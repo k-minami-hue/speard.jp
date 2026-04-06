@@ -92,7 +92,7 @@
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo svg { width:36px; height:36px; }
-    .logo-img { height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-img { height:130px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
     .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
     nav { display:flex; align-items:center; gap:28px; }
     nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
@@ -619,10 +619,10 @@
     /* ===== MOBILE OVERRIDES ===== */
     @media (max-width: 640px) {
       /* ヘッダー */
-      header { height: 64px; padding: 0 16px; }
-      .logo-img { height: 88px; }
+      header { height: 88px; padding: 0 16px; }
+      .logo-img { height: 80px; }
       .br-sp { display: block; height: 0; }
-      .mobile-menu { top: 64px; }
+      .mobile-menu { top: 88px; }
 
       /* ヒーローSP/PC切り替え */
       .hero-sub-pc { display: none; }
@@ -863,10 +863,10 @@
         <div class="president-name-en">KAZUKI MINAMI</div>
       </div>
       <div class="president-message">
-        <p>本当にお客様のためになる提案とは、時には「その物件は買うべきではない」と率直にお伝えすること。誠実さを貫き、納得のある意思決定を支えること。それが私たちの役割です。</p>
-        <p>私自身も不動産の購入と売却を複数経験してきました。取引の中で感じる不安や迷い、決断の先にある安心感まで、実体験として理解しています。だからこそ、常にお客様の視点で考えています。</p>
-        <p>市場動向、エリア特性、価格推移を的確に分析し、購入では「居住性と資産性」、売却では「価格とスピード」の最適なバランスを追求します。</p>
-        <p>不動産の取引は、人生における大きな意思決定です。その重みを理解し、誠実に寄り添いながら、最良の選択を支援してまいります。</p>
+        <p>本当にお客様のためになる提案とは。<br>時には良いことだけでなく、厳しい面もきちんと伝えること。<br>誠実さを貫き、納得のある意思決定を支えること。<br>それが私たちの役割です。</p>
+        <p>私自身も不動産の購入と売却を複数経験してきました。<br>取引の中で感じる不安や迷い、決断の先にある安心感まで、<br>体験しているからこそ、常にお客様の視点で考えています。</p>
+        <p>市場動向、エリア特性、価格推移を的確に分析し、<br>購入では「居住性と資産性」、<br>売却では「価格とスピード」の最適なバランスを追求します。</p>
+        <p>不動産取引とは、人生における大きな意思決定です。<br>その重みを理解し、誠実に寄り添いながら、最良の選択を支援してまいります。</p>
       </div>
     </div>
   </div>
@@ -2160,11 +2160,11 @@
           <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
           <div class="faq-q">
             <div class="faq-badge faq-badge-q">Q</div>
-            <p class="faq-text">大手と比べてサポート面で不安？</p>
+            <p class="faq-text">賃貸仲介はやっていますか？</p>
           </div>
           <div class="faq-a">
             <div class="faq-badge faq-badge-a">A</div>
-            <p class="faq-text">スピアードは少人数だからこそ、一組一組のお客様と密に向き合い、丁寧な取引を徹底しています。担当者が最初から最後まで一貫して対応するため、意思疎通もスムーズで、安心してお任せいただけます。</p>
+            <p class="faq-text">賃貸仲介は行っておりませんが、提携会社のご紹介は可能です。</p>
           </div>
         </div>
 
@@ -2172,11 +2172,11 @@
           <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
           <div class="faq-q">
             <div class="faq-badge faq-badge-q">Q</div>
-            <p class="faq-text">不動産の仲介は、どこに依頼しても同じ？</p>
+            <p class="faq-text">全国の物件も紹介可能ですか？</p>
           </div>
           <div class="faq-a">
             <div class="faq-badge faq-badge-a">A</div>
-            <p class="faq-text">提案の「質」や交渉力には大きな差が生まれます。スピアードでは単なる条件提示でなく、長い人生を見据えた戦略で「買って終わりではない価値」を提供します。</p>
+            <p class="faq-text">一都三県のみでご紹介させていただいております。</p>
           </div>
         </div>
 
@@ -2184,11 +2184,59 @@
           <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
           <div class="faq-q">
             <div class="faq-badge faq-badge-q">Q</div>
-            <p class="faq-text">まだ明確な条件も決まっていません。それでも相談できますか？</p>
+            <p class="faq-text">相談料はかかりますか？</p>
           </div>
           <div class="faq-a">
             <div class="faq-badge faq-badge-a">A</div>
-            <p class="faq-text">もちろん可能です。多くのお客様が「何を優先するべきか分からない」状態から相談にいらっしゃいます。ライフスタイルや資金計画に応じた整理からお手伝いしておりますので、まずはお気軽に状況をお聞かせください。</p>
+            <p class="faq-text">物件のご相談・ご案内は完全無料です。初期相談や物件案内にあたって料金は一切いただいておりません。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
+          <div class="faq-q">
+            <div class="faq-badge faq-badge-q">Q</div>
+            <p class="faq-text">契約から引き渡しまでどのくらいかかりますか？</p>
+          </div>
+          <div class="faq-a">
+            <div class="faq-badge faq-badge-a">A</div>
+            <p class="faq-text">物件やローンの状況によりますが、通常1〜2か月程度です。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
+          <div class="faq-q">
+            <div class="faq-badge faq-badge-q">Q</div>
+            <p class="faq-text">物件価格以外にお金はどれくらいかかりますか？</p>
+          </div>
+          <div class="faq-a">
+            <div class="faq-badge faq-badge-a">A</div>
+            <p class="faq-text">目安は物件価格の約4〜8％程度です。仲介手数料や登記費用、ローン手数料、税金などが含まれます。<br>詳細は<a href="javascript:void(0)" onclick="showPage('guide');window.scrollTo(0,0);" style="color:var(--navy);font-weight:500;text-decoration:underline;text-underline-offset:3px;">不動産ガイド</a>をご覧ください。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
+          <div class="faq-q">
+            <div class="faq-badge faq-badge-q">Q</div>
+            <p class="faq-text">買換えの場合、売却と購入はどちらを先に進めるべきですか？</p>
+          </div>
+          <div class="faq-a">
+            <div class="faq-badge faq-badge-a">A</div>
+            <p class="faq-text">状況により異なります。<br>「売却先行」：売却額が確定してから購入予算が決まるため、資金計画が立てやすくなります。<br>ただし売却後に希望物件が見つからない場合、仮住まいが必要になるリスクがあります。<br>「購入先行」：理想の物件を先に確保できますが、二重ローンや資金繰りのリスクが伴います。<br>市況・資金状況・ご家族の事情によって最適解は異なりますので、まずは弊社へご相談ください。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-del-btn" onclick="this.closest('.faq-item').remove()">削除</button>
+          <div class="faq-q">
+            <div class="faq-badge faq-badge-q">Q</div>
+            <p class="faq-text">売却価格はどのように決まりますか？</p>
+          </div>
+          <div class="faq-a">
+            <div class="faq-badge faq-badge-a">A</div>
+            <p class="faq-text">主に「近隣の成約事例（実際に売れた価格）」をベースに、<br>階数・向き・築年数・管理状態・リフォーム有無などを加味して算出されます。<br>周辺の売出価格は参考値に過ぎず、実際の成約価格と乖離があるケースも多いです。<br>まずは売却査定から、お気軽にお問合せください。</p>
           </div>
         </div>
 
@@ -2196,7 +2244,7 @@
 
       <div style="background:var(--navy);border-radius:6px;padding:52px 32px;text-align:center;margin-top:80px;">
         <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Contact Us</span>
-        <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">その他の事もお気軽にどうぞ</h2>
+        <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">その他の不明点についてもお気軽にどうぞ</h2>
         <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">どんな些細なことでも、まずはご相談ください。</p>
         <a href="javascript:void(0)" onclick="goToContact()" style="display:inline-block;background:var(--gold);color:white;padding:14px 40px;text-decoration:none;font-size:.88rem;border-radius:2px;letter-spacing:.08em;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--gold-hover)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--gold)';this.style.transform=''">お問合せはこちら</a>
       </div>
