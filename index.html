@@ -237,7 +237,9 @@
     .step { display:flex; gap:18px; position:relative; padding-bottom:26px; }
     .step::after { content:''; position:absolute; left:14px; top:32px; bottom:0; width:1px; background:var(--beige); }
     .step:last-child { padding-bottom:0; } .step:last-child::after { display:none; }
-    .step-dot { width:30px; height:30px; min-width:30px; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; margin-top:2px; position:relative; z-index:1; font-family:'Playfair Display',serif; }
+    .step-dot { width:46px; height:46px; min-width:46px; color:white; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; font-weight:700; margin-top:2px; position:relative; z-index:1; }
+    .step-dot-label { font-size:.38rem; letter-spacing:.12em; font-family:'Noto Sans JP',sans-serif; font-weight:700; opacity:.9; line-height:1.2; }
+    .step-dot-num { font-size:.88rem; font-weight:700; font-family:'Playfair Display',serif; line-height:1.1; }
     .dot-buy{background:var(--navy)} .dot-sell{background:var(--teal)}
     .step-body {}
     .step-t { font-size:.92rem; font-weight:600; margin-bottom:6px; }
@@ -1076,48 +1078,48 @@
             <div class="step-map">
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-                <div class="step-map-num">STEP 01</div>
+                <div class="step-map-num">STEP 1</div>
                 <div class="step-map-label">予算を固める</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                <div class="step-map-num">STEP 02</div>
+                <div class="step-map-num">STEP 2</div>
                 <div class="step-map-label">エリアを絞る</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-                <div class="step-map-num">STEP 03</div>
+                <div class="step-map-num">STEP 3</div>
                 <div class="step-map-label">物件と内見</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
-                <div class="step-map-num">STEP 04</div>
+                <div class="step-map-num">STEP 4</div>
                 <div class="step-map-label">購入申込み</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><rect x="2" y="9" width="20" height="13"/><path d="M12 2L2 9h20z"/></svg></div>
-                <div class="step-map-num">STEP 05</div>
+                <div class="step-map-num">STEP 5</div>
                 <div class="step-map-label">ローン審査</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><polyline points="9,15 11,17 15,13"/></svg></div>
-                <div class="step-map-num">STEP 06</div>
+                <div class="step-map-num">STEP 6</div>
                 <div class="step-map-label">売買契約</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M7 2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
-                <div class="step-map-num">STEP 07</div>
+                <div class="step-map-num">STEP 7</div>
                 <div class="step-map-label">引渡し準備</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-buy"><svg viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21.5 2.5l-9.5 9.5"/><line x1="15.5" y1="8.5" x2="21.5" y2="8.5"/><line x1="18.5" y1="5.5" x2="18.5" y2="11.5"/></svg></div>
-                <div class="step-map-num">STEP 08</div>
+                <div class="step-map-num">STEP 8</div>
                 <div class="step-map-label">決済・引渡し</div>
               </div>
             </div>
             <ul class="steps">
               <li class="step">
-                <div class="step-dot dot-buy">01</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">1</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>予算を固める</div>
                   <div class="step-d">まず優先すべきは予算の確定です。「物件を見てから考える」という方も多いですが、最終局面で慌てないよう、先に進めておくことをお勧めします。</div><div class="step-d">ローンを組む場合は月々どれくらいの返済を上限にするか最初に確定しましょう。予算が定まることで、初めて「買うべき物件」を探せます。</div>
@@ -1125,7 +1127,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">02</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">2</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>検討エリアを絞る</div>
                   <div class="step-d">予算の目線が決まったら、エリアを絞ります。「どこでもいい」という状態では比較軸がなくなり、物件探しが進みません。</div><div class="step-d">通勤・通学時間、子育て環境、将来の売却を見越した資産性など、優先順位を紙に書き出してみましょう。</div>
@@ -1133,7 +1135,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">03</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">3</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>物件チェックと内見</div>
                   <div class="step-d">予算とエリアが決まってからが本格的な物件探しです。ポータルサイトでの絞り込みと、不動産会社への相談を並行して進めましょう。</div><div class="step-d">内見では間取りだけでなく、日当たり・騒音・共用部の管理状態・近隣の雰囲気なども確認します。</div>
@@ -1141,7 +1143,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">04</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">4</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>購入申込み</div>
                   <div class="step-d">欲しい物件が見つかった際は購入申込みに進みます。決断力が必要になる最も重要な場面です。</div>
@@ -1151,7 +1153,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">05</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">5</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><line x1="3" y1="22" x2="21" y2="22"/><rect x="2" y="9" width="20" height="13"/><path d="M12 2L2 9h20z"/></svg>住宅ローン事前審査と本審査</div>
                   <div class="step-d">申込と並行して、住宅ローンの事前審査（仮審査）を行います。</div><div class="step-d">金融機関によって借入可能額や金利条件が異なるため、複数の銀行へ問合せることをお勧めします。</div><div class="step-d">事前審査は通常1週間ほどで結果が出ます。売買契約後に本申込を行い、本審査通過で融資が正式確定します。</div>
@@ -1162,7 +1164,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">06</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">6</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><polyline points="9,15 11,17 15,13"/></svg>売買契約の締結</div>
                   <div class="step-d">宅地建物取引士から重要事項説明を受けた後、売買契約書に署名・捺印します。</div><div class="step-d">手付金（通常は物件価格の5〜10%）をこの時点で支払います。</div>
@@ -1173,14 +1175,14 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">07</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">7</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M7 2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>引渡しまでの準備</div>
                   <div class="step-d">本審査通過後、ローン契約・火災保険加入・引越し先の手配などを進めます。引渡し日の2〜3週間前には準備を完了させておくと安心です。</div>
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-buy">08</div>
+                <div class="step-dot dot-buy"><span class="step-dot-label">STEP</span><span class="step-dot-num">8</span></div>
                 <div class="step-body">
                   <div class="step-t st-buy" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21.5 2.5l-9.5 9.5"/><line x1="15.5" y1="8.5" x2="21.5" y2="8.5"/><line x1="18.5" y1="5.5" x2="18.5" y2="11.5"/></svg>残金決済・引渡し</div>
                   <div class="step-d">ローン実行日に司法書士立会いのもと、残金の支払いと所有権移転登記を行います。</div><div class="step-d">この日に鍵を受け取り、新居の引渡しが完了です。当日は本人確認書類など手元に揃えておきましょう。</div>
@@ -1332,8 +1334,8 @@
             <hr class="section-divider">
             <div class="lbadge lb-object">物件にかかる費用</div>
             <div class="card-grid-2">
-              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-navy">数万円前後</div><div class="c-card-desc">売買契約書に貼付する税金。<span style="font-size: 0.8rem;">契約金額に応じて税額が定められています。</span><div><span style="font-size: 0.8rem;">（例：5,000万円～1億円の物件の契約書は3万円）。</span></div></div></div>
-              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-navy">登録免許税＋司法書士報酬</div><div class="c-card-desc">所有権移転登記や抵当権設定登記にかかる費用です。<div>物件の評価額や借入内容によって変動します。</div></div></div>
+              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-navy">数万円前後</div><div class="c-card-desc">売買契約書に貼付する税金。<br>契約金額に応じて税額が定められています。<br>（例：5,000万円～1億円の物件の契約書は3万円）</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-navy">3万円〜程度</div><div class="c-card-desc">所有権移転登記や抵当権設定登記にかかる費用です。<br>物件の評価額や借入内容によって変動します。</div></div>
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">物件価格×3%＋6万円＋消費税（上限）</div><div class="c-card-desc">仲介会社へ支払う報酬です。<div>弊社では決済・引渡し完了と同時に頂戴しております。</div></div></div>
               <div class="c-card"><span class="ttag tt-shutoku">取得後</span><div class="c-card-name">不動産取得税</div><div class="c-card-amount ca-navy">0円〜評価額の数%</div><div class="c-card-desc">取得後しばらくして納税通知書が届きます。<div>一定の要件を満たすと軽減措置により0円になる場合もあります。</div></div></div>
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主へ支払います。</div></div>
@@ -1408,48 +1410,48 @@
             <div class="step-map">
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                <div class="step-map-num">STEP 01</div>
+                <div class="step-map-num">STEP 1</div>
                 <div class="step-map-label">相場把握・査定</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-                <div class="step-map-num">STEP 02</div>
+                <div class="step-map-num">STEP 2</div>
                 <div class="step-map-label">媒介契約</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-                <div class="step-map-num">STEP 03</div>
+                <div class="step-map-num">STEP 3</div>
                 <div class="step-map-label">売却活動</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-                <div class="step-map-num">STEP 04</div>
+                <div class="step-map-num">STEP 4</div>
                 <div class="step-map-label">内覧と交渉</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-                <div class="step-map-num">STEP 05</div>
+                <div class="step-map-num">STEP 5</div>
                 <div class="step-map-label">売買契約</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                <div class="step-map-num">STEP 06</div>
+                <div class="step-map-num">STEP 6</div>
                 <div class="step-map-label">引渡し準備</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21.5 2.5l-9.5 9.5"/><line x1="15.5" y1="8.5" x2="21.5" y2="8.5"/><line x1="18.5" y1="5.5" x2="18.5" y2="11.5"/></svg></div>
-                <div class="step-map-num">STEP 07</div>
+                <div class="step-map-num">STEP 7</div>
                 <div class="step-map-label">決済・引渡し</div>
               </div>
               <div class="step-map-item">
                 <div class="step-map-icon smi-sell"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
-                <div class="step-map-num">STEP 08</div>
+                <div class="step-map-num">STEP 8</div>
                 <div class="step-map-label">確定申告</div>
               </div>
             </div>
             <ul class="steps">
               <li class="step">
-                <div class="step-dot dot-sell">01</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">1</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>相場把握と査定依頼</div>
                   <div class="step-d">まず「ざっくりした相場観」を持つことから始めます。市場に出ている自物件のポジションを把握することで、適正価格を掴む足がかりになります。</div><div class="step-d">査定はあくまで売出し価格の参考であり、成約する価格ではありません。数字だけに引きずられず、担当者の力を見る姿勢で依頼することをお勧めします。</div>
@@ -1457,7 +1459,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">02</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">2</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>媒介契約の締結</div>
                   <div class="step-d">売却を依頼するパートナーを決めます。</div><div class="step-d">どの契約形態にするかも重要で、売力のある会社を選ぶことが売却の成果を分ける大きな要素のひとつです。状況に応じて柔軟に判断しましょう。</div>
@@ -1487,21 +1489,21 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">03</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">3</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>売却活動</div>
                   <div class="step-d">媒介契約後、ポータルサイトへの掲載が始まります。第一印象を左右する「写真のクオリティ」は非常に重要です。</div><div class="step-d">掲載写真の構図・明るさ・角度は担当者と事前に確認しましょう。</div><div class="step-d">モデルルームのような「暮らしの見せ方」を意識することで、反響数と内見数が変わります。</div>
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">04</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">4</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>内覧対応と交渉</div>
                   <div class="step-d">購入希望者による内覧が行われます。清潔さ・温度感・匂いの三点に気を配るだけで、印象は大きく変わります。</div><div class="step-d">購入申込みが入ったら、価格だけでなく引渡し時期の調整も伴います。</div><div class="step-d">買替えの場合は、次の住まいのスケジュールと連動するため、全体的な視点で交渉することが重要です。</div>
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">05</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">5</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>売買契約</div>
                   <div class="step-d">買主様と売買契約を締結します。物件の状況やリスクを正確に告知し、契約書・付属書類は全てコピーして保管しましょう。</div><div class="step-d">契約時に手付金を受取り、引渡し準備が開始します。</div>
@@ -1512,14 +1514,14 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">06</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">6</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>引渡しまでの準備</div>
                   <div class="step-d">買主様のローン本審査通過後、一気に実務が動き出します。</div><div class="step-d">引渡しの手配、鍵の整理、ローンの完済手続きなど、担当者との綿密なスケジュール管理が必要です。特に買替えの場合、「引渡し時期調整」が重要になります。</div>
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">07</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">7</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21.5 2.5l-9.5 9.5"/><line x1="15.5" y1="8.5" x2="21.5" y2="8.5"/><line x1="18.5" y1="5.5" x2="18.5" y2="11.5"/></svg>決済・引渡し</div>
                   <div class="step-d">現金代金受領、所有権移転登記と同時に担保権の抹消も行います。</div><div class="step-d">抵当権抹消の準備不足があると当日の手続きが止まるため、銀行・司法書士との事前調整が欠かせません。</div>
@@ -1530,7 +1532,7 @@
                 </div>
               </li>
               <li class="step">
-                <div class="step-dot dot-sell">08</div>
+                <div class="step-dot dot-sell"><span class="step-dot-label">STEP</span><span class="step-dot-num">8</span></div>
                 <div class="step-body">
                   <div class="step-t st-sell" style="display:flex;align-items:center;gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>確定申告</div>
                   <div class="step-d">売却益（譲渡所得）が発生した場合は、翌年2〜3月に確定申告が必要です。</div><div class="step-d">居住用財産の3,000万円特別控除や、10年超保有の軽減税率など、適用できる特例がないか確認しましょう。</div>
@@ -1652,16 +1654,15 @@
             <hr class="section-divider">
             <div class="lbadge lb-major">売却にかかる主な諸費用</div>
             <div class="card-grid-2">
-              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-teal">数万円</div><div class="c-card-desc">売買契約書に貼付する税金。契約金額に応じて税額が定められています。<br>
-（例：5,000万円～1億円の物件の契約書は3万円）。</div></div>
-              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-teal">1〜3万円程度</div><div class="c-card-desc">抵当権抹消や住所変更に関する登録免許税です。</div></div>
+              <div class="c-card"><span class="ttag tt-keiyaku">契約時</span><div class="c-card-name">印紙税</div><div class="c-card-amount ca-teal">数万円</div><div class="c-card-desc">売買契約書に貼付する税金。契約金額に応じて税額が定められています。<br>（例：5,000万円～1億円の物件の契約書は3万円）</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-teal">3〜5万円程度</div><div class="c-card-desc">抵当権抹消や住所変更に関する登録免許税です。</div></div>
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">最大（売却価格の3%+6万円）＋税</div><div class="c-card-desc">仲介会社へ支払う報酬です。<br>弊社では決済・引渡し完了と同時に頂戴しております。</div></div>
               <div class="c-card"><span class="ttag tt-baikyaku">売却後（翌年）</span><div class="c-card-name">譲渡所得税</div><div class="c-card-amount ca-teal">売却益が出た場合のみ</div><div class="c-card-desc">所有期間が5年超か以下で税率が異なります。<br>特別控除の適用で0円になる場合もあります。</div></div>
             </div>
             <hr class="section-divider">
             <div class="lbadge lb-check">忘れがちな支出と重要ポイント</div>
             <div class="card-grid-2">
-              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">ローン一括返済手数料</div><div class="c-card-amount ca-teal">数万円程度</div><div class="c-card-desc">金融機関によって手数料が異なります（無料の場合も）。<div>残債がある場合は事前確認を。</div></div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">ローン一括返済手数料</div><div class="c-card-amount ca-teal">数千円〜数万円程度</div><div class="c-card-desc">金融機関によって手数料が異なります（無料の場合も）。<div>残債がある場合は事前確認を。</div></div></div>
               <div class="c-card"><span class="ttag tt-baikyaku">引渡し前</span><div class="c-card-name">測量・解体・クリーニング費</div><div class="c-card-amount ca-teal">物件条件により変動</div><div class="c-card-desc">土地売却時の境界測量、建物解体費用など。必要かどうか確認しましょう。</div></div>
             </div>
 
