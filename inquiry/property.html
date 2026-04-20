@@ -778,15 +778,6 @@
 
       <h2 class="section-title">問い合わせフォーム</h2>
 
-      <div class="form-section" id="manual-prop-section" style="display:none">
-        <div class="form-section-title">物件情報</div>
-        <div class="form-group">
-          <label>物件名称 <span class="req-badge">必須</span></label>
-          <input type="text" id="f-prop-name" placeholder="例：Brillia西荻窪 / ザ・パークハウス〇〇">
-          <span class="hint">お問い合わせ対象の物件名を入力してください</span>
-        </div>
-      </div>
-
       <div class="inquiry-type">
         <div>
           <input type="radio" name="inquiry" id="type-guide" value="案内希望(内見)" class="inquiry-option" checked>
@@ -1088,8 +1079,6 @@ if (MANUAL_MODE) {
   document.querySelectorAll('.pane').forEach(pane => pane.classList.remove('active'));
   document.getElementById('tab-contact').classList.add('active');
   document.getElementById('pane-contact').classList.add('active');
-  // 物件名入力欄を表示
-  document.getElementById('manual-prop-section').style.display = 'block';
 }
 
 function setIfExists(id, rowId, val, suffix) {
@@ -1222,15 +1211,6 @@ function goConfirm() {
   const mobile = document.getElementById('f-mobile').value.trim();
   const email = document.getElementById('f-email').value.trim();
   const card = document.getElementById('f-card').files[0];
-  // 手入力モードの場合は物件名も必須
-  const manualPropName = MANUAL_MODE ? document.getElementById('f-prop-name').value.trim() : '';
-
-  if (MANUAL_MODE && !manualPropName) {
-    alert('物件名称をご入力ください。');
-    document.getElementById('f-prop-name').focus();
-    return;
-  }
-
   if (!company || !branch || !tel || !name || !mobile || !email || !card) {
     alert('必須項目をすべて入力してください。');
     return;
@@ -1386,7 +1366,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
   }
 
   const propName = MANUAL_MODE
-    ? (document.getElementById('f-prop-name').value.trim() || '物件名未入力')
+    ? '（業者問合せ・物件指定なし）'
     : (p.get('name') || '物件名未設定');
   const inquiringCo = document.getElementById('f-company').value.trim();
   const inquiringBranch = document.getElementById('f-branch').value.trim();
@@ -1494,7 +1474,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
 
 function renderDoneSummary(cardImageUrl) {
   const propName = MANUAL_MODE
-    ? (document.getElementById('f-prop-name').value.trim() || '物件名未入力')
+    ? '（業者問合せ・物件指定なし）'
     : (p.get('name') || '物件名未設定');
   const inquiryType = document.getElementById('c-type').textContent;
   const dateText = document.getElementById('c-dates').textContent || '（指定なし）';
