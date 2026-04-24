@@ -916,8 +916,10 @@
     </div>
     <div class="contact-form-wrap fade-in">
       <div class="form-card" id="contact-form-card">
-        <form id="contact-form" name="contact" method="POST" data-netlify="true" novalidate>
-          <input type="hidden" name="form-name" value="contact">
+        <form id="contact-form" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="5268c498-3e71-4a9e-ac7f-6aa7dc428f4e">
+          <input type="hidden" name="cc" value="info@speard.jp">
+          <input type="hidden" name="subject" value="「speard.jpお問合せ」お問合せが届きました">
           <div class="form-row-2col">
             <div class="form-row">
               <label>お名前<span>*</span></label>
@@ -2484,38 +2486,23 @@ document.querySelectorAll('.counter').forEach(el => cntObs.observe(el));
 // ===== CONTACT FORM =====
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const nameVal  = this.querySelector('[name="name"]').value.trim();
-    const emailVal = this.querySelector('[name="email"]').value.trim();
-    const typeVal  = this.querySelector('[name="type"]').value;
-    const msgVal   = this.querySelector('[name="message"]').value.trim();
-    if (!nameVal || !emailVal || !typeVal || !msgVal) {
-      alert('お名前・メールアドレス・種別・内容は必須項目です。');
-      return;
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = '送信中…'; }
+    const formData = new FormData(form);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (data.success) {
+        form.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p style="color:#fff;font-size:1.1rem;margin-bottom:8px;">送信完了しました</p><p style="color:rgba(255,255,255,.7);font-size:.9rem;">担当者よ2営業日以内にご連絡いたします。</p></div>';
+      } else { throw new Error(data.message); }
+    } catch(err) {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+      alert('送信に失敗しました。しばらくしてから再度お試しください。');
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      alert('メールアドレスの形式が正しくありません。');
-      return;
-    }
-    const btn = this.querySelector('.form-submit-btn');
-    btn.disabled = true;
-    btn.textContent = '送信中...';
-    const formData = new FormData(this);
-    fetch(window.location.pathname, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
-    })
-    .then(() => {
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    })
-    .catch(() => {
-      btn.disabled = false;
-      btn.textContent = '送信する';
-      alert('送信に失敗しました。時間をおいて再度お試しください。');
-    });
+  });
   });
 }
 
