@@ -2486,7 +2486,8 @@ document.querySelectorAll('.counter').forEach(el => cntObs.observe(el));
 // ===== CONTACT FORM =====
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-  form.addEventListener('submit', async function(e) {
+const form = contactForm;
+    form.addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
     const orig = btn ? btn.textContent : '';
