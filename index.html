@@ -787,6 +787,7 @@
   <a href="javascript:void(0)" onclick="showPage('faq');closeMobileMenu();return false;">よくあるご質問</a>
   <a href="javascript:void(0)" onclick="showPage('recruit');closeMobileMenu();return false;">採用情報</a>
   <a href="javascript:void(0)" onclick="showPage('access');closeMobileMenu();return false;">アクセス</a>
+  <a href="javascript:void(0)" onclick="showPage('column');closeMobileMenu();return false;">コラム</a>
   <a href="javascript:void(0)" onclick="showPage('privacy');closeMobileMenu();return false;">プライバシーポリシー</a>
   <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);closeMobileMenu();return false;" class="btn-nav-mobile">お問合せ</a>
 </div>
@@ -2511,7 +2512,9 @@ const form = contactForm;
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
-        form.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p style="color:#fff;font-size:1.1rem;margin-bottom:8px;">送信完了しました</p><p style="color:rgba(255,255,255,.7);font-size:.9rem;">担当者より2営業日以内にご連絡いたします。</p></div>';
+        contactForm.style.display = 'none';
+          const successDiv = document.getElementById('form-success');
+          if (successDiv) successDiv.style.display = 'block';
       } else { throw new Error(data.message); }
     } catch(err) {
       if (btn) { btn.disabled = false; btn.textContent = orig; }
