@@ -771,6 +771,7 @@
       <a href="javascript:void(0)" onclick="showPage('faq');return false;">よくあるご質問</a>
       <a href="javascript:void(0)" onclick="showPage('recruit');return false;">採用情報</a>
       <a href="javascript:void(0)" onclick="showPage('access');return false;">アクセス</a>
+      <a href="javascript:void(0)" onclick="showPage('column');return false;">コラム</a>
     </div>
     <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;" class="btn-nav">お問合せ</a>
   </nav>
@@ -2340,6 +2341,19 @@
   <button id="edit-btn" onclick="toggleEditMode()">✏️ 編集モード</button>
 </div>
 
+<div id="page-column" class="spa-page">
+  <div style="max-width:900px;margin:0 auto;padding:80px 24px;text-align:center;">
+    <p style="color:#B8973F;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;letter-spacing:.15em;margin-bottom:12px;">Column</p>
+    <h2 style="font-size:2rem;color:#1a2744;font-weight:700;margin-bottom:16px;">コラム</h2>
+    <div style="width:40px;height:2px;background:#B8973F;margin:0 auto 56px;"></div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:80px 40px;max-width:640px;margin:0 auto;">
+      <p style="font-size:2.5rem;margin-bottom:20px;">📝</p>
+      <p style="font-size:1.6rem;font-weight:700;color:#1a2744;margin-bottom:20px;letter-spacing:.05em;">Coming Soon</p>
+      <p style="color:#666;font-size:.95rem;line-height:2;">住宅ローン・内覧のポイント・資産性の見方など、<br>不動産購入に役立つ情報を順次掛載予定です。</p>
+    </div>
+  </div>
+</div>
+
 <script>
 // ===== SPA ROUTING =====
 function showPage(page) {
@@ -2497,7 +2511,7 @@ const form = contactForm;
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
-        form.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p style="color:#fff;font-size:1.1rem;margin-bottom:8px;">送信完了しました</p><p style="color:rgba(255,255,255,.7);font-size:.9rem;">担当者よ2営業日以内にご連絡いたします。</p></div>';
+        form.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p style="color:#fff;font-size:1.1rem;margin-bottom:8px;">送信完了しました</p><p style="color:rgba(255,255,255,.7);font-size:.9rem;">担当者より2営業日以内にご連絡いたします。</p></div>';
       } else { throw new Error(data.message); }
     } catch(err) {
       if (btn) { btn.disabled = false; btn.textContent = orig; }
