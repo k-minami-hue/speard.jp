@@ -810,6 +810,83 @@
     .column-cta-sub { font-size:.86rem; color:rgba(255,255,255,.65); margin-bottom:26px; line-height:1.9; }
     .column-cta a { display:inline-block; background:var(--gold); color:white; padding:13px 36px; text-decoration:none; font-size:.86rem; border-radius:2px; letter-spacing:.08em; transition:background .2s,transform .2s; }
     .column-cta a:hover { background:var(--gold-hover); transform:translateY(-2px); }
+    .column-bottom-cta { background:var(--navy); padding:72px 24px; }
+    .column-bottom-cta-inner { max-width:980px; margin:0 auto; text-align:center; }
+    .column-bottom-cta-en { font-family:'Playfair Display',serif; font-style:italic; font-size:.86rem; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:14px; }
+    .column-bottom-cta-ja { font-family:'Noto Serif JP',serif; font-size:clamp(1.4rem,2.4vw,1.8rem); font-weight:500; color:white; margin:0 0 14px; letter-spacing:.1em; }
+    .column-bottom-cta-sub { font-size:.9rem; color:rgba(255,255,255,.7); margin:0 0 32px; line-height:1.9; }
+    .column-bottom-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .column-bottom-cta-btn-gold { display:inline-block; background:var(--gold); color:white; padding:15px 44px; text-decoration:none; font-size:.9rem; border-radius:3px; letter-spacing:.08em; transition:background .2s,transform .2s; }
+    .column-bottom-cta-btn-gold:hover { background:var(--gold-hover); transform:translateY(-2px); }
+    .column-bottom-cta-btn-line { display:inline-flex; align-items:center; justify-content:center; background:#06C755; color:white; padding:15px 36px; text-decoration:none; font-size:.9rem; border-radius:3px; letter-spacing:.06em; transition:filter .2s,transform .2s; }
+    .column-bottom-cta-btn-line:hover { filter:brightness(1.08); transform:translateY(-2px); }
+
+    /* ===== COLUMN PAGE LAYOUT (article + sidebar) ===== */
+    .column-page-grid { max-width:1180px; margin:0 auto; padding:80px 24px 104px; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:48px; align-items:start; }
+    .column-main { min-width:0; }
+    .column-side { position:sticky; top:96px; display:flex; flex-direction:column; gap:20px; }
+    .cs-section { background:#fff; border:1px solid var(--beige); border-radius:6px; overflow:hidden; }
+    .cs-section-head { background:var(--navy); color:#fff; font-size:.86rem; padding:11px 16px; letter-spacing:.08em; font-family:'Noto Serif JP',serif; font-weight:500; }
+    .cs-recent { list-style:none; margin:0; padding:0; }
+    .cs-recent li { border-bottom:1px solid var(--beige); }
+    .cs-recent li:last-child { border-bottom:none; }
+    .cs-recent a { display:flex; align-items:center; gap:6px; padding:13px 14px; color:var(--text); font-size:.78rem; line-height:1.55; text-decoration:none; transition:background .2s,color .2s; cursor:pointer; }
+    .cs-recent a:hover { background:var(--off-white); color:var(--navy); }
+    .cs-recent a::before { content:"›"; color:var(--gold); font-weight:600; flex-shrink:0; }
+    .cs-cta { display:block; padding:20px 18px; text-decoration:none; transition:transform .2s,filter .2s; cursor:pointer; color:#fff; }
+    .cs-cta:hover { transform:translateY(-1px); filter:brightness(1.05); }
+    .cs-cta-buy { background:var(--navy); }
+    .cs-cta-sell { background:var(--gold); }
+    .cs-cta-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .cs-cta-block { min-width:0; }
+    .cs-cta-en { font-family:'Playfair Display',serif; font-style:italic; font-size:.7rem; opacity:.75; letter-spacing:.14em; display:block; }
+    .cs-cta-ja { font-family:'Noto Serif JP',serif; font-size:1.02rem; letter-spacing:.08em; margin-top:3px; }
+    .cs-cta-arrow { font-size:1.1rem; opacity:.7; }
+    .cs-line { padding:18px 16px 20px; text-align:center; }
+    .cs-line-head { font-family:'Noto Serif JP',serif; font-size:.9rem; color:var(--navy-dark); margin-bottom:4px; letter-spacing:.04em; }
+    .cs-line-sub-head { font-size:.7rem; color:var(--text-mid); margin-bottom:12px; letter-spacing:.04em; }
+    .cs-line-qr { width:170px; height:170px; display:block; margin:0 auto 10px; border:1px solid var(--beige); padding:6px; background:#fff; border-radius:4px; }
+    .cs-line-cap { font-size:.72rem; color:var(--text-mid); margin:0 0 14px; line-height:1.7; }
+    .cs-line-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:#06C755; color:#fff; text-decoration:none; padding:11px 14px; border-radius:6px; transition:filter .2s,transform .2s; box-shadow:0 1px 0 rgba(0,0,0,.04); }
+    .cs-line-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+    .cs-line-btn-sub { font-size:.66rem; opacity:.92; letter-spacing:.04em; }
+    .cs-line-btn-main { font-family:'Noto Serif JP',serif; font-size:.95rem; font-weight:600; letter-spacing:.06em; }
+
+    /* ===== ARTICLE: hero, share, author box ===== */
+    .column-h1 { font-family:'Noto Serif JP',serif; font-size:clamp(1.4rem,2.6vw,1.85rem); font-weight:600; color:var(--navy-dark); line-height:1.55; letter-spacing:.04em; margin:0 0 24px; padding:0; border:none; }
+    .column-hero-fig { margin:0 0 28px; padding:0; }
+    .column-hero-fig img { width:100%; height:auto; display:block; border-radius:6px; box-shadow:none; }
+    .column-share { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:0 0 32px; }
+    .column-share a { display:flex; align-items:center; justify-content:center; gap:6px; padding:12px 6px; font-size:.78rem; color:#fff; text-decoration:none; border-radius:3px; transition:opacity .2s; font-weight:500; letter-spacing:.04em; }
+    .column-share a:hover { opacity:.85; }
+    .cs-x { background:#000; }
+    .cs-fb { background:#1877F2; }
+    .cs-hb { background:#00A4DE; }
+    .cs-line-share { background:#06C755; }
+    .column-author { background:#fff; border:1px solid var(--beige); border-radius:6px; margin:0 0 48px; overflow:hidden; }
+    .column-author-head { background:var(--navy); color:#fff; font-size:.86rem; padding:11px 18px; letter-spacing:.08em; font-family:'Noto Serif JP',serif; font-weight:500; }
+    .column-author-body { display:flex; gap:22px; padding:22px; align-items:flex-start; }
+    .column-author-avatar { flex-shrink:0; width:88px; height:88px; border-radius:50%; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:2.2rem; color:var(--navy); font-weight:600; overflow:hidden; line-height:1; }
+    .column-author-avatar img { width:100%; height:100%; object-fit:cover; }
+    .column-author-info { flex:1; min-width:0; }
+    .column-author-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:600; color:var(--navy-dark); padding-bottom:6px; border-bottom:1px solid var(--gold); display:inline-block; margin-bottom:10px; }
+    .column-author-roles { font-size:.78rem; color:var(--text-mid); line-height:1.85; margin-bottom:10px; }
+    .column-author-bio { font-size:.78rem; color:var(--text-mid); line-height:1.85; margin:0; }
+
+    /* override: h1 inside article (no longer used) */
+    article.column > h1 { display:none; }
+
+    /* responsive */
+    @media (max-width:980px) {
+      .column-page-grid { grid-template-columns:1fr; gap:32px; padding:60px 18px 80px; }
+      .column-side { position:static; }
+      .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:16px; padding:20px; }
+      .column-author-name { display:block; }
+    }
+    @media (max-width:520px) {
+      .column-share { grid-template-columns:repeat(2,1fr); }
+      .column-share a { padding:11px 4px; font-size:.74rem; }
+    }
 
   </style>
 </head>
@@ -1022,6 +1099,10 @@
         <a href="mailto:info@speard.jp" target="_blank" class="contact-info-item" style="background:var(--gold);border:1px solid var(--gold);padding:12px 28px;border-radius:3px;gap:10px;font-size:.85rem;letter-spacing:.06em;color:white;transition:background .2s,color .2s;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           メールで相談する
+        </a>
+        <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="contact-info-item" style="background:#06C755;border:1px solid #06C755;padding:12px 28px;border-radius:3px;gap:10px;font-size:.85rem;letter-spacing:.06em;color:white;transition:filter .2s,transform .2s;" onmouseover="this.style.filter='brightness(1.08)';this.style.transform='translateY(-1px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          公式LINEで相談する
         </a>
       </div>
     </div>
@@ -1407,7 +1488,7 @@
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-navy">3万円〜程度</div><div class="c-card-desc">所有権移転登記や抵当権設定登記にかかる費用です。<br>物件の評価額や借入内容によって変動します。</div></div>
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">物件価格×3%＋6万円＋消費税（上限）</div><div class="c-card-desc">仲介会社へ支払う報酬です。<div>弊社では決済・引渡し完了と同時に頂戴しております。</div></div></div>
               <div class="c-card"><span class="ttag tt-shutoku">取得後</span><div class="c-card-name">不動産取得税</div><div class="c-card-amount ca-navy">0円〜評価額の数%</div><div class="c-card-desc">取得後しばらくして納税通知書が届きます。<div>一定の要件を満たすと軽減措置により0円になる場合もあります。</div></div></div>
-              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主様へ支払います。</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主へ支払います。</div></div>
             </div>
             <hr class="section-divider">
             <div class="lbadge lb-loan">住宅ローンにかかる費用</div>
@@ -2136,7 +2217,7 @@
       <div style="background:var(--navy);border-radius:6px;padding:52px 32px;text-align:center;margin-top:80px;">
         <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Contact Us</span>
         <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">まずはお気軽にご相談ください</h2>
-        <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">不動産については、どんな些細なことでも、まずはご相談ください。</p>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">購入・売却のご相談はいつでも承っております。</p>
         <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;" style="display:inline-block;background:var(--gold);color:white;padding:14px 40px;text-decoration:none;font-size:.88rem;border-radius:2px;letter-spacing:.08em;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--gold-hover)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--gold)';this.style.transform=''">お問合せはこちら</a>
       </div>
     </div>
@@ -2195,7 +2276,7 @@
       <div style="background:var(--navy);border-radius:6px;padding:52px 32px;text-align:center;margin-top:80px;">
         <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Contact Us</span>
         <h2 style="font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:500;color:white;margin-bottom:10px;letter-spacing:.08em;">まずはお気軽にご相談ください</h2>
-        <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">不動産については、どんな些細なことでも、まずはご相談ください。</p>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.9;">購入・売却のご相談はいつでも承っております。</p>
         <a href="javascript:void(0)" onclick="goToContact()" style="display:inline-block;background:var(--gold);color:white;padding:14px 40px;text-decoration:none;font-size:.88rem;border-radius:2px;letter-spacing:.08em;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--gold-hover)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--gold)';this.style.transform=''">お問合せはこちら</a>
       </div>
     </div>
@@ -2388,7 +2469,7 @@
     <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;">お問合せ</a>
   <a href="inquiry/property.html" target="_blank">不動産業者用</a>
   </div>
-  <p>&copy; 2026 Speard Inc. All Rights Reserved.</p>
+  <p>&copy; 2026 SPEARD Inc. All Rights Reserved.</p>
 </footer>
 
 <!-- ===== EDIT TOOLBAR (admin only) ===== -->
@@ -2449,7 +2530,7 @@
       <div class="column-cta">
         <span class="column-cta-en">Contact Us</span>
         <h2 class="column-cta-ja">まずはお気軽にご相談ください</h2>
-        <p class="column-cta-sub">不動産については、どんな些細なことでも、まずはご相談ください。</p>
+        <p class="column-cta-sub">購入・売却のご相談はいつでも承っております。</p>
         <a href="javascript:void(0)" onclick="goToContact()">お問合せはこちら</a>
       </div>
     </div>
@@ -2459,16 +2540,37 @@
 <!-- ===== COLUMN ARTICLE: 購入編 ===== -->
 <div id="page-column-purchase-flow" class="spa-page">
   <div class="subpage-wrap">
-    <div class="column-article-wrap">
+    <div class="column-page-grid">
+      <div class="column-main">
       <a href="javascript:void(0)" onclick="showPage('column');return false;" class="column-back">← コラム一覧に戻る</a>
       <div class="column-meta">
         <span class="column-meta-tag">購入編</span>
         <span class="column-meta-date">2026.04.26</span>
       </div>
+      <h1 class="column-h1">【購入編】不動産購入の流れを簡単解説！</h1>
+      <figure class="column-hero-fig">
+        <img src="columns/purchase/hero.jpg" alt="武蔵小杉・湾岸エリアの大規模タワーマンション">
+      </figure>
+      <div class="column-share">
+        <a class="cs-x" href="https://twitter.com/intent/tweet?text=%E3%80%90%E8%B3%BC%E5%85%A5%E7%B7%A8%E3%80%91%E4%B8%8D%E5%8B%95%E7%94%A3%E8%B3%BC%E5%85%A5%E3%81%AE%E6%B5%81%E3%82%8C%E3%82%92%E7%B0%A1%E5%8D%98%E8%A7%A3%E8%AA%AC&url=https%3A%2F%2Fspeard.jp%2F%23column-purchase-flow" target="_blank" rel="noopener">𝕏 ポスト</a>
+        <a class="cs-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspeard.jp%2F%23column-purchase-flow" target="_blank" rel="noopener">f シェア</a>
+        <a class="cs-line-share" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fspeard.jp%2F%23column-purchase-flow" target="_blank" rel="noopener">LINE 送る</a>
+      </div>
+      <section class="column-author">
+        <div class="column-author-head">この記事の監修者</div>
+        <div class="column-author-body">
+          <div class="column-author-avatar"><img src="president.jpg" alt="南 和希"></div>
+          <div class="column-author-info">
+            <div class="column-author-name">南 和希</div>
+            <div class="column-author-roles">
+              株式会社スピアード 代表取締役<br>
+              宅地建物取引士 / 2級FP技能士
+            </div>
+            <p class="column-author-bio">1999年、神奈川県横浜市生まれ。新卒で大手不動産会社に入社後、営業部内トップセールスを達成。3年の実績を経て独立し、株式会社スピアードを設立。売買仲介・投資用不動産・中古不動産の仕入れ再販・リノベーションなど、不動産業界の幅広い領域で実務経験を持つ。自身でも不動産の購入・売却を3度経験した実践派。現在はメディア取材・自社サービスが計6媒体に掲載されている。</p>
+          </div>
+        </div>
+      </section>
       <article class="column">
-<figure class="column-hero" style="margin:0 0 24px 0;">
-  <img src="columns/purchase/hero.jpg" alt="武蔵小杉・湾岸エリアの大規模タワーマンション" style="width:100%;height:auto;display:block;border-radius:4px;">
-</figure>
 <h1>【購入編】不動産購入の流れを簡単解説！</h1>
 
 <p>不動産購入、それは人生最大級の決断の一つです。<br>
@@ -2499,14 +2601,14 @@
 
 <figure>
   <img src="columns/purchase/img1_purchase_flow.png" alt="不動産購入の流れ図">
-  <figcaption><strong>情報収集 → 内見 → 購入申込（ローン事前審査）→ 売買契約 → 住宅ローン契約 → 引渡し → 入居</strong><br>簡単に言えばこのような流れです。<br></figcaption>
+  <figcaption><strong>情報収集 → 内見 → 購入申込（ローン事前審査）→ 売買契約 → 住宅ローン契約 → 引渡し → 入居</strong><br>簡単に言えばこんな感じです。<br>※SUUMO公式から引用</figcaption>
 </figure>
 
 <p>特に内見→購入申込→売買契約は想像以上に多くの判断と準備を求められます。<br>
 初めての方は、信頼できる不動産仲介会社に相談しましょう。</p>
 
 <p>※相談する相手は、くれぐれも慎重に選ぶことをおすすめします。<br>
-大企業であっても、解像度の低い担当者がついてしまうことがあります。</p>
+大企業であっても、解像度の低い担当者がつくことも珍しくありません。</p>
 
 <hr>
 
@@ -2525,7 +2627,7 @@
 <h3>A.「借入可能額」を知る</h3>
 
 <p>まずは「自分の借入可能額の上限」を把握することをおすすめします。<br>
-（試算は不動産会社の担当でもできますし、住宅ローンの事前審査でも可能です。）<br>
+（試算は不動産会社の担当でもできますし、住宅ローンの事前審査でも良いです。）<br>
 これをせずに探し始めてしまうと、たとえば「6000万円の物件しか買えない人が、1億円の物件を真剣に検討している」といった、現実とズレた状況に陥りかねません。</p>
 
 <p>弊社が購入相談を受ける際も、最初に必ず<strong>簡易的な借入可能額の試算</strong>をしています。</p>
@@ -2574,13 +2676,14 @@
 <p>この二つが曖昧なまま内見を重ねても、購入の決断はまずできません。<br>
 実際、内見が10件、20件と増えていく人もいますが、その多くは<strong>基盤が定まっていないことが原因</strong>です。</p>
 
-<p>もちろん比較検討は大切ですが、判断軸が定まっていないまま物件を見続けても、<br>最終的に<strong>「知識はあるけど買えない評論家」</strong>に陥る人が多いのです。</p>
+<p>もちろん比較検討は大切ですが、判断軸が定まっていないまま物件を見続けても、最終的に<strong>「知識はあるけど買えない評論家」</strong>に陥る人が多いのです。</p>
 
 <p>だからこそ最初に<strong>予算とエリアの軸を固めること</strong>が重要です。<br>
 ここが明確になれば、ムダな時間や迷いを減らせるだけでなく、効率よく「本当に買うべき物件」にたどり着けます。</p>
 
 <p>はっきり言えば、自分の<strong>予算やエリア感覚を持たないままSUUMOを見続けたり、何軒も内見に行ったところで、意味はありません。</strong><br>
-それは時間とエネルギーの浪費です。<br></p>
+それは時間とエネルギーの浪費です。<br>
+（※物件を見るのが趣味という場合は別ですが）</p>
 
 <figure>
   <img src="columns/purchase/img2_budget_area.png" alt="予算とエリアの図">
@@ -2604,6 +2707,7 @@
 <p><strong>・陽当たり・風通し</strong>：時間帯によって大きく印象が変わります<br>
 <strong>・周囲の騒音や臭い</strong>：道路・線路・飲食店・ゴミ置き場などの有無<br>
 <strong>・設備の劣化状況</strong>：キッチン、バス、クロス、床などの状態<br>
+<strong>・管理状態（マンション）</strong>：共用部の清掃や掲示物などの様子<br>
 <strong>・ハザードマップの確認</strong>：洪水、液状化、土砂災害などのリスク</p>
 
 <h3>■中古マンションならではの確認ポイント</h3>
@@ -2626,7 +2730,7 @@
 「建物は良かったけど、なんとなくエリアが合わない」<br>
 こうした直感的な違和感は、意外と的を射ていることが多いです。<br>
 無視せず大切にしましょう。<br>
-<strong>居住性に関するチェックポイントは賃貸とほぼ同じ</strong>です。</p>
+結局のところ、<strong>居住性に関するチェックポイントは賃貸とほぼ同じ</strong>です。</p>
 
 <h3>■内見前後の「やるべきこと」</h3>
 
@@ -2647,7 +2751,7 @@
 
 <figure>
   <img src="columns/purchase/img3_inspection.png" alt="内見イメージ">
-  <figcaption>実際に室内に入って初めて分かる明るさ、空気感などの感覚的な要素は、想像以上に大切です。</figcaption>
+  <figcaption>実際に室内に入って初めて分かる明るさ、空気感などの感覚的な要素は、想像以上に大切</figcaption>
 </figure>
 
 <hr>
@@ -2659,18 +2763,18 @@
 これはまだ契約ではなく、あくまで「この物件を買いたい」という<strong>意思表示</strong>にすぎません。</p>
 
 <p>また、申込書を提出したからといって、<strong>購入の義務が発生するわけでもなく</strong>、<strong>法的拘束力もありません</strong>。<br>
-あくまで、売主様との本格的な条件調整に入るためのスタート地点と考えてください。<br>
+あくまで、売主との本格的な条件調整に入るためのスタート地点と考えてください。<br>
 とはいえ、この購入申込書の提出を境に、不動産購入は一気に"現実の取引"として動き始めます。</p>
 
 <h3>■中古市場は"値付けが曖昧"な世界</h3>
 
 <p>特に中古物件の場合、<strong>相場との乖離がある物件</strong>も少なくありません。<br>
-いわゆる「強気価格」（＝売主様の希望価格がたっぷり乗った強気な価格設定）で出ているケースも多く、<strong>価格交渉の余地があるかどうかを見極める力</strong>が問われます。</p>
+いわゆる「強気価格」（＝売主の希望価格がたっぷり乗った強気な価格設定）で出ているケースも多く、<strong>価格交渉の余地があるかどうかを見極める力</strong>が問われます。</p>
 
 <p><strong>・過去の売買履歴</strong>（同条件で比較）<br>
 <strong>・周辺の直近成約価格</strong>（3ヶ月以内）<br>
 <strong>・価格改定履歴</strong>（何度下がってきたか）<br>
-<strong>・売主様の売却理由</strong>（住み替え／相続／収益用など）</p>
+<strong>・売主の売却理由</strong>（住み替え／相続／収益用など）</p>
 
 <p>これらの情報がそろっていれば、<strong>価格が適正かどうかの判断は十分可能です。</strong><br>
 特に<strong>資産性を重視する場合は、「入口の取得価格」が非常に重要な要素</strong>となります。</p>
@@ -2678,9 +2782,9 @@
 <h3>■交渉する場合の注意点</h3>
 
 <p>とはいえ、何でもかんでも指値（＝値引き交渉）をすれば良いというものではありません。<br>
-適正価格の物件に無理な値下げ要求をすると、売主様の心証を損ない、他の買い手に買い負けるリスクが高まります。</p>
+適正価格の物件に無理な値下げ要求をすると、売主の心証を損ない、他の買主にあっさり買い負けるリスクが高まります。</p>
 
-<p><strong>・買付は1通しか受けない売主様</strong>も多く、一発勝負になることも。<br>
+<p><strong>・買付は1通しか受けない売主</strong>も多く、一発勝負になることも。<br>
 ・仲介担当に「交渉に応じそうか」温度感を確認してもらうのも重要です。</p>
 
 <p>また、「<strong>買える価格</strong>」ではなく「<strong>買いたい価格</strong>」という基準で指値してしまうと、<strong>合理性を欠き、チャンスを逃す原因</strong>になりがちです。</p>
@@ -2749,8 +2853,8 @@
 
 <h2>⑥売買契約の流れと注意点</h2>
 
-<p>購入する物件が決まり、売主様との合意が取れたら、いよいよ<strong>不動産売買契約</strong>に進みます。<br>
-売主様・買主様・不動産会社が一堂に会し、<strong>宅地建物取引士</strong>による重要事項説明を受けたうえで、契約書の内容を確認し、署名・押印を行う流れです。</p>
+<p>購入する物件が決まり、売主との合意が取れたら、いよいよ<strong>不動産売買契約</strong>に進みます。<br>
+売主・買主・不動産会社が一堂に会し、<strong>宅地建物取引士</strong>による重要事項説明を受けたうえで、契約書の内容を確認し、署名・押印を行う流れです。</p>
 
 <p>この場面こそ、不動産取引の"本番"。しっかり準備して臨みましょう。</p>
 
@@ -2777,6 +2881,7 @@
 
 <figure>
   <img src="columns/purchase/img4_contract.png" alt="売買契約イメージ">
+  <figcaption>なお、契約書類は普通に読むと1時間以上かかり、結構退屈です。<br>お客様が飽きないように、分かりやすく＆簡単に説明するのも仲介担当の腕にかかっています笑</figcaption>
 </figure>
 
 <h3>■「手付金」は本気度の証明でもある</h3>
@@ -2785,13 +2890,13 @@
 中古物件では法的な定めはありませんが、慣習としては<strong>物件価格の5％前後</strong>が一般的です（例：1億円の物件なら約500万円）。</p>
 
 <p>ただし、特に若い世代や初めて購入される方は、手元資金に限りがある場合も多く、<strong>2〜3％で交渉するケース</strong>も増えています。<br>
-最終的には売主様との合意があれば問題ありません。</p>
+最終的には売主との合意があれば問題ありません。</p>
 
 <p>なお、手付金には以下のような性質があります。</p>
 
 <p>・売買契約が<strong>成立したことの証明</strong><br>
-・買主様都合でキャンセルした場合は<strong>手付金放棄</strong><br>
-・売主様都合でキャンセルした場合は<strong>手付金の倍返し</strong></p>
+・買主都合でキャンセルした場合は<strong>手付金放棄</strong><br>
+・売主都合でキャンセルした場合は<strong>手付金の倍返し</strong></p>
 
 <p>このように、<strong>契約は「とりあえず」で済ませられるものではありません。</strong><br>
 キャンセルには損失が伴うため、<strong>"決断の最終地点"として慎重に判断</strong>する必要があります。</p>
@@ -2820,7 +2925,7 @@
 　→ 銀行で住宅ローンを正式に契約します。実印や印鑑証明書、住民票などが必要。<br>
 <strong>・登記の準備</strong><br>
 　→ 所有権移転や抵当権設定の登記を司法書士が担当します。<br>
-　→ 売主様・買主様双方の書類や本人確認情報を提出。<br>
+　→ 売主・買主双方の書類や本人確認情報を提出。<br>
 <strong>・残代金・諸費用の用意</strong><br>
 　→ 物件価格の残金に加え、登記費用・仲介手数料・火災保険料・司法書士報酬なども一括で準備。<br>
 <strong>・物件の最終確認（内覧）</strong><br>
@@ -2967,32 +3072,107 @@
 
       </article>
 
-      <div class="column-cta">
-        <span class="column-cta-en">Contact Us</span>
-        <h2 class="column-cta-ja">購入のご相談はこちら</h2>
-        <p class="column-cta-sub">資産価値を重視した物件選びをサポートします。</p>
-        <a href="javascript:void(0)" onclick="goToContact()">お問合せはこちら</a>
+      </div><!-- /.column-main -->
+
+      <aside class="column-side">
+        <div class="cs-section">
+          <div class="cs-section-head">最近の投稿</div>
+          <ul class="cs-recent">
+            <li><a href="javascript:void(0)" onclick="showPage('column-purchase-flow')">【購入編】不動産購入の流れを簡単解説！</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('column-sale-flow')">【売却編】不動産売却の流れを簡単解説</a></li>
+          </ul>
+        </div>
+
+        <a href="javascript:void(0)" onclick="goToContact()" class="cs-section cs-cta cs-cta-buy">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Purchase</span>
+              <div class="cs-cta-ja">購入のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="goToContact()" class="cs-section cs-cta cs-cta-sell">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Sale</span>
+              <div class="cs-cta-ja">売却のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <div class="cs-section cs-line">
+          <div class="cs-line-head">スピアード公式LINE</div>
+          <div class="cs-line-sub-head">友だち追加で気軽にご相談</div>
+          <img src="assets/line_qr.png" alt="スピアード公式LINE QRコード" class="cs-line-qr">
+          <p class="cs-line-cap">QRコードを読み取り<br>1対1でメッセージ可能</p>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="cs-line-btn">
+            <span class="cs-line-btn-sub">無料相談のご予約・お問合せ</span>
+            <span class="cs-line-btn-main">公式LINEで相談する</span>
+          </a>
+        </div>
+      </aside>
+    </div><!-- /.column-page-grid -->
+
+    <section class="column-bottom-cta">
+      <div class="column-bottom-cta-inner">
+        <span class="column-bottom-cta-en">Contact Us</span>
+        <h2 class="column-bottom-cta-ja">まずはお気軽にご相談ください</h2>
+        <p class="column-bottom-cta-sub">購入・売却のご相談はいつでも承っております。</p>
+        <div class="column-bottom-cta-btns">
+          <a href="javascript:void(0)" onclick="goToContact()" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:8px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            公式LINEで相談する
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </div>
 
 <!-- ===== COLUMN ARTICLE: 売却編 ===== -->
 <div id="page-column-sale-flow" class="spa-page">
   <div class="subpage-wrap">
-    <div class="column-article-wrap">
+    <div class="column-page-grid">
+      <div class="column-main">
       <a href="javascript:void(0)" onclick="showPage('column');return false;" class="column-back">← コラム一覧に戻る</a>
       <div class="column-meta">
         <span class="column-meta-tag ct-sell">売却編</span>
         <span class="column-meta-date">2026.04.26</span>
       </div>
+      <h1 class="column-h1">【売却編】不動産売却の流れを簡単解説</h1>
+      <figure class="column-hero-fig">
+        <img src="columns/sale/hero.jpg" alt="湾岸エリアの夜景タワーマンション">
+      </figure>
+      <div class="column-share">
+        <a class="cs-x" href="https://twitter.com/intent/tweet?text=%E3%80%90%E5%A3%B2%E5%8D%B4%E7%B7%A8%E3%80%91%E4%B8%8D%E5%8B%95%E7%94%A3%E5%A3%B2%E5%8D%B4%E3%81%AE%E6%B5%81%E3%82%8C%E3%82%92%E7%B0%A1%E5%8D%98%E8%A7%A3%E8%AA%AC&url=https%3A%2F%2Fspeard.jp%2F%23column-sale-flow" target="_blank" rel="noopener">𝕏 ポスト</a>
+        <a class="cs-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspeard.jp%2F%23column-sale-flow" target="_blank" rel="noopener">f シェア</a>
+        <a class="cs-line-share" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fspeard.jp%2F%23column-sale-flow" target="_blank" rel="noopener">LINE 送る</a>
+      </div>
+      <section class="column-author">
+        <div class="column-author-head">この記事の監修者</div>
+        <div class="column-author-body">
+          <div class="column-author-avatar"><img src="president.jpg" alt="南 和希"></div>
+          <div class="column-author-info">
+            <div class="column-author-name">南 和希</div>
+            <div class="column-author-roles">
+              株式会社スピアード 代表取締役<br>
+              宅地建物取引士 / 2級FP技能士
+            </div>
+            <p class="column-author-bio">1999年、神奈川県横浜市生まれ。新卒で大手不動産会社に入社後、営業部内トップセールスを達成。3年の実績を経て独立し、株式会社スピアードを設立。売買仲介・投資用不動産・中古不動産の仕入れ再販・リノベーションなど、不動産業界の幅広い領域で実務経験を持つ。自身でも不動産の購入・売却を3度経験した実践派。現在はメディア取材・自社サービスが計6媒体に掲載されている。</p>
+          </div>
+        </div>
+      </section>
       <article class="column">
 <h1>【売却編】不動産売却の流れを簡単解説</h1>
 
 <p>購入と同様、売却も単なる住替えにとどまらず、資産における「出口戦略」という重要な選択肢となります。<br>
 一見シンプルな「売るだけ」の行為に見えても、実際には購入と同等に慎重な判断と、戦略的な段取りが求められる<strong>情報戦</strong>です。</p>
 
-<p>何件もの取引に携わる身として強く感じるのは、売却は購入と違い「急ぐ理由が少ない」ため、意思決定や行動が後手に回りやすいということです。<br>
+<p>何件もの仲介に携わる身として強く感じるのは、売却は購入と違い「急ぐ理由が少ない」ため、意思決定や行動が後手に回りやすいということです。<br>
 購入時には熱心に情報収集をされていた方でも、いざ売却に切り替わった途端に「何から始めていいのか分からない」と戸惑うケースが多く見受けられます。</p>
 
 <p>特に買換えを前提としたケースでは、売却と購入を同時進行で進める必要があるため、資金繰りやスケジューリングの難易度が一段と上がります。</p>
@@ -3003,7 +3183,7 @@
 <h2>はじめに：売却の全体像を把握しよう</h2>
 
 <p>不動産売却の第一歩は、不動産会社への相談から始まります。<br>
-しかし、「いきなり相談に行く」のはあまりおすすめしていません。<br>
+「いきなり相談に行く」という事はあまりおすすめしていません。<br>
 なぜなら、事前知識がないまま話を聞くと、判断の大半を営業担当に委ねてしまい、自分の資産を"他人の物差し"で扱うことになるからです。</p>
 
 <figure>
@@ -3018,7 +3198,8 @@
 表示されるのは「売出価格」なので、実際の成約価格とは多少のズレがありますが、「市場の中で自分の物件がどのポジションにあるか」は十分に把握できます。</p>
 
 <p><strong>相場感があるかないかで、相談時の立ち位置が変わります。</strong><br>
-何も考えずに相談に行くと、営業トークに流されやすくなります。実際、一部の不動産会社では、根拠もないまま「最近このエリアは相場が下がってきてるんでね〜」といった形で安値を提示してくる担当者も存在します。<br>
+何も考えずに相談に行くと、営業トークに流されやすくなります。<br>
+実際、一部の不動産会社では、根拠もないまま「最近このエリアは相場が下がってきている」といった形で安値を提示、売り煽りを行う担当者も存在します。<br>
 最低限の相場感を持っておくことは、自分を守る盾になるのです。</p>
 
 <hr>
@@ -3057,14 +3238,15 @@
 
 <h3>■ 査定価格は大きくばらつかない時代へ</h3>
 
-<p>近年は特に大規模マンションなどで相場の透明性が高まり、複数社に依頼しても極端な差が出ることは少なくなっています。<br>
+<p>近年は特に大規模マンションなど相場の透明性が高まり、複数社に依頼しても極端な差が出ることは少なくなっています。<br>
 だからこそ、査定の中身「どんなロジックで算出されたか、どう売っていくか」がより重要です。</p>
 
 <p>一方で、相場より高めの査定額を提示して媒介契約を狙う業者も少なくありません。<br>
 こうした"高査定トリック"に乗ってしまうと、販売の初動を誤り「売れ残り物件」という印象が定着するリスクがあります。<br>
 その結果、値下げを繰り返す展開に陥り、適正価格に調整しても買い手がつきづらくなるケースも珍しくありません。</p>
 
-<p>※なお、ご自身の意思でチャレンジ価格に挑むこと自体は全く問題ありません。大切なのは、その選択に納得感があるかどうかです。</p>
+<p>※ご自身の意思でチャレンジ価格に挑むこと自体は全く問題ありません。<br>
+大切なのは、その選択に納得感があるかどうかです。</p>
 
 <h3>■ 査定額は「材料の一つ」にすぎない</h3>
 
@@ -3222,394 +3404,4 @@
 <p>決済日は動かせない一方で、引越し業者の予約・粗大ゴミの処分などは待ってくれません。</p>
 
 <p>・引越し業者が繁忙期で捕まらない（GW・お盆・年末年始は特に注意）<br>
-・不用品の回収予約が取れない（エリアにより粗大ゴミ受付は2〜3週間待ち）</p>
-
-<h3>■ ローンが残っている場合</h3>
-
-<p>ローン残債がある場合は、決済時に抵当権を抹消する必要があります。<br>
-所有権移転にはこの抹消が必須で、段取りミスが起きると決済そのものが延期になります。</p>
-
-<p><strong>金融機関への連絡</strong>：繰上げ返済・抵当権抹消の旨を事前に伝達（一般的に決済日の1〜2週間前まで）<br>
-<strong>必要書類の準備</strong>：登記識別情報（権利証）、印鑑証明書（3か月以内）、住民票など<br>
-<strong>ローン残債の確認</strong>：決済日に一括返済する金額を事前に確認</p>
-
-<hr>
-
-<h2>⑦決済・引渡し</h2>
-
-<p>残代金を受け取り、物件の所有権が正式に買主へ移転されます。<br>
-当日は、司法書士・買主様・売主様・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
-準備さえ整っていれば、署名捺印と鍵の引渡し、着金確認で終了です。</p>
-
-<p>残代金の入金が確認できたら、鍵を渡して売却は無事完了となります。<br>
-<strong>なお、売却益が出た場合は翌年の確定申告（譲渡所得税の申告・特別控除の適用）も忘れずに。</strong></p>
-
-<hr>
-
-<h2>まとめ：売却は自由な未来へのスタートライン</h2>
-
-<p>需給バランスを正しく見極め、適切な販売戦略を立てれば、基本的に物件は売れていくものです。<br>
-その成功率を大きく左右するのが、<strong>信頼できるパートナー（仲介会社）を選べるかどうか</strong>です。</p>
-
-<p>不動産の売却とは「固定資産を現金へと転換する行為」でもあり、家計と暮らしに新たな自由度をもたらす重要な意思決定です。<br>
-「その後の暮らしをどう再設計するか」を含めた計画立案も、ぜひ並行して考えておきましょう。</p>
-
-<hr>
-
-<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産売却・購入サポートを行っています。<br>
-売却をご検討中の方は、お気軽にお問い合わせください。</p>
-
-
-      </article>
-
-      <div class="column-cta">
-        <span class="column-cta-en">Contact Us</span>
-        <h2 class="column-cta-ja">売却のご相談はこちら</h2>
-        <p class="column-cta-sub">資産価値を最大化する販売戦略をサポートします。</p>
-        <a href="javascript:void(0)" onclick="goToContact()">お問合せはこちら</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// ===== SPA ROUTING =====
-function showPage(page) {
-  document.querySelectorAll('.spa-page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) {
-    target.classList.add('active');
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    const url = page === 'home' ? window.location.pathname : window.location.pathname + '#' + page;
-    history.pushState({page: page}, '', url);
-  }
-}
-
-function scrollTo(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    const top = el.getBoundingClientRect().top + window.scrollY - 120;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-}
-
-function closeMobileMenu() {
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileMenu').classList.remove('open');
-}
-
-// Handle browser back/forward
-window.addEventListener('popstate', e => {
-  const page = (e.state && e.state.page) || 'home';
-  document.querySelectorAll('.spa-page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) target.classList.add('active');
-  window.scrollTo(0, 0);
-});
-
-// Handle initial hash on load
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = window.location.hash.replace('#', '');
-  const pages = ['home','guide','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow'];
-  if (hash && pages.includes(hash)) {
-    showPage(hash);
-  } else if (hash === 'buy') {
-    showPage('guide');
-    setTimeout(() => {
-      const tabs = document.querySelectorAll('.guide-tab');
-      if (tabs.length > 0) tabs[0].click();
-    }, 100);
-  } else if (hash === 'sell') {
-    showPage('guide');
-    setTimeout(() => {
-      const tabs = document.querySelectorAll('.guide-tab');
-      if (tabs.length > 1) tabs[1].click();
-    }, 100);
-  } else if (['service','about','company','contact'].includes(hash)) {
-    showPage('home');
-    setTimeout(() => scrollTo(hash), 100);
-  }
-});
-
-// ===== HEADER SCROLL =====
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
-
-// ===== FADE IN OBSERVER =====
-const obs = new IntersectionObserver(entries => entries.forEach(e => {
-  if (e.isIntersecting) e.target.classList.add('visible');
-}), { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
-// ===== GUIDE TABS =====
-document.querySelectorAll('.guide-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const t = tab.dataset.target;
-    document.querySelectorAll('.guide-tab').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.guide-content').forEach(x => x.classList.remove('active'));
-    tab.classList.add('active');
-    const c = document.getElementById('guide-' + t);
-    if (c) c.classList.add('active');
-  });
-});
-
-// ===== ACCORDION =====
-function toggleAcc(head, type) {
-  const body = head.nextElementSibling;
-  const isOpen = head.classList.contains('open-' + type);
-  const parent = head.closest('.guide-content');
-  if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
-  if (!isOpen) { head.classList.add('open-' + type); body.classList.add('open'); }
-}
-
-function goToContact() {
-  showPage('home');
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const el = document.getElementById('contact');
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 120;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  }));
-}
-
-function setGuideNav(btn, type) {
-  const container = btn.closest('.guide-nav-btns');
-  if (!container) return;
-  container.querySelectorAll('.guide-nav-btn').forEach(b => {
-    b.classList.remove('gnb-buy-active', 'gnb-sell-active');
-    b.classList.remove('gnb-buy', 'gnb-sell');
-    b.classList.add('gnb-' + type);
-  });
-  btn.classList.remove('gnb-' + type);
-  btn.classList.add('gnb-' + type + '-active');
-}
-
-function openAcc(id, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const head = el.querySelector('.acc-head'), body = el.querySelector('.acc-body');
-  if (!head || !body) return;
-  const parent = head.closest('.guide-content');
-  if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); h.nextElementSibling.classList.remove('open'); });
-  head.classList.add('open-' + type);
-  body.classList.add('open');
-  setTimeout(() => {
-    const rect = el.getBoundingClientRect();
-    window.scrollTo({ top: window.scrollY + rect.top - 120, behavior: 'smooth' });
-  }, 50);
-}
-
-// ===== COUNTER =====
-const cntObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const el = e.target, target = parseInt(el.dataset.target);
-      let n = 0; const step = Math.max(1, Math.ceil(target/55));
-      const t = setInterval(() => { n = Math.min(n+step, target); el.textContent = n; if(n>=target) clearInterval(t); }, 22);
-      cntObs.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cntObs.observe(el));
-
-// ===== CONTACT FORM =====
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-const form = contactForm;
-    form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const orig = btn ? btn.textContent : '';
-    if (btn) { btn.disabled = true; btn.textContent = '送信中…'; }
-    const formData = new FormData(form);
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
-      const data = await res.json();
-      if (data.success) {
-        contactForm.style.display = 'none';
-          const successDiv = document.getElementById('form-success');
-          if (successDiv) successDiv.style.display = 'block';
-      } else { throw new Error(data.message); }
-    } catch(err) {
-      if (btn) { btn.disabled = false; btn.textContent = orig; }
-      alert('送信に失敗しました。しばらくしてから再度お試しください。');
-    }
-  });
-  }
-
-
-// ===== HAMBURGER =====
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if (hamburger) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-}
-
-// ===== EDIT MODE =====
-const EDITABLE = 'p, h1, h2, h3, h4, li, td, th, .step-d, .step-t, .doc-desc, .doc-name, .c-card-desc, .c-card-name, .c-card-amount, .guide-overview-desc, .guide-intro, .tips-bd, .caution-bd, .hero-sub, .section-desc, .fee-note, .review-text';
-let editMode = false;
-
-function toggleEditMode() {
-  editMode = !editMode;
-  document.body.classList.toggle('edit-mode', editMode);
-  document.querySelectorAll(EDITABLE).forEach(el => {
-    el.contentEditable = editMode ? 'true' : 'inherit';
-  });
-  const btn = document.getElementById('edit-btn');
-  const saveBtn = document.getElementById('save-btn');
-  btn.textContent = editMode ? '✕ 編集を終了' : '✏️ 編集モード';
-  btn.classList.toggle('active', editMode);
-  saveBtn.style.display = editMode ? 'flex' : 'none';
-}
-
-async function deployHTML() {
-  const TOKEN = 'nfp_yoxVVNm9wnmz2U3s635RDh6nacH32JCmd628';
-  const SITE_ID = 'dad86d2b-a269-41fa-9c84-06d7b643a7e5';
-  const LOGO_SHA1 = 'bc67f17f663db5a44c8416bf9cfa1eacde2d65f5';
-
-  const deployStatus = document.getElementById('deploy-status');
-  const saveBtn = document.getElementById('save-btn');
-  function setStatus(msg) {
-    deployStatus.style.display = 'block';
-    deployStatus.textContent = msg;
-  }
-
-  saveBtn.disabled = true;
-  saveBtn.textContent = '⏳ デプロイ中...';
-
-  // Capture clean HTML
-  document.querySelectorAll(EDITABLE).forEach(el => el.removeAttribute('contenteditable'));
-  document.body.classList.remove('edit-mode');
-  const toolbar = document.getElementById('edit-toolbar');
-  if (toolbar) toolbar.style.display = 'none';
-  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-  if (toolbar) toolbar.style.display = 'flex';
-  document.body.classList.add('edit-mode');
-  document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = 'true'; });
-
-  try {
-    const bytes = new TextEncoder().encode(html);
-
-    // Compute SHA1
-    setStatus('SHA1 計算中...');
-    const hashBuf = await crypto.subtle.digest('SHA-1', bytes);
-    const sha1 = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
-    setStatus('SHA1: ' + sha1.slice(0,12) + '...');
-
-    // Create deploy
-    setStatus('デプロイ作成中...');
-    const createRes = await fetch('https://api.netlify.com/api/v1/sites/' + SITE_ID + '/deploys', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + TOKEN},
-      body: JSON.stringify({files:{'/index.html': sha1, '/logo.png': LOGO_SHA1}})
-    });
-    if (!createRes.ok) {
-      const errText = await createRes.text();
-      throw new Error('Deploy creation failed (' + createRes.status + '): ' + errText);
-    }
-    const deploy = await createRes.json();
-    if (!deploy.id) throw new Error('No deploy ID: ' + JSON.stringify(deploy));
-    setStatus('Deploy ID: ' + deploy.id.slice(0,10) + '...');
-
-    // Upload index.html if required
-    if (deploy.required && deploy.required.length > 0) {
-      setStatus('index.html アップロード中...');
-      const upRes = await fetch('https://api.netlify.com/api/v1/deploys/' + deploy.id + '/files/index.html', {
-        method: 'PUT',
-        headers: {'Content-Type':'application/octet-stream','Authorization':'Bearer ' + TOKEN},
-        body: bytes
-      });
-      if (!upRes.ok) throw new Error('Upload failed: ' + upRes.status);
-    }
-
-    // Poll for ready
-    setStatus('公開処理中...');
-    for (let i = 0; i < 20; i++) {
-      await new Promise(r => setTimeout(r, 3000));
-      const check = await fetch('https://api.netlify.com/api/v1/deploys/' + deploy.id, {
-        headers: {'Authorization':'Bearer ' + TOKEN}
-      });
-      const d = await check.json();
-      if (d.state === 'ready') {
-        setStatus('✅ 公開完了！speard.jp に反映されました');
-        saveBtn.textContent = '✅ デプロイ完了';
-        saveBtn.style.background = '#2D8B7A';
-        setTimeout(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = '🚀 保存してデプロイ';
-          saveBtn.style.background = '';
-          setTimeout(() => { deployStatus.style.display = 'none'; }, 2000);
-        }, 4000);
-        return;
-      }
-      setStatus('公開処理中... (' + d.state + ')');
-    }
-    setStatus('⚠️ タイムアウト。Netlifyダッシュボードで確認してください');
-  } catch(e) {
-    setStatus('❌ エラー: ' + e.message);
-  }
-  saveBtn.disabled = false;
-  saveBtn.textContent = '🚀 保存してデプロイ';
-}
-
-// ===== FAQ ADD =====
-function addFaqItem() {
-  const list = document.getElementById('faq-list');
-  if (!list) return;
-  const item = document.createElement('div');
-  item.className = 'faq-item';
-  item.innerHTML = '<button class="faq-del-btn" onclick="this.closest(\'.faq-item\').remove()">削除</button>'
-    + '<div class="faq-q"><div class="faq-badge faq-badge-q">Q</div>'
-    + '<p class="faq-text" contenteditable="true" style="outline:2px dashed rgba(196,154,48,.6);border-radius:3px;min-width:4px;">質問を入力してください</p></div>'
-    + '<div class="faq-a"><div class="faq-badge faq-badge-a">A</div>'
-    + '<p class="faq-text" contenteditable="true" style="outline:2px dashed rgba(196,154,48,.6);border-radius:3px;min-width:4px;">回答を入力してください</p></div>';
-  list.appendChild(item);
-  item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-// ===== VOICES FILTER =====
-function filterVoices(type, btn) {
-  document.querySelectorAll('.voice-tab').forEach(t => { t.className = 'voice-tab'; });
-  btn.classList.add('vt-active-' + type);
-  document.querySelectorAll('.review-card').forEach(card => {
-    if (type === 'all') {
-      card.style.display = '';
-    } else {
-      const match = card.querySelector('.type-' + type);
-      card.style.display = match ? '' : 'none';
-    }
-  });
-}
-
-// Admin mode check
-(function() {
-  if (new URLSearchParams(window.location.search).get('admin') !== '1') return;
-  const toolbar = document.getElementById('edit-toolbar');
-  if (toolbar) toolbar.style.display = 'flex';
-})();
-
-
-// ===== COLUMN FILTER =====
-function filterColumn(type, btn){
-  document.querySelectorAll('.col-tab').forEach(t=>t.classList.remove('ct-active'));
-  if(btn) btn.classList.add('ct-active');
-  const cards = document.querySelectorAll('#col-grid .col-card');
-  let visible = 0;
-  cards.forEach(c=>{
-    const show = (type==='all') || c.classList.contains('ct-'+type);
-    c.style.display = show ? '' : 'none';
-    if(show) visible++;
-  });
-  const empty = document.getElementById('col-coming');
-  if(empty) empty.style.display = visible===0 ? 'block' : 'none';
-}
-</script>
-
-</body>
-</html>
+・不用品の回収�
