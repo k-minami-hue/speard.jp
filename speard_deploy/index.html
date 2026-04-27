@@ -836,13 +836,17 @@
     .cs-line-head { font-family:'Noto Serif JP',serif; font-size:.9rem; color:var(--navy-dark); margin-bottom:4px; letter-spacing:.04em; }
     .cs-line-sub-head { font-size:.7rem; color:var(--text-mid); margin-bottom:12px; letter-spacing:.04em; }
     .cs-line-qr { width:170px; height:170px; display:block; margin:0 auto 10px; border:1px solid var(--beige); padding:6px; background:#fff; border-radius:4px; }
-    .cs-line-cap { font-size:.72rem; color:var(--text-mid); margin:0; line-height:1.7; }
+    .cs-line-cap { font-size:.72rem; color:var(--text-mid); margin:0 0 14px; line-height:1.7; }
+    .cs-line-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:#06C755; color:#fff; text-decoration:none; padding:11px 14px; border-radius:6px; transition:filter .2s,transform .2s; box-shadow:0 1px 0 rgba(0,0,0,.04); }
+    .cs-line-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+    .cs-line-btn-sub { font-size:.66rem; opacity:.92; letter-spacing:.04em; }
+    .cs-line-btn-main { font-family:'Noto Serif JP',serif; font-size:.95rem; font-weight:600; letter-spacing:.06em; }
 
     /* ===== ARTICLE: hero, share, author box ===== */
     .column-h1 { font-family:'Noto Serif JP',serif; font-size:clamp(1.4rem,2.6vw,1.85rem); font-weight:600; color:var(--navy-dark); line-height:1.55; letter-spacing:.04em; margin:0 0 24px; padding:0; border:none; }
     .column-hero-fig { margin:0 0 28px; padding:0; }
     .column-hero-fig img { width:100%; height:auto; display:block; border-radius:6px; box-shadow:none; }
-    .column-share { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 32px; }
+    .column-share { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:0 0 32px; }
     .column-share a { display:flex; align-items:center; justify-content:center; gap:6px; padding:12px 6px; font-size:.78rem; color:#fff; text-decoration:none; border-radius:3px; transition:opacity .2s; font-weight:500; letter-spacing:.04em; }
     .column-share a:hover { opacity:.85; }
     .cs-x { background:#000; }
@@ -1085,6 +1089,10 @@
         <a href="mailto:info@speard.jp" target="_blank" class="contact-info-item" style="background:var(--gold);border:1px solid var(--gold);padding:12px 28px;border-radius:3px;gap:10px;font-size:.85rem;letter-spacing:.06em;color:white;transition:background .2s,color .2s;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           メールで相談する
+        </a>
+        <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="contact-info-item" style="background:#06C755;border:1px solid #06C755;padding:12px 28px;border-radius:3px;gap:10px;font-size:.85rem;letter-spacing:.06em;color:white;transition:filter .2s,transform .2s;" onmouseover="this.style.filter='brightness(1.08)';this.style.transform='translateY(-1px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          公式LINEで相談する
         </a>
       </div>
     </div>
@@ -3096,6 +3104,10 @@
           <div class="cs-line-sub-head">友だち追加で気軽にご相談</div>
           <img src="assets/line_qr.png" alt="スピアード公式LINE QRコード" class="cs-line-qr">
           <p class="cs-line-cap">QRコードを読み取り<br>1対1でメッセージ可能</p>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="cs-line-btn">
+            <span class="cs-line-btn-sub">無料相談のご予約・お問合せ</span>
+            <span class="cs-line-btn-main">公式LINEで相談する</span>
+          </a>
         </div>
       </aside>
     </div><!-- /.column-page-grid -->
@@ -3141,7 +3153,7 @@
 <p>購入と同様、売却も単なる住替えにとどまらず、資産における「出口戦略」という重要な選択肢となります。<br>
 一見シンプルな「売るだけ」の行為に見えても、実際には購入と同等に慎重な判断と、戦略的な段取りが求められる<strong>情報戦</strong>です。</p>
 
-<p>何件もの取引に携わる身として強く感じるのは、売却は購入と違い「急ぐ理由が少ない」ため、意思決定や行動が後手に回りやすいということです。<br>
+<p>何件もの仲介に携わる身として強く感じるのは、売却は購入と違い「急ぐ理由が少ない」ため、意思決定や行動が後手に回りやすいということです。<br>
 購入時には熱心に情報収集をされていた方でも、いざ売却に切り替わった途端に「何から始めていいのか分からない」と戸惑うケースが多く見受けられます。</p>
 
 <p>特に買換えを前提としたケースでは、売却と購入を同時進行で進める必要があるため、資金繰りやスケジューリングの難易度が一段と上がります。</p>
@@ -3152,7 +3164,7 @@
 <h2>はじめに：売却の全体像を把握しよう</h2>
 
 <p>不動産売却の第一歩は、不動産会社への相談から始まります。<br>
-しかし、「いきなり相談に行く」のはあまりおすすめしていません。<br>
+「いきなり相談に行く」という事はあまりおすすめしていません。<br>
 なぜなら、事前知識がないまま話を聞くと、判断の大半を営業担当に委ねてしまい、自分の資産を"他人の物差し"で扱うことになるからです。</p>
 
 <figure>
@@ -3167,7 +3179,8 @@
 表示されるのは「売出価格」なので、実際の成約価格とは多少のズレがありますが、「市場の中で自分の物件がどのポジションにあるか」は十分に把握できます。</p>
 
 <p><strong>相場感があるかないかで、相談時の立ち位置が変わります。</strong><br>
-何も考えずに相談に行くと、営業トークに流されやすくなります。実際、一部の不動産会社では、根拠もないまま「最近このエリアは相場が下がってきてるんでね〜」といった形で安値を提示してくる担当者も存在します。<br>
+何も考えずに相談に行くと、営業トークに流されやすくなります。<br>
+実際、一部の不動産会社では、根拠もないまま「最近このエリアは相場が下がってきている」といった形で安値を提示、売り煽りを行う担当者も存在します。<br>
 最低限の相場感を持っておくことは、自分を守る盾になるのです。</p>
 
 <hr>
@@ -3177,7 +3190,7 @@
 <p>ある程度の相場感を掴んだら、次のステップは不動産会社への相談です。<br>
 ただし、この時点での目的は「正確な査定額を知ること」ではありません。<br>
 <strong>そもそも不動産が流通する実勢価格には"定価"がありません。</strong><br>
-「言い値」で決まり、市場動向や売主・買主相互の心理によって大きく上下するのが実態です。</p>
+「言い値」で決まり、市場動向や売主様・買主様相互の心理によって大きく上下するのが実態です。</p>
 
 <p><strong>真の目的は「信頼できる担当者に出会うこと」</strong><br>
 このフェーズで最も重視すべきは、「この担当者に任せて本当に大丈夫か？」を見極めることです。<br>
@@ -3206,14 +3219,15 @@
 
 <h3>■ 査定価格は大きくばらつかない時代へ</h3>
 
-<p>近年は特に大規模マンションなどで相場の透明性が高まり、複数社に依頼しても極端な差が出ることは少なくなっています。<br>
+<p>近年は特に大規模マンションなど相場の透明性が高まり、複数社に依頼しても極端な差が出ることは少なくなっています。<br>
 だからこそ、査定の中身「どんなロジックで算出されたか、どう売っていくか」がより重要です。</p>
 
 <p>一方で、相場より高めの査定額を提示して媒介契約を狙う業者も少なくありません。<br>
 こうした"高査定トリック"に乗ってしまうと、販売の初動を誤り「売れ残り物件」という印象が定着するリスクがあります。<br>
 その結果、値下げを繰り返す展開に陥り、適正価格に調整しても買い手がつきづらくなるケースも珍しくありません。</p>
 
-<p>※なお、ご自身の意思でチャレンジ価格に挑むこと自体は全く問題ありません。大切なのは、その選択に納得感があるかどうかです。</p>
+<p>※ご自身の意思でチャレンジ価格に挑むこと自体は全く問題ありません。<br>
+大切なのは、その選択に納得感があるかどうかです。</p>
 
 <h3>■ 査定額は「材料の一つ」にすぎない</h3>
 
@@ -3308,7 +3322,7 @@
 ・においの対策（換気・消臭）をしておく<br>
 ・余計な荷物は極力収納し、床と壁の面積を多く見せる</p>
 
-<p>"見られる意識"を持てる売主は、確実に結果を引き寄せます。</p>
+<p>"見られる意識"を持てる売主様は、確実に結果を引き寄せます。</p>
 
 <hr>
 
@@ -3324,7 +3338,7 @@
 <p>契約条件は価格だけではありません。以下のような項目の食い違いで破談になるケースも少なくありません。</p>
 
 <p>・<strong>引渡し時期</strong>：短すぎると引越しや新居探しが間に合わない<br>
-・<strong>手付金の額</strong>：少なすぎると、買主側の自己都合解約リスクが増える<br>
+・<strong>手付金の額</strong>：少なすぎると、買主様側の自己都合解約リスクが増える<br>
 ・<strong>瑕疵の申告</strong>：雨漏り・設備不良など、契約不適合責任が問われる内容は事前説明が必須</p>
 
 <h3>■ 先行売却における「引渡し時期設計」の重要性</h3>
@@ -3342,7 +3356,7 @@
 <h3>■ 売買契約</h3>
 
 <p>諸条件の調整が終わったら、いよいよ売買契約の締結です。<br>
-売主側では下記の書類の確認・記入が必要になります。</p>
+売主様側では下記の書類の確認・記入が必要になります。</p>
 
 <figure>
   <img src="columns/sale/img4_contract.png" alt="不動産売買契約書">
@@ -3355,8 +3369,8 @@
 <p>特に、故障箇所や過去の修繕履歴については曖昧にせず正確に記載すること。<br>
 曖昧な申告は<strong>契約不適合責任</strong>によるトラブルに発展するリスクがあります。</p>
 
-<p><strong>売主にとっての契約はまだ中間地点です。</strong><br>
-買主にとっては安堵の瞬間でも、売主側にとってはここからが本番。転居準備・引越し・抵当権抹消など、引渡しに向けた実務が一気に動き出します。<br>
+<p><strong>売主様にとっての契約はまだ中間地点です。</strong><br>
+買主様にとっては安堵の瞬間でも、売主様側にとってはここからが本番。転居準備・引越し・抵当権抹消など、引渡しに向けた実務が一気に動き出します。<br>
 売買契約を締結しても、受領するのは手付金のみ。残代金の大部分は決済が完了するまで支払われません。</p>
 
 <hr>
@@ -3364,7 +3378,7 @@
 <h2>⑥決済・引渡しまでの各準備</h2>
 
 <p>契約が済んだら、いよいよ引渡しに向けたステップに入ります。<br>
-買主側のローン本審査が通過次第、決済に向けて一気に進むため、今のうちから準備しておくことが重要です。</p>
+買主様側のローン本審査が通過次第、決済に向けて一気に進むため、今のうちから準備しておくことが重要です。</p>
 
 <h3>■ 引越し準備を早めに始める</h3>
 
@@ -3387,7 +3401,7 @@
 <h2>⑦決済・引渡し</h2>
 
 <p>残代金を受け取り、物件の所有権が正式に買主へ移転されます。<br>
-当日は、司法書士・買主・売主・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
+当日は、司法書士・買主様・売主様・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
 準備さえ整っていれば、署名捺印と鍵の引渡し、着金確認で終了です。</p>
 
 <p>残代金の入金が確認できたら、鍵を渡して売却は無事完了となります。<br>
@@ -3397,16 +3411,12 @@
 
 <h2>まとめ：売却は自由な未来へのスタートライン</h2>
 
-<p>需給バランスを正しく見極め、適切な販売戦略を立てれば、基本的に物件は売れていくものです。<br>
-その成功率を大きく左右するのが、<strong>信頼できるパートナー（仲介会社）を選べるかどうか</strong>です。</p>
+<p>需給バランスを正しく読み、適切な戦略を立てれば、物件は売れていきます。</p>
 
-<p>不動産の売却とは「固定資産を現金へと転換する行為」でもあり、家計と暮らしに新たな自由度をもたらす重要な意思決定です。<br>
+<p>その成否を左右するのが、<strong>信頼できる仲介会社を選べるかどうか</strong>です。</p>
+
+<p>不動産売却とは、大切な場所に感謝しながら次の章へと踏み出すこと。<br>
 「その後の暮らしをどう再設計するか」を含めた計画立案も、ぜひ並行して考えておきましょう。</p>
-
-<hr>
-
-<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産売却・購入サポートを行っています。<br>
-売却をご検討中の方は、お気軽にお問い合わせください。</p>
 
 
       </article>
@@ -3453,6 +3463,10 @@
           <div class="cs-line-sub-head">友だち追加で気軽にご相談</div>
           <img src="assets/line_qr.png" alt="スピアード公式LINE QRコード" class="cs-line-qr">
           <p class="cs-line-cap">QRコードを読み取り<br>1対1でメッセージ可能</p>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="cs-line-btn">
+            <span class="cs-line-btn-sub">無料相談のご予約・お問合せ</span>
+            <span class="cs-line-btn-main">公式LINEで相談する</span>
+          </a>
         </div>
       </aside>
     </div><!-- /.column-page-grid -->
