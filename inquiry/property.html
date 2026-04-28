@@ -42,29 +42,26 @@
 
   header {
     background: var(--navy);
-    padding: 0 1.25rem;
-    height: 56px;
+    padding: 0 1.5rem;
+    height: 96px;
     display: flex;
     align-items: center;
   }
 
   .logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    color: white;
+    text-decoration: none;
   }
-  .logo-mark {
-    width: 26px;
-    height: 26px;
-    flex-shrink: 0;
+  .logo-img {
+    height: 130px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
   }
-  .logo-text {
-    font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: white;
+  @media (max-width: 720px) {
+    header { height: 80px; padding: 0 1.25rem; }
+    .logo-img { height: 80px; }
   }
 
   .tabs {
@@ -681,22 +678,9 @@
 <body>
 
 <header>
-  <div class="logo">
-    <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M10 34 L10 12 L22 6 L22 34 Z" fill="white"/>
-      <path d="M22 34 L22 16 L30 12 L30 34 Z" fill="white" fill-opacity="0.85"/>
-      <rect x="12" y="14" width="8" height="1" fill="#1a2340"/>
-      <rect x="12" y="18" width="8" height="1" fill="#1a2340"/>
-      <rect x="12" y="22" width="8" height="1" fill="#1a2340"/>
-      <rect x="12" y="26" width="8" height="1" fill="#1a2340"/>
-      <rect x="12" y="30" width="8" height="1" fill="#1a2340"/>
-      <rect x="23" y="19" width="6" height="1" fill="#1a2340"/>
-      <rect x="23" y="23" width="6" height="1" fill="#1a2340"/>
-      <rect x="23" y="27" width="6" height="1" fill="#1a2340"/>
-      <rect x="23" y="31" width="6" height="1" fill="#1a2340"/>
-    </svg>
-    <span class="logo-text">Speard</span>
-  </div>
+  <a href="https://speard.jp/" class="logo">
+    <img src="https://speard.jp/logo.png" alt="Speard" class="logo-img">
+  </a>
 </header>
 
 <div class="sending-overlay" id="sending-overlay">
@@ -777,15 +761,6 @@
       </div>
 
       <h2 class="section-title">問い合わせフォーム</h2>
-
-      <div class="form-section" id="manual-prop-section" style="display:none">
-        <div class="form-section-title">物件情報</div>
-        <div class="form-group">
-          <label>物件名称 <span class="req-badge">必須</span></label>
-          <input type="text" id="f-prop-name" placeholder="〇〇マンション">
-          <span class="hint">お問い合わせ対象の物件名を入力してください</span>
-        </div>
-      </div>
 
       <div class="inquiry-type">
         <div>
@@ -1088,8 +1063,6 @@ if (MANUAL_MODE) {
   document.querySelectorAll('.pane').forEach(pane => pane.classList.remove('active'));
   document.getElementById('tab-contact').classList.add('active');
   document.getElementById('pane-contact').classList.add('active');
-  // 物件名入力欄を表示
-  document.getElementById('manual-prop-section').style.display = 'block';
 }
 
 function setIfExists(id, rowId, val, suffix) {
@@ -1222,15 +1195,6 @@ function goConfirm() {
   const mobile = document.getElementById('f-mobile').value.trim();
   const email = document.getElementById('f-email').value.trim();
   const card = document.getElementById('f-card').files[0];
-  // 手入力モードの場合は物件名も必須
-  const manualPropName = MANUAL_MODE ? document.getElementById('f-prop-name').value.trim() : '';
-
-  if (MANUAL_MODE && !manualPropName) {
-    alert('物件名称をご入力ください。');
-    document.getElementById('f-prop-name').focus();
-    return;
-  }
-
   if (!company || !branch || !tel || !name || !mobile || !email || !card) {
     alert('必須項目をすべて入力してください。');
     return;
@@ -1386,7 +1350,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
   }
 
   const propName = MANUAL_MODE
-    ? (document.getElementById('f-prop-name').value.trim() || '物件名未入力')
+    ? '（業者問合せ・物件指定なし）'
     : (p.get('name') || '物件名未設定');
   const inquiringCo = document.getElementById('f-company').value.trim();
   const inquiringBranch = document.getElementById('f-branch').value.trim();
@@ -1494,7 +1458,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
 
 function renderDoneSummary(cardImageUrl) {
   const propName = MANUAL_MODE
-    ? (document.getElementById('f-prop-name').value.trim() || '物件名未入力')
+    ? '（業者問合せ・物件指定なし）'
     : (p.get('name') || '物件名未設定');
   const inquiryType = document.getElementById('c-type').textContent;
   const dateText = document.getElementById('c-dates').textContent || '（指定なし）';
@@ -1549,5 +1513,6 @@ function hideError() {
   document.getElementById('error-msg').classList.remove('visible');
 }
 </script>
+
 </body>
 </html>

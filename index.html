@@ -870,13 +870,13 @@
     .cs-line-share { background:#06C755; }
     .column-author { background:#fff; border:1px solid var(--beige); border-radius:6px; margin:0 0 20px; overflow:hidden; padding:0; line-height:1; }
     .column-author-head { background:var(--navy); color:#fff; font-size:.86rem; padding:8px 16px; letter-spacing:.08em; font-family:'Noto Serif JP',serif; font-weight:500; line-height:1.3; margin:0; }
-    .column-author-body { display:flex; gap:16px; padding:10px 16px; align-items:flex-start; margin:0; }
-    .column-author-avatar { flex-shrink:0; width:108px; height:108px; border-radius:50%; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:2.2rem; color:var(--navy); font-weight:600; overflow:hidden; line-height:1; }
+    .column-author-body { display:flex; gap:22px; padding:18px 20px; align-items:flex-start; margin:0; }
+    .column-author-avatar { flex-shrink:0; width:200px; height:200px; border-radius:50%; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:2.2rem; color:var(--navy); font-weight:600; overflow:hidden; line-height:1; }
     .column-author-avatar img { width:100%; height:100%; object-fit:cover; }
-    .column-author-info { flex:1; min-width:0; line-height:1.45; }
-    .column-author-name { font-family:'Noto Serif JP',serif; font-size:1.02rem; font-weight:600; color:var(--navy-dark); padding-bottom:3px; border-bottom:1px solid var(--gold); display:inline-block; margin:0 0 4px; line-height:1.2; }
-    .column-author-roles { font-size:.76rem; color:var(--text-mid); line-height:1.45; margin:0 0 4px; }
-    .column-author-bio { font-size:.76rem; color:var(--text-mid); line-height:1.45; margin:0; padding:0; }
+    .column-author-info { flex:1; min-width:0; line-height:1.55; }
+    .column-author-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:600; color:var(--navy-dark); padding-bottom:4px; border-bottom:1px solid var(--gold); display:inline-block; margin:0 0 6px; line-height:1.2; }
+    .column-author-roles { font-size:.78rem; color:var(--text-mid); line-height:1.55; margin:0 0 6px; }
+    .column-author-bio { font-size:.78rem; color:var(--text-mid); line-height:1.55; margin:0; padding:0; }
 
 
     .column-video { margin:32px 0; }
@@ -890,8 +890,8 @@
     @media (max-width:980px) {
       .column-page-grid { grid-template-columns:1fr; gap:32px; padding:60px 18px 80px; }
       .column-side { position:static; }
-      .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:8px; padding:10px 14px; }
-      .column-author-avatar { width:100px; height:100px; }
+      .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:14px; padding:16px 18px; }
+      .column-author-avatar { width:180px; height:180px; }
       .column-author-name { display:block; }
     }
     @media (max-width:520px) {
@@ -2560,21 +2560,6 @@
 </div>
 
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-links">
-    <a href="javascript:void(0)" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
-    <a href="#guide" onclick="showPage('guide');return false;">不動産ガイド</a>
-    <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
-    <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
-    <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
-    <a href="#access" onclick="showPage('access');return false;">アクセス</a>
-    <a href="#privacy" onclick="showPage('privacy');return false;">プライバシーポリシー</a>
-    <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;">お問合せ</a>
-  <a href="inquiry/property.html" target="_blank">不動産業者用</a>
-  </div>
-  <p>&copy; 2026 Speard Inc. All Rights Reserved.</p>
-</footer>
 
 <!-- ===== EDIT TOOLBAR (admin only) ===== -->
 <div id="edit-toolbar" style="display:none;">
@@ -3621,6 +3606,22 @@
   </div>
 </div>
 
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
+    <a href="#guide" onclick="showPage('guide');return false;">不動産ガイド</a>
+    <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
+    <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
+    <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
+    <a href="#access" onclick="showPage('access');return false;">アクセス</a>
+    <a href="#privacy" onclick="showPage('privacy');return false;">プライバシーポリシー</a>
+    <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;">お問合せ</a>
+  <a href="inquiry/property.html" target="_blank">不動産業者用</a>
+  </div>
+  <p>&copy; 2026 Speard Inc. All Rights Reserved.</p>
+</footer>
+
 <script>
 // ===== SPA ROUTING =====
 function showPage(page) {
@@ -3990,4 +3991,4 @@ async function deployHTML() {
 </script>
 
 </body>
-</h
+</
