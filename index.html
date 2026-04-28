@@ -888,7 +888,96 @@
       .column-share a { padding:11px 4px; font-size:.74rem; }
     }
 
-  </style>
+  
+    /* ===== MOBILE OPTIMIZATIONS (added 2026-04) ===== */
+    @media (max-width: 768px) {
+      /* Header / nav padding */
+      header { padding: 14px 18px; }
+      .logo { font-size: 1.1rem; }
+      .btn-nav { display:none; }
+      /* Mobile menu touch target */
+      .mobile-menu a, .mobile-menu .btn-nav-mobile {
+        padding: 16px 24px !important;
+        font-size: 1rem !important;
+        min-height: 48px;
+        display: flex !important;
+        align-items: center;
+      }
+      /* Hero typography */
+      .hero-en { font-size: .72rem !important; letter-spacing: .14em; }
+      .hero-ja, .col-hero-ja, h1 { font-size: clamp(1.5rem, 6.5vw, 2rem) !important; line-height: 1.4; }
+      .hero-sub { font-size: .9rem !important; line-height: 1.85; }
+      /* Section padding shrink */
+      section { padding: 60px 18px !important; }
+      .section-title { font-size: 1.4rem !important; }
+      /* Service cards */
+      .service-grid, .col-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+      .service-card { padding: 28px 22px !important; }
+      /* Cards / grids generic */
+      .col-card, .review-card { padding: 22px 20px !important; }
+      /* Column article */
+      .column-page-grid { padding: 40px 16px 60px !important; gap: 28px !important; }
+      .column-h1 { font-size: clamp(1.25rem, 5.5vw, 1.6rem) !important; line-height: 1.5 !important; }
+      .column h1, .column h2 { font-size: clamp(1.15rem, 5vw, 1.4rem) !important; line-height: 1.55 !important; margin-top: 1.6em !important; }
+      .column h3 { font-size: 1.02rem !important; line-height: 1.6 !important; margin-top: 1.4em !important; }
+      .column p, .column li { font-size: .95rem !important; line-height: 1.95 !important; }
+      .column figure img { border-radius: 4px; }
+      .column-author-body { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+      .column-author-avatar img { width: 72px !important; height: 72px !important; }
+      .column-share { gap: 8px !important; flex-wrap: wrap; }
+      .column-share a { font-size: .78rem !important; padding: 8px 14px !important; }
+      /* Sidebar (column-side) */
+      .column-side { gap: 16px !important; }
+      .cs-line-qr { width: 140px !important; height: 140px !important; }
+      /* Bottom CTA banner */
+      .column-bottom-cta { padding: 56px 18px !important; }
+      .column-bottom-cta-ja { font-size: 1.3rem !important; }
+      .column-bottom-cta-sub { font-size: .85rem !important; line-height: 1.85 !important; }
+      .column-bottom-cta-btns { flex-direction: column !important; gap: 10px !important; align-items: stretch; }
+      .column-bottom-cta-btn-gold, .column-bottom-cta-btn-line {
+        padding: 16px 28px !important;
+        font-size: .92rem !important;
+        min-height: 52px;
+        box-sizing: border-box;
+        justify-content: center !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      /* Contact form */
+      .contact-form-wrap { padding: 28px 22px !important; }
+      .form-input, .form-select, .form-textarea { font-size: 16px !important; padding: 14px 14px !important; }
+      .form-submit-btn { padding: 16px !important; font-size: 1rem !important; min-height: 52px; }
+      .contact-info-row { flex-direction: column !important; gap: 8px !important; }
+      .contact-info-item { width: 100% !important; box-sizing: border-box; padding: 14px 20px !important; justify-content: center !important; min-height: 48px; }
+      /* FAQ */
+      .faq-item { padding: 18px 16px !important; }
+      .faq-text { font-size: .92rem !important; line-height: 1.85 !important; }
+      /* Voices */
+      .voice-tabs, .col-tabs { gap: 6px !important; flex-wrap: wrap; }
+      .voice-tab, .col-tab { font-size: .8rem !important; padding: 9px 16px !important; min-height: 40px; }
+      /* Guide accordion */
+      .acc-head { padding: 16px 18px !important; font-size: .95rem !important; min-height: 56px; }
+      .acc-body { padding: 18px 16px !important; }
+      .guide-nav-btn { font-size: .82rem !important; padding: 11px 14px !important; min-height: 42px; }
+      /* Footer */
+      footer { padding: 26px 16px !important; font-size: .72rem !important; }
+      .footer-links { gap: 14px !important; font-size: .78rem !important; }
+      .footer-links a { padding: 6px 4px; min-height: 36px; display: inline-flex; align-items: center; }
+      /* Tap target minimum 44x44 for all interactive */
+      a, button { -webkit-tap-highlight-color: rgba(196,154,48,.15); }
+      /* Avoid horizontal scroll */
+      body, html { overflow-x: hidden; }
+      img, figure { max-width: 100%; height: auto; }
+    }
+    @media (max-width: 480px) {
+      .hero-ja, .col-hero-ja { font-size: 1.5rem !important; }
+      section { padding: 48px 16px !important; }
+      .column-page-grid { padding: 32px 14px 50px !important; }
+      .column h1 { font-size: 1.2rem !important; }
+      .column-bottom-cta { padding: 44px 16px !important; }
+    }
+
+</style>
 </head>
 <body>
 
@@ -3404,4 +3493,441 @@
 <p>決済日は動かせない一方で、引越し業者の予約・粗大ゴミの処分などは待ってくれません。</p>
 
 <p>・引越し業者が繁忙期で捕まらない（GW・お盆・年末年始は特に注意）<br>
-・不用品の回収�
+・不用品の回収予約が取れない（エリアにより粗大ゴミ受付は2〜3週間待ち）</p>
+
+<h3>■ ローンが残っている場合</h3>
+
+<p>ローン残債がある場合は、決済時に抵当権を抹消する必要があります。<br>
+所有権移転にはこの抹消が必須で、段取りミスが起きると決済そのものが延期になります。</p>
+
+<p><strong>金融機関への連絡</strong>：繰上げ返済・抵当権抹消の旨を事前に伝達（一般的に決済日の1〜2週間前まで）<br>
+<strong>必要書類の準備</strong>：登記識別情報（権利証）、印鑑証明書（3か月以内）、住民票など<br>
+<strong>ローン残債の確認</strong>：決済日に一括返済する金額を事前に確認</p>
+
+<hr>
+
+<h2>⑦決済・引渡し</h2>
+
+<p>残代金を受け取り、物件の所有権が正式に買主へ移転されます。<br>
+当日は、司法書士・買主・売主・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
+準備さえ整っていれば、署名捺印と鍵の引渡し、着金確認で終了です。</p>
+
+<p>残代金の入金が確認できたら、鍵を渡して売却は無事完了となります。<br>
+<strong>なお、売却益が出た場合は翌年の確定申告（譲渡所得税の申告・特別控除の適用）も忘れずに。</strong></p>
+
+<hr>
+
+<h2>まとめ：売却は自由な未来へのスタートライン</h2>
+
+<p>需給バランスを正しく見極め、適切な販売戦略を立てれば、基本的に物件は売れていくものです。<br>
+その成功率を大きく左右するのが、<strong>信頼できるパートナー（仲介会社）を選べるかどうか</strong>です。</p>
+
+<p>不動産の売却とは「固定資産を現金へと転換する行為」でもあり、家計と暮らしに新たな自由度をもたらす重要な意思決定です。<br>
+「その後の暮らしをどう再設計するか」を含めた計画立案も、ぜひ並行して考えておきましょう。</p>
+
+<hr>
+
+<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産売却・購入サポートを行っています。<br>
+売却をご検討中の方は、お気軽にお問い合わせください。</p>
+
+</article>
+      </div>
+
+      <aside class="column-side">
+        <div class="cs-section">
+          <div class="cs-section-head">最近の投稿</div>
+          <ul class="cs-recent">
+            <li><a href="javascript:void(0)" onclick="showPage('column-purchase-flow')">【購入編】不動産購入の流れを簡単解説！</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('column-sale-flow')">【売却編】不動産売却の流れを簡単解説</a></li>
+          </ul>
+        </div>
+
+        <a href="javascript:void(0)" onclick="goToContact()" class="cs-section cs-cta cs-cta-buy">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Purchase</span>
+              <div class="cs-cta-ja">購入のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="goToContact()" class="cs-section cs-cta cs-cta-sell">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Sale</span>
+              <div class="cs-cta-ja">売却のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <div class="cs-section cs-line">
+          <div class="cs-line-head">スピアード公式LINE</div>
+          <div class="cs-line-sub-head">友だち追加で気軽にご相談</div>
+          <img src="assets/line_qr.png" alt="スピアード公式LINE QRコード" class="cs-line-qr">
+          <p class="cs-line-cap">QRコードを読み取り<br>1対1でメッセージ可能</p>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="cs-line-btn">
+            <span class="cs-line-btn-sub">無料相談のご予約・お問合せ</span>
+            <span class="cs-line-btn-main">公式LINEで相談する</span>
+          </a>
+        </div>
+      </aside>
+    </div><!-- /.column-page-grid -->
+
+    <section class="column-bottom-cta">
+      <div class="column-bottom-cta-inner">
+        <span class="column-bottom-cta-en">Contact Us</span>
+        <h2 class="column-bottom-cta-ja">まずはお気軽にご相談ください</h2>
+        <p class="column-bottom-cta-sub">購入・売却のご相談はいつでも承っております。</p>
+        <div class="column-bottom-cta-btns">
+          <a href="javascript:void(0)" onclick="goToContact()" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:8px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            公式LINEで相談する
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+// ===== SPA ROUTING =====
+function showPage(page) {
+  document.querySelectorAll('.spa-page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) {
+    target.classList.add('active');
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const url = page === 'home' ? window.location.pathname : window.location.pathname + '#' + page;
+    history.pushState({page: page}, '', url);
+  }
+}
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+
+function closeMobileMenu() {
+  const h = document.getElementById('hamburger');
+  const m = document.getElementById('mobileMenu');
+  if (h) h.classList.remove('open');
+  if (m) m.classList.remove('open');
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate', e => {
+  const page = (e.state && e.state.page) || 'home';
+  document.querySelectorAll('.spa-page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  window.scrollTo(0, 0);
+});
+
+// Handle initial hash on load
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '');
+  const pages = ['home','guide','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow'];
+  if (hash && pages.includes(hash)) {
+    showPage(hash);
+  } else if (hash === 'buy') {
+    showPage('guide');
+    setTimeout(() => {
+      const tabs = document.querySelectorAll('.guide-tab');
+      if (tabs.length > 0) tabs[0].click();
+    }, 100);
+  } else if (hash === 'sell') {
+    showPage('guide');
+    setTimeout(() => {
+      const tabs = document.querySelectorAll('.guide-tab');
+      if (tabs.length > 1) tabs[1].click();
+    }, 100);
+  } else if (['service','about','company','contact'].includes(hash)) {
+    showPage('home');
+    setTimeout(() => scrollTo(hash), 100);
+  }
+});
+
+// ===== HEADER SCROLL =====
+const header = document.getElementById('header');
+if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+// ===== FADE IN OBSERVER =====
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('visible');
+}), { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// ===== GUIDE TABS =====
+document.querySelectorAll('.guide-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const t = tab.dataset.target;
+    document.querySelectorAll('.guide-tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.guide-content').forEach(x => x.classList.remove('active'));
+    tab.classList.add('active');
+    const c = document.getElementById('guide-' + t);
+    if (c) c.classList.add('active');
+  });
+});
+
+// ===== ACCORDION =====
+function toggleAcc(head, type) {
+  const body = head.nextElementSibling;
+  const isOpen = head.classList.contains('open-' + type);
+  const parent = head.closest('.guide-content');
+  if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); if (h.nextElementSibling) h.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { head.classList.add('open-' + type); if (body) body.classList.add('open'); }
+}
+
+function goToContact() {
+  showPage('home');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const el = document.getElementById('contact');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }));
+}
+
+function setGuideNav(btn, type) {
+  const container = btn.closest('.guide-nav-btns');
+  if (!container) return;
+  container.querySelectorAll('.guide-nav-btn').forEach(b => {
+    b.classList.remove('gnb-buy-active', 'gnb-sell-active');
+    b.classList.remove('gnb-buy', 'gnb-sell');
+    b.classList.add('gnb-' + type);
+  });
+  btn.classList.remove('gnb-' + type);
+  btn.classList.add('gnb-' + type + '-active');
+}
+
+function openAcc(id, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const head = el.querySelector('.acc-head'), body = el.querySelector('.acc-body');
+  if (!head || !body) return;
+  const parent = head.closest('.guide-content');
+  if (parent) parent.querySelectorAll('.acc-head').forEach(h => { h.classList.remove('open-buy','open-sell'); if (h.nextElementSibling) h.nextElementSibling.classList.remove('open'); });
+  head.classList.add('open-' + type);
+  body.classList.add('open');
+  setTimeout(() => {
+    const rect = el.getBoundingClientRect();
+    window.scrollTo({ top: window.scrollY + rect.top - 90, behavior: 'smooth' });
+  }, 50);
+}
+
+// ===== COUNTER =====
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, target = parseInt(el.dataset.target);
+      let n = 0; const step = Math.max(1, Math.ceil(target/55));
+      const t = setInterval(() => { n = Math.min(n+step, target); el.textContent = n; if(n>=target) clearInterval(t); }, 22);
+      cntObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => cntObs.observe(el));
+
+// ===== CONTACT FORM =====
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nameVal  = this.querySelector('[name="name"]').value.trim();
+    const emailVal = this.querySelector('[name="email"]').value.trim();
+    const typeVal  = this.querySelector('[name="type"]').value;
+    const msgVal   = this.querySelector('[name="message"]').value.trim();
+    if (!nameVal || !emailVal || !typeVal || !msgVal) {
+      alert('お名前・メールアドレス・種別・内容は必須項目です。');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      alert('メールアドレスの形式が正しくありません。');
+      return;
+    }
+    const btn = this.querySelector('.form-submit-btn');
+    btn.disabled = true;
+    btn.textContent = '送信中...';
+    const formData = new FormData(this);
+    fetch(window.location.pathname, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = '送信する';
+      alert('送信に失敗しました。時間をおいて再度お試しください。');
+    });
+  });
+}
+
+// ===== HAMBURGER =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    if (mobileMenu) mobileMenu.classList.toggle('open');
+  });
+}
+
+// ===== VOICES FILTER =====
+function filterVoices(type, btn) {
+  document.querySelectorAll('.voice-tab').forEach(t => { t.className = 'voice-tab'; });
+  btn.classList.add('vt-active-' + type);
+  document.querySelectorAll('.review-card').forEach(card => {
+    if (type === 'all') {
+      card.style.display = '';
+    } else {
+      const match = card.querySelector('.type-' + type);
+      card.style.display = match ? '' : 'none';
+    }
+  });
+}
+
+// ===== COLUMN FILTER =====
+function filterColumn(type, btn) {
+  document.querySelectorAll('.col-tab').forEach(t => t.classList.remove('ct-active'));
+  if (btn) btn.classList.add('ct-active');
+  document.querySelectorAll('.col-card').forEach(card => {
+    if (type === 'all') {
+      card.style.display = '';
+    } else {
+      const match = card.classList.contains('ct-' + type);
+      card.style.display = match ? '' : 'none';
+    }
+  });
+}
+
+// ===== FAQ ADD =====
+function addFaqItem() {
+  const list = document.getElementById('faq-list');
+  if (!list) return;
+  const item = document.createElement('div');
+  item.className = 'faq-item';
+  item.innerHTML = '<button class="faq-del-btn" onclick="this.closest(\'.faq-item\').remove()">削除</button>'
+    + '<div class="faq-q"><div class="faq-badge faq-badge-q">Q</div>'
+    + '<p class="faq-text" contenteditable="true" style="outline:2px dashed rgba(196,154,48,.6);border-radius:3px;min-width:4px;">質問を入力してください</p></div>'
+    + '<div class="faq-a"><div class="faq-badge faq-badge-a">A</div>'
+    + '<p class="faq-text" contenteditable="true" style="outline:2px dashed rgba(196,154,48,.6);border-radius:3px;min-width:4px;">回答を入力してください</p></div>';
+  list.appendChild(item);
+  item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ===== EDIT MODE =====
+const EDITABLE = 'p, h1, h2, h3, h4, li, td, th, .step-d, .step-t, .doc-desc, .doc-name, .c-card-desc, .c-card-name, .c-card-amount, .guide-overview-desc, .guide-intro, .tips-bd, .caution-bd, .hero-sub, .section-desc, .fee-note, .review-text';
+let editMode = false;
+
+function toggleEditMode() {
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode', editMode);
+  document.querySelectorAll(EDITABLE).forEach(el => {
+    el.contentEditable = editMode ? 'true' : 'inherit';
+  });
+  const btn = document.getElementById('edit-btn');
+  const saveBtn = document.getElementById('save-btn');
+  if (btn) {
+    btn.textContent = editMode ? '✕ 編集を終了' : '✏️ 編集モード';
+    btn.classList.toggle('active', editMode);
+  }
+  if (saveBtn) saveBtn.style.display = editMode ? 'flex' : 'none';
+}
+
+async function deployHTML() {
+  const TOKEN = 'nfp_yoxVVNm9wnmz2U3s635RDh6nacH32JCmd628';
+  const SITE_ID = 'dad86d2b-a269-41fa-9c84-06d7b643a7e5';
+  const LOGO_SHA1 = 'bc67f17f663db5a44c8416bf9cfa1eacde2d65f5';
+
+  const deployStatus = document.getElementById('deploy-status');
+  const saveBtn = document.getElementById('save-btn');
+  function setStatus(msg) {
+    if (!deployStatus) return;
+    deployStatus.style.display = 'block';
+    deployStatus.textContent = msg;
+  }
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = '⏳ デプロイ中...';
+
+  document.querySelectorAll(EDITABLE).forEach(el => el.removeAttribute('contenteditable'));
+  document.body.classList.remove('edit-mode');
+  const toolbar = document.getElementById('edit-toolbar');
+  if (toolbar) toolbar.style.display = 'none';
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  if (toolbar) toolbar.style.display = 'flex';
+  document.body.classList.add('edit-mode');
+  document.querySelectorAll(EDITABLE).forEach(el => { el.contentEditable = 'true'; });
+
+  try {
+    const bytes = new TextEncoder().encode(html);
+    setStatus('SHA1 計算中...');
+    const hashBuf = await crypto.subtle.digest('SHA-1', bytes);
+    const sha1 = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    setStatus('デプロイ作成中...');
+    const createRes = await fetch('https://api.netlify.com/api/v1/sites/' + SITE_ID + '/deploys', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + TOKEN},
+      body: JSON.stringify({files:{'/index.html': sha1, '/logo.png': LOGO_SHA1}})
+    });
+    if (!createRes.ok) throw new Error('Deploy creation failed');
+    const deploy = await createRes.json();
+    if (deploy.required && deploy.required.length > 0) {
+      setStatus('index.html アップロード中...');
+      const upRes = await fetch('https://api.netlify.com/api/v1/deploys/' + deploy.id + '/files/index.html', {
+        method: 'PUT',
+        headers: {'Content-Type':'application/octet-stream','Authorization':'Bearer ' + TOKEN},
+        body: bytes
+      });
+      if (!upRes.ok) throw new Error('Upload failed');
+    }
+    setStatus('公開処理中...');
+    for (let i = 0; i < 20; i++) {
+      await new Promise(r => setTimeout(r, 3000));
+      const check = await fetch('https://api.netlify.com/api/v1/deploys/' + deploy.id, {
+        headers: {'Authorization':'Bearer ' + TOKEN}
+      });
+      const d = await check.json();
+      if (d.state === 'ready') {
+        setStatus('✅ 公開完了！speard.jp に反映されました。');
+        saveBtn.textContent = '✓ デプロイ完了';
+        saveBtn.style.background = '#2D8B7A';
+        setTimeout(() => {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '🚀 保存してデプロイ';
+          saveBtn.style.background = '';
+          setTimeout(() => { if (deployStatus) deployStatus.style.display = 'none'; }, 2000);
+        }, 4000);
+        return;
+      }
+    }
+  } catch(e) {
+    setStatus('❌ エラー: ' + e.message);
+  }
+  saveBtn.disabled = false;
+  saveBtn.textContent = '🚀 保存してデプロイ';
+}
+
+// Admin mode check
+(function() {
+  if (new URLSearchParams(window.location.search).get('admin') !== '1') return;
+  const toolbar = document.getElementById('edit-toolbar');
+  if (toolbar) toolbar.style.display = 'flex';
+})();
+</script>
+
+</body>
+</html>
