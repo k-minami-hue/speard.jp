@@ -42,8 +42,8 @@
 
   header {
     background: var(--navy);
-    padding: 0 1.25rem;
-    height: 72px;
+    padding: 0 1.5rem;
+    height: 96px;
     display: flex;
     align-items: center;
   }
@@ -54,10 +54,14 @@
     text-decoration: none;
   }
   .logo-img {
-    height: 60px;
+    height: 130px;
     width: auto;
     object-fit: contain;
     filter: brightness(0) invert(1);
+  }
+  @media (max-width: 720px) {
+    header { height: 80px; padding: 0 1.25rem; }
+    .logo-img { height: 80px; }
   }
 
   .tabs {
