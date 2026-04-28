@@ -863,15 +863,20 @@
     .cs-fb { background:#1877F2; }
     .cs-hb { background:#00A4DE; }
     .cs-line-share { background:#06C755; }
-    .column-author { background:#fff; border:1px solid var(--beige); border-radius:6px; margin:0 0 48px; overflow:hidden; }
+    .column-author { background:#fff; border:1px solid var(--beige); border-radius:6px; margin:0 0 32px; overflow:hidden; }
     .column-author-head { background:var(--navy); color:#fff; font-size:.86rem; padding:11px 18px; letter-spacing:.08em; font-family:'Noto Serif JP',serif; font-weight:500; }
-    .column-author-body { display:flex; gap:22px; padding:22px; align-items:flex-start; }
-    .column-author-avatar { flex-shrink:0; width:88px; height:88px; border-radius:50%; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:2.2rem; color:var(--navy); font-weight:600; overflow:hidden; line-height:1; }
+    .column-author-body { display:flex; gap:26px; padding:22px 24px; align-items:flex-start; }
+    .column-author-avatar { flex-shrink:0; width:140px; height:140px; border-radius:50%; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:2.2rem; color:var(--navy); font-weight:600; overflow:hidden; line-height:1; }
     .column-author-avatar img { width:100%; height:100%; object-fit:cover; }
     .column-author-info { flex:1; min-width:0; }
     .column-author-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:600; color:var(--navy-dark); padding-bottom:6px; border-bottom:1px solid var(--gold); display:inline-block; margin-bottom:10px; }
     .column-author-roles { font-size:.78rem; color:var(--text-mid); line-height:1.85; margin-bottom:10px; }
     .column-author-bio { font-size:.78rem; color:var(--text-mid); line-height:1.85; margin:0; }
+
+
+    .column-video { margin:32px 0; }
+    .column-video-wrap { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:6px; background:#000; }
+    .column-video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
     /* override: h1 inside article (no longer used) */
     article.column > h1 { display:none; }
@@ -880,7 +885,8 @@
     @media (max-width:980px) {
       .column-page-grid { grid-template-columns:1fr; gap:32px; padding:60px 18px 80px; }
       .column-side { position:static; }
-      .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:16px; padding:20px; }
+      .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:16px; padding:20px 20px 18px; }
+      .column-author-avatar { width:120px; height:120px; }
       .column-author-name { display:block; }
     }
     @media (max-width:520px) {
@@ -923,7 +929,8 @@
       .column p, .column li { font-size: .95rem !important; line-height: 1.95 !important; }
       .column figure img { border-radius: 4px; }
       .column-author-body { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
-      .column-author-avatar img { width: 72px !important; height: 72px !important; }
+      .column-author-avatar { width: 110px !important; height: 110px !important; }
+      .column-author-avatar img { width: 100% !important; height: 100% !important; }
       .column-share { gap: 8px !important; flex-wrap: wrap; }
       .column-share a { font-size: .78rem !important; padding: 8px 14px !important; }
       /* Sidebar (column-side) */
@@ -2697,7 +2704,7 @@
 
 <figure>
   <img src="columns/purchase/img1_purchase_flow.png" alt="不動産購入の流れ図">
-  <figcaption><strong>情報収集 → 内見 → 購入申込（ローン事前審査）→ 売買契約 → 住宅ローン契約 → 引渡し → 入居</strong><br>簡単に言えばこんな感じです。<br>※SUUMO公式から引用</figcaption>
+  <figcaption><strong>情報収集 → 内見 → 購入申込（ローン事前審査）→ 売買契約 → 住宅ローン契約 → 引渡し → 入居</strong></figcaption>
 </figure>
 
 <p>特に内見→購入申込→売買契約は想像以上に多くの判断と準備を求められます。<br>
@@ -3165,6 +3172,17 @@
 
 <p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産購入・売却サポートを行っています。<br>
 購入をご検討中の方は、お気軽にお問い合わせください。</p>
+
+
+<hr>
+
+<h2>動画版でも解説しています</h2>
+<p>記事の内容をより詳しく知りたい方は、動画版もぜひご覧ください。</p>
+<figure class="column-video">
+  <div class="column-video-wrap">
+    <iframe src="https://www.youtube.com/embed/HAF-2vVi_ak" title="不動産購入の流れ解説（YouTube）" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+  </div>
+</figure>
 
 </article>
 
