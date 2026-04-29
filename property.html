@@ -43,7 +43,9 @@
   header {
     background: var(--navy);
     padding: 0 1.5rem;
-    height: 80px;
+    height: 80px !important;
+    max-height: 80px !important;
+    overflow: hidden;
     display: flex;
     align-items: center;
   }
@@ -54,13 +56,14 @@
     text-decoration: none;
   }
   .logo-img {
-    height: 44px;
-    width: auto;
+    height: 44px !important;
+    max-height: 44px !important;
+    width: auto !important;
     object-fit: contain;
   }
   @media (max-width: 720px) {
     header { height: 64px; padding: 0 1.25rem; }
-    .logo-img { height: 32px; }
+    .logo-img { height: 32px !important; max-height: 32px !important; }
   }
 
   .tabs {
