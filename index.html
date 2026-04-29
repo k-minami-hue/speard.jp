@@ -134,7 +134,7 @@
     .section-title { font-family:'Noto Serif JP',serif; font-size:clamp(1.5rem,2.8vw,2.1rem); font-weight:500; color:var(--navy-dark); letter-spacing:.1em; margin-bottom:22px; }
     .section-line { width:36px; height:1px; background:var(--gold); margin:0 auto 22px; }
     .section-desc { color:var(--text-mid); font-size:.92rem; line-height:2; }
-    .fade-in { opacity:0; transform:translateY(28px); transition:opacity .75s ease,transform .75s ease; }
+    .fade-in { opacity:1; transform:none; transition:opacity .75s ease,transform .75s ease; }
     .fade-in.visible { opacity:1; transform:translateY(0); }
     .fade-in:nth-child(2){transition-delay:.1s} .fade-in:nth-child(3){transition-delay:.2s} .fade-in:nth-child(4){transition-delay:.3s}
 
@@ -1148,13 +1148,13 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in visible">
       <span class="section-en">Contact Us</span>
       <h2 class="section-title" style="color:white;">お問合せ</h2>
       <div class="section-line"></div>
       <p class="section-desc" style="color:rgba(255,255,255,.65);">購入・売却について、まずはお気軽にご相談ください。<br>下記フォームまたはお電話・メールよりお問合せをお待ちしております。</p>
     </div>
-    <div class="contact-form-wrap fade-in">
+    <div class="contact-form-wrap fade-in visible">
       <div class="form-card" id="contact-form-card">
         <form id="contact-form" method="POST" novalidate>
           <input type="hidden" name="access_key" value="5268c498-3e71-4a9e-ac7f-6aa7dc428f4e">
@@ -1216,7 +1216,7 @@
 <!-- GUIDE CTA -->
 <section style="background:var(--navy-light);padding:80px 24px;">
   <div class="container" style="text-align:center;">
-    <div class="fade-in">
+    <div class="fade-in visible">
       <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">Real Estate Guide</span>
       <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;color:var(--navy-dark);letter-spacing:.1em;margin-bottom:16px;">不動産ガイド</h2>
       <div style="width:36px;height:1px;background:var(--gold);margin:0 auto 24px;"></div>
@@ -1232,13 +1232,13 @@
 <!-- RECRUIT TEASER -->
 <section style="background:#fff;padding:96px 24px;text-align:center;">
   <div class="container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in visible">
       <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.14em;">採用情報</h2>
       <span class="section-en" style="display:block;margin-top:6px;">Recruit</span>
       <div class="section-line"></div>
       <p class="section-desc" style="margin-top:8px;">株式会社スピアードでは、一緒に働いてくれる方を募集しています。</p>
     </div>
-    <div class="fade-in" style="margin-top:8px;">
+    <div class="fade-in visible" style="margin-top:8px;">
       <a href="#recruit" onclick="showPage('recruit');return false;" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:white;padding:15px 38px;text-decoration:none;font-size:.92rem;letter-spacing:.08em;border-radius:30px;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--navy-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--navy)';this.style.transform=''">採用情報に関してはこちら <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
     </div>
   </div>
@@ -3710,11 +3710,15 @@ window.addEventListener('DOMContentLoaded', () => {
 const header = document.getElementById('header');
 if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
 
-// ===== FADE IN OBSERVER =====
-const obs = new IntersectionObserver(entries => entries.forEach(e => {
-  if (e.isIntersecting) e.target.classList.add('visible');
-}), { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+// ===== FADE IN OBSERVER (with safety net) =====
+// Safety: force all fade-in elements visible immediately so content always shows
+document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+try {
+  const obs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  }), { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+} catch(e) { /* IntersectionObserver not available, but content already visible */ }
 
 // ===== GUIDE TABS =====
 document.querySelectorAll('.guide-tab').forEach(tab => {
@@ -3799,10 +3803,12 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const nameVal  = this.querySelector('[name="name"]').value.trim();
-    const emailVal = this.querySelector('[name="email"]').value.trim();
-    const typeVal  = this.querySelector('[name="type"]').value;
-    const msgVal   = this.querySelector('[name="message"]').value.trim();
+    const form = this;
+    const nameVal  = form.querySelector('[name="name"]').value.trim();
+    const emailVal = form.querySelector('[name="email"]').value.trim();
+    const typeVal  = form.querySelector('[name="type"]').value;
+    const msgVal   = form.querySelector('[name="message"]').value.trim();
+    const phoneVal = form.querySelector('[name="phone"]').value.trim() || '-';
     if (!nameVal || !emailVal || !typeVal || !msgVal) {
       alert('お名前・メールアドレス・種別・内容は必須項目です。');
       return;
@@ -3811,53 +3817,68 @@ if (contactForm) {
       alert('メールアドレスの形式が正しくありません。');
       return;
     }
-    const btn = this.querySelector('.form-submit-btn');
+    const btn = form.querySelector('.form-submit-btn');
     btn.disabled = true;
     btn.textContent = '送信中...';
-    const formData = new FormData(this);
-    const payload = {};
-    formData.forEach((v, k) => { payload[k] = v; });
-    fetch('https://api.web3forms.com/submit', {
+
+    const subject = '「speard.jpお問合せ」お問合せが届きました';
+    const body =
+      'お名前: ' + nameVal + '\n' +
+      'メールアドレス: ' + emailVal + '\n' +
+      '電話番号: ' + phoneVal + '\n' +
+      'お問合せ種別: ' + typeVal + '\n\n' +
+      'お問合せ内容:\n' + msgVal;
+
+    const showSuccess = () => {
+      const card = document.getElementById('contact-form-card');
+      const success = document.getElementById('form-success');
+      if (card && success) {
+        const f = document.getElementById('contact-form');
+        if (f) f.style.display = 'none';
+        success.style.display = 'block';
+      }
+    };
+    const openMailto = () => {
+      window.location.href = 'mailto:info@speard.jp?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    };
+
+    // Try Web3Forms; whichever resolves first or 8s timeout wins
+    const formData = new FormData(form);
+    const payload = {
+      _subject: subject,
+      _captcha: 'false',
+      _template: 'table'
+    };
+    formData.forEach((v, k) => { if (k !== 'access_key' && k !== 'cc' && k !== 'subject') payload[k] = v; });
+
+    let settled = false;
+    const finishOK = () => { if (settled) return; settled = true; showSuccess(); };
+    const finishFail = () => {
+      if (settled) return; settled = true;
+      btn.disabled = false;
+      btn.textContent = '送信する';
+      if (confirm('オンライン送信に失敗しました。メールアプリで送信しますか？\n（OK：メールアプリ起動／キャンセル：再入力）')) {
+        openMailto();
+      }
+    };
+
+    // 8 second timeout to mailto
+    const watchdog = setTimeout(finishFail, 8000);
+
+    fetch('https://formsubmit.co/ajax/info@speard.jp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     })
     .then(r => r.json())
     .then(data => {
-      if (data && data.success) {
-        document.getElementById('contact-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = '送信する';
-        const subject = encodeURIComponent('「speard.jpお問合せ」お問合せが届きました');
-        const body = encodeURIComponent(
-          'お名前: ' + nameVal + '\n' +
-          'メールアドレス: ' + emailVal + '\n' +
-          '電話番号: ' + (this.querySelector('[name=phone]').value.trim()||'-') + '\n' +
-          'お問合せ種別: ' + typeVal + '\n\n' +
-          'お問合せ内容:\n' + msgVal
-        );
-        if (confirm('送信に失敗しました。メールアプリで送信しますか？')) {
-          window.location.href = 'mailto:info@speard.jp?subject=' + subject + '&body=' + body;
-        }
-      }
+      clearTimeout(watchdog);
+      if (data && (data.success === 'true' || data.success === true)) finishOK();
+      else finishFail();
     })
-    .catch(err => {
-      btn.disabled = false;
-      btn.textContent = '送信する';
-      // Fallback: open mailto so the user's mail client launches with content prefilled
-      const subject = encodeURIComponent('「speard.jpお問合せ」お問合せが届きました');
-      const body = encodeURIComponent(
-        'お名前: ' + nameVal + '\n' +
-        'メールアドレス: ' + emailVal + '\n' +
-        '電話番号: ' + (this.querySelector('[name=phone]').value.trim()||'-') + '\n' +
-        'お問合せ種別: ' + typeVal + '\n\n' +
-        'お問合せ内容:\n' + msgVal
-      );
-      if (confirm('送信に失敗しました。メールアプリを開いて送信しますか？')) {
-        window.location.href = 'mailto:info@speard.jp?subject=' + subject + '&body=' + body;
-      }
+    .catch(() => {
+      clearTimeout(watchdog);
+      finishFail();
     });
   });
 }
