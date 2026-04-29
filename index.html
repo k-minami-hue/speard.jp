@@ -1213,6 +1213,50 @@
   </div>
 </section>
 
+<!-- NEWS -->
+<section id="news" style="background:#fff;padding:80px 24px;">
+  <div class="container" style="max-width:880px;margin:0 auto;">
+    <div class="section-header fade-in visible" style="text-align:center;margin-bottom:40px;">
+      <span class="section-en" style="font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">News</span>
+      <h2 class="section-title" style="font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;color:var(--navy-dark);letter-spacing:.1em;margin-bottom:0;">お知らせ</h2>
+      <div style="width:36px;height:1px;background:var(--gold);margin:18px auto 0;"></div>
+    </div>
+    <ul id="news-list" class="fade-in visible" style="list-style:none;padding:0;margin:0;border-top:1px solid var(--beige);">
+      <!-- News items injected via JS (latest 3) -->
+    </ul>
+  </div>
+</section>
+<style>
+  .news-item { display:flex; align-items:flex-start; gap:24px; padding:22px 8px; border-bottom:1px solid var(--beige); transition:background .15s; }
+  .news-item:hover { background:var(--off-white); }
+  .news-link { display:flex; flex:1; align-items:center; gap:24px; text-decoration:none; color:inherit; }
+  .news-date { font-family:'Playfair Display',serif; font-size:.95rem; color:var(--gold); letter-spacing:.06em; min-width:96px; flex-shrink:0; }
+  .news-text { font-size:.92rem; color:var(--navy-dark); flex:1; line-height:1.6; }
+  .news-arrow { font-size:.95rem; color:var(--text-light); transition:transform .2s,color .2s; }
+  .news-item:hover .news-arrow { transform:translateX(4px); color:var(--gold); }
+  @media (max-width:640px) {
+    .news-link { flex-direction:column; align-items:flex-start; gap:6px; }
+    .news-date { font-size:.85rem; min-width:auto; }
+    .news-text { font-size:.88rem; }
+  }
+</style>
+<script>
+// ===== NEWS DATA (newest first) =====
+// 追加するときは下記配列の先頭に追加。最新3件のみ表示。
+const NEWS_ITEMS = [
+  { date: '2026.4.27', text: '「お客様の声」を更新しました', page: 'voices' },
+  { date: '2026.4.26', text: '「コラム」を更新しました', page: 'column' }
+];
+(function() {
+  const list = document.getElementById('news-list');
+  if (!list) return;
+  const html = NEWS_ITEMS.slice(0, 3).map(n => 
+    `<li class="news-item"><a href="#${n.page}" onclick="event.preventDefault();showPage('${n.page}');return false;" class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`
+  ).join('');
+  list.innerHTML = html;
+})();
+</script>
+
 <!-- GUIDE CTA -->
 <section style="background:var(--navy-light);padding:80px 24px;">
   <div class="container" style="text-align:center;">
