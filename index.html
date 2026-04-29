@@ -94,11 +94,11 @@
     h1,h2,h3 { font-family: 'Noto Serif JP', serif; font-weight: 500; line-height: 1.4; }
 
     /* ===== HEADER ===== */
-    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:108px; transition:background .4s, box-shadow .4s; background: rgba(13,34,56,.97); }
+    header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:80px; transition:background .4s, box-shadow .4s; background: rgba(13,34,56,.97); }
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo svg { width:36px; height:36px; }
-    .logo-img { height:80px; width:auto; object-fit:contain; }
+    .logo-img { height:56px; width:auto; object-fit:contain; }
     .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
     nav { display:flex; align-items:center; gap:28px; }
     nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
@@ -630,7 +630,7 @@
     @media (max-width: 640px) {
       /* ヘッダー */
       header { height: 88px; padding: 0 16px; }
-      .logo-img { height: 80px; }
+      .logo-img { height: 40px; }
       .br-sp { display: block; height: 0; }
       .mobile-menu { top: 88px; }
 
