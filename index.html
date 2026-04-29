@@ -98,13 +98,15 @@
     header.scrolled { background: rgba(13,34,56,.97); box-shadow: 0 2px 24px rgba(0,0,0,.25); }
     .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo svg { width:36px; height:36px; }
-    .logo-img { height:130px; width:auto; object-fit:contain; filter:brightness(0) invert(1); }
+    .logo-img { height:80px; width:auto; object-fit:contain; }
     .logo-text { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; letter-spacing:.06em; }
     nav { display:flex; align-items:center; gap:28px; }
     nav a { color:rgba(255,255,255,.82); text-decoration:none; font-size:.83rem; letter-spacing:.06em; transition:color .2s; }
     nav a:hover { color:var(--gold); }
     .btn-nav { background:var(--gold)!important; color:white!important; padding:9px 22px; border-radius:2px; font-size:.8rem!important; transition:background .2s!important; }
     .btn-nav:hover { background:var(--gold-hover)!important; }
+    .btn-nav-line { background:#06C755!important; color:white!important; padding:9px 18px; border-radius:2px; font-size:.8rem!important; transition:filter .2s!important; display:inline-flex; align-items:center; }
+    .btn-nav-line:hover { filter:brightness(1.08); }
 
     /* ===== HERO ===== */
     #home { height:100vh; min-height:700px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-mid) 100%); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
@@ -360,7 +362,7 @@
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
     /* Responsive */
-    @media (max-width:900px) { header{padding:0 20px;} .nav-links{display:none!important;} .btn-nav{display:none!important;} .hamburger{display:flex;} .service-grid{grid-template-columns:1fr;} }
+    @media (max-width:900px) { header{padding:0 20px;} .nav-links{display:none!important;} .btn-nav,.btn-nav-line{display:none!important;} .hamburger{display:flex;} .service-grid{grid-template-columns:1fr;} }
     /* ハンバーガーメニュー */
     .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; }
     .hamburger span { display:block; width:24px; height:2px; background:white; border-radius:2px; transition:all .3s; }
@@ -1009,6 +1011,7 @@
       <a href="#column" onclick="showPage('column');return false;">コラム</a>
     </div>
     <a href="javascript:void(0)" onclick="showPage('home');setTimeout(()=>scrollTo('contact'),100);return false;" class="btn-nav">お問合せ</a>
+  <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="btn-nav-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:-2px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>公式LINE</a>
   </nav>
   <button class="hamburger" id="hamburger" aria-label="メニュー">
     <span></span><span></span><span></span>
@@ -3827,13 +3830,34 @@ if (contactForm) {
       } else {
         btn.disabled = false;
         btn.textContent = '送信する';
-        alert('送信に失敗しました。時間をおいて再度お試しください。');
+        const subject = encodeURIComponent('「speard.jpお問合せ」お問合せが届きました');
+        const body = encodeURIComponent(
+          'お名前: ' + nameVal + '\n' +
+          'メールアドレス: ' + emailVal + '\n' +
+          '電話番号: ' + (this.querySelector('[name=phone]').value.trim()||'-') + '\n' +
+          'お問合せ種別: ' + typeVal + '\n\n' +
+          'お問合せ内容:\n' + msgVal
+        );
+        if (confirm('送信に失敗しました。メールアプリで送信しますか？')) {
+          window.location.href = 'mailto:info@speard.jp?subject=' + subject + '&body=' + body;
+        }
       }
     })
-    .catch(() => {
+    .catch(err => {
       btn.disabled = false;
       btn.textContent = '送信する';
-      alert('送信に失敗しました。時間をおいて再度お試しください。');
+      // Fallback: open mailto so the user's mail client launches with content prefilled
+      const subject = encodeURIComponent('「speard.jpお問合せ」お問合せが届きました');
+      const body = encodeURIComponent(
+        'お名前: ' + nameVal + '\n' +
+        'メールアドレス: ' + emailVal + '\n' +
+        '電話番号: ' + (this.querySelector('[name=phone]').value.trim()||'-') + '\n' +
+        'お問合せ種別: ' + typeVal + '\n\n' +
+        'お問合せ内容:\n' + msgVal
+      );
+      if (confirm('送信に失敗しました。メールアプリを開いて送信しますか？')) {
+        window.location.href = 'mailto:info@speard.jp?subject=' + subject + '&body=' + body;
+      }
     });
   });
 }
