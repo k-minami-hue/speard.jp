@@ -893,6 +893,10 @@
       .column-page-grid { grid-template-columns:1fr; gap:32px; padding:60px 18px 80px; }
       .column-side { position:static; }
       .column-author-body { flex-direction:column; align-items:center; text-align:center; gap:14px; padding:16px 18px; }
+      .column-author-name { font-size:1.15rem !important; }
+      .column-author-roles { font-size:.85rem !important; line-height:1.7 !important; text-align:center; }
+      .column-author-bio { font-size:.9rem !important; line-height:1.95 !important; text-align:left !important; padding:0 4px !important; }
+      .column-author-avatar { width:160px !important; height:160px !important; }
       .column-author-avatar { width:180px; height:180px; }
       .column-author-name { display:block; }
     }
@@ -1636,7 +1640,7 @@ const NEWS_ITEMS = [
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">登記費用</div><div class="c-card-amount ca-navy">3万円〜程度</div><div class="c-card-desc">所有権移転登記や抵当権設定登記にかかる費用です。<br>物件の評価額や借入内容によって変動します。</div></div>
               <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">仲介手数料</div><div class="c-card-amount ca-orange">物件価格×3%＋6万円＋消費税（上限）</div><div class="c-card-desc">仲介会社へ支払う報酬です。<div>弊社では決済・引渡し完了と同時に頂戴しております。</div></div></div>
               <div class="c-card"><span class="ttag tt-shutoku">取得後</span><div class="c-card-name">不動産取得税</div><div class="c-card-amount ca-navy">0円〜評価額の数%</div><div class="c-card-desc">取得後しばらくして納税通知書が届きます。<div>一定の要件を満たすと軽減措置により0円になる場合もあります。</div></div></div>
-              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主へ支払います。</div></div>
+              <div class="c-card"><span class="ttag tt-kessai">決済時</span><div class="c-card-name">固定資産税の精算金</div><div class="c-card-amount ca-navy">物件・引渡時期により変動</div><div class="c-card-desc">引渡し日以降の固定資産税・都市計画税を日割りで売主様へ支払います。</div></div>
             </div>
             <hr class="section-divider">
             <div class="lbadge lb-loan">住宅ローンにかかる費用</div>
@@ -2908,18 +2912,18 @@ const NEWS_ITEMS = [
 これはまだ契約ではなく、あくまで「この物件を買いたい」という<strong>意思表示</strong>にすぎません。</p>
 
 <p>また、申込書を提出したからといって、<strong>購入の義務が発生するわけでもなく</strong>、<strong>法的拘束力もありません</strong>。<br>
-あくまで、売主との本格的な条件調整に入るためのスタート地点と考えてください。<br>
+あくまで、売主様との本格的な条件調整に入るためのスタート地点と考えてください。<br>
 とはいえ、この購入申込書の提出を境に、不動産購入は一気に"現実の取引"として動き始めます。</p>
 
 <h3>■中古市場は"値付けが曖昧"な世界</h3>
 
 <p>特に中古物件の場合、<strong>相場との乖離がある物件</strong>も少なくありません。<br>
-いわゆる「強気価格」（＝売主の希望価格がたっぷり乗った強気な価格設定）で出ているケースも多く、<strong>価格交渉の余地があるかどうかを見極める力</strong>が問われます。</p>
+いわゆる「強気価格」（＝売主様の希望価格がたっぷり乗った強気な価格設定）で出ているケースも多く、<strong>価格交渉の余地があるかどうかを見極める力</strong>が問われます。</p>
 
 <p><strong>・過去の売買履歴</strong>（同条件で比較）<br>
 <strong>・周辺の直近成約価格</strong>（3ヶ月以内）<br>
 <strong>・価格改定履歴</strong>（何度下がってきたか）<br>
-<strong>・売主の売却理由</strong>（住み替え／相続／収益用など）</p>
+<strong>・売主様の売却理由</strong>（住み替え／相続／収益用など）</p>
 
 <p>これらの情報がそろっていれば、<strong>価格が適正かどうかの判断は十分可能です。</strong><br>
 特に<strong>資産性を重視する場合は、「入口の取得価格」が非常に重要な要素</strong>となります。</p>
@@ -2927,9 +2931,9 @@ const NEWS_ITEMS = [
 <h3>■交渉する場合の注意点</h3>
 
 <p>とはいえ、何でもかんでも指値（＝値引き交渉）をすれば良いというものではありません。<br>
-適正価格の物件に無理な値下げ要求をすると、売主の心証を損ない、他の買主にあっさり買い負けるリスクが高まります。</p>
+適正価格の物件に無理な値下げ要求をすると、売主様の心証を損ない、他の買主様にあっさり買い負けるリスクが高まります。</p>
 
-<p><strong>・買付は1通しか受けない売主</strong>も多く、一発勝負になることも。<br>
+<p><strong>・買付は1通しか受けない売主様</strong>も多く、一発勝負になることも。<br>
 ・仲介担当に「交渉に応じそうか」温度感を確認してもらうのも重要です。</p>
 
 <p>また、「<strong>買える価格</strong>」ではなく「<strong>買いたい価格</strong>」という基準で指値してしまうと、<strong>合理性を欠き、チャンスを逃す原因</strong>になりがちです。</p>
@@ -2998,8 +3002,8 @@ const NEWS_ITEMS = [
 
 <h2>⑥売買契約の流れと注意点</h2>
 
-<p>購入する物件が決まり、売主との合意が取れたら、いよいよ<strong>不動産売買契約</strong>に進みます。<br>
-売主・買主・不動産会社が一堂に会し、<strong>宅地建物取引士</strong>による重要事項説明を受けたうえで、契約書の内容を確認し、署名・押印を行う流れです。</p>
+<p>購入する物件が決まり、売主様との合意が取れたら、いよいよ<strong>不動産売買契約</strong>に進みます。<br>
+売主様・買主様・不動産会社が一堂に会し、<strong>宅地建物取引士</strong>による重要事項説明を受けたうえで、契約書の内容を確認し、署名・押印を行う流れです。</p>
 
 <p>この場面こそ、不動産取引の"本番"。しっかり準備して臨みましょう。</p>
 
@@ -3035,13 +3039,13 @@ const NEWS_ITEMS = [
 中古物件では法的な定めはありませんが、慣習としては<strong>物件価格の5％前後</strong>が一般的です（例：1億円の物件なら約500万円）。</p>
 
 <p>ただし、特に若い世代や初めて購入される方は、手元資金に限りがある場合も多く、<strong>2〜3％で交渉するケース</strong>も増えています。<br>
-最終的には売主との合意があれば問題ありません。</p>
+最終的には売主様との合意があれば問題ありません。</p>
 
 <p>なお、手付金には以下のような性質があります。</p>
 
 <p>・売買契約が<strong>成立したことの証明</strong><br>
-・買主都合でキャンセルした場合は<strong>手付金放棄</strong><br>
-・売主都合でキャンセルした場合は<strong>手付金の倍返し</strong></p>
+・買主様都合でキャンセルした場合は<strong>手付金放棄</strong><br>
+・売主様都合でキャンセルした場合は<strong>手付金の倍返し</strong></p>
 
 <p>このように、<strong>契約は「とりあえず」で済ませられるものではありません。</strong><br>
 キャンセルには損失が伴うため、<strong>"決断の最終地点"として慎重に判断</strong>する必要があります。</p>
@@ -3070,11 +3074,11 @@ const NEWS_ITEMS = [
 　→ 銀行で住宅ローンを正式に契約します。実印や印鑑証明書、住民票などが必要。<br>
 <strong>・登記の準備</strong><br>
 　→ 所有権移転や抵当権設定の登記を司法書士が担当します。<br>
-　→ 売主・買主双方の書類や本人確認情報を提出。<br>
+　→ 売主様・買主様双方の書類や本人確認情報を提出。<br>
 <strong>・残代金・諸費用の用意</strong><br>
 　→ 物件価格の残金に加え、登記費用・仲介手数料・火災保険料・司法書士報酬なども一括で準備。<br>
 <strong>・物件の最終確認（内覧）</strong><br>
-　→ 引渡し前に、キズ・破損・設備の不具合がないかを買主が現地で再確認します。<br>
+　→ 引渡し前に、キズ・破損・設備の不具合がないかを買主様が現地で再確認します。<br>
 　→ 水回り・エアコン・給湯器・壁・床・鍵などをしっかりチェック。<br>
 <strong>・火災保険・地震保険の加入</strong><br>
 　→ 住宅ローン利用時は<strong>火災保険加入が必須</strong>です。引渡し当日から補償されるよう、事前に契約しておきましょう。</p>
@@ -3089,7 +3093,7 @@ const NEWS_ITEMS = [
 
 <h3>■登記準備と司法書士との連携</h3>
 
-<p>登記の準備は主に司法書士が担当しますが、買主としても提出書類や本人確認の準備が必要です。</p>
+<p>登記の準備は主に司法書士が担当しますが、買主様としても提出書類や本人確認の準備が必要です。</p>
 
 <p>・所有権移転登記、抵当権設定登記を同時に行う<br>
 ・必要書類：住民票、印鑑証明書など</p>
@@ -3575,8 +3579,8 @@ const NEWS_ITEMS = [
 
 <h2>⑦決済・引渡し</h2>
 
-<p>残代金を受け取り、物件の所有権が正式に買主へ移転されます。<br>
-当日は、司法書士・買主・売主・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
+<p>残代金を受け取り、物件の所有権が正式に買主様へ移転されます。<br>
+当日は、司法書士・買主様・売主様・不動産会社が一堂に会し、売却に関するすべての手続きをその場で完了させます。<br>
 準備さえ整っていれば、署名捺印と鍵の引渡し、着金確認で終了です。</p>
 
 <p>残代金の入金が確認できたら、鍵を渡して売却は無事完了となります。<br>
@@ -3907,18 +3911,21 @@ if (contactForm) {
     };
 
     // 8 second timeout to mailto
-    const watchdog = setTimeout(finishFail, 8000);
+    const watchdog = setTimeout(finishFail, 20000); // 20s for slow mobile networks
 
     fetch('https://formsubmit.co/ajax/info@speard.jp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     })
-    .then(r => r.json())
-    .then(data => {
+    .then(r => {
       clearTimeout(watchdog);
-      if (data && (data.success === 'true' || data.success === true)) finishOK();
-      else finishFail();
+      // Any 2xx response from FormSubmit means email was queued
+      if (r.ok || r.status === 200) {
+        finishOK();
+      } else {
+        finishFail();
+      }
     })
     .catch(() => {
       clearTimeout(watchdog);
