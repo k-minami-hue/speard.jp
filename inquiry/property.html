@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>物件詳細・お問い合わせ | Speard</title>
+<title>物件詳細・お問合せ | Speard</title>
 <style>
   :root {
     --navy: #1a2340;
@@ -48,6 +48,30 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+  }
+  .back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold, #C49A30);
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 20px;
+    border-radius: 2px;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .back-to-top:hover {
+    background: #A87E22;
+    transform: translateY(-1px);
+  }
+  @media (max-width: 720px) {
+    .back-to-top { padding: 7px 14px; font-size: 0.74rem; gap: 5px; }
+    .back-to-top svg { width: 13px; height: 13px; }
   }
 
   .logo {
@@ -689,6 +713,10 @@
   <a href="https://speard.jp/" class="logo">
     <img src="https://speard.jp/logo.png" alt="Speard" class="logo-img">
   </a>
+  <a href="https://speard.jp/" class="back-to-top">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    スピアードHPに戻る
+  </a>
 </header>
 
 <div class="sending-overlay" id="sending-overlay">
@@ -700,7 +728,7 @@
 
 <div class="tabs">
   <button class="tab active" id="tab-prop" onclick="showTab('prop')">物件確認</button>
-  <button class="tab" id="tab-contact" onclick="showTab('contact')">お問い合わせ</button>
+  <button class="tab" id="tab-contact" onclick="showTab('contact')">お問合せ</button>
 </div>
 
 <!-- PROPERTY PANE -->
@@ -736,7 +764,7 @@
       </div>
     </div>
 
-    <button class="cta-btn" onclick="showTab('contact')">内見予約・お問い合わせ</button>
+    <button class="cta-btn" onclick="showTab('contact')">内見予約・お問合せ</button>
   </main>
 </div>
 
@@ -748,7 +776,7 @@
     <div id="form-step">
       <div class="form-notice">
         内見は希望日として承ります。後日営業担当から連絡し、日時を確定します。
-        <small>※定休日のお問い合わせについては、翌営業日の朝10時以降となります。</small>
+        <small>※定休日のお問合せについては、翌営業日の朝10時以降となります。</small>
       </div>
 
       <div class="step-bar">
@@ -916,7 +944,7 @@
       <h2 class="section-title">入力内容のご確認</h2>
 
       <div class="confirm-section">
-        <div class="confirm-title">お問い合わせ内容</div>
+        <div class="confirm-title">お問合せ内容</div>
         <div class="confirm-row">
           <div class="confirm-key">問い合わせ種別</div>
           <div class="confirm-val" id="c-type"></div>
@@ -1021,11 +1049,11 @@
         </div>
         <p class="done-title">送信が完了しました</p>
         <p class="done-body">
-          お問い合わせありがとうございます。<br>
+          お問合せありがとうございます。<br>
           内容を確認のうえ、担当者より折り返しご連絡いたします。<br>
           <br>
           ※ご入力のメールアドレス宛に控えをお送りしています。届かない場合は迷惑メールフォルダをご確認ください。<br>
-          ※定休日のお問い合わせは翌営業日朝10時以降の対応となります。
+          ※定休日のお問合せは翌営業日朝10時以降の対応となります。
         </p>
       </div>
 
@@ -1060,7 +1088,7 @@ const HAS_PROPERTY_CONTEXT = !!p.get('name');
 const MANUAL_MODE = !HAS_PROPERTY_CONTEXT;
 
 if (MANUAL_MODE) {
-  // 物件確認タブを非表示、お問い合わせタブのみ表示
+  // 物件確認タブを非表示、お問合せタブのみ表示
   document.getElementById('tab-prop').style.display = 'none';
   document.querySelectorAll('.pane').forEach(pane => pane.classList.remove('active'));
   document.getElementById('tab-contact').classList.add('active');
@@ -1286,7 +1314,7 @@ async function goSend() {
   }
 
   if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
-    showError('送信設定エラー：管理者にお問い合わせください。');
+    showError('送信設定エラー：管理者にお問合せください。');
     return;
   }
 
