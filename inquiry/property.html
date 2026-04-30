@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>不動産業者様専用お問合せページ | 株式会社スピアード</title>
+<title>不動産業者用お問合せページ | 株式会社スピアード</title>
 <style>
   :root {
     --navy: #1a2340;
@@ -813,6 +813,12 @@
         </div>
       </div>
 
+      <div id="prop-name-input-section" style="margin-top:1rem;">
+        <label for="f-prop-name" style="display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">物件名 <span style="color:var(--gold,#C49A30)">*</span></label>
+        <input type="text" id="f-prop-name" placeholder="〇〇マンション" style="width:100%;padding:12px 14px;border:1px solid var(--border,#D8D0C0);border-radius:4px;font-size:14px;font-family:inherit;background:#fff;">
+        <p style="font-size:11px;color:var(--muted,#888);margin-top:4px;">※マンション名のみ（部屋番号は不要）</p>
+      </div>
+
       <div id="date-section">
         <p style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">
           希望日時の候補を選択してください（最大5つ）<br>
@@ -948,6 +954,10 @@
         <div class="confirm-row">
           <div class="confirm-key">問い合わせ種別</div>
           <div class="confirm-val" id="c-type"></div>
+        </div>
+        <div class="confirm-row" id="c-prop-name-row">
+          <div class="confirm-key">物件名</div>
+          <div class="confirm-val" id="c-prop-name"></div>
         </div>
         <div class="confirm-row" id="c-dates-row" style="display:none">
           <div class="confirm-key">希望日時</div>
@@ -1237,6 +1247,13 @@ function goConfirm() {
 
   // 内見希望時は日時1つ以上必須
   const type = document.querySelector('input[name="inquiry"]:checked').value;
+  // 物件名は必須
+  const manualPropNameVal = document.getElementById('f-prop-name').value.trim();
+  if (!manualPropNameVal) {
+    alert('物件名を入力してください。');
+    document.getElementById('f-prop-name').focus();
+    return;
+  }
   if (type === '案内希望(内見)') {
     const hasDate = Array.from(document.querySelectorAll('.date-input')).some(d => d.value);
     if (!hasDate) {
@@ -1252,6 +1269,9 @@ function goConfirm() {
   }
 
   document.getElementById('c-type').textContent = type;
+  // 物件名（手動入力）
+  const manualPropName = document.getElementById('f-prop-name').value.trim();
+  document.getElementById('c-prop-name').textContent = manualPropName || '（未入力）';
   document.getElementById('c-company').textContent = company;
   document.getElementById('c-branch').textContent = branch;
   document.getElementById('c-tel').textContent = tel;
@@ -1381,7 +1401,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
 
   const propName = MANUAL_MODE
     ? '（業者問合せ・物件指定なし）'
-    : (p.get('name') || '物件名未設定');
+    : (document.getElementById('f-prop-name').value.trim() || p.get('name') || '物件名未設定');
   const inquiringCo = document.getElementById('f-company').value.trim();
   const inquiringBranch = document.getElementById('f-branch').value.trim();
   const inquiringTel = document.getElementById('f-tel').value.trim();
@@ -1489,7 +1509,7 @@ async function sendToWeb3Forms(cardFile, cardImageUrl) {
 function renderDoneSummary(cardImageUrl) {
   const propName = MANUAL_MODE
     ? '（業者問合せ・物件指定なし）'
-    : (p.get('name') || '物件名未設定');
+    : (document.getElementById('f-prop-name').value.trim() || p.get('name') || '物件名未設定');
   const inquiryType = document.getElementById('c-type').textContent;
   const dateText = document.getElementById('c-dates').textContent || '（指定なし）';
   const isGuide = inquiryType === '案内希望(内見)';
