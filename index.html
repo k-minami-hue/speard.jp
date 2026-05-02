@@ -115,8 +115,8 @@
     .hero-circle { position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(255,255,255,.04); left:-80px; top:-60px; pointer-events:none; }
     .hero-content { position:relative; z-index:2; text-align:center; color:white; padding:0 24px; max-width:860px; }
     .hero-en { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:var(--gold); letter-spacing:.12em; margin-bottom:28px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .3s forwards; }
-    .hero-title { font-family:'Noto Serif JP',serif; font-size:clamp(2rem,5vw,3.8rem); font-weight:500; line-height:1.35; letter-spacing:.06em; margin-bottom:32px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .5s forwards; }
-    .hero-sub { font-size:.93rem; color:rgba(255,255,255,.72); line-height:2; margin-bottom:52px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .7s forwards; }
+    .hero-title { font-family:'Noto Serif JP',serif; font-size:clamp(2rem,5vw,3.8rem); font-weight:500; line-height:1.35; letter-spacing:.06em; margin-bottom:20px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .5s forwards; }
+    .hero-sub { font-size:.93rem; color:rgba(255,255,255,.72); line-height:1.85; margin-bottom:32px; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .7s forwards; }
     .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; opacity:0; transform:translateY(22px); animation:fadeUp .9s ease .9s forwards; }
     .btn-primary { background:var(--gold); color:white; padding:15px 38px; text-decoration:none; font-size:.88rem; letter-spacing:.06em; border-radius:2px; transition:background .2s,transform .2s; display:inline-block; }
     .btn-primary:hover { background:var(--gold-hover); transform:translateY(-2px); }
@@ -509,12 +509,12 @@
     /* MAIN CONTENT */
     .recruit-wrap { max-width:760px; margin:0 auto; padding:72px 24px 96px; }
     /* ===== ACCESS PAGE ===== */
-    .access-wrap { max-width:1000px; margin:0 auto; padding:72px 24px 96px; }
+    .access-wrap { max-width:1000px; margin:0 auto; padding:72px 24px 0; }
     .access-layout { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
     .access-text-col {}
     .access-title-en { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:700; color:var(--navy-dark); line-height:1; margin-bottom:8px; }
     .access-title-ja { font-size:.88rem; color:var(--gold); letter-spacing:.14em; margin-bottom:40px; display:block; }
-    .access-block { margin-bottom:32px; }
+    .access-block { margin-bottom:24px; }
     .access-block-label { font-size:.75rem; color:var(--text-light); letter-spacing:.14em; margin-bottom:12px; }
     .access-block-main { font-family:'Noto Serif JP',serif; font-size:1.05rem; color:var(--navy-dark); line-height:1.9; margin-bottom:8px; }
     .access-block-sub { font-size:.84rem; color:var(--text-mid); line-height:1.8; }
@@ -3284,7 +3284,7 @@ async function fetchNewsFromManifests() {
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
-            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">【購入編】内見で差がつくチェックポイント</a></li>
+            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
           </ul>
@@ -3656,7 +3656,7 @@ async function fetchNewsFromManifests() {
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
-            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">【購入編】内見で差がつくチェックポイント</a></li>
+            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
           </ul>
