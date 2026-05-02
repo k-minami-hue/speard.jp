@@ -4251,7 +4251,14 @@ async function renderColumnGrid() {
   const manifest = await loadColumnManifest();
   const grid = document.querySelector('#page-column #col-grid') || document.getElementById('col-grid');
   if (!grid) return;
-  manifest.columns.forEach(col => {
+  // Sort by date descending (newest first)
+  const sorted = (manifest.columns || []).slice().sort((a, b) => {
+    const da = (a.date || '').replace(/\./g, '');
+    const db = (b.date || '').replace(/\./g, '');
+    return db.localeCompare(da);
+  });
+  // Prepend dynamic cards in order (newest first goes to absolute first)
+  sorted.slice().reverse().forEach(col => {
     const id = COLUMN_PATH_PREFIX + col.id;
     if (grid.querySelector('a[data-col-id="' + id + '"]')) return;
     const isSell = col.category === 'sell' || col.category === 'sale';
@@ -4269,7 +4276,8 @@ async function renderColumnGrid() {
         '<div class="col-card-title">' + col.title + '</div>' +
         '<div class="col-card-date">' + col.date + '</div>' +
       '</div>';
-    grid.appendChild(card);
+    // Prepend - new cards go to top of grid
+    grid.insertBefore(card, grid.firstChild);
   });
 }
 
