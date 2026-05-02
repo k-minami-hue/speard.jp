@@ -1260,14 +1260,19 @@ async function fetchNewsFromManifests() {
     const r = await fetch('columns/manifest.json?v=' + Date.now());
     if (r.ok) {
       const data = await r.json();
-      (data.columns || []).forEach(c => {
+      // 最新の1件のみ「コラムを更新しました」として表示
+      const sortedCols = (data.columns || []).slice().sort((a,b) =>
+        (b.date || '').replace(/\./g, '') > (a.date || '').replace(/\./g, '') ? 1 : -1
+      );
+      if (sortedCols.length > 0) {
+        const latest = sortedCols[0];
         items.push({
-          date: c.date,
-          text: '「' + c.title + '」を公開しました',
-          page: 'column-' + c.id,
+          date: latest.date,
+          text: '「コラム」を更新しました',
+          page: 'column-' + latest.id,
           dynamic: true
         });
-      });
+      }
     }
   } catch(e) { console.warn('columns manifest fetch failed', e); }
   // Pull voices/reviews
@@ -4244,7 +4249,7 @@ async function loadColumnManifest() {
 
 async function renderColumnGrid() {
   const manifest = await loadColumnManifest();
-  const grid = document.getElementById('col-grid');
+  const grid = document.querySelector('#page-column #col-grid') || document.getElementById('col-grid');
   if (!grid) return;
   manifest.columns.forEach(col => {
     const id = COLUMN_PATH_PREFIX + col.id;
