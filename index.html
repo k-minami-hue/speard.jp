@@ -1245,19 +1245,61 @@
   }
 </style>
 <script>
-// ===== NEWS DATA (newest first) =====
-// 追加するときは下記配列の先頭に追加。最新3件のみ表示。
-const NEWS_ITEMS = [
-  { date: '2026.4.27', text: '「お客様の声」を更新しました', page: 'voices' },
-  { date: '2026.4.26', text: '「コラム」を更新しました', page: 'column' }
+// ===== NEWS DATA (auto-pulled from manifests) =====
+// columns/manifest.json と voices/manifest.json から最新を自動取得
+// フォールバック用デフォルト
+const NEWS_FALLBACK = [
+  { date: '2026.04.27', text: '「お客様の声」を更新しました', page: 'voices' },
+  { date: '2026.04.26', text: '「コラム」を更新しました', page: 'column' }
 ];
-(function() {
+
+async function fetchNewsFromManifests() {
+  const items = [];
+  // Pull columns
+  try {
+    const r = await fetch('columns/manifest.json?v=' + Date.now());
+    if (r.ok) {
+      const data = await r.json();
+      (data.columns || []).forEach(c => {
+        items.push({
+          date: c.date,
+          text: '「' + c.title + '」を公開しました',
+          page: 'column-' + c.id,
+          dynamic: true
+        });
+      });
+    }
+  } catch(e) { console.warn('columns manifest fetch failed', e); }
+  // Pull voices/reviews
+  try {
+    const r2 = await fetch('voices/manifest.json?v=' + Date.now());
+    if (r2.ok) {
+      const data2 = await r2.json();
+      (data2.updates || []).forEach(u => {
+        items.push({
+          date: u.date,
+          text: u.text || '「お客様の声」を更新しました',
+          page: 'voices'
+        });
+      });
+    }
+  } catch(e) { console.warn('voices manifest fetch failed', e); }
+  // Sort by date descending
+  items.sort((a, b) => (b.date || '').replace(/\./g, '') > (a.date || '').replace(/\./g, '') ? 1 : -1);
+  return items.length > 0 ? items : NEWS_FALLBACK;
+}
+
+(async function() {
   const list = document.getElementById('news-list');
   if (!list) return;
-  const html = NEWS_ITEMS.slice(0, 3).map(n => 
-    `<li class="news-item"><a href="#${n.page}" onclick="event.preventDefault();showPage('${n.page}');return false;" class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`
-  ).join('');
-  list.innerHTML = html;
+  const items = await fetchNewsFromManifests();
+  const top3 = items.slice(0, 3);
+  list.innerHTML = top3.map(n => {
+    const onClick = n.dynamic
+      ? `event.preventDefault();handleColumnLink('${n.page}');return false;`
+      : `event.preventDefault();showPage('${n.page}');return false;`;
+    return `<li class="news-item"><a href="#${n.page}" onclick="${onClick}" class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`;
+  }).join('');
 })();
 </script>
 
@@ -3237,6 +3279,7 @@ const NEWS_ITEMS = [
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
+            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">【購入編】内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
           </ul>
@@ -3608,6 +3651,7 @@ const NEWS_ITEMS = [
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
+            <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">【購入編】内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
           </ul>
@@ -3653,6 +3697,99 @@ const NEWS_ITEMS = [
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:8px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
             公式LINEで相談する
           </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===== COLUMN ARTICLE: 動的読み込み用テンプレート ===== -->
+<div id="page-column-article" class="spa-page">
+  <div class="subpage-wrap">
+    <div class="column-page-grid">
+      <div class="column-main">
+      <a href="#column" onclick="showPage('column');return false;" class="column-back">← コラム一覧に戻る</a>
+      <div class="column-meta">
+        <span class="column-meta-tag" id="col-art-tag">購入編</span>
+        <span class="column-meta-date" id="col-art-date"></span>
+      </div>
+      <h1 class="column-h1" id="col-art-title"></h1>
+      <figure class="column-hero-fig">
+        <img id="col-art-hero" src="" alt="">
+      </figure>
+      <div class="column-share">
+        <a id="col-art-share-x" class="cs-x" href="#" target="_blank" rel="noopener">Xでシェア</a>
+        <a id="col-art-share-fb" class="cs-fb" href="#" target="_blank" rel="noopener">Facebookでシェア</a>
+        <a id="col-art-share-line" class="cs-line-share" href="#" target="_blank" rel="noopener">LINEで送る</a>
+      </div>
+      <section class="column-author">
+        <div class="column-author-head">この記事の監修者</div>
+        <div class="column-author-body">
+          <div class="column-author-avatar"><img src="president.jpg" alt="南 和希"></div>
+          <div class="column-author-info">
+            <div class="column-author-name">南 和希</div>
+            <div class="column-author-roles">
+              株式会社スピアード 代表取締役<br>
+              宅地建物取引士 / 2級FP技能士
+            </div>
+            <p class="column-author-bio">1999年、神奈川県横浜市生まれ。<br>
+新卒で大手不動産会社に入社後、営業部内トップセールスを達成。<br>
+3年の実績を経て独立し、株式会社スピアードを設立。<br>
+売買仲介・投資用不動産・中古不動産の仕入れ再販・リノベーションなど、不動産業界の幅広い領域で実務経験を持つ。<br>
+自身でも不動産の購入・売却を3度経験した実践派。<br>
+現在はメディア取材・自社サービスが計6媒体に掲載されている。</p>
+          </div>
+        </div>
+      </section>
+      <article class="column" id="col-art-body"><!-- 記事本体が動的にここへ挿入されます --></article>
+
+      </div><!-- /.column-main -->
+
+      <aside class="column-side">
+        <div class="cs-section">
+          <div class="cs-section-head">最近の投稿</div>
+          <ul class="cs-recent" id="col-art-recent">
+            <!-- 動的に生成 -->
+          </ul>
+        </div>
+
+        <a href="#contact" onclick="event.preventDefault();goToContact();return false;" class="cs-section cs-cta cs-cta-buy">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Purchase</span>
+              <div class="cs-cta-ja">購入のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <a href="#contact" onclick="event.preventDefault();goToContact();return false;" class="cs-section cs-cta cs-cta-sell">
+          <div class="cs-cta-row">
+            <div class="cs-cta-block">
+              <span class="cs-cta-en">For Sale</span>
+              <div class="cs-cta-ja">売却のご相談</div>
+            </div>
+            <div class="cs-cta-arrow">→</div>
+          </div>
+        </a>
+
+        <div class="cs-section cs-line">
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="cs-line-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            <span class="cs-line-btn-main">公式LINEで相談する</span>
+          </a>
+        </div>
+      </aside>
+    </div><!-- /.column-page-grid -->
+
+    <section class="column-bottom-cta">
+      <div class="column-bottom-cta-inner">
+        <span class="column-bottom-cta-en">Contact Us</span>
+        <h2 class="column-bottom-cta-ja">まずはお気軽にご相談ください</h2>
+        <p class="column-bottom-cta-sub">購入・売却のご相談はいつでも承っております。</p>
+        <div class="column-bottom-cta-btns">
+          <a href="#contact" onclick="event.preventDefault();goToContact();return false;" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">公式LINEで相談する</a>
         </div>
       </div>
     </section>
@@ -4086,6 +4223,123 @@ async function deployHTML() {
   const toolbar = document.getElementById('edit-toolbar');
   if (toolbar) toolbar.style.display = 'flex';
 })();
+
+// ===== DYNAMIC COLUMN LOADER =====
+let COLUMNS_MANIFEST = null;
+const COLUMN_PATH_PREFIX = 'column-';
+
+async function loadColumnManifest() {
+  if (COLUMNS_MANIFEST) return COLUMNS_MANIFEST;
+  try {
+    const res = await fetch('columns/manifest.json?v=' + Date.now());
+    if (!res.ok) throw new Error('manifest fetch failed');
+    COLUMNS_MANIFEST = await res.json();
+    return COLUMNS_MANIFEST;
+  } catch(e) {
+    console.warn('Column manifest load failed:', e);
+    COLUMNS_MANIFEST = { columns: [] };
+    return COLUMNS_MANIFEST;
+  }
+}
+
+async function renderColumnGrid() {
+  const manifest = await loadColumnManifest();
+  const grid = document.getElementById('col-grid');
+  if (!grid) return;
+  manifest.columns.forEach(col => {
+    const id = COLUMN_PATH_PREFIX + col.id;
+    if (grid.querySelector('a[data-col-id="' + id + '"]')) return;
+    const isSell = col.category === 'sell' || col.category === 'sale';
+    const card = document.createElement('a');
+    card.href = '#' + id;
+    card.dataset.colId = id;
+    card.className = 'col-card ' + (isSell ? 'ct-sell' : 'ct-buy');
+    card.onclick = function(e){ e.preventDefault(); showColumnDynamic(col.id); return false; };
+    card.innerHTML =
+      '<div class="col-card-thumb ' + (isSell ? 'ct-sell' : 'ct-buy') + '">' +
+        '<img src="' + col.thumb + '" alt="' + col.title + '" loading="lazy">' +
+      '</div>' +
+      '<div class="col-card-body">' +
+        '<span class="col-card-tag">' + col.tag + '</span>' +
+        '<div class="col-card-title">' + col.title + '</div>' +
+        '<div class="col-card-date">' + col.date + '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+async function showColumnDynamic(id) {
+  const manifest = await loadColumnManifest();
+  const col = manifest.columns.find(c => c.id === id);
+  if (!col) { console.warn('Column not found:', id); return; }
+  let body = '';
+  try {
+    const r = await fetch(col.file + '?v=' + Date.now());
+    body = await r.text();
+  } catch(e) { body = '<p>記事の読み込みに失敗しました。</p>'; }
+
+  const isSell = col.category === 'sell' || col.category === 'sale';
+  const tagEl = document.getElementById('col-art-tag');
+  if (tagEl) { tagEl.textContent = col.tag; tagEl.className = 'column-meta-tag' + (isSell ? ' ct-sell' : ''); }
+  const dateEl = document.getElementById('col-art-date'); if (dateEl) dateEl.textContent = col.date;
+  const titleEl = document.getElementById('col-art-title'); if (titleEl) titleEl.innerHTML = col.title;
+  const heroEl = document.getElementById('col-art-hero'); if (heroEl) { heroEl.src = col.hero; heroEl.alt = col.title; }
+  const bodyEl = document.getElementById('col-art-body'); if (bodyEl) bodyEl.innerHTML = body;
+
+  const shareUrl = encodeURIComponent('https://speard.jp/#' + COLUMN_PATH_PREFIX + col.id);
+  const shareTxt = encodeURIComponent(col.title);
+  const sx = document.getElementById('col-art-share-x'); if (sx) sx.href = 'https://twitter.com/intent/tweet?text=' + shareTxt + '&url=' + shareUrl;
+  const sf = document.getElementById('col-art-share-fb'); if (sf) sf.href = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
+  const sl = document.getElementById('col-art-share-line'); if (sl) sl.href = 'https://social-plugins.line.me/lineit/share?url=' + shareUrl;
+
+  const recent = document.getElementById('col-art-recent');
+  if (recent) {
+    const staticEntries = [
+      { id: 'column-purchase-flow', title: '【購入編】不動産購入の流れを簡単解説！' },
+      { id: 'column-sale-flow', title: '【売却編】不動産売却の流れを簡単解説' }
+    ];
+    const dynEntries = manifest.columns.map(c => ({ id: 'column-' + c.id, title: c.title }));
+    const all = dynEntries.concat(staticEntries);
+    recent.innerHTML = all.map(e =>
+      '<li><a href="#' + e.id + '" onclick="handleColumnLink(\'' + e.id + '\');return false;">' + e.title + '</a></li>'
+    ).join('');
+  }
+
+  document.querySelectorAll('.spa-page').forEach(p => p.classList.remove('active'));
+  const tgt = document.getElementById('page-column-article');
+  if (tgt) tgt.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  history.pushState({page: COLUMN_PATH_PREFIX + col.id}, '', window.location.pathname + '#' + COLUMN_PATH_PREFIX + col.id);
+}
+
+function handleColumnLink(fullId) {
+  // fullId like "column-naiken-points" or "column-purchase-flow"
+  if (fullId === 'column-purchase-flow' || fullId === 'column-sale-flow') {
+    showPage(fullId);
+  } else if (fullId.startsWith(COLUMN_PATH_PREFIX)) {
+    showColumnDynamic(fullId.substring(COLUMN_PATH_PREFIX.length));
+  }
+}
+
+// Initial load
+window.addEventListener('DOMContentLoaded', () => {
+  renderColumnGrid().then(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash.startsWith(COLUMN_PATH_PREFIX) && hash !== 'column-purchase-flow' && hash !== 'column-sale-flow' && hash !== 'column') {
+      const colId = hash.substring(COLUMN_PATH_PREFIX.length);
+      showColumnDynamic(colId);
+    }
+  });
+});
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (hash.startsWith(COLUMN_PATH_PREFIX) && hash !== 'column-purchase-flow' && hash !== 'column-sale-flow' && hash !== 'column') {
+    const colId = hash.substring(COLUMN_PATH_PREFIX.length);
+    if (!COLUMNS_MANIFEST || !COLUMNS_MANIFEST.columns.find(c => c.id === colId)) return;
+    showColumnDynamic(colId);
+  }
+});
+
 </script>
 
 </body>
