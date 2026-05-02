@@ -1,0 +1,14 @@
+{
+  "columns": [
+    {
+      "id": "naiken-points",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "【購入編】内見で差がつくチェックポイント",
+      "date": "2026.05.02",
+      "hero": "columns/purchase/img3_inspection.png",
+      "thumb": "columns/purchase/img3_inspection.png",
+      "file": "columns/purchase/column_naiken_points.html"
+    }
+  ]
+}
