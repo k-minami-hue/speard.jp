@@ -1,6 +1,16 @@
 {
   "columns": [
     {
+      "id": "kaenai-5features",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "【購入編】不動産を買えない人の5つの特徴",
+      "date": "2026.05.02",
+      "hero": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+      "file": "columns/purchase/column_kaenai_5features.html"
+    },
+    {
       "id": "naiken-points",
       "category": "buy",
       "tag": "購入編",
