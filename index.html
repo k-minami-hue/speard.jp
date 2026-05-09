@@ -785,6 +785,7 @@
     .col-card-thumb.ct-buy { background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%); }
     .col-card-thumb.ct-sell { background:linear-gradient(135deg,#5a3a1a 0%,var(--gold) 100%); }
     .col-card-body { padding:22px 22px 24px; display:flex; flex-direction:column; gap:10px; flex:1; }
+        .col-card-tag-sub { background:#FBF1DC !important; color:#8a6612 !important; }
     .col-card-tag { display:inline-block; align-self:flex-start; padding:3px 10px; font-size:.7rem; letter-spacing:.1em; border-radius:2px; background:var(--navy-light); color:var(--navy); font-weight:500; }
     .col-card.ct-sell .col-card-tag { background:#FBF1DC; color:#8a6612; }
     .col-card-title { font-family:'Noto Serif JP',serif; font-size:1rem; font-weight:500; color:var(--navy-dark); line-height:1.65; letter-spacing:.04em; flex:1; }
@@ -3284,6 +3285,7 @@ async function fetchNewsFromManifests() {
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
+            <li><a href="#column-trouble" onclick="handleColumnLink(\'column-trouble\');return false;">不動産取引でよくある5つのトラブルと、その回避策</a></li>
             <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
@@ -3652,6 +3654,7 @@ async function fetchNewsFromManifests() {
         <div class="cs-section">
           <div class="cs-section-head">最近の投稿</div>
           <ul class="cs-recent">
+            <li><a href="#column-trouble" onclick="handleColumnLink(\'column-trouble\');return false;">不動産取引でよくある5つのトラブルと、その回避策</a></li>
             <li><a href="#column-naiken-points" onclick="handleColumnLink(\'column-naiken-points\');return false;">内見で差がつくチェックポイント</a></li>
             <li><a href="#column-purchase-flow" onclick="showPage(\'column-purchase-flow\');return false;">【購入編】不動産購入の流れを簡単解説！</a></li>
             <li><a href="#column-sale-flow" onclick="showPage(\'column-sale-flow\');return false;">【売却編】不動産売却の流れを簡単解説</a></li>
@@ -4259,12 +4262,15 @@ async function renderColumnGrid() {
     card.dataset.colId = id;
     card.className = 'col-card ' + (isSell ? 'ct-sell' : 'ct-buy');
     card.onclick = function(e){ e.preventDefault(); showColumnDynamic(col.id); return false; };
+    const tagsHtml = Array.isArray(col.tags) && col.tags.length > 0
+      ? col.tags.map(function(t, i){ return '<span class="col-card-tag' + (i > 0 ? ' col-card-tag-sub' : '') + '">' + t + '</span>'; }).join(' ')
+      : '<span class="col-card-tag">' + (col.tag || '') + '</span>';
     card.innerHTML =
       '<div class="col-card-thumb ' + (isSell ? 'ct-sell' : 'ct-buy') + '">' +
         '<img src="' + col.thumb + '" alt="' + col.title + '" loading="lazy">' +
       '</div>' +
       '<div class="col-card-body">' +
-        '<span class="col-card-tag">' + col.tag + '</span>' +
+        tagsHtml +
         '<div class="col-card-title">' + col.title + '</div>' +
         '<div class="col-card-date">' + col.date + '</div>' +
       '</div>';
@@ -4285,7 +4291,15 @@ async function showColumnDynamic(id) {
 
   const isSell = col.category === 'sell' || col.category === 'sale';
   const tagEl = document.getElementById('col-art-tag');
-  if (tagEl) { tagEl.textContent = col.tag; tagEl.className = 'column-meta-tag' + (isSell ? ' ct-sell' : ''); }
+  if (tagEl) {
+    if (Array.isArray(col.tags) && col.tags.length > 0) {
+      tagEl.innerHTML = col.tags.map(function(t){ return '<span class="column-meta-tag">' + t + '</span>'; }).join(' ');
+      tagEl.className = '';
+    } else {
+      tagEl.textContent = col.tag || '';
+      tagEl.className = 'column-meta-tag' + (isSell ? ' ct-sell' : '');
+    }
+  }
   const dateEl = document.getElementById('col-art-date'); if (dateEl) dateEl.textContent = col.date;
   const titleEl = document.getElementById('col-art-title'); if (titleEl) titleEl.innerHTML = col.title;
   const heroEl = document.getElementById('col-art-hero'); if (heroEl) { heroEl.src = col.hero; heroEl.alt = col.title; }
