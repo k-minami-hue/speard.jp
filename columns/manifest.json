@@ -3,9 +3,12 @@
     {
       "id": "trouble",
       "category": "buy",
-      "tags": ["購入編", "売却編"],
+      "tags": [
+        "購入編",
+        "売却編"
+      ],
       "tag": "購入・売却",
-      "title": "不動産取引でよくある5つのトラブルと、その回避策",
+      "title": "不動産取引でよくある4つのトラブルと、その回避策",
       "date": "2026.05.09",
       "hero": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80",
       "thumb": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
