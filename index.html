@@ -1255,50 +1255,12 @@
 // columns/manifest.json と voices/manifest.json から最新を自動取得
 // フォールバック用デフォルト
 const NEWS_FALLBACK = [
-  { date: '2026.05.10', text: '《お客様の声》を更新しました', page: 'voices' },
+  { date: '2026.05.10', text: '「お客様の声」を更新しました', page: 'voices' },
   { date: '2026.04.27', text: '「お客様の声」を更新しました', page: 'voices' },
   { date: '2026.04.26', text: '「コラム」を更新しました', page: 'column' }
 ];
 
-async function fetchNewsFromManifests() {
-  const items = [];
-  // Pull columns
-  try {
-    const r = await fetch('columns/manifest.json?v=' + Date.now());
-    if (r.ok) {
-      const data = await r.json();
-      // 最新の1件のみ「コラムを更新しました」として表示
-      const sortedCols = (data.columns || []).slice().sort((a,b) =>
-        (b.date || '').replace(/\./g, '') > (a.date || '').replace(/\./g, '') ? 1 : -1
-      );
-      if (sortedCols.length > 0) {
-        const latest = sortedCols[0];
-        items.push({
-          date: latest.date,
-          text: '「コラム」を更新しました',
-          page: 'column'
-        });
-      }
-    }
-  } catch(e) { console.warn('columns manifest fetch failed', e); }
-  // Pull voices/reviews
-  try {
-    const r2 = await fetch('voices/manifest.json?v=' + Date.now());
-    if (r2.ok) {
-      const data2 = await r2.json();
-      (data2.updates || []).forEach(u => {
-        items.push({
-          date: u.date,
-          text: u.text || '「お客様の声」を更新しました',
-          page: 'voices'
-        });
-      });
-    }
-  } catch(e) { console.warn('voices manifest fetch failed', e); }
-  // Sort by date descending
-  items.sort((a, b) => (b.date || '').replace(/\./g, '') > (a.date || '').replace(/\./g, '') ? 1 : -1);
-  return items.length > 0 ? items : NEWS_FALLBACK;
-}
+function fetchNewsFromManifests() { return NEWS_FALLBACK; }
 
 (async function() {
   const list = document.getElementById('news-list');
