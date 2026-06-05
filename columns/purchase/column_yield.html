@@ -1,423 +1,235 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>投資用マンションの「利回り」だけで選ぶと失敗する理由 | Speardコラム</title>
-<meta name="description" content="表面利回りと実質利回りの違い、高利回りに潜むリスク、投資判断で見るべき3つの軸を実務目線で解説。資産性重視の不動産投資の考え方。">
-<link rel="canonical" href="https://speard.jp/columns/purchase/column_yield.html">
+<h1>投資用マンションの「利回り」だけで選ぶと失敗する理由</h1>
+
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  line-height: 1.95;
-  color: #2c3e50;
-  background: #f3f4f6;
-  font-size: 17px;
-}
-.article-wrapper {
-  max-width: 820px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 44px 40px 0;
-}
-.column-back {
-  display: inline-block; font-size: 13px; color: #0E3273;
-  text-decoration: none; margin-bottom: 22px; letter-spacing: .04em;
-}
-.column-back:hover { text-decoration: underline; }
-.column-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.column-meta-tag {
-  display: inline-block; background: #0E3273; color: #fff;
-  padding: 4px 14px; font-size: 12px; letter-spacing: 1px;
-}
-.column-meta-date { color: #999; font-size: 13px; }
-h1.article-title {
-  font-size: 28px; line-height: 1.5; color: #0E3273;
-  margin-bottom: 24px; font-weight: 700;
-  border-bottom: 3px solid #c9a961; padding-bottom: 18px;
-}
-.column-hero-fig { margin: 0 0 24px; }
-.column-hero-fig img {
-  width: 100%; height: auto; max-height: 420px;
-  object-fit: cover; border-radius: 6px;
-}
-.column-share { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
-.column-share a {
-  font-size: 12px; text-decoration: none; color: #fff;
-  padding: 7px 18px; border-radius: 3px; letter-spacing: .04em;
-}
-.cs-x { background: #000; }
-.cs-fb { background: #1877f2; }
-.cs-line-share { background: #06C755; }
-
-/* ===== 筆者紹介（この記事の監修者） ===== */
-.column-author {
-  background: #fff; border: 1px solid #e6dfce; border-radius: 6px;
-  margin: 0 0 36px; overflow: hidden;
-}
-.column-author-head {
-  background: #0E3273; color: #fff; font-size: 14px;
-  padding: 8px 18px; letter-spacing: .08em; font-weight: 500;
-}
-.column-author-body { display: flex; gap: 22px; padding: 20px 22px; align-items: flex-start; }
-.column-author-avatar {
-  flex-shrink: 0; width: 116px; height: 116px; border-radius: 50%;
-  background: #e8ecf5; overflow: hidden;
-}
-.column-author-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.column-author-info { flex: 1; min-width: 0; line-height: 1.6; }
-.column-author-name {
-  font-size: 17px; font-weight: 700; color: #0E3273;
-  padding-bottom: 4px; border-bottom: 1px solid #c9a961;
-  display: inline-block; margin-bottom: 8px;
-}
-.column-author-roles { font-size: 13px; color: #666; margin-bottom: 8px; }
-.column-author-bio { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 6px; }
-.column-author-bio:last-child { margin-bottom: 0; }
-
-article h2 {
-  font-size: 22px; color: #0E3273; margin: 50px 0 22px; padding: 12px 18px;
-  background: linear-gradient(90deg, #0E3273 0%, #0E3273 6px, #f4f6fb 6px, #f4f6fb 100%);
-  line-height: 1.4;
-}
-article h3 {
-  font-size: 18px; color: #0E3273; margin: 32px 0 14px;
-  padding-left: 12px; border-left: 4px solid #c9a961;
-}
-article p { margin-bottom: 20px; font-size: 16.5px; }
-article strong { background: linear-gradient(transparent 60%, #ffe9a8 60%); font-weight: 600; }
-article hr { border: none; border-top: 1px solid #e0e0e0; margin: 40px 0; }
-article figure { margin: 30px 0; text-align: center; }
-article figure img {
-  width: 100%; height: auto; max-height: 420px; object-fit: cover;
-  border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,.08);
-}
-article figcaption { font-size: 13px; color: #888; margin-top: 12px; line-height: 1.7; padding: 0 8px; }
-.info-box { background: #f4f6fb; border-left: 4px solid #0E3273; padding: 20px 24px; margin: 28px 0; border-radius: 0 4px 4px 0; }
-.info-box p { margin-bottom: 8px; font-size: 14.5px; }
-.info-box p:last-child { margin-bottom: 0; }
-.warn-box { background: #fff8f0; border-left: 4px solid #D85A30; padding: 20px 24px; margin: 28px 0; border-radius: 0 4px 4px 0; }
-.warn-box p { margin-bottom: 8px; font-size: 14.5px; }
-.warn-box p:last-child { margin-bottom: 0; }
-.sim-box { background: #fff; border: 2px solid #0E3273; border-radius: 8px; padding: 24px; margin: 28px 0; }
-.sim-box h4 { color: #0E3273; font-size: 16px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0; }
-.sim-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14.5px; }
-.sim-row:last-child { border-bottom: none; }
-.sim-row .label { color: #555; }
-.sim-row .value { font-weight: 600; color: #0E3273; }
-.sim-row.total { background: #f4f6fb; margin: 8px -12px -12px; padding: 12px 12px; border-radius: 0 0 6px 6px; }
-.sim-row.total .value { color: #D85A30; font-size: 16px; }
-
-/* ===== 終わりの導線（CTA） ===== */
-.column-bottom-cta {
-  background: #0E3273; margin: 56px -40px 0; padding: 64px 24px;
-}
-.column-bottom-cta-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-.column-bottom-cta-en {
-  font-family: 'Playfair Display', serif; font-style: italic;
-  font-size: 13px; color: #c9a961; letter-spacing: .18em;
-  display: block; margin-bottom: 14px;
-}
-.column-bottom-cta-ja { font-size: 26px; font-weight: 500; color: #fff; margin-bottom: 14px; letter-spacing: .08em; }
-.column-bottom-cta-sub { font-size: 14.5px; color: rgba(255,255,255,.72); margin-bottom: 30px; line-height: 1.9; }
-.column-bottom-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.column-bottom-cta-btn-gold {
-  display: inline-block; background: #c9a961; color: #fff; padding: 15px 44px;
-  text-decoration: none; font-size: 15px; border-radius: 3px; letter-spacing: .06em;
-  transition: background .2s, transform .2s;
-}
-.column-bottom-cta-btn-gold:hover { background: #b8985a; transform: translateY(-2px); }
-.column-bottom-cta-btn-line {
-  display: inline-flex; align-items: center; justify-content: center;
-  background: #06C755; color: #fff; padding: 15px 36px; text-decoration: none;
-  font-size: 15px; border-radius: 3px; letter-spacing: .06em;
-  transition: filter .2s, transform .2s;
-}
-.column-bottom-cta-btn-line:hover { filter: brightness(1.08); transform: translateY(-2px); }
-
-@media (max-width: 600px) {
-  .article-wrapper { padding: 28px 20px 0; }
-  h1.article-title { font-size: 22px; }
-  article h2 { font-size: 18px; }
-  .sim-row { flex-direction: column; gap: 4px; }
-  .column-author-body { flex-direction: column; align-items: center; text-align: center; }
-  .column-author-avatar { width: 96px; height: 96px; }
-  .column-author-bio { text-align: left; }
-  .column-bottom-cta { margin: 48px -20px 0; padding: 52px 18px; }
-  .column-bottom-cta-ja { font-size: 21px; }
-  .column-bottom-cta-btns { flex-direction: column; align-items: stretch; }
-}
+#col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .sim-box { background:#fff; border:2px solid #0E3273; border-radius:8px; padding:24px; margin:28px 0; }
+#col-art-body .sim-box h4 { color:#0E3273; font-size:1rem; margin:0 0 16px; padding-bottom:10px; border-bottom:1px solid #e0e0e0; }
+#col-art-body .sim-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0; font-size:.9rem; gap:12px; }
+#col-art-body .sim-row:last-child { border-bottom:none; }
+#col-art-body .sim-row .label { color:#555; }
+#col-art-body .sim-row .value { font-weight:600; color:#0E3273; text-align:right; }
+#col-art-body .sim-row.total { background:#f4f6fb; margin:8px -12px -12px; padding:12px; border-radius:0 0 6px 6px; }
+#col-art-body .sim-row.total .value { color:#D85A30; }
+#col-art-body figure svg { width:100%; height:auto; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
+@media (max-width:600px) { #col-art-body .sim-row { flex-direction:column; gap:4px; } #col-art-body .sim-row .value { text-align:left; } }
 </style>
-</head>
-<body>
-<div class="article-wrapper">
 
-  <a href="https://speard.jp/#column" class="column-back">← コラム一覧に戻る</a>
+<p>投資用マンションを探し始めた人が最初に目にする数字が、利回りです。<br>「表面利回り10%」「高利回り」といった言葉が並ぶポータルサイトを見て、数字の大きさで物件を絞り込む。<br>その判断が、後々の失敗につながるケースは少なくありません。</p>
 
-  <div class="column-meta">
-    <span class="column-meta-tag">投資編</span>
-    <span class="column-meta-date">2026.05.25</span>
-  </div>
+<p>利回りは確かに重要な指標です。しかし、利回りだけを見て投資判断を下すことは、車のスペックシートだけ見て試乗せず購入するようなものです。<br><strong>数字の裏に何が隠れているかを読めなければ</strong>、表面上は「お得な物件」でも、実際には負債を抱え込む可能性があります。</p>
 
-  <h1 class="article-title">投資用マンションの「利回り」だけで選ぶと失敗する理由</h1>
+<hr>
 
-  <figure class="column-hero-fig">
-    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="都市のマンション群・不動産投資">
-  </figure>
+<h2>表面利回りと実質利回り</h2>
 
-  <div class="column-share">
-    <a class="cs-x" href="https://twitter.com/intent/tweet?text=%E6%8A%95%E8%B3%87%E7%94%A8%E3%83%9E%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%80%8C%E5%88%A9%E5%9B%9E%E3%82%8A%E3%80%8D%E3%81%A0%E3%81%91%E3%81%A7%E9%81%B8%E3%81%B6%E3%81%A8%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B%E7%90%86%E7%94%B1&url=https%3A%2F%2Fspeard.jp%2Fcolumns%2Fpurchase%2Fcolumn_yield.html" target="_blank" rel="noopener">Xでシェア</a>
-    <a class="cs-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspeard.jp%2Fcolumns%2Fpurchase%2Fcolumn_yield.html" target="_blank" rel="noopener">Facebookでシェア</a>
-    <a class="cs-line-share" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fspeard.jp%2Fcolumns%2Fpurchase%2Fcolumn_yield.html" target="_blank" rel="noopener">LINEで送る</a>
-  </div>
+<p>まず理解しておきたいのが、<strong>表面利回りと実質利回りの違い</strong>です。</p>
 
-  <section class="column-author">
-    <div class="column-author-head">この記事の監修者</div>
-    <div class="column-author-body">
-      <div class="column-author-avatar"><img src="../../president.jpg" alt="南 和希"></div>
-      <div class="column-author-info">
-        <div class="column-author-name">南 和希</div>
-        <div class="column-author-roles">
-          株式会社スピアード 代表取締役<br>
-          宅地建物取引士 / 2級FP技能士
-        </div>
-        <p class="column-author-bio">1999年、神奈川県横浜市生まれ。<br>新卒で大手不動産会社に入社後、営業部内トップセールスを達成。<br>3年の実績を経て独立し、株式会社スピアードを設立。</p>
-        <p class="column-author-bio">売買仲介・投資用不動産・中古不動産の仕入れ再販・リノベーションなど、不動産業界の幅広い領域で実務経験を持つ。<br>自身でも不動産の購入・売却を3度経験した実践派。<br>現在はメディア取材・自社サービスが計6媒体に掲載されている。</p>
-      </div>
-    </div>
-  </section>
+<p>表面利回りは「年間家賃収入 ÷ 物件価格 × 100」で計算される単純な数字で、ポータルサイトに掲載されている利回りはほぼ全てこの計算式に基づいています。<br>一方の実質利回りは、管理費・修繕積立金・固定資産税・火災保険料・管理委託費などの諸コストを差し引いたうえで算出します。</p>
 
-  <article>
+<figure>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+    <style>
+      .card-bg { fill: #F5F5F5; }
+      .card-head-blue { fill: #0E3273; }
+      .card-head-gold { fill: #c9a961; }
+      .card-title { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; }
+      .formula-text { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; }
+      .formula-sub { fill: #555; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
+      .axis-label { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; fill: #333; }
+    </style>
+    <text x="500" y="28" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">表面利回り vs 実質利回り</text>
+    <rect x="30" y="50" width="460" height="160" rx="8" class="card-bg"/>
+    <rect x="30" y="50" width="460" height="40" rx="8" class="card-head-blue"/>
+    <rect x="30" y="80" width="460" height="10" class="card-head-blue"/>
+    <text x="260" y="78" text-anchor="middle" class="card-title">表面利回り</text>
+    <text x="50" y="120" class="formula-text">年間家賃収入 ÷ 物件価格 × 100</text>
+    <text x="50" y="148" class="formula-sub">・ポータルサイトで使われる数字</text>
+    <text x="50" y="170" class="formula-sub">・諸経費・空室を一切考慮しない</text>
+    <text x="50" y="192" class="formula-sub">・実態より高く見える「広告用」</text>
+    <rect x="510" y="50" width="460" height="160" rx="8" class="card-bg"/>
+    <rect x="510" y="50" width="460" height="40" rx="8" class="card-head-gold"/>
+    <rect x="510" y="80" width="460" height="10" class="card-head-gold"/>
+    <text x="740" y="78" text-anchor="middle" class="card-title">実質利回り</text>
+    <text x="530" y="120" class="formula-text">(家賃-経費)÷物件価格×100</text>
+    <text x="530" y="148" class="formula-sub">・管理費・税金・空室を控除</text>
+    <text x="530" y="170" class="formula-sub">・購入後の実際の収益に近い</text>
+    <text x="530" y="192" class="formula-sub">・投資判断はこちらで行う</text>
+    <text x="500" y="245" text-anchor="middle" class="axis-label">▼ 同じ物件でも、計算次第でこれだけ違う</text>
+    <rect x="120" y="260" width="320" height="32" fill="#0E3273" rx="4"/>
+    <text x="135" y="282" style="font-family:'Noto Sans JP';font-size:14px;font-weight:700;fill:#fff;">表面利回り　10.0%</text>
+    <rect x="560" y="260" width="220" height="32" fill="#c9a961" rx="4"/>
+    <text x="575" y="282" style="font-family:'Noto Sans JP';font-size:14px;font-weight:700;fill:#fff;">実質利回り　7.6%前後</text>
+    <text x="500" y="330" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:13px;fill:#888;">管理費・修繕積立金・固定資産税・管理委託費等を差し引くと、約2.4%下がる</text>
+  </svg>
+  <figcaption>表面と実質はこう違う、というだけの話です。差が出ること自体は当たり前で、問題はその先にあります。</figcaption>
+</figure>
 
-    <p>投資用マンションを探し始めた人が最初に目にする数字が、利回りです。<br>「表面利回り10%」「高利回り」といった言葉が並ぶポータルサイトを見て、数字の大きさで物件を絞り込む。<br>その判断が、後々の失敗につながるケースは少なくありません。</p>
+<p>経費を引けば利回りが下がるのは当然で、それ自体は悪いことでも罠でもありません。実質利回りで判断するのは、投資の基本動作にすぎません。</p>
 
-    <p>利回りは確かに重要な指標です。しかし、利回りだけを見て投資判断を下すことは、車のスペックシートだけ見て試乗せず購入するようなものです。<br><strong>数字の裏に何が隠れているかを読めなければ</strong>、表面上は「お得な物件」でも、実際には負債を抱え込む可能性があります。</p>
+<p>本当に注意すべきは、表面利回りが相場より明らかに高い物件です。その高さには、ほぼ例外なく理由があります。</p>
 
-    <hr>
+<hr>
 
-    <h2>表面利回りと実質利回り</h2>
+<h2>「高利回り」には必ず理由がある</h2>
 
-    <p>まず理解しておきたいのが、<strong>表面利回りと実質利回りの違い</strong>です。</p>
+<p>利回りの高さは、市場がその物件に織り込んだ<strong>リスクの裏返し</strong>です。誰もが欲しがる物件は価格が上がって利回りは下がる。逆に利回りが高いのは、買い手がつきにくい何らかの事情があるからです。中でも一番危険なのが、立地の悪さを高利回りで覆い隠しているケースです。</p>
 
-    <p>表面利回りは「年間家賃収入 ÷ 物件価格 × 100」で計算される単純な数字で、ポータルサイトに掲載されている利回りはほぼ全てこの計算式に基づいています。<br>一方の実質利回りは、管理費・修繕積立金・固定資産税・火災保険料・管理委託費などの諸コストを差し引いたうえで算出します。</p>
+<p>高利回りに釣られて立地の悪い物件を買うと、現実になるのは次の2つの損失です。</p>
 
-    <figure>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-        <style>
-          .card-bg { fill: #F5F5F5; }
-          .card-head-blue { fill: #0E3273; }
-          .card-head-gold { fill: #c9a961; }
-          .card-title { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; }
-          .formula-text { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; }
-          .formula-sub { fill: #555; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
-          .axis-label { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; fill: #333; }
-        </style>
-        <text x="500" y="28" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">表面利回り vs 実質利回り</text>
-        <rect x="30" y="50" width="460" height="160" rx="8" class="card-bg"/>
-        <rect x="30" y="50" width="460" height="40" rx="8" class="card-head-blue"/>
-        <rect x="30" y="80" width="460" height="10" class="card-head-blue"/>
-        <text x="260" y="78" text-anchor="middle" class="card-title">表面利回り</text>
-        <text x="50" y="120" class="formula-text">年間家賃収入 ÷ 物件価格 × 100</text>
-        <text x="50" y="148" class="formula-sub">・ポータルサイトで使われる数字</text>
-        <text x="50" y="170" class="formula-sub">・諸経費・空室を一切考慮しない</text>
-        <text x="50" y="192" class="formula-sub">・実態より高く見える「広告用」</text>
-        <rect x="510" y="50" width="460" height="160" rx="8" class="card-bg"/>
-        <rect x="510" y="50" width="460" height="40" rx="8" class="card-head-gold"/>
-        <rect x="510" y="80" width="460" height="10" class="card-head-gold"/>
-        <text x="740" y="78" text-anchor="middle" class="card-title">実質利回り</text>
-        <text x="530" y="120" class="formula-text">(家賃-経費)÷物件価格×100</text>
-        <text x="530" y="148" class="formula-sub">・管理費・税金・空室を控除</text>
-        <text x="530" y="170" class="formula-sub">・購入後の実際の収益に近い</text>
-        <text x="530" y="192" class="formula-sub">・投資判断はこちらで行う</text>
-        <text x="500" y="245" text-anchor="middle" class="axis-label">▼ 同じ物件でも、計算次第でこれだけ違う</text>
-        <rect x="120" y="260" width="320" height="32" fill="#0E3273" rx="4"/>
-        <text x="135" y="282" style="font-family:'Noto Sans JP';font-size:14px;font-weight:700;fill:#fff;">表面利回り　10.0%</text>
-        <rect x="560" y="260" width="220" height="32" fill="#c9a961" rx="4"/>
-        <text x="575" y="282" style="font-family:'Noto Sans JP';font-size:14px;font-weight:700;fill:#fff;">実質利回り　7.6%前後</text>
-        <text x="500" y="330" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:13px;fill:#888;">管理費・修繕積立金・固定資産税・管理委託費等を差し引くと、約2.4%下がる</text>
-      </svg>
-      <figcaption>表面と実質はこう違う、というだけの話です。差が出ること自体は当たり前で、問題はその先にあります。</figcaption>
-    </figure>
+<p>1つは<strong>空室損</strong>。需要の薄いエリアは一度退去が出ると次の入居者が決まらず、家賃ゼロの期間が数か月から1年単位で続きます。満室を前提に計算した利回りは、その瞬間に机上の空論になります。</p>
 
-    <p>経費を引けば利回りが下がるのは当然で、それ自体は悪いことでも罠でもありません。実質利回りで判断するのは、投資の基本動作にすぎません。</p>
+<p>もう1つは<strong>売却時の価格下落</strong>。立地の悪い物件は買い手が限られるため、いざ売る段になって大幅な値下げを迫られます。保有中にコツコツ積み上げた家賃収入が、出口の一回の値下げで丸ごと吹き飛ぶことも珍しくありません。</p>
 
-    <p>本当に注意すべきは、表面利回りが相場より明らかに高い物件です。その高さには、ほぼ例外なく理由があります。</p>
+<p>つまり高利回り物件の本当の怖さは「手取りが少し減る」ことではなく、<strong>空室と売却損で投資元本そのものが毀損する</strong>ことにあります。高利回りがどこから来ているのか、代表的なパターンを挙げます。</p>
 
-    <hr>
+<figure>
+  <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" alt="古いマンション・築古物件">
+  <figcaption>高利回りの物件ほど、価格の背景にあるリスクを丁寧に読み解く必要があります。</figcaption>
+</figure>
 
-    <h2>「高利回り」には必ず理由がある</h2>
+<p><strong>立地が悪い</strong>：駅から遠い、再開発の見込みがない、需要の薄いエリアにある物件は価格が下がりやすい。その分、利回りが高く見えますが、空室リスクと資産価値の下落リスクを同時に抱えます。</p>
 
-    <p>利回りの高さは、市場がその物件に織り込んだ<strong>リスクの裏返し</strong>です。誰もが欲しがる物件は価格が上がって利回りは下がる。逆に利回りが高いのは、買い手がつきにくい何らかの事情があるからです。中でも一番危険なのが、立地の悪さを高利回りで覆い隠しているケースです。</p>
+<p><strong>築年数が古い</strong>：築30〜40年の物件は価格が低いため利回りが上がりやすいですが、設備の老朽化・修繕費の増加・入居者の確保が難しくなるリスクがあります。また、旧耐震基準（1981年以前）の物件は売却時に買い手が限られます。</p>
 
-    <p>高利回りに釣られて立地の悪い物件を買うと、現実になるのは次の2つの損失です。</p>
+<p><strong>現在の家賃が相場より高い</strong>：入居中の家賃をベースに利回りを計算しているため、退去後に相場に合わせると利回りが大幅に下がるケースがあります。利回り計算に使われている家賃が、エリア相場と乖離していないか必ず確認したいところです。</p>
 
-    <p>1つは<strong>空室損</strong>。需要の薄いエリアは一度退去が出ると次の入居者が決まらず、家賃ゼロの期間が数か月から1年単位で続きます。満室を前提に計算した利回りは、その瞬間に机上の空論になります。</p>
-
-    <p>もう1つは<strong>売却時の価格下落</strong>。立地の悪い物件は買い手が限られるため、いざ売る段になって大幅な値下げを迫られます。保有中にコツコツ積み上げた家賃収入が、出口の一回の値下げで丸ごと吹き飛ぶことも珍しくありません。</p>
-
-    <p>つまり高利回り物件の本当の怖さは「手取りが少し減る」ことではなく、<strong>空室と売却損で投資元本そのものが毀損する</strong>ことにあります。高利回りがどこから来ているのか、代表的なパターンを挙げます。</p>
-
-    <figure>
-      <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" alt="古いマンション・築古物件">
-      <figcaption>高利回りの物件ほど、価格の背景にあるリスクを丁寧に読み解く必要があります。</figcaption>
-    </figure>
-
-    <p><strong>立地が悪い</strong>：駅から遠い、再開発の見込みがない、需要の薄いエリアにある物件は価格が下がりやすい。その分、利回りが高く見えますが、空室リスクと資産価値の下落リスクを同時に抱えます。</p>
-
-    <p><strong>築年数が古い</strong>：築30〜40年の物件は価格が低いため利回りが上がりやすいですが、設備の老朽化・修繕費の増加・入居者の確保が難しくなるリスクがあります。また、旧耐震基準（1981年以前）の物件は売却時に買い手が限られます。</p>
-
-    <p><strong>現在の家賃が相場より高い</strong>：入居中の家賃をベースに利回りを計算しているため、退去後に相場に合わせると利回りが大幅に下がるケースがあります。利回り計算に使われている家賃が、エリア相場と乖離していないか必ず確認したいところです。</p>
-
-    <div class="warn-box">
-      <p><strong>家賃保証（サブリース）付き物件の注意点</strong></p>
-      <p>「家賃保証があるから安心」という営業トークには要注意。サブリース契約は通常、数年後に保証賃料の値下げが行われます。当初の利回り計算が崩れ、実質的な収益が大幅に低下するケースが後を絶ちません。契約条件の「保証賃料見直し条項」を必ず確認してください。</p>
-    </div>
-
-    <hr>
-
-    <h2>投資判断で見るべき3つの軸</h2>
-
-    <p>利回りに加えて必ず確認すべき指標が3つあります。</p>
-
-    <figure>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-        <style>
-          .ax-card { fill: #F5F5F5; }
-          .ax-head { fill: #0E3273; }
-          .ax-num { fill: #c9a961; font-family: 'Noto Sans JP', sans-serif; font-size: 28px; font-weight: 700; }
-          .ax-title { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; }
-          .ax-text { fill: #333; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
-        </style>
-        <text x="500" y="28" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">投資判断の3軸</text>
-        <rect x="30" y="55" width="300" height="290" rx="8" class="ax-card"/>
-        <rect x="30" y="55" width="300" height="50" rx="8" class="ax-head"/>
-        <text x="55" y="92" class="ax-num">①</text>
-        <text x="180" y="88" text-anchor="middle" class="ax-title">キャッシュフロー</text>
-        <text x="50" y="135" class="ax-text">家賃収入 − ローン返済</text>
-        <text x="50" y="155" class="ax-text">　　　　 − 諸経費</text>
-        <text x="50" y="190" class="ax-text">毎月の手取りがプラスか</text>
-        <text x="50" y="215" class="ax-text">マイナスか試算する</text>
-        <text x="50" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
-        <text x="50" y="285" class="ax-text">利回りが高くても</text>
-        <text x="50" y="305" class="ax-text">月々赤字の物件もある</text>
-        <rect x="350" y="55" width="300" height="290" rx="8" class="ax-card"/>
-        <rect x="350" y="55" width="300" height="50" rx="8" class="ax-head"/>
-        <text x="375" y="92" class="ax-num">②</text>
-        <text x="500" y="88" text-anchor="middle" class="ax-title">出口戦略</text>
-        <text x="370" y="135" class="ax-text">10年後・15年後に</text>
-        <text x="370" y="155" class="ax-text">いくらで売れるか想定</text>
-        <text x="370" y="190" class="ax-text">トータル収益で評価</text>
-        <text x="370" y="215" class="ax-text">（運用益 + 売却損益）</text>
-        <text x="370" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
-        <text x="370" y="285" class="ax-text">月々プラスでも</text>
-        <text x="370" y="305" class="ax-text">売却損で全て吹き飛ぶ</text>
-        <rect x="670" y="55" width="300" height="290" rx="8" class="ax-card"/>
-        <rect x="670" y="55" width="300" height="50" rx="8" class="ax-head"/>
-        <text x="695" y="92" class="ax-num">③</text>
-        <text x="820" y="88" text-anchor="middle" class="ax-title">入居需要の持続性</text>
-        <text x="690" y="135" class="ax-text">単身向け：大学・企業</text>
-        <text x="690" y="155" class="ax-text">　　　　 ・病院の需要</text>
-        <text x="690" y="190" class="ax-text">ファミリー：学校</text>
-        <text x="690" y="215" class="ax-text">　　　　　 ・生活利便性</text>
-        <text x="690" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
-        <text x="690" y="285" class="ax-text">人口減少エリアでは</text>
-        <text x="690" y="305" class="ax-text">長期入居率維持が困難</text>
-      </svg>
-      <figcaption>利回りだけでは見えない3つの軸。すべて揃ってこそ「投資判断」になります。</figcaption>
-    </figure>
-
-    <hr>
-
-    <h2>ローンを使った場合のレバレッジと注意点</h2>
-
-    <figure>
-      <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=1200&q=80" alt="ローン計算・金融計画">
-      <figcaption>ローンは「レバレッジの武器」にも「リスクの増幅器」にもなります。</figcaption>
-    </figure>
-
-    <p>不動産投資の最大の特徴は、<strong>金融機関のローンを活用したレバレッジ投資</strong>ができることです。自己資金500万円で5,000万円の物件を購入できれば、10倍のレバレッジがかかります。</p>
-
-    <p>ただし、ローンはリスクも10倍に増幅します。空室が続いてローン返済が滞れば、物件を手放さざるを得ない状況になりかねません。レバレッジ活用は<strong>「キャッシュフローがプラスであること」を前提</strong>に初めて有効な戦略になります。</p>
-
-    <div class="sim-box">
-      <h4>レバレッジ効果のシミュレーション</h4>
-      <div class="sim-row">
-        <span class="label">物件価格</span>
-        <span class="value">5,000万円</span>
-      </div>
-      <div class="sim-row">
-        <span class="label">自己資金</span>
-        <span class="value">500万円（10%）</span>
-      </div>
-      <div class="sim-row">
-        <span class="label">借入金額</span>
-        <span class="value">4,500万円</span>
-      </div>
-      <div class="sim-row">
-        <span class="label">年間実質収益（7.6%想定）</span>
-        <span class="value">380万円</span>
-      </div>
-      <div class="sim-row">
-        <span class="label">年間ローン返済（35年・金利2%）</span>
-        <span class="value">△約180万円</span>
-      </div>
-      <div class="sim-row total">
-        <span class="label"><strong>年間手取りキャッシュフロー</strong></span>
-        <span class="value">約200万円（自己資金500万円に対し40%超）</span>
-      </div>
-    </div>
-
-    <p>これがレバレッジの威力です。ただし、金利が上昇したり空室率が上がったりすれば、この計算は一瞬で崩れます。<strong>金利上昇・空室率上昇の両方を想定したストレステスト</strong>を必ず行ってください。</p>
-
-    <hr>
-
-    <h2>投資目的に応じて選ぶ物件は変わる</h2>
-
-    <p>投資用不動産は「何のために買うか」で、狙うべき物件構造・築年数・エリアが全く変わります。目的を決めずに利回りだけで選ぶと、保有期間も出口も中途半端なまま、どの目的も達成できずに終わります。代表的な3つの型に整理します。</p>
-
-    <h3>① 節税目的</h3>
-
-    <p>狙うのは<strong>築古の木造アパート</strong>など、減価償却を大きく取れる物件です。木造の法定耐用年数は22年で、これを超えた物件は最短4年で建物価格を償却できます。</p>
-
-    <p>建物価格の比率が高い物件を選べば、毎年まとまった減価償却費を経費計上でき、給与所得や事業所得と損益通算して課税所得を圧縮できます。課税所得が高い人ほど効果が大きい型です。エリアの将来性よりも、償却効率と「出口できちんと売れること」を優先して物件を選びます。</p>
-
-    <h3>② キャピタルゲイン目的</h3>
-
-    <p>月々のキャッシュフローは薄く、場合によってはマイナスでも、<strong>都心で地価上昇が見込める物件</strong>を狙います。港区・千代田区・中央区といった都心3区で実需の強いエリアが中心です。</p>
-
-    <p>保有中の持ち出しは、売却時の値上がり益で回収し、それを上回ることを前提に設計します。インフレ局面では賃料の増額も期待でき、空室リスクが低いのも都心物件の強みです。10〜15年の保有で、出口の一発で大きく取りにいく型です。</p>
-
-    <h3>③ ハイブリッド型</h3>
-
-    <p>月々のキャッシュフローを<strong>最低でもプラス</strong>に保ちながら、地価上昇でキャピタルゲインも狙える物件を選びます。立地と利回りのバランス点を取りにいく型で、保有中の収支に無理がなく出口でも利益を狙えるため、最も再現性が高い。一方で、その条件を満たす物件は数が少なく、見極めの難易度は3つの中で最も高くなります。</p>
-
-    <div class="info-box">
-      <p><strong>どの型が正解か</strong></p>
-      <p>正解は人によって変わります。課税所得の大きさ・自己資金・返済余力・保有できる期間・資産全体のバランスで、最適な型は決まります。</p>
-      <p>重要なのは、<strong>目的を先に決めてから物件を選ぶこと</strong>。型が決まれば、見るべき物件構造・築年数・エリアは自動的に絞り込まれます。利回りの数字から入ると、この順番が逆になり、どの型にも当てはまらない物件をつかみます。</p>
-    </div>
-
-    <hr>
-
-    <p>不動産投資で失敗する人の多くは、<strong>「利回りが高い＝良い物件」という先入観</strong>を持ったまま動いてしまいます。数字の裏にある実態を読み解く力が、長期的に資産を増やす投資家と、物件を抱え込んで悩む人との分岐点になります。</p>
-
-    <p>利回りは「入り口の数字」に過ぎません。実質利回り・キャッシュフロー・出口戦略・入居需要の持続性——これらをセットで検討して初めて、不動産投資の判断ができます。</p>
-
-  </article>
-
-  <div class="column-bottom-cta">
-    <div class="column-bottom-cta-inner">
-      <span class="column-bottom-cta-en">Contact Us</span>
-      <h2 class="column-bottom-cta-ja">まずはお気軽にご相談ください</h2>
-      <p class="column-bottom-cta-sub">購入・売却・投資のご相談はいつでも承っております。<br>下記フォームまたは公式LINEよりお問合せをお待ちしております。</p>
-      <div class="column-bottom-cta-btns">
-        <a href="https://speard.jp/#contact" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
-        <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-bottom-cta-btn-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>公式LINEで相談する</a>
-      </div>
-    </div>
-  </div>
-
+<div class="warn-box">
+  <p><strong>家賃保証（サブリース）付き物件の注意点</strong></p>
+  <p>「家賃保証があるから安心」という営業トークには要注意。サブリース契約は通常、数年後に保証賃料の値下げが行われます。当初の利回り計算が崩れ、実質的な収益が大幅に低下するケースが後を絶ちません。契約条件の「保証賃料見直し条項」を必ず確認してください。</p>
 </div>
-</body>
-</html>
+
+<hr>
+
+<h2>投資判断で見るべき3つの軸</h2>
+
+<p>利回りに加えて必ず確認すべき指標が3つあります。</p>
+
+<figure>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+    <style>
+      .ax-card { fill: #F5F5F5; }
+      .ax-head { fill: #0E3273; }
+      .ax-num { fill: #c9a961; font-family: 'Noto Sans JP', sans-serif; font-size: 28px; font-weight: 700; }
+      .ax-title { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; }
+      .ax-text { fill: #333; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
+    </style>
+    <text x="500" y="28" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">投資判断の3軸</text>
+    <rect x="30" y="55" width="300" height="290" rx="8" class="ax-card"/>
+    <rect x="30" y="55" width="300" height="50" rx="8" class="ax-head"/>
+    <text x="55" y="92" class="ax-num">①</text>
+    <text x="180" y="88" text-anchor="middle" class="ax-title">キャッシュフロー</text>
+    <text x="50" y="135" class="ax-text">家賃収入 − ローン返済</text>
+    <text x="50" y="155" class="ax-text">　　　　 − 諸経費</text>
+    <text x="50" y="190" class="ax-text">毎月の手取りがプラスか</text>
+    <text x="50" y="215" class="ax-text">マイナスか試算する</text>
+    <text x="50" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
+    <text x="50" y="285" class="ax-text">利回りが高くても</text>
+    <text x="50" y="305" class="ax-text">月々赤字の物件もある</text>
+    <rect x="350" y="55" width="300" height="290" rx="8" class="ax-card"/>
+    <rect x="350" y="55" width="300" height="50" rx="8" class="ax-head"/>
+    <text x="375" y="92" class="ax-num">②</text>
+    <text x="500" y="88" text-anchor="middle" class="ax-title">出口戦略</text>
+    <text x="370" y="135" class="ax-text">10年後・15年後に</text>
+    <text x="370" y="155" class="ax-text">いくらで売れるか想定</text>
+    <text x="370" y="190" class="ax-text">トータル収益で評価</text>
+    <text x="370" y="215" class="ax-text">（運用益 + 売却損益）</text>
+    <text x="370" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
+    <text x="370" y="285" class="ax-text">月々プラスでも</text>
+    <text x="370" y="305" class="ax-text">売却損で全て吹き飛ぶ</text>
+    <rect x="670" y="55" width="300" height="290" rx="8" class="ax-card"/>
+    <rect x="670" y="55" width="300" height="50" rx="8" class="ax-head"/>
+    <text x="695" y="92" class="ax-num">③</text>
+    <text x="820" y="88" text-anchor="middle" class="ax-title">入居需要の持続性</text>
+    <text x="690" y="135" class="ax-text">単身向け：大学・企業</text>
+    <text x="690" y="155" class="ax-text">　　　　 ・病院の需要</text>
+    <text x="690" y="190" class="ax-text">ファミリー：学校</text>
+    <text x="690" y="215" class="ax-text">　　　　　 ・生活利便性</text>
+    <text x="690" y="260" style="font-family:'Noto Sans JP';font-size:12px;font-weight:700;fill:#0E3273;">▶ 注意点</text>
+    <text x="690" y="285" class="ax-text">人口減少エリアでは</text>
+    <text x="690" y="305" class="ax-text">長期入居率維持が困難</text>
+  </svg>
+  <figcaption>利回りだけでは見えない3つの軸。すべて揃ってこそ「投資判断」になります。</figcaption>
+</figure>
+
+<hr>
+
+<h2>ローンを使った場合のレバレッジと注意点</h2>
+
+<figure>
+  <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=1200&q=80" alt="ローン計算・金融計画">
+  <figcaption>ローンは「レバレッジの武器」にも「リスクの増幅器」にもなります。</figcaption>
+</figure>
+
+<p>不動産投資の最大の特徴は、<strong>金融機関のローンを活用したレバレッジ投資</strong>ができることです。自己資金500万円で5,000万円の物件を購入できれば、10倍のレバレッジがかかります。</p>
+
+<p>ただし、ローンはリスクも10倍に増幅します。空室が続いてローン返済が滞れば、物件を手放さざるを得ない状況になりかねません。レバレッジ活用は<strong>「キャッシュフローがプラスであること」を前提</strong>に初めて有効な戦略になります。</p>
+
+<div class="sim-box">
+  <h4>レバレッジ効果のシミュレーション</h4>
+  <div class="sim-row">
+    <span class="label">物件価格</span>
+    <span class="value">5,000万円</span>
+  </div>
+  <div class="sim-row">
+    <span class="label">自己資金</span>
+    <span class="value">500万円（10%）</span>
+  </div>
+  <div class="sim-row">
+    <span class="label">借入金額</span>
+    <span class="value">4,500万円</span>
+  </div>
+  <div class="sim-row">
+    <span class="label">年間実質収益（7.6%想定）</span>
+    <span class="value">380万円</span>
+  </div>
+  <div class="sim-row">
+    <span class="label">年間ローン返済（35年・金利2%）</span>
+    <span class="value">△約180万円</span>
+  </div>
+  <div class="sim-row total">
+    <span class="label"><strong>年間手取りキャッシュフロー</strong></span>
+    <span class="value">約200万円（自己資金500万円に対し40%超）</span>
+  </div>
+</div>
+
+<p>これがレバレッジの威力です。ただし、金利が上昇したり空室率が上がったりすれば、この計算は一瞬で崩れます。<strong>金利上昇・空室率上昇の両方を想定したストレステスト</strong>を必ず行ってください。</p>
+
+<hr>
+
+<h2>投資目的に応じて選ぶ物件は変わる</h2>
+
+<p>投資用不動産は「何のために買うか」で、狙うべき物件構造・築年数・エリアが全く変わります。目的を決めずに利回りだけで選ぶと、保有期間も出口も中途半端なまま、どの目的も達成できずに終わります。代表的な3つの型に整理します。</p>
+
+<h3>① 節税目的</h3>
+
+<p>狙うのは<strong>築古の木造アパート</strong>など、減価償却を大きく取れる物件です。木造の法定耐用年数は22年で、これを超えた物件は最短4年で建物価格を償却できます。</p>
+
+<p>建物価格の比率が高い物件を選べば、毎年まとまった減価償却費を経費計上でき、給与所得や事業所得と損益通算して課税所得を圧縮できます。課税所得が高い人ほど効果が大きい型です。エリアの将来性よりも、償却効率と「出口できちんと売れること」を優先して物件を選びます。</p>
+
+<h3>② キャピタルゲイン目的</h3>
+
+<p>月々のキャッシュフローは薄く、場合によってはマイナスでも、<strong>都心で地価上昇が見込める物件</strong>を狙います。港区・千代田区・中央区といった都心3区で実需の強いエリアが中心です。</p>
+
+<p>保有中の持ち出しは、売却時の値上がり益で回収し、それを上回ることを前提に設計します。インフレ局面では賃料の増額も期待でき、空室リスクが低いのも都心物件の強みです。10〜15年の保有で、出口の一発で大きく取りにいく型です。</p>
+
+<h3>③ ハイブリッド型</h3>
+
+<p>月々のキャッシュフローを<strong>最低でもプラス</strong>に保ちながら、地価上昇でキャピタルゲインも狙える物件を選びます。立地と利回りのバランス点を取りにいく型で、保有中の収支に無理がなく出口でも利益を狙えるため、最も再現性が高い。一方で、その条件を満たす物件は数が少なく、見極めの難易度は3つの中で最も高くなります。</p>
+
+<div class="info-box">
+  <p><strong>どの型が正解か</strong></p>
+  <p>正解は人によって変わります。課税所得の大きさ・自己資金・返済余力・保有できる期間・資産全体のバランスで、最適な型は決まります。</p>
+  <p>重要なのは、<strong>目的を先に決めてから物件を選ぶこと</strong>。型が決まれば、見るべき物件構造・築年数・エリアは自動的に絞り込まれます。利回りの数字から入ると、この順番が逆になり、どの型にも当てはまらない物件をつかみます。</p>
+</div>
+
+<hr>
+
+<p>不動産投資で失敗する人の多くは、<strong>「利回りが高い＝良い物件」という先入観</strong>を持ったまま動いてしまいます。数字の裏にある実態を読み解く力が、長期的に資産を増やす投資家と、物件を抱え込んで悩む人との分岐点になります。</p>
+
+<p>利回りは「入り口の数字」に過ぎません。実質利回り・キャッシュフロー・出口戦略・入居需要の持続性——これらをセットで検討して初めて、不動産投資の判断ができます。</p>
