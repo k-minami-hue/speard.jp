@@ -1255,6 +1255,7 @@
 // columns/manifest.json と voices/manifest.json から最新を自動取得
 // フォールバック用デフォルト
 const NEWS_FALLBACK = [
+  { date: '2026.06.05', text: '「コラム」を更新しました', page: 'column', url: 'columns/purchase/column_yield.html' },
   { date: '2026.05.10', text: '「お客様の声」を更新しました', page: 'voices' },
   { date: '2026.05.09', text: '「コラム」を更新しました', page: 'column' },
   { date: '2026.04.27', text: '「お客様の声」を更新しました', page: 'voices' },
@@ -1272,7 +1273,9 @@ function fetchNewsFromManifests() { return NEWS_FALLBACK; }
     const onClick = n.dynamic
       ? `event.preventDefault();handleColumnLink('${n.page}');return false;`
       : `event.preventDefault();showPage('${n.page}');return false;`;
-    return `<li class="news-item"><a href="#${n.page}" onclick="${onClick}" class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`;
+    const href = n.url ? n.url : `#${n.page}`;
+    const onClickAttr = n.url ? '' : ` onclick="${onClick}"`;
+    return `<li class="news-item"><a href="${href}"${onClickAttr} class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`;
   }).join('');
 })();
 </script>
