@@ -1,6 +1,16 @@
 {
   "columns": [
     {
+      "id": "yield",
+      "category": "buy",
+      "tag": "投資編",
+      "title": "投資用マンションの「利回り」だけで選ぶと失敗する理由",
+      "date": "2026.05.25",
+      "hero": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_yield.html"
+    },
+    {
       "id": "trouble",
       "category": "buy",
       "tags": [
