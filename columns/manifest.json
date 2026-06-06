@@ -1,6 +1,16 @@
 {
   "columns": [
     {
+      "id": "pricing",
+      "category": "sell",
+      "tag": "売却編",
+      "title": "売り出し価格の決め方——高すぎると何が起きるか",
+      "date": "2026.06.06",
+      "hero": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_pricing.html"
+    },
+    {
       "id": "yield",
       "category": "buy",
       "tag": "投資編",
