@@ -4282,7 +4282,13 @@ async function renderColumnGrid() {
     const card = document.createElement('a');
     card.href = '#' + id;
     card.dataset.colId = id;
-    card.className = 'col-card ' + (isSell ? 'ct-sell' : 'ct-buy');
+    var fc = [];
+    if (Array.isArray(col.tags) && col.tags.length > 0) {
+      if (col.tags.some(function(t){ return t.indexOf('購入') > -1; })) fc.push('ct-buy');
+      if (col.tags.some(function(t){ return t.indexOf('売却') > -1; })) fc.push('ct-sell');
+    }
+    if (fc.length === 0) fc.push(isSell ? 'ct-sell' : 'ct-buy');
+    card.className = 'col-card ' + fc.join(' ');
     card.onclick = function(e){ e.preventDefault(); showColumnDynamic(col.id); return false; };
     const tagsHtml = Array.isArray(col.tags) && col.tags.length > 0
       ? col.tags.map(function(t, i){ return '<span class="col-card-tag' + (i > 0 ? ' col-card-tag-sub' : '') + '">' + t + '</span>'; }).join(' ')
