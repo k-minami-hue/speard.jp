@@ -1,6 +1,56 @@
 {
   "columns": [
     {
+      "id": "shinchiku-chuko",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "新築vs中古マンション——資産性で選ぶならどちらか",
+      "date": "2026.06.08",
+      "hero": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_shinchiku_chuko.html"
+    },
+    {
+      "id": "asset-value",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "資産価値が落ちにくいマンションの条件7つ——出口から逆算する物件選び",
+      "date": "2026.06.09",
+      "hero": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_asset_value.html"
+    },
+    {
+      "id": "kanrihi-shuzen",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "管理費・修繕積立金の正しい見方——「マンションは管理を買え」の本当の意味",
+      "date": "2026.06.10",
+      "hero": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_kanrihi_shuzenhi.html"
+    },
+    {
+      "id": "uridoki",
+      "category": "sell",
+      "tag": "売却編",
+      "title": "マンションの「売り時」はいつか——税制・市況・築年数で見極める",
+      "date": "2026.06.11",
+      "hero": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_uridoki.html"
+    },
+    {
+      "id": "souzoku-baikyaku",
+      "category": "sell",
+      "tag": "売却編",
+      "title": "相続したマンションを売却する——期限・税金・手続きの完全ガイド",
+      "date": "2026.06.12",
+      "hero": "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_souzoku_baikyaku.html"
+    },
+    {
       "id": "pricing",
       "category": "sell",
       "tag": "売却編",
