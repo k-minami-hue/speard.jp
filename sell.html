@@ -10,7 +10,7 @@
 <style>
   :root{
     --bg:#F6F3EC; --bg2:#EFEADF; --white:#fff;
-    --navy:#1B3A5C; --navy-d:#0D2238; --blue:#2C5B8E;
+    --navy:#1B3A5C; --navy-d:#0D2238; --navy-mid:#254E7A; --blue:#2C5B8E;
     --gold:#C49A30; --gold-d:#a07f24; --gold-l:#e3cf95;
     --ink:#252b30; --gray:#5d6066; --line:#e2ddd0;
     --serif:"Noto Serif JP",serif;
@@ -18,7 +18,7 @@
     --sans:"Noto Sans JP",sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:var(--sans);color:var(--ink);line-height:1.95;background:var(--bg);-webkit-font-smoothing:antialiased;font-weight:400;}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.95;background:var(--bg);-webkit-font-smoothing:antialiased;font-weight:400;word-break:auto-phrase;line-break:strict;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 34px;position:relative;}
   .pf{font-family:var(--pf);font-style:italic;font-weight:500;color:var(--gold);letter-spacing:.04em;}
   .gline{width:48px;height:1px;background:var(--gold);}
@@ -35,7 +35,7 @@
   .sec.bg2{background:var(--bg2);}
 
   /* HERO */
-  .hero{background:var(--navy-d);color:#fff;position:relative;overflow:hidden;padding:118px 0 0;}
+  .hero{background:linear-gradient(160deg,var(--navy-d) 0%,var(--navy) 55%,var(--navy-mid) 100%);color:#fff;position:relative;overflow:hidden;padding:84px 0 0;}
   .hero .wrap{z-index:3;}
   .hero .pf{font-size:18px;letter-spacing:.12em;}
   .hero h1{font-family:var(--serif);font-weight:500;font-size:50px;letter-spacing:.06em;line-height:1.62;margin-top:20px;}
@@ -150,7 +150,7 @@
   .vcard p{font-size:13.5px;color:var(--gray);line-height:2;}
 
   /* CTA */
-  .cta{background:var(--navy-d);color:#fff;text-align:center;padding:100px 24px 116px;position:relative;overflow:hidden;}
+  .cta{background:linear-gradient(160deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-mid) 100%);color:#fff;text-align:center;padding:100px 24px 116px;position:relative;overflow:hidden;}
   .cta .skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:180px;opacity:.5;}
   .cta .wrap{position:relative;z-index:2;}
   .cta .pf{font-size:18px;}
@@ -173,9 +173,39 @@
     .stat .num{font-size:38px;}
     .fair-grid{gap:0;}
   }
+
+  /* site header (matches homepage) */
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(13,34,56,.97);border-bottom:1px solid rgba(255,255,255,.07);}
+  .site-header .inner{max-width:1200px;margin:0 auto;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .site-header .logo img{height:34px;display:block;}
+  .site-header nav{display:flex;align-items:center;gap:24px;}
+  .site-header nav a{color:#fff;font-size:14px;text-decoration:none;letter-spacing:.04em;white-space:nowrap;font-weight:400;}
+  .site-header nav a.active{color:var(--gold-l);}
+  .site-header .hbtns{display:flex;gap:10px;align-items:center;}
+  .hbtn{display:inline-flex;align-items:center;padding:10px 20px;font-size:13px;text-decoration:none;font-weight:500;border-radius:2px;letter-spacing:.04em;white-space:nowrap;}
+  .hbtn.gold{background:var(--gold);color:#fff;}
+  .hbtn.line{background:#06C755;color:#fff;}
+  @media(max-width:980px){.site-header nav{display:none;}.site-header .inner{height:60px;}}
 </style>
 </head>
 <body>
+<header class="site-header"><div class="inner">
+  <a class="logo" href="https://speard.jp/"><img src="https://speard.jp/logo.png" alt="Speard"></a>
+  <nav>
+    <a href="https://speard.jp/">トップ</a>
+    <a href="https://speard.jp/#guide">不動産ガイド</a>
+    <a href="https://speard.jp/#voices">お客様の声</a>
+    <a href="https://speard.jp/#faq">よくあるご質問</a>
+    <a href="https://speard.jp/#recruit">採用情報</a>
+    <a href="https://speard.jp/#access">アクセス</a>
+    <a href="https://speard.jp/#column">コラム</a>
+    <a href="/sell.html" class="active">売却について</a>
+  </nav>
+  <div class="hbtns">
+    <a class="hbtn gold" href="https://speard.jp/#contact">お問合せ</a>
+    <a class="hbtn line" href="https://line.me/R/ti/p/%40xef5208i">公式LINE</a>
+  </div>
+</div></header>
 
 <!-- HERO -->
 <section class="hero">
@@ -184,9 +214,9 @@
     <h1>その査定額に、<br>「<span class="u">根拠</span>」はありますか。</h1>
     <p class="hsub">大切なのは、いくらで売れるか。</p>
     <p class="lead">相場と需給のデータにもとづき、価格と販売の戦略をご一緒に設計いたします。事実と根拠にもとづいて誠実にご説明することを、お客様の大切な資産をお預かりする会社としてお約束いたします。</p>
-    <div class="meta"><span>一都三県・湾岸／都心特化</span><span>査定・ご相談 無料</span><span>秘密厳守</span></div>
+    <div class="meta"><span>一都三県特化</span><span>査定・ご相談 無料</span><span>秘密厳守</span></div>
     <div class="btns">
-      <a class="btn btn-gold" href="/inquiry/property.html">無料査定・ご相談を申し込む</a>
+      <a class="btn btn-gold" href="/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
     </div>
   </div>
@@ -331,7 +361,7 @@
     <p>査定・ご売却のご相談は無料です。誠実に、ご納得いただけるご提案をお約束いたします。</p>
     <div class="rea"><span>ご相談・査定 無料</span><span>秘密厳守</span><span>しつこい営業はいたしません</span></div>
     <div class="btns">
-      <a class="btn btn-gold" href="/inquiry/property.html">無料査定・ご相談を申し込む</a>
+      <a class="btn btn-gold" href="/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
     </div>
   </div>
