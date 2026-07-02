@@ -333,14 +333,15 @@ section{padding:88px 0;}
 
 /* ===== Flow ===== */
 .flow-list{max-width:820px;margin:0 auto;position:relative;}
-.flow-list::before{
-  content:"";position:absolute;left:31px;top:20px;bottom:20px;
-  width:2px;background:linear-gradient(var(--gold),var(--navy-light));
-}
 .flow-item{
   position:relative;display:flex;gap:28px;
   padding:0 0 36px 0;
 }
+.flow-item::before{
+  content:"";position:absolute;left:31px;top:32px;bottom:0;
+  width:2px;background:var(--gold);opacity:.4;
+}
+.flow-item:last-child::before{display:none;}
 .flow-item:last-child{padding-bottom:0;}
 .flow-num{
   flex-shrink:0;width:64px;height:64px;border-radius:50%;
@@ -369,9 +370,9 @@ section{padding:88px 0;}
 }
 .support-card::after{
   content:attr(data-num);
-  position:absolute;right:14px;bottom:-14px;
+  position:absolute;right:20px;bottom:10px;
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:84px;color:var(--gold-pale);line-height:1;font-weight:500;
+  font-size:64px;color:var(--gold-pale);line-height:1;font-weight:500;
   pointer-events:none;
 }
 .support-card h4{
@@ -475,7 +476,7 @@ section{padding:88px 0;}
   .compare-table thead th.col-us{font-size:14px;}
   .flow-item{gap:16px;}
   .flow-num{width:48px;height:48px;font-size:18px;}
-  .flow-list::before{left:23px;}
+  .flow-item::before{left:23px;top:24px;}
   .ladder{grid-template-columns:1fr;}
   .ladder-axis{display:none;}
   .ladder-row{flex-wrap:wrap;gap:8px 14px;padding:18px 20px;}
@@ -836,11 +837,6 @@ section{padding:88px 0;}
     <span class="sec-en" style="color:var(--gold-light);">Contact</span>
     <h2>まずは「いくらで売れるか」を、<br><em>根拠とともに。</em></h2>
     <p>査定・ご売却のご相談は無料です。誠実に、ご納得いただけるご提案をお約束いたします。</p>
-    <div class="cta-badges">
-      <span class="hero-badge">ご相談・査定 無料</span>
-      <span class="hero-badge">秘密厳守</span>
-      <span class="hero-badge">しつこい営業はいたしません</span>
-    </div>
     <div class="cta-actions">
       <a class="btn btn-gold" href="https://speard.jp/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
