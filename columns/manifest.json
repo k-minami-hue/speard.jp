@@ -1,6 +1,36 @@
 {
   "columns": [
     {
+      "id": "loan-meigi",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "住宅ローンの名義で数百万円損する人がいる——収入合算・連帯債務・ペアローンの違い",
+      "date": "2026.07.02",
+      "hero": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_loan_meigi.html"
+    },
+    {
+      "id": "bank-erabikata",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "住宅ローンは金利の低さで選ばない——銀行の本当の選び方",
+      "date": "2026.07.02",
+      "hero": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_bank_erabikata.html"
+    },
+    {
+      "id": "kasai-hoken",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "火災保険は「言われるまま」で数万円損する——正しい選び方",
+      "date": "2026.07.02",
+      "hero": "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1200&q=80",
+      "thumb": "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=600&q=80",
+      "file": "columns/purchase/column_kasai_hoken.html"
+    },
+    {
       "id": "shinchiku-chuko",
       "category": "buy",
       "tag": "購入編",
