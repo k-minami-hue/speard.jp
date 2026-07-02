@@ -38,34 +38,35 @@ a{text-decoration:none;color:inherit;}
 .serif{font-family:'Noto Serif JP',serif;}
 .container{max-width:1120px;margin:0 auto;padding:0 24px;}
 
-/* ===== Header ===== */
-.header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
-}
-.header-inner{
-  max-width:1200px;margin:0 auto;padding:0 24px;
+/* ===== Header (トップページと共通仕様) ===== */
+header.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
-  height:72px;
+  padding:0 48px;height:80px;
+  background:rgba(13,34,56,.97);
+  box-shadow:0 2px 24px rgba(0,0,0,.25);
 }
-.header-logo img{height:34px;width:auto;}
-.header-nav{display:flex;align-items:center;gap:28px;}
-.header-nav a{
-  font-size:13.5px;font-weight:500;color:var(--ink);
-  transition:color .2s;
-}
-.header-nav a:hover{color:var(--gold);}
-.header-cta{display:flex;align-items:center;gap:10px;}
-.btn-header{
-  display:inline-block;padding:10px 22px;border-radius:4px;
-  font-size:13.5px;font-weight:700;transition:opacity .2s;
-}
-.btn-header:hover{opacity:.85;}
-.btn-header.contact{background:var(--navy);color:#fff;}
-.btn-header.line{background:var(--green);color:#fff;}
-.nav-toggle{display:none;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-img{height:44px;width:auto;object-fit:contain;}
+header.site-header nav{display:flex;align-items:center;gap:28px;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.83rem;letter-spacing:.06em;transition:color .2s;}
+.nav-links a:hover{color:#C49A30;}
+.btn-nav{background:#C49A30!important;color:#fff!important;padding:9px 22px;border-radius:2px;font-size:.8rem!important;letter-spacing:.06em;transition:background .2s!important;text-decoration:none;}
+.btn-nav:hover{background:#A87E22!important;}
+.btn-nav-line{background:#06C755!important;color:#fff!important;padding:9px 18px;border-radius:2px;font-size:.8rem!important;letter-spacing:.06em;transition:filter .2s!important;display:inline-flex;align-items:center;text-decoration:none;}
+.btn-nav-line:hover{filter:brightness(1.08);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:88px;left:0;right:0;background:rgba(13,34,56,.98);z-index:99;padding:20px 24px;flex-direction:column;gap:0;box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.05em;}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu a.btn-nav-mobile{margin-top:12px;background:#C49A30;color:#fff!important;padding:13px 0;border-radius:2px;text-align:center;border:none;font-size:.88rem;}
+body{padding-top:80px;}
 
 /* ===== Hero ===== */
 .hero{
@@ -452,8 +453,15 @@ section{padding:88px 0;}
 .footer-copy{width:100%;text-align:center;font-size:11.5px;margin-top:28px;color:rgba(255,255,255,.35);}
 
 /* ===== Responsive ===== */
+@media(max-width:900px){
+  header.site-header{padding:0 20px;height:88px;}
+  header.site-header .logo-img{height:32px;}
+  .nav-links{display:none!important;}
+  .btn-nav,.btn-nav-line{display:none!important;}
+  .hamburger{display:flex;}
+  body{padding-top:88px;}
+}
 @media(max-width:960px){
-  .header-nav{display:none;}
   .reason-grid,.voice-grid{grid-template-columns:1fr;}
   .trans-grid,.support-grid{grid-template-columns:1fr;}
   .stats-inner{grid-template-columns:1fr 1fr;}
@@ -477,24 +485,38 @@ section{padding:88px 0;}
 </head>
 <body>
 
-<!-- ===== Header ===== -->
-<header class="header">
-  <div class="header-inner">
-    <a href="https://speard.jp/" class="header-logo"><img src="https://speard.jp/logo.png" alt="Speard"></a>
-    <nav class="header-nav">
+<!-- ===== Header（トップページと共通） ===== -->
+<header class="site-header" id="header">
+  <a href="https://speard.jp/" class="logo"><img src="https://speard.jp/logo.png" alt="Speard" class="logo-img"></a>
+  <nav>
+    <div class="nav-links">
       <a href="https://speard.jp/">トップ</a>
       <a href="https://speard.jp/#guide">不動産ガイド</a>
       <a href="https://speard.jp/#voices">お客様の声</a>
       <a href="https://speard.jp/#faq">よくあるご質問</a>
+      <a href="https://speard.jp/#recruit">採用情報</a>
       <a href="https://speard.jp/#access">アクセス</a>
-      <a href="https://speard.jp/sell.html" style="color:var(--gold);font-weight:700;">売却について</a>
-    </nav>
-    <div class="header-cta">
-      <a class="btn-header contact" href="https://speard.jp/#contact">お問合せ</a>
-      <a class="btn-header line" href="https://line.me/R/ti/p/%40xef5208i">公式LINE</a>
+      <a href="https://speard.jp/#column">コラム</a>
+      <a href="https://speard.jp/sell.html">売却について</a>
     </div>
-  </div>
+    <a class="btn-nav" href="https://speard.jp/#contact">お問合せ</a>
+    <a class="btn-nav-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINE</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://speard.jp/">トップ</a>
+  <a href="https://speard.jp/#guide">不動産ガイド</a>
+  <a href="https://speard.jp/#voices">お客様の声</a>
+  <a href="https://speard.jp/#faq">よくあるご質問</a>
+  <a href="https://speard.jp/#recruit">採用情報</a>
+  <a href="https://speard.jp/#access">アクセス</a>
+  <a href="https://speard.jp/#column">コラム</a>
+  <a href="https://speard.jp/sell.html">売却について</a>
+  <a href="https://speard.jp/#contact" class="btn-nav-mobile">お問合せ</a>
+</div>
 
 <!-- ===== Hero ===== -->
 <div class="hero">
@@ -842,5 +864,9 @@ section{padding:88px 0;}
   </div>
 </footer>
 
+<script>
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+hb.addEventListener('click',()=>{hb.classList.toggle('open');mm.classList.toggle('open');});
+</script>
 </body>
 </html>
