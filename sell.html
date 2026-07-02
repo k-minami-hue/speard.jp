@@ -49,12 +49,12 @@ header.site-header{
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
 .logo-img{height:44px;width:auto;object-fit:contain;}
 header.site-header nav{display:flex;align-items:center;gap:28px;}
-.nav-links{display:flex;align-items:center;gap:28px;}
-.nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.83rem;letter-spacing:.06em;transition:color .2s;}
+.nav-links{display:flex;align-items:center;gap:22px;}
+.nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.83rem;letter-spacing:.06em;transition:color .2s;line-height:1.7;}
 .nav-links a:hover{color:#C49A30;}
-.btn-nav{background:#C49A30!important;color:#fff!important;padding:9px 22px;border-radius:2px;font-size:.8rem!important;letter-spacing:.06em;transition:background .2s!important;text-decoration:none;}
+.btn-nav{background:#C49A30!important;color:#fff!important;padding:9px 22px;border-radius:2px;font-size:.8rem!important;transition:background .2s!important;text-decoration:none;line-height:1.7;}
 .btn-nav:hover{background:#A87E22!important;}
-.btn-nav-line{background:#06C755!important;color:#fff!important;padding:9px 18px;border-radius:2px;font-size:.8rem!important;letter-spacing:.06em;transition:filter .2s!important;display:inline-flex;align-items:center;text-decoration:none;}
+.btn-nav-line{background:#06C755!important;color:#fff!important;padding:9px 18px;border-radius:2px;font-size:.8rem!important;transition:filter .2s!important;display:inline-flex;align-items:center;text-decoration:none;line-height:1.7;}
 .btn-nav-line:hover{filter:brightness(1.08);}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
 .hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
@@ -442,16 +442,11 @@ section{padding:88px 0;}
 .cta-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:34px;}
 .cta-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;}
 
-/* ===== Footer ===== */
-.footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:48px 0 36px;}
-.footer-inner{
-  max-width:1120px;margin:0 auto;padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
-}
-.footer-logo img{height:28px;width:auto;filter:brightness(0) invert(1);opacity:.85;}
-.footer-nav{display:flex;flex-wrap:wrap;gap:22px;font-size:12.5px;}
-.footer-nav a:hover{color:#fff;}
-.footer-copy{width:100%;text-align:center;font-size:11.5px;margin-top:28px;color:rgba(255,255,255,.35);}
+/* ===== Footer（トップページと共通） ===== */
+footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:36px 24px;font-size:.78rem;}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,.42);text-decoration:none;transition:.2s;}
+.footer-links a:hover{color:rgba(255,255,255,.8);}
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
@@ -525,14 +520,15 @@ section{padding:88px 0;}
     <span class="hero-eyebrow">MANSION SELLING — 一都三県のマンション売却</span>
     <h1 class="serif">大切な資産だからこそ、<br><em>根拠のある売却</em>を。</h1>
     <p class="hero-lead">
-      査定額は、売出価格の目安にすぎません。大切なのは「いくらで売れるか」。<br>
-      相場と需給のデータにもとづき、価格と販売の戦略をご一緒に設計いたします。事実と根拠にもとづいて誠実にご説明することを、お客様の大切な資産をお預かりする会社としてお約束いたします。
+      査定額は、売出価格の目安にすぎません。<br>
+      大切なのは「いくらで売れるか」。<br>
+      相場と需給のデータにもとづき、価格と販売の戦略をご一緒に設計いたします。<br>
+      事実と根拠にもとづいて誠実にご説明することを、お客様の大切な資産をお預かりする会社としてお約束いたします。
     </p>
     <div class="hero-actions">
       <a class="btn btn-gold" href="https://speard.jp/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
     </div>
-    <p class="hero-note">※ ご相談いただいても、ご売却を無理におすすめすることはありません。</p>
   </div>
 </div>
 
@@ -575,12 +571,14 @@ section{padding:88px 0;}
       <div class="reason-card">
         <div class="reason-num">01</div>
         <h3>根拠ある査定力</h3>
-        <p>「いくらで売れるか」を、相場・需給のデータとともに明確にご提示します。価格と販売戦略をあわせてご提案いたします。</p>
+        <p>「いくらで売れるか」を、相場・需給のデータとともに明確にご提示します。<br>
+      価格と販売戦略をあわせてご提案いたします。</p>
       </div>
       <div class="reason-card">
         <div class="reason-num">02</div>
         <h3>透明な販売姿勢</h3>
-        <p>囲い込みをせず、両手契約にも依存しません。売主様の利益だけを見て、誠実に販売活動を行います。</p>
+        <p>囲い込みをせず、両手契約にも依存しません。<br>
+      売主様の利益だけを見て、誠実に販売活動を行います。</p>
       </div>
       <div class="reason-card">
         <div class="reason-num">03</div>
@@ -608,17 +606,20 @@ section{padding:88px 0;}
         <div class="ladder-row top">
           <span class="ladder-name">チャレンジ価格</span>
           <span class="ladder-tag">価格：高め</span>
-          <span class="ladder-desc">相場の上限に挑む、強気の設定。時間をかけて高値を狙います。</span>
+          <span class="ladder-desc">相場の上限に挑む、強気の設定。<br>
+      時間をかけて高値を狙います。</span>
         </div>
         <div class="ladder-row mid">
           <span class="ladder-name">相場価格</span>
           <span class="ladder-tag">価格：標準</span>
-          <span class="ladder-desc">需給に合った、標準的な設定。価格と期間のバランスを取ります。</span>
+          <span class="ladder-desc">需給に合った、標準的な設定。<br>
+      価格と期間のバランスを取ります。</span>
         </div>
         <div class="ladder-row low">
           <span class="ladder-name">早期成約価格</span>
           <span class="ladder-tag">価格：控えめ</span>
-          <span class="ladder-desc">早期の成約を優先した設定。確実性を重視される方に。</span>
+          <span class="ladder-desc">早期の成約を優先した設定。<br>
+      確実性を重視される方に。</span>
         </div>
       </div>
     </div>
@@ -626,7 +627,8 @@ section{padding:88px 0;}
 
     <p class="feature-body" style="margin-top:36px;">
       査定額は、売出価格の目安にすぎません。<strong>大切なのは、その根拠と販売の進め方です。</strong><br>
-      近隣の成約事例や需給の状況、価格改定の履歴までご説明し、「なぜこの価格なのか」「どのように販売するのか」を数字でお示しいたします。スピード重視か、価格重視か——お客様のご希望をうかがいながら、最適な売出価格をご一緒に決めてまいります。<strong>ご契約をいただくために、根拠のない高い査定額をご提示することはいたしません。</strong>
+      近隣の成約事例や需給の状況、価格改定の履歴までご説明し、「なぜこの価格なのか」「どのように販売するのか」を数字でお示しいたします。<br>
+      スピード重視か、価格重視か——お客様のご希望をうかがいながら、最適な売出価格をご一緒に決めてまいります。<strong>ご契約をいただくために、根拠のない高い査定額をご提示することはいたしません。</strong>
     </p>
   </div>
 </section>
@@ -639,16 +641,20 @@ section{padding:88px 0;}
       <h2 class="feature-title">囲い込みをしない、<br>透明な販売姿勢。</h2>
     </div>
     <p class="feature-body">
-      私たちは、<strong>売主様の利益だけを見て</strong>販売活動を行います。仲介手数料は、ご売却の条件をふまえて明朗にご提示します。「自社で買主を見つけたい」という都合で、売却の機会を遅らせることはいたしません。
+      私たちは、<strong>売主様の利益だけを見て</strong>販売活動を行います。<br>
+      仲介手数料は、ご売却の条件をふまえて明朗にご提示します。<br>
+      「自社で買主を見つけたい」という都合で、売却の機会を遅らせることはいたしません。
     </p>
     <div class="trans-grid">
       <div class="trans-card">
         <h4>囲い込みをしない</h4>
-        <p>他社経由の買主様も歓迎し、レインズへ適正に登録いたします。自社の都合で売却の機会を狭めることはいたしません。</p>
+        <p>他社経由の買主様も歓迎し、レインズへ適正に登録いたします。<br>
+      自社の都合で売却の機会を狭めることはいたしません。</p>
       </div>
       <div class="trans-card">
         <h4>両手契約に依存しない</h4>
-        <p>「早く・高く売る」ことだけを評価軸にしています。手数料を二重で得るための情報操作とは無縁の運用です。</p>
+        <p>「早く・高く売る」ことだけを評価軸にしています。<br>
+      手数料を二重で得るための情報操作とは無縁の運用です。</p>
       </div>
       <div class="trans-card">
         <h4>一都三県に強い情報網</h4>
@@ -711,7 +717,8 @@ section{padding:88px 0;}
         <div class="flow-num">01</div>
         <div class="flow-body">
           <h4>無料査定・ご相談</h4>
-          <p>3段階の価格と根拠、販売の進め方をご提示いたします。ご不明点は、この段階で解消していただけます。</p>
+          <p>3段階の価格と根拠、販売の進め方をご提示いたします。<br>
+      ご不明点は、この段階で解消していただけます。</p>
         </div>
       </div>
       <div class="flow-item">
@@ -732,7 +739,8 @@ section{padding:88px 0;}
         <div class="flow-num">04</div>
         <div class="flow-body">
           <h4>内覧対応</h4>
-          <p>内覧の日程調整から当日のご対応まで代行いたします。反響は週1回以上ご報告いたします。</p>
+          <p>内覧の日程調整から当日のご対応まで代行いたします。<br>
+      反響は週1回以上ご報告いたします。</p>
         </div>
       </div>
       <div class="flow-item">
@@ -763,20 +771,24 @@ section{padding:88px 0;}
     <div class="support-grid">
       <div class="support-card" data-num="01">
         <h4>専属担当制で一貫対応</h4>
-        <p>査定から引渡しまで、窓口を分けずに専属の担当が責任を持ってお手伝いいたします。引継ぎによる行き違いが起こりにくい体制です。</p>
+        <p>査定から引渡しまで、窓口を分けずに専属の担当が責任を持ってお手伝いいたします。<br>
+      引継ぎによる行き違いが起こりにくい体制です。</p>
       </div>
       <div class="support-card" data-num="02">
         <h4>複数チャネルで迅速にご対応</h4>
-        <p>ご都合に合わせて、LINE・メール・お電話でご連絡いたします。営業時間外のお問い合わせにも、翌営業日には必ず一次回答を差し上げます。</p>
+        <p>ご都合に合わせて、LINE・メール・お電話でご連絡いたします。<br>
+      営業時間外のお問い合わせにも、翌営業日には必ず一次回答を差し上げます。</p>
         <div class="chip-row"><span class="chip">LINE</span><span class="chip">メール</span><span class="chip">電話</span></div>
       </div>
       <div class="support-card" data-num="03">
         <h4>定期報告（週1回以上）</h4>
-        <p>掲載反響・お問い合わせ数・内覧件数を、週1回以上の定例でご共有いたします。数字にもとづき、価格改定や見せ方の見直しをご一緒に判断いたします。</p>
+        <p>掲載反響・お問い合わせ数・内覧件数を、週1回以上の定例でご共有いたします。<br>
+      数字にもとづき、価格改定や見せ方の見直しをご一緒に判断いたします。</p>
       </div>
       <div class="support-card" data-num="04">
         <h4>物件の魅力を高める施策</h4>
-        <p>第一印象によって成約価格は変わります。状況に応じて、ご売却を後押しする施策をご提案いたします。</p>
+        <p>第一印象によって成約価格は変わります。<br>
+      状況に応じて、ご売却を後押しする施策をご提案いたします。</p>
         <div class="chip-row"><span class="chip">プロカメラマン撮影</span><span class="chip">ホームステージング</span><span class="chip">室内クリーニング</span></div>
       </div>
     </div>
@@ -801,7 +813,9 @@ section{padding:88px 0;}
         </div>
         <span class="voice-case">相続による売却</span>
         <div class="voice-title">両親の相続で売却を決断</div>
-        <p class="body">相続したマンションの売却をお願いしました。仲介だけでなく、登記や税金の整理まで専門家と連携して対応していただき、安心して進められました。複雑な内容もわかりやすく説明してくれた点が印象的でした。</p>
+        <p class="body">相続したマンションの売却をお願いしました。<br>
+      仲介だけでなく、登記や税金の整理まで専門家と連携して対応していただき、安心して進められました。<br>
+      複雑な内容もわかりやすく説明してくれた点が印象的でした。</p>
       </div>
       <div class="voice-card">
         <div class="voice-meta">
@@ -813,7 +827,9 @@ section{padding:88px 0;}
         </div>
         <span class="voice-case">収益物件の出口戦略</span>
         <div class="voice-title">収益物件の出口戦略を相談</div>
-        <p class="body">所有していた収益物件の売却を依頼。出口戦略を明確に設計し、最適なタイミングで売却することができました。投資的な視点だけでなく、流動性なども踏まえた助言が的確で、信頼して任せられました。</p>
+        <p class="body">所有していた収益物件の売却を依頼。<br>
+      出口戦略を明確に設計し、最適なタイミングで売却することができました。<br>
+      投資的な視点だけでなく、流動性なども踏まえた助言が的確で、信頼して任せられました。</p>
       </div>
       <div class="voice-card">
         <div class="voice-meta">
@@ -825,7 +841,9 @@ section{padding:88px 0;}
         </div>
         <span class="voice-case">納得価格での売却</span>
         <div class="voice-title">納得できる価格で売却</div>
-        <p class="body">複数社に査定を出した中で、一番根拠が明確でした。「なぜこの価格なのか」をデータで説明してくれたことで、納得して売却できました。誠実で論理的な対応に信頼を感じました。</p>
+        <p class="body">複数社に査定を出した中で、一番根拠が明確でした。<br>
+      「なぜこの価格なのか」をデータで説明してくれたことで、納得して売却できました。<br>
+      誠実で論理的な対応に信頼を感じました。</p>
       </div>
     </div>
   </div>
@@ -836,7 +854,8 @@ section{padding:88px 0;}
   <div class="cta-inner">
     <span class="sec-en" style="color:var(--gold-light);">Contact</span>
     <h2>まずは「いくらで売れるか」を、<br><em>根拠とともに。</em></h2>
-    <p>査定・ご売却のご相談は無料です。誠実に、ご納得いただけるご提案をお約束いたします。</p>
+    <p>査定・ご売却のご相談は無料です。<br>
+      誠実に、ご納得いただけるご提案をお約束いたします。</p>
     <div class="cta-actions">
       <a class="btn btn-gold" href="https://speard.jp/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
@@ -844,20 +863,20 @@ section{padding:88px 0;}
   </div>
 </section>
 
-<!-- ===== Footer ===== -->
-<footer class="footer">
-  <div class="footer-inner">
-    <a href="https://speard.jp/" class="footer-logo"><img src="https://speard.jp/logo.png" alt="Speard"></a>
-    <nav class="footer-nav">
-      <a href="https://speard.jp/">トップ</a>
-      <a href="https://speard.jp/#guide">不動産ガイド</a>
-      <a href="https://speard.jp/#voices">お客様の声</a>
-      <a href="https://speard.jp/#faq">よくあるご質問</a>
-      <a href="https://speard.jp/#access">アクセス</a>
-      <a href="https://speard.jp/#contact">お問合せ</a>
-    </nav>
-    <p class="footer-copy">© Speard Inc. All Rights Reserved.</p>
+<!-- ===== Footer（トップページと共通） ===== -->
+<footer>
+  <div class="footer-links">
+    <a href="https://speard.jp/">トップ</a>
+    <a href="https://speard.jp/#guide">不動産ガイド</a>
+    <a href="https://speard.jp/#voices">お客様の声</a>
+    <a href="https://speard.jp/#faq">よくあるご質問</a>
+    <a href="https://speard.jp/#recruit">採用情報</a>
+    <a href="https://speard.jp/#access">アクセス</a>
+    <a href="https://speard.jp/#privacy">プライバシーポリシー</a>
+    <a href="https://speard.jp/#contact">お問合せ</a>
+    <a href="https://speard.jp/inquiry/property.html">不動産業者用</a>
   </div>
+  © 2026 Speard Inc. All Rights Reserved.
 </footer>
 
 <script>
