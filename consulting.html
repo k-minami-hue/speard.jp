@@ -101,16 +101,29 @@ a{color:inherit;text-decoration:none}
 ul{list-style:none}
 .inner{max-width:1080px;margin:0 auto;padding:0 24px}
 
-/* ---------- header ---------- */
-.header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,34,56,.97);backdrop-filter:blur(8px)}
-.header__inner{max-width:1240px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.header__logo img{height:30px;width:auto}
-.header__nav{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:500;color:#fff}
-.header__nav a{transition:opacity .25s}
-.header__nav a:hover{opacity:.7}
-.header__cta{background:var(--gold);color:#fff;padding:10px 24px;border-radius:2px;font-size:14px;font-weight:700;transition:background .25s;white-space:nowrap}
-.header__cta:hover{background:var(--gold-dark)}
-@media(max-width:860px){.header__nav{display:none}}
+/* ---------- header (他ページと共通) ---------- */
+header.site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:80px;background:rgba(13,34,56,.97);box-shadow:0 2px 24px rgba(0,0,0,.25);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-img{height:44px;width:auto;object-fit:contain;}
+header.site-header nav{display:flex;align-items:center;gap:28px;}
+.nav-links{display:flex;align-items:center;gap:22px;}
+.nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.83rem;letter-spacing:.06em;transition:color .2s;line-height:1.7;}
+.nav-links a:hover{color:#C49A30;}
+.btn-nav{background:#C49A30!important;color:#fff!important;padding:9px 22px;border-radius:2px;font-size:.8rem!important;transition:background .2s!important;text-decoration:none;line-height:1.7;}
+.btn-nav:hover{background:#A87E22!important;}
+.btn-nav-line{background:#06C755!important;color:#fff!important;padding:9px 18px;border-radius:2px;font-size:.8rem!important;transition:filter .2s!important;display:inline-flex;align-items:center;text-decoration:none;line-height:1.7;}
+.btn-nav-line:hover{filter:brightness(1.08);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:80px;left:0;right:0;background:rgba(13,34,56,.98);z-index:99;padding:20px 24px;flex-direction:column;gap:0;box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.05em;}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu a.btn-nav-mobile{margin-top:12px;background:#C49A30;color:#fff!important;padding:13px 0;border-radius:2px;text-align:center;border:none;font-size:.88rem;}
+@media(max-width:860px){header.site-header{padding:0 20px;height:80px;}.logo-img{height:32px;}.nav-links{display:none!important;}.btn-nav,.btn-nav-line{display:none!important;}.hamburger{display:flex;}}
 
 /* ---------- section base ---------- */
 .section{padding:96px 0}
@@ -244,16 +257,11 @@ ul{list-style:none}
 .final-cta .btns{margin-top:42px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
 @media(max-width:640px){.final-cta{padding:72px 0}.final-cta h2{font-size:22px}}
 
-/* ---------- footer ---------- */
-.footer{background:var(--navy);color:rgba(255,255,255,.75);padding:56px 0 32px;font-size:13.5px}
-.footer__inner{max-width:1080px;margin:0 auto;padding:0 24px}
-.footer__top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12)}
-.footer__brand strong{color:#fff;font-size:16px;letter-spacing:.06em}
-.footer__brand p{margin-top:12px;line-height:1.9}
-.footer__nav{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
-.footer__nav a{transition:opacity .25s}
-.footer__nav a:hover{opacity:.7}
-.footer__copy{text-align:center;padding-top:28px;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.08em}
+/* ---------- footer (他ページと共通) ---------- */
+footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:36px 24px;font-size:.78rem;}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,.42);text-decoration:none;transition:.2s;}
+.footer-links a:hover{color:rgba(255,255,255,.8);}
 
 /* ---------- scroll animation ---------- */
 .fade{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
@@ -267,21 +275,37 @@ ul{list-style:none}
 </head>
 <body>
 
-<header class="header">
-  <div class="header__inner">
-    <a class="header__logo" href="https://speard.jp/" aria-label="株式会社スピアード トップページ">
-      <img src="https://speard.jp/logo.png" alt="Speard" width="120" height="30">
-    </a>
-    <nav class="header__nav" aria-label="グローバルナビゲーション">
+<header class="site-header" id="header">
+  <a href="https://speard.jp/" class="logo"><img src="https://speard.jp/logo.png" alt="Speard" class="logo-img"></a>
+  <nav>
+    <div class="nav-links">
       <a href="https://speard.jp/">トップ</a>
+      <a href="https://speard.jp/#guide">不動産ガイド</a>
+      <a href="https://speard.jp/#voices">お客様の声</a>
+      <a href="https://speard.jp/#faq">よくあるご質問</a>
+      <a href="https://speard.jp/#recruit">採用情報</a>
+      <a href="https://speard.jp/#access">アクセス</a>
+      <a href="https://speard.jp/#column">コラム</a>
       <a href="https://speard.jp/sell.html">売却について</a>
-      <a href="#menu">相談メニュー</a>
-      <a href="#price">料金</a>
-      <a href="#faq">よくある質問</a>
-    </nav>
-    <a class="header__cta" href="https://speard.jp/#contact">コンサルティングを予約する</a>
-  </div>
+    </div>
+    <a class="btn-nav" href="https://speard.jp/#contact">お問合せ</a>
+    <a class="btn-nav-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINE</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://speard.jp/">トップ</a>
+  <a href="https://speard.jp/#guide">不動産ガイド</a>
+  <a href="https://speard.jp/#voices">お客様の声</a>
+  <a href="https://speard.jp/#faq">よくあるご質問</a>
+  <a href="https://speard.jp/#recruit">採用情報</a>
+  <a href="https://speard.jp/#access">アクセス</a>
+  <a href="https://speard.jp/#column">コラム</a>
+  <a href="https://speard.jp/sell.html">売却について</a>
+  <a href="https://speard.jp/#contact" class="btn-nav-mobile">お問合せ</a>
+</div>
 
 <main>
 
@@ -616,24 +640,19 @@ ul{list-style:none}
 
 </main>
 
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div class="footer__brand">
-        <strong>株式会社スピアード</strong>
-        <p>〒107-0062 東京都港区南青山2-2-8 DFビル10F<br>
-        東京メトロ銀座線・半蔵門線・都営大江戸線「青山一丁目駅」5番出口 徒歩2分<br>
-        宅地建物取引業者免許 東京都知事免許（1）第112752号</p>
-      </div>
-      <nav class="footer__nav" aria-label="フッターナビゲーション">
-        <a href="https://speard.jp/">トップ</a>
-        <a href="https://speard.jp/sell.html">売却について</a>
-        <a href="https://speard.jp/#contact">お問合せ</a>
-        <a href="https://line.me/R/ti/p/%40xef5208i">公式LINE</a>
-      </nav>
-    </div>
-    <p class="footer__copy">&copy; Speard Inc. All Rights Reserved.</p>
+<footer>
+  <div class="footer-links">
+    <a href="https://speard.jp/">トップ</a>
+    <a href="https://speard.jp/#guide">不動産ガイド</a>
+    <a href="https://speard.jp/#voices">お客様の声</a>
+    <a href="https://speard.jp/#faq">よくあるご質問</a>
+    <a href="https://speard.jp/#recruit">採用情報</a>
+    <a href="https://speard.jp/#access">アクセス</a>
+    <a href="https://speard.jp/#privacy">プライバシーポリシー</a>
+    <a href="https://speard.jp/#contact">お問合せ</a>
+    <a href="https://speard.jp/inquiry/property.html">不動産業者用</a>
   </div>
+  &copy; 2026 Speard Inc. All Rights Reserved.
 </footer>
 
 <script>
@@ -653,6 +672,9 @@ ul{list-style:none}
   },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
   els.forEach(function(el){io.observe(el);});
 })();
+</script>
+<script>
+(function(){var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');if(hb&&mm){hb.addEventListener('click',function(){hb.classList.toggle('open');mm.classList.toggle('open');});mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){hb.classList.remove('open');mm.classList.remove('open');});});}})();
 </script>
 
 </body>
