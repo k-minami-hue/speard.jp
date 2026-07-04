@@ -369,7 +369,7 @@
     .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity:0; }
     .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display:none; position:fixed; top:108px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+    .mobile-menu { display:none; position:fixed; top:80px; left:0; right:0; background:rgba(13,34,56,.98); z-index:99; padding:20px 24px; flex-direction:column; gap:0; box-shadow:0 8px 24px rgba(0,0,0,.3); }
     .mobile-menu.open { display:flex; }
     .mobile-menu a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); letter-spacing:.05em; }
     .mobile-menu a:last-child { border-bottom:none; }
@@ -4394,4 +4394,12 @@ window.addEventListener('hashchange', () => {
   const hash = window.location.hash.replace('#', '');
   if (hash.startsWith(COLUMN_PATH_PREFIX) && hash !== 'column-purchase-flow' && hash !== 'column-sale-flow' && hash !== 'column') {
     const colId = hash.substring(COLUMN_PATH_PREFIX.length);
-    if (!COLUMNS_MANIFEST || !COLUMNS_MANIFEST.columns.find(c => c.id === colId
+    if (!COLUMNS_MANIFEST || !COLUMNS_MANIFEST.columns.find(c => c.id === colId)) return;
+    showColumnDynamic(colId);
+  }
+});
+
+</script>
+
+</body>
+</html>

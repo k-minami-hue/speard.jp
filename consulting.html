@@ -87,8 +87,8 @@
   --text:#1a1a1a;
   --text-sub:#5a6470;
   --bg:#ffffff;
-  --bg-alt:#F4F6F9;
-  --line:#E2E7ED;
+  --bg-alt:#F7F5F0;
+  --line:#D8D0C0;
   --shadow:0 6px 24px rgba(13,34,56,.08);
   --font:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;
   --serif:"Noto Serif JP","Hiragino Mincho ProN",serif;
@@ -101,8 +101,9 @@ a{color:inherit;text-decoration:none}
 ul{list-style:none}
 .inner{max-width:1080px;margin:0 auto;padding:0 24px}
 
-/* ---------- header (他ページと共通) ---------- */
-header.site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:80px;background:rgba(13,34,56,.97);box-shadow:0 2px 24px rgba(0,0,0,.25);}
+/* ---------- header (トップページと完全共通) ---------- */
+header.site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:80px;background:rgba(13,34,56,.97);transition:background .4s,box-shadow .4s;}
+header.site-header.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.25);}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
 .logo-img{height:44px;width:auto;object-fit:contain;}
 header.site-header nav{display:flex;align-items:center;gap:28px;}
@@ -123,13 +124,15 @@ header.site-header nav{display:flex;align-items:center;gap:28px;}
 .mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.05em;}
 .mobile-menu a:last-child{border-bottom:none;}
 .mobile-menu a.btn-nav-mobile{margin-top:12px;background:#C49A30;color:#fff!important;padding:13px 0;border-radius:2px;text-align:center;border:none;font-size:.88rem;}
-@media(max-width:860px){header.site-header{padding:0 20px;height:80px;}.logo-img{height:32px;}.nav-links{display:none!important;}.btn-nav,.btn-nav-line{display:none!important;}.hamburger{display:flex;}}
+@media(max-width:900px){header.site-header{padding:0 20px;}.nav-links{display:none!important;}.btn-nav,.btn-nav-line{display:none!important;}.hamburger{display:flex;}}
+@media(max-width:768px){header.site-header{padding:14px 18px;}}
+@media(max-width:640px){header.site-header{height:88px;}.logo-img{height:32px;}.mobile-menu{top:88px;}}
 
 /* ---------- section base ---------- */
-.section{padding:96px 0}
+.section{padding:104px 0}
 .section--alt{background:var(--bg-alt)}
-.sec-title{font-family:var(--serif);font-size:34px;font-weight:500;line-height:1.5;color:var(--navy);letter-spacing:.08em}
-.sec-title::after{content:"";display:block;width:48px;height:2px;background:var(--gold);margin-top:18px}
+.sec-title{font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;line-height:1.5;color:var(--navy);letter-spacing:.1em}
+.sec-title::after{content:"";display:block;width:36px;height:1px;background:var(--gold);margin-top:20px}
 .sec-head--center .sec-title::after{margin-left:auto;margin-right:auto}
 .sec-lead{margin-top:22px;color:var(--text-sub);max-width:720px;font-size:15.5px}
 .sec-head{margin-bottom:52px}
@@ -138,19 +141,20 @@ header.site-header nav{display:flex;align-items:center;gap:28px;}
 @media(max-width:640px){.section{padding:64px 0}.sec-title{font-size:25px}}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 48px;border-radius:2px;font-weight:700;font-size:16px;letter-spacing:.06em;transition:background .25s,opacity .25s;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 38px;border-radius:2px;font-weight:500;font-size:.88rem;letter-spacing:.06em;transition:background .2s,transform .2s,border-color .2s;text-align:center}
 .btn--gold{background:var(--gold);color:#fff}
-.btn--gold:hover{background:var(--gold-dark)}
+.btn--gold:hover{background:var(--gold-dark);transform:translateY(-2px)}
 .btn--ghost-w{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
-.btn--ghost-w:hover{background:rgba(255,255,255,.1)}
+.btn--ghost-w:hover{background:rgba(255,255,255,.08);border-color:#fff;transform:translateY(-2px)}
 @media(max-width:640px){.btn{width:100%;max-width:360px;padding:16px 24px;font-size:15px}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;padding:180px 0 120px;background:linear-gradient(160deg,#0D2238 0%,#1B3A5C 55%,#254E7A 100%);color:#fff;text-align:center;overflow:hidden}
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:max(130px,calc(50vh - 149px)) 0 110px;background:linear-gradient(160deg,#0D2238 0%,#1B3A5C 55%,#254E7A 100%);color:#fff;text-align:center;overflow:hidden}
+.hero .grid-bg{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
 .hero::before{content:"";position:absolute;left:-160px;top:-120px;width:520px;height:520px;border:1px solid rgba(255,255,255,.10);border-radius:50%;pointer-events:none}
 .hero::after{content:"";position:absolute;right:-140px;bottom:-180px;width:560px;height:560px;border:1px solid rgba(255,255,255,.10);border-radius:50%;pointer-events:none}
-.hero__inner{position:relative;max-width:960px;margin:0 auto;padding:0 24px}
-.hero__title{font-family:var(--serif);font-size:52px;font-weight:500;line-height:1.6;letter-spacing:.06em}
+.hero__inner{position:relative;max-width:860px;margin:0 auto;padding:0 24px}
+.hero__title{font-family:var(--serif);font-size:clamp(2rem,5vw,3.8rem);font-weight:500;line-height:1.35;letter-spacing:.06em}
 .hero__sub{margin-top:30px;font-size:16px;color:rgba(255,255,255,.88);line-height:2.1}
 .hero__price{margin-top:40px;display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 32px;border:1px solid rgba(255,255,255,.35);padding:22px 40px}
 .hero__price-main{display:flex;align-items:baseline;gap:8px}
@@ -161,8 +165,8 @@ header.site-header nav{display:flex;align-items:center;gap:28px;}
 .hero__cta{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
 .hero__cta-note{width:100%;margin-top:14px;font-size:13px;color:rgba(255,255,255,.7)}
 @media(max-width:640px){
- .hero{padding:130px 0 80px}
- .hero__title{font-size:30px}
+ .hero{min-height:0;padding:130px 0 80px;align-items:flex-start}
+ .hero__title{font-size:30px;line-height:1.5}
  .hero__price{padding:18px 20px;width:100%}
 }
 
@@ -275,7 +279,7 @@ footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:
 </head>
 <body>
 
-<header class="site-header" id="header">
+<header class="site-header scrolled" id="header">
   <a href="https://speard.jp/" class="logo"><img src="https://speard.jp/logo.png" alt="Speard" class="logo-img"></a>
   <nav>
     <div class="nav-links">
@@ -313,6 +317,7 @@ footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:
 
 <!-- 1. First View -->
 <section class="hero">
+  <div class="grid-bg"></div>
   <div class="hero__inner">
     <h1 class="hero__title">その不動産取引、<br>本当に大丈夫ですか。</h1>
     <p class="hero__sub">購入・売却・住み替え・資産形成まで。<br>営業を受けない「セカンドオピニオン」として、<br class="sp">後悔しない不動産の意思決定を中立的な立場からサポートします。</p>
@@ -680,6 +685,9 @@ footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:
 </script>
 <script>
 (function(){var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');if(hb&&mm){hb.addEventListener('click',function(){hb.classList.toggle('open');mm.classList.toggle('open');});mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){hb.classList.remove('open');mm.classList.remove('open');});});}})();
+</script>
+<script>
+(function(){var hd=document.getElementById('header');if(hd)window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>60);},{passive:true});})();
 </script>
 
 </body>
