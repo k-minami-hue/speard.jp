@@ -3863,7 +3863,11 @@ function scrollToSection(id) {
   const el = document.getElementById(id);
   if (el) {
     const top = el.getBoundingClientRect().top + window.scrollY - 90;
-    window.scrollTo({ top, behavior: 'smooth' });
+    window.scrollTo({ top, behavior: 'instant' });
+    setTimeout(() => {
+      const el2 = document.getElementById(id);
+      if (el2) window.scrollTo({ top: el2.getBoundingClientRect().top + window.scrollY - 90, behavior: 'instant' });
+    }, 450);
   }
 }
 
