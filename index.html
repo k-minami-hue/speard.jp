@@ -1260,15 +1260,33 @@
 // columns/manifest.json と voices/manifest.json から最新を自動取得
 // フォールバック用デフォルト
 const NEWS_FALLBACK = [
-  { date: '2026.06.06', text: '「コラム」を更新しました', page: 'column' },
-  { date: '2026.06.01', text: '「コラム」を更新しました', page: 'column' },
-  { date: '2026.05.10', text: '「お客様の声」を更新しました', page: 'voices' },
-  { date: '2026.05.09', text: '「コラム」を更新しました', page: 'column' },
-  { date: '2026.04.27', text: '「お客様の声」を更新しました', page: 'voices' },
-  { date: '2026.04.26', text: '「コラム」を更新しました', page: 'column' }
+  { date: '2026.07.06', text: '「コラム」を更新しました', page: 'column' },
+  { date: '2026.07.06', text: '「お客様の声」を更新しました', page: 'voices' },
+  { date: '2026.06.29', text: '「コラム」を更新しました', page: 'column' }
 ];
 
-function fetchNewsFromManifests() { return NEWS_FALLBACK; }
+async function fetchNewsFromManifests() {
+  try {
+    const [colRes, voiRes] = await Promise.all([
+      fetch('columns/manifest.json?v=' + Date.now()).catch(() => null),
+      fetch('voices/manifest.json?v=' + Date.now()).catch(() => null)
+    ]);
+    const items = [];
+    if (colRes && colRes.ok) {
+      const m = await colRes.json();
+      const dates = [...new Set((m.columns || []).map(c => c.date).filter(Boolean))];
+      dates.forEach(d => items.push({ date: d, text: '「コラム」を更新しました', page: 'column' }));
+    }
+    if (voiRes && voiRes.ok) {
+      const v = await voiRes.json();
+      (v.updates || []).forEach(u => items.push({ date: u.date, text: u.text || '「お客様の声」を更新しました', page: 'voices' }));
+    }
+    if (!items.length) return NEWS_FALLBACK;
+    return items.sort((a, b) => b.date.localeCompare(a.date) || (a.page === 'column' ? -1 : 1));
+  } catch (e) {
+    return NEWS_FALLBACK;
+  }
+}
 
 (async function() {
   const list = document.getElementById('news-list');
@@ -2210,6 +2228,17 @@ function fetchNewsFromManifests() { return NEWS_FALLBACK; }
         <button class="voice-tab" onclick="filterVoices('sell',this)">売却</button>
       </div>
       <div class="reviews-grid">
+<div class="review-card">
+  <div class="review-header">
+    <div class="review-avatar teal">K</div>
+    <div class="review-meta">
+      <div class="review-name">K様（男性・30代）</div>
+    </div>
+  </div>
+  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+  <span class="review-type type-buy">購入</span>
+  <p class="review-text">大変親身になって相談に乗ってくださいました。物件の選定から、銀行融資についてもかなりの時間を費やしていただき本当に恐縮です。また購入後のサポートにも乗っていただき感謝の言葉しかありません。YouTubeもいつも楽しく拝見させていただいております。</p>
+</div>
 <div class="review-card">
   <div class="review-header">
     <div class="review-avatar navy">Y</div>
