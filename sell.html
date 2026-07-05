@@ -338,14 +338,32 @@ section > .container{padding:0;}
 }
 .flow-body{
   background:#fff;border:1px solid var(--line);border-radius:4px;
-  padding:22px 28px;flex:1;
+  flex:1;overflow:hidden;
   box-shadow:0 2px 14px rgba(13,34,56,.04);
+  transition:box-shadow .25s;
 }
+.flow-body:hover{box-shadow:0 8px 28px rgba(13,34,56,.1);}
+.flow-body summary{list-style:none;cursor:pointer;padding:22px 28px;position:relative;}
+.flow-body summary::-webkit-details-marker{display:none;}
 .flow-body h4{
   font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;
   color:var(--navy-dark);margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
+.flow-chev{width:10px;height:10px;border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(45deg);transition:transform .3s;flex-shrink:0;}
+.flow-body[open] .flow-chev{transform:rotate(-135deg);}
 .flow-body p{font-size:.86rem;color:var(--gray);line-height:1.9;}
+.flow-more{display:inline-block;margin-top:10px;font-size:11.5px;color:var(--gold-hover);letter-spacing:.06em;}
+.flow-body[open] .flow-more{display:none;}
+.flow-detail{padding:0 28px 24px;border-top:1px dashed var(--line);}
+.flow-detail p{margin-top:14px;}
+.flow-tip{margin-top:14px;background:var(--gold-pale);border-radius:4px;padding:14px 18px;font-size:.82rem;color:var(--ink);line-height:1.9;}
+.flow-tip strong{color:var(--gold-hover);}
+.flow-table-wrap{overflow-x:auto;margin-top:14px;}
+.flow-table{width:100%;border-collapse:collapse;font-size:.8rem;min-width:480px;}
+.flow-table th,.flow-table td{border:1px solid var(--line);padding:9px 12px;text-align:center;color:var(--gray);}
+.flow-table thead th{background:var(--navy);color:#fff;font-weight:500;}
+.flow-table tbody th{background:#FAF9F6;color:var(--navy-dark);font-weight:500;text-align:left;}
 
 /* ===== Support ===== */
 .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px;}
@@ -458,6 +476,8 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
   .compare-table thead th,.compare-table th,.compare-table td{padding:14px 10px;font-size:12.5px;}
   .compare-table thead th.col-us{font-size:14px;}
   .flow-item{gap:16px;}
+  .flow-body summary{padding:18px 18px;}
+  .flow-detail{padding:0 18px 20px;}
   .flow-num{width:48px;height:48px;font-size:17px;}
   .flow-item::before{left:23px;top:24px;}
   .ladder{grid-template-columns:1fr;}
@@ -513,11 +533,10 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
 <!-- ===== Hero ===== -->
 <div class="hero">
   <div class="hero-inner">
-    <span class="hero-eyebrow">MANSION SELLING — 一都三県のマンション売却</span>
     <h1 class="serif">大切な資産だからこそ、<br><em>根拠のある売却</em>を。</h1>
     <p class="hero-lead">
-      査定額は、売出価格の目安にすぎません。<br>
-      大切なのは「いくらで売れるか」。<br>
+      一般的な不動産会社が提示する査定額は、売出価格の目安にすぎません。<br>
+      大切なのは「いくらで成約するか」。<br>
       相場と需給のデータにもとづき、価格と販売の戦略をご一緒に設計いたします。<br>
       事実と根拠にもとづいて誠実にご説明することを、お客様の大切な資産をお預かりする会社としてお約束いたします。
     </p>
@@ -549,7 +568,7 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
     <div class="stat">
       <div class="stat-label">ご相談・査定</div>
       <div class="stat-value" style="font-size:24px;padding-top:5px;">無料</div>
-      <div class="stat-sub">秘密厳守・しつこい営業なし</div>
+      <div class="stat-sub">秘密厳守でご対応いたします</div>
     </div>
   </div>
 </div>
@@ -706,52 +725,136 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
     <div class="sec-head">
       <span class="sec-en">Flow</span>
       <h2 class="sec-title">売却の流れ</h2>
-      <p class="sec-lead">初回のご相談から引渡しまで、専属の担当が一貫してお手伝いいたします。</p>
+      <p class="sec-lead">初回のご相談から引渡し・確定申告まで、専属の担当が一貫してお手伝いいたします。<br>各ステップをクリックすると、詳しい内容をご覧いただけます。</p>
     </div>
     <div class="flow-list">
       <div class="flow-item">
         <div class="flow-num">01</div>
-        <div class="flow-body">
-          <h4>無料査定・ご相談</h4>
-          <p>3段階の価格と根拠、販売の進め方をご提示いたします。<br>
-      ご不明点は、この段階で解消していただけます。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>無料査定・ご相談<span class="flow-chev"></span></h4>
+            <p>3段階の価格と根拠、販売の進め方をご提示いたします。<br>ご不明点は、この段階で解消していただけます。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>まず、相場観の共有から始めます。近隣の成約事例・競合の売出し状況・需給バランスをもとに、お持ちの物件の市場でのポジションをご説明いたします。</p>
+            <p>査定額は「売出価格の目安」であり、成約価格ではありません。チャレンジ価格・相場価格・早期成約価格の3段階で、根拠となるデータとあわせてご提示いたします。</p>
+            <div class="flow-tip"><strong>ポイント：</strong>ご契約欲しさの根拠のない高い査定額（客寄せ査定）にご注意ください。査定額そのものよりも、「なぜその価格なのか」の説明を比較されることをお勧めいたします。</div>
+          </div>
+        </details>
       </div>
       <div class="flow-item">
         <div class="flow-num">02</div>
-        <div class="flow-body">
-          <h4>媒介契約</h4>
-          <p>手数料の体系や販売の方針を書面で明示し、ご納得いただいたうえでご契約いたします。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>媒介契約<span class="flow-chev"></span></h4>
+            <p>手数料の体系や販売の方針を書面で明示し、ご納得いただいたうえでご契約いたします。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>売却を依頼する契約（媒介契約）には3つの種類があり、どの形態を選ぶかも売却の成果を左右します。ご状況とご方針に応じて、最適な形態をご提案いたします。</p>
+            <div class="flow-table-wrap">
+            <table class="flow-table">
+              <thead><tr><th>項目</th><th>一般媒介</th><th>専任媒介</th><th>専属専任媒介</th></tr></thead>
+              <tbody>
+                <tr><th>依頼社数</th><td>複数社OK</td><td>1社のみ</td><td>1社のみ</td></tr>
+                <tr><th>自己発見取引</th><td>○</td><td>○</td><td>✕</td></tr>
+                <tr><th>活動報告義務</th><td>なし</td><td>2週間に1回以上</td><td>1週間に1回以上</td></tr>
+                <tr><th>レインズ登録</th><td>任意</td><td>7営業日以内</td><td>5営業日以内</td></tr>
+                <tr><th>契約期間</th><td>規定なし</td><td colspan="2">最長3ヵ月</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <p>スピアードはどの契約形態でも囲い込みを行わず、レインズへ適正に登録いたします。</p>
+          </div>
+        </details>
       </div>
       <div class="flow-item">
         <div class="flow-num">03</div>
-        <div class="flow-body">
-          <h4>販売活動・広告</h4>
-          <p>プロによる撮影やホームステージング等で物件の魅力を引き出し、適正に広くご紹介いたします。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>販売活動・広告<span class="flow-chev"></span></h4>
+            <p>プロによる撮影やホームステージング等で物件の魅力を引き出し、適正に広くご紹介いたします。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>媒介契約後、ポータルサイトへの掲載が始まります。第一印象を左右する「写真のクオリティ」は反響数に直結するため、プロカメラマン撮影・ホームステージング・室内クリーニング等の施策をご提案いたします。</p>
+            <p>掲載写真の構図・明るさ・訴求文言は、事前にご確認いただいたうえで公開いたします。</p>
+            <p>お問い合わせ状況は自社サービスで可視化し、他社経由の反響もリアルタイムで売主様へ共有いたします。</p>
+          </div>
+        </details>
       </div>
       <div class="flow-item">
         <div class="flow-num">04</div>
-        <div class="flow-body">
-          <h4>内覧対応</h4>
-          <p>内覧の日程調整から当日のご対応まで代行いたします。<br>
-      反響は週1回以上ご報告いたします。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>内覧対応<span class="flow-chev"></span></h4>
+            <p>内覧の日程調整から当日のご対応まで代行いたします。<br>反響は週1回以上ご報告いたします。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>内覧前に「清潔さ・温度感・匂い」の3点を整えるだけで、印象は大きく変わります。事前に準備のポイントをご案内いたします。</p>
+            <p>日程調整から当日のご案内まで担当が代行し、お住まいのままでもご負担を最小限に抑えます。</p>
+            <p>掲載反響・内覧件数・検討状況は週1回以上の定例でご報告し、価格改定や見せ方の見直しを数字にもとづいてご一緒に判断いたします。</p>
+          </div>
+        </details>
       </div>
       <div class="flow-item">
         <div class="flow-num">05</div>
-        <div class="flow-body">
-          <h4>条件交渉・成約</h4>
-          <p>価格やご契約条件を交渉し、お手取り額をふまえて最適な着地点をご提案いたします。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>条件交渉・売買契約<span class="flow-chev"></span></h4>
+            <p>価格やご契約条件を交渉し、お手取り額をふまえて最適な着地点をご提案いたします。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>購入申込みが入ったら、価格だけでなく引渡し時期・付帯設備などの条件も含めて交渉いたします。お買替えの場合は、次のお住まいのスケジュールと連動させた全体設計が重要です。</p>
+            <p>ご契約時には物件の状況を正確に告知し、手付金を受領して引渡し準備に入ります。</p>
+            <div class="flow-tip"><strong>ご契約時の主な必要書類：</strong>実印、身分証明書、登記済証（権利証）または登記識別情報、収入印紙代など。事前に詳細をご案内いたします。</div>
+          </div>
+        </details>
       </div>
       <div class="flow-item">
         <div class="flow-num">06</div>
-        <div class="flow-body">
-          <h4>引渡し</h4>
-          <p>決済・登記・税金のお手続きまで専門家と連携し、安心してお引渡しいただけます。</p>
-        </div>
+        <details class="flow-body">
+          <summary>
+            <h4>引渡しまでの準備<span class="flow-chev"></span></h4>
+            <p>買主様の住宅ローン本審査の通過後、お引渡しに向けた実務が動き出します。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>鍵・書類の整理、住宅ローンの完済（抵当権抹消）のお手続き、お引越しの手配などをスケジュール化してご案内いたします。</p>
+            <p>お買替えの場合は「引渡し時期の調整」が特に重要です。次のお住まいのご契約と連動させて、担当が一元管理いたします。</p>
+          </div>
+        </details>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">07</div>
+        <details class="flow-body">
+          <summary>
+            <h4>決済・お引渡し<span class="flow-chev"></span></h4>
+            <p>売買代金の受領と同時に、所有権移転・抵当権抹消の登記を行います。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>銀行・司法書士との事前調整まで当社が段取りし、決済当日は代金受領・登記・鍵のお引渡しを滞りなく進めます。</p>
+            <div class="flow-tip"><strong>決済時の主な必要書類：</strong>実印・印鑑証明書（3ヵ月以内）、登記済証または登記識別情報、住民票（住所変更がある場合）、本人確認書類など。</div>
+          </div>
+        </details>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">08</div>
+        <details class="flow-body">
+          <summary>
+            <h4>確定申告<span class="flow-chev"></span></h4>
+            <p>売却益（譲渡所得）が出た場合は、翌年2〜3月に確定申告が必要です。</p>
+            <span class="flow-more">クリックで詳細を見る</span>
+          </summary>
+          <div class="flow-detail">
+            <p>居住用財産の3,000万円特別控除、10年超保有の軽減税率など、適用できる特例がないかの確認が重要です。</p>
+            <p>会社員の方でも、売却益が出た場合は確定申告が必要です。申告を忘れると無申告加算税が発生することもあります。必要に応じて税理士のご紹介も可能です。</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
