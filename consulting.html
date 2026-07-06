@@ -94,6 +94,9 @@
   --serif:"Noto Serif JP","Hiragino Mincho ProN",serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+.br-pc{display:inline}
+.br-sp{display:none}
+@media(max-width:640px){.br-pc{display:none}.br-sp{display:inline}}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.9;font-size:16px;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
 img{max-width:100%;height:auto;display:block}
@@ -322,19 +325,19 @@ footer{background:#0D2238;color:rgba(255,255,255,.42);text-align:center;padding:
   <div class="grid-bg"></div>
   <div class="hero__inner">
     <h1 class="hero__title">その不動産取引、<br>本当に大丈夫ですか。</h1>
-    <p class="hero__sub">購入・売却・住み替え・資産形成まで。<br>営業を受けない「セカンドオピニオン」として、<br class="sp">後悔しない不動産の意思決定を中立的な立場からサポートします。</p>
+    <p class="hero__sub">購入・売却・住み替え・資産形成まで。<br>営業を受けない<br class="br-sp">「セカンドオピニオン」として、<br>後悔しない不動産の意思決定を<br class="br-sp">中立的な立場からサポートします。</p>
     <div class="hero__price">
       <div class="hero__price-main">
         <span class="label">30分</span>
         <span class="num">6,000</span>
         <span class="unit">円（税込）</span>
       </div>
-      <p class="hero__price-note">延長は5分ごとに1,000円（税込）／オンライン・対面対応</p>
+      <p class="hero__price-note">延長は5分ごとに1,000円（税込）／<br class="br-sp">オンライン・対面対応</p>
     </div>
     <div class="hero__cta">
       <a class="btn btn--gold" href="https://speard.jp/#contact">コンサルティングを予約する</a>
       <a class="btn btn--ghost-w" href="#about">サービス詳細を見る</a>
-      <p class="hero__cta-note">※ 営業・勧誘は一切行いません。相談のみのご利用を歓迎しています。</p>
+      <p class="hero__cta-note">※ 営業・勧誘は一切行いません。<br class="br-sp">相談のみのご利用を歓迎しています。</p>
     </div>
   </div>
 </section>

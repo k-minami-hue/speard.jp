@@ -39,6 +39,8 @@ a{text-decoration:none;color:inherit;}
 .serif{font-family:'Noto Serif JP',serif;}
 .container{max-width:1080px;margin:0 auto;padding:0 24px;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.br-pc{display:inline;}
+.br-sp{display:none;}
 
 /* ===== Header（トップページと完全共通） ===== */
 header.site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:80px;background:rgba(13,34,56,.97);transition:background .4s,box-shadow .4s;}
@@ -486,6 +488,10 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
   .ladder-name{min-width:0;}
 }
 @media(max-width:640px){
+  .br-pc{display:none;}
+  .br-sp{display:inline;}
+  .hero-lead{text-align:left;}
+  .sec-lead{text-align:left;}
   header.site-header{height:88px;}
   .logo-img{height:32px;}
   .mobile-menu{top:88px;}
@@ -533,12 +539,12 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
 <!-- ===== Hero ===== -->
 <div class="hero">
   <div class="hero-inner">
-    <h1 class="serif">大切な資産だからこそ、<br><em>根拠のある売却</em>を。</h1>
+    <h1 class="serif">大切な資産<br class="br-sp">だからこそ、<br><em>根拠のある売却</em>を。</h1>
     <p class="hero-lead">
       一般的な不動産会社が提示する査定額は、売出価格の目安にすぎません。<br>
       大切なのは「いくらで成約するか」。<br>
       相場と需給のデータにもとづき、価格と販売の戦略をご一緒に設計いたします。<br>
-      事実と根拠にもとづいて誠実にご説明することを、お客様の大切な資産をお預かりする会社としてお約束いたします。
+      事実と根拠にもとづいて誠実にご説明することを、<br class="br-pc">お客様の大切な資産をお預かりする会社としてお約束いたします。
     </p>
     <div class="hero-actions">
       <a class="btn btn-gold" href="https://speard.jp/#contact">無料査定・ご相談を申し込む</a>
@@ -954,7 +960,7 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
     <span class="sec-en" style="color:var(--gold-light);">Contact</span>
     <h2>まずは「いくらで売れるか」を、<br><em>根拠とともに。</em></h2>
     <p>査定・ご売却のご相談は無料です。<br>
-      誠実に、ご納得いただけるご提案をお約束いたします。</p>
+      誠実に、<br class="br-sp">ご納得いただけるご提案をお約束いたします。</p>
     <div class="cta-actions">
       <a class="btn btn-gold" href="https://speard.jp/#contact">無料査定・ご相談を申し込む</a>
       <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i">公式LINEで相談する</a>
