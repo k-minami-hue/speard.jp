@@ -6,8 +6,8 @@
       "tag": "購入編",
       "title": "不動産購入の名義。収入合算・連帯債務・ペアローンの違い。",
       "date": "2026.07.06",
-      "hero": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/loan-meigi_hero.jpg",
+      "thumb": "columns/thumbs/loan-meigi_thumb.jpg",
       "file": "columns/purchase/column_loan_meigi.html"
     },
     {
@@ -16,8 +16,8 @@
       "tag": "購入編",
       "title": "住宅ローンの賢い選び方",
       "date": "2026.06.29",
-      "hero": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/bank-erabikata_hero.jpg",
+      "thumb": "columns/thumbs/bank-erabikata_thumb.jpg",
       "file": "columns/purchase/column_bank_erabikata.html"
     },
     {
@@ -26,8 +26,8 @@
       "tag": "購入編",
       "title": "火災保険の無駄のない選び方",
       "date": "2026.06.22",
-      "hero": "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/kasai-hoken_hero.jpg",
+      "thumb": "columns/thumbs/kasai-hoken_thumb.jpg",
       "file": "columns/purchase/column_kasai_hoken.html"
     },
     {
@@ -36,8 +36,8 @@
       "tag": "購入編",
       "title": "新築vs中古マンション——資産性で選ぶならどちらか",
       "date": "2026.05.18",
-      "hero": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/shinchiku-chuko_hero.jpg",
+      "thumb": "columns/thumbs/shinchiku-chuko_thumb.jpg",
       "file": "columns/purchase/column_shinchiku_chuko.html"
     },
     {
@@ -46,8 +46,8 @@
       "tag": "購入編",
       "title": "資産価値が落ちにくいマンションの条件7つ——出口から逆算する物件選び",
       "date": "2026.05.25",
-      "hero": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/asset-value_hero.jpg",
+      "thumb": "columns/thumbs/asset-value_thumb.jpg",
       "file": "columns/purchase/column_asset_value.html"
     },
     {
@@ -56,8 +56,8 @@
       "tag": "購入編",
       "title": "管理費・修繕積立金の正しい見方——「マンションは管理を買え」の本当の意味",
       "date": "2026.06.01",
-      "hero": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/kanrihi-shuzen_hero.jpg",
+      "thumb": "columns/thumbs/kanrihi-shuzen_thumb.jpg",
       "file": "columns/purchase/column_kanrihi_shuzenhi.html"
     },
     {
@@ -66,8 +66,8 @@
       "tag": "売却編",
       "title": "マンションの「売り時」はいつか——税制・市況・築年数で見極める",
       "date": "2026.06.08",
-      "hero": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/uridoki_hero.jpg",
+      "thumb": "columns/thumbs/uridoki_thumb.jpg",
       "file": "columns/purchase/column_uridoki.html"
     },
     {
@@ -76,8 +76,8 @@
       "tag": "売却編",
       "title": "相続したマンションを売却する——期限・税金・手続きの完全ガイド",
       "date": "2026.06.15",
-      "hero": "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/souzoku-baikyaku_hero.jpg",
+      "thumb": "columns/thumbs/souzoku-baikyaku_thumb.jpg",
       "file": "columns/purchase/column_souzoku_baikyaku.html"
     },
     {
@@ -86,8 +86,8 @@
       "tag": "売却編",
       "title": "販売価格の決め方と注意点を解説",
       "date": "2026.05.04",
-      "hero": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/pricing_hero.jpg",
+      "thumb": "columns/thumbs/pricing_thumb.jpg",
       "file": "columns/purchase/column_pricing.html"
     },
     {
@@ -96,8 +96,8 @@
       "tag": "購入編",
       "title": "投資用物件を「利回り」だけで選ぶと失敗する理由",
       "date": "2026.05.11",
-      "hero": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+      "hero": "columns/thumbs/yield_hero.jpg",
+      "thumb": "columns/thumbs/yield_thumb.jpg",
       "file": "columns/purchase/column_yield.html"
     },
     {
@@ -110,8 +110,8 @@
       "tag": "購入・売却",
       "title": "不動産取引でよくある4つのトラブルと、その回避策",
       "date": "2026.04.27",
-      "hero": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+      "hero": "columns/thumbs/trouble_hero.jpg",
+      "thumb": "columns/thumbs/trouble_thumb.jpg",
       "file": "columns/purchase/column_trouble.html"
     },
     {
@@ -120,8 +120,8 @@
       "tag": "購入編",
       "title": "不動産を買えない人の5つの特徴",
       "date": "2026.04.20",
-      "hero": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80",
-      "thumb": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+      "hero": "columns/thumbs/kaenai-5features_hero.jpg",
+      "thumb": "columns/thumbs/kaenai-5features_thumb.jpg",
       "file": "columns/purchase/column_kaenai_5features.html"
     },
     {

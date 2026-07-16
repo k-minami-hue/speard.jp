@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /inquiry/
+
+Sitemap: https://speard.jp/sitemap.xml
