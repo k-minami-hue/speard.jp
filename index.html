@@ -3515,7 +3515,7 @@ async function showColumnDynamic(id) {
   const tagEl = document.getElementById('col-art-tag');
   if (tagEl) {
     if (Array.isArray(col.tags) && col.tags.length > 0) {
-      tagEl.innerHTML = col.tags.map(function(t){ return '<span class="column-meta-tag">' + t + '</span>'; }).join(' ');
+      tagEl.innerHTML = col.tags.map(function(t){ var _c = (t.indexOf('売却') > -1) ? 'column-meta-tag ct-sell' : 'column-meta-tag'; return '<span class="' + _c + '">' + t + '</span>'; }).join(' ');
       tagEl.className = '';
     } else {
       tagEl.textContent = col.tag || '';
