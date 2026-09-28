@@ -55,7 +55,56 @@
         "license": "東京都知事（1）第112752号"
       },
       "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_sumida/nc_21514034/",
-      "photos": [],
+      "photos": [
+        {
+          "src": "properties/sunsara-azumabashi/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/02.jpg",
+          "caption": "エントランス"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/03.jpg",
+          "caption": "間取り図"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/04.jpg",
+          "caption": "リビング"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/05.jpg",
+          "caption": "LDK"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/06.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/07.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/08.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/09.jpg",
+          "caption": "トイレ"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/10.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/11.jpg",
+          "caption": "洗面所"
+        },
+        {
+          "src": "properties/sunsara-azumabashi/12.jpg",
+          "caption": "バルコニーからの眺望"
+        }
+      ],
       "photos_note": "掲載写真はCG加工により家具等を消去しています。現況とは異なります。",
       "updated": "2026-09-28",
       "next_update": "2026-10-12"
