@@ -4,17 +4,13 @@
       "id": "city-tower-musashikosugi",
       "name": "シティタワー武蔵小杉",
       "floor": "31階部分",
-      "image": "results/city-tower-musashikosugi.jpg",
-      "credit": "Photo: Sunwater~jawiki / CC BY-SA 4.0",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:CityTower_MusashiKosugi_202203.jpg"
+      "image": ""
     },
     {
       "id": "the-tower-yokohama-kitanaka",
       "name": "ザ・タワー横浜北仲",
       "floor": "11階部分",
-      "image": "results/the-tower-yokohama-kitanaka.jpg",
-      "credit": "Photo: Suicasmo / CC BY-SA 4.0",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:The_Tower_Yokohama_Kitanaka_20221127-2.jpg"
+      "image": ""
     },
     {
       "id": "proud-tower-futakotamagawa",
@@ -38,9 +34,7 @@
       "id": "r006",
       "name": "プラウドタワー亀戸クロス",
       "floor": "21階部分",
-      "image": "results/r006.jpg",
-      "credit": "Photo: Comyu / CC BY-SA 4.0",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:KAMEIDO_CLOCK_(Ready_to_open)_and_Proud_Tower_Kameido_Cross_March_2022.jpg"
+      "image": ""
     },
     {
       "id": "r007",
@@ -78,9 +72,7 @@
       "id": "r012",
       "name": "ザ・パークハウス晴海タワーズ クロノレジデンス",
       "floor": "19階部分",
-      "image": "results/r012.jpg",
-      "credit": "Photo: ブツチチ / CC BY-SA 4.0",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:%E3%82%AF%E3%83%AD%E3%83%8E%E3%83%AC%E3%82%B8%E3%83%87%E3%83%B3%E3%82%B9.jpg"
+      "image": ""
     },
     {
       "id": "r013",
