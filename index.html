@@ -3280,7 +3280,7 @@ async function fetchNewsFromManifests() {
     <div class="subpage-content">
       <div class="prop-grid" id="prop-grid"></div>
       <div class="prop-empty" id="prop-empty">現在公開中の販売物件はありません。非公開物件のご紹介も可能ですので、お気軽にお問合せください。</div>
-      <p class="prop-note">坪単価は価格÷（専有面積〔壁芯〕÷3.30578）で算出し、万円未満を切り捨てて表示しています。価格は税込総額です。掲載情報は各物件の情報更新日時点のものです。</p>
+      <p class="prop-note">坪単価は価格÷（専有面積〔壁芯〕÷3.30578）で算出し、万円未満を切り捨てて表示しています。価格は税込総額です。</p>
 
       <div class="column-cta">
         <span class="column-cta-en">Contact Us</span>
@@ -4062,7 +4062,7 @@ async function showPropertyDetail(id, noPush) {
   set('pd-tsubo', sold ? '' : '<span class="prop-tsubo" style="font-size:.84rem;padding:5px 12px">' + propTsuboLabel(p) + '</span>');
   set('pd-sp-price', sold ? '<span class="prop-sold-label">成約済</span>' : '<span class="prop-price">' + propFormatPrice(p.price) + '</span><span class="prop-tsubo">' + propTsuboLabel(p) + '</span>');
   set('pd-side-spec', propEsc(p.layout) + '｜' + propArea(p.area_m2) + '（壁芯）｜' + propFloor(p) + '<br>' + propEsc(Array.isArray(p.access) && p.access[0] ? propAccessText(p.access[0]) : ''));
-  set('pd-side-meta', '取引態様：' + propEsc(p.transaction_type) + '<br>情報更新日：' + propDate(p.updated) + '<br>次回更新予定日：' + propDate(p.next_update));
+  set('pd-side-meta', '取引態様：' + propEsc(p.transaction_type));
   set('pd-sold-notice', sold ? '<div class="prop-sold-notice">本物件は成約済です。同マンション・近隣の類似物件のご紹介を承ります。</div>' : '');
 
   const suumo = document.getElementById('pd-suumo');
@@ -4100,12 +4100,10 @@ async function showPropertyDetail(id, noPush) {
     p.restrictions ? ['その他制限事項', propEsc(p.restrictions)] : null,
     ...(Array.isArray(p.extra_rows) ? p.extra_rows.filter(r => r && r[0]).map(r => [propEsc(r[0]), propEsc(r[1])]) : []),
     ['取引態様', propEsc(p.transaction_type)],
-    ['情報提供会社', propEsc(broker.name || '-') + (broker.license ? '<small>' + propEsc(broker.license) + '</small>' : '')],
-    ['情報更新日', propDate(p.updated)],
-    ['次回更新予定日', propDate(p.next_update)]
+    ['情報提供会社', propEsc(broker.name || '-') + (broker.license ? '<small>' + propEsc(broker.license) + '</small>' : '')]
   ].filter(Boolean);
   set('pd-table', rows.map(r => '<tr><th>' + r[0] + '</th><td>' + r[1] + '</td></tr>').join(''));
-  set('pd-legal', '<strong>取引態様：' + propEsc(p.transaction_type) + '</strong>｜情報更新日：' + propDate(p.updated) + '｜次回更新予定日：' + propDate(p.next_update) +
+  set('pd-legal', '<strong>取引態様：' + propEsc(p.transaction_type) + '</strong>' +
     '<br>掲載情報と現況が異なる場合は現況を優先します。価格は税込総額です。坪単価は壁芯面積÷3.30578で算出（万円未満切り捨て）。');
 
   document.querySelectorAll('.spa-page').forEach(x => x.classList.remove('active'));
