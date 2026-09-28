@@ -4104,7 +4104,7 @@ async function showPropertyDetail(id, noPush) {
   ].filter(Boolean);
   set('pd-table', rows.map(r => '<tr><th>' + r[0] + '</th><td>' + r[1] + '</td></tr>').join(''));
   set('pd-legal', '<strong>取引態様：' + propEsc(p.transaction_type) + '</strong>' +
-    '<br>掲載情報と現況が異なる場合は現況を優先します。価格は税込総額です。坪単価は壁芯面積÷3.30578で算出（万円未満切り捨て）。');
+    '<br>掲載情報と現況が異なる場合は現況を優先します。');
 
   document.querySelectorAll('.spa-page').forEach(x => x.classList.remove('active'));
   document.getElementById('page-property-detail').classList.add('active');
