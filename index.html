@@ -964,7 +964,7 @@
 
     /* ===== HEADER NAV FIT（項目増加に伴う折り返し防止） ===== */
     nav a, .btn-nav, .btn-nav-line { white-space:nowrap; }
-    @media (max-width:1500px) and (min-width:1241px) {
+    @media (max-width:1500px) and (min-width:1341px) {
       header { padding:0 24px; }
       nav { gap:14px; }
       .nav-links { gap:16px!important; }
@@ -972,7 +972,7 @@
       .btn-nav { padding:9px 16px; }
       .btn-nav-line { padding:9px 14px; }
     }
-    @media (max-width:1240px) {
+    @media (max-width:1340px) {
       header { padding:0 20px; }
       .nav-links { display:none!important; }
       .btn-nav, .btn-nav-line { display:none!important; }
@@ -1029,6 +1029,16 @@
     .prop-lightbox-close { position:absolute; top:16px; right:20px; background:none; border:none; color:white; font-size:2rem; cursor:pointer; line-height:1; }
     .prop-lightbox .prop-gallery-nav.prev { left:16px; } .prop-lightbox .prop-gallery-nav.next { right:16px; }
     @media (max-width:600px){ .prop-gallery-nav { width:34px; height:34px; } .prop-map { aspect-ratio:4/3; } }
+    .res-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+    @media(max-width:900px){ .res-grid{ grid-template-columns:repeat(2,1fr); gap:20px; } }
+    @media(max-width:600px){ .res-grid{ grid-template-columns:1fr; gap:18px; } }
+    .res-card { background:white; border:1px solid var(--beige); border-radius:6px; overflow:hidden; }
+    .res-thumb { aspect-ratio:4/3; position:relative; overflow:hidden; background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%); }
+    .res-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .res-badge { position:absolute; top:12px; left:12px; z-index:2; font-family:'Playfair Display',serif; font-size:.72rem; font-weight:700; letter-spacing:.16em; padding:4px 12px; border-radius:2px; color:white; background:var(--gold); }
+    .res-body { padding:18px 22px 20px; }
+    .res-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:500; color:var(--navy-dark); line-height:1.55; letter-spacing:.04em; }
+    .res-floor { margin-top:6px; font-size:.84rem; color:var(--text-mid); letter-spacing:.06em; }
     .prop-empty { display:none; text-align:center; color:var(--text-light); padding:60px 0; font-size:.9rem; }
     .prop-note { margin-top:28px; font-size:.74rem; color:var(--text-light); line-height:1.8; }
 
@@ -1101,6 +1111,7 @@
     <div class="nav-links" style="display:flex;gap:22px;align-items:center;">
       <a href="/" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
       <a href="#properties" onclick="showPage('properties');return false;">販売物件</a>
+      <a href="#results" onclick="showPage('results');return false;">成約実績</a>
       <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
       <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
       <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
@@ -1121,6 +1132,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="/" onclick="showPage('home');window.scrollTo(0,0);closeMobileMenu();return false;">トップ</a>
   <a href="#properties" onclick="showPage('properties');closeMobileMenu();return false;">販売物件</a>
+  <a href="#results" onclick="showPage('results');closeMobileMenu();return false;">成約実績</a>
   <a href="#voices" onclick="showPage('voices');closeMobileMenu();return false;">お客様の声</a>
   <a href="#faq" onclick="showPage('faq');closeMobileMenu();return false;">よくあるご質問</a>
   <a href="#recruit" onclick="showPage('recruit');closeMobileMenu();return false;">採用情報</a>
@@ -3280,12 +3292,40 @@ async function fetchNewsFromManifests() {
     <div class="subpage-content">
       <div class="prop-grid" id="prop-grid"></div>
       <div class="prop-empty" id="prop-empty">現在公開中の販売物件はありません。非公開物件のご紹介も可能ですので、お気軽にお問合せください。</div>
-      <p class="prop-note">坪単価は価格÷（専有面積〔壁芯〕÷3.30578）で算出し、万円未満を切り捨てて表示しています。価格は税込総額です。</p>
 
       <div class="column-cta">
         <span class="column-cta-en">Contact Us</span>
         <h2 class="column-cta-ja">物件のご相談・内見のご予約</h2>
         <p class="column-cta-sub">掲載物件の詳細資料・内見のご予約、未公開物件のご紹介も承ります。</p>
+        <div class="column-cta-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="#contact" onclick="event.preventDefault();goToContact();return false;" class="column-cta-btn-gold">お問合せはこちら</a>
+          <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-cta-btn-line">公式LINEで相談する</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESULTS: 成約実績 ===== -->
+<div id="page-results" class="spa-page">
+  <div class="subpage-wrap">
+    <div class="col-hero">
+      <div class="col-hero-grid"></div>
+      <div class="col-hero-inner">
+        <span class="col-hero-en">Transaction Results</span>
+        <h1 class="col-hero-ja">成約実績</h1>
+        <div class="col-hero-line"></div>
+        <p class="col-hero-sub">スピアードがお取引をお手伝いした物件の一部をご紹介します。</p>
+      </div>
+    </div>
+    <div class="subpage-content">
+      <div class="res-grid" id="res-grid"></div>
+      <div class="prop-empty" id="res-empty">成約実績は順次掲載いたします。</div>
+
+      <div class="column-cta">
+        <span class="column-cta-en">Contact Us</span>
+        <h2 class="column-cta-ja">購入・売却のご相談</h2>
+        <p class="column-cta-sub">同じマンション・近隣エリアでのご購入、ご売却のご相談も承ります。</p>
         <div class="column-cta-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
           <a href="#contact" onclick="event.preventDefault();goToContact();return false;" class="column-cta-btn-gold">お問合せはこちら</a>
           <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="column-cta-btn-line">公式LINEで相談する</a>
@@ -3381,6 +3421,7 @@ async function fetchNewsFromManifests() {
   <div class="footer-links">
     <a href="/" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
     <a href="#properties" onclick="showPage('properties');return false;">販売物件</a>
+    <a href="#results" onclick="showPage('results');return false;">成約実績</a>
     <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
     <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
     <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
@@ -3432,7 +3473,7 @@ function closeMobileMenu() {
 // Handle browser back/forward
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash.replace('#', '');
-  const pages = ['home','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow','properties'];
+  const pages = ['home','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow','properties','results'];
   if (pages.includes(hash)) {
     showPage(hash);
   } else if (hash === 'contact') {
@@ -3457,7 +3498,7 @@ window.addEventListener('popstate', e => {
 // Handle initial hash on load
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.replace('#', '');
-  const pages = ['home','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow','properties'];
+  const pages = ['home','recruit','privacy','voices','access','faq','column','column-purchase-flow','column-sale-flow','properties','results'];
   if (hash && pages.includes(hash)) {
     showPage(hash);
   } else if (hash === 'buy') {
@@ -4112,7 +4153,28 @@ async function showPropertyDetail(id, noPush) {
   if (!noPush) history.pushState({ page: PROPERTY_PATH_PREFIX + p.id }, '', window.location.pathname + '#' + PROPERTY_PATH_PREFIX + p.id);
 }
 
+// ===== RESULTS (成約実績) =====
+// データ: results/manifest.json  { "results": [{ id, name, floor, image }] }
+async function renderResults() {
+  const grid = document.getElementById('res-grid');
+  const empty = document.getElementById('res-empty');
+  if (!grid) return;
+  let list = [];
+  try {
+    const r = await fetch('results/manifest.json?v=' + Date.now());
+    if (r.ok) list = (await r.json()).results || [];
+  } catch (e) { console.warn('results manifest load failed', e); }
+  if (empty) empty.style.display = list.length ? 'none' : 'block';
+  grid.innerHTML = list.map(x =>
+    '<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD</span>' +
+      (x.image ? '<img src="' + propEsc(x.image) + '" alt="' + propEsc(x.name) + ' 外観" loading="lazy" decoding="async">'
+               : '<div class="prop-noimg"><span class="prop-noimg-en">Speard Result</span><span class="prop-noimg-name">' + propEsc(x.name) + '</span></div>') +
+    '</div><div class="res-body"><div class="res-name">' + propEsc(x.name) + '</div><div class="res-floor">' + propEsc(x.floor) + '</div></div></div>'
+  ).join('');
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+  renderResults();
   renderHomeProperties();
   renderPropertyList().then(() => {
     const hash = window.location.hash.replace('#', '');

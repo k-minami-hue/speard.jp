@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "id": "city-tower-musashikosugi",
+      "name": "シティタワー武蔵小杉",
+      "floor": "31階部分",
+      "image": ""
+    },
+    {
+      "id": "the-tower-yokohama-kitanaka",
+      "name": "ザ・タワー横浜北仲",
+      "floor": "11階部分",
+      "image": ""
+    },
+    {
+      "id": "proud-tower-futakotamagawa",
+      "name": "プラウドタワー二子玉川",
+      "floor": "23階部分",
+      "image": ""
+    }
+  ]
+}
