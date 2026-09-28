@@ -1,0 +1,40 @@
+{
+  "properties": [
+    {
+      "id": "sunsara-azumabashi",
+      "status": "販売中",
+      "name": "サンサーラ吾妻橋",
+      "price": 35000000,
+      "layout": "2LDK",
+      "area_m2": 55.47,
+      "balcony_m2": 6.82,
+      "floor": 2,
+      "total_floors": 10,
+      "structure": "SRC造",
+      "direction": "南",
+      "built": "1980-02",
+      "address": "東京都墨田区吾妻橋3丁目",
+      "access": [
+        { "line": "都営浅草線", "station": "本所吾妻橋", "walk_min": 4 },
+        { "line": "東武伊勢崎線", "station": "とうきょうスカイツリー", "walk_min": 6 },
+        { "line": "京成押上線", "station": "押上", "walk_min": 10 }
+      ],
+      "management_fee": 12160,
+      "repair_reserve": 10140,
+      "total_units": null,
+      "land_rights": "地上権（旧法借地権）／借地期間2038年2月まで（残存11年4ヶ月）／地代は管理費に含む",
+      "restrictions": "借地の残存期間が短いため、金融機関の住宅ローン利用に制限があります。名義変更・増改築・建替え・譲渡等の際に地主の承諾が必要となる場合があります。",
+      "management": "委託（巡回）",
+      "parking": "無",
+      "delivery": "相談",
+      "features": ["市街地が近い", "陽当り良好", "駅まで平坦", "通風良好", "全居室フローリング", "平坦地"],
+      "comment": "浅草・押上（スカイツリー）も生活圏で、都心へのアクセスも軽快な立地です。旧法借地権の物件のため、価格は周辺の所有権物件より抑えられています。ローン利用の可否を含め、資金計画から具体的にご説明しますので、まずはお気軽にお問い合わせください。",
+      "transaction_type": "仲介",
+      "broker": { "name": "株式会社スピアード", "license": "東京都知事（1）第112752号" },
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_sumida/nc_21514034/",
+      "photos": [],
+      "updated": "2026-09-28",
+      "next_update": "2026-10-12"
+    }
+  ]
+}
