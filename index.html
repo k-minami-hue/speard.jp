@@ -1006,6 +1006,29 @@
     .prop-more { margin-top:auto; padding-top:12px; border-top:1px solid var(--beige); font-size:.8rem; color:var(--gold); font-weight:600; letter-spacing:.06em; text-align:right; }
     .prop-card.is-sold { opacity:.72; }
     .prop-card.is-sold .prop-thumb { filter:grayscale(.7); }
+    #home-prop-grid { grid-template-columns:repeat(auto-fit,minmax(280px,340px)); justify-content:center; }
+    @media(max-width:600px){ #home-prop-grid { grid-template-columns:1fr; } }
+    .prop-home-more { display:inline-flex; align-items:center; gap:10px; background:var(--navy); color:white; padding:15px 38px; text-decoration:none; font-size:.92rem; letter-spacing:.08em; border-radius:30px; transition:background .2s,transform .2s; }
+    .prop-home-more:hover { background:var(--navy-mid); transform:translateY(-2px); }
+    .prop-photo-count { position:absolute; right:10px; bottom:10px; z-index:2; background:rgba(13,34,56,.78); color:white; font-size:.7rem; padding:3px 9px; border-radius:2px; letter-spacing:.06em; }
+    .prop-gallery-main { cursor:zoom-in; }
+    .prop-gallery-main img { object-fit:contain!important; background:#0D2238; }
+    .prop-gallery-cap { position:absolute; left:0; right:0; bottom:0; padding:10px 14px; font-size:.8rem; color:white; background:linear-gradient(transparent,rgba(0,0,0,.55)); letter-spacing:.06em; }
+    .prop-gallery-nav { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; border:none; background:rgba(255,255,255,.85); color:var(--navy-dark); font-size:1.2rem; cursor:pointer; z-index:3; display:flex; align-items:center; justify-content:center; }
+    .prop-gallery-nav.prev { left:12px; } .prop-gallery-nav.next { right:12px; }
+    .prop-photo-note { font-size:.72rem; color:var(--text-light); margin-top:4px; line-height:1.7; }
+    .prop-map { position:relative; width:100%; aspect-ratio:16/9; border-radius:6px; overflow:hidden; border:1px solid var(--border); background:var(--off-white); }
+    .prop-map iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .prop-map-addr { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; font-size:.86rem; color:var(--text); margin-bottom:12px; }
+    .prop-map-link { font-size:.78rem; color:var(--navy); text-decoration:none; border-bottom:1px solid var(--navy); padding-bottom:1px; }
+    .prop-map-note { font-size:.72rem; color:var(--text-light); margin-top:8px; }
+    .prop-lightbox { position:fixed; inset:0; z-index:500; background:rgba(8,18,30,.94); display:none; align-items:center; justify-content:center; flex-direction:column; padding:24px; }
+    .prop-lightbox.open { display:flex; }
+    .prop-lightbox img { max-width:100%; max-height:84vh; object-fit:contain; }
+    .prop-lightbox-cap { color:white; font-size:.85rem; margin-top:12px; letter-spacing:.06em; }
+    .prop-lightbox-close { position:absolute; top:16px; right:20px; background:none; border:none; color:white; font-size:2rem; cursor:pointer; line-height:1; }
+    .prop-lightbox .prop-gallery-nav.prev { left:16px; } .prop-lightbox .prop-gallery-nav.next { right:16px; }
+    @media (max-width:600px){ .prop-gallery-nav { width:34px; height:34px; } .prop-map { aspect-ratio:4/3; } }
     .prop-empty { display:none; text-align:center; color:var(--text-light); padding:60px 0; font-size:.9rem; }
     .prop-note { margin-top:28px; font-size:.74rem; color:var(--text-light); line-height:1.8; }
 
@@ -1226,6 +1249,22 @@
 </section>
 
 <!-- CONTACT -->
+<!-- 販売物件（トップ） -->
+<section id="home-properties" style="background:#fff;display:none;">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Properties for Sale</span>
+      <h2 class="section-title">販売物件</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">スピアードが取り扱う販売物件をご紹介します。</p>
+    </div>
+    <div class="prop-grid" id="home-prop-grid"></div>
+    <div style="text-align:center;margin-top:44px;">
+      <a href="#properties" onclick="showPage('properties');return false;" class="prop-home-more">販売物件一覧を見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <section id="contact">
   <div class="container">
     <div class="section-header fade-in visible">
@@ -3270,6 +3309,13 @@ async function fetchNewsFromManifests() {
         <div class="prop-sp-price" id="pd-sp-price"></div>
         <div id="pd-gallery"></div>
 
+        <div class="prop-sec" id="pd-map-sec" style="margin-top:32px;">
+          <h2 class="prop-sec-title">所在地・周辺地図</h2>
+          <div class="prop-map-addr"><span id="pd-map-addr"></span><a id="pd-map-link" class="prop-map-link" href="#" target="_blank" rel="noopener">Googleマップで開く ↗</a></div>
+          <div class="prop-map"><iframe id="pd-map" title="周辺地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="about:blank"></iframe></div>
+          <p class="prop-map-note">地図上の位置はおおよその所在地を示すものです。</p>
+        </div>
+
         <div class="prop-sec" id="pd-features-sec">
           <h2 class="prop-sec-title">物件の特徴</h2>
           <ul class="prop-features" id="pd-features"></ul>
@@ -3320,6 +3366,14 @@ async function fetchNewsFromManifests() {
       </div>
     </section>
   </div>
+</div>
+
+<div class="prop-lightbox" id="prop-lightbox" onclick="if(event.target===this)propCloseLightbox()">
+  <button class="prop-lightbox-close" onclick="propCloseLightbox()" aria-label="閉じる">×</button>
+  <button class="prop-gallery-nav prev" onclick="propStep(-1,true)" aria-label="前の写真">‹</button>
+  <img id="prop-lightbox-img" src="" alt="">
+  <div class="prop-lightbox-cap" id="prop-lightbox-cap"></div>
+  <button class="prop-gallery-nav next" onclick="propStep(1,true)" aria-label="次の写真">›</button>
 </div>
 
 <!-- ===== FOOTER ===== -->
@@ -3857,9 +3911,14 @@ function propSorted(list) {
   }).map(x => x.p);
 }
 
+function propPhotos(p) {
+  // photos: ["path.jpg"] または [{ "src": "path.jpg", "caption": "リビング" }]
+  return (Array.isArray(p.photos) ? p.photos : []).map(x => typeof x === 'string' ? { src: x, caption: '' } : x).filter(x => x && x.src);
+}
 function propThumbHtml(p, big) {
-  const photo = Array.isArray(p.photos) && p.photos[0];
-  if (photo) return '<img src="' + propEsc(photo) + '" alt="' + propEsc(p.name) + '" loading="lazy" decoding="async">';
+  const ph = propPhotos(p);
+  const photo = ph[0] && (p.thumb || ph[0].src);
+  if (photo) return '<img src="' + propEsc(photo) + '" alt="' + propEsc(p.name) + '" loading="lazy" decoding="async">' + (big ? '' : '<span class="prop-photo-count">写真 ' + ph.length + '枚</span>');
   return '<div class="prop-noimg"><span class="prop-noimg-en">Speard Selection</span><span class="prop-noimg-name"' + (big ? ' style="font-size:1.5rem"' : '') + '>' + propEsc(p.name) + '</span></div>';
 }
 
@@ -3870,7 +3929,11 @@ async function renderPropertyList() {
   if (!grid) return;
   const list = propSorted(m.properties || []);
   if (empty) empty.style.display = list.length ? 'none' : 'block';
-  grid.innerHTML = list.map(p => {
+  grid.innerHTML = list.map(propCardHtml).join('');
+}
+
+function propCardHtml(p) {
+  {
     const sold = propIsSold(p);
     const priceHtml = sold
       ? '<span class="prop-sold-label">成約済</span>'
@@ -3885,26 +3948,79 @@ async function renderPropertyList() {
         '<div class="prop-access">' + propEsc(acc) + '</div>' +
         '<div class="prop-more">詳細を見る →</div>' +
       '</div></a>';
-  }).join('');
+  }
 }
 
+async function renderHomeProperties() {
+  const m = await loadPropertyManifest();
+  const sec = document.getElementById('home-properties');
+  const grid = document.getElementById('home-prop-grid');
+  if (!sec || !grid) return;
+  const list = propSorted(m.properties || []).filter(p => !propIsSold(p)).slice(0, 3);
+  if (!list.length) { sec.style.display = 'none'; return; }
+  grid.innerHTML = list.map(propCardHtml).join('');
+  sec.style.display = '';
+}
+
+let PROP_GALLERY = { photos: [], idx: 0, name: '' };
 function propSetGallery(p) {
   const el = document.getElementById('pd-gallery');
   if (!el) return;
-  const photos = Array.isArray(p.photos) ? p.photos.filter(Boolean) : [];
+  const photos = propPhotos(p);
+  PROP_GALLERY = { photos, idx: 0, name: p.name };
   if (!photos.length) {
-    el.innerHTML = '<div class="prop-gallery-main">' + propThumbHtml(p, true) + '</div>';
+    el.innerHTML = '<div class="prop-gallery-main" style="cursor:default">' + propThumbHtml(p, true) + '</div>';
     return;
   }
-  el.innerHTML = '<div class="prop-gallery-main"><img id="pd-main-img" src="' + propEsc(photos[0]) + '" alt="' + propEsc(p.name) + '"></div>' +
-    (photos.length > 1 ? '<div class="prop-gallery-thumbs">' + photos.map((src, i) =>
-      '<img src="' + propEsc(src) + '" alt="' + propEsc(p.name) + ' 写真' + (i + 1) + '" loading="lazy" class="' + (i === 0 ? 'active' : '') + '" onclick="propSwapPhoto(this)">').join('') + '</div>' : '');
+  const nav = photos.length > 1
+    ? '<button class="prop-gallery-nav prev" onclick="event.stopPropagation();propStep(-1)" aria-label="前の写真">‹</button><button class="prop-gallery-nav next" onclick="event.stopPropagation();propStep(1)" aria-label="次の写真">›</button>' : '';
+  el.innerHTML = '<div class="prop-gallery-main" onclick="propOpenLightbox()"><img id="pd-main-img" src="' + propEsc(photos[0].src) + '" alt="' + propEsc(p.name + ' ' + (photos[0].caption || '')) + '"><div class="prop-gallery-cap" id="pd-main-cap"></div>' + nav + '</div>' +
+    (photos.length > 1 ? '<div class="prop-gallery-thumbs">' + photos.map((ph, i) =>
+      '<img src="' + propEsc(ph.src) + '" alt="' + propEsc(p.name + ' ' + (ph.caption || '写真' + (i + 1))) + '" title="' + propEsc(ph.caption || '') + '" loading="lazy" class="' + (i === 0 ? 'active' : '') + '" onclick="propShow(' + i + ')">').join('') + '</div>' : '') +
+    (p.photos_note ? '<p class="prop-photo-note">' + propEsc(p.photos_note) + '</p>' : '');
+  propShow(0);
 }
-function propSwapPhoto(img) {
+function propShow(i) {
+  const g = PROP_GALLERY, n = g.photos.length;
+  if (!n) return;
+  g.idx = (i + n) % n;
+  const ph = g.photos[g.idx];
   const main = document.getElementById('pd-main-img');
-  if (main) main.src = img.src;
-  img.parentNode.querySelectorAll('img').forEach(x => x.classList.remove('active'));
-  img.classList.add('active');
+  if (main) { main.src = ph.src; main.alt = g.name + ' ' + (ph.caption || ''); }
+  const cap = document.getElementById('pd-main-cap');
+  if (cap) cap.textContent = (ph.caption ? ph.caption + '　' : '') + (g.idx + 1) + ' / ' + n;
+  document.querySelectorAll('#pd-gallery .prop-gallery-thumbs img').forEach((x, k) => x.classList.toggle('active', k === g.idx));
+  const lb = document.getElementById('prop-lightbox');
+  if (lb && lb.classList.contains('open')) {
+    document.getElementById('prop-lightbox-img').src = ph.src;
+    document.getElementById('prop-lightbox-cap').textContent = (ph.caption ? ph.caption + '　' : '') + (g.idx + 1) + ' / ' + n;
+  }
+}
+function propStep(d) { propShow(PROP_GALLERY.idx + d); }
+function propOpenLightbox() {
+  if (!PROP_GALLERY.photos.length) return;
+  document.getElementById('prop-lightbox').classList.add('open');
+  propShow(PROP_GALLERY.idx);
+}
+function propCloseLightbox() { document.getElementById('prop-lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('prop-lightbox');
+  if (!lb || !lb.classList.contains('open')) return;
+  if (e.key === 'Escape') propCloseLightbox();
+  if (e.key === 'ArrowRight') propStep(1);
+  if (e.key === 'ArrowLeft') propStep(-1);
+});
+
+function propSetMap(p) {
+  const sec = document.getElementById('pd-map-sec');
+  const q = p.map_query || [p.name, p.address].filter(Boolean).join(' ');
+  if (!sec) return;
+  if (!q) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  const enc = encodeURIComponent(q);
+  document.getElementById('pd-map').src = 'https://maps.google.com/maps?q=' + enc + '&hl=ja&z=16&output=embed';
+  document.getElementById('pd-map-link').href = 'https://www.google.com/maps/search/?api=1&query=' + enc;
+  document.getElementById('pd-map-addr').textContent = p.address || '';
 }
 
 function goToPropertyContact(id) {
@@ -3932,6 +4048,7 @@ async function showPropertyDetail(id, noPush) {
   set('pd-type', '取引態様：' + propEsc(p.transaction_type));
   set('pd-name', propEsc(p.name));
   propSetGallery(p);
+  propSetMap(p);
 
   const feats = Array.isArray(p.features) ? p.features : [];
   set('pd-features', feats.map(f => '<li>' + propEsc(f) + '</li>').join(''));
@@ -3996,6 +4113,7 @@ async function showPropertyDetail(id, noPush) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  renderHomeProperties();
   renderPropertyList().then(() => {
     const hash = window.location.hash.replace('#', '');
     if (hash.startsWith(PROPERTY_PATH_PREFIX)) showPropertyDetail(hash.substring(PROPERTY_PATH_PREFIX.length), true);
