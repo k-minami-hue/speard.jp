@@ -40,7 +40,7 @@
       "id": "r007",
       "name": "ワールドシティタワーズ アクアタワー",
       "floor": "30階部分",
-      "image": ""
+      "image": "results/r007.jpg"
     },
     {
       "id": "r008",
@@ -124,9 +124,7 @@
       "id": "r021",
       "name": "白金ザ・スカイ",
       "floor": "21階部分",
-      "image": "results/r021.jpg",
-      "credit": "",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:Shirokane_The_Sky_2_(cropped).jpg"
+      "image": "results/r021.jpg"
     },
     {
       "id": "r022",
