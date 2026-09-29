@@ -72,13 +72,13 @@
       "id": "r012",
       "name": "ザ・パークハウス晴海タワーズ クロノレジデンス",
       "floor": "19階部分",
-      "image": ""
+      "image": "results/r012.jpg"
     },
     {
       "id": "r013",
       "name": "パークホームズ荻窪ザレジデンス",
       "floor": "1階部分",
-      "image": ""
+      "image": "results/r013.jpg"
     },
     {
       "id": "r014",
@@ -148,7 +148,7 @@
       "id": "r024",
       "name": "ザ・パークハウス戸越公園タワー",
       "floor": "15階部分",
-      "image": ""
+      "image": "results/r024.jpg"
     },
     {
       "id": "r025",
@@ -185,6 +185,12 @@
       "name": "マークワンタワー長津田",
       "floor": "",
       "image": "results/markone-tower-nagatsuta.jpg"
+    },
+    {
+      "id": "park-tower-harumi",
+      "name": "パークタワー晴海",
+      "floor": "",
+      "image": "results/park-tower-harumi.jpg"
     }
   ]
 }
