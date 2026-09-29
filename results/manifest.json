@@ -4,19 +4,19 @@
       "id": "city-tower-musashikosugi",
       "name": "シティタワー武蔵小杉",
       "floor": "31階部分",
-      "image": ""
+      "image": "results/city-tower-musashikosugi.jpg"
     },
     {
       "id": "the-tower-yokohama-kitanaka",
       "name": "ザ・タワー横浜北仲",
       "floor": "11階部分",
-      "image": ""
+      "image": "results/the-tower-yokohama-kitanaka.jpg"
     },
     {
       "id": "proud-tower-futakotamagawa",
       "name": "プラウドタワー二子玉川",
       "floor": "23階部分",
-      "image": ""
+      "image": "results/proud-tower-futakotamagawa.jpg"
     },
     {
       "id": "r004",
@@ -161,6 +161,12 @@
       "name": "シティインデックス洗足",
       "floor": "7階部分",
       "image": ""
+    },
+    {
+      "id": "parkhouse-toyocho-suihinkaku",
+      "name": "ザ・パークハウス 東陽町翠賓閣",
+      "floor": "",
+      "image": "results/parkhouse-toyocho-suihinkaku.jpg"
     }
   ]
 }
