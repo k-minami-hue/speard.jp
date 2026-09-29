@@ -195,6 +195,18 @@
       "name": "グレーシアタワーズ海老名",
       "floor": "21階部分",
       "image": "results/gracia-towers-ebina.jpg"
+    },
+    {
+      "id": "lupinus-azabu-cityform",
+      "name": "ルピナス麻布シティフォルム",
+      "floor": "4階部分",
+      "image": "results/lupinus-azabu-cityform.jpg"
+    },
+    {
+      "id": "hills-akatsutsumi",
+      "name": "ヒルズ赤堤",
+      "floor": "1階部分",
+      "image": "results/hills-akatsutsumi.jpg"
     }
   ]
 }
