@@ -22,13 +22,13 @@
       "id": "r004",
       "name": "HARUMI FLAG SUN VILLAGE T棟",
       "floor": "4階部分",
-      "image": ""
+      "image": "results/r004.jpg"
     },
     {
       "id": "r005",
       "name": "プライムパークス品川シーサイド ザ・タワー",
       "floor": "27階部分",
-      "image": ""
+      "image": "results/r005.jpg"
     },
     {
       "id": "r006",
@@ -48,7 +48,7 @@
       "id": "r008",
       "name": "プラウドタワー小岩ファースト",
       "floor": "18階部分",
-      "image": ""
+      "image": "results/r008.jpg"
     },
     {
       "id": "r009",
@@ -60,7 +60,7 @@
       "id": "r010",
       "name": "シティタワー品川パークフロント",
       "floor": "11階部分",
-      "image": ""
+      "image": "results/r010.jpg"
     },
     {
       "id": "r011",
