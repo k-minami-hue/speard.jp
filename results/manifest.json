@@ -157,31 +157,31 @@
     {
       "id": "parkhouse-toyocho-suihinkaku",
       "name": "ザ・パークハウス 東陽町翠賓閣",
-      "floor": "",
+      "floor": "4階部分",
       "image": "results/parkhouse-toyocho-suihinkaku.jpg"
     },
     {
       "id": "deux-tours",
       "name": "DEUX TOURS",
-      "floor": "",
+      "floor": "44階部分",
       "image": "results/deux-tours.jpg"
     },
     {
       "id": "cityterrace-yokohama-nakamachidai-1",
       "name": "シティテラス横濱仲町台壱番館",
-      "floor": "",
+      "floor": "5階部分",
       "image": "results/cityterrace-yokohama-nakamachidai-1.jpg"
     },
     {
       "id": "markone-tower-nagatsuta",
       "name": "マークワンタワー長津田",
-      "floor": "",
+      "floor": "11階部分",
       "image": "results/markone-tower-nagatsuta.jpg"
     },
     {
       "id": "park-tower-harumi",
       "name": "パークタワー晴海",
-      "floor": "",
+      "floor": "38階部分",
       "image": "results/park-tower-harumi.jpg"
     },
     {
