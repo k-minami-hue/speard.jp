@@ -4171,7 +4171,7 @@ async function renderResults() {
   } catch (e) { console.warn('results manifest load failed', e); }
   if (empty) empty.style.display = list.length ? 'none' : 'block';
   grid.innerHTML = list.map(x =>
-    '<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD</span>' +
+    '<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>' +
       (x.image ? '<div class="res-bg" style="background-image:url(\'' + propEsc(x.image) + '\')"></div><img src="' + propEsc(x.image) + '" alt="' + propEsc(x.name) + ' 外観" loading="lazy" decoding="async">'
                : '<div class="prop-noimg"><span class="prop-noimg-en">Speard Result</span><span class="prop-noimg-name">' + propEsc(x.name) + '</span></div>') +
     '</div><div class="res-body"><div class="res-name">' + propEsc(x.name) + '</div>' + (x.floor ? '<div class="res-floor">' + propEsc(x.floor) + '</div>' : '') + '</div></div>'

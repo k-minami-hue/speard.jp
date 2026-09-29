@@ -66,7 +66,7 @@
       "id": "r011",
       "name": "Brillia新川一丁目",
       "floor": "2階部分",
-      "image": ""
+      "image": "results/r011.jpg"
     },
     {
       "id": "r012",
@@ -102,7 +102,7 @@
       "id": "r017",
       "name": "プラウド大島セントラル",
       "floor": "10階部分",
-      "image": ""
+      "image": "results/r017.jpg"
     },
     {
       "id": "r018",
@@ -120,7 +120,7 @@
       "id": "r020",
       "name": "グリーンパーク日本橋堀留町",
       "floor": "10階部分",
-      "image": ""
+      "image": "results/r020.jpg"
     },
     {
       "id": "r021",
@@ -140,7 +140,7 @@
       "id": "r023",
       "name": "ピアース武蔵小杉EAST",
       "floor": "11階部分",
-      "image": ""
+      "image": "results/r023.jpg"
     },
     {
       "id": "r024",
@@ -153,12 +153,6 @@
       "name": "クレストラフィーネ旗の台",
       "floor": "2階部分",
       "image": "results/r025.jpg"
-    },
-    {
-      "id": "r026",
-      "name": "シティインデックス洗足",
-      "floor": "7階部分",
-      "image": ""
     },
     {
       "id": "parkhouse-toyocho-suihinkaku",
