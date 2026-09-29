@@ -34,7 +34,7 @@
       "id": "r006",
       "name": "プラウドタワー亀戸クロス",
       "floor": "21階部分",
-      "image": ""
+      "image": "results/r006.jpg"
     },
     {
       "id": "r007",
@@ -167,6 +167,24 @@
       "name": "ザ・パークハウス 東陽町翠賓閣",
       "floor": "",
       "image": "results/parkhouse-toyocho-suihinkaku.jpg"
+    },
+    {
+      "id": "deux-tours",
+      "name": "DEUX TOURS",
+      "floor": "",
+      "image": "results/deux-tours.jpg"
+    },
+    {
+      "id": "cityterrace-yokohama-nakamachidai-1",
+      "name": "シティテラス横濱仲町台壱番館",
+      "floor": "",
+      "image": "results/cityterrace-yokohama-nakamachidai-1.jpg"
+    },
+    {
+      "id": "markone-tower-nagatsuta",
+      "name": "マークワンタワー長津田",
+      "floor": "",
+      "image": "results/markone-tower-nagatsuta.jpg"
     }
   ]
 }
