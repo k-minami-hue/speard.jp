@@ -108,7 +108,7 @@
       "id": "r018",
       "name": "インプレストコア浅草橋",
       "floor": "10階部分",
-      "image": ""
+      "image": "results/r018.jpg"
     },
     {
       "id": "r019",
@@ -134,9 +134,7 @@
       "id": "r022",
       "name": "アトラスタワー町田",
       "floor": "15階部分",
-      "image": "results/r022.jpg",
-      "credit": "Photo: 運転太郎 / CC BY 3.0",
-      "credit_url": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%83%88%E3%83%A9%E3%82%B9%E3%82%BF%E3%83%AF%E3%83%BC%E7%94%BA%E7%94%B0_-_panoramio.jpg"
+      "image": "results/r022.jpg"
     },
     {
       "id": "r023",
@@ -154,7 +152,7 @@
       "id": "r025",
       "name": "クレストラフィーネ旗の台",
       "floor": "2階部分",
-      "image": ""
+      "image": "results/r025.jpg"
     },
     {
       "id": "r026",
@@ -191,6 +189,18 @@
       "name": "パークタワー晴海",
       "floor": "",
       "image": "results/park-tower-harumi.jpg"
+    },
+    {
+      "id": "proud-tower-shibaura",
+      "name": "プラウドタワー芝浦",
+      "floor": "14階部分",
+      "image": "results/proud-tower-shibaura.jpg"
+    },
+    {
+      "id": "gracia-towers-ebina",
+      "name": "グレーシアタワーズ海老名",
+      "floor": "21階部分",
+      "image": "results/gracia-towers-ebina.jpg"
     }
   ]
 }
