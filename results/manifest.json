@@ -54,7 +54,7 @@
       "id": "r009",
       "name": "品川イーストシティタワー",
       "floor": "8階部分",
-      "image": ""
+      "image": "results/r009.jpg"
     },
     {
       "id": "r010",
@@ -84,19 +84,19 @@
       "id": "r014",
       "name": "パークシティ中野 ザ・タワー ブリーズ",
       "floor": "13階部分",
-      "image": ""
+      "image": "results/r014.jpg"
     },
     {
       "id": "r015",
       "name": "Brillia Mare有明 TOWER&GARDEN",
       "floor": "30階部分",
-      "image": ""
+      "image": "results/r015.jpg"
     },
     {
       "id": "r016",
       "name": "クレヴィア神楽坂",
       "floor": "5階部分",
-      "image": ""
+      "image": "results/r016.jpg"
     },
     {
       "id": "r017",
@@ -114,7 +114,7 @@
       "id": "r019",
       "name": "プレディア東中野",
       "floor": "1階部分",
-      "image": ""
+      "image": "results/r019.jpg"
     },
     {
       "id": "r020",
