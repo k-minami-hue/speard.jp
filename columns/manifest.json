@@ -1,6 +1,26 @@
 {
   "columns": [
     {
+      "id": "kaitori-chukai",
+      "category": "sell",
+      "tag": "売却編",
+      "title": "マンションは「買取」と「仲介」どちらで売るべきか——手残り・スピード・リスクを数字で比較する",
+      "date": "2026.10.15",
+      "hero": "columns/thumbs/img_1450101499163-c8848c.jpg",
+      "thumb": "columns/thumbs/img_1450101499163-c8848c.jpg",
+      "file": "columns/purchase/column_kaitori_chukai.html"
+    },
+    {
+      "id": "hendo-kotei",
+      "category": "buy",
+      "tag": "購入編",
+      "title": "政策金利1.25%時代の住宅ローン——変動か固定かは「出口」で決める",
+      "date": "2026.10.08",
+      "hero": "columns/thumbs/img_1611974789855-9c2a0a.jpg",
+      "thumb": "columns/thumbs/img_1611974789855-9c2a0a.jpg",
+      "file": "columns/purchase/column_hendo_kotei.html"
+    },
+    {
       "id": "kaikae-junban",
       "category": "sell",
       "tags": [
