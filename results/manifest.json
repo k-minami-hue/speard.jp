@@ -203,6 +203,12 @@
       "name": "ヒルズ赤堤",
       "floor": "1階部分",
       "image": "results/hills-akatsutsumi.jpg"
+    },
+    {
+      "id": "park-city-musashikosugi-midsky",
+      "name": "パークシティ武蔵小杉ミッドスカイタワー",
+      "floor": "51階部分",
+      "image": "results/park-city-musashikosugi-midsky.jpg"
     }
   ]
 }
