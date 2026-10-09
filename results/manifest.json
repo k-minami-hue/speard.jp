@@ -214,13 +214,13 @@
       "id": "park-tower-kachidoki-south",
       "name": "パークタワー勝どきサウス",
       "floor": "",
-      "image": ""
+      "image": "results/park-tower-kachidoki-south.jpg"
     },
     {
       "id": "osaki-west-city-towers",
       "name": "大崎ウエストシティタワーズ",
       "floor": "",
-      "image": ""
+      "image": "results/osaki-west-city-towers.jpg"
     },
     {
       "id": "chiba-central-tower",
@@ -238,7 +238,7 @@
       "id": "kachidoki-the-tower",
       "name": "勝どきザ・タワー",
       "floor": "",
-      "image": ""
+      "image": "results/kachidoki-the-tower.jpg"
     }
   ]
 }
