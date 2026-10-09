@@ -209,6 +209,36 @@
       "name": "パークシティ武蔵小杉ミッドスカイタワー",
       "floor": "51階部分",
       "image": "results/park-city-musashikosugi-midsky.jpg"
+    },
+    {
+      "id": "park-tower-kachidoki-south",
+      "name": "パークタワー勝どきサウス",
+      "floor": "",
+      "image": ""
+    },
+    {
+      "id": "osaki-west-city-towers",
+      "name": "大崎ウエストシティタワーズ",
+      "floor": "",
+      "image": ""
+    },
+    {
+      "id": "chiba-central-tower",
+      "name": "CHIBA CENTRAL TOWER",
+      "floor": "",
+      "image": ""
+    },
+    {
+      "id": "proud-tower-kawaguchi-cross",
+      "name": "プラウドタワー川口クロス",
+      "floor": "",
+      "image": ""
+    },
+    {
+      "id": "kachidoki-the-tower",
+      "name": "勝どきザ・タワー",
+      "floor": "",
+      "image": ""
     }
   ]
 }
