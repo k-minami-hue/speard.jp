@@ -213,31 +213,31 @@
     {
       "id": "park-tower-kachidoki-south",
       "name": "パークタワー勝どきサウス",
-      "floor": "",
+      "floor": "22階部分",
       "image": "results/park-tower-kachidoki-south.jpg"
     },
     {
       "id": "osaki-west-city-towers",
       "name": "大崎ウエストシティタワーズ",
-      "floor": "",
+      "floor": "15階部分",
       "image": "results/osaki-west-city-towers.jpg"
     },
     {
       "id": "chiba-central-tower",
       "name": "CHIBA CENTRAL TOWER",
-      "floor": "",
-      "image": ""
+      "floor": "25階部分",
+      "image": "results/chiba-central-tower.jpg"
     },
     {
       "id": "proud-tower-kawaguchi-cross",
       "name": "プラウドタワー川口クロス",
-      "floor": "",
-      "image": ""
+      "floor": "11階部分",
+      "image": "results/proud-tower-kawaguchi-cross.jpg"
     },
     {
       "id": "kachidoki-the-tower",
       "name": "勝どきザ・タワー",
-      "floor": "",
+      "floor": "41階部分",
       "image": "results/kachidoki-the-tower.jpg"
     }
   ]
