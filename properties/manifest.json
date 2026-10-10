@@ -1,6 +1,129 @@
 {
   "properties": [
     {
+      "id": "brillia-ariake-skytower",
+      "status": "販売中",
+      "name": "ブリリア有明スカイタワー",
+      "price": 79800000,
+      "layout": "1LDK",
+      "area_m2": 40.02,
+      "balcony_m2": 8.48,
+      "floor": 28,
+      "total_floors": 33,
+      "structure": "RC造",
+      "direction": "南東",
+      "built": "2010-02",
+      "address": "東京都江東区有明1丁目",
+      "map_query": "ブリリア有明スカイタワー 東京都江東区有明1丁目",
+      "access": [
+        {
+          "line": "新交通ゆりかもめ",
+          "station": "有明テニスの森",
+          "walk_min": 5
+        },
+        {
+          "line": "りんかい線",
+          "station": "国際展示場",
+          "walk_min": 9
+        }
+      ],
+      "management_fee": 12400,
+      "repair_reserve": 18220,
+      "other_fees": "インターネット定額料金：880円／月",
+      "total_units": 1089,
+      "land_rights": "所有権",
+      "management": "委託（通勤）",
+      "parking": "無",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "準工業地域"
+        ],
+        [
+          "ペット",
+          "飼育可（管理規約による制限あり）"
+        ]
+      ],
+      "features": [
+        "高層階（28階）",
+        "南東向き・眺望良好",
+        "前面棟無",
+        "総戸数1089戸の大規模タワー",
+        "コンシェルジュサービス",
+        "プール・ジム・キッズルーム",
+        "1階スーパー",
+        "床暖房",
+        "ディスポーザー",
+        "浴室乾燥機",
+        "宅配ボックス",
+        "24時間ゴミ出し可",
+        "ペット飼育可"
+      ],
+      "comment": "33階建の28階、南東向きで前面に視界を遮る建物がなく、朝日と湾岸の夜景を望める住戸です。総戸数1089戸の大規模タワーで、プール・ジム・ラウンジなどの共用施設と1階のスーパーが日常を支えます。1LDK・40㎡台はシングル・DINKSの実需に加え賃貸需要も厚く、出口の取りやすいサイズです。室内は非常にきれいにお使いです。",
+      "transaction_type": "仲介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事（1）第112752号"
+      },
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_koto/nc_21811534/",
+      "photos": [
+        {
+          "src": "properties/brillia-ariake-skytower/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/02.jpg",
+          "caption": "間取り図"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/03.jpg",
+          "caption": "住戸からの眺望（夕景）"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/04.jpg",
+          "caption": "リビング"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/05.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/06.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/07.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/08.jpg",
+          "caption": "住戸からの眺望（夜景）"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/09.jpg",
+          "caption": "周辺環境"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/10.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/11.jpg",
+          "caption": "洗面所"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/12.jpg",
+          "caption": "玄関"
+        },
+        {
+          "src": "properties/brillia-ariake-skytower/13.jpg",
+          "caption": "収納"
+        }
+      ]
+    },
+    {
       "id": "sunsara-azumabashi",
       "status": "販売中",
       "name": "サンサーラ吾妻橋",
