@@ -139,6 +139,14 @@ def page(path, title, desc, body, og_image=None, og_type='website', jsonld=None,
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-VZ45Q8VCWE');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(desc)}">

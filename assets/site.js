@@ -1,16 +1,8 @@
 /* site.js ― 共通スクリプト（SP固定CTA／メニュー制御／トップ内リンク／計測） */
-/* ---- アクセス解析（GA4） ----
-   GA4の測定ID（G-から始まる）を下の '' に入れるだけで全ページで計測開始。
-   電話・LINE・フォーム送信は「generate_lead」等のイベントとして自動記録される。 */
-var GA4_ID = '';
+/* ---- アクセス解析（GA4：G-VZ45Q8VCWE） ----
+   タグ本体は各HTMLの<head>に設置済み。ここでは電話・LINE・問合せ・フォーム送信をイベント記録する。 */
 (function () {
-  if (!GA4_ID) return;
-  var s = document.createElement('script');
-  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { dataLayer.push(arguments); };
-  gtag('js', new Date()); gtag('config', GA4_ID);
+  if (typeof window.gtag !== 'function') return;
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a'); if (!a) return;
     var h = a.getAttribute('href') || '', where = a.closest('.sp-cta-bar') ? 'sp_bar' : a.closest('header,#mobileMenu') ? 'header' : 'body';
