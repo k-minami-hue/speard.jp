@@ -1,0 +1,42 @@
+# コラム・物件・成約実績の manifest や記事を更新して push すると、
+# 静的ページ（/columns/ /properties/ /results/）と sitemap.xml を自動で再生成してコミットする。
+name: build static pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'columns/manifest.json'
+      - 'columns/purchase/*.html'
+      - 'columns/sale/*.html'
+      - 'properties/manifest.json'
+      - 'results/manifest.json'
+      - 'index.html'
+      - 'tools/build_pages.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/build_pages.py
+      - name: commit if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add -A
+            git commit -m "静的ページを自動再生成"
+            git push
+          fi

@@ -2,6 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+<script>
+(function(){window.__propInquiry=new URLSearchParams(location.search).get('property');var h=location.hash.slice(1);if(!h)return;var m={properties:'/properties/',results:'/results/',column:'/columns/','column-purchase-flow':'/columns/purchase-flow/','column-sale-flow':'/columns/sale-flow/'};
+var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('property-')===0?'/properties/'+h.slice(9)+'/':'');if(to)location.replace(to);})();
+</script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>株式会社スピアード | 一都三県に特化した不動産仲介会社</title>
   <meta name="description" content="一都三県に特化した不動産仲介会社。資産性を重視した不動産売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
@@ -18,6 +23,10 @@
   <link rel="canonical" href="https://speard.jp/">
 
   <!-- Open Graph -->
+  <meta property="og:image" content="https://speard.jp/assets/ogp.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://speard.jp/assets/ogp.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://speard.jp/">
   <meta property="og:title" content="株式会社スピアード | 一都三県に特化した不動産仲介会社">
@@ -26,7 +35,7 @@
   <meta property="og:locale" content="ja_JP">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="株式会社スピアード | 一都三県に特化した不動産仲介会社">
   <meta name="twitter:description" content="一都三県に特化した不動産仲介会社。資産性を重視した不動産売買仲介の専門会社。購入・売却・投資の意思決定をサポートします。">
 
@@ -1115,10 +1124,10 @@
       <a href="/buy.html">購入</a>
       <a href="/sell.html">売却</a>
       <a href="/consulting.html">コンサルティング</a>
-      <a href="/#properties">販売物件</a>
-      <a href="/#results">成約実績</a>
+      <a href="/properties/">販売物件</a>
+      <a href="/results/">成約実績</a>
       <a href="/#voices">お客様の声</a>
-      <a href="/#column">コラム</a>
+      <a href="/columns/">コラム</a>
       <a href="/#company">会社概要</a>
     </div>
     <a href="/#contact" class="btn-nav">無料相談</a>
@@ -1135,10 +1144,10 @@
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
   <div class="mm-group">Property</div>
-  <a href="/#properties">販売物件</a>
-  <a href="/#results">成約実績</a>
+  <a href="/properties/">販売物件</a>
+  <a href="/results/">成約実績</a>
   <a href="/#voices">お客様の声</a>
-  <a href="/#column">不動産コラム</a>
+  <a href="/columns/">不動産コラム</a>
   <div class="mm-group">Company</div>
   <a href="/#company">会社概要</a>
   <a href="/#faq">よくあるご質問</a>
@@ -1165,7 +1174,7 @@
     <p class="hero-sub hero-sub-sp">不動産取引は、人生を動かす決断。<br>その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。</p>
     <div class="hero-btns">
       <a href="/#contact" class="btn-primary">無料相談を申し込む</a>
-      <a href="/#properties" class="btn-outline">販売物件を見る</a>
+      <a href="/properties/" class="btn-outline">販売物件を見る</a>
     </div>
     <ul class="hero-trust">
       <li>一都三県の分譲マンションに特化</li>
@@ -1218,7 +1227,7 @@
       </div>
     </div>
     <div class="stats-grid" style="margin-top:28px;">
-      <div class="stat-card stat-navy fade-in visible"><div class="stat-label">顧客満足度</div><div class="stat-num"><span class="counter" data-target="97">97</span><span class="stat-unit">%</span></div></div>
+      <div class="stat-card stat-navy fade-in visible"><div class="stat-label">成約実績（掲載分）</div><div class="stat-num"><span data-results-count>40</span><span class="stat-unit">件</span></div></div>
       <div class="stat-card stat-gold fade-in visible"><div class="stat-label">年間相談件数</div><div class="stat-num"><span class="counter" data-target="100">100</span><span class="stat-unit">件以上</span></div></div>
     </div>
   </div>
@@ -1235,7 +1244,7 @@
     </div>
     <div class="prop-grid" id="home-prop-grid"></div>
     <div style="text-align:center;margin-top:44px;">
-      <a href="#properties" onclick="showPage('properties');return false;" class="prop-home-more">販売物件一覧を見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
+      <a href="/properties/" class="prop-home-more">販売物件一覧を見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
     </div>
   </div>
 </section>
@@ -1250,7 +1259,7 @@
       <p class="section-desc">武蔵小杉・湾岸・都心を中心に、タワーマンションのお取引をお手伝いしています。</p>
     </div>
     <div class="hm-res-grid" id="hm-res-grid" aria-live="polite"></div>
-    <div class="hm-more"><a href="/#results" class="hm-more-btn">成約実績をすべて見る<span id="hm-res-count"></span></a></div>
+    <div class="hm-more"><a href="/results/" class="hm-more-btn">成約実績をすべて見る<span id="hm-res-count"></span></a></div>
   </div>
 </section>
 
@@ -1323,7 +1332,7 @@
       <p class="section-desc">購入・売却の判断に使える知識を、実務の視点でまとめています。</p>
     </div>
     <div class="hm-col-grid" id="hm-col-grid"></div>
-    <div class="hm-more"><a href="/#column" class="hm-more-btn">コラム一覧を見る</a></div>
+    <div class="hm-more"><a href="/columns/" class="hm-more-btn">コラム一覧を見る</a></div>
   </div>
 </section>
 <script>
@@ -1344,9 +1353,8 @@
     if(!list.length){document.getElementById('home-columns').style.display='none';return;}
     g.innerHTML=list.map(function(x){
       var tag=(x.tags&&x.tags.length)?x.tags.join('・'):(x.tag||'');
-      return '<a class="hm-col" href="#column-'+esc(x.id)+'" data-col="'+esc(x.id)+'"><div class="hm-col-img"><img src="'+esc(x.thumb)+'" alt="" loading="lazy" decoding="async"></div><div class="hm-col-body"><span class="hm-col-tag">'+esc(tag)+'</span><h3 class="hm-col-title">'+esc(x.title)+'</h3><time class="hm-col-date">'+esc(x.date)+'</time></div></a>';
+      return '<a class="hm-col" href="/columns/'+esc(x.id)+'/"><div class="hm-col-img"><img src="'+esc(x.thumb)+'" alt="" loading="lazy" decoding="async"></div><div class="hm-col-body"><span class="hm-col-tag">'+esc(tag)+'</span><h3 class="hm-col-title">'+esc(x.title)+'</h3><time class="hm-col-date">'+esc(x.date)+'</time></div></a>';
     }).join('');
-    g.addEventListener('click',function(e){var a=e.target.closest('a[data-col]'); if(a&&typeof showColumnDynamic==='function'){e.preventDefault();showColumnDynamic(a.dataset.col);}});
   }).catch(function(){});
 })();
 </script>
@@ -3349,10 +3357,10 @@
         <li><a href="/#contact">無料相談</a></li>
       </ul></div>
       <div><h4>Property</h4><ul>
-        <li><a href="/#properties">販売物件</a></li>
-        <li><a href="/#results">成約実績</a></li>
+        <li><a href="/properties/">販売物件</a></li>
+        <li><a href="/results/">成約実績</a></li>
         <li><a href="/#voices">お客様の声</a></li>
-        <li><a href="/#column">不動産コラム</a></li>
+        <li><a href="/columns/">不動産コラム</a></li>
       </ul></div>
       <div><h4>Company</h4><ul>
         <li><a href="/#company">会社概要</a></li>
@@ -3910,7 +3918,7 @@ function propCardHtml(p) {
       ? '<span class="prop-sold-label">成約済</span>'
       : '<span class="prop-price">' + propFormatPrice(p.price) + '</span><span class="prop-tsubo">' + propTsuboLabel(p) + '</span>';
     const acc = Array.isArray(p.access) && p.access[0] ? propAccessText(p.access[0]) : '';
-    return '<a href="#' + PROPERTY_PATH_PREFIX + propEsc(p.id) + '" class="prop-card' + (sold ? ' is-sold' : '') + '" onclick="event.preventDefault();showPropertyDetail(\'' + propEsc(p.id) + '\');return false;">' +
+    return '<a href="/properties/' + propEsc(p.id) + '/" class="prop-card' + (sold ? ' is-sold' : '') + '">' +
       '<div class="prop-thumb"><span class="prop-status ' + (PROP_STATUS_CLASS[p.status] || 'ps-selling') + '">' + propEsc(p.status) + '</span>' + propThumbHtml(p) + '</div>' +
       '<div class="prop-body">' +
         '<div class="prop-name">' + propEsc(p.name) + '</div>' +
@@ -4108,6 +4116,8 @@ async function renderResults() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  const qp = window.__propInquiry;
+  if (qp) loadPropertyManifest().then(() => setTimeout(() => goToPropertyContact(qp), 150));
   renderResults();
   renderHomeProperties();
   renderPropertyList().then(() => {

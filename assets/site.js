@@ -1,4 +1,31 @@
-/* site.js ― 共通スクリプト（SP固定CTA／メニュー制御／トップ内リンク） */
+/* site.js ― 共通スクリプト（SP固定CTA／メニュー制御／トップ内リンク／計測） */
+/* ---- アクセス解析（GA4） ----
+   GA4の測定ID（G-から始まる）を下の '' に入れるだけで全ページで計測開始。
+   電話・LINE・フォーム送信は「generate_lead」等のイベントとして自動記録される。 */
+var GA4_ID = '';
+(function () {
+  if (!GA4_ID) return;
+  var s = document.createElement('script');
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date()); gtag('config', GA4_ID);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a'); if (!a) return;
+    var h = a.getAttribute('href') || '', where = a.closest('.sp-cta-bar') ? 'sp_bar' : a.closest('header,#mobileMenu') ? 'header' : 'body';
+    if (h.indexOf('tel:') === 0) gtag('event', 'click_tel', { location: where });
+    else if (h.indexOf('line.me') > -1) gtag('event', 'click_line', { location: where });
+    else if (/#contact$/.test(h)) gtag('event', 'click_contact', { location: where });
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 'contact-form') {
+      var t = e.target.querySelector('[name="type"]');
+      gtag('event', 'generate_lead', { inquiry_type: t ? t.value : '' });
+    }
+  }, true);
+})();
+
 (function () {
   var TEL = 'tel:05071093701';
   var LINE = 'https://line.me/R/ti/p/%40xef5208i';
