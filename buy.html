@@ -506,42 +506,52 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
   .hero-actions .btn{width:100%;max-width:360px;}
 }
 </style>
+<link rel="stylesheet" href="/assets/site.css?v=20261010">
 </head>
 <body>
 
 <!-- ===== Header（トップページと共通） ===== -->
-<header class="site-header scrolled" id="header">
-  <a href="https://speard.jp/" class="logo"><img src="https://speard.jp/logo.png" alt="Speard" class="logo-img"></a>
-  <nav>
+<header id="header" class="site-header scrolled">
+  <a href="/" class="logo" aria-label="株式会社スピアード トップ"><img src="/logo.png" alt="株式会社スピアード" class="logo-img" width="140" height="34"></a>
+  <nav aria-label="メインメニュー">
     <div class="nav-links">
-      <a href="https://speard.jp/">トップ</a>
-      <a href="https://speard.jp/#voices">お客様の声</a>
-      <a href="https://speard.jp/#faq">よくあるご質問</a>
-      <a href="https://speard.jp/#recruit">採用情報</a>
-      <a href="https://speard.jp/#access">アクセス</a>
-      <a href="https://speard.jp/#column">コラム</a>
-      <a href="https://speard.jp/buy.html">購入について</a>
-      <a href="https://speard.jp/sell.html">売却について</a>
-      <a href="https://speard.jp/consulting.html">不動産コンサルティング</a>
+      <a href="/buy.html">購入</a>
+      <a href="/sell.html">売却</a>
+      <a href="/consulting.html">コンサルティング</a>
+      <a href="/#properties">販売物件</a>
+      <a href="/#results">成約実績</a>
+      <a href="/#voices">お客様の声</a>
+      <a href="/#column">コラム</a>
+      <a href="/#company">会社概要</a>
     </div>
-    <a class="btn-nav" href="https://speard.jp/#contact">お問合せ</a>
-    <a class="btn-nav-line" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:-2px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>公式LINE</a>
+    <a href="/#contact" class="btn-nav">無料相談</a>
+    <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="btn-nav-line"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M24 10.3C24 4.9 18.6.6 12 .6S0 4.9 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8 0 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 6.9-4.1 9.4-7 1.8-1.9 2.7-3.8 2.7-5.9z"/></svg>LINE相談</a>
   </nav>
-  <button class="hamburger" id="hamburger" aria-label="メニュー">
+  <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="https://speard.jp/">トップ</a>
-  <a href="https://speard.jp/#voices">お客様の声</a>
-  <a href="https://speard.jp/#faq">よくあるご質問</a>
-  <a href="https://speard.jp/#recruit">採用情報</a>
-  <a href="https://speard.jp/#access">アクセス</a>
-  <a href="https://speard.jp/#column">コラム</a>
-  <a href="https://speard.jp/buy.html">購入について</a>
-  <a href="https://speard.jp/sell.html">売却について</a>
-  <a href="https://speard.jp/consulting.html">不動産コンサルティング</a>
-  <a href="https://speard.jp/#contact" class="btn-nav-mobile">お問合せ</a>
+  <div class="mm-group">Service</div>
+  <a href="/buy.html">購入について</a>
+  <a href="/sell.html">売却について</a>
+  <a href="/consulting.html">不動産コンサルティング</a>
+  <div class="mm-group">Property</div>
+  <a href="/#properties">販売物件</a>
+  <a href="/#results">成約実績</a>
+  <a href="/#voices">お客様の声</a>
+  <a href="/#column">不動産コラム</a>
+  <div class="mm-group">Company</div>
+  <a href="/#company">会社概要</a>
+  <a href="/#faq">よくあるご質問</a>
+  <a href="/#access">アクセス</a>
+  <a href="/#recruit">採用情報</a>
+  <a href="/#privacy">プライバシーポリシー</a>
+  <div class="mm-ctas">
+    <a href="/#contact" class="mm-cta-gold btn-nav-mobile">無料で相談する</a>
+    <a href="tel:05071093701" class="mm-cta-tel">電話する</a>
+    <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="mm-cta-line">LINEで相談</a>
+  </div>
 </div>
 
 <!-- ===== Hero ===== -->
@@ -974,21 +984,41 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
 </section>
 
 <!-- ===== Footer（トップページと共通） ===== -->
-<footer>
-  <div class="footer-links">
-    <a href="https://speard.jp/">トップ</a>
-    <a href="https://speard.jp/#voices">お客様の声</a>
-    <a href="https://speard.jp/#faq">よくあるご質問</a>
-    <a href="https://speard.jp/#recruit">採用情報</a>
-    <a href="https://speard.jp/#access">アクセス</a>
-    <a href="https://speard.jp/#column">コラム</a>
-    <a href="https://speard.jp/buy.html">購入について</a>
-    <a href="https://speard.jp/sell.html">売却について</a>
-    <a href="https://speard.jp/consulting.html">不動産コンサルティング</a>
-    <a href="https://speard.jp/#privacy">プライバシーポリシー</a>
-    <a href="https://speard.jp/#contact">お問合せ</a>
+<footer class="site-footer">
+  <div class="ft-inner">
+    <div class="ft-company">
+      <img src="/logo.png" alt="株式会社スピアード" class="ft-logo" width="140" height="34" loading="lazy">
+      <dl>
+        <dt>所在地</dt><dd>〒107-0062 東京都港区南青山2-2-8 DFビル10F</dd>
+        <dt>最寄駅</dt><dd>青山一丁目駅 5番出口 徒歩2分</dd>
+        <dt>TEL</dt><dd><a href="tel:05071093701">050-7109-3701</a></dd>
+        <dt>MAIL</dt><dd><a href="mailto:info@speard.jp">info@speard.jp</a></dd>
+        <dt>免許</dt><dd>宅地建物取引業 東京都知事（1）第112752号</dd>
+      </dl>
+    </div>
+    <div class="ft-nav">
+      <div><h4>Service</h4><ul>
+        <li><a href="/buy.html">購入について</a></li>
+        <li><a href="/sell.html">売却について</a></li>
+        <li><a href="/consulting.html">不動産コンサルティング</a></li>
+        <li><a href="/#contact">無料相談</a></li>
+      </ul></div>
+      <div><h4>Property</h4><ul>
+        <li><a href="/#properties">販売物件</a></li>
+        <li><a href="/#results">成約実績</a></li>
+        <li><a href="/#voices">お客様の声</a></li>
+        <li><a href="/#column">不動産コラム</a></li>
+      </ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="/#company">会社概要</a></li>
+        <li><a href="/#faq">よくあるご質問</a></li>
+        <li><a href="/#access">アクセス</a></li>
+        <li><a href="/#recruit">採用情報</a></li>
+        <li><a href="/#privacy">プライバシーポリシー</a></li>
+      </ul></div>
+    </div>
   </div>
-  © 2026 Speard Inc. All Rights Reserved.
+  <div class="ft-bottom"><span>株式会社スピアード</span><span>&copy; 2026 Speard Inc. All Rights Reserved.</span></div>
 </footer>
 
 <script>
@@ -998,5 +1028,6 @@ mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hb.classList
 const hd=document.getElementById('header');
 if(hd)window.addEventListener('scroll',()=>hd.classList.toggle('scrolled',window.scrollY>60),{passive:true});
 </script>
+<script src="/assets/site.js?v=20261010" defer></script>
 </body>
 </html>

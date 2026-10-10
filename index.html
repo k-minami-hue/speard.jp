@@ -1103,50 +1103,53 @@
     }
 
 </style>
+<link rel="stylesheet" href="/assets/site.css?v=20261010">
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
 <header id="header" class="scrolled">
-  <a href="/" onclick="showPage('home');window.scrollTo(0,0);return false;" class="logo">
-    <img src="logo.png" alt="Speard" class="logo-img">
-  </a>
-  <nav>
-    <div class="nav-links" style="display:flex;gap:22px;align-items:center;">
-      <a href="/" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
-      <a href="#properties" onclick="showPage('properties');return false;">販売物件</a>
-      <a href="#results" onclick="showPage('results');return false;">成約実績</a>
-      <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
-      <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
-      <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
-      <a href="#access" onclick="showPage('access');return false;">アクセス</a>
-      <a href="#column" onclick="showPage('column');return false;">コラム</a>
-      <a href="/buy.html">購入について</a>
-    <a href="/sell.html">売却について</a>
-      <a href="/consulting.html">不動産コンサルティング</a>
+  <a href="/" class="logo" aria-label="株式会社スピアード トップ"><img src="/logo.png" alt="株式会社スピアード" class="logo-img" width="140" height="34"></a>
+  <nav aria-label="メインメニュー">
+    <div class="nav-links">
+      <a href="/buy.html">購入</a>
+      <a href="/sell.html">売却</a>
+      <a href="/consulting.html">コンサルティング</a>
+      <a href="/#properties">販売物件</a>
+      <a href="/#results">成約実績</a>
+      <a href="/#voices">お客様の声</a>
+      <a href="/#column">コラム</a>
+      <a href="/#company">会社概要</a>
     </div>
-    <a href="#contact" onclick="showPage('home');setTimeout(()=>scrollToSection('contact'),100);return false;" class="btn-nav">お問合せ</a>
-  <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="btn-nav-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:-2px;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>公式LINE</a>
+    <a href="/#contact" class="btn-nav">無料相談</a>
+    <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="btn-nav-line"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M24 10.3C24 4.9 18.6.6 12 .6S0 4.9 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8 0 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 6.9-4.1 9.4-7 1.8-1.9 2.7-3.8 2.7-5.9z"/></svg>LINE相談</a>
   </nav>
-  <button class="hamburger" id="hamburger" aria-label="メニュー">
+  <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/" onclick="showPage('home');window.scrollTo(0,0);closeMobileMenu();return false;">トップ</a>
-  <a href="#properties" onclick="showPage('properties');closeMobileMenu();return false;">販売物件</a>
-  <a href="#results" onclick="showPage('results');closeMobileMenu();return false;">成約実績</a>
-  <a href="#voices" onclick="showPage('voices');closeMobileMenu();return false;">お客様の声</a>
-  <a href="#faq" onclick="showPage('faq');closeMobileMenu();return false;">よくあるご質問</a>
-  <a href="#recruit" onclick="showPage('recruit');closeMobileMenu();return false;">採用情報</a>
-  <a href="#access" onclick="showPage('access');closeMobileMenu();return false;">アクセス</a>
-  <a href="#column" onclick="showPage('column');closeMobileMenu();return false;">コラム</a>
-<a href="/buy.html" onclick="closeMobileMenu();">購入について</a>
-<a href="/sell.html" onclick="closeMobileMenu();">売却について</a>
-<a href="/consulting.html" onclick="closeMobileMenu();">不動産コンサルティング</a>
-  <a href="#privacy" onclick="showPage('privacy');closeMobileMenu();return false;">プライバシーポリシー</a>
-  <a href="#contact" onclick="showPage('home');setTimeout(()=>scrollToSection('contact'),100);closeMobileMenu();return false;" class="btn-nav-mobile">お問合せ</a>
+  <div class="mm-group">Service</div>
+  <a href="/buy.html">購入について</a>
+  <a href="/sell.html">売却について</a>
+  <a href="/consulting.html">不動産コンサルティング</a>
+  <div class="mm-group">Property</div>
+  <a href="/#properties">販売物件</a>
+  <a href="/#results">成約実績</a>
+  <a href="/#voices">お客様の声</a>
+  <a href="/#column">不動産コラム</a>
+  <div class="mm-group">Company</div>
+  <a href="/#company">会社概要</a>
+  <a href="/#faq">よくあるご質問</a>
+  <a href="/#access">アクセス</a>
+  <a href="/#recruit">採用情報</a>
+  <a href="/#privacy">プライバシーポリシー</a>
+  <div class="mm-ctas">
+    <a href="/#contact" class="mm-cta-gold btn-nav-mobile">無料で相談する</a>
+    <a href="tel:05071093701" class="mm-cta-tel">電話する</a>
+    <a href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" class="mm-cta-line">LINEで相談</a>
+  </div>
 </div>
 
 <!-- ===== HOME PAGE ===== -->
@@ -1161,9 +1164,14 @@
     <p class="hero-sub hero-sub-pc">不動産取引は、人生を動かす決断。その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。<br>株式会社スピアードは、お客様の人生に寄り添い、未来を共に築くパートナーであり続けます。</p>
     <p class="hero-sub hero-sub-sp">不動産取引は、人生を動かす決断。<br>その一歩を、未来に誇れる選択へ。<br>安心を届けることこそ、私たちの使命です。</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-primary">無料相談を申し込む</a>
-      <a href="#service" class="btn-outline">サービス詳細を見る</a>
+      <a href="/#contact" class="btn-primary">無料相談を申し込む</a>
+      <a href="/#properties" class="btn-outline">販売物件を見る</a>
     </div>
+    <ul class="hero-trust">
+      <li>一都三県の分譲マンションに特化</li>
+      <li>宅地建物取引業 東京都知事（1）第112752号</li>
+      <li>ご相談・内見は無料</li>
+    </ul>
   </div>
   <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
 </section>
@@ -1190,6 +1198,7 @@
             <li>将来の売却を見据えた戦略を設計</li>
             <li>不安や疑問に寄り添ったアドバイス</li>
           </ul>
+          <a class="sc-more" href="/buy.html">購入について詳しく見る</a>
         </div>
       </div>
       <div class="service-card fade-in visible" onclick="window.location.href='/sell.html';" style="cursor:pointer;">
@@ -1204,6 +1213,7 @@
             <li>「売却／保有」を含めた中立的な助言</li>
             <li>相続・住替えなど多様な背景に柔軟対応</li>
           </ul>
+          <a class="sc-more" href="/sell.html">売却について詳しく見る</a>
         </div>
       </div>
     </div>
@@ -1211,6 +1221,68 @@
       <div class="stat-card stat-navy fade-in visible"><div class="stat-label">顧客満足度</div><div class="stat-num"><span class="counter" data-target="97">97</span><span class="stat-unit">%</span></div></div>
       <div class="stat-card stat-gold fade-in visible"><div class="stat-label">年間相談件数</div><div class="stat-num"><span class="counter" data-target="100">100</span><span class="stat-unit">件以上</span></div></div>
     </div>
+  </div>
+</section>
+
+<!-- 販売物件（トップ） -->
+<section id="home-properties" style="background:#fff;display:none;">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Properties for Sale</span>
+      <h2 class="section-title">販売物件</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">スピアードが取り扱う販売物件をご紹介します。</p>
+    </div>
+    <div class="prop-grid" id="home-prop-grid"></div>
+    <div style="text-align:center;margin-top:44px;">
+      <a href="#properties" onclick="showPage('properties');return false;" class="prop-home-more">販売物件一覧を見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 成約実績（トップ） -->
+<section id="home-results" class="hm-section hm-off">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Transaction Results</span>
+      <h2 class="section-title">成約実績</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">武蔵小杉・湾岸・都心を中心に、タワーマンションのお取引をお手伝いしています。</p>
+    </div>
+    <div class="hm-res-grid" id="hm-res-grid" aria-live="polite"></div>
+    <div class="hm-more"><a href="/#results" class="hm-more-btn">成約実績をすべて見る<span id="hm-res-count"></span></a></div>
+  </div>
+</section>
+
+<!-- お客様の声（トップ） -->
+<section id="home-voices" class="hm-section">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Customer Voice</span>
+      <h2 class="section-title">お客様の声</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="hm-voice-grid">
+      <article class="hm-voice">
+        <span class="review-type type-buy">購入</span>
+        <h3 class="hm-voice-title">最後まで納得できる提案をしてくれました。</h3>
+        <p class="hm-voice-text">結婚を控えたタイミングで、賃貸か購入かを迷っていました。担当者さんは私たちの価値観を汲み取りつつ、数字と実例で冷静に比較してくれたため、最終的に購入を選択。最後まで納得できる提案をしてくれました。</p>
+        <p class="hm-voice-name">N様（男性・20代）</p>
+      </article>
+      <article class="hm-voice">
+        <span class="review-type type-sell">売却</span>
+        <h3 class="hm-voice-title">納得できる価格での売却</h3>
+        <p class="hm-voice-text">複数社に査定を出した中で、一番根拠が明確でした。「なぜこの価格なのか」をデータで説明してくれたことで、納得して売却できました。誠実で論理的な対応に信頼を感じました。</p>
+        <p class="hm-voice-name">A様（30代・男性）</p>
+      </article>
+      <article class="hm-voice">
+        <span class="review-type type-buy">購入</span>
+        <h3 class="hm-voice-title">銀行融資から購入後まで、親身なサポート</h3>
+        <p class="hm-voice-text">大変親身になって相談に乗ってくださいました。物件の選定から、銀行融資についてもかなりの時間を費やしていただき本当に恐縮です。また購入後のサポートにも乗っていただき感謝の言葉しかありません。</p>
+        <p class="hm-voice-name">K様（男性・30代）</p>
+      </article>
+    </div>
+    <div class="hm-more"><a href="/#voices" class="hm-more-btn">お客様の声をすべて見る</a></div>
   </div>
 </section>
 
@@ -1241,6 +1313,44 @@
   </div>
 </section>
 
+<!-- 最新コラム（トップ） -->
+<section id="home-columns" class="hm-section hm-off">
+  <div class="container">
+    <div class="section-header fade-in visible">
+      <span class="section-en">Real Estate Column</span>
+      <h2 class="section-title">不動産コラム</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">購入・売却の判断に使える知識を、実務の視点でまとめています。</p>
+    </div>
+    <div class="hm-col-grid" id="hm-col-grid"></div>
+    <div class="hm-more"><a href="/#column" class="hm-more-btn">コラム一覧を見る</a></div>
+  </div>
+</section>
+<script>
+(function(){
+  function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  fetch('results/manifest.json').then(function(r){return r.ok?r.json():{results:[]};}).then(function(d){
+    var list=(d.results||[]), g=document.getElementById('hm-res-grid');
+    if(!g) return;
+    if(!list.length){document.getElementById('home-results').style.display='none';return;}
+    var c=document.getElementById('hm-res-count'); if(c) c.textContent='（'+list.length+'件）';
+    g.innerHTML=list.slice(0,8).map(function(x){
+      return '<div class="hm-res"><div class="hm-res-img">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+' 外観" loading="lazy" decoding="async">':'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></div>';
+    }).join('');
+  }).catch(function(){});
+  fetch('columns/manifest.json').then(function(r){return r.ok?r.json():{columns:[]};}).then(function(d){
+    var g=document.getElementById('hm-col-grid'); if(!g) return;
+    var list=(d.columns||[]).slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).slice(0,3);
+    if(!list.length){document.getElementById('home-columns').style.display='none';return;}
+    g.innerHTML=list.map(function(x){
+      var tag=(x.tags&&x.tags.length)?x.tags.join('・'):(x.tag||'');
+      return '<a class="hm-col" href="#column-'+esc(x.id)+'" data-col="'+esc(x.id)+'"><div class="hm-col-img"><img src="'+esc(x.thumb)+'" alt="" loading="lazy" decoding="async"></div><div class="hm-col-body"><span class="hm-col-tag">'+esc(tag)+'</span><h3 class="hm-col-title">'+esc(x.title)+'</h3><time class="hm-col-date">'+esc(x.date)+'</time></div></a>';
+    }).join('');
+    g.addEventListener('click',function(e){var a=e.target.closest('a[data-col]'); if(a&&typeof showColumnDynamic==='function'){e.preventDefault();showColumnDynamic(a.dataset.col);}});
+  }).catch(function(){});
+})();
+</script>
+
 <!-- COMPANY -->
 <section id="company">
   <div class="container">
@@ -1265,22 +1375,6 @@
 </section>
 
 <!-- CONTACT -->
-<!-- 販売物件（トップ） -->
-<section id="home-properties" style="background:#fff;display:none;">
-  <div class="container">
-    <div class="section-header fade-in visible">
-      <span class="section-en">Properties for Sale</span>
-      <h2 class="section-title">販売物件</h2>
-      <div class="section-line"></div>
-      <p class="section-desc">スピアードが取り扱う販売物件をご紹介します。</p>
-    </div>
-    <div class="prop-grid" id="home-prop-grid"></div>
-    <div style="text-align:center;margin-top:44px;">
-      <a href="#properties" onclick="showPage('properties');return false;" class="prop-home-more">販売物件一覧を見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
-    </div>
-  </div>
-</section>
-
 <section id="contact">
   <div class="container">
     <div class="section-header fade-in visible">
@@ -1347,143 +1441,6 @@
           公式LINEで相談する
         </a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWS -->
-<section id="news" style="background:#fff;padding:80px 24px;">
-  <div class="container" style="max-width:880px;margin:0 auto;">
-    <div class="section-header fade-in visible" style="text-align:center;margin-bottom:40px;">
-      <span class="section-en" style="font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:var(--gold);letter-spacing:.18em;display:block;margin-bottom:14px;">News</span>
-      <h2 class="section-title" style="font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;color:var(--navy-dark);letter-spacing:.1em;margin-bottom:0;">お知らせ</h2>
-      <div style="width:36px;height:1px;background:var(--gold);margin:18px auto 0;"></div>
-    </div>
-    <ul id="news-list" class="fade-in visible" style="list-style:none;padding:0;margin:0;border-top:1px solid var(--beige);">
-      <!-- 静的フォールバック（JS有効時はmanifestから自動生成・上書き） -->
-      <li class="news-item"><a href="#column" class="news-link"><span class="news-date">2026.07.23</span><span class="news-text">「コラム」を更新しました</span><span class="news-arrow">→</span></a></li>
-      <li class="news-item"><a href="#column" class="news-link"><span class="news-date">2026.07.16</span><span class="news-text">「コラム」を更新しました</span><span class="news-arrow">→</span></a></li>
-      <li class="news-item"><a href="#column" class="news-link"><span class="news-date">2026.07.09</span><span class="news-text">「コラム」を更新しました</span><span class="news-arrow">→</span></a></li>
-    </ul>
-  </div>
-</section>
-<style>
-  .news-item { display:flex; align-items:flex-start; gap:24px; padding:22px 8px; border-bottom:1px solid var(--beige); transition:background .15s; }
-  .news-item:hover { background:var(--off-white); }
-  .news-link { display:flex; flex:1; align-items:center; gap:24px; text-decoration:none; color:inherit; }
-  .news-date { font-family:'Playfair Display',serif; font-size:.95rem; color:var(--gold); letter-spacing:.06em; min-width:96px; flex-shrink:0; }
-  .news-text { font-size:.92rem; color:var(--navy-dark); flex:1; line-height:1.6; }
-  .news-arrow { font-size:.95rem; color:var(--text-light); transition:transform .2s,color .2s; }
-  .news-item:hover .news-arrow { transform:translateX(4px); color:var(--gold); }
-  @media (max-width:640px) {
-    .news-link { flex-direction:column; align-items:flex-start; gap:6px; }
-    .news-date { font-size:.85rem; min-width:auto; }
-    .news-text { font-size:.88rem; }
-  }
-</style>
-<script>
-// ===== NEWS DATA (auto-pulled from manifests) =====
-// columns/manifest.json と voices/manifest.json から最新を自動取得
-// フォールバック用デフォルト
-const NEWS_FALLBACK = [
-  { date: '2026.07.23', text: '「コラム」を更新しました', page: 'column' },
-  { date: '2026.07.16', text: '「コラム」を更新しました', page: 'column' },
-  { date: '2026.07.09', text: '「コラム」を更新しました', page: 'column' }
-];
-
-async function fetchNewsFromManifests() {
-  try {
-    const [colRes, voiRes] = await Promise.all([
-      fetch('columns/manifest.json?v=' + Date.now()).catch(() => null),
-      fetch('voices/manifest.json?v=' + Date.now()).catch(() => null)
-    ]);
-    const items = [];
-    if (colRes && colRes.ok) {
-      const m = await colRes.json();
-      const dates = [...new Set((m.columns || []).map(c => c.date).filter(Boolean))];
-      dates.forEach(d => items.push({ date: d, text: '「コラム」を更新しました', page: 'column' }));
-    }
-    if (voiRes && voiRes.ok) {
-      const v = await voiRes.json();
-      (v.updates || []).forEach(u => items.push({ date: u.date, text: u.text || '「お客様の声」を更新しました', page: 'voices' }));
-    }
-    if (!items.length) return NEWS_FALLBACK;
-    return items.sort((a, b) => b.date.localeCompare(a.date) || (a.page === 'column' ? -1 : 1));
-  } catch (e) {
-    return NEWS_FALLBACK;
-  }
-}
-
-(async function() {
-  const list = document.getElementById('news-list');
-  if (!list) return;
-  const items = await fetchNewsFromManifests();
-  const top3 = items.slice(0, 3);
-  list.innerHTML = top3.map(n => {
-    const onClick = n.dynamic
-      ? `event.preventDefault();handleColumnLink('${n.page}');return false;`
-      : `event.preventDefault();showPage('${n.page}');return false;`;
-    const href = n.url ? n.url : `#${n.page}`;
-    const onClickAttr = n.url ? '' : ` onclick="${onClick}"`;
-    return `<li class="news-item"><a href="${href}"${onClickAttr} class="news-link"><span class="news-date">${n.date}</span><span class="news-text">${n.text}</span><span class="news-arrow">→</span></a></li>`;
-  }).join('');
-})();
-</script>
-
-
-<!-- BUY / SELL SECTION -->
-<section id="buy-sell" class="bs-section">
-  <style>
-    .bs-section{background:linear-gradient(160deg,#0D2238 0%,#1B3A5C 55%,#254E7A 100%);position:relative;overflow:hidden;padding:100px 24px;text-align:center;}
-    .bs-section::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.024) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.024) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
-    .bs-section>*{position:relative;z-index:2;}
-    .bs-label{font-family:'Playfair Display',serif;font-style:italic;font-size:.88rem;color:#D4B45A;letter-spacing:.18em;display:block;margin-bottom:14px;}
-    .bs-title{font-family:'Noto Serif JP',serif;color:#fff;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:500;letter-spacing:.1em;margin:0 0 16px;}
-    .bs-line{width:36px;height:1px;background:#C49A30;margin:0 auto 24px;}
-    .bs-lead{font-size:.9rem;color:rgba(255,255,255,.75);line-height:2;max-width:520px;margin:0 auto 44px;}
-    .bs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:880px;margin:0 auto;}
-    .bs-card{display:block;background:#fff;border-radius:6px;padding:46px 36px 40px;text-align:center;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(13,34,56,.25);transition:transform .25s,box-shadow .25s;}
-    .bs-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#C49A30;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-    .bs-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(13,34,56,.35);}
-    .bs-card:hover::before{transform:scaleX(1);}
-    .bs-en{font-family:'Playfair Display',serif;font-style:italic;color:#C49A30;font-size:.82rem;letter-spacing:.16em;display:block;margin-bottom:12px;}
-    .bs-card h3{font-family:'Noto Serif JP',serif;color:#1B3A5C;font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:600;letter-spacing:.18em;margin:0 0 14px;}
-    .bs-card p{color:#555;font-size:.85rem;line-height:2;margin:0 0 22px;}
-    .bs-more{display:inline-block;color:#C49A30;font-size:.85rem;font-weight:700;letter-spacing:.08em;border-bottom:1px solid #C49A30;padding-bottom:3px;transition:color .2s,border-color .2s;}
-    .bs-card:hover .bs-more{color:#A87E22;border-color:#A87E22;}
-    @media(max-width:760px){.bs-section{padding:72px 20px;}.bs-grid{grid-template-columns:1fr;max-width:440px;}.bs-card{padding:38px 26px 34px;}}
-  </style>
-  <span class="bs-label">Purchase &amp; Sale</span>
-  <h2 class="bs-title">購入も、売却も。</h2>
-  <div class="bs-line"></div>
-  <p class="bs-lead">ご検討の内容に合わせて、専用ページをご用意しています。<br>流れ・必要書類・費用まで、実務の観点からまとめました。</p>
-  <div class="bs-grid">
-    <a class="bs-card" href="/buy.html">
-      <span class="bs-en">Purchase</span>
-      <h3>購入</h3>
-      <p>暮らし方に合わせて、資産性と居住性の両面から評価。<br>「買うべきか」まで公平にご提案します。</p>
-      <span class="bs-more">購入について詳しく見る →</span>
-    </a>
-    <a class="bs-card" href="/sell.html">
-      <span class="bs-en">Sale</span>
-      <h3>売却</h3>
-      <p>相場・需給データにもとづく3段階査定と、<br>囲い込みゼロの透明な販売活動。</p>
-      <span class="bs-more">売却について詳しく見る →</span>
-    </a>
-  </div>
-</section>
-
-<!-- RECRUIT TEASER -->
-<section style="background:#fff;padding:96px 24px;text-align:center;">
-  <div class="container">
-    <div class="section-header fade-in visible">
-      <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.14em;">採用情報</h2>
-      <span class="section-en" style="display:block;margin-top:6px;">Recruit</span>
-      <div class="section-line"></div>
-      <p class="section-desc" style="margin-top:8px;">株式会社スピアードでは、一緒に働いてくれる方を募集しています。</p>
-    </div>
-    <div class="fade-in visible" style="margin-top:8px;">
-      <a href="#recruit" onclick="showPage('recruit');return false;" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:white;padding:15px 38px;text-decoration:none;font-size:.92rem;letter-spacing:.08em;border-radius:30px;transition:background .2s,transform .2s;" onmouseover="this.style.background='var(--navy-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--navy)';this.style.transform=''">採用情報に関してはこちら <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
     </div>
   </div>
 </section>
@@ -1702,61 +1659,11 @@ async function fetchNewsFromManifests() {
   <span class="review-type type-buy">購入</span>
   <p class="review-text">大変親身になって相談に乗ってくださいました。物件の選定から、銀行融資についてもかなりの時間を費やしていただき本当に恐縮です。また購入後のサポートにも乗っていただき感謝の言葉しかありません。YouTubeもいつも楽しく拝見させていただいております。</p>
 </div>
-<div class="review-card">
-  <div class="review-header">
-    <div class="review-avatar navy">Y</div>
-    <div class="review-meta">
-      <div class="review-name">Y.K.様（男性・20代）</div>
-    </div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="review-text">初めてのマンション購入をサポートして頂きました。当初は何から手を付けていくべきかも分からない中でしたが、丁寧なご説明とスピーディーなご対応をして頂き、とても安心して物件の購入をすることが出来ました。マンション概要のみならず、資産形成という視点からもアドバイスを頂き大変助かりました。今後の住み替えの際にも是非お願いしたいです！ありがとうございました！</p>
-</div>
-<div class="review-card">
-  <div class="review-header">
-    <div class="review-avatar teal">T</div>
-    <div class="review-meta">
-      <div class="review-name">T.T.様（男性・20代）</div>
-    </div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="review-text">この度はありがとうございました。伴走とはこのことで、物件の選定から引渡し、その後まで多大なサポートをいただきました。これからも売却や住み替えなど不動産の悩みは相談させていただきます。</p>
-</div>
-<div class="review-card">
-  <div class="review-header">
-    <div class="review-avatar gold">S</div>
-    <div class="review-meta">
-      <div class="review-name">S.T.様（男性・20代）</div>
-    </div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="review-text">知人の紹介で依頼しました。不動産は何も分からない状態でしたが、熱心にサポートいただきました。将来の売却の際はまたお世話になります。</p>
-</div>
-<div class="review-card">
-  <div class="review-header">
-    <div class="review-avatar navy">M</div>
-    <div class="review-meta">
-      <div class="review-name">M.T.様（男性・20代）</div>
-    </div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="review-text">初めての不動産購入で不安も多かったのですが、いつもレスポンスが早く、どんな質問にも分かりやすく答えていただけて本当に助かりました。おかげで購入までとてもスムーズに進み、安心してお任せすることができました。誠実で信頼できる方なので、不動産購入を検討している方にぜひおすすめしたいです。</p>
-</div>
-<div class="review-card">
-  <div class="review-header">
-    <div class="review-avatar teal">T</div>
-    <div class="review-meta">
-      <div class="review-name">T.K.様（男性・20代）</div>
-    </div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="review-text">この度はありがとうございました。マンションの内見から契約、引渡しまでスムーズに進めていただき、大変感謝しております。売却の際もぜひお願いしようと思います。</p>
-</div>
+
+
+
+
+
         <div class="review-card">
       <div class="review-header">
         <div class="review-avatar navy">M</div>
@@ -3422,23 +3329,41 @@ async function fetchNewsFromManifests() {
 </div>
 
 <!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-links">
-    <a href="/" onclick="showPage('home');window.scrollTo(0,0);return false;">トップ</a>
-    <a href="#properties" onclick="showPage('properties');return false;">販売物件</a>
-    <a href="#results" onclick="showPage('results');return false;">成約実績</a>
-    <a href="#voices" onclick="showPage('voices');return false;">お客様の声</a>
-    <a href="#faq" onclick="showPage('faq');return false;">よくあるご質問</a>
-    <a href="#recruit" onclick="showPage('recruit');return false;">採用情報</a>
-    <a href="#access" onclick="showPage('access');return false;">アクセス</a>
-    <a href="#column" onclick="showPage('column');return false;">コラム</a>
-    <a href="/buy.html">購入について</a>
-    <a href="/sell.html">売却について</a>
-    <a href="/consulting.html">不動産コンサルティング</a>
-    <a href="#privacy" onclick="showPage('privacy');return false;">プライバシーポリシー</a>
-    <a href="#contact" onclick="showPage('home');setTimeout(()=>scrollToSection('contact'),100);return false;">お問合せ</a>
+<footer class="site-footer">
+  <div class="ft-inner">
+    <div class="ft-company">
+      <img src="/logo.png" alt="株式会社スピアード" class="ft-logo" width="140" height="34" loading="lazy">
+      <dl>
+        <dt>所在地</dt><dd>〒107-0062 東京都港区南青山2-2-8 DFビル10F</dd>
+        <dt>最寄駅</dt><dd>青山一丁目駅 5番出口 徒歩2分</dd>
+        <dt>TEL</dt><dd><a href="tel:05071093701">050-7109-3701</a></dd>
+        <dt>MAIL</dt><dd><a href="mailto:info@speard.jp">info@speard.jp</a></dd>
+        <dt>免許</dt><dd>宅地建物取引業 東京都知事（1）第112752号</dd>
+      </dl>
+    </div>
+    <div class="ft-nav">
+      <div><h4>Service</h4><ul>
+        <li><a href="/buy.html">購入について</a></li>
+        <li><a href="/sell.html">売却について</a></li>
+        <li><a href="/consulting.html">不動産コンサルティング</a></li>
+        <li><a href="/#contact">無料相談</a></li>
+      </ul></div>
+      <div><h4>Property</h4><ul>
+        <li><a href="/#properties">販売物件</a></li>
+        <li><a href="/#results">成約実績</a></li>
+        <li><a href="/#voices">お客様の声</a></li>
+        <li><a href="/#column">不動産コラム</a></li>
+      </ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="/#company">会社概要</a></li>
+        <li><a href="/#faq">よくあるご質問</a></li>
+        <li><a href="/#access">アクセス</a></li>
+        <li><a href="/#recruit">採用情報</a></li>
+        <li><a href="/#privacy">プライバシーポリシー</a></li>
+      </ul></div>
+    </div>
   </div>
-  <p>&copy; 2026 Speard Inc. All Rights Reserved.</p>
+  <div class="ft-bottom"><span>株式会社スピアード</span><span>&copy; 2026 Speard Inc. All Rights Reserved.</span></div>
 </footer>
 
 <script>
@@ -4201,5 +4126,6 @@ window.addEventListener('popstate', e => {
 
 </script>
 
+<script src="/assets/site.js?v=20261010" defer></script>
 </body>
 </html>
