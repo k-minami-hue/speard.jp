@@ -603,9 +603,4 @@ if __name__ == '__main__':
     props = build_properties()
     res = build_results()
     n = build_sitemap(cols, props)
-    # 各ページの「成約実績◯件」表示を manifest の件数に同期
-    for f in ['index.html', 'buy.html', 'sell.html']:
-        t = read(f)
-        t2 = re.sub(r'(<span data-results-count>)\d+(</span>)', lambda m: f'{m.group(1)}{len(res)}{m.group(2)}', t)
-        if t2 != t: write(f, t2)
     print(f'columns: {len(cols)}  properties: {len(props)}  results: {len(res)}  sitemap urls: {n}')
