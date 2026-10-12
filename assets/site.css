@@ -203,7 +203,7 @@ img{ max-width:100%; height:auto; }
 .scroll-indicator{ display:none !important; }
 .sp-cta-bar a{ margin:0 !important; height:var(--sp-cta-h); border-radius:0 !important; }
 .mobile-menu{ background:#0D2238 !important; }
-@media (min-width:769px){ .contact-info-row{ flex-wrap:nowrap !important; justify-content:center; gap:12px !important; } }
+@media (min-width:769px){ .contact-info-row{ flex-wrap:nowrap !important; justify-content:center; gap:12px !important; } .contact-info-row .contact-info-item{ white-space:nowrap; flex:0 0 auto; padding:12px 20px !important; letter-spacing:.04em !important; } }
 
 /* コラム・成約実績など一覧ページ（SPA／静的ページ共通） */
 .col-hero-inner{ padding-left:20px; padding-right:20px; }
