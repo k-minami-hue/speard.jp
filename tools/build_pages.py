@@ -272,8 +272,8 @@ AUTHOR_BOX = '''<section class="column-author">
 def legacy_columns():
     """旧形式の2本（購入の流れ／売却の流れ）を tools/legacy/ の原稿から抽出"""
     out = []
-    for cid, pid, cat, tag, pub in [('purchase-flow', 'page-column-purchase-flow', 'buy', '購入編', '2026.02.19'),
-                                    ('sale-flow', 'page-column-sale-flow', 'sell', '売却編', '2026.02.12')]:
+    for cid, pid, cat, tag, pub in [('purchase-flow', 'page-column-purchase-flow', 'buy', '購入編', '2026.03.02'),
+                                    ('sale-flow', 'page-column-sale-flow', 'sell', '売却編', '2026.02.23')]:
         blk = read(f'tools/legacy/{pid}.html')  # index.html から切り出した原稿（検索の重複対策）
         title = re.sub(r'<[^>]+>', '', re.search(r'<h1 class="column-h1">(.*?)</h1>', blk, re.S).group(1)).strip()
         hero_src = re.search(r'<figure class="column-hero-fig">\s*<img src="([^"]+)"', blk).group(1)
@@ -282,7 +282,7 @@ def legacy_columns():
         body = blk[blk.index('>', a) + 1:b]
         # 記事内の旧見出し（テンプレのh1と重複）を除去
         body = re.sub(r'^\s*<h1>.*?</h1>', '', body, count=1, flags=re.S)
-        out.append({'id': cid, 'category': cat, 'tag': tag, 'title': title, 'date': pub, 'modified': mod,
+        out.append({'id': cid, 'category': cat, 'tag': tag, 'title': title, 'date': pub, 'modified': max(pub, mod),
                     'hero': '/' + hero_src.lstrip('/'), 'thumb': '/' + hero_src.lstrip('/'), 'body': body})
     return out
 
