@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /inquiry/
+# 記事の部品ファイル（静的ページ /columns/<id>/ と同じ本文）と生成用スクリプトは検索対象外
+Disallow: /columns/purchase/*.html$
+Disallow: /columns/sale/*.html$
+Disallow: /tools/
 
 Sitemap: https://speard.jp/sitemap.xml

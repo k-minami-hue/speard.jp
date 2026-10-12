@@ -270,14 +270,11 @@ AUTHOR_BOX = '''<section class="column-author">
 </section>'''
 
 def legacy_columns():
-    """index.html に直書きされている2本（購入の流れ／売却の流れ）を抽出"""
-    idx = read('index.html')
+    """旧形式の2本（購入の流れ／売却の流れ）を tools/legacy/ の原稿から抽出"""
     out = []
     for cid, pid, cat, tag, pub in [('purchase-flow', 'page-column-purchase-flow', 'buy', '購入編', '2026.02.19'),
                                     ('sale-flow', 'page-column-sale-flow', 'sell', '売却編', '2026.02.12')]:
-        i = idx.index(f'<div id="{pid}"')
-        j = idx.index('<div id="page-', i + 10)
-        blk = idx[i:j]
+        blk = read(f'tools/legacy/{pid}.html')  # index.html から切り出した原稿（検索の重複対策）
         title = re.sub(r'<[^>]+>', '', re.search(r'<h1 class="column-h1">(.*?)</h1>', blk, re.S).group(1)).strip()
         hero_src = re.search(r'<figure class="column-hero-fig">\s*<img src="([^"]+)"', blk).group(1)
         mod = re.search(r'column-meta-date">([^<]+)<', blk).group(1)
