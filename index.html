@@ -1269,7 +1269,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
       <p class="section-desc">弊社が取引した物件の一例です。</p>
     </div>
     <div class="hm-res-grid" id="hm-res-grid" aria-live="polite"></div>
-    <div class="hm-more"><a href="/results/" class="hm-more-btn">成約実績をすべて見る<span id="hm-res-count"></span></a></div>
+    <div class="hm-more"><a href="/results/" class="hm-more-btn">その他の成約実績を見る</a></div>
   </div>
 </section>
 
@@ -1352,7 +1352,6 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
     var list=(d.results||[]), g=document.getElementById('hm-res-grid');
     if(!g) return;
     if(!list.length){document.getElementById('home-results').style.display='none';return;}
-    var c=document.getElementById('hm-res-count'); if(c) c.textContent='（'+list.length+'件）';
     g.innerHTML=list.slice(0,8).map(function(x){
       return '<div class="hm-res"><div class="hm-res-img">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+' 外観" loading="lazy" decoding="async">':'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></div>';
     }).join('');

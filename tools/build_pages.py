@@ -564,7 +564,7 @@ def build_results():
     crumbs = [('トップ', '/'), ('成約実績', '/results/')]
     body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}
-{hero('Transaction Results', '成約実績', f'スピアードがお取引をお手伝いした物件の一部（{len(res)}件）をご紹介します。')}
+{hero('Transaction Results', '成約実績', 'スピアードがお取引をお手伝いした物件の、ほんの一例をご紹介します。')}
 <div class="subpage-content">
   <div class="res-grid">{''.join(cards)}</div>
   <p class="res-credits">{credits}</p>
@@ -573,7 +573,7 @@ def build_results():
 </div>'''
     names = '、'.join(x['name'] for x in res[:6])
     write('results/index.html', page('/results/', '成約実績｜武蔵小杉・湾岸・都心のタワーマンション',
-                                     f'株式会社スピアードの成約実績{len(res)}件。{names}など、首都圏のタワーマンションを中心に売買をお手伝いしています。',
+                                     f'株式会社スピアードの成約実績（一例）。{names}など、首都圏のタワーマンションを中心に売買をお手伝いしています。',
                                      body, breadcrumbs=crumbs))
     return res
 
