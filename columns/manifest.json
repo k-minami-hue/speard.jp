@@ -1,6 +1,106 @@
 {
   "columns": [
     {
+      "id": "kariire-jogen",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "住宅ローンはいくらまで借りていいか——「借りられる額」と「返せる額」は違う",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/kariire-jogen.jpg",
+      "thumb": "/columns/hero/kariire-jogen-thumb.jpg",
+      "file": "columns/purchase/column_kariire_jogen.html",
+      "description": "年収800万円で銀行が貸せる上限は約5,650万円、無理なく返せる目安は3,800万〜4,600万円。返済負担率と審査金利の仕組み、手取りと管理費から逆算する借入額、上限側を取ってよい条件を整理。"
+    },
+    {
+      "id": "zoyo-hikazei",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "親からの住宅資金援助——贈与税の非課税枠を使う条件と、2026年末の期限",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/zoyo-hikazei.jpg",
+      "thumb": "/columns/hero/zoyo-hikazei-thumb.jpg",
+      "file": "columns/purchase/column_zoyo_hikazei.html",
+      "description": "住宅取得等資金の贈与税非課税は最大1,000万円、2026年12月31日までの贈与が対象。中古マンションが500万円枠になりやすい理由、新築の引渡し時期の落とし穴、申告要件、相続時精算課税との使い分けを整理。"
+    },
+    {
+      "id": "koteishisanzei",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "マンションの固定資産税はいくら？計算方法と新築軽減、タワマンの階数補正",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/koteishisanzei.jpg",
+      "thumb": "/columns/hero/koteishisanzei-thumb.jpg",
+      "file": "columns/purchase/column_koteishisanzei.html",
+      "description": "マンションの固定資産税・都市計画税の計算方法を試算付きで整理。住宅用地特例、新築の5年間2分の1軽減と6年目の上昇、2026年度改正での延長、タワマンの階層別補正（40階は1階の1.1倍）まで。"
+    },
+    {
+      "id": "shaon",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "マンションの音は図面で見抜く——スラブ厚・二重床・遮音等級の読み方",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/shaon.jpg",
+      "thumb": "/columns/hero/shaon-thumb.jpg",
+      "file": "columns/purchase/column_shaon.html",
+      "description": "マンションの上階の音は内見では分からない。重量床衝撃音はスラブ厚、軽量床衝撃音は床材で決まる。スラブ厚200mmの目安、二重床と直床の違い、遮音等級LL-45・ΔLL(I)-4とリフォーム時の注意点を整理。"
+    },
+    {
+      "id": "kyutaishin",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "旧耐震マンションは買っていいか——1981年の線引きと、ローン・税制・出口への影響",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/kyutaishin.jpg",
+      "thumb": "/columns/hero/kyutaishin-thumb.jpg",
+      "file": "columns/purchase/column_kyutaishin.html",
+      "description": "旧耐震マンションは住宅ローン控除・登録免許税の軽減・贈与税の非課税が原則使えず、ローンと出口にも制約がある。1981年6月の線引き、2026年4月施行の区分所有法改正、それでも買ってよい3条件を整理。"
+    },
+    {
+      "id": "tokibo",
+      "category": "buy",
+      "tags": [
+        "購入編",
+        "売却編"
+      ],
+      "tag": "購入・売却",
+      "title": "マンションの登記簿の読み方——買う前・売る前に見るべき3か所",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/tokibo.jpg",
+      "thumb": "/columns/hero/tokibo-thumb.jpg",
+      "file": "columns/purchase/column_tokibo.html",
+      "description": "登記簿で見るべきは表題部の新築年月日と床面積、甲区の所有者と取得原因、乙区の抵当権の3か所。税制優遇の可否、相続未登記や差押えの確認、売主のローン残高の推定まで、取引前のチェック方法を整理。"
+    },
+    {
+      "id": "kokuchi-gimu",
+      "category": "sell",
+      "tags": [
+        "売却編",
+        "購入編"
+      ],
+      "tag": "購入・売却",
+      "title": "事故物件の告知ルール——国交省ガイドラインで決まった「言うべきこと」",
+      "date": "2026.10.12",
+      "hero": "/columns/hero/kokuchi-gimu.jpg",
+      "thumb": "/columns/hero/kokuchi-gimu-thumb.jpg",
+      "file": "columns/purchase/column_kokuchi_gimu.html",
+      "description": "自然死や日常生活での事故死は原則告知不要、自殺や特殊清掃を伴う死は売買では期間の定めなく告知が必要。国交省ガイドラインの線引き、告知する内容、売主が隠すリスク、買主の確認方法を整理。"
+    },
+    {
       "id": "hendo-kotei",
       "category": "buy",
       "tags": [
