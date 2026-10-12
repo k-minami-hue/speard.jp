@@ -101,7 +101,6 @@ img{ max-width:100%; height:auto; }
   .sc-list li{ font-size:.92rem !important; line-height:1.8; }
   .sc-tagline{ font-size:.98rem !important; }
   .president-message p{ font-size:.95rem !important; line-height:2.05 !important; }
-  .president-message p br{ display:none; }
   .review-text{ font-size:.93rem !important; line-height:1.95 !important; }
   .faq-text{ font-size:.95rem !important; }
   .btn-primary, .btn-outline{ width:100% !important; max-width:320px; padding:15px 0 !important; font-size:.92rem !important; }
@@ -212,4 +211,11 @@ img{ max-width:100%; height:auto; }
   .col-card-body{ padding:16px 18px 18px !important; }
   .col-card-thumb{ aspect-ratio:16/9; }
   .col-card-title{ font-size:.95rem; line-height:1.6; }
+}
+
+/* 代表挨拶：行を固定し、狭い画面では読点などの区切りでのみ折り返す */
+.president-message .pm-line{ display:block; }
+.president-message .pm-ph{ display:inline-block; }
+@media (max-width:768px){
+  .president-message p{ text-align:left !important; font-size:.9rem !important; letter-spacing:.02em; }
 }
