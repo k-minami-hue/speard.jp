@@ -564,7 +564,7 @@ def build_results():
     crumbs = [('トップ', '/'), ('成約実績', '/results/')]
     body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}
-{hero('Transaction Results', '成約実績', 'スピアードがお取引をお手伝いした物件の、ほんの一例をご紹介します。')}
+{hero('Transaction Results', '成約実績', 'スピアードがお取引をお手伝いした物件の、一例をご紹介します。')}
 <div class="subpage-content">
   <div class="res-grid">{''.join(cards)}</div>
   <p class="res-credits">{credits}</p>
