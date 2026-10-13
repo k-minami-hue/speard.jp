@@ -115,6 +115,20 @@
       "description": "住宅取得等資金の贈与税非課税は最大1,000万円、2026年12月31日までの贈与が対象。中古マンションが500万円枠になりやすい理由、新築の引渡し時期の落とし穴、申告要件、相続時精算課税との使い分けを整理。"
     },
     {
+      "id": "zansai-baikyaku",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "住宅ローンが残っていても家は売れるか——残債と売却価格の関係、足りない場合の選択肢",
+      "date": "2026.09.16",
+      "hero": "/columns/hero/zansai-baikyaku.jpg",
+      "thumb": "/columns/hero/zansai-baikyaku-thumb.jpg",
+      "file": "columns/purchase/column_zansai_baikyaku.html",
+      "description": "住宅ローンが残っていても、引渡し時に全額返せれば家は売れる。決済日の流れ、アンダーローンとオーバーローンの見分け方、差額を現金・住み替えローン・時期の見直しで埋める方法を解説。"
+    },
+    {
       "id": "kyutaishin",
       "category": "buy",
       "tags": [
