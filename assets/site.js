@@ -1,6 +1,6 @@
 /* site.js ― 共通スクリプト（SP固定CTA／メニュー制御／トップ内リンク／計測） */
 /* ---- アクセス解析（GA4：G-VZ45Q8VCWE） ----
-   タグ本体は各HTMLの<head>に設置済み。ここでは電話・LINE・問合せ・フォーム送信をイベント記録する。 */
+   タグ本体は各HTMLの<head>に設置済み。ここでは電話・LINE・問合せボタンのクリックと、フォーム送信ボタンの押下をイベント記録する。 */
 (function () {
   if (typeof window.gtag !== 'function') return;
   document.addEventListener('click', function (e) {
@@ -10,10 +10,11 @@
     else if (h.indexOf('line.me') > -1) gtag('event', 'click_line', { location: where });
     else if (/#contact$/.test(h)) gtag('event', 'click_contact', { location: where });
   });
+  // 送信ボタンが押された回数（入力エラーを含む）。実際の問合せ完了は index.html の送信成功時に generate_lead で記録する
   document.addEventListener('submit', function (e) {
     if (e.target && e.target.id === 'contact-form') {
       var t = e.target.querySelector('[name="type"]');
-      gtag('event', 'generate_lead', { inquiry_type: t ? t.value : '' });
+      gtag('event', 'form_submit_attempt', { inquiry_type: t ? t.value : '' });
     }
   }, true);
 })();

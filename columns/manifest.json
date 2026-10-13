@@ -282,7 +282,8 @@
       "date": "2026.08.03",
       "hero": "/columns/hero/kaikae-junban.jpg",
       "thumb": "/columns/hero/kaikae-junban-thumb.jpg",
-      "file": "columns/purchase/column_kaikae_junban.html"
+      "file": "columns/purchase/column_kaikae_junban.html",
+      "description": "住み替えは売却先行か購入先行か。答えは今の家がいくらで、どれだけ確実に売れるかで決まる。両者のメリット・デメリット、同日決済の条件、スケジュールの目安、見落としがちなコストと税金を図解で整理。"
     },
     {
       "id": "shisansei-joken",
@@ -292,7 +293,8 @@
       "date": "2026.07.27",
       "hero": "/columns/hero/shisansei-joken.jpg",
       "thumb": "/columns/hero/shisansei-joken-thumb.jpg",
-      "file": "columns/purchase/column_shisansei_joken.html"
+      "file": "columns/purchase/column_shisansei_joken.html",
+      "description": "資産性の高いマンションの条件を数字で定義。駅徒歩7分以内、総戸数200戸以上、財閥系・電鉄系ブランド、管理状態の4軸で判断する。全部はそろわない前提で、妥協してよい条件の決め方まで解説。"
     },
     {
       "id": "uridashi-kakaku",
@@ -302,7 +304,8 @@
       "date": "2026.07.20",
       "hero": "/columns/hero/uridashi-kakaku.jpg",
       "thumb": "/columns/hero/uridashi-kakaku-thumb.jpg",
-      "file": "columns/purchase/column_uridashi_kakaku.html"
+      "file": "columns/purchase/column_uridashi_kakaku.html",
+      "description": "売却の成否は売り出し価格で8割決まる。首都圏中古マンションは成約まで平均約3ヶ月。チャレンジ価格が許される物件の3条件、即死するパターン、価格改定を事前に設計する方法を市場データで解説。"
     },
     {
       "id": "loan-kojo",
@@ -312,7 +315,8 @@
       "date": "2026.07.13",
       "hero": "/columns/hero/loan-kojo.jpg",
       "thumb": "/columns/hero/loan-kojo-thumb.jpg",
-      "file": "columns/purchase/column_loan_kojo.html"
+      "file": "columns/purchase/column_loan_kojo.html",
+      "description": "住宅ローン控除は年末残高×0.7%を最長13年控除。2026年度税制改正で2030年末入居まで延長され、中古住宅も13年に拡充。借入限度額、適用条件、確定申告と年末調整、実務上の注意点を整理。"
     },
     {
       "id": "baikyaku-zeikin",
@@ -322,7 +326,8 @@
       "date": "2026.07.06",
       "hero": "/columns/hero/baikyaku-zeikin.jpg",
       "thumb": "/columns/hero/baikyaku-zeikin-thumb.jpg",
-      "file": "columns/purchase/column_baikyaku_zeikin.html"
+      "file": "columns/purchase/column_baikyaku_zeikin.html",
+      "description": "マイホーム売却は多くの場合、税金がかからない。課税は利益が出たときだけで、所有5年以下なら39.63%、5年超なら20.315%。3,000万円特別控除の使い方、損失時の申告、確定申告の注意点を解説。"
     },
     {
       "id": "shuzen-kiken",
@@ -332,7 +337,8 @@
       "date": "2026.06.29",
       "hero": "/columns/hero/shuzen-kiken.jpg",
       "thumb": "/columns/hero/shuzen-kiken-thumb.jpg",
-      "file": "columns/purchase/column_shuzen_kiken.html"
+      "file": "columns/purchase/column_shuzen_kiken.html",
+      "description": "修繕積立金はマンションの健康診断書。国交省ガイドラインの目安と市場の実勢を物差しに、積立金が安すぎる物件や段階増額方式の罠を見抜く方法と、購入前に確認すべき3つの書類を解説。"
     },
     {
       "id": "tawaman-kensho",
@@ -342,7 +348,8 @@
       "date": "2026.06.22",
       "hero": "/columns/hero/tawaman-kensho.jpg",
       "thumb": "/columns/hero/tawaman-kensho-thumb.jpg",
-      "file": "columns/purchase/column_tawaman_kensho.html"
+      "file": "columns/purchase/column_tawaman_kensho.html",
+      "description": "タワマンは買ってはいけないのか。修繕費、管理費、災害、暴落という4つの否定論を公的データで検証。問題はタワマンかどうかではない。買ってはいけないタワマンと買っていいタワマンの見分け方を整理。"
     },
     {
       "id": "pairloan-kiken",
@@ -352,7 +359,8 @@
       "date": "2026.06.15",
       "hero": "/columns/hero/pairloan-kiken.jpg",
       "thumb": "/columns/hero/pairloan-kiken-thumb.jpg",
-      "file": "columns/purchase/column_pairloan_kiken.html"
+      "file": "columns/purchase/column_pairloan_kiken.html",
+      "description": "ペアローンは危険か。借入額・住宅ローン控除・団信のメリットと、離婚や収入減で行き詰まるケースを整理。道具としてのペアローンを安全に使うための、正しい組み方の3つのルールを解説。"
     },
     {
       "id": "eigyo-talk",
@@ -366,7 +374,8 @@
       "date": "2026.06.08",
       "hero": "/columns/hero/eigyo-talk.jpg",
       "thumb": "/columns/hero/eigyo-talk-thumb.jpg",
-      "file": "columns/purchase/column_eigyo_talk.html"
+      "file": "columns/purchase/column_eigyo_talk.html",
+      "description": "「掘り出し物です」「他にも検討している方がいます」「今だけです」など、不動産営業の定番トーク7つを仲介会社代表が翻訳。トークの裏の意図と真偽の確かめ方、良い営業と危険な営業の見分け方を解説。"
     },
     {
       "id": "loan-meigi",
@@ -376,7 +385,8 @@
       "date": "2026.06.01",
       "hero": "/columns/hero/loan-meigi.jpg",
       "thumb": "/columns/hero/loan-meigi-thumb.jpg",
-      "file": "columns/purchase/column_loan_meigi.html"
+      "file": "columns/purchase/column_loan_meigi.html",
+      "description": "共働き夫婦の住宅ローンは収入合算・連帯債務・ペアローンの3方式。借入額、団信の範囲、住宅ローン控除、離婚・相続時のリスクの違いを比較し、収入差や目的に応じた選び方を整理。"
     },
     {
       "id": "bank-erabikata",
@@ -386,7 +396,8 @@
       "date": "2026.05.25",
       "hero": "/columns/hero/bank-erabikata.jpg",
       "thumb": "/columns/hero/bank-erabikata-thumb.jpg",
-      "file": "columns/purchase/column_bank_erabikata.html"
+      "file": "columns/purchase/column_bank_erabikata.html",
+      "description": "住宅ローンは金利だけで選ぶと損をする。比べるべきは事務手数料を含めた総返済額と団信の保障範囲。事務手数料型と保証料型の違い、ネット銀行・メガバンク・地銀の使い分け、提携ローンの注意点を解説。"
     },
     {
       "id": "kasai-hoken",
@@ -396,7 +407,8 @@
       "date": "2026.05.18",
       "hero": "/columns/hero/kasai-hoken.jpg",
       "thumb": "/columns/hero/kasai-hoken-thumb.jpg",
-      "file": "columns/purchase/column_kasai_hoken.html"
+      "file": "columns/purchase/column_kasai_hoken.html",
+      "description": "火災保険料はこの10年で累計40%以上値上がり。補償は足すより削る。タワマン高層階の水災補償の外し方、免責金額の設定、最長5年契約の割引、地震保険のセット加入まで、保険料を抑える選び方を解説。"
     },
     {
       "id": "souzoku-baikyaku",
@@ -406,7 +418,8 @@
       "date": "2026.05.11",
       "hero": "/columns/hero/souzoku-baikyaku.jpg",
       "thumb": "/columns/hero/souzoku-baikyaku-thumb.jpg",
-      "file": "columns/purchase/column_souzoku_baikyaku.html"
+      "file": "columns/purchase/column_souzoku_baikyaku.html",
+      "description": "相続したマンションの売却は期限と税金で損得が決まる。相続放棄3ヶ月、相続税申告10ヶ月、相続登記3年などの期限一覧、遺産分割協議から売却までの流れ、取得費5%の落とし穴と取得費加算の特例を整理。"
     },
     {
       "id": "uridoki",
@@ -416,7 +429,8 @@
       "date": "2026.05.04",
       "hero": "/columns/hero/uridoki.jpg",
       "thumb": "/columns/hero/uridoki-thumb.jpg",
-      "file": "columns/purchase/column_uridoki.html"
+      "file": "columns/purchase/column_uridoki.html",
+      "description": "マンションの売り時は市場の天井ではなく、税制・築年数・需要期・市況の4軸で決める。5年超の判定は売却年の1月1日時点。大規模修繕や積立金値上げとの前後関係、1〜3月と9〜10月の需要期を解説。"
     },
     {
       "id": "kanrihi-shuzen",
@@ -426,7 +440,8 @@
       "date": "2026.04.27",
       "hero": "/columns/hero/kanrihi-shuzen.jpg",
       "thumb": "/columns/hero/kanrihi-shuzen-thumb.jpg",
-      "file": "columns/purchase/column_kanrihi_shuzenhi.html"
+      "file": "columns/purchase/column_kanrihi_shuzenhi.html",
+      "description": "「マンションは管理を買え」の本当の意味は、将来の出費と資産価値が管理組合の家計簿に書いてあること。管理費と修繕積立金の違い、段階増額方式の構造、購入前に書類で確認できる7項目を解説。"
     },
     {
       "id": "asset-value",
@@ -436,7 +451,8 @@
       "date": "2026.04.20",
       "hero": "/columns/hero/asset-value.jpg",
       "thumb": "/columns/hero/asset-value-thumb.jpg",
-      "file": "columns/purchase/column_asset_value.html"
+      "file": "columns/purchase/column_asset_value.html",
+      "description": "資産価値とは将来の買い手の数。出口から逆算して、資産価値が落ちにくいマンションを選ぶ7つの条件を整理。迷ったときの優先順位と、購入前に成約事例で感覚を数字に変える検証方法を解説。"
     },
     {
       "id": "shinchiku-chuko",
@@ -446,7 +462,8 @@
       "date": "2026.04.13",
       "hero": "/columns/hero/shinchiku-chuko.jpg",
       "thumb": "/columns/hero/shinchiku-chuko-thumb.jpg",
-      "file": "columns/purchase/column_shinchiku_chuko.html"
+      "file": "columns/purchase/column_shinchiku_chuko.html",
+      "description": "新築か中古かは出口があるかで選ぶ。新築プレミアムの正体、諸費用を含めた費用構造の違い、それぞれを選ぶ合理性とリスクを分解し、資産性の観点から判断する枠組みを提示。"
     },
     {
       "id": "yield",
@@ -456,7 +473,8 @@
       "date": "2026.04.06",
       "hero": "/columns/hero/yield.jpg",
       "thumb": "/columns/hero/yield-thumb.jpg",
-      "file": "columns/purchase/column_yield.html"
+      "file": "columns/purchase/column_yield.html",
+      "description": "表面利回りの高さだけで投資用物件を選ぶと失敗する。表面利回りと実質利回りの違い、高利回りの裏にある理由、投資判断で見るべき3つの軸、ローンを使ったレバレッジの注意点を解説。"
     },
     {
       "id": "pricing",
@@ -466,7 +484,8 @@
       "date": "2026.03.30",
       "hero": "/columns/hero/pricing.jpg",
       "thumb": "/columns/hero/pricing-thumb.jpg",
-      "file": "columns/purchase/column_pricing.html"
+      "file": "columns/purchase/column_pricing.html",
+      "description": "高すぎる売り出し価格は、結果的に売却総額を下げる。査定額を鵜呑みにしてはいけない理由、最初の2週間の反響で価格を判断する方法、チャレンジ価格の試し方、価格改定のタイミングと幅を解説。"
     },
     {
       "id": "trouble",
@@ -480,7 +499,8 @@
       "date": "2026.03.23",
       "hero": "/columns/hero/trouble.jpg",
       "thumb": "/columns/hero/trouble-thumb.jpg",
-      "file": "columns/purchase/column_trouble.html"
+      "file": "columns/purchase/column_trouble.html",
+      "description": "不動産取引で多いトラブルは、告知義務違反と重説の不備、ローン本審査の否決、引渡し後の欠陥、仲介会社の囲い込みの4つ。それぞれが起きる理由と、事前の準備で防ぐ方法を実務の視点で解説。"
     },
     {
       "id": "kaenai-5features",
@@ -490,7 +510,8 @@
       "date": "2026.03.16",
       "hero": "/columns/hero/kaenai-5features.jpg",
       "thumb": "/columns/hero/kaenai-5features-thumb.jpg",
-      "file": "columns/purchase/column_kaenai_5features.html"
+      "file": "columns/purchase/column_kaenai_5features.html",
+      "description": "物件探しを何年も続けて買えない人には共通点がある。判断が遅い、評論家になる、青い鳥症候群、価格交渉好き、決断力不足の5つ。200組以上の取引から見えた特徴と、予算とエリアを先に決める抜け出し方を解説。"
     },
     {
       "id": "naiken-points",
@@ -500,7 +521,8 @@
       "date": "2026.03.09",
       "hero": "columns/purchase/img3_inspection.png",
       "thumb": "columns/purchase/img3_inspection.png",
-      "file": "columns/purchase/column_naiken_points.html"
+      "file": "columns/purchase/column_naiken_points.html",
+      "description": "内見の目的は、気に入るかではなく出口で売れるかを見極めること。内見前の3つの準備、室内5つのチェックポイント、共用部・周辺環境の見方、内見時に必ず聞くべき質問リストを解説。"
     }
   ]
 }
