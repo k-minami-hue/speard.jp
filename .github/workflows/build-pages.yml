@@ -15,6 +15,7 @@ on:
       - 'area/images.json'
       - 'index.html'
       - 'tools/build_pages.py'
+      - 'tools/pages/**'
   workflow_dispatch:
 
 permissions:

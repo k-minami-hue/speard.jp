@@ -58,6 +58,8 @@ def header():
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
   <a href="/area/">対応エリア</a>
+  <a href="/simulator/">諸費用・ローンシミュレーター</a>
+  <a href="/satei/">無料売却査定</a>
   <div class="mm-group">Property</div>
   <a href="/properties/">販売物件</a>
   <a href="/results/">成約実績</a>
@@ -94,6 +96,8 @@ FOOTER = f'''<footer class="site-footer">
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
         <li><a href="/area/">対応エリア</a></li>
+        <li><a href="/simulator/">諸費用シミュレーター</a></li>
+        <li><a href="/satei/">無料売却査定</a></li>
         <li><a href="/#contact">無料相談</a></li>
       </ul></div>
       <div><h4>Property</h4><ul>
@@ -338,6 +342,8 @@ def col_card(c):
 
 
 def contact_url(kind, src=''):
+    if kind == 'sell':
+        return '/satei/' + (f'?from={src}' if src else '')
     return f'/?inquiry={kind}' + (f'&amp;from={src}' if src else '') + '#contact'
 
 def col_kind(c):
@@ -388,7 +394,8 @@ def related_cols(c, cols, n=6):
     pool.sort(key=score, reverse=True)
     return pool[:n]
 
-AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">エリア別のご相談</div><ul class="cs-recent">'
+AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">計算してみる</div><ul class="cs-recent"><li><a href="/simulator/#buy">購入の諸費用と月々の返済額</a></li><li><a href="/simulator/#sell">売却の手取り（税金・手数料込み）</a></li><li><a href="/simulator/#limit">住宅ローンの借入可能額</a></li></ul></div>'
+             '<div class="cs-section"><div class="cs-section-head">エリア別のご相談</div><ul class="cs-recent">'
              '<li><a href="/area/musashikosugi/">武蔵小杉のマンション売買</a></li><li><a href="/area/wangan/">湾岸エリアのマンション売買</a></li>'
              '<li><a href="/area/tokyo23/">東京23区のマンション売買</a></li><li><a href="/area/kanagawa/">横浜・神奈川のマンション売買</a></li>'
              '<li><a href="/area/">対応エリア一覧（一都三県）</a></li></ul></div>')
@@ -847,6 +854,32 @@ def build_column_hubs(cols):
         out.append(f'/columns/{slug}/')
     return out
 
+
+# ------------------------------------------------------------------
+# 9. 単独ページ（シミュレーター・売却査定・代表プロフィールなど）
+#    tools/pages/*.html の先頭に <!--META {...} --> を書くと、共通のヘッダー・フッター付きで書き出す
+# ------------------------------------------------------------------
+def build_tool_pages():
+    d = P('tools/pages'); out = []
+    if not os.path.isdir(d): return out
+    for f in sorted(os.listdir(d)):
+        if not f.endswith('.html'): continue
+        src = open(os.path.join(d, f), encoding='utf-8').read()
+        m = re.match(r'\s*<!--META\s*(\{.*?\})\s*-->', src, re.S)
+        if not m: continue
+        meta = json.loads(m.group(1)); body = src[m.end():]
+        crumbs = [('トップ', '/'), (meta['crumb'], meta['path'])]
+        html_body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero(meta.get('en', ''), esc(meta['h1']), esc(meta.get('sub', '')))}
+<div class="subpage-content">{body}</div>
+{CTA_BOTTOM(meta.get('cta_title', 'まずはお気軽にご相談ください'), meta.get('cta_sub', '購入・売却のご相談はいつでも承っております。'), meta.get('cta_url', '/#contact'))}
+</div>'''
+        write(meta['path'].strip('/') + '/index.html', page(meta['path'], meta['title'], meta['desc'], html_body,
+                                                            jsonld=meta.get('jsonld'), breadcrumbs=crumbs))
+        out.append(meta['path'])
+    return out
+
 # ------------------------------------------------------------------
 # 5. sitemap
 # ------------------------------------------------------------------
@@ -871,6 +904,6 @@ if __name__ == '__main__':
     props = build_properties()
     res = build_results()
     nq, nv = build_faq_voices()
-    extra = ['/faq/', '/voices/'] + build_areas(cols) + build_column_hubs(cols)
+    extra = ['/faq/', '/voices/'] + build_areas(cols) + build_column_hubs(cols) + build_tool_pages()
     n = build_sitemap(cols, props, extra)
     print(f'columns: {len(cols)}  properties: {len(props)}  results: {len(res)}  faq: {nq}  voices: {nv}  sitemap urls: {n}')

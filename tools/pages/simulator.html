@@ -1,0 +1,228 @@
+<!--META {"path":"/simulator/","crumb":"諸費用・ローンシミュレーター","en":"Simulator","h1":"購入・売却の諸費用シミュレーター","sub":"金利と返済期間を選んで、購入の諸費用と月々の支払い、売却の手残り、借入可能額をその場で計算できます。","title":"マンション購入・売却の諸費用シミュレーター｜月々の返済額・売却の手取り・借入可能額","desc":"マンションの購入諸費用と住宅ローンの月々の返済額、売却時の仲介手数料・税金・手残り、年収から見た借入可能額を、金利と返済期間を選んで計算できる無料シミュレーター。","cta_title":"計算結果をもとに、個別にご相談いただけます","cta_sub":"実際の物件・ご自宅の条件で、諸費用と手取りを正確にお出しします。","cta_url":"/?inquiry=sell&amp;from=simulator#contact","jsonld":[{"@context":"https://schema.org","@type":"WebApplication","name":"マンション購入・売却の諸費用シミュレーター","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://speard.jp/simulator/","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"provider":{"@id":"https://speard.jp/#organization"}}]} -->
+<style>
+.sim{max-width:980px;margin:0 auto}
+.sim-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.sim-tab{flex:1 1 0;min-width:0;font:inherit;font-weight:700;font-size:.95rem;padding:14px 10px;border:2px solid #d6dce6;background:#fff;color:#0E3273;border-radius:8px;cursor:pointer}
+.sim-tab.on{background:#0E3273;border-color:#0E3273;color:#fff}
+.sim-panel{display:none}
+.sim-panel.on{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.sim-box{background:#fff;border:1px solid #e1e6ee;border-radius:10px;padding:22px}
+.sim-box h2{font-family:'Noto Serif JP',serif;font-size:1.1rem;color:#0E3273;margin:0 0 14px;padding:0;border:0}
+.sim-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed #e6e9ef}
+.sim-row:last-child{border-bottom:0}
+.sim-row label{font-size:.9rem;color:#2b3445;line-height:1.5}
+.sim-row label small{display:block;font-size:.74rem;color:#8a919c}
+.sim-in{display:flex;align-items:center;gap:6px}
+.sim-in input,.sim-in select{width:100%;font:inherit;font-size:1rem;padding:10px;border:2px solid #d6dce6;border-radius:6px;text-align:right;background:#fff;min-height:46px}
+.sim-in select{text-align:left}
+.sim-in input:focus,.sim-in select:focus{outline:none;border-color:#0E3273}
+.sim-in span{font-size:.82rem;color:#5b6472;white-space:nowrap}
+.sim-check{display:flex;gap:8px;align-items:center;font-size:.9rem}
+.sim-check input{width:20px;height:20px}
+.sim-res{position:sticky;top:96px}
+.sim-big{background:#0E3273;color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:14px}
+.sim-big .l{font-size:.85rem;opacity:.85}
+.sim-big .v{font-size:2rem;font-weight:700;line-height:1.3;font-family:'Noto Sans JP',sans-serif}
+.sim-big .v small{font-size:.5em;font-weight:400}
+.sim-big .s{font-size:.82rem;opacity:.85;margin-top:2px}
+.sim-big.gold{background:#a67c1a}
+.sim-tbl{width:100%;border-collapse:collapse;font-size:.9rem}
+.sim-tbl th,.sim-tbl td{padding:8px 6px;border-bottom:1px solid #edf0f4;text-align:left;background:none!important;color:#2b3445;font-weight:400;width:auto!important}
+.sim-tbl th{width:56%!important;white-space:normal!important;word-break:normal}
+.sim-tbl td{text-align:right!important;font-variant-numeric:tabular-nums}
+.sim-tbl tr.t th,.sim-tbl tr.t td{font-weight:700;color:#0E3273;border-top:2px solid #0E3273}
+.sim-note{font-size:.76rem;color:#6b7280;line-height:1.8;margin-top:12px}
+.sim-cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.sim-cta a{flex:1 1 180px;display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:6px;font-weight:700;text-decoration:none;font-size:.92rem;color:#fff}
+.sim-cta .g{background:#C9A84C}.sim-cta .n{background:#0E3273}.sim-cta .l{background:#06C755}
+.sim-warn{font-size:.82rem;color:#b45309;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:8px 10px;margin-top:10px;display:none}
+@media(max-width:820px){.sim-tab{font-size:.85rem;padding:12px 4px}.sim-panel.on{grid-template-columns:1fr}.sim-res{position:static}.sim-row{grid-template-columns:1fr 140px}}
+</style>
+
+<div class="sim" id="sim">
+  <div class="sim-tabs" role="tablist">
+    <button class="sim-tab on" data-t="buy" role="tab">購入する</button>
+    <button class="sim-tab" data-t="sell" role="tab">売却する</button>
+    <button class="sim-tab" data-t="limit" role="tab">借入可能額</button>
+  </div>
+
+  <!-- 購入 -->
+  <div class="sim-panel on" id="p-buy">
+    <div class="sim-box">
+      <h2>購入の条件</h2>
+      <div class="sim-row"><label for="b-price">物件価格</label><div class="sim-in"><input id="b-price" type="number" inputmode="decimal" value="7000" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="b-area">専有面積<small>坪単価の表示用（任意）</small></label><div class="sim-in"><input id="b-area" type="number" inputmode="decimal" value="70" step="0.1"><span>㎡</span></div></div>
+      <div class="sim-row"><label for="b-down">頭金</label><div class="sim-in"><input id="b-down" type="number" inputmode="decimal" value="500" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="b-rate">金利（年）<small>変動・固定の実際の金利を選ぶ</small></label><div class="sim-in"><select id="b-rate"></select></div></div>
+      <div class="sim-row"><label for="b-years">返済期間</label><div class="sim-in"><select id="b-years"></select></div></div>
+      <div class="sim-row"><label for="b-fee">ローン事務手数料<small>借入額に対する割合</small></label><div class="sim-in"><input id="b-fee" type="number" inputmode="decimal" value="2.2" step="0.1"><span>%</span></div></div>
+      <div class="sim-row"><label for="b-kanri">管理費・修繕積立金<small>月々の合計</small></label><div class="sim-in"><input id="b-kanri" type="number" inputmode="decimal" value="3.5" step="0.1"><span>万円</span></div></div>
+      <div class="sim-row"><label for="b-ins">火災保険・地震保険<small>5年一括の目安</small></label><div class="sim-in"><input id="b-ins" type="number" inputmode="decimal" value="20" step="1"><span>万円</span></div></div>
+      <div class="sim-row"><label for="b-include">諸費用もローンに含める</label><div class="sim-in"><label class="sim-check"><input id="b-include" type="checkbox"> 含める</label></div></div>
+    </div>
+    <div class="sim-res">
+      <div class="sim-big"><div class="l">月々の返済額</div><div class="v" id="r-monthly">-</div><div class="s" id="r-monthly-s"></div></div>
+      <div class="sim-big gold"><div class="l">購入時に用意する現金（頭金＋諸費用）</div><div class="v" id="r-cash">-</div><div class="s" id="r-cash-s"></div></div>
+      <div class="sim-box">
+        <table class="sim-tbl" id="t-buy"></table>
+        <p class="sim-note">諸費用は目安です。登記費用は固定資産税評価額を物件価格の50%と仮定し、所有権移転を評価額の1.0%、抵当権設定を借入額の0.1%、司法書士報酬を10万円として計算しています。印紙税は売買契約書の軽減税率（2027年3月31日まで）と、書面で結ぶ場合の金銭消費貸借契約書の税額です。中古住宅の不動産取得税は、要件を満たすと軽減で0円になることが多いため含めていません。返済額は元利均等返済・ボーナス払いなしで計算しています。</p>
+        <div class="sim-cta"><a class="n" href="/?inquiry=buy&amp;from=simulator-buy#contact">この条件で物件を相談する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 売却 -->
+  <div class="sim-panel" id="p-sell">
+    <div class="sim-box">
+      <h2>売却の条件</h2>
+      <div class="sim-row"><label for="s-price">売却価格</label><div class="sim-in"><input id="s-price" type="number" inputmode="decimal" value="8000" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="s-loan">ローン残高</label><div class="sim-in"><input id="s-loan" type="number" inputmode="decimal" value="4500" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="s-buy">購入したときの価格<small>分からなければ空欄（売却価格の5%で計算）</small></label><div class="sim-in"><input id="s-buy" type="number" inputmode="decimal" value="6000" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="s-buycost">購入時の諸費用</label><div class="sim-in"><input id="s-buycost" type="number" inputmode="decimal" value="360" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="s-bldg">建物の割合<small>購入価格のうち建物部分</small></label><div class="sim-in"><input id="s-bldg" type="number" inputmode="decimal" value="40" step="1"><span>%</span></div></div>
+      <div class="sim-row"><label for="s-years">所有期間<small>売却した年の1月1日時点</small></label><div class="sim-in"><select id="s-years"></select></div></div>
+      <div class="sim-row"><label for="s-home">住まいとして使っていた<small>3,000万円特別控除・軽減税率</small></label><div class="sim-in"><label class="sim-check"><input id="s-home" type="checkbox" checked> 使っていた</label></div></div>
+      <div class="sim-row"><label for="s-move">引越し・処分費など</label><div class="sim-in"><input id="s-move" type="number" inputmode="decimal" value="30" step="1"><span>万円</span></div></div>
+    </div>
+    <div class="sim-res">
+      <div class="sim-big gold"><div class="l">手元に残るお金（手残り）</div><div class="v" id="r-net">-</div><div class="s" id="r-net-s"></div></div>
+      <div class="sim-box">
+        <table class="sim-tbl" id="t-sell"></table>
+        <div class="sim-warn" id="w-sell">手残りがマイナスです。売却代金だけではローンを完済できないため、差額を現金で用意するか、住み替えローンなどの検討が必要です。</div>
+        <p class="sim-note">仲介手数料は法定の上限額です。税金は譲渡所得税・住民税・復興特別所得税の合計で、所有5年超は20.315%、5年以下は39.63%。住まいとして使っていた場合は3,000万円特別控除を差し引き、所有10年超なら6,000万円以下の部分に14.21%の軽減税率を適用しています。建物の減価償却は、鉄筋コンクリート造のマンション（非事業用）の計算式（建物価格×0.9×0.015×所有年数）で計算しています。特例には要件があり、住み替え先の住宅ローン控除と併用できない期間があります。実際の税額は税理士・税務署でご確認ください。</p>
+        <div class="sim-cta"><a class="g" href="/satei/">正確な売却査定を依頼する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 借入可能額 -->
+  <div class="sim-panel" id="p-limit">
+    <div class="sim-box">
+      <h2>年収と条件</h2>
+      <div class="sim-row"><label for="l-income">年収（額面）<small>収入合算する場合は合計</small></label><div class="sim-in"><input id="l-income" type="number" inputmode="decimal" value="800" step="10"><span>万円</span></div></div>
+      <div class="sim-row"><label for="l-ratio">返済負担率<small>銀行の審査上限は30〜35%程度</small></label><div class="sim-in"><select id="l-ratio"><option value="25">25%</option><option value="30">30%</option><option value="35" selected>35%</option><option value="40">40%</option></select></div></div>
+      <div class="sim-row"><label for="l-test">審査金利<small>銀行が審査で使う金利</small></label><div class="sim-in"><select id="l-test"></select></div></div>
+      <div class="sim-row"><label for="l-rate">実際の金利<small>月々の返済額の計算用</small></label><div class="sim-in"><select id="l-rate"></select></div></div>
+      <div class="sim-row"><label for="l-years">返済期間</label><div class="sim-in"><select id="l-years"></select></div></div>
+      <div class="sim-row"><label for="l-other">ほかの借入の返済<small>車・カード・奨学金など</small></label><div class="sim-in"><input id="l-other" type="number" inputmode="decimal" value="0" step="0.5"><span>万円／月</span></div></div>
+    </div>
+    <div class="sim-res">
+      <div class="sim-big"><div class="l">借りられる額の目安（審査の上限）</div><div class="v" id="r-limit">-</div><div class="s" id="r-limit-s"></div></div>
+      <div class="sim-box">
+        <table class="sim-tbl" id="t-limit"></table>
+        <p class="sim-note">銀行の審査は、額面年収に対する年間返済額の割合（返済負担率）を、実際の金利より高い審査金利で計算して上限を決めます。借りられる額と、無理なく返せる額は別物です。考え方は<a href="/columns/kariire-jogen/">住宅ローンはいくらまで借りていいか</a>で詳しく解説しています。</p>
+        <div class="sim-cta"><a class="n" href="/?inquiry=buy&amp;from=simulator-limit#contact">予算の立て方を相談する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  function opts(sel,list,def,fmt){var s=$(sel);s.innerHTML=list.map(function(v){return '<option value="'+v+'"'+(v==def?' selected':'')+'>'+fmt(v)+'</option>';}).join('');}
+  var rates=[];for(var r=0.3;r<=4.001;r+=0.05)rates.push(Math.round(r*100)/100);
+  var pct=function(v){return v.toFixed(2)+'%';};
+  opts('b-rate',rates,1.0,pct);opts('l-rate',rates,1.0,pct);opts('l-test',rates,3.5,pct);
+  var yrs=[];for(var y=10;y<=50;y++)yrs.push(y);
+  opts('b-years',yrs,35,function(v){return v+'年';});opts('l-years',yrs,35,function(v){return v+'年';});
+  var own=[];for(var o=1;o<=30;o++)own.push(o);
+  opts('s-years',own,8,function(v){return v+'年';});
+  function n(id){var v=parseFloat(($(id).value||'').toString().replace(/,/g,''));return isNaN(v)?0:v;}
+  function man(v,d){d=d==null?0:d;var s=(Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});return s+'万円';}
+  function yen(v){return Math.round(v*10000).toLocaleString('ja-JP')+'円';}
+  function brokerage(p){if(p<=0)return 0;var f=p>400?p*0.03+6:(p>200?p*0.04+2:p*0.05);return f*1.1;}
+  function stampSale(p){return p>50000?16:p>10000?6:p>5000?3:p>1000?1:p>500?0.5:p>100?0.1:0;}
+  function stampLoan(p){return p>50000?40:p>10000?10:p>5000?6:p>1000?2:p>500?1:p>100?0.2:0;}
+  function pmt(P,ratePct,years){var r=ratePct/100/12,k=years*12;if(P<=0)return 0;if(r===0)return P/k;return P*r/(1-Math.pow(1+r,-k));}
+  function pv(M,ratePct,years){var r=ratePct/100/12,k=years*12;if(M<=0)return 0;if(r===0)return M*k;return M*(1-Math.pow(1+r,-k))/r;}
+  function rows(id,list){$(id).innerHTML=list.map(function(x){return '<tr'+(x[2]?' class="t"':'')+'><th>'+x[0]+'</th><td>'+x[1]+'</td></tr>';}).join('');}
+
+  function buy(){
+    var price=n('b-price'),area=n('b-area'),down=Math.min(n('b-down'),price),rate=parseFloat($('b-rate').value),years=parseInt($('b-years').value,10);
+    var base=Math.max(price-down,0),feeRate=n('b-fee')/100,inc=$('b-include').checked;
+    var broker=brokerage(price),sSale=stampSale(price);
+    var other=broker+sSale+price*0.5*0.01+10+n('b-ins')+10; // 登記（移転）＋司法書士＋保険＋精算目安
+    var loan=base, fee, sLoan, mort, costs;
+    for(var i=0;i<3;i++){fee=loan*feeRate;sLoan=stampLoan(loan);mort=loan*0.001;costs=other+fee+sLoan+mort;loan=inc?base+costs:base;}
+    var M=pmt(loan,rate,years),tot=M*years*12,kanri=n('b-kanri');
+    var tsubo=area>0?price/(area/3.30578):0;
+    $('r-monthly').innerHTML=yen(M).replace('円','<small>円</small>');
+    $('r-monthly-s').textContent='管理費等を含めると月 '+yen(M+kanri)+'　／　借入額 '+man(loan)+'　／　金利'+rate.toFixed(2)+'%・'+years+'年';
+    var cash=down+(inc?0:costs);
+    $('r-cash').innerHTML=man(cash).replace('万円','<small>万円</small>');
+    $('r-cash-s').textContent='諸費用 '+man(costs,1)+'（物件価格の約'+(price>0?(costs/price*100).toFixed(1):0)+'%）'+(inc?'はローンに含めています':'');
+    var up=pmt(loan,rate+1,years);
+    rows('t-buy',[
+      ['物件価格',man(price)+(tsubo?'（坪単価 '+Math.round(tsubo).toLocaleString()+'万円／坪）':'')],
+      ['仲介手数料（上限・税込）',man(broker,1)],
+      ['売買契約書の印紙税',man(sSale,1)],
+      ['登記費用（移転・抵当権・司法書士）',man(price*0.5*0.01+mort+10,1)],
+      ['ローン事務手数料',man(fee,1)],
+      ['金銭消費貸借契約書の印紙税',man(sLoan,1)],
+      ['火災保険・地震保険',man(n('b-ins'),1)],
+      ['固定資産税・管理費の精算など',man(10,1)],
+      ['諸費用の合計',man(costs,1),1],
+      ['総返済額',man(tot/1,0)+'（うち利息 '+man(tot-loan)+'）'],
+      ['金利が1%上がった場合の月々',yen(up)]
+    ]);
+  }
+
+  function sell(){
+    var price=n('s-price'),loan=n('s-loan'),buyP=n('s-buy'),buyCost=n('s-buycost'),bldg=n('s-bldg')/100,years=parseInt($('s-years').value,10),home=$('s-home').checked;
+    var broker=brokerage(price),stamp=stampSale(price),release=3,move=n('s-move');
+    var dep=buyP>0?Math.min(buyP*bldg*0.9*0.015*years,buyP*bldg*0.95):0;
+    var acq=buyP>0?buyP+buyCost-dep:price*0.05;
+    var cost=broker+stamp;
+    var gain=Math.max(price-acq-cost,0);
+    var taxable=Math.max(gain-(home?3000:0),0);
+    var tax;
+    if(years>5){
+      if(home&&years>10){tax=Math.min(taxable,6000)*0.1421+Math.max(taxable-6000,0)*0.20315;}else{tax=taxable*0.20315;}
+    }else{tax=taxable*0.3963;}
+    var net=price-loan-cost-release-move-tax;
+    $('r-net').innerHTML=man(net).replace('万円','<small>万円</small>');
+    $('r-net-s').textContent='売却価格 '+man(price)+' − ローン残高 '+man(loan)+' − 費用・税金 '+man(cost+release+move+tax,1);
+    $('w-sell').style.display=net<0?'block':'none';
+    rows('t-sell',[
+      ['売却価格',man(price)],
+      ['ローン残高',man(loan)],
+      ['仲介手数料（上限・税込）',man(broker,1)],
+      ['売買契約書の印紙税',man(stamp,1)],
+      ['抵当権抹消・司法書士',man(release,1)],
+      ['引越し・処分費など',man(move,1)],
+      ['取得費'+(buyP>0?'（減価償却 '+man(dep,1)+' を差し引き後）':'（売却価格の5%）'),man(acq,1)],
+      ['売却益（譲渡所得）',man(gain,1)],
+      ['税金'+(home?'（3,000万円控除後）':''),man(tax,1)],
+      ['手残り',man(net,1),1]
+    ]);
+  }
+
+  function limit(){
+    var inc=n('l-income'),ratio=parseFloat($('l-ratio').value)/100,test=parseFloat($('l-test').value),rate=parseFloat($('l-rate').value),years=parseInt($('l-years').value,10),other=n('l-other');
+    var Mmax=Math.max(inc*ratio/12-other,0);
+    var L=pv(Mmax,test,years);
+    var M=pmt(L,rate,years);
+    var take=inc*0.75,safeM=Math.max(take*0.25/12-other,0),safeL=pv(safeM,rate,years);
+    $('r-limit').innerHTML=man(L).replace('万円','<small>万円</small>');
+    $('r-limit-s').textContent='年収の約'+(inc>0?(L/inc).toFixed(1):0)+'倍　／　審査金利'+test.toFixed(2)+'%・返済負担率'+Math.round(ratio*100)+'%・'+years+'年';
+    rows('t-limit',[
+      ['審査で見られる返済額の上限',yen(Mmax)+'／月'],
+      ['借りられる額の目安',man(L),1],
+      ['その額を実際の金利で借りた場合の月々',yen(M)],
+      ['無理なく返せる額の目安（手取りの25%）',man(safeL)],
+      ['そのときの月々の返済',yen(safeM)]
+    ]);
+  }
+
+  function all(){buy();sell();limit();}
+  document.querySelectorAll('#sim input,#sim select').forEach(function(el){el.addEventListener('input',all);el.addEventListener('change',all);});
+  document.querySelectorAll('.sim-tab').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.sim-tab').forEach(function(x){x.classList.toggle('on',x===b);});
+    document.querySelectorAll('.sim-panel').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t);});
+    if(window.gtag)gtag('event','simulator_tab',{tab:b.dataset.t});
+  });});
+  var h=(location.hash||'').replace('#','');if(['buy','sell','limit'].indexOf(h)>-1){var t=document.querySelector('.sim-tab[data-t="'+h+'"]');if(t)t.click();}
+  all();
+})();
+</script>
