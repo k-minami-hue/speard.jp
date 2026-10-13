@@ -143,6 +143,20 @@
       "description": "旧耐震マンションは住宅ローン控除・登録免許税の軽減・贈与税の非課税が原則使えず、ローンと出口にも制約がある。1981年6月の線引き、2026年4月施行の区分所有法改正、それでも買ってよい3条件を整理。"
     },
     {
+      "id": "nebiki-kosho",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "中古マンションの値引き交渉——通る交渉と、物件を逃す交渉の違い",
+      "date": "2026.09.09",
+      "hero": "/columns/hero/nebiki-kosho.jpg",
+      "thumb": "/columns/hero/nebiki-kosho-thumb.jpg",
+      "file": "columns/purchase/column_nebiki_kosho.html",
+      "description": "中古マンションの値引き交渉が通るのは、売主に下げる理由があり、根拠を数字で示し、価格以外の条件でメリットを出せるとき。交渉が通りやすい物件と通りにくい物件、物件を逃す交渉、申込書の書き方を解説。"
+    },
+    {
       "id": "koteishisanzei",
       "category": "buy",
       "tags": [
