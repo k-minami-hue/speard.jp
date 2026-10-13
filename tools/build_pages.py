@@ -271,6 +271,20 @@ def build_base_css():
 .area-page h2{ font-family:'Noto Serif JP',serif; color:var(--navy-dark); font-size:1.25rem; margin:40px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--beige); }
 .area-page p{ line-height:1.95; margin-bottom:14px; }
 .area-facts th{ width:28%; }
+.area-hero{ position:relative; min-height:420px; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; padding:110px 20px 70px; color:#fff; }
+.area-hero-inner{ max-width:820px; }
+.area-hero-ttl{ font-family:'Noto Serif JP',serif; font-weight:500; font-size:clamp(1.5rem,3.4vw,2.4rem); letter-spacing:.06em; line-height:1.5; margin:8px 0 14px; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.35); }
+.area-hero-sub{ color:rgba(255,255,255,.9); font-size:.95rem; line-height:1.9; }
+.area-hero-cap{ position:absolute; right:12px; bottom:8px; font-size:.68rem; color:rgba(255,255,255,.75); }
+.area-gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 10px; }
+.area-fig{ margin:0; background:#f4f6fa; border-radius:4px; overflow:hidden; }
+.area-fig img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+.area-fig figcaption{ font-size:.78rem; color:#4a5563; padding:8px 10px; line-height:1.6; }
+.area-credits{ font-size:.7rem !important; color:#8a919c; line-height:1.8 !important; margin-top:36px !important; border-top:1px solid #eceff4; padding-top:14px; word-break:break-all; }
+.area-credits a{ color:#8a919c; }
+.area-hub-item.has-img{ display:grid; grid-template-columns:280px 1fr; gap:20px; align-items:center; }
+.area-hub-img img{ width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:4px; display:block; }
+@media (max-width:760px){ .area-gallery{ grid-template-columns:1fr 1fr; } .area-hub-item.has-img{ grid-template-columns:1fr; } .area-hero{ min-height:340px; padding-top:96px; } }
 .area-hub-item{ border:1px solid #e3e6ec; padding:20px 22px; margin-bottom:16px; border-radius:4px; }
 .area-hub-item h2{ margin:0 0 8px; border:0; padding:0; font-size:1.15rem; }
 .area-hub-item h2 a{ color:var(--navy-dark); text-decoration:none; }
@@ -727,11 +741,34 @@ def sentences_html(t):
     ss = [x for x in re.findall(r'[^。]*。|[^。]+$', t) if x.strip()]
     return '<p>' + '<br>\n'.join(esc(x) for x in ss) + '</p>'
 
+
+def area_hero(a, imgs):
+    h = next((x for x in imgs if x.get('hero')), None)
+    sub = esc(a['lead'][0].split('。')[0] + '。')
+    if not h:
+        return hero('Area', esc(a['h1']), sub)
+    return f'''<div class="area-hero" style="background-image:linear-gradient(180deg,rgba(13,34,56,.35) 0%,rgba(13,34,56,.78) 100%),url('{esc(h['src'])}')">
+  <div class="area-hero-inner"><span class="col-hero-en">Area</span><h1 class="area-hero-ttl">{esc(a['h1'])}</h1><div class="col-hero-line"></div><p class="area-hero-sub">{sub}</p></div>
+  <span class="area-hero-cap">{esc(h['caption'])}</span>
+</div>'''
+
+def area_gallery(a, imgs):
+    g = [x for x in imgs if not x.get('hero')]
+    if not g: return ''
+    items = ''.join(f'<figure class="area-fig"><img src="{esc(x["src"])}" alt="{esc(x["caption"])}" width="{x["w"]}" height="{x["h"]}" loading="lazy" decoding="async"><figcaption>{esc(x["caption"])}</figcaption></figure>' for x in g)
+    return f'<h2>{esc(a["name"])}の街並み</h2><div class="area-gallery">{items}</div>'
+
+def area_credits(imgs):
+    if not imgs: return ''
+    rows = '、'.join(f'{esc(x["caption"])}：{esc(x["author"] or "作者不明")}（<a href="{esc(x["source"])}" target="_blank" rel="noopener">Wikimedia Commons</a>／<a href="{esc(x["license_url"])}" target="_blank" rel="noopener">{esc(x["license"])}</a>）' for x in imgs)
+    return f'<p class="area-credits">写真出典：{rows}。掲載にあたり縮小・トリミングしています。</p>'
+
 def build_areas(cols):
     if not os.path.exists(P('area/manifest.json')): return []
     A = json.load(open(P('area/manifest.json'), encoding='utf-8'))
     res = {x['name']: x for x in json.load(open(P('results/manifest.json'), encoding='utf-8')).get('results', [])}
     cmap = {c['id']: c for c in cols}
+    IMG = json.load(open(P('area/images.json'), encoding='utf-8')) if os.path.exists(P('area/images.json')) else {}
     urls = []
     for a in A['areas']:
         path = f'/area/{a["id"]}/'
@@ -743,13 +780,15 @@ def build_areas(cols):
             + f'</div><div class="res-body"><h3 class="res-name">{esc(n)}</h3>' + (f'<div class="res-floor">{esc(res[n].get("floor"))}</div>' if res[n].get('floor') else '') + '</div></div>'
             for n in a.get('results', []) if n in res)
         rel = [cmap[i] for i in a.get('columns', []) if i in cmap]
+        imgs = IMG.get(a['id'], [])
         kind = 'sell'
         crumbs = [('トップ', '/'), ('対応エリア', '/area/'), (a['name'], path)]
         body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}
-{hero('Area', esc(a['h1']), esc(a['lead'][0].split('。')[0] + '。'))}
+{area_hero(a, imgs)}
 <div class="subpage-content area-page">
   {''.join(sentences_html(x) for x in a['lead'])}
+  {area_gallery(a, imgs)}
   {f'<h2>{esc(a["name"])}の基本データ</h2><table class="prop-table area-facts"><tbody>{facts}</tbody></table>' if facts else ''}
   {secs}
   <aside class="col-inline-cta"><p class="cic-ttl">{esc(a['name'])}のマンション、売却価格を根拠つきで試算します</p><p class="cic-sub">同じ建物・近隣の成約事例から、売り出し価格と手取りの目安をお出しします。購入のご相談も承ります。</p>
@@ -757,6 +796,7 @@ def build_areas(cols):
   {f'<h2>{esc(a["name"])}の成約実績（一例）</h2><div class="res-grid">{rcards}</div>' if rcards else ''}
   {f'<h2>{esc(a["name"])}で売買を考える方へのコラム</h2><div class="col-grid">' + ''.join(col_card(x) for x in rel) + '</div>' if rel else ''}
   <p style="margin-top:28px"><a href="/area/">対応エリア一覧に戻る</a></p>
+  {area_credits(imgs)}
 </div>
 {CTA_BOTTOM(esc(a['name']) + 'のマンション売買のご相談', '売却査定・購入相談は無料です。お問合せフォームまたはLINEからどうぞ。', contact_url(kind, 'area-' + a['id']))}
 </div>'''
@@ -765,9 +805,15 @@ def build_areas(cols):
         write(f'area/{a["id"]}/index.html', page(path, a['title'], a['description'], body, jsonld=ld, breadcrumbs=crumbs))
         urls.append(path)
     # 一覧（一都三県）
-    groups = [(a['name'], f'/area/{a["id"]}/', a['results']) for a in A['areas']] + [(k, None, v) for k, v in A.get('other_results', {}).items()]
-    blocks = ''.join(f'<div class="area-hub-item"><h2>{f"<a href={chr(34)}{u}{chr(34)}>{esc(n)}</a>" if u else esc(n)}</h2><p>主な成約実績：{esc("、".join(r[:8]))}{"ほか" if len(r) > 8 else ""}</p>'
-                     + (f'<p><a href="{u}">{esc(n)}のマンション売買について詳しく見る →</a></p>' if u else '') + '</div>' for n, u, r in groups)
+    IMG = json.load(open(P('area/images.json'), encoding='utf-8')) if os.path.exists(P('area/images.json')) else {}
+    def hub_img(aid):
+        h = next((x for x in IMG.get(aid, []) if x.get('hero')), None)
+        return f'<a class="area-hub-img" href="/area/{aid}/"><img src="{esc(h["src"])}" alt="{esc(h["caption"])}" loading="lazy" decoding="async"></a>' if h else ''
+    groups = [(a['name'], f'/area/{a["id"]}/', a['results'], a['id']) for a in A['areas']] + [(k, None, v, None) for k, v in A.get('other_results', {}).items()]
+    blocks = ''.join(f'<div class="area-hub-item{" has-img" if aid else ""}">' + (hub_img(aid) if aid else '') + '<div class="area-hub-body">'
+                     + f'<h2>{f"<a href={chr(34)}{u}{chr(34)}>{esc(n)}</a>" if u else esc(n)}</h2><p>主な成約実績：{esc("、".join(r[:8]))}{"ほか" if len(r) > 8 else ""}</p>'
+                     + (f'<p><a href="{u}">{esc(n)}のマンション売買について詳しく見る →</a></p>' if u else '') + '</div></div>' for n, u, r, aid in groups)
+    blocks += area_credits([x for v in IMG.values() for x in v if x.get('hero')])
     crumbs = [('トップ', '/'), ('対応エリア', '/area/')]
     body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}

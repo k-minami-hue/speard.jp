@@ -1,0 +1,252 @@
+{
+ "musashikosugi": [
+  {
+   "src": "/assets/area/musashikosugi-0.jpg",
+   "caption": "多摩川の河川敷から見た武蔵小杉のタワーマンション群",
+   "hero": true,
+   "w": 1800,
+   "h": 1013,
+   "author": "Asanagi",
+   "license": "CC0",
+   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AMusashi-kosugi_2023-12-10.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-1.jpg",
+   "caption": "多摩川越しに見る武蔵小杉の高層ビル群",
+   "hero": false,
+   "w": 1100,
+   "h": 387,
+   "author": "ペン太",
+   "license": "CC BY 2.5",
+   "license_url": "https://creativecommons.org/licenses/by/2.5/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AMusashi-Kosugi002.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-2.jpg",
+   "caption": "武蔵小杉駅東口",
+   "hero": false,
+   "w": 1100,
+   "h": 736,
+   "author": "インターネット川崎ガイド",
+   "license": "CC BY 3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3A%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E9%A7%85%E6%9D%B1%E5%8F%A3_-_panoramio.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-3.jpg",
+   "caption": "パークシティ武蔵小杉ミッドスカイタワー",
+   "hero": false,
+   "w": 825,
+   "h": 1100,
+   "author": "掬茶",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3APark_CITY_Musashi-Kosugi_Mid_Sky_Tower_20150201-2.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-4.jpg",
+   "caption": "パークシティ武蔵小杉ステーションフォレストタワー",
+   "hero": false,
+   "w": 825,
+   "h": 1100,
+   "author": "Syced",
+   "license": "CC0",
+   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3A%E3%83%91%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%86%E3%82%A3%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%95%E3%82%A9%E3%83%AC%E3%82%B9%E3%83%88%E3%82%BF%E3%83%AF%E3%83%BC.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-5.jpg",
+   "caption": "小杉コアパーク周辺のタワーマンション",
+   "hero": false,
+   "w": 825,
+   "h": 1100,
+   "author": "掬茶",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AView_from_Kosugi_Core_Park.jpg"
+  },
+  {
+   "src": "/assets/area/musashikosugi-6.jpg",
+   "caption": "リエトコート武蔵小杉",
+   "hero": false,
+   "w": 825,
+   "h": 1100,
+   "author": "掬茶",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3ALieto_Court_Musashi-Kosugi.jpg"
+  }
+ ],
+ "wangan": [
+  {
+   "src": "/assets/area/wangan-0.jpg",
+   "caption": "隅田川と勝どきのタワーマンション",
+   "hero": true,
+   "w": 1800,
+   "h": 1200,
+   "author": "690 Noda",
+   "license": "CC BY 3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3A%E9%9A%85%E7%94%B0%E5%B7%9D%E3%81%A8%E5%8B%9D%E3%81%A9%E3%81%8D_Sumida_Riv_in_Kachidoki_20121127_-_panoramio.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-1.jpg",
+   "caption": "浜離宮恩賜庭園から見た勝どきのタワーマンション",
+   "hero": false,
+   "w": 1100,
+   "h": 825,
+   "author": "Another Believer",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3ATokyo_Towers%2C_Kachidoki_The_Tower%2C_and_Kachidoki_View_Tower_as_seen_from_Hama-riky%C5%AB_Garden_in_Tokyo%2C_2019_-_567.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-2.jpg",
+   "caption": "豊洲のタワーマンション群",
+   "hero": false,
+   "w": 1100,
+   "h": 736,
+   "author": "yano@mama.akari.ne.j…",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3ATowers_of_Toyosu_-_%E8%B1%8A%E6%B4%B2%E3%82%BF%E3%83%AF%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%B3%E7%BE%A4_-_panoramio.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-3.jpg",
+   "caption": "勝どきのタワーマンション（運河側から）",
+   "hero": false,
+   "w": 957,
+   "h": 1100,
+   "author": "Beryllium Transistor",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AKACHIDOKI_THE_TOWER_1.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-4.jpg",
+   "caption": "ザ・パークハウス晴海タワーズ",
+   "hero": false,
+   "w": 1100,
+   "h": 732,
+   "author": "ブツチチ",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3A%E3%82%B6%E3%83%BB%E3%83%91%E3%83%BC%E3%82%AF%E3%83%8F%E3%82%A6%E3%82%B9%E6%99%B4%E6%B5%B7%E3%82%BF%E3%83%AF%E3%83%BC%E3%82%BA.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-5.jpg",
+   "caption": "HARUMI FLAG（建設中の様子）",
+   "hero": false,
+   "w": 1100,
+   "h": 733,
+   "author": "Dick Thomas Johnson",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AHARUMI_FLAG_-_51878790453.jpg"
+  },
+  {
+   "src": "/assets/area/wangan-6.jpg",
+   "caption": "芝浦アイランド エアタワー",
+   "hero": false,
+   "w": 1100,
+   "h": 825,
+   "author": "Syced",
+   "license": "CC0",
+   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AShibaura_Island_Air_Tower.jpg"
+  }
+ ],
+ "tokyo23": [
+  {
+   "src": "/assets/area/tokyo23-0.jpg",
+   "caption": "東京タワーと港区の夜景",
+   "hero": true,
+   "w": 1800,
+   "h": 1013,
+   "author": "David Kernan",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3ATokyo_Tower%2C_Minato_City.jpg"
+  },
+  {
+   "src": "/assets/area/tokyo23-1.jpg",
+   "caption": "東京タワーと港区の街並み",
+   "hero": false,
+   "w": 1100,
+   "h": 880,
+   "author": "David Kernan",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3ATokyo_Tower%2C_Minato.jpg"
+  },
+  {
+   "src": "/assets/area/tokyo23-2.jpg",
+   "caption": "港区のパノラマ",
+   "hero": false,
+   "w": 1100,
+   "h": 353,
+   "author": "This Photo was taken by Supanut Arunoprayote.",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3APanoramic_View_of_Minato_20241020.jpg"
+  },
+  {
+   "src": "/assets/area/tokyo23-3.jpg",
+   "caption": "品川駅周辺の高層ビル群",
+   "hero": false,
+   "w": 1100,
+   "h": 733,
+   "author": "OiMax / https://www.flickr.com/photos/oimax/",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AShinagawa%2CTokyo%2CJapan.jpg"
+  }
+ ],
+ "kanagawa": [
+  {
+   "src": "/assets/area/kanagawa-0.jpg",
+   "caption": "みなとみらい21の街並み",
+   "hero": true,
+   "w": 1800,
+   "h": 1013,
+   "author": "Matthide127",
+   "license": "CC0",
+   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3A20250105_Minato_Mirai_21_%28Landmark_Tower%2C_Queen%27s_Square_Yokohama%2C_Cosmo_Clock_21%29_080219.jpg"
+  },
+  {
+   "src": "/assets/area/kanagawa-1.jpg",
+   "caption": "大さん橋から見たみなとみらい21",
+   "hero": false,
+   "w": 1100,
+   "h": 619,
+   "author": "Sunwater~jawiki",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AMinato_Mirai_21_From_Osambashi_202403.jpg"
+  },
+  {
+   "src": "/assets/area/kanagawa-2.jpg",
+   "caption": "夜のみなとみらい",
+   "hero": false,
+   "w": 1100,
+   "h": 618,
+   "author": "akumach from Kawasaki City, Japan",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AMinato_Mirai_In_Blue_%28cropped%29.jpg"
+  },
+  {
+   "src": "/assets/area/kanagawa-3.jpg",
+   "caption": "ザ・タワー横浜北仲",
+   "hero": false,
+   "w": 733,
+   "h": 1100,
+   "author": "Suicasmo",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0/deed.ja",
+   "source": "https://commons.wikimedia.org/wiki/File%3AThe_Tower_Yokohama_Kitanaka_20221127-2.jpg"
+  }
+ ]
+}

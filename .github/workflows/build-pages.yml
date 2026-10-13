@@ -12,6 +12,7 @@ on:
       - 'properties/manifest.json'
       - 'results/manifest.json'
       - 'area/manifest.json'
+      - 'area/images.json'
       - 'index.html'
       - 'tools/build_pages.py'
   workflow_dispatch:
