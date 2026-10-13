@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "satei-chigai",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "マンションの査定額が会社ごとに違う理由——高い査定に飛びつく前に見る3つの点",
+      "date": "2026.10.14",
+      "hero": "/columns/hero/satei-chigai.jpg",
+      "thumb": "/columns/hero/satei-chigai-thumb.jpg",
+      "file": "columns/purchase/column_satei_chigai.html",
+      "description": "マンションの査定額が会社で数百万円違うのは、成約事例の選び方と補正の甘さ、媒介契約を取るための高値が原因。取引事例比較法の仕組みと、高い査定に飛びつく前に確認すべき3つの点を解説。"
+    },
+    {
       "id": "kariire-jogen",
       "category": "buy",
       "tags": [
