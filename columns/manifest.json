@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "yokohama-erabikata",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "横浜で資産価値が落ちにくいマンションの選び方——駅の力と立地で見る5つの基準",
+      "date": "2026.10.14",
+      "hero": "/columns/hero/yokohama-erabikata.jpg",
+      "thumb": "/columns/hero/yokohama-erabikata-thumb.jpg",
+      "file": "columns/purchase/column_yokohama_erabikata.html",
+      "description": "横浜は駅ごとの価格差が大きい街。JR横浜駅の利用者数、都心への直通路線、坂やバス便など徒歩分数に表れない条件、災害リスクまで、横浜で資産価値が落ちにくいマンションを選ぶ5つの基準を解説。"
+    },
+    {
       "id": "toshin-kaidoki",
       "category": "buy",
       "tags": [
