@@ -58,6 +58,7 @@ def header():
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
   <a href="/area/">対応エリア</a>
+  <a href="/profile/">代表プロフィール</a>
   <a href="/simulator/">諸費用・ローンシミュレーター</a>
   <a href="/satei/">無料売却査定</a>
   <div class="mm-group">Property</div>
@@ -85,7 +86,7 @@ FOOTER = f'''<footer class="site-footer">
       <dl>
         <dt>所在地</dt><dd>〒107-0062 東京都港区南青山2-2-8 DFビル10F</dd>
         <dt>最寄駅</dt><dd>青山一丁目駅 5番出口 徒歩2分</dd>
-        <dt>TEL</dt><dd><a href="tel:05071093701">050-7109-3701</a></dd>
+        <dt>TEL</dt><dd><a href="tel:05071093701">050-7109-3701</a><br><small>受付 9:30〜18:00（定休日：火・水）出られない場合は折り返しご連絡します</small></dd>
         <dt>MAIL</dt><dd><a href="mailto:info@speard.jp">info@speard.jp</a></dd>
         <dt>免許</dt><dd>宅地建物取引業 東京都知事（1）第112752号</dd>
       </dl>
@@ -108,6 +109,7 @@ FOOTER = f'''<footer class="site-footer">
       </ul></div>
       <div><h4>Company</h4><ul>
         <li><a href="/#company">会社概要</a></li>
+        <li><a href="/profile/">代表プロフィール</a></li>
         <li><a href="/faq/">よくあるご質問</a></li>
         <li><a href="/#access">アクセス</a></li>
         <li><a href="/#recruit">採用情報</a></li>
@@ -303,9 +305,9 @@ AUTHOR_BOX = '''<section class="column-author">
   <div class="column-author-body">
     <div class="column-author-avatar"><img src="/president.jpg" alt="南 和希" loading="lazy" decoding="async"></div>
     <div class="column-author-info">
-      <div class="column-author-name">南 和希</div>
+      <div class="column-author-name"><a href="/profile/" style="color:inherit;text-decoration:none">南 和希</a></div>
       <div class="column-author-roles">株式会社スピアード 代表取締役<br>宅地建物取引士 / 2級FP技能士</div>
-      <p class="column-author-bio">1999年、神奈川県横浜市生まれ。<br>新卒で大手不動産会社に入社後、営業部内トップセールスを達成。<br>3年の実績を経て独立し、株式会社スピアードを設立。</p>
+      <p class="column-author-bio">1999年、神奈川県横浜市生まれ。<br>新卒で大手不動産会社に入社後、営業部内トップセールスを達成。<br>3年の実績を経て独立し、株式会社スピアードを設立。<br><a href="/profile/" style="font-size:.85em">代表プロフィールを見る →</a></p>
       <p class="column-author-bio">売買仲介・投資用不動産・中古不動産の仕入れ再販・リノベーションなど、不動産業界の幅広い領域で実務経験を持つ。<br>自身でも不動産の購入を3回、売却を2回、リノベーションを1回経験した実践派。<br>現在はメディア取材・自社サービスが計6媒体に掲載されている。</p>
     </div>
   </div>
@@ -426,7 +428,7 @@ def build_columns():
                       'description': desc, 'image': [hero_abs], 'datePublished': iso(c['date']),
                       'dateModified': iso(c.get('modified') or c['date']), 'mainEntityOfPage': SITE + url,
                       'author': {'@type': 'Person', 'name': '南 和希', 'jobTitle': '代表取締役／宅地建物取引士',
-                                 'worksFor': {'@id': ORG_ID}, 'url': SITE + '/#about'},
+                                 'worksFor': {'@id': ORG_ID}, 'url': SITE + '/profile/'},
                       'publisher': {'@type': 'Organization', '@id': ORG_ID, 'name': '株式会社スピアード',
                                     'logo': {'@type': 'ImageObject', 'url': SITE + '/logo.png'}}}
         body_html = f'''<div class="subpage-wrap">
