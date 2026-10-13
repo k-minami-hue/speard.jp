@@ -186,9 +186,10 @@ img{ max-width:100%; height:auto; }
 .hm-col-date{ font-size:.78rem; color:var(--sp-text-mid); font-family:'Playfair Display',serif; }
 @media (max-width:900px){ .hm-col-grid{ grid-template-columns:1fr; max-width:640px; margin:0 auto; gap:14px; } }
 @media (max-width:640px){
-  .hm-col{ flex-direction:row; }
-  .hm-col-img{ width:38%; aspect-ratio:auto; min-height:112px; flex-shrink:0; }
-  .hm-col-body{ padding:12px 14px; gap:6px; }
+  /* 画像を切らずに全体を見せるため、スマホでも画像を上・本文を下に置く */
+  .hm-col{ flex-direction:column; }
+  .hm-col-img{ width:100%; aspect-ratio:16/9; }
+  .hm-col-body{ padding:14px 16px 16px; gap:6px; }
   .hm-col-title{ font-size:.88rem; line-height:1.55; }
 }
 
