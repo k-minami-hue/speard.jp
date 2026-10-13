@@ -38,6 +38,10 @@
     // コラム・エリアページでは、記事の種別（売却・購入）に合わせた問い合わせ先にする
     var tailored = document.querySelector('.col-inline-cta .cic-main');
     if (tailored) bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href'));
+    else {
+      var PAGE = { '/sell.html': 'sell', '/buy.html': 'buy', '/consulting.html': 'consult' }[location.pathname];
+      if (PAGE) bar.querySelector('.cta-form').setAttribute('href', '/?inquiry=' + PAGE + '&from=' + PAGE + '-page-bar#contact');
+    }
 
     // お問合せフォーム表示中は重複するので隠す
     var contact = document.getElementById('contact');
