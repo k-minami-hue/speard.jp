@@ -57,6 +57,20 @@
       "description": "政策金利1.25%、フラット35は3.83%。7,000万円・35年の試算では、変動金利が固定と同水準まで上がっても総返済額は変動が約1,200万円少ない。変動か固定かを決める3つの判断基準を整理。"
     },
     {
+      "id": "tedori-keisan",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "マンション売却の手取りはいくら残るか——諸費用・税金・残債の計算方法",
+      "date": "2026.09.30",
+      "hero": "/columns/hero/tedori-keisan.jpg",
+      "thumb": "/columns/hero/tedori-keisan-thumb.jpg",
+      "file": "columns/purchase/column_tedori_keisan.html",
+      "description": "マンション売却の手取りは売却価格からローン残債・売却費用・税金を引いた額。8,000万円で売った場合の試算、仲介手数料や印紙税の内訳、減価償却を含む譲渡所得の計算、戻ってくるお金まで整理。"
+    },
+    {
       "id": "tokibo",
       "category": "buy",
       "tags": [
