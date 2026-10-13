@@ -1040,3 +1040,25 @@
 @media (max-width:900px){ .column-related .col-grid{ grid-template-columns:1fr !important; } }
 .prop-gallery-main img{ cursor:zoom-in; }
 .col-filter{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+
+.col-toc{ display:block !important; background:#f7f8fa; border:1px solid #e3e6ec; border-radius:6px; padding:18px 22px; margin:28px 0; }
+.col-toc-ttl{ font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
+.col-toc ol{ margin:0; padding-left:1.4em; }
+.col-toc li{ font-size:.9rem; line-height:1.8; margin:2px 0; }
+.col-toc a{ color:var(--navy); text-decoration:none; }
+.col-toc a:hover{ text-decoration:underline; }
+.col-inline-cta{ border:1px solid #e3e6ec; border-top:3px solid var(--gold); background:#fff; padding:22px 24px; margin:36px 0; border-radius:4px; box-shadow:0 4px 18px rgba(13,34,56,.06); }
+.col-inline-cta .cic-ttl{ font-family:'Noto Serif JP',serif; font-size:1.08rem; font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
+.col-inline-cta .cic-sub{ font-size:.88rem; color:#555; margin:0 0 14px !important; line-height:1.8; }
+.cic-btns{ display:flex; flex-wrap:wrap; gap:10px; }
+.cic-btns a{ display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:3px; font-weight:700; font-size:.9rem; text-decoration:none !important; }
+.cic-main{ background:var(--gold); color:#fff !important; }
+.cic-sub-btn{ background:var(--navy); color:#fff !important; }
+.cic-line{ background:#06C755; color:#fff !important; }
+@media (max-width:640px){ .cic-btns a{ flex:1 1 100%; } }
+.area-page h2{ font-family:'Noto Serif JP',serif; color:var(--navy-dark); font-size:1.25rem; margin:40px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--beige); }
+.area-page p{ line-height:1.95; margin-bottom:14px; }
+.area-facts th{ width:28%; }
+.area-hub-item{ border:1px solid #e3e6ec; padding:20px 22px; margin-bottom:16px; border-radius:4px; }
+.area-hub-item h2{ margin:0 0 8px; border:0; padding:0; font-size:1.15rem; }
+.area-hub-item h2 a{ color:var(--navy-dark); text-decoration:none; }

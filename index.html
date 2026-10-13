@@ -1156,6 +1156,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
   <a href="/buy.html">購入について</a>
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
+  <a href="/area/">対応エリア</a>
   <div class="mm-group">Property</div>
   <a href="/properties/">販売物件</a>
   <a href="/results/">成約実績</a>
@@ -1409,6 +1410,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
           <input type="hidden" name="access_key" value="5268c498-3e71-4a9e-ac7f-6aa7dc428f4e">
           <input type="hidden" name="cc" value="info@speard.jp">
           <input type="hidden" name="subject" value="「speard.jpお問合せ」お問合せが届きました">
+          <input type="hidden" name="source" id="inq-source" value="">
           <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none!important" aria-hidden="true">
           <div class="form-row-2col">
             <div class="form-row">
@@ -2391,6 +2393,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
         <li><a href="/buy.html">購入について</a></li>
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
+        <li><a href="/area/">対応エリア</a></li>
         <li><a href="/#contact">無料相談</a></li>
       </ul></div>
       <div><h4>Property</h4><ul>
@@ -2638,7 +2641,7 @@ if (contactForm) {
     formData.forEach((v, k) => { if (k !== 'access_key' && k !== 'cc' && k !== 'subject') payload[k] = v; });
 
     let settled = false;
-    const finishOK = () => { if (settled) return; settled = true; showSuccess(); if (typeof gtag === 'function') gtag('event', 'generate_lead', { inquiry_type: typeVal }); };
+    const finishOK = () => { if (settled) return; settled = true; showSuccess(); if (typeof gtag === 'function') gtag('event', 'generate_lead', { inquiry_type: typeVal, source: (document.getElementById('inq-source') || {}).value || '' }); };
     const finishFail = () => {
       if (settled) return; settled = true;
       btn.disabled = false;
@@ -3175,6 +3178,22 @@ window.addEventListener('popstate', e => {
 
 </script>
 
+<script>
+/* コラム・エリアページからの問い合わせ：種別を選択済みにし、記入例を入れ、流入元を記録する */
+(function(){
+  var q=new URLSearchParams(location.search),t=q.get('inquiry'),src=q.get('from')||'';
+  if(!t&&!src)return;
+  var MAP={buy:'不動産の購入について',sell:'不動産の売却について',consult:'不動産コンサルティングについて'};
+  var TPL={sell:'物件名：\n所在階・専有面積：\n売却を考えている時期：\nご相談内容：\n',buy:'希望エリア・沿線：\nご予算：\n購入を考えている時期：\nご相談内容：\n'};
+  function apply(){
+    var f=document.getElementById('contact-form');if(!f)return;
+    var s=f.querySelector('[name="type"]');if(s&&MAP[t])s.value=MAP[t];
+    var m=f.querySelector('[name="message"]');if(m&&!m.value&&TPL[t])m.value=TPL[t];
+    var h=document.getElementById('inq-source');if(h)h.value=src;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
+})();
+</script>
 <script src="/assets/site.js?v=20261010" defer></script>
 </body>
 </html>

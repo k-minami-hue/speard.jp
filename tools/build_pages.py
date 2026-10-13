@@ -36,7 +36,7 @@ def write(p, s):
 # ------------------------------------------------------------------
 LINE_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M24 10.3C24 4.9 18.6.6 12 .6S0 4.9 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8 0 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 6.9-4.1 9.4-7 1.8-1.9 2.7-3.8 2.7-5.9z"/></svg>'
 NAV = [('/buy.html', '購入'), ('/sell.html', '売却'), ('/consulting.html', 'コンサルティング'),
-       ('/properties/', '販売物件'), ('/results/', '成約実績'), ('/#voices', 'お客様の声'),
+       ('/properties/', '販売物件'), ('/results/', '成約実績'), ('/voices/', 'お客様の声'),
        ('/columns/', 'コラム'), ('/#company', '会社概要')]
 
 def header():
@@ -57,14 +57,15 @@ def header():
   <a href="/buy.html">購入について</a>
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
+  <a href="/area/">対応エリア</a>
   <div class="mm-group">Property</div>
   <a href="/properties/">販売物件</a>
   <a href="/results/">成約実績</a>
-  <a href="/#voices">お客様の声</a>
+  <a href="/voices/">お客様の声</a>
   <a href="/columns/">不動産コラム</a>
   <div class="mm-group">Company</div>
   <a href="/#company">会社概要</a>
-  <a href="/#faq">よくあるご質問</a>
+  <a href="/faq/">よくあるご質問</a>
   <a href="/#access">アクセス</a>
   <a href="/#recruit">採用情報</a>
   <a href="/#privacy">プライバシーポリシー</a>
@@ -92,17 +93,18 @@ FOOTER = f'''<footer class="site-footer">
         <li><a href="/buy.html">購入について</a></li>
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
+        <li><a href="/area/">対応エリア</a></li>
         <li><a href="/#contact">無料相談</a></li>
       </ul></div>
       <div><h4>Property</h4><ul>
         <li><a href="/properties/">販売物件</a></li>
         <li><a href="/results/">成約実績</a></li>
-        <li><a href="/#voices">お客様の声</a></li>
+        <li><a href="/voices/">お客様の声</a></li>
         <li><a href="/columns/">不動産コラム</a></li>
       </ul></div>
       <div><h4>Company</h4><ul>
         <li><a href="/#company">会社概要</a></li>
-        <li><a href="/#faq">よくあるご質問</a></li>
+        <li><a href="/faq/">よくあるご質問</a></li>
         <li><a href="/#access">アクセス</a></li>
         <li><a href="/#recruit">採用情報</a></li>
         <li><a href="/#privacy">プライバシーポリシー</a></li>
@@ -250,6 +252,28 @@ def build_base_css():
 @media (max-width:900px){ .column-related .col-grid{ grid-template-columns:1fr !important; } }
 .prop-gallery-main img{ cursor:zoom-in; }
 .col-filter{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+
+.col-toc{ display:block !important; background:#f7f8fa; border:1px solid #e3e6ec; border-radius:6px; padding:18px 22px; margin:28px 0; }
+.col-toc-ttl{ font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
+.col-toc ol{ margin:0; padding-left:1.4em; }
+.col-toc li{ font-size:.9rem; line-height:1.8; margin:2px 0; }
+.col-toc a{ color:var(--navy); text-decoration:none; }
+.col-toc a:hover{ text-decoration:underline; }
+.col-inline-cta{ border:1px solid #e3e6ec; border-top:3px solid var(--gold); background:#fff; padding:22px 24px; margin:36px 0; border-radius:4px; box-shadow:0 4px 18px rgba(13,34,56,.06); }
+.col-inline-cta .cic-ttl{ font-family:'Noto Serif JP',serif; font-size:1.08rem; font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
+.col-inline-cta .cic-sub{ font-size:.88rem; color:#555; margin:0 0 14px !important; line-height:1.8; }
+.cic-btns{ display:flex; flex-wrap:wrap; gap:10px; }
+.cic-btns a{ display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:3px; font-weight:700; font-size:.9rem; text-decoration:none !important; }
+.cic-main{ background:var(--gold); color:#fff !important; }
+.cic-sub-btn{ background:var(--navy); color:#fff !important; }
+.cic-line{ background:#06C755; color:#fff !important; }
+@media (max-width:640px){ .cic-btns a{ flex:1 1 100%; } }
+.area-page h2{ font-family:'Noto Serif JP',serif; color:var(--navy-dark); font-size:1.25rem; margin:40px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--beige); }
+.area-page p{ line-height:1.95; margin-bottom:14px; }
+.area-facts th{ width:28%; }
+.area-hub-item{ border:1px solid #e3e6ec; padding:20px 22px; margin-bottom:16px; border-radius:4px; }
+.area-hub-item h2{ margin:0 0 8px; border:0; padding:0; font-size:1.15rem; }
+.area-hub-item h2 a{ color:var(--navy-dark); text-decoration:none; }
 '''
     write('assets/base.css', '/* 自動生成：index.html のCSSを静的ページ用に書き出したもの。直接編集しない */\n' + css + extra)
 
@@ -298,6 +322,63 @@ def col_card(c):
             f'<div class="col-card-thumb {"ct-sell" if sell else "ct-buy"}"><img src="{esc(c["thumb"])}" alt="" loading="lazy" decoding="async" width="640" height="360"></div>'
             f'<div class="col-card-body">{tag_html}<div class="col-card-title">{esc(c["title"])}</div><div class="col-card-date">{esc(c["date"])}</div></div></a>')
 
+
+def contact_url(kind, src=''):
+    return f'/?inquiry={kind}' + (f'&amp;from={src}' if src else '') + '#contact'
+
+def col_kind(c):
+    return 'sell' if c.get('category') in ('sell', 'sale') else 'buy'
+
+def inline_cta(c, pos):
+    k = col_kind(c)
+    if k == 'sell':
+        ttl = 'ご自宅の売却価格、根拠つきで試算します'
+        sub = '同じ建物・近隣の成約事例から、売り出し価格と手取りの目安をお出しします。売るか決めていない段階でも構いません。'
+        btn = '無料で売却査定を依頼する'
+    else:
+        ttl = '予算と物件選び、個別にご相談いただけます'
+        sub = '借入額の上限、候補物件の資産性、出口の見通しまで、宅地建物取引士が数字でお答えします。'
+        btn = '購入の相談をする'
+    return (f'<aside class="col-inline-cta" data-pos="{pos}"><p class="cic-ttl">{ttl}</p><p class="cic-sub">{sub}</p>'
+            f'<div class="cic-btns"><a class="cic-main" href="{contact_url(k, c["id"])}">{btn}</a>'
+            f'<a class="cic-line" href="{LINE_URL}" target="_blank" rel="noopener">LINEで相談する</a></div></aside>')
+
+def add_toc_and_cta(body, c):
+    """h2にidを振って目次を作り、本文の途中と末尾に問い合わせ導線を入れる"""
+    heads = []
+    def rep(m):
+        n = len(heads) + 1
+        txt = re.sub(r'<[^>]+>', '', m.group(2)).strip()
+        heads.append(txt)
+        return f'<h2{m.group(1)} id="sec{n}">{m.group(2)}</h2>'
+    body = re.sub(r'<h2([^>]*)>(.*?)</h2>', rep, body, flags=re.S)
+    if len(heads) >= 3:
+        toc = ('<nav class="col-toc" aria-label="目次"><p class="col-toc-ttl">目次</p><ol>'
+               + ''.join(f'<li><a href="#sec{i+1}">{esc(h)}</a></li>' for i, h in enumerate(heads)) + '</ol></nav>')
+        body = re.sub(r'(<h2[^>]*id="sec1")', lambda m: toc + '\n' + m.group(1), body, count=1)
+    mid = (len(heads) // 2) + 1
+    if len(heads) >= 4:
+        body = re.sub(rf'(<h2[^>]*id="sec{mid}")', lambda m: inline_cta(c, 'mid') + '\n' + m.group(1), body, count=1)
+    return body + '\n' + inline_cta(c, 'end')
+
+def bigrams(t):
+    t = re.sub(r'[\s　、。・「」『』（）()—\-|｜？?！!,:：0-9０-９]', '', t)
+    return {t[i:i+2] for i in range(len(t) - 1)}
+
+def related_cols(c, cols, n=6):
+    bc = bigrams(c['title'] + (c.get('description') or ''))
+    def score(x):
+        sh = len(set(col_tags(x)) & set(col_tags(c)))
+        return len(bc & bigrams(x['title'] + (x.get('description') or ''))) + sh * 3
+    pool = [x for x in cols if x['id'] != c['id']]
+    pool.sort(key=score, reverse=True)
+    return pool[:n]
+
+AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">エリア別のご相談</div><ul class="cs-recent">'
+             '<li><a href="/area/musashikosugi/">武蔵小杉のマンション売買</a></li><li><a href="/area/wangan/">湾岸エリアのマンション売買</a></li>'
+             '<li><a href="/area/tokyo23/">東京23区のマンション売買</a></li><li><a href="/area/kanagawa/">横浜・神奈川のマンション売買</a></li>'
+             '<li><a href="/area/">対応エリア一覧（一都三県）</a></li></ul></div>')
+
 def build_columns():
     man = json.load(open(P('columns/manifest.json'), encoding='utf-8'))['columns']
     cols = []
@@ -309,7 +390,7 @@ def build_columns():
     cols.sort(key=lambda c: c['date'], reverse=True)
 
     for c in cols:
-        body = fix_paths(c['body'])
+        body = add_toc_and_cta(fix_paths(c['body']), c)
         desc = c.get('description') or text_excerpt(body)
         url = f'/columns/{c["id"]}/'
         share = esc(SITE + url)
@@ -317,7 +398,7 @@ def build_columns():
         sell = c.get('category') in ('sell', 'sale')
         tags = ' '.join(f'<span class="column-meta-tag{" ct-sell" if "売却" in t else ""}">{esc(t)}</span>' for t in col_tags(c))
         hero_abs = SITE + c['hero'] if c['hero'].startswith('/') else c['hero']
-        related = [x for x in cols if x['id'] != c['id'] and set(col_tags(x)) & set(col_tags(c))][:3]
+        related = related_cols(c, cols)
         recent = ''.join(f'<li><a href="/columns/{x["id"]}/">{esc(x["title"])}</a></li>' for x in [y for y in cols if y['id'] != c['id']][:6])
         crumbs = [('トップ', '/'), ('不動産コラム', '/columns/'), (c['title'], url)]
         article_ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': c['title'][:110],
@@ -348,12 +429,13 @@ def build_columns():
   </div>
   <aside class="column-side">
     <div class="cs-section"><div class="cs-section-head">最近の投稿</div><ul class="cs-recent">{recent}</ul></div>
-    <a href="/#contact" class="cs-section cs-cta cs-cta-buy"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Purchase</span><div class="cs-cta-ja">購入のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
-    <a href="/#contact" class="cs-section cs-cta cs-cta-sell"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Sale</span><div class="cs-cta-ja">売却のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
+    <a href="{contact_url('buy', c['id'])}" class="cs-section cs-cta cs-cta-buy"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Purchase</span><div class="cs-cta-ja">購入のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
+    <a href="{contact_url('sell', c['id'])}" class="cs-section cs-cta cs-cta-sell"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Sale</span><div class="cs-cta-ja">売却のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
     <div class="cs-section cs-line"><a href="{LINE_URL}" target="_blank" rel="noopener" class="cs-line-btn">{LINE_SVG}<span class="cs-line-btn-main">公式LINEで相談する</span></a></div>
+    {AREA_SIDE}
   </aside>
 </div>
-{CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。')}
+{CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。', contact_url(col_kind(c), c['id']))}
 </div>'''
         write(f'columns/{c["id"]}/index.html', page(url, c['title'], desc, body_html, og_image=hero_abs, og_type='article',
                                                     jsonld=[article_ld], breadcrumbs=crumbs))
@@ -577,10 +659,152 @@ def build_results():
                                      body, breadcrumbs=crumbs))
     return res
 
+
+# ------------------------------------------------------------------
+# 6. FAQ・お客様の声（トップ内の表示を静的ページにも出す）
+# ------------------------------------------------------------------
+def extract_div(src, start_pat):
+    m = re.search(start_pat, src)
+    if not m: return ''
+    i = m.end(); depth = 1
+    for t in re.finditer(r'<div\b|</div>', src[i:]):
+        depth += 1 if t.group(0) == '<div' else -1
+        if depth == 0:
+            return src[i:i + t.start()]
+    return ''
+
+def build_faq_voices():
+    idx = read('index.html')
+    faq_html = extract_div(idx, r'<div class="faq-list" id="faq-list">')
+    qas = []
+    for item in faq_html.split('<div class="faq-item">')[1:]:
+        q = re.search(r'faq-q.*?<p class="faq-text">(.*?)</p>', item, re.S)
+        a = re.search(r'faq-a.*?<p class="faq-text">(.*?)</p>', item, re.S)
+        if q and a:
+            qas.append((html.unescape(re.sub(r'<[^>]+>', '', q.group(1))).strip(),
+                        html.unescape(re.sub(r'<br\s*/?>', '\n', re.sub(r'<(?!br)[^>]+>', '', a.group(1)))).strip()))
+    crumbs = [('トップ', '/'), ('よくあるご質問', '/faq/')]
+    body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero('FAQ', 'よくあるご質問', '購入・売却・ご相談について、お客様からよくいただくご質問にお答えします。')}
+<div class="subpage-content"><div class="faq-list">{fix_paths(faq_html)}</div>
+<p style="margin-top:28px">ここにないご質問も、お問合せフォームやLINEからお気軽にどうぞ。売却査定・購入相談は無料です。</p></div>
+{CTA_BOTTOM('ご質問・ご相談はお気軽に', '購入・売却のご相談はいつでも承っております。')}
+</div>'''
+    ld = [{'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+        {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in qas]}]
+    write('faq/index.html', page('/faq/', 'よくあるご質問｜マンションの購入・売却・費用・流れ',
+                                 '株式会社スピアードへのよくあるご質問。相談料、購入時の諸費用、契約から引渡しまでの期間、買い替えの進め方など、分譲マンションの購入・売却の疑問にお答えします。',
+                                 body, jsonld=ld, breadcrumbs=crumbs))
+    grid = extract_div(idx, r'<div class="reviews-grid">')
+    n = len(re.findall(r'class="review-card"', grid))
+    crumbs = [('トップ', '/'), ('お客様の声', '/voices/')]
+    body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero('Customer Voice', 'お客様の声', 'マンションの購入・売却をお手伝いしたお客様からいただいたメッセージです。')}
+<div class="subpage-content">
+  <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて</button><button class="voice-tab" data-f="buy">購入</button><button class="voice-tab" data-f="sell">売却</button></div>
+  <div class="reviews-grid" id="rv-grid">{fix_paths(grid)}</div>
+</div>
+{CTA_BOTTOM('ご購入・ご売却のご相談', '初めての方も、買い替えの方も、まずはお気軽にご相談ください。')}
+</div>
+<script>
+document.querySelectorAll('.voice-tabs .voice-tab').forEach(function(b){{b.addEventListener('click',function(){{
+  document.querySelectorAll('.voice-tabs .voice-tab').forEach(function(x){{x.classList.toggle('vt-active-all',x===b);}});
+  var f=b.dataset.f;document.querySelectorAll('#rv-grid .review-card').forEach(function(c){{
+    var t=c.querySelector('.review-type');var k=t&&t.classList.contains('type-sell')?'sell':'buy';c.style.display=(f==='all'||f===k)?'':'none';}});
+}});}});
+</script>'''
+    write('voices/index.html', page('/voices/', f'お客様の声｜マンション購入・売却の体験談（{n}件）',
+                                    f'株式会社スピアードでマンションを購入・売却されたお客様の声{n}件。初めての購入、住み替え、売却の体験談をご紹介します。',
+                                    body, breadcrumbs=crumbs))
+    return len(qas), n
+
+# ------------------------------------------------------------------
+# 7. エリア別ページ
+# ------------------------------------------------------------------
+def sentences_html(t):
+    ss = [x for x in re.findall(r'[^。]*。|[^。]+$', t) if x.strip()]
+    return '<p>' + '<br>\n'.join(esc(x) for x in ss) + '</p>'
+
+def build_areas(cols):
+    if not os.path.exists(P('area/manifest.json')): return []
+    A = json.load(open(P('area/manifest.json'), encoding='utf-8'))
+    res = {x['name']: x for x in json.load(open(P('results/manifest.json'), encoding='utf-8')).get('results', [])}
+    cmap = {c['id']: c for c in cols}
+    urls = []
+    for a in A['areas']:
+        path = f'/area/{a["id"]}/'
+        facts = ''.join(f'<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>' for k, v in a.get('facts', []))
+        secs = ''.join(f'<h2>{esc(h)}</h2>{sentences_html(t)}' for h, t in a.get('sections', []))
+        rcards = ''.join(
+            f'<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>'
+            + (f'<div class="res-bg" style="background-image:url(\'/{esc(res[n]["image"].lstrip("/"))}\')"></div><img src="/{esc(res[n]["image"].lstrip("/"))}" alt="{esc(n)} 外観" loading="lazy" decoding="async">' if res[n].get('image') else '')
+            + f'</div><div class="res-body"><h3 class="res-name">{esc(n)}</h3>' + (f'<div class="res-floor">{esc(res[n].get("floor"))}</div>' if res[n].get('floor') else '') + '</div></div>'
+            for n in a.get('results', []) if n in res)
+        rel = [cmap[i] for i in a.get('columns', []) if i in cmap]
+        kind = 'sell'
+        crumbs = [('トップ', '/'), ('対応エリア', '/area/'), (a['name'], path)]
+        body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero('Area', esc(a['h1']), esc(a['lead'][0].split('。')[0] + '。'))}
+<div class="subpage-content area-page">
+  {''.join(sentences_html(x) for x in a['lead'])}
+  {f'<h2>{esc(a["name"])}の基本データ</h2><table class="prop-table area-facts"><tbody>{facts}</tbody></table>' if facts else ''}
+  {secs}
+  <aside class="col-inline-cta"><p class="cic-ttl">{esc(a['name'])}のマンション、売却価格を根拠つきで試算します</p><p class="cic-sub">同じ建物・近隣の成約事例から、売り出し価格と手取りの目安をお出しします。購入のご相談も承ります。</p>
+  <div class="cic-btns"><a class="cic-main" href="{contact_url('sell', 'area-' + a['id'])}">無料で売却査定を依頼する</a><a class="cic-sub-btn" href="{contact_url('buy', 'area-' + a['id'])}">購入の相談をする</a><a class="cic-line" href="{LINE_URL}" target="_blank" rel="noopener">LINEで相談する</a></div></aside>
+  {f'<h2>{esc(a["name"])}の成約実績（一例）</h2><div class="res-grid">{rcards}</div>' if rcards else ''}
+  {f'<h2>{esc(a["name"])}で売買を考える方へのコラム</h2><div class="col-grid">' + ''.join(col_card(x) for x in rel) + '</div>' if rel else ''}
+  <p style="margin-top:28px"><a href="/area/">対応エリア一覧に戻る</a></p>
+</div>
+{CTA_BOTTOM(esc(a['name']) + 'のマンション売買のご相談', '売却査定・購入相談は無料です。お問合せフォームまたはLINEからどうぞ。', contact_url(kind, 'area-' + a['id']))}
+</div>'''
+        ld = [{'@context': 'https://schema.org', '@type': 'Service', 'name': f'{a["name"]}のマンション売買仲介', 'serviceType': '不動産売買仲介',
+               'areaServed': a['name'], 'provider': {'@id': ORG_ID}, 'url': SITE + path}]
+        write(f'area/{a["id"]}/index.html', page(path, a['title'], a['description'], body, jsonld=ld, breadcrumbs=crumbs))
+        urls.append(path)
+    # 一覧（一都三県）
+    groups = [(a['name'], f'/area/{a["id"]}/', a['results']) for a in A['areas']] + [(k, None, v) for k, v in A.get('other_results', {}).items()]
+    blocks = ''.join(f'<div class="area-hub-item"><h2>{f"<a href={chr(34)}{u}{chr(34)}>{esc(n)}</a>" if u else esc(n)}</h2><p>主な成約実績：{esc("、".join(r[:8]))}{"ほか" if len(r) > 8 else ""}</p>'
+                     + (f'<p><a href="{u}">{esc(n)}のマンション売買について詳しく見る →</a></p>' if u else '') + '</div>' for n, u, r in groups)
+    crumbs = [('トップ', '/'), ('対応エリア', '/area/')]
+    body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero('Service Area', '対応エリア', '東京都・神奈川県・埼玉県・千葉県の一都三県で、分譲マンションの購入・売却をお手伝いしています。')}
+<div class="subpage-content area-page">{blocks}</div>
+{CTA_BOTTOM('一都三県のマンション売買のご相談', '売却査定・購入相談は無料です。エリアを問わずお気軽にご相談ください。')}
+</div>'''
+    write('area/index.html', page('/area/', '対応エリア｜一都三県の分譲マンション売買仲介',
+                                  '株式会社スピアードの対応エリア。東京都・神奈川県・埼玉県・千葉県の一都三県で、武蔵小杉・湾岸・東京23区・横浜などの分譲マンションの購入・売却を仲介しています。成約実績を掲載。',
+                                  body, breadcrumbs=crumbs))
+    return ['/area/'] + urls
+
+# ------------------------------------------------------------------
+# 8. コラムのカテゴリ一覧（購入編・売却編）
+# ------------------------------------------------------------------
+def build_column_hubs(cols):
+    out = []
+    for slug, tag, ttl, desc in [('buy', '購入編', '購入編のコラム｜マンション購入・住宅ローン・物件選び',
+                                  'マンション購入の判断に役立つコラム一覧。住宅ローンの借入額と金利の選び方、資産性の高い物件の条件、内見・値引き交渉、税金・諸費用まで実務の視点で解説。'),
+                                 ('sell', '売却編', '売却編のコラム｜マンション売却・査定・税金・住み替え',
+                                  'マンション売却の判断に役立つコラム一覧。査定額の見方、売り出し価格、買取と仲介、売却の手取りと税金、住み替えの順番まで実務の視点で解説。')]:
+        lst = [c for c in cols if tag in col_tags(c)]
+        crumbs = [('トップ', '/'), ('不動産コラム', '/columns/'), (tag, f'/columns/{slug}/')]
+        body = f'''<div class="subpage-wrap">
+{crumbs_html(crumbs)}
+{hero('Real Estate Column', esc(tag) + 'のコラム', esc(desc.split('。')[0]) + '。')}
+<div class="subpage-content"><p style="margin-bottom:24px">{esc(desc)}</p><div class="col-grid">{"".join(col_card(c) for c in lst)}</div></div>
+{CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。', contact_url(slug))}
+</div>'''
+        write(f'columns/{slug}/index.html', page(f'/columns/{slug}/', ttl, desc, body, breadcrumbs=crumbs))
+        out.append(f'/columns/{slug}/')
+    return out
+
 # ------------------------------------------------------------------
 # 5. sitemap
 # ------------------------------------------------------------------
-def build_sitemap(cols, props):
+def build_sitemap(cols, props, extra=()):
     def lm(p):
         return datetime.date.fromtimestamp(os.path.getmtime(P(p))).isoformat() if os.path.exists(P(p)) else TODAY
     urls = [('/', TODAY, '1.0'), ('/buy.html', lm('buy.html'), '0.9'), ('/sell.html', lm('sell.html'), '0.9'),
@@ -588,6 +812,7 @@ def build_sitemap(cols, props):
             ('/results/', TODAY, '0.8'), ('/columns/', TODAY, '0.8')]
     urls += [(f'/properties/{p["id"]}/', TODAY, '0.8') for p in props]
     urls += [(f'/columns/{c["id"]}/', iso(c.get('modified') or c['date']), '0.7') for c in cols]
+    urls += [(u, TODAY, '0.8') for u in extra]
     xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     xml += [f'  <url><loc>{SITE}{u}</loc><lastmod>{d}</lastmod><priority>{pr}</priority></url>' for u, d, pr in urls]
     xml.append('</urlset>')
@@ -599,5 +824,7 @@ if __name__ == '__main__':
     cols = build_columns()
     props = build_properties()
     res = build_results()
-    n = build_sitemap(cols, props)
-    print(f'columns: {len(cols)}  properties: {len(props)}  results: {len(res)}  sitemap urls: {n}')
+    nq, nv = build_faq_voices()
+    extra = ['/faq/', '/voices/'] + build_areas(cols) + build_column_hubs(cols)
+    n = build_sitemap(cols, props, extra)
+    print(f'columns: {len(cols)}  properties: {len(props)}  results: {len(res)}  faq: {nq}  voices: {nv}  sitemap urls: {n}')

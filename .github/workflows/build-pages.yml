@@ -11,6 +11,7 @@ on:
       - 'columns/sale/*.html'
       - 'properties/manifest.json'
       - 'results/manifest.json'
+      - 'area/manifest.json'
       - 'index.html'
       - 'tools/build_pages.py'
   workflow_dispatch:

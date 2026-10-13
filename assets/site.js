@@ -35,6 +35,9 @@
       '<a class="cta-line" href="' + LINE + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.3C24 4.9 18.6.6 12 .6S0 4.9 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8 0 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 6.9-4.1 9.4-7 1.8-1.9 2.7-3.8 2.7-5.9z"/></svg>LINE相談</a>' +
       '<a class="cta-form" href="/#contact" data-home-hash="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg>無料で相談する</a>';
     document.body.appendChild(bar);
+    // コラム・エリアページでは、記事の種別（売却・購入）に合わせた問い合わせ先にする
+    var tailored = document.querySelector('.col-inline-cta .cic-main');
+    if (tailored) bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href'));
 
     // お問合せフォーム表示中は重複するので隠す
     var contact = document.getElementById('contact');
