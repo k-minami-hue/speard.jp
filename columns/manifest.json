@@ -86,6 +86,21 @@
       "description": "登記簿で見るべきは表題部の新築年月日と床面積、甲区の所有者と取得原因、乙区の抵当権の3か所。税制優遇の可否、相続未登記や差押えの確認、売主のローン残高の推定まで、取引前のチェック方法を整理。"
     },
     {
+      "id": "tawaman-kakaku-sa",
+      "category": "buy",
+      "tags": [
+        "購入編",
+        "売却編"
+      ],
+      "tag": "購入・売却",
+      "title": "タワマンは階数・向き・眺望で価格がどれだけ変わるか——中古で「中間」を取る理由",
+      "date": "2026.09.23",
+      "hero": "/columns/hero/tawaman-kakaku-sa.jpg",
+      "thumb": "/columns/hero/tawaman-kakaku-sa-thumb.jpg",
+      "file": "columns/purchase/column_tawaman_kakaku_sa.html",
+      "description": "タワマンの価格差を生むのは階数より眺望。新築の高層階プレミアムは中古で一部しか残らない理由、向きと角部屋の評価、同じ建物の成約事例で価格差を測る方法と、中古で中間の階を取る考え方を解説。"
+    },
+    {
       "id": "zoyo-hikazei",
       "category": "buy",
       "tags": [
