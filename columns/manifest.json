@@ -1,6 +1,21 @@
 {
   "columns": [
     {
+      "id": "wangan-erabikata",
+      "category": "buy",
+      "tags": [
+        "購入編",
+        "売却編"
+      ],
+      "tag": "購入・売却",
+      "title": "湾岸タワーマンションの選び方——勝どき・晴海・豊洲で出口に差がつく5つの条件",
+      "date": "2026.10.14",
+      "hero": "/columns/hero/wangan-erabikata.jpg",
+      "thumb": "/columns/hero/wangan-erabikata-thumb.jpg",
+      "file": "columns/purchase/column_wangan_erabikata.html",
+      "description": "湾岸タワーマンションの出口を分ける5つの条件。駅までの距離と道のり、眺望が続くか、HARUMI FLAGなど大規模供給との競合、修繕計画、液状化・高潮への備えを、勝どき・晴海・豊洲の特徴とあわせて解説。"
+    },
+    {
       "id": "satei-chigai",
       "category": "sell",
       "tags": [
