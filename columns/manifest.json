@@ -171,6 +171,21 @@
       "description": "マンションの固定資産税・都市計画税の計算方法を試算付きで整理。住宅用地特例、新築の5年間2分の1軽減と6年目の上昇、2026年度改正での延長、タワマンの階層別補正（40階は1階の1.1倍）まで。"
     },
     {
+      "id": "shinchiku-kaikae",
+      "category": "sell",
+      "tags": [
+        "売却編",
+        "購入編"
+      ],
+      "tag": "購入・売却",
+      "title": "新築マンション契約後の買い替え——引渡しまでに今の家をいつ売るか",
+      "date": "2026.09.02",
+      "hero": "/columns/hero/shinchiku-kaikae.jpg",
+      "thumb": "/columns/hero/shinchiku-kaikae-thumb.jpg",
+      "file": "columns/purchase/column_shinchiku_kaikae.html",
+      "description": "新築マンションの契約から引渡しまでに今の家をいつ売るか。ローン審査への影響、引渡し猶予・引渡し後・先行売却の比較、大規模新築の引渡し前後の売り物増加、3,000万円控除と住宅ローン控除の選び方を解説。"
+    },
+    {
       "id": "shaon",
       "category": "buy",
       "tags": [
