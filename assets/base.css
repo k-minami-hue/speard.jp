@@ -806,7 +806,7 @@
       }
       /* Hero typography */
       .hero-en { font-size: .72rem !important; letter-spacing: .14em; }
-      .hero-ja, .col-hero-ja, h1 { font-size: clamp(1.5rem, 6.5vw, 2rem) !important; line-height: 1.4; }
+      .hero-ja, .col-hero-ja, h1, .spa-h1 { font-size: clamp(1.5rem, 6.5vw, 2rem) !important; line-height: 1.4; }
       .hero-sub { font-size: .9rem !important; line-height: 1.85; }
       /* Section padding shrink */
       section { padding: 60px 18px !important; }
