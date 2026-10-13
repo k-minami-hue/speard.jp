@@ -229,6 +229,20 @@
       "description": "自然死や日常生活での事故死は原則告知不要、自殺や特殊清掃を伴う死は売買では期間の定めなく告知が必要。国交省ガイドラインの線引き、告知する内容、売主が隠すリスク、買主の確認方法を整理。"
     },
     {
+      "id": "kosugi-tawaman-uru",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "武蔵小杉のタワマンを高く売る——同じ建物の売り物と比べられる前提の売却戦略",
+      "date": "2026.08.19",
+      "hero": "/columns/hero/kosugi-tawaman-uru.jpg",
+      "thumb": "/columns/hero/kosugi-tawaman-uru-thumb.jpg",
+      "file": "columns/purchase/column_kosugi_tawaman_uru.html",
+      "description": "武蔵小杉のタワマンは同じ建物の売り物と比べられる前提で売る。成約事例からの価格設定、共働き世帯に向けた見せ方、浸水対策や修繕積立金の質問への準備、2027〜2028年の売り物増加を踏まえた時期の判断を解説。"
+    },
+    {
       "id": "baikai-keiyaku",
       "category": "sell",
       "tags": [
