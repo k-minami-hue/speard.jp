@@ -200,6 +200,20 @@
       "description": "マンションの上階の音は内見では分からない。重量床衝撃音はスラブ厚、軽量床衝撃音は床材で決まる。スラブ厚200mmの目安、二重床と直床の違い、遮音等級LL-45・ΔLL(I)-4とリフォーム時の注意点を整理。"
     },
     {
+      "id": "chikugo-tawaman",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "築15〜20年のタワマンを買う前に——2回目の大規模修繕と長期修繕計画の読み方",
+      "date": "2026.08.26",
+      "hero": "/columns/hero/chikugo-tawaman.jpg",
+      "thumb": "/columns/hero/chikugo-tawaman-thumb.jpg",
+      "file": "columns/purchase/column_chikugo_tawaman.html",
+      "description": "築15〜20年のタワマンは2回目の大規模修繕に向かう時期。設備更新が重なる理由、長期修繕計画・積立金残高・値上げ予定・議事録の確認方法、買ってよい建物と避けるべき建物の見分け方を解説。"
+    },
+    {
       "id": "kokuchi-gimu",
       "category": "sell",
       "tags": [
