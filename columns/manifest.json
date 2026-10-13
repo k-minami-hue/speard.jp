@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "toshin-kaidoki",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "都心の中古マンションは高すぎるか——1億円時代に資産性で選ぶ4つの基準",
+      "date": "2026.10.14",
+      "hero": "/columns/hero/toshin-kaidoki.jpg",
+      "thumb": "/columns/hero/toshin-kaidoki-thumb.jpg",
+      "file": "columns/purchase/column_toshin_kaidoki.html",
+      "description": "東京都の中古マンションは70㎡換算で1億円超。高値の市場で資産性を守るために、売り出し価格と成約価格の差、駅距離・規模・管理・ブランドの4基準、金利上昇に耐える借入額、中間を取る考え方を解説。"
+    },
+    {
       "id": "wangan-erabikata",
       "category": "buy",
       "tags": [
