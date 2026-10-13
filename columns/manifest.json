@@ -29,6 +29,20 @@
       "description": "年収800万円で銀行が貸せる上限は約5,650万円、無理なく返せる目安は3,800万〜4,600万円。返済負担率と審査金利の仕組み、手取りと管理費から逆算する借入額、上限側を取ってよい条件を整理。"
     },
     {
+      "id": "kaitori-chukai",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "マンションは買取か仲介か——買取価格の相場と、買取を選ぶべき4つのケース",
+      "date": "2026.10.07",
+      "hero": "/columns/hero/kaitori-chukai.jpg",
+      "thumb": "/columns/hero/kaitori-chukai-thumb.jpg",
+      "file": "columns/purchase/column_kaitori_chukai.html",
+      "description": "マンションの買取価格は仲介で売れる価格の7〜8割が目安。買取業者の価格の決め方、仲介との違い、期限がある・室内の状態が悪いなど買取を選ぶべき4つのケースと、買取保証付き仲介の使い方を解説。"
+    },
+    {
       "id": "hendo-kotei",
       "category": "buy",
       "tags": [
