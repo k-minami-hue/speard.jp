@@ -67,13 +67,20 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
       "latitude": 35.6686,
       "longitude": 139.7199
     },
-    "areaServed": ["東京都", "神奈川県", "首都圏"],
+    "areaServed": ["東京都", "神奈川県", "埼玉県", "千葉県"],
+    "foundingDate": "2025-06",
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "09:30",
+      "closes": "18:00"
+    }],
     "serviceType": ["不動産売買仲介", "不動産購入サポート", "不動産売却サポート"],
     "founder": {
       "@type": "Person",
       "name": "南 和希"
     },
-    "sameAs": ["https://speard.jp"]
+    "sameAs": ["https://line.me/R/ti/p/%40xef5208i"]
   }
   </script>
   <script type="application/ld+json">
@@ -1370,12 +1377,14 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
 <script>
 (function(){
   function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  // WebP版があれば使い、なければ元の画像に戻す（tools/make_webp.py が同名の .webp を作る）
+  function img(src,alt){var w=String(src).replace(/\.(jpe?g|png)$/i,'.webp');return '<img src="'+esc(w)+'" alt="'+esc(alt)+'" loading="lazy" decoding="async"'+(w!==src?' data-fb="'+esc(src)+'" onerror="this.onerror=null;this.src=this.dataset.fb"':'')+'>';}
   fetch('results/manifest.json').then(function(r){return r.ok?r.json():{results:[]};}).then(function(d){
     var list=(d.results||[]), g=document.getElementById('hm-res-grid');
     if(!g) return;
     if(!list.length){document.getElementById('home-results').style.display='none';return;}
     g.innerHTML=list.slice(0,8).map(function(x){
-      return '<div class="hm-res"><div class="hm-res-img">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+' 外観" loading="lazy" decoding="async">':'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></div>';
+      return '<div class="hm-res"><div class="hm-res-img">'+(x.image?img(x.image,x.name+' 外観'):'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></div>';
     }).join('');
   }).catch(function(){});
   fetch('columns/manifest.json').then(function(r){return r.ok?r.json():{columns:[]};}).then(function(d){
@@ -1384,7 +1393,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
     if(!list.length){document.getElementById('home-columns').style.display='none';return;}
     g.innerHTML=list.map(function(x){
       var tag=(x.tags&&x.tags.length)?x.tags.join('・'):(x.tag||'');
-      return '<a class="hm-col" href="/columns/'+esc(x.id)+'/"><div class="hm-col-img"><img src="'+esc(x.thumb)+'" alt="" loading="lazy" decoding="async"></div><div class="hm-col-body"><span class="hm-col-tag">'+esc(tag)+'</span><h3 class="hm-col-title">'+esc(x.title)+'</h3><time class="hm-col-date">'+esc(x.date)+'</time></div></a>';
+      return '<a class="hm-col" href="/columns/'+esc(x.id)+'/"><div class="hm-col-img">'+img(x.thumb,'')+'</div><div class="hm-col-body"><span class="hm-col-tag">'+esc(tag)+'</span><h3 class="hm-col-title">'+esc(x.title)+'</h3><time class="hm-col-date">'+esc(x.date)+'</time></div></a>';
     }).join('');
   }).catch(function(){});
 })();
