@@ -35,26 +35,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/base.css?v=20261014">
 <link rel="stylesheet" href="/assets/site.css?v=20261014">
-<style>
-/* 詳細版お客様の声（お客様情報＋4項目） */
-.review-card.voice-detail{grid-column:1/-1;padding:36px 40px}
-.voice-detail .review-type{align-self:flex-start}
-.voice-detail .vd-title{font-family:'Noto Serif JP',serif;font-size:1.08rem;font-weight:700;color:var(--navy-dark);line-height:1.7;margin-bottom:18px}
-.voice-detail .vd-info{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--beige);border-radius:4px;margin-bottom:26px;background:#FBF9F5}
-.voice-detail .vd-info div{padding:12px 16px;border-right:1px solid var(--beige)}
-.voice-detail .vd-info div:last-child{border-right:none}
-.voice-detail .vd-info dt{font-size:.7rem;font-weight:600;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
-.voice-detail .vd-info dd{margin:0;font-size:.88rem;font-weight:600;color:var(--navy-dark)}
-.voice-detail .vd-sec{padding:18px 0;border-top:1px solid var(--beige)}
-.voice-detail .vd-sec h3{font-size:.86rem;font-weight:700;color:var(--navy);letter-spacing:.06em;margin:0 0 8px;padding-left:12px;border-left:3px solid var(--gold)}
-.voice-detail .vd-sec p{font-size:.92rem;color:var(--text-mid);line-height:2;margin:0}
-@media (max-width:600px){
-  .review-card.voice-detail{padding:24px 20px !important}
-  .voice-detail .vd-info{grid-template-columns:repeat(2,1fr)}
-  .voice-detail .vd-info div:nth-child(2){border-right:none}
-  .voice-detail .vd-info div:nth-child(-n+2){border-bottom:1px solid var(--beige)}
-}
-</style>
 </head>
 <body class="static-page">
 <header id="header" class="scrolled">
@@ -116,34 +96,6 @@
 <div class="subpage-content">
   <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて</button><button class="voice-tab" data-f="buy">購入</button><button class="voice-tab" data-f="sell">売却</button></div>
   <div class="reviews-grid" id="rv-grid">
-<!--
-==== 詳細版お客様の声 入力テンプレート ====
-実際にお客様から回答・掲載許可をいただいた内容のみ掲載すること。
-使い方：下の <div class="review-card voice-detail">〜</div> をコピーし、このコメントの外（直下）に貼り付けて【 】部分を書き換える。
-購入は type-buy／購入、売却は type-sell／売却。アバター色は navy／teal／gold から選ぶ。
-件数を増やしたら、title・description・og・twitter の「16件」も更新する。
-
-<div class="review-card voice-detail">
-  <div class="review-header">
-    <div class="review-avatar navy">【イニシャル】</div>
-    <div class="review-meta"><div class="review-name">【イニシャル】様（【性別】・【年代】）</div></div>
-  </div>
-  <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-  <span class="review-type type-buy">購入</span>
-  <p class="vd-title">【見出し：ご相談内容の要点を1行で】</p>
-  <dl class="vd-info">
-    <div><dt>年代</dt><dd>【例：30代】</dd></div>
-    <div><dt>性別</dt><dd>【例：男性】</dd></div>
-    <div><dt>エリア</dt><dd>【例：川崎市中原区】</dd></div>
-    <div><dt>物件種別</dt><dd>【例：マンション】</dd></div>
-  </dl>
-  <div class="vd-sec"><h3>ご相談内容</h3><p>【本文】</p></div>
-  <div class="vd-sec"><h3>弊社を選んだ理由</h3><p>【本文】</p></div>
-  <div class="vd-sec"><h3>担当者へのコメント</h3><p>【本文】</p></div>
-  <div class="vd-sec"><h3>ご成約後の感想</h3><p>【本文】</p></div>
-</div>
-==== テンプレートここまで ====
--->
 <div class="review-card">
   <div class="review-header">
     <div class="review-avatar teal">K</div>
