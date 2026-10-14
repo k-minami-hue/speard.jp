@@ -379,6 +379,20 @@
     .type-buy { background: var(--navy-light); color: var(--navy); }
     .type-sell { background: #EFF9F6; color: var(--teal); }
     .review-text { font-size: .87rem; color: var(--text-mid); line-height: 2; flex: 1; }
+    .review-card[data-format=detail] .review-avatar { font-size: 1.15rem; line-height: 1; }
+    .rv-age-unit { font-family: "Noto Sans JP", sans-serif; font-size: .62rem; margin-left: 1px; align-self: flex-end; margin-bottom: 15px; }
+    .rv-sub { font-size: .76rem; color: var(--text-light, #888); margin-top: 3px; letter-spacing: .03em; }
+    .rv-title { font-size: .88rem; font-weight: 600; color: var(--navy-dark); margin-bottom: 10px; line-height: 1.6; }
+    .review-card[data-format=detail] .review-text { flex: 0 0 auto; }
+    .rv-more { margin-top: 16px; border-top: 1px solid var(--beige); padding-top: 12px; }
+    .rv-more summary { cursor: pointer; font-size: .8rem; font-weight: 600; color: var(--navy); letter-spacing: .04em; list-style: none; display: flex; align-items: center; gap: 6px; }
+    .rv-more summary::-webkit-details-marker { display: none; }
+    .rv-more summary::before { content: '+'; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid var(--navy); border-radius: 50%; font-size: .78rem; line-height: 1; }
+    .rv-more[open] summary::before { content: '−'; }
+    .rv-qa { margin: 14px 0 0; }
+    .rv-qa dt { font-size: .74rem; font-weight: 600; color: var(--gold); letter-spacing: .08em; margin-top: 14px; }
+    .rv-qa dt:first-child { margin-top: 0; }
+    .rv-qa dd { margin: 4px 0 0; font-size: .84rem; color: var(--text-mid); line-height: 1.95; }
 
 /* PAGE HERO */
     .page-hero { padding:130px 24px 72px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 60%,var(--navy-mid) 100%); text-align:center; position:relative; overflow:hidden; }
