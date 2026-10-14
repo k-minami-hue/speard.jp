@@ -29,7 +29,69 @@ def esc(s): return html.escape('' if s is None else str(s), quote=True)
 def read(p): return open(P(p), encoding='utf-8').read()
 def write(p, s):
     os.makedirs(os.path.dirname(P(p)), exist_ok=True)
+    if p.endswith('.html'):
+        s = optimize_images(s)
     open(P(p), 'w', encoding='utf-8').write(s)
+
+# ------------------------------------------------------------------
+# 画像の配信最適化（WebP差し替え・サイズ属性・遅延読み込み）
+#   tools/make_webp.py が作った foo.webp がある画像だけ src を差し替える。
+#   og:image など meta はJPEGのまま（SNSの互換性のため）。
+# ------------------------------------------------------------------
+try:
+    from PIL import Image as _PILImage
+except ImportError:  # Pillow がない環境でもビルドは通す（サイズ属性の付与だけ省略）
+    _PILImage = None
+_IMG_SIZE = {}
+
+def _local(src):
+    # 絶対パス（/foo.jpg）と、ルート直下の手書きページで使う相対パス（foo.jpg）を扱う
+    if src.startswith('//') or re.match(r'^[a-z]+:', src) or "'" in src or '+' in src:
+        return None
+    path = src.split('?')[0].split('#')[0]
+    f = P(path.lstrip('/'))
+    return f if os.path.isfile(f) else None
+
+def _webp(src):
+    base, ext = os.path.splitext(src.split('?')[0])
+    if ext.lower() not in ('.jpg', '.jpeg', '.png'):
+        return src
+    return base + '.webp' if _local(base + '.webp') else src
+
+def _size(src):
+    f = _local(src)
+    if not f or _PILImage is None:
+        return None
+    if f not in _IMG_SIZE:
+        try:
+            with _PILImage.open(f) as im:
+                _IMG_SIZE[f] = im.size
+        except Exception:
+            _IMG_SIZE[f] = None
+    return _IMG_SIZE[f]
+
+def _opt_img(m):
+    tag = m.group(0)
+    sm = re.search(r'\ssrc="([^"]+)"', tag)
+    if not sm:
+        return tag
+    src = sm.group(1)
+    if 'logo-img' not in tag and 'ft-logo' not in tag:
+        new = _webp(src)
+        if new != src:
+            tag = tag.replace(f' src="{src}"', f' src="{new}"', 1)
+    if ' width=' not in tag and ' height=' not in tag:
+        wh = _size(src)
+        if wh:
+            tag = tag[:-1].rstrip('/').rstrip() + f' width="{wh[0]}" height="{wh[1]}">'
+    if 'loading=' not in tag and 'fetchpriority' not in tag and 'logo-img' not in tag and 'id="pd-main-img"' not in tag:
+        tag = tag[:-1].rstrip('/').rstrip() + ' loading="lazy" decoding="async">'
+    return tag
+
+def optimize_images(s):
+    s = re.sub(r'<img\b[^>]*>', _opt_img, s)
+    s = re.sub(r"background-image:url\('(/[^']+)'\)", lambda m: f"background-image:url('{_webp(m.group(1))}')", s)
+    return s
 
 # ------------------------------------------------------------------
 # 共通パーツ
@@ -365,6 +427,65 @@ def inline_cta(c, pos):
             f'<div class="cic-btns"><a class="cic-main" href="{contact_url(k, c["id"])}">{btn}</a>'
             f'<a class="cic-line" href="{LINE_URL}" target="_blank" rel="noopener">LINEで相談する</a></div></aside>')
 
+# ------------------------------------------------------------------
+# 本文の自動内部リンク：本文中の用語を、その用語を解説したコラムに1回だけリンクする
+#   ・<p> と <li> の地の文だけが対象（見出し・既存リンクは触らない）
+#   ・1記事あたり最大5本、同じリンク先は1回まで、自分自身にはリンクしない
+# ------------------------------------------------------------------
+AUTOLINK = [
+    ('住宅ローン控除', '/columns/loan-kojo/'), ('3,000万円特別控除', '/columns/baikyaku-zeikin/'),
+    ('3,000万円控除', '/columns/baikyaku-zeikin/'), ('譲渡所得税', '/columns/baikyaku-zeikin/'),
+    ('長期修繕計画', '/columns/chikugo-tawaman/'), ('大規模修繕', '/columns/chikugo-tawaman/'),
+    ('修繕積立金', '/columns/kanrihi-shuzen/'), ('ペアローン', '/columns/pairloan-kiken/'),
+    ('収入合算', '/columns/loan-meigi/'), ('連帯債務', '/columns/loan-meigi/'),
+    ('変動金利', '/columns/hendo-kotei/'), ('固定金利', '/columns/hendo-kotei/'),
+    ('団体信用生命保険', '/columns/bank-erabikata/'), ('団信', '/columns/bank-erabikata/'),
+    ('返済比率', '/columns/kariire-jogen/'), ('借入可能額', '/simulator/#limit'),
+    ('諸費用', '/columns/shokihiyo/'), ('手取り', '/columns/tedori-keisan/'),
+    ('専任媒介', '/columns/baikai-keiyaku/'), ('一般媒介', '/columns/baikai-keiyaku/'),
+    ('媒介契約', '/columns/baikai-keiyaku/'), ('囲い込み', '/columns/baikai-keiyaku/'),
+    ('買取価格', '/columns/kaitori-chukai/'), ('買取業者', '/columns/kaitori-chukai/'),
+    ('査定額', '/columns/satei-chigai/'), ('売り出し価格', '/columns/uridashi-kakaku/'),
+    ('売出価格', '/columns/uridashi-kakaku/'), ('値引き交渉', '/columns/nebiki-kosho/'),
+    ('内見', '/columns/naiken-points/'), ('旧耐震', '/columns/kyutaishin/'),
+    ('固定資産税', '/columns/koteishisanzei/'), ('登記簿', '/columns/tokibo/'),
+    ('贈与税', '/columns/zoyo-hikazei/'), ('告知義務', '/columns/kokuchi-gimu/'),
+    ('心理的瑕疵', '/columns/kokuchi-gimu/'), ('火災保険', '/columns/kasai-hoken/'),
+    ('遮音等級', '/columns/shaon/'), ('スラブ厚', '/columns/shaon/'),
+    ('残債', '/columns/zansai-baikyaku/'), ('売却先行', '/columns/kaikae-junban/'),
+    ('購入先行', '/columns/kaikae-junban/'), ('利回り', '/columns/yield/'),
+    ('売り時', '/columns/uridoki/'), ('階数', '/columns/tawaman-kakaku-sa/'),
+    ('武蔵小杉', '/area/musashikosugi/'), ('湾岸エリア', '/area/wangan/'),
+]
+AUTOLINK.sort(key=lambda kv: -len(kv[0]))
+AUTOLINK_MAX = 5
+
+def autolink(body, self_url):
+    used = set(re.findall(r'href="([^"#]+)', body)) | {self_url}
+    count = [0]
+    def link_text(t):
+        out, i = [], 0
+        while i < len(t):
+            hit = None
+            if count[0] < AUTOLINK_MAX:
+                for kw, url in AUTOLINK:
+                    if url in used or url.split('#')[0] in used:
+                        continue
+                    if t.startswith(kw, i):
+                        hit = (kw, url); break
+            if hit:
+                kw, url = hit
+                out.append(f'<a href="{url}" class="col-autolink">{kw}</a>')
+                used.add(url); count[0] += 1; i += len(kw)
+            else:
+                out.append(t[i]); i += 1
+        return ''.join(out)
+    def block(m):
+        inner = m.group(2)
+        parts = re.split(r'(<a\b.*?</a>|<[^>]+>)', inner, flags=re.S)
+        return m.group(1) + ''.join(x if (x.startswith('<') or not x) else link_text(x) for x in parts) + m.group(3)
+    return re.sub(r'(<(?:p|li)\b[^>]*>)(.*?)(</(?:p|li)>)', block, body, flags=re.S)
+
 def add_toc_and_cta(body, c):
     """h2にidを振って目次を作り、本文の途中と末尾に問い合わせ導線を入れる"""
     heads = []
@@ -413,7 +534,7 @@ def build_columns():
     cols.sort(key=lambda c: c['date'], reverse=True)
 
     for c in cols:
-        body = add_toc_and_cta(fix_paths(c['body']), c)
+        body = add_toc_and_cta(autolink(fix_paths(c['body']), f'/columns/{c["id"]}/'), c)
         desc = c.get('description') or text_excerpt(body)
         url = f'/columns/{c["id"]}/'
         share = esc(SITE + url)
@@ -460,7 +581,8 @@ def build_columns():
 </div>
 {CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。', contact_url(col_kind(c), c['id']))}
 </div>'''
-        write(f'columns/{c["id"]}/index.html', page(url, c['title'], desc, body_html, og_image=hero_abs, og_type='article',
+        og_img = SITE + f'/columns/ogp/{c["id"]}.jpg' if os.path.exists(P(f'columns/ogp/{c["id"]}.jpg')) else hero_abs
+        write(f'columns/{c["id"]}/index.html', page(url, c['title'], desc, body_html, og_image=og_img, og_type='article',
                                                     jsonld=[article_ld], breadcrumbs=crumbs))
 
     # 一覧
@@ -908,4 +1030,11 @@ if __name__ == '__main__':
     nq, nv = build_faq_voices()
     extra = ['/faq/', '/voices/'] + build_areas(cols) + build_column_hubs(cols) + build_tool_pages()
     n = build_sitemap(cols, props, extra)
+    # 手書きページ（トップ・購入・売却・コンサル・404）にも画像最適化をかける（何度かけても結果は同じ）
+    for hp in ('index.html', 'buy.html', 'sell.html', 'consulting.html', '404.html'):
+        if os.path.exists(P(hp)):
+            src = read(hp)
+            out = optimize_images(src)
+            if out != src:
+                open(P(hp), 'w', encoding='utf-8').write(out)
     print(f'columns: {len(cols)}  properties: {len(props)}  results: {len(res)}  faq: {nq}  voices: {nv}  sitemap urls: {n}')

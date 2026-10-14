@@ -562,8 +562,8 @@
       "tag": "購入編",
       "title": "中古マンションの内見チェックリスト——出口で売れるかを見極める",
       "date": "2026.03.09",
-      "hero": "columns/purchase/img3_inspection.png",
-      "thumb": "columns/purchase/img3_inspection.png",
+      "hero": "/columns/purchase/img3_inspection.png",
+      "thumb": "/columns/purchase/img3_inspection.png",
       "file": "columns/purchase/column_naiken_points.html",
       "description": "内見の目的は、気に入るかではなく出口で売れるかを見極めること。内見前の3つの準備、室内5つのチェックポイント、共用部・周辺環境の見方、内見時に必ず聞くべき質問リストを解説。"
     }

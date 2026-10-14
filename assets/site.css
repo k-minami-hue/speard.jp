@@ -214,3 +214,7 @@ img{ max-width:100%; height:auto; }
   .col-card-thumb{ aspect-ratio:16/9; }
   .col-card-title{ font-size:.95rem; line-height:1.6; }
 }
+
+/* コラム本文中のリンク（自動内部リンク含む） */
+article.column p a, article.column li a{ color:var(--navy,#1a3d6e); text-decoration:underline; text-decoration-color:rgba(196,154,48,.7); text-decoration-thickness:1px; text-underline-offset:3px; }
+article.column p a:hover, article.column li a:hover{ text-decoration-color:currentColor; }
