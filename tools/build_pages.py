@@ -129,7 +129,6 @@ CTA_BOTTOM = lambda title, sub, contact='/#contact': f'''<section class="column-
       <a href="{contact}" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
       <a href="{LINE_URL}" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">公式LINEで相談する</a>
     </div>
-    <p class="column-bottom-cta-sub" style="font-size:.8rem;margin-top:14px;">公式LINEにご登録いただくと「マンション売却 手取りと税金の早見ガイド」（PDF）をお送りします。</p>
   </div>
 </section>'''
 
@@ -455,7 +454,7 @@ def build_columns():
     <div class="cs-section"><div class="cs-section-head">最近の投稿</div><ul class="cs-recent">{recent}</ul></div>
     <a href="{contact_url('buy', c['id'])}" class="cs-section cs-cta cs-cta-buy"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Purchase</span><div class="cs-cta-ja">購入のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
     <a href="{contact_url('sell', c['id'])}" class="cs-section cs-cta cs-cta-sell"><div class="cs-cta-row"><div class="cs-cta-block"><span class="cs-cta-en">For Sale</span><div class="cs-cta-ja">売却のご相談</div></div><div class="cs-cta-arrow">→</div></div></a>
-    <div class="cs-section cs-line"><a href="{LINE_URL}" target="_blank" rel="noopener" class="cs-line-btn">{LINE_SVG}<span class="cs-line-btn-main">公式LINEで相談する</span></a><p style="font-size:.75rem;line-height:1.7;margin:8px 2px 0;color:#555;">ご登録で「マンション売却 手取りと税金の早見ガイド」（PDF）をお送りします。</p></div>
+    <div class="cs-section cs-line"><a href="{LINE_URL}" target="_blank" rel="noopener" class="cs-line-btn">{LINE_SVG}<span class="cs-line-btn-main">公式LINEで相談する</span></a></div>
     {AREA_SIDE}
   </aside>
 </div>
