@@ -1,6 +1,160 @@
 {
   "columns": [
     {
+      "id": "kaitsuke",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "購入申込み（買付）で競り負けない——売主に選ばれる申込書の条件",
+      "date": "2026.12.30",
+      "hero": "/columns/hero/kaitsuke.jpg",
+      "thumb": "/columns/hero/kaitsuke-thumb.jpg",
+      "file": "columns/purchase/column_kaitsuke.html",
+      "description": "人気の中古マンションで購入申込み（買付）が競合したとき、売主は価格だけでなくローンの確実さと日程で相手を選ぶ。申込書の項目、選ばれる条件、値引きの入れ方、申込み前の準備と撤回の注意点を解説。"
+    },
+    {
+      "id": "saitama-chiba",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "埼玉・千葉で資産価値が落ちにくいマンションの選び方——都心への時間と駅の力で見る5つの基準",
+      "date": "2026.12.23",
+      "hero": "/columns/hero/saitama-chiba.jpg",
+      "thumb": "/columns/hero/saitama-chiba-thumb.jpg",
+      "file": "columns/purchase/column_saitama_chiba.html",
+      "description": "埼玉・千葉で資産価値が落ちにくいマンションの選び方。70㎡換算価格は東京都の3割以下でも駅ごとの差が大きい。都心への直通時間、駅距離、拠点性、規模と管理、災害リスクの5つの基準で解説。"
+    },
+    {
+      "id": "renove-zumi",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "リノベーション済みマンションは割高か——内装ではなく「見えない部分」と出口で判断する",
+      "date": "2026.12.16",
+      "hero": "/columns/hero/renove-zumi.jpg",
+      "thumb": "/columns/hero/renove-zumi-thumb.jpg",
+      "file": "columns/purchase/column_renove_zumi.html",
+      "description": "リノベーション済みマンションが割高かは、内装ではなく配管・配線・断熱など見えない部分と出口で決まる。価格の内訳、確認すべき工事範囲、業者売主の2年保証、未改装住戸との比較方法を解説。"
+    },
+    {
+      "id": "rikon-baikyaku",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "離婚でマンションをどうするか——売る・住み続ける・ペアローンの整理の仕方",
+      "date": "2026.12.09",
+      "hero": "/columns/hero/rikon-baikyaku.jpg",
+      "thumb": "/columns/hero/rikon-baikyaku-thumb.jpg",
+      "file": "columns/purchase/column_rikon_baikyaku.html",
+      "description": "離婚時のマンションの整理方法を解説。売却価格とローン残高で決まる選択肢、住み続ける場合の名義の問題、ペアローン・連帯債務の扱い、2026年4月から5年に延びた財産分与の期限と税金の注意点。"
+    },
+    {
+      "id": "teishaku",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "定期借地権マンションは買いか——相場より安い理由と、出口で困らない条件",
+      "date": "2026.12.02",
+      "hero": "/columns/hero/teishaku.jpg",
+      "thumb": "/columns/hero/teishaku-thumb.jpg",
+      "file": "columns/purchase/column_teishaku.html",
+      "description": "定期借地権マンションが相場より安い理由と、買ってよい条件を解説。所有権との違い、地代・解体準備金の負担、残存期間が短くなるほど売りにくくなる仕組み、買う前に確認すべき5つの点を整理。"
+    },
+    {
+      "id": "chintai-baikyaku",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "転勤・住み替えでマンションを貸すか売るか——税金・ローン・出口で決める判断基準",
+      "date": "2026.11.25",
+      "hero": "/columns/hero/chintai-baikyaku.jpg",
+      "thumb": "/columns/hero/chintai-baikyaku-thumb.jpg",
+      "file": "columns/purchase/column_chintai_baikyaku.html",
+      "description": "転勤や住み替えでマンションを貸すか売るかの判断基準。住まなくなって3年目の年末までという3,000万円控除の期限、住宅ローンの契約、賃貸の実際の手残り、入居者付きで売る場合の価格への影響を解説。"
+    },
+    {
+      "id": "loan-shinsa",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "住宅ローンの審査に落ちる理由——年収が足りていても通らない7つのケース",
+      "date": "2026.11.18",
+      "hero": "/columns/hero/loan-shinsa.jpg",
+      "thumb": "/columns/hero/loan-shinsa-thumb.jpg",
+      "file": "columns/purchase/column_loan_shinsa.html",
+      "description": "年収が足りていても住宅ローンの審査に落ちる7つのケースを解説。審査金利で計算される返済比率、他の借入、信用情報、勤続・収入、団信、物件の担保評価、申告内容の食い違いと、否決後・申込み前にできる対策。"
+    },
+    {
+      "id": "tsunagi-yushi",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "買い替えの資金が足りないとき——つなぎ融資・買い替えローン・売却先行の使い分け",
+      "date": "2026.11.11",
+      "hero": "/columns/hero/tsunagi-yushi.jpg",
+      "thumb": "/columns/hero/tsunagi-yushi-thumb.jpg",
+      "file": "columns/purchase/column_tsunagi_yushi.html",
+      "description": "買い替えで資金が足りないときの3つの方法を比較。売却先行、つなぎ融資（金利の目安と注意点）、残債を上乗せする買い替えローンの使い分けと、どの方法でも先に確認すべき「確実に売れる価格」を解説。"
+    },
+    {
+      "id": "tetsukekin",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "手付金はいくら払うか——相場と手付解除の期限、ローン特約との違い",
+      "date": "2026.11.04",
+      "hero": "/columns/hero/tetsukekin.jpg",
+      "thumb": "/columns/hero/tetsukekin-thumb.jpg",
+      "file": "columns/purchase/column_tetsukekin.html",
+      "description": "中古マンションの手付金は価格の5〜10%が目安。手付解除のルールと解除期日、期日後の違約解除、ローン特約で確認すべき3点、売主が不動産会社の場合の上限と保全措置まで、契約前に押さえる要点を解説。"
+    },
+    {
+      "id": "keiyaku-futekigo",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "契約不適合責任とは——中古マンションの売主が負う責任と、売る前にやるべき3つのこと",
+      "date": "2026.10.28",
+      "hero": "/columns/hero/keiyaku-futekigo.jpg",
+      "thumb": "/columns/hero/keiyaku-futekigo-thumb.jpg",
+      "file": "columns/purchase/column_keiyaku_futekigo.html",
+      "description": "中古マンションの売主が負う契約不適合責任を解説。買主が請求できる4つの権利、個人売主の責任期間と免責特約、免責でも逃れられないケース、売る前に告知書・設備表で準備すべき3つのことを整理。"
+    },
+    {
+      "id": "chukai-tesuryo",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "仲介手数料はいくらかかるか——上限の計算式と、安さだけで会社を選ばない理由",
+      "date": "2026.10.21",
+      "hero": "/columns/hero/chukai-tesuryo.jpg",
+      "thumb": "/columns/hero/chukai-tesuryo-thumb.jpg",
+      "file": "columns/purchase/column_chukai_tesuryo.html",
+      "description": "仲介手数料の上限は価格×3%＋6万円＋消費税。8,000万円なら税込270.6万円。価格帯別の早見表、800万円以下の特例、値引きのタイミング、手数料の安さより売却価格と手取りで会社を選ぶべき理由を解説。"
+    },
+    {
       "id": "yokohama-erabikata",
       "category": "buy",
       "tags": [
