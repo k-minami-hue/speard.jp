@@ -843,12 +843,13 @@ def build_faq_voices():
                                  body, jsonld=ld, breadcrumbs=crumbs))
     grid = extract_div(idx, r'<div class="reviews-grid">')
     n = len(re.findall(r'class="review-card"', grid))
+    ns = len(re.findall(r'review-type type-sell', grid)); nb = n - ns
     crumbs = [('トップ', '/'), ('お客様の声', '/voices/')]
     body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}
 {hero('Customer Voice', 'お客様の声', 'マンションの購入・売却をお手伝いしたお客様からいただいたメッセージです。')}
 <div class="subpage-content">
-  <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて</button><button class="voice-tab" data-f="buy">購入</button><button class="voice-tab" data-f="sell">売却</button></div>
+  <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて<span class="vt-count">{n}</span></button><button class="voice-tab" data-f="buy">購入<span class="vt-count">{nb}</span></button><button class="voice-tab" data-f="sell">売却<span class="vt-count">{ns}</span></button></div>
   <div class="reviews-grid" id="rv-grid">{fix_paths(grid)}</div>
 </div>
 {CTA_BOTTOM('ご購入・ご売却のご相談', '初めての方も、買い替えの方も、まずはお気軽にご相談ください。')}
@@ -858,6 +859,7 @@ document.querySelectorAll('.voice-tabs .voice-tab').forEach(function(b){{b.addEv
   document.querySelectorAll('.voice-tabs .voice-tab').forEach(function(x){{x.classList.toggle('vt-active-all',x===b);}});
   var f=b.dataset.f;document.querySelectorAll('#rv-grid .review-card').forEach(function(c){{
     var t=c.querySelector('.review-type');var k=t&&t.classList.contains('type-sell')?'sell':'buy';c.style.display=(f==='all'||f===k)?'':'none';}});
+  var g=document.getElementById('rv-grid');if(g.getBoundingClientRect().top<0)window.scrollTo({{top:g.getBoundingClientRect().top+window.scrollY-140,behavior:'smooth'}});
 }});}});
 </script>'''
     write('voices/index.html', page('/voices/', f'お客様の声｜マンション購入・売却の体験談（{n}件）',

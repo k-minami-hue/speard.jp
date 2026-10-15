@@ -393,6 +393,17 @@
     .rv-qa dt { font-size: .74rem; font-weight: 600; color: var(--gold); letter-spacing: .08em; margin-top: 14px; }
     .rv-qa dt:first-child { margin-top: 0; }
     .rv-qa dd { margin: 4px 0 0; font-size: .84rem; color: var(--text-mid); line-height: 1.95; }
+    .vt-count { font-size: .72em; opacity: .7; margin-left: 5px; font-weight: 500; }
+    @media (max-width: 600px) {
+      .voice-tabs { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 6px !important; margin-bottom: 20px !important; }
+      .voice-tab { padding: 10px 4px !important; text-align: center; }
+      .reviews-grid { gap: 16px; }
+      .review-card:hover { transform: none; box-shadow: 0 2px 16px rgba(0,0,0,.05); }
+      .rv-title { font-size: .95rem; line-height: 1.65; }
+      .review-card[data-format=detail] .review-text { font-size: .9rem; line-height: 1.9; }
+      .rv-more summary { min-height: 44px; font-size: .84rem; }
+      .rv-qa dd { font-size: .88rem; }
+    }
 
 /* PAGE HERO */
     .page-hero { padding:130px 24px 72px; background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 60%,var(--navy-mid) 100%); text-align:center; position:relative; overflow:hidden; }
