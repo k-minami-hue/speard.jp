@@ -220,3 +220,33 @@ article.column p a, article.column li a{ color:var(--navy,#1a3d6e); text-decorat
 article.column p a:hover, article.column li a:hover{ text-decoration-color:currentColor; }
 /* 目次のリンクは折り返す（nav a の nowrap がスマホではみ出す原因）・下線なし */
 article.column .col-toc a, .col-toc a{ white-space:normal; text-decoration:none; }
+
+/* ===== 2026-10 PC・タブレット・スマホ表示の最適化 ===== */
+/* タブレット（641〜900px）：1列で間延びしていたブロックを2〜3列に */
+@media (min-width:641px) and (max-width:900px){
+  .service-grid{ grid-template-columns:1fr 1fr !important; gap:20px !important; }
+  .hm-col-grid{ grid-template-columns:repeat(3,1fr); max-width:none; gap:16px; }
+  .hm-col-body{ padding:14px 14px 16px; }
+  .hm-col-title{ font-size:.86rem; line-height:1.6; }
+  .hm-voice-grid{ max-width:720px; }
+}
+@media (min-width:641px) and (max-width:767px){
+  .hm-col-grid{ grid-template-columns:repeat(2,1fr); }
+}
+/* タッチ端末：指で押しやすい大きさに */
+@media (hover:none), (max-width:900px){
+  .rv-more summary{ min-height:44px; }
+  .sc-more{ min-height:44px; }
+  .column-back{ min-height:44px; }
+  .prop-map-link{ display:inline-flex; align-items:center; min-height:40px; }
+  .review-card:hover, .hm-col:hover{ transform:none; }
+}
+/* スマホ：12px未満の文字をなくす */
+@media (max-width:640px){
+  .col-card-date, .hm-col-date{ font-size:.78rem; }
+  .prop-tsubo{ font-size:.78rem; }
+  .prop-photo-count{ font-size:.75rem; }
+  .r-card-label{ font-size:.78rem; }
+  .sp-cta-bar a{ font-size:.8rem; }
+  .hm-res-floor{ font-size:.78rem; }
+}
