@@ -1148,7 +1148,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
     }
 
 </style>
-<link rel="stylesheet" href="/assets/site.css?v=20261015">
+<link rel="stylesheet" href="/assets/site.css?v=20261015b">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
@@ -1709,7 +1709,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
         <button class="voice-tab" onclick="filterVoices('buy',this)">購入<span class="vt-count">19</span></button>
         <button class="voice-tab" onclick="filterVoices('sell',this)">売却<span class="vt-count">7</span></button>
       </div>
-      <div class="reviews-grid">
+      <div class="reviews-grid" data-paginate="6" data-item=".review-card">
 
 <div class="review-card" data-format="detail">
   <div class="review-header">
@@ -2265,7 +2265,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
            コラム記事は columns/manifest.json から自動生成されます。
            記事追加時は manifest.json に1エントリ追加してください。
            ====================================================== -->
-      <div class="col-grid" id="col-grid">
+      <div class="col-grid" id="col-grid" data-paginate="9" data-item=".col-card">
         </div>
         </div>
 
@@ -2612,7 +2612,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
         <button class="col-tab" onclick="filterColumn('sell',this)">売却編</button>
       </div>
 
-      <div class="col-grid" id="col-grid">
+      <div class="col-grid" id="col-grid" data-paginate="9" data-item=".col-card">
 
         <!-- 購入編：購入の流れ -->
         <a href="/columns/purchase-flow/" class="col-card ct-buy">
@@ -3707,6 +3707,6 @@ window.addEventListener('popstate', e => {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
 </script>
-<script src="/assets/site.js?v=20261010" defer></script>
+<script src="/assets/site.js?v=20261015" defer></script>
 </body>
 </html>

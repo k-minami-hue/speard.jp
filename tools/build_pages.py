@@ -596,7 +596,7 @@ def build_columns():
     <button class="col-tab" data-f="buy">購入編</button>
     <button class="col-tab" data-f="sell">売却編</button>
   </div>
-  <div class="col-grid" id="col-grid">
+  <div class="col-grid" id="col-grid" data-paginate="9" data-item=".col-card">
 {chr(10).join(col_card(c) for c in cols)}
   </div>
 </div>
@@ -841,7 +841,7 @@ def build_faq_voices():
     write('faq/index.html', page('/faq/', 'よくあるご質問｜マンションの購入・売却・費用・流れ',
                                  '株式会社スピアードへのよくあるご質問。相談料、購入時の諸費用、契約から引渡しまでの期間、買い替えの進め方など、分譲マンションの購入・売却の疑問にお答えします。',
                                  body, jsonld=ld, breadcrumbs=crumbs))
-    grid = extract_div(idx, r'<div class="reviews-grid">')
+    grid = extract_div(idx, r'<div class="reviews-grid"[^>]*>')
     n = len(re.findall(r'class="review-card"', grid))
     ns = len(re.findall(r'review-type type-sell', grid)); nb = n - ns
     crumbs = [('トップ', '/'), ('お客様の声', '/voices/')]
@@ -850,7 +850,7 @@ def build_faq_voices():
 {hero('Customer Voice', 'お客様の声', 'マンションの購入・売却をお手伝いしたお客様からいただいたメッセージです。')}
 <div class="subpage-content">
   <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて<span class="vt-count">{n}</span></button><button class="voice-tab" data-f="buy">購入<span class="vt-count">{nb}</span></button><button class="voice-tab" data-f="sell">売却<span class="vt-count">{ns}</span></button></div>
-  <div class="reviews-grid" id="rv-grid">{fix_paths(grid)}</div>
+  <div class="reviews-grid" id="rv-grid" data-paginate="6" data-item=".review-card">{fix_paths(grid)}</div>
 </div>
 {CTA_BOTTOM('ご購入・ご売却のご相談', '初めての方も、買い替えの方も、まずはお気軽にご相談ください。')}
 </div>
@@ -973,7 +973,7 @@ def build_column_hubs(cols):
         body = f'''<div class="subpage-wrap">
 {crumbs_html(crumbs)}
 {hero('Real Estate Column', esc(tag) + 'のコラム', esc(desc.split('。')[0]) + '。')}
-<div class="subpage-content"><p style="margin-bottom:24px">{esc(desc)}</p><div class="col-grid">{"".join(col_card(c) for c in lst)}</div></div>
+<div class="subpage-content"><p style="margin-bottom:24px">{esc(desc)}</p><div class="col-grid" data-paginate="9" data-item=".col-card">{"".join(col_card(c) for c in lst)}</div></div>
 {CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。', contact_url(slug))}
 </div>'''
         write(f'columns/{slug}/index.html', page(f'/columns/{slug}/', ttl, desc, body, breadcrumbs=crumbs))

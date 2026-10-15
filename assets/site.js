@@ -89,3 +89,39 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildCtaBar);
   else buildCtaBar();
 })();
+
+/* ---- 一覧の「もっと見る」：data-paginate="件数" を付けたグリッドに適用（絞り込みタブと連動） ---- */
+(function () {
+  function items(g) { return Array.prototype.filter.call(g.children, function (el) { return el.matches(g.getAttribute('data-item') || '*'); }); }
+  function apply(g, reset) {
+    var step = parseInt(g.getAttribute('data-paginate'), 10) || 9;
+    if (reset || !g._pgLimit) g._pgLimit = step;
+    var shown = 0, rest = 0;
+    items(g).forEach(function (el) {
+      el.classList.remove('pg-hide');
+      if (el.style.display === 'none') return;
+      if (shown < g._pgLimit) shown++; else { el.classList.add('pg-hide'); rest++; }
+    });
+    var btn = g._pgBtn;
+    if (!btn) {
+      btn = document.createElement('button'); btn.type = 'button'; btn.className = 'pg-more';
+      btn.addEventListener('click', function () { g._pgLimit += step; apply(g); });
+      g.parentNode.insertBefore(btn, g.nextSibling); g._pgBtn = btn;
+    }
+    btn.hidden = rest === 0;
+    btn.textContent = 'もっと見る（残り' + rest + '件）';
+  }
+  function init() {
+    document.querySelectorAll('[data-paginate]').forEach(function (g) {
+      apply(g, true);
+      if ('MutationObserver' in window) new MutationObserver(function () { if (!g._pgBusy) { g._pgBusy = true; apply(g); g._pgBusy = false; } }).observe(g, { childList: true });
+    });
+  }
+  // 絞り込みタブを押したら先頭から表示し直す（各ページの絞り込み処理のあとに実行）
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('.voice-tab, .col-tab')) return;
+    setTimeout(function () { document.querySelectorAll('[data-paginate]').forEach(function (g) { apply(g, true); }); }, 0);
+  });
+  window.spPaginate = apply;
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();

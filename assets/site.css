@@ -250,3 +250,20 @@ article.column .col-toc a, .col-toc a{ white-space:normal; text-decoration:none;
   .sp-cta-bar a{ font-size:.8rem; }
   .hm-res-floor{ font-size:.78rem; }
 }
+
+/* 一覧の「もっと見る」 */
+.pg-hide{ display:none !important; }
+.pg-more{ display:block; margin:32px auto 0; min-width:260px; min-height:48px; padding:12px 32px; background:#fff; color:var(--sp-navy-dark,#0D2238); border:1.5px solid var(--sp-navy-dark,#0D2238); border-radius:999px; font-family:inherit; font-size:.9rem; font-weight:700; letter-spacing:.06em; cursor:pointer; transition:background .2s,color .2s; }
+.pg-more:hover{ background:var(--sp-navy-dark,#0D2238); color:#fff; }
+.pg-more[hidden]{ display:none; }
+@media (max-width:640px){ .pg-more{ width:100%; } }
+
+/* 横はみ出し防止を clip に（hidden だと sticky が効かないため）。未対応ブラウザは従来どおり hidden */
+@supports (overflow: clip){
+  html, body{ overflow-x: clip !important; }
+}
+/* スマホ・タブレット：絞り込みタブを画面上部に固定 */
+@media (max-width:900px){
+  .voice-tabs, .col-tabs{ position:sticky; top:64px; z-index:30; background:#fff; padding-top:10px !important; padding-bottom:10px !important; margin-left:-24px !important; margin-right:-24px !important; padding-left:24px !important; padding-right:24px !important; box-shadow:0 8px 12px -12px rgba(0,0,0,.35); }
+}
+@media (min-width:641px) and (max-width:900px){ .voice-tabs, .col-tabs{ top:76px; } }
