@@ -207,6 +207,9 @@
     btn.disabled=true;btn.textContent='送信中...';
     var p={_subject:'【売却査定】'+val('マンション名')+'（speard.jp）',_captcha:'false',_template:'table'};
     new FormData(f).forEach(function(v,k){if(k!=='botcheck')p[k]=v;});
+    p.email=mail;p._autoresponse='売却査定のご依頼をいただき、ありがとうございます。株式会社スピアードです。\n\nご依頼を受け付けました。成約事例と販売中の物件をもとに査定し、原則24時間以内に担当者よりご連絡いたします。\n追加で伺いたいことがある場合は、ご希望の連絡方法でご連絡します。お急ぎの場合は、お電話または公式LINEからご連絡ください。\n\n株式会社スピアード\n〒107-0062 東京都港区南青山2-2-8 DFビル10F\nTEL 050-7109-3701（受付 9:30〜18:00／定休日 火曜・水曜）\n公式LINE https://line.me/R/ti/p/%40xef5208i\nhttps://speard.jp\n宅地建物取引業 東京都知事（1）第112752号\n\nこのメールは送信専用です。お心当たりのない場合は、お手数ですが破棄してください。';
+    p['流入経路']=window.spFirstTouch?window.spFirstTouch():'';
+    if(window.spLog)window.spLog(Object.assign({form:'売却査定',page:location.pathname},p));
     var done=false,fail=function(){if(done)return;done=true;btn.disabled=false;btn.textContent='無料で査定を依頼する';
       err.innerHTML='送信できませんでした。お手数ですが、お電話（050-7109-3701）か<a href="mailto:info@speard.jp">メール</a>でご連絡ください。';err.style.display='block';};
     var t=setTimeout(fail,20000);

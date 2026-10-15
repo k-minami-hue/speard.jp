@@ -267,3 +267,6 @@ article.column .col-toc a, .col-toc a{ white-space:normal; text-decoration:none;
   .voice-tabs, .col-tabs{ position:sticky; top:64px; z-index:30; background:#fff; padding-top:10px !important; padding-bottom:10px !important; margin-left:-24px !important; margin-right:-24px !important; padding-left:24px !important; padding-right:24px !important; box-shadow:0 8px 12px -12px rgba(0,0,0,.35); }
 }
 @media (min-width:641px) and (max-width:900px){ .voice-tabs, .col-tabs{ top:76px; } }
+/* ヒーローの信頼ポイント（4項目）：PCは1行、タブレットは2×2 */
+@media (min-width:1024px){ .hero-trust{ flex-wrap:nowrap; gap:10px 22px; white-space:nowrap; } }
+@media (min-width:641px) and (max-width:1023px){ .hero-trust{ display:grid; grid-template-columns:auto auto; justify-content:center; gap:10px 28px; } }

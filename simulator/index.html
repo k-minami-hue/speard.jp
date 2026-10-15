@@ -185,7 +185,7 @@
       <div class="sim-box">
         <table class="sim-tbl" id="t-sell"></table>
         <div class="sim-warn" id="w-sell">手残りがマイナスです。売却代金だけではローンを完済できないため、差額を現金で用意するか、住み替えローンなどの検討が必要です。</div>
-        <p class="sim-note">仲介手数料は法定の上限額です。税金は譲渡所得税・住民税・復興特別所得税の合計で、所有5年超は20.315%、5年以下は39.63%。住まいとして使っていた場合は3,000万円特別控除を差し引き、所有10年超なら6,000万円以下の部分に14.21%の軽減税率を適用しています。建物の減価償却は、鉄筋コンクリート造のマンション（非事業用）の計算式（建物価格×0.9×0.015×所有年数）で計算しています。特例には要件があり、住み替え先の住宅ローン控除と併用できない期間があります。実際の税額は税理士・税務署でご確認ください。</p>
+        <p class="sim-note">仲介手数料はスピアードにご依頼いただいた場合の金額（法定上限額から10%割引）です。税金は譲渡所得税・住民税・復興特別所得税の合計で、所有5年超は20.315%、5年以下は39.63%。住まいとして使っていた場合は3,000万円特別控除を差し引き、所有10年超なら6,000万円以下の部分に14.21%の軽減税率を適用しています。建物の減価償却は、鉄筋コンクリート造のマンション（非事業用）の計算式（建物価格×0.9×0.015×所有年数）で計算しています。特例には要件があり、住み替え先の住宅ローン控除と併用できない期間があります。実際の税額は税理士・税務署でご確認ください。</p>
         <div class="sim-cta"><a class="g" href="/satei/">正確な売却査定を依頼する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
       </div>
     </div>
@@ -237,7 +237,7 @@
   function buy(){
     var price=n('b-price'),area=n('b-area'),down=Math.min(n('b-down'),price),rate=parseFloat($('b-rate').value),years=parseInt($('b-years').value,10);
     var base=Math.max(price-down,0),feeRate=n('b-fee')/100,inc=$('b-include').checked;
-    var broker=brokerage(price),sSale=stampSale(price);
+    var broker=brokerage(price)*0.9,sSale=stampSale(price);
     var other=broker+sSale+price*0.5*0.01+10+n('b-ins')+10; // 登記（移転）＋司法書士＋保険＋精算目安
     var loan=base, fee, sLoan, mort, costs;
     for(var i=0;i<3;i++){fee=loan*feeRate;sLoan=stampLoan(loan);mort=loan*0.001;costs=other+fee+sLoan+mort;loan=inc?base+costs:base;}
@@ -251,7 +251,7 @@
     var up=pmt(loan,rate+1,years);
     rows('t-buy',[
       ['物件価格',man(price)+(tsubo?'（坪単価 '+Math.round(tsubo).toLocaleString()+'万円／坪）':'')],
-      ['仲介手数料（上限・税込）',man(broker,1)],
+      ['仲介手数料（法定上限から10%割引・税込）',man(broker,1)],
       ['売買契約書の印紙税',man(sSale,1)],
       ['登記費用（移転・抵当権・司法書士）',man(price*0.5*0.01+mort+10,1)],
       ['ローン事務手数料',man(fee,1)],
@@ -266,7 +266,7 @@
 
   function sell(){
     var price=n('s-price'),loan=n('s-loan'),buyP=n('s-buy'),buyCost=n('s-buycost'),bldg=n('s-bldg')/100,years=parseInt($('s-years').value,10),home=$('s-home').checked;
-    var broker=brokerage(price),stamp=stampSale(price),release=3,move=n('s-move');
+    var broker=brokerage(price)*0.9,stamp=stampSale(price),release=3,move=n('s-move');
     var dep=buyP>0?Math.min(buyP*bldg*0.9*0.015*years,buyP*bldg*0.95):0;
     var acq=buyP>0?buyP+buyCost-dep:price*0.05;
     var cost=broker+stamp;
@@ -283,7 +283,7 @@
     rows('t-sell',[
       ['売却価格',man(price)],
       ['ローン残高',man(loan)],
-      ['仲介手数料（上限・税込）',man(broker,1)],
+      ['仲介手数料（法定上限から10%割引・税込）',man(broker,1)],
       ['売買契約書の印紙税',man(stamp,1)],
       ['抵当権抹消・司法書士',man(release,1)],
       ['引越し・処分費など',man(move,1)],

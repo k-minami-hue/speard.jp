@@ -1148,7 +1148,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
     }
 
 </style>
-<link rel="stylesheet" href="/assets/site.css?v=20261015b">
+<link rel="stylesheet" href="/assets/site.css?v=20261015c">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
@@ -1229,6 +1229,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
       <li>一都三県の分譲マンションに特化</li>
       <li>宅地建物取引業 東京都知事（1）第112752号</li>
       <li>ご相談・内見は無料</li>
+      <li>仲介手数料は法定上限から10%割引</li>
     </ul>
   </div>
   <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
@@ -1667,12 +1668,18 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
 
   <div class="policy-section">
     <span class="policy-num">10</span>
+    <h2 class="policy-title">アクセス解析ツールについて</h2>
+    <p class="policy-text">当社のウェブサイトでは、利用状況を把握してサービスを改善するため、Google LLCが提供するアクセス解析ツール「Google アナリティクス」を利用しています。Google アナリティクスはCookieを使用して、個人を特定しない形で閲覧情報を収集します。収集されたデータはGoogle社のプライバシーポリシーに基づいて管理されます。Cookieはブラウザの設定で無効にでき、Google アナリティクス オプトアウト アドオンを利用して収集を停止することもできます。</p>
+  </div>
+
+  <div class="policy-section">
+    <span class="policy-num">11</span>
     <h2 class="policy-title">継続的改善</h2>
     <p class="policy-text">当社は、個人情報の取扱い、管理体制および運用状況について継続的に見直し、改善に努めます。</p>
   </div>
 
   <div class="policy-section">
-    <span class="policy-num">11</span>
+    <span class="policy-num">12</span>
     <h2 class="policy-title">お問合せ窓口</h2>
     <p class="policy-text">本ポリシーに関するお問合せは、下記窓口までご連絡ください。</p>
     <div class="contact-card">
@@ -1681,7 +1688,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
       <div class="contact-card-row"><span class="contact-card-label">所在地</span><span>東京都港区南青山2丁目2番8号 DFビル10F</span></div>
       <div class="contact-card-row"><span class="contact-card-label">電話番号</span><span>050-7109-3701</span></div>
       <div class="contact-card-row"><span class="contact-card-label">メール</span><span>info@speard.jp</span></div>
-      <div class="contact-card-row"><span class="contact-card-label">受付時間</span><span>平日 10:00〜18:00</span></div>
+      <div class="contact-card-row"><span class="contact-card-label">受付時間</span><span>9:30〜18:00（定休日：火曜・水曜）</span></div>
     </div>
   </div>
 
@@ -2399,7 +2406,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
           </div>
           <div class="faq-a">
             <div class="faq-badge faq-badge-a">A</div>
-            <p class="faq-text">宅地建物取引業法で定められた上限（売買価格が400万円を超える場合は「売買価格×3%＋6万円」に消費税を加えた額）の範囲内です。金額はご契約前に書面でご説明します。</p>
+            <p class="faq-text">宅地建物取引業法で定められた上限額（売買価格が400万円を超える場合は「売買価格×3%＋6万円」に消費税を加えた額）から、10%割引いた金額を頂戴しています。購入・売却とも同じです。金額はご契約前に書面でご説明します。</p>
           </div>
         </div>
 
@@ -3147,9 +3154,12 @@ if (contactForm) {
     const payload = {
       _subject: subject,
       _captcha: 'false',
-      _template: 'table'
+      _template: 'table',
+      _autoresponse: 'お問い合わせいただき、ありがとうございます。株式会社スピアードです。\n\nお問い合わせを受け付けました。内容を確認のうえ、原則24時間以内に担当者よりご連絡いたします。\nお急ぎの場合は、お電話または公式LINEからご連絡ください。外出していることが多いため、お電話に出られない場合は折り返しご連絡いたします。\n\n株式会社スピアード\n〒107-0062 東京都港区南青山2-2-8 DFビル10F\nTEL 050-7109-3701（受付 9:30〜18:00／定休日 火曜・水曜）\n公式LINE https://line.me/R/ti/p/%40xef5208i\nhttps://speard.jp\n宅地建物取引業 東京都知事（1）第112752号\n\nこのメールは送信専用です。お心当たりのない場合は、お手数ですが破棄してください。'
     };
     formData.forEach((v, k) => { if (k !== 'access_key' && k !== 'cc' && k !== 'subject') payload[k] = v; });
+    payload['流入経路'] = window.spFirstTouch ? window.spFirstTouch() : '';
+    if (window.spLog) window.spLog(Object.assign({ form: 'お問い合わせ', page: location.pathname }, payload));
 
     let settled = false;
     const finishOK = () => { if (settled) return; settled = true; showSuccess(); if (typeof gtag === 'function') gtag('event', 'generate_lead', { inquiry_type: typeVal, source: (document.getElementById('inq-source') || {}).value || '' }); };
@@ -3707,6 +3717,6 @@ window.addEventListener('popstate', e => {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
 </script>
-<script src="/assets/site.js?v=20261015" defer></script>
+<script src="/assets/site.js?v=20261015b" defer></script>
 </body>
 </html>

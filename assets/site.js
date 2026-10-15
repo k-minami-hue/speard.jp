@@ -125,3 +125,24 @@
   window.spPaginate = apply;
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* ---- 問い合わせの流入経路（最初に来たページ・参照元・UTM）を記録し、フォーム送信時に添付する ----
+   GASのWebアプリURLを SPEARD_GAS_URL に入れると、問い合わせをスプレッドシートにも保存する（空なら何もしない） */
+window.SPEARD_GAS_URL = window.SPEARD_GAS_URL || '';
+(function () {
+  try {
+    if (!sessionStorage.getItem('sp_first')) {
+      var q = new URLSearchParams(location.search);
+      var utm = ['utm_source', 'utm_medium', 'utm_campaign'].map(function (x) { return q.get(x); }).filter(Boolean).join('/');
+      var ref = document.referrer && document.referrer.indexOf(location.host) < 0 ? document.referrer.replace(/^https?:\/\//, '').split('/')[0] : '';
+      sessionStorage.setItem('sp_first', JSON.stringify({ land: location.pathname + (q.get('from') ? '?from=' + q.get('from') : ''), ref: ref || 'direct', utm: utm }));
+    }
+  } catch (e) {}
+  window.spFirstTouch = function () {
+    try { var d = JSON.parse(sessionStorage.getItem('sp_first') || '{}'); return '入口:' + (d.land || '-') + ' / 参照元:' + (d.ref || '-') + (d.utm ? ' / ' + d.utm : ''); } catch (e) { return ''; }
+  };
+  window.spLog = function (p) {
+    var u = window.SPEARD_GAS_URL; if (!u) return;
+    try { fetch(u, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p) }); } catch (e) {}
+  };
+})();
