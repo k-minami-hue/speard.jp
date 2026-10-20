@@ -541,8 +541,9 @@ def build_columns():
     for c in man:
         body = read(c['file'])
         body = re.sub(r'^\s*<h1>.*?</h1>', '', body, count=1, flags=re.S)
-        cols.append(dict(c, body=body, modified=c['date']))
-    cols += legacy_columns()
+        cols.append(dict(c, body=body, modified=max(c['date'], c.get('modified') or c['date'])))
+    have = {c['id'] for c in cols}
+    cols += [c for c in legacy_columns() if c['id'] not in have]
     cols.sort(key=lambda c: c['date'], reverse=True)
 
     for c in cols:
@@ -569,7 +570,7 @@ def build_columns():
 <div class="column-page-grid">
   <div class="column-main">
     <a href="/columns/" class="column-back">← コラム一覧に戻る</a>
-    <div class="column-meta">{tags}<time class="column-meta-date" datetime="{iso(c['date'])}">{esc(c['date'])}</time></div>
+    <div class="column-meta">{tags}<time class="column-meta-date" datetime="{iso(c['date'])}">{esc(c['date'])}</time>{(f'<span class="column-meta-date column-meta-mod">更新 <time datetime="{iso(c["modified"])}">{esc(c["modified"])}</time></span>') if c.get('modified') and c['modified'] != c['date'] else ''}</div>
     <h1 class="column-h1">{esc(c['title'])}</h1>
     <figure class="column-hero-fig"><img src="{esc(c['hero'])}" alt="{esc(c['title'])}" width="1600" height="900" decoding="async" fetchpriority="high"></figure>
     <div class="column-share">
@@ -598,7 +599,7 @@ def build_columns():
         faq_ld = col_faq_ld(c['body'])
         if faq_ld:
             ld.append(faq_ld)
-        write(f'columns/{c["id"]}/index.html', page(url, c['title'], desc, body_html, og_image=og_img, og_type='article',
+        write(f'columns/{c["id"]}/index.html', page(url, c.get('seo_title') or c['title'], desc, body_html, og_image=og_img, og_type='article',
                                                     jsonld=ld, breadcrumbs=crumbs))
 
     # 一覧
