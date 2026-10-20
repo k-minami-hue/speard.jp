@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "urinushi-chigai",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "売主が個人か不動産会社かで何が変わるか——契約不適合責任・消費税・仲介手数料の違い",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/urinushi-chigai.jpg",
+      "thumb": "/columns/hero/urinushi-chigai-thumb.jpg",
+      "file": "columns/purchase/column_urinushi_chigai.html",
+      "description": "中古マンションは売主が個人か不動産会社かで条件が変わる。契約不適合責任（業者は引渡しから2年以上）、建物部分の消費税、仲介手数料の有無、価格交渉の違いを比較表で整理し、判断の手順を解説。"
+    },
+    {
       "id": "kosugi-erabikata",
       "category": "buy",
       "tags": [
