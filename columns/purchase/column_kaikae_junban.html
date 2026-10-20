@@ -1,5 +1,4 @@
 <h1>住み替えは「売却先行」か「購入先行」か——順番で決まる、買い替えの成否</h1>
-
 <style>
 #col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
 #col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
@@ -10,468 +9,383 @@
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
-#col-art-body .buy-box { background:#eef3fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
-#col-art-body .buy-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
-#col-art-body .buy-box p:last-child { margin-bottom:0; }
-#col-art-body .sell-box { background:#fbf4e4; border-left:4px solid #a67c1a; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
-#col-art-body .sell-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
-#col-art-body .sell-box p:last-child { margin-bottom:0; }
-#col-art-body .comp-table { width:100%; border-collapse:collapse; margin:28px 0; font-size:.88rem; }
-#col-art-body .comp-table th { background:#1a2a52; color:#fff; padding:11px 12px; text-align:center; font-weight:600; border:1px solid #1a2a52; }
-#col-art-body .comp-table th.th-sell { background:#8a5e1a; border-color:#8a5e1a; }
-#col-art-body .comp-table th.th-buy { background:#0E3273; border-color:#0E3273; }
-#col-art-body .comp-table td { border:1px solid #dde2ec; padding:11px 12px; vertical-align:top; line-height:1.7; }
-#col-art-body .comp-table td.row-head { background:#f4f6fb; font-weight:600; color:#1a2a52; white-space:nowrap; text-align:center; }
-#col-art-body .comp-table tr:nth-child(even) td:not(.row-head) { background:#fafbfd; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
 #col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
 #col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
 #col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
 #col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
 #col-art-body figure { margin:30px 0; }
-#col-art-body figure svg { width:100%; height:auto; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
 #col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
-@media (max-width:600px) { #col-art-body .comp-table { font-size:.76rem; } #col-art-body .comp-table th, #col-art-body .comp-table td { padding:7px 6px; } }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
-
-<p>マンションや戸建てを買い替えるとき、最初に決めるべきは物件でも金額でもありません。<br>
-<strong>「今の家を先に売るか（売却先行）」「次の家を先に買うか（購入先行）」——この順番</strong>です。<br>
-この一択が、資金計画・引越し回数・最終的な手残りまで、すべてを左右します。</p>
-
-<p>先に結論を言います。<strong>万能な正解はありません。</strong><br>
-あなたの「今の家が、いくらで・どれくらい確実に売れるか」で答えは変わります。<br>
-この記事では、初めての方でも判断できるよう基礎から、経験者が見落としがちな出口設計まで、図解で一気に整理します。</p>
+<p>住み替えの順番は、今の家が「いくらで、どれだけ確実に売れるか」で決まります。<br>
+売れる額と時期が読めて二重ローンにも耐えられるなら購入先行、どちらかが欠けるなら売却先行が基本です。<br>
+この順番の選択が、資金計画、引越しの回数、最終的な手残りまでを左右します。</p>
 
 <div class="lead-box">
   <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
-　・今の家が<strong>十分な利益（売却益）を確保できそう</strong> → <strong>購入先行</strong>。理想の家をじっくり選べる。<br>
-　・<strong>いくらで・いつ売れるか不透明。二重ローンは避けたい。でも売値は攻めたい</strong> → <strong>売却先行</strong>。<br>
-　・どちらも捨てがたい → 「売り買い同時進行（同日決済）」を狙う。ただし難易度は最も高い。</p>
+　・今の家の売却額と時期が読め、二重ローンに耐えられる資金力がある → 購入先行<br>
+　・売却額や時期が読めない、または二重ローンを避けたい → 売却先行で、先に資金を確定させる<br>
+　・売却先行で仮住まいが要るのは、引渡しまでに新居が決まらない場合だけで、引渡し猶予でつなげることもある<br>
+　・3,000万円特別控除と住宅ローン控除は、新居の入居年とその前2年・後3年の計6年間は併用できない<br>
+　・諸費用は売却で約4%（8,000万円で約307万円）、購入で6〜8%かかり、手残りはこれを引いて考える</p>
 </div>
 
 <hr>
 
-<h2>そもそも「売却先行」「購入先行」とは</h2>
+<h2>売却先行と購入先行は何が違うか</h2>
 
-<p>買い替えは「今の家を売る」と「次の家を買う」の2つを必ず動かします。<br>
-どちらを先に確定させるかで、呼び方が変わるだけです。</p>
-
-<p><strong>売却先行</strong>：今の家を先に売り、その後に次の家を買う。<br>
-<strong>購入先行</strong>：次の家を先に買い、その後に今の家を売る。</p>
-
-<p>シンプルですが、この順番の違いが<strong>「資金の安心感」と「物件選びの自由度」というトレードオフ</strong>を生みます。<br>
-まずは全体の流れを、6ステップで見比べてください。</p>
+<p>売却先行は今の家を先に売ってから次の家を買う方法で、購入先行は次の家を先に買ってから今の家を売る方法です。<br>
+買い替えでは「今の家を売る」と「次の家を買う」の2つを必ず動かし、どちらを先に確定させるかで呼び方が変わります。<br>
+この順番の違いが、「資金の安心感」と「物件選びの自由度」の取り合いを生みます。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;">
-    <style>
-      .fl-h { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:19px; fill:#fff; }
-      .fl-t { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:15px; fill:#22304f; }
-      .fl-s { font-family:'Noto Sans JP',sans-serif; font-size:12px; fill:#6b7280; }
-      .fl-n { font-family:'Noto Sans JP',sans-serif; font-weight:800; font-size:16px; fill:#fff; }
-    </style>
-    <!-- LEFT: 売却先行 (gold) -->
-    <rect x="40" y="24" width="420" height="46" rx="6" fill="#8a5e1a"/>
-    <text x="250" y="54" text-anchor="middle" class="fl-h">売却先行（売り先行）</text>
-    <!-- RIGHT: 購入先行 (navy) -->
-    <rect x="540" y="24" width="420" height="46" rx="6" fill="#0E3273"/>
-    <text x="750" y="54" text-anchor="middle" class="fl-h">購入先行（買い先行）</text>
-
-    <!-- left steps -->
-    <g>
-      <rect x="40" y="92" width="420" height="80" rx="6" fill="#fbf4e4" stroke="#e6d4a8"/>
-      <circle cx="78" cy="132" r="17" fill="#8a5e1a"/><text x="78" y="138" text-anchor="middle" class="fl-n">1</text>
-      <text x="110" y="128" class="fl-t">今の家の売却活動を開始</text>
-      <text x="110" y="150" class="fl-s">査定 → 媒介契約 → 売り出し</text>
-
-      <rect x="40" y="184" width="420" height="80" rx="6" fill="#fbf4e4" stroke="#e6d4a8"/>
-      <circle cx="78" cy="224" r="17" fill="#8a5e1a"/><text x="78" y="230" text-anchor="middle" class="fl-n">2</text>
-      <text x="110" y="220" class="fl-t">買主と売買契約を締結</text>
-      <text x="110" y="242" class="fl-s">価格・引渡し時期を交渉</text>
-
-      <rect x="40" y="276" width="420" height="86" rx="6" fill="#f6ecd4" stroke="#dcc48a"/>
-      <circle cx="78" cy="319" r="17" fill="#8a5e1a"/><text x="78" y="325" text-anchor="middle" class="fl-n">3</text>
-      <text x="110" y="309" class="fl-t">決済・引渡し（現居）</text>
-      <text x="110" y="331" class="fl-s">売却代金で住宅ローンを完済</text>
-      <text x="110" y="351" class="fl-s" style="fill:#8a5e1a;font-weight:700;">→ ここで資金と条件が“確定”</text>
-
-      <rect x="40" y="374" width="420" height="70" rx="6" fill="#fbf4e4" stroke="#e6d4a8"/>
-      <circle cx="78" cy="409" r="17" fill="#8a5e1a"/><text x="78" y="415" text-anchor="middle" class="fl-n">4</text>
-      <text x="110" y="405" class="fl-t">新居探し・購入申込</text>
-      <text x="110" y="427" class="fl-s">確定した予算で無理なく選ぶ</text>
-
-      <rect x="40" y="456" width="420" height="60" rx="6" fill="#fbf4e4" stroke="#e6d4a8"/>
-      <circle cx="78" cy="486" r="17" fill="#8a5e1a"/><text x="78" y="492" text-anchor="middle" class="fl-n">5</text>
-      <text x="110" y="491" class="fl-t">新居の売買契約を締結</text>
-
-      <rect x="40" y="528" width="420" height="60" rx="6" fill="#fbf4e4" stroke="#e6d4a8"/>
-      <circle cx="78" cy="558" r="17" fill="#8a5e1a"/><text x="78" y="564" text-anchor="middle" class="fl-n">6</text>
-      <text x="110" y="563" class="fl-t">決済・引渡し（新居）→ 入居</text>
-
-      <rect x="40" y="602" width="420" height="90" rx="6" fill="#fff3ea" stroke="#f0c9ac"/>
-      <text x="60" y="630" class="fl-t" style="fill:#c15a26;">注意：仮住まいが必要になる場合あり</text>
-      <text x="60" y="653" class="fl-s">売却の引渡しまでに希望の新居が見つからな</text>
-      <text x="60" y="671" class="fl-s">かった場合のみ。タイミングが合えば不要。</text>
-    </g>
-
-    <!-- right steps -->
-    <g>
-      <rect x="540" y="92" width="420" height="80" rx="6" fill="#eef3fb" stroke="#cdd8ee"/>
-      <circle cx="578" cy="132" r="17" fill="#0E3273"/><text x="578" y="138" text-anchor="middle" class="fl-n">1</text>
-      <text x="610" y="128" class="fl-t">新居探し・購入申込</text>
-      <text x="610" y="150" class="fl-s">期限に追われず理想の物件を探せる</text>
-
-      <rect x="540" y="184" width="420" height="80" rx="6" fill="#eef3fb" stroke="#cdd8ee"/>
-      <circle cx="578" cy="224" r="17" fill="#0E3273"/><text x="578" y="230" text-anchor="middle" class="fl-n">2</text>
-      <text x="610" y="220" class="fl-t">新居の売買契約を締結</text>
-      <text x="610" y="242" class="fl-s">住宅ローンの本審査・契約</text>
-
-      <rect x="540" y="276" width="420" height="70" rx="6" fill="#eef3fb" stroke="#cdd8ee"/>
-      <circle cx="578" cy="311" r="17" fill="#0E3273"/><text x="578" y="317" text-anchor="middle" class="fl-n">3</text>
-      <text x="610" y="307" class="fl-t">決済・引渡し（新居）→ 入居</text>
-      <text x="610" y="329" class="fl-s">仮住まい不要・引越しは1回で済む</text>
-
-      <rect x="540" y="358" width="420" height="80" rx="6" fill="#eef3fb" stroke="#cdd8ee"/>
-      <circle cx="578" cy="398" r="17" fill="#0E3273"/><text x="578" y="404" text-anchor="middle" class="fl-n">4</text>
-      <text x="610" y="394" class="fl-t">今の家の売却活動を開始</text>
-      <text x="610" y="416" class="fl-s">この間、ローンが2本走る（下図）</text>
-
-      <rect x="540" y="450" width="420" height="60" rx="6" fill="#eef3fb" stroke="#cdd8ee"/>
-      <circle cx="578" cy="480" r="17" fill="#0E3273"/><text x="578" y="486" text-anchor="middle" class="fl-n">5</text>
-      <text x="610" y="485" class="fl-t">買主と売買契約を締結</text>
-
-      <rect x="540" y="522" width="420" height="66" rx="6" fill="#e2ebf9" stroke="#b9c9e8"/>
-      <circle cx="578" cy="555" r="17" fill="#0E3273"/><text x="578" y="561" text-anchor="middle" class="fl-n">6</text>
-      <text x="610" y="551" class="fl-t">決済・引渡し（旧居）</text>
-      <text x="610" y="573" class="fl-s">旧居ローン完済 → 二重ローン解消</text>
-
-      <rect x="540" y="602" width="420" height="90" rx="6" fill="#fff3ea" stroke="#f0c9ac"/>
-      <text x="560" y="630" class="fl-t" style="fill:#c15a26;">注意：二重ローンのリスク</text>
-      <text x="560" y="653" class="fl-s">新居購入〜旧居売却まで、ローンが2本重なる。</text>
-      <text x="560" y="671" class="fl-s">売却期限が決められるため“チャレンジ期間”は有限。</text>
-    </g>
-  </svg>
-  <figcaption>売却先行は「売ってから買う」、購入先行は「買ってから売る」。手順はほぼ逆になります。</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 506" role="img" aria-label="売却先行は今の家を売ってから新居を買い、3番目の引渡しで資金が確定する。購入先行は新居を買ってから今の家を売り、新居の入居からローンが2本になる" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">売却先行と購入先行の手順</text>
+<rect x="30.0" y="58.0" width="260.0" height="44.0" rx="4" fill="#8a5e1a"/>
+<text x="160.0" y="87.0" font-size="19" fill="#fff" text-anchor="middle" font-weight="700">売却先行</text>
+<rect x="30.0" y="114.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="135" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="141.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+<text x="76.0" y="142.0" font-size="17" fill="#333" text-anchor="start">今の家を売り出す</text>
+<rect x="30.0" y="164.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="185" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="191.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+<text x="76.0" y="192.0" font-size="17" fill="#333" text-anchor="start">買主と売買契約</text>
+<rect x="30.0" y="214.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="235" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="241.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+<text x="76.0" y="242.0" font-size="17" fill="#333" text-anchor="start">今の家を引き渡す</text>
+<text x="160.0" y="280.0" font-size="17" fill="#a67c1a" text-anchor="middle" font-weight="700">ここで資金が確定</text>
+<rect x="30.0" y="292.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="313" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="319.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+<text x="76.0" y="320.0" font-size="17" fill="#333" text-anchor="start">新居を探して申込み</text>
+<rect x="30.0" y="342.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="363" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="369.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">5</text>
+<text x="76.0" y="370.0" font-size="17" fill="#333" text-anchor="start">新居の売買契約</text>
+<rect x="30.0" y="392.0" width="260.0" height="42.0" rx="4" fill="#fbf4e4" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="54" cy="413" r="13" fill="#8a5e1a"/>
+<text x="54.0" y="419.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">6</text>
+<text x="76.0" y="420.0" font-size="17" fill="#333" text-anchor="start">新居の決済・入居</text>
+<rect x="30.0" y="446.0" width="260.0" height="44.0" rx="4" fill="#fff3ea" stroke="#f0c9ac" stroke-width="1.5"/>
+<text x="160.0" y="474.0" font-size="16" fill="#c15a26" text-anchor="middle" font-weight="700">新居が間に合わないと仮住まい</text>
+<rect x="310.0" y="58.0" width="260.0" height="44.0" rx="4" fill="#0E3273"/>
+<text x="440.0" y="87.0" font-size="19" fill="#fff" text-anchor="middle" font-weight="700">購入先行</text>
+<rect x="310.0" y="114.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="135" r="13" fill="#0E3273"/>
+<text x="334.0" y="141.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+<text x="356.0" y="142.0" font-size="17" fill="#333" text-anchor="start">新居を探して申込み</text>
+<rect x="310.0" y="164.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="185" r="13" fill="#0E3273"/>
+<text x="334.0" y="191.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+<text x="356.0" y="192.0" font-size="17" fill="#333" text-anchor="start">新居の売買契約</text>
+<rect x="310.0" y="214.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="235" r="13" fill="#0E3273"/>
+<text x="334.0" y="241.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+<text x="356.0" y="242.0" font-size="17" fill="#333" text-anchor="start">新居の決済・入居</text>
+<text x="440.0" y="280.0" font-size="17" fill="#D85A30" text-anchor="middle" font-weight="700">ここからローンが2本</text>
+<rect x="310.0" y="292.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="313" r="13" fill="#0E3273"/>
+<text x="334.0" y="319.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+<text x="356.0" y="320.0" font-size="17" fill="#333" text-anchor="start">今の家を売り出す</text>
+<rect x="310.0" y="342.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="363" r="13" fill="#0E3273"/>
+<text x="334.0" y="369.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">5</text>
+<text x="356.0" y="370.0" font-size="17" fill="#333" text-anchor="start">買主と売買契約</text>
+<rect x="310.0" y="392.0" width="260.0" height="42.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<circle cx="334" cy="413" r="13" fill="#0E3273"/>
+<text x="334.0" y="419.0" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">6</text>
+<text x="356.0" y="420.0" font-size="17" fill="#333" text-anchor="start">今の家を引き渡す</text>
+<rect x="310.0" y="446.0" width="260.0" height="44.0" rx="4" fill="#fff3ea" stroke="#f0c9ac" stroke-width="1.5"/>
+<text x="440.0" y="474.0" font-size="16" fill="#c15a26" text-anchor="middle" font-weight="700">今の家が売れるまで二重返済</text>
+</g>
+</svg>
+<figcaption>左が売却先行、右が購入先行です。手順はほぼ逆になり、3番目の後に生じることが両者の分かれ目です。</figcaption>
 </figure>
+
+<p>売却先行は、3番目の引渡しで売却代金が入り、次の家に使える予算が確定します。<br>
+購入先行は、3番目の入居から今の家が売れるまで、住宅ローンが2本重なります。<br>
+どちらの手順にも、確定するものと不確定なものがあります。</p>
 
 <hr>
 
-<h2>売却先行——メリット・デメリット</h2>
+<h2>売却先行のメリットとデメリットは</h2>
 
-<h3>メリット</h3>
+<p>売却先行の最大のメリットは資金計画が確定することで、デメリットは仮住まいと新居探しの時間の制約です。<br>
+メリットは次の3つです。</p>
 
-<p><strong>① 資金計画が確定する（最大の利点）</strong><br>
-売却額が手元で確定してから次を買うため、「いくらまで出せるか」が明確になります。<br>
-予算がブレず、無理のない借入で組める。買い替えで一番怖い「資金ショート」を構造的に避けられます。</p>
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>資金計画が確定する</strong><p>売却額が確定してから次を買うため、「いくらまで出せるか」が明確になります。<br>
+予算がぶれず、無理のない借入で組めるため、買い替えで一番怖い資金不足を構造的に避けられます。</p></div></div>
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>二重ローンにならない</strong><p>今の家のローンは売却代金で完済し、新居のローンと重なりません。<br>
+審査も1本分で済み、金融機関の判断もシンプルです。</p></div></div>
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>売り急がなくてよいので、売値を攻められる</strong><p>新居の購入期限に追われないので、反応を見ながら適正な価格を取りに行けます。<br>
+頭と尻尾はくれてやり、中間の適正価格を取る売り方がしやすいのは売却先行です。<br>
+焦って安く手放すのは、むしろ購入先行で二重ローンに追われたときに起こります。</p></div></div>
 
-<p><strong>② 二重ローンにならない</strong><br>
-今の家のローンは売却代金で完済。新居のローンと重複しないため、審査もシンプルで、金融機関からの評価も通りやすい。</p>
+<p>デメリットは2つです。<br>
+1つ目は、売却の引渡しまでに希望の新居が見つからなかった場合に、仮住まいが必要になることです。<br>
+仮住まいを挟むと、賃貸の敷金・礼金・仲介手数料、家賃、そして引越し2回分の費用がかかります。<br>
+2つ目は、仮住まいの期間を短くしたいプレッシャーから、次の物件選びで妥協しがちになることです。</p>
 
-<p><strong>③ 売り急がなくていい＝売値を攻められる</strong><br>
-新居の購入期限に追われないので、強気の価格設定で反応を見ながら売れます。<br>
-<strong>「頭と尻尾はくれてやれ」で中間の適正価格を取りに行く</strong>動きがしやすいのは、実は売却先行です。<br>
-焦って安値を掴まされるのは、むしろ次の購入先行で決済に追われたときに起こります。</p>
-
-<h3>デメリット</h3>
-
-<p><strong>① 仮住まいが必要になる場合がある</strong><br>
-仮住まいが発生するのは、<strong>売却の引渡しまでに希望の新居が見つからなかった場合のみ</strong>です。<br>
-タイミングよく新居が決まれば、そのまま住み替えられ、仮住まいは不要。<br>
-仮に必要になっても、後述の<strong>「引渡し猶予」</strong>を使えば、仮住まいを挟まずに済むケースもあります。<br>
-仮住まいを挟む場合は、賃貸の敷金・礼金・仲介手数料、家賃、そして引越しが2回になります。</p>
-
-<p><strong>② 新居探しに時間の制約がかかることがある</strong><br>
-仮住まい期間を短くしたいプレッシャーから、次の物件選びを妥協しがちになる点には注意します。</p>
-
-<div class="sell-box">
+<div class="info-box">
   <p><strong>売却先行が向いている人</strong></p>
-  <p>・今の家がいくらで・いつ売れるか読みにくい（築古、特殊な間取り、相場が動いている）<br>
-・二重ローンの負担は取りたくない<br>
-・それでも売値はしっかり狙いたい<br>
-・自己資金に余裕が少なく、売却代金を次の頭金に充てたい</p>
+  <p>・今の家がいくらで、いつ売れるか読みにくい（築年数が古い、特殊な間取り、相場が動いている）</p>
+  <p>・二重ローンの負担は取りたくない</p>
+  <p>・それでも売値はしっかり狙いたい</p>
+  <p>・自己資金に余裕が少なく、売却代金を次の頭金に充てたい</p>
 </div>
 
 <hr>
 
-<h2>購入先行——メリット・デメリット</h2>
+<h2>購入先行のメリットとデメリットは</h2>
 
-<h3>メリット</h3>
+<p>購入先行の最大のメリットは次の家をじっくり選べることで、最大のデメリットは二重ローンです。<br>
+メリットは次の3つです。</p>
 
-<p><strong>① 次の家をじっくり選べる</strong><br>
-期限に追われず、理想の物件を探せる。買い替えの満足度は最終的に「次の家」で決まるので、ここに時間をかけられるのは大きい。</p>
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>次の家をじっくり選べる</strong><p>期限に追われず、理想の物件を探せます。<br>
+買い替えの満足度は最終的に次の家で決まるので、ここに時間をかけられるのは大きな利点です。</p></div></div>
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>仮住まいが不要</strong><p>今の家に住みながら新居を探し、新居が決まってから引っ越します。<br>
+引越しは1回で済み、仮住まいの費用もかかりません。</p></div></div>
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>相場が上がる局面では有利になりうる</strong><p>上昇基調なら、先に買った家の値上がりと、後から売る家の値上がりの両方を取りに行けます。<br>
+ただし相場の予測はプロでも外すので、相場に賭ける順番の決め方は避けます。</p></div></div>
 
-<p><strong>② 仮住まいが不要</strong><br>
-今の家に住みながら新居を探し、新居が決まってから引越す。<strong>引越しは1回</strong>で済み、仮住まいコストもゼロ。</p>
-
-<p><strong>③ 相場上昇局面では有利になりうる</strong><br>
-上昇基調なら「安いうちに買って、高くなってから売る」が狙える。<br>
-ただし相場予測はプロでも外すので、過度に賭けないこと。</p>
-
-<h3>デメリット</h3>
-
-<p><strong>① 二重ローンのリスク（最大の弱点）</strong><br>
-新居を買ってから今の家が売れるまで、<strong>ローンが2本</strong>走ります。<br>
-金銭的に重いだけでなく、そもそも2本分の融資審査に通る必要がある。ここが購入先行の前提条件です。</p>
+<p>デメリットの1つ目は二重ローンです。<br>
+新居を買ってから今の家が売れるまでローンが2本走り、そもそも2本分の融資審査に通る必要があります。<br>
+金融機関によっては、今の家の売却期限などの条件が付くこともあります。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" style="background:#f5f8fd;border:1px solid #cdd8ee;border-radius:8px;">
-    <style>
-      .dl-h { font-family:'Noto Sans JP',sans-serif; font-weight:800; font-size:22px; fill:#fff; }
-      .dl-t { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:14px; fill:#22304f; }
-      .dl-s { font-family:'Noto Sans JP',sans-serif; font-size:12.5px; fill:#5b6472; }
-      .dl-bar { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:14px; fill:#fff; }
-    </style>
-    <rect x="40" y="22" width="920" height="48" rx="6" fill="#0E3273"/>
-    <text x="500" y="55" text-anchor="middle" class="dl-h">ダブルローン（二重ローン）が発生する期間</text>
-
-    <line x1="120" y1="120" x2="120" y2="410" stroke="#9aa4b2" stroke-width="1.5" stroke-dasharray="5,4"/>
-    <line x1="720" y1="120" x2="720" y2="410" stroke="#9aa4b2" stroke-width="1.5" stroke-dasharray="5,4"/>
-    <rect x="60" y="96" width="150" height="30" rx="4" fill="#eef3fb" stroke="#cdd8ee"/>
-    <text x="135" y="116" text-anchor="middle" class="dl-t" style="fill:#0E3273;">新居 引渡し</text>
-    <rect x="628" y="96" width="200" height="30" rx="4" fill="#f6ecd4" stroke="#dcc48a"/>
-    <text x="728" y="116" text-anchor="middle" class="dl-t" style="fill:#8a5e1a;">旧居 引渡し（売却）</text>
-
-    <rect x="120" y="150" width="600" height="52" rx="8" fill="#8a5e1a"/>
-    <text x="420" y="182" text-anchor="middle" class="dl-bar">旧居のローン（売れるまで返済が続く）</text>
-    <rect x="120" y="222" width="820" height="52" rx="8" fill="#0E3273"/>
-    <text x="420" y="254" text-anchor="middle" class="dl-bar">新居のローン（購入時からスタート）</text>
-
-    <rect x="120" y="140" width="600" height="144" rx="8" fill="none" stroke="#D85A30" stroke-width="3" stroke-dasharray="8,5"/>
-    <text x="420" y="312" text-anchor="middle" class="dl-t" style="fill:#D85A30;font-size:16px;">↑ この期間、住宅ローンが二重になる</text>
-
-    <rect x="120" y="336" width="760" height="106" rx="8" fill="#fff"/>
-    <text x="150" y="366" class="dl-t">■ “チャレンジ期間”は有限（ここが重要）</text>
-    <text x="150" y="391" class="dl-s">・新居のローン会社から、多くは「6ヶ月以内に旧居を売却」（銀行により最大1年など）の</text>
-    <text x="150" y="410" class="dl-s">　条件が付く。期限までに売る必要があるため、強気の売値で粘れる期間は限られる。</text>
-    <text x="150" y="431" class="dl-s">・旧居が長く売れないほど二重返済が延び、焦って値下げしやすい点にも注意。</text>
-  </svg>
-  <figcaption>購入先行は、旧居が売れるまで新旧2本のローンが重なります。売却期限が決められるため、売値を攻められる期間には限りがあります。</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 404" role="img" aria-label="購入先行では新居の入居から今の家の引渡しまで、今の家のローンと新居のローンの返済が重なる" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">購入先行で二重ローンになる期間</text>
+<line x1="230.0" y1="64.0" x2="230.0" y2="290.0" stroke="#777" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="430.0" y1="64.0" x2="430.0" y2="290.0" stroke="#777" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="230.0" y="80.0" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">新居の入居</text>
+<text x="430.0" y="80.0" font-size="17" fill="#8a5e1a" text-anchor="middle" font-weight="700">今の家の引渡し</text>
+<rect x="230.0" y="112.0" width="200.0" height="140.0" rx="4" fill="#fdeee6"/>
+<rect x="60.0" y="124.0" width="370.0" height="48.0" rx="4" fill="#8a5e1a"/>
+<text x="74.0" y="155.0" font-size="17" fill="#fff" text-anchor="start" font-weight="700">今の家のローン</text>
+<rect x="230.0" y="190.0" width="330.0" height="48.0" rx="4" fill="#0E3273"/>
+<text x="244.0" y="221.0" font-size="17" fill="#fff" text-anchor="start" font-weight="700">新居のローン</text>
+<text x="330.0" y="284.0" font-size="18" fill="#D85A30" text-anchor="middle" font-weight="700">この期間は返済が2本</text>
+<rect x="40.0" y="306.0" width="520.0" height="82.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="60.0" y="338.0" font-size="17" fill="#333" text-anchor="start">売れるまでの期間が長いほど負担が重く、</text>
+<text x="60.0" y="366.0" font-size="17" fill="#333" text-anchor="start">値下げして早く売る方向に追い込まれる</text>
+</g>
+</svg>
+<figcaption>色の付いた範囲が二重ローンの期間です。今の家が売れるまで続き、長引くほど返済の負担が重くなります。</figcaption>
 </figure>
 
-<p><strong>② 売却を焦って安値になりやすい</strong><br>
-新居の決済・二重ローンに追われると、「早く売りたい」で価格を下げがち。<br>
-<strong>購入先行こそ、売値を妥協させられる</strong>という逆説に注意。ここを甘く見ると、購入先行のメリットが吹き飛びます。</p>
+<p>2つ目は、売却を焦って安値になりやすいことです。<br>
+たとえば70㎡で7,000万円（坪単価330.6万円）で売れる家を、二重ローンに追われて6,650万円（坪単価314.0万円）で手放せば、350万円を失います。<br>
+3つ目は、売却額が確定しないうちに次を買うため、想定より安く売れると資金計画が崩れることです。</p>
 
-<p><strong>③ 資金計画が不確定なまま動く</strong><br>
-売却額が確定しないうちに次を買うため、想定より安く売れると資金計画が崩れます。</p>
-
-<div class="buy-box">
+<div class="info-box">
   <p><strong>購入先行が向いている人</strong></p>
-  <p>・今の家が<strong>十分な売却益を確保できる見込みが高い</strong>（好立地、人気エリア、相場が堅調）<br>
-・二重ローンに耐えられる資金力・借入余力がある<br>
-・妥協せず理想の物件を選びたい<br>
-・引越しは1回で済ませたい</p>
+  <p>・今の家が十分な売却益を確保できる見込みが高い（好立地、人気エリア、相場が堅調）</p>
+  <p>・二重ローンに耐えられる資金力と借入の余力がある</p>
+  <p>・妥協せず理想の物件を選びたい</p>
+  <p>・引越しは1回で済ませたい</p>
 </div>
 
 <hr>
 
-<h2>ひと目で比較</h2>
+<h2>売却先行と購入先行を比べると</h2>
 
-<table class="comp-table">
-  <tr><th style="width:24%;">項目</th><th class="th-sell">売却先行</th><th class="th-buy">購入先行</th></tr>
-  <tr><td class="row-head">資金計画</td><td>◎ 確定してから買える</td><td>△ 不確定なまま動く</td></tr>
-  <tr><td class="row-head">二重ローン</td><td>◎ 発生しない</td><td>△ 発生リスクあり</td></tr>
-  <tr><td class="row-head">物件選びの自由度</td><td>△ 時間の制約がある</td><td>◎ じっくり選べる</td></tr>
-  <tr><td class="row-head">仮住まい</td><td>△ 新居が間に合わないと発生</td><td>◎ 不要</td></tr>
-  <tr><td class="row-head">引越し回数</td><td>1〜2回</td><td>1回で済む</td></tr>
-  <tr><td class="row-head">売値の追求</td><td>◎ 焦らず強気に出せる</td><td>△ 決済に追われ妥協しがち</td></tr>
-  <tr><td class="row-head">向いている相場</td><td>下落・不透明な局面</td><td>上昇局面</td></tr>
+<p>資金の確実性と売値では売却先行が、物件選びの自由度と引越しの回数では購入先行が勝ります。<br>
+項目ごとの違いは次のとおりです。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>項目</th><th>売却先行</th><th>購入先行</th></tr>
+  <tr><td>資金計画</td><td>確定してから買える</td><td>不確定なまま動く</td></tr>
+  <tr><td>二重ローン</td><td>発生しない</td><td>今の家が売れるまで発生する</td></tr>
+  <tr><td>物件選びの自由度</td><td>時間の制約がある</td><td>じっくり選べる</td></tr>
+  <tr><td>仮住まい</td><td>新居が間に合わないと発生</td><td>不要</td></tr>
+  <tr><td>引越し回数</td><td>1〜2回</td><td>1回</td></tr>
+  <tr class="hl"><td>売値の追求</td><td>焦らず適正価格を狙える</td><td>決済に追われ妥協しがち</td></tr>
+  <tr><td>向いている相場</td><td>下落・不透明な局面</td><td>上昇局面</td></tr>
 </table>
+</div>
 
 <hr>
 
-<h2>【核心】結局どっちか——出口から逆算して決める</h2>
+<h2>結局どちらを選ぶべきか</h2>
 
-<p>ここからが本質です。順番は「好み」ではなく<strong>「今の家の売却の確実性」で機械的に決まります</strong>。<br>
-下のフローチャートに、あなたの状況を当てはめてください。</p>
+<p>順番は好みではなく、今の家の売却の確実性と、二重ローンへの耐性の2つで決まります。<br>
+次の2つの質問に、自分の数字を当てはめてください。<br>
+「なんとなく購入先行がよさそう」で動くのが、最も危険な決め方です。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;">
-    <style>
-      .fc-q { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:15px; fill:#22304f; }
-      .fc-s { font-family:'Noto Sans JP',sans-serif; font-size:12px; fill:#6b7280; }
-      .fc-r { font-family:'Noto Sans JP',sans-serif; font-weight:800; font-size:16px; fill:#fff; }
-    </style>
-    <!-- Q1 -->
-    <rect x="300" y="24" width="400" height="86" rx="10" fill="#f4f6fb" stroke="#0E3273" stroke-width="2"/>
-    <text x="500" y="58" text-anchor="middle" class="fc-q">Q1. 今の家は、いくらで・いつ売れるか</text>
-    <text x="500" y="80" text-anchor="middle" class="fc-q">読める？（好立地・堅調な相場か）</text>
-    <text x="500" y="100" text-anchor="middle" class="fc-s">＝ローン残債を上回る利益が見込めるか</text>
-
-    <!-- trunk down -->
-    <line x1="500" y1="110" x2="500" y2="140" stroke="#9aa4b2" stroke-width="2"/>
-    <!-- horizontal split -->
-    <line x1="230" y1="140" x2="770" y2="140" stroke="#9aa4b2" stroke-width="2"/>
-    <!-- left drop -->
-    <line x1="230" y1="140" x2="230" y2="210" stroke="#0E3273" stroke-width="2.5"/>
-    <!-- right drop -->
-    <line x1="770" y1="140" x2="770" y2="210" stroke="#8a5e1a" stroke-width="2.5"/>
-    <!-- branch labels: placed beside the drop lines, not on them -->
-    <rect x="250" y="150" width="150" height="26" rx="13" fill="#eef3fb" stroke="#cdd8ee"/>
-    <text x="325" y="168" text-anchor="middle" style="font-family:'Noto Sans JP';font-weight:800;font-size:13px;fill:#0E3273;">YES：利益が出る</text>
-    <rect x="600" y="150" width="150" height="26" rx="13" fill="#f6ecd4" stroke="#dcc48a"/>
-    <text x="675" y="168" text-anchor="middle" style="font-family:'Noto Sans JP';font-weight:800;font-size:13px;fill:#8a5e1a;">NO：不透明</text>
-
-    <!-- left result: 購入先行 (navy) -->
-    <rect x="60" y="212" width="360" height="120" rx="10" fill="#0E3273"/>
-    <text x="240" y="250" text-anchor="middle" class="fc-r">→ 購入先行でOK</text>
-    <text x="240" y="278" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#dce6fb;">理想の家をじっくり選び、</text>
-    <text x="240" y="298" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#dce6fb;">引越しも1回で終える。</text>
-    <text x="240" y="318" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#dce6fb;">※二重ローン耐性は要確認</text>
-
-    <!-- right: Q2 -->
-    <rect x="590" y="212" width="360" height="86" rx="10" fill="#fbf4e4" stroke="#a67c1a" stroke-width="2"/>
-    <text x="770" y="246" text-anchor="middle" class="fc-q">Q2. 二重ローンに</text>
-    <text x="770" y="268" text-anchor="middle" class="fc-q">耐えられる資金力がある？</text>
-    <text x="770" y="288" text-anchor="middle" class="fc-s">＋売値もチャレンジしたい？</text>
-
-    <line x1="770" y1="298" x2="770" y2="336" stroke="#9aa4b2" stroke-width="2"/>
-    <text x="770" y="360" text-anchor="middle" style="font-family:'Noto Sans JP';font-weight:800;font-size:13px;fill:#8a5e1a;">耐えられない／売値も攻めたい</text>
-
-    <!-- right result: 売却先行 (gold) -->
-    <rect x="590" y="376" width="360" height="120" rx="10" fill="#8a5e1a"/>
-    <text x="770" y="414" text-anchor="middle" class="fc-r">→ 売却先行が正解</text>
-    <text x="770" y="442" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#f6ecd4;">まず売って資金と条件を確定。</text>
-    <text x="770" y="462" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#f6ecd4;">焦らず強気の価格で</text>
-    <text x="770" y="482" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:12.5px;fill:#f6ecd4;">出口（売値）を取りに行く。</text>
-
-    <!-- bottom-left note -->
-    <rect x="60" y="376" width="360" height="132" rx="10" fill="#f4f6fb" stroke="#d5ddf0"/>
-    <text x="86" y="406" class="fc-q" style="font-size:14px;">迷ったら、まずこの3つを数字で把握</text>
-    <text x="86" y="432" class="fc-s">① 今の家の査定額</text>
-    <text x="86" y="454" class="fc-s">② 住宅ローンの残債</text>
-    <text x="86" y="476" class="fc-s">③ 売却の確実性（成約事例・在庫）</text>
-    <text x="86" y="498" class="fc-s" style="fill:#0E3273;font-weight:700;">数字が見えれば、順番は自動で決まる。</text>
-  </svg>
-  <figcaption>「なんとなく購入先行が良さそう」で動くのが最も危険。必ず今の家の数字から逆算してください。</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-label="今の家の売却額と時期が読めるかを最初に問い、読めなければ売却先行。読めても二重ローンに耐えられなければ売却先行、耐えられれば購入先行" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">順番を決める2つの質問</text>
+<rect x="40.0" y="58.0" width="520.0" height="72.0" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="300.0" y="88.0" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">Q1. 今の家は、いくらで・いつ売れるか読めるか</text>
+<text x="300.0" y="114.0" font-size="15" fill="#777" text-anchor="middle">成約事例が多く、残債を十分に上回るか</text>
+<line x1="300.0" y1="130.0" x2="300.0" y2="150.0" stroke="#777" stroke-width="2"/>
+<line x1="165.0" y1="150.0" x2="435.0" y2="150.0" stroke="#777" stroke-width="2"/>
+<line x1="165.0" y1="150.0" x2="165.0" y2="183.0" stroke="#777" stroke-width="2"/><line x1="158" y1="175" x2="165" y2="183" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="172" y1="175" x2="165" y2="183" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="435.0" y1="150.0" x2="435.0" y2="183.0" stroke="#777" stroke-width="2"/><line x1="428" y1="175" x2="435" y2="183" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="442" y1="175" x2="435" y2="183" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<text x="175.0" y="172.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">読める</text>
+<text x="445.0" y="172.0" font-size="17" fill="#8a5e1a" text-anchor="start" font-weight="700">読めない</text>
+<rect x="40.0" y="186.0" width="250.0" height="92.0" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="165.0" y="216.0" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">Q2. 二重ローンに</text>
+<text x="165.0" y="242.0" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">耐えられるか</text>
+<text x="165.0" y="266.0" font-size="15" fill="#777" text-anchor="middle">資金力と借入の余力</text>
+<rect x="310.0" y="186.0" width="250.0" height="92.0" rx="4" fill="#8a5e1a"/>
+<text x="435.0" y="228.0" font-size="20" fill="#fff" text-anchor="middle" font-weight="700">売却先行</text>
+<text x="435.0" y="256.0" font-size="15" fill="#f6ecd4" text-anchor="middle">先に売って資金を確定</text>
+<line x1="165.0" y1="278.0" x2="165.0" y2="298.0" stroke="#777" stroke-width="2"/>
+<line x1="95.0" y1="298.0" x2="235.0" y2="298.0" stroke="#777" stroke-width="2"/>
+<line x1="95.0" y1="298.0" x2="95.0" y2="329.0" stroke="#777" stroke-width="2"/><line x1="88" y1="321" x2="95" y2="329" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="102" y1="321" x2="95" y2="329" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="235.0" y1="298.0" x2="235.0" y2="329.0" stroke="#777" stroke-width="2"/><line x1="228" y1="321" x2="235" y2="329" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="242" y1="321" x2="235" y2="329" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<text x="103.0" y="320.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">耐えられる</text>
+<text x="243.0" y="320.0" font-size="17" fill="#8a5e1a" text-anchor="start" font-weight="700">耐えられない</text>
+<rect x="30.0" y="332.0" width="130.0" height="76.0" rx="4" fill="#0E3273"/>
+<text x="95.0" y="366.0" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">購入先行</text>
+<text x="95.0" y="392.0" font-size="15" fill="#dce6fb" text-anchor="middle">じっくり選ぶ</text>
+<rect x="170.0" y="332.0" width="130.0" height="76.0" rx="4" fill="#8a5e1a"/>
+<text x="235.0" y="366.0" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">売却先行</text>
+<text x="235.0" y="392.0" font-size="15" fill="#f6ecd4" text-anchor="middle">同時進行を狙う</text>
+<rect x="40.0" y="428.0" width="520.0" height="74.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="458.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">先に数字で把握する3つ</text>
+<text x="300.0" y="486.0" font-size="17" fill="#333" text-anchor="middle">査定額・ローンの残債・成約事例と売り物の数</text>
+</g>
+</svg>
+<figcaption>最初の質問で「読めない」なら売却先行です。「読める」場合も、二重ローンに耐えられるかで分かれます。</figcaption>
 </figure>
+
+<p>判断の材料になるのは、今の家の査定額、住宅ローンの残債、同じ建物や近隣の成約事例と売り物の数の3つです。<br>
+売却後に手元に残る額は<a href="/columns/tedori-keisan/">マンション売却の手取りの計算方法</a>で計算できます。<br>
+数字が見えれば、順番はほぼ自動で決まります。</p>
 
 <div class="warn-box">
-  <p><strong>青い鳥症候群に注意</strong></p>
-  <p>「もっと高く売れるはず」「もっと良い家があるはず」と完璧を待ち続けると、買い替えは永遠に終わりません。<br>
-完璧な物件も、完璧な売値も存在しない前提で、<strong>頭と尻尾は捨てて中間の適正解を取りに行く</strong>——これが再現性のある勝ち方です。</p>
+  <p>「もっと高く売れるはず」「もっと良い家があるはず」と完璧を待ち続けると、買い替えは終わりません。<br>
+  完璧な物件も、完璧な売値も存在しない前提で、中間の適正解を取りに行くのが再現性のある進め方です。</p>
 </div>
 
 <hr>
 
-<h2>スケジュールの目安（売却先行の場合）</h2>
+<h2>売却先行のスケジュールはどう組むか</h2>
 
-<p>売却先行は、需要期（1〜3月・9〜10月）に「売り出し済み」の状態を作れるよう逆算します。<br>
-買主が決まったら、その段階から新居探しを並行して進めるのがコツです。</p>
+<p>売却先行は、売り出しの山場を需要期に合わせ、決済の6か月前から逆算して組みます。<br>
+1〜3月と9〜10月は、転勤や新年度に向けて買い手が動きやすい時期です。<br>
+買主が決まったら、その段階から新居探しを並行して進めます。</p>
 
-<figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;">
-    <style>
-      .gt-title { font-family:'Noto Sans JP',sans-serif; font-weight:800; font-size:17px; fill:#0E3273; }
-      .gt-ax { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:12px; fill:#5b6472; }
-      .gt-task { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:13px; fill:#22304f; }
-      .gt-bar { font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:12px; fill:#fff; }
-    </style>
-    <text x="40" y="36" class="gt-title">売却先行のスケジュール（目安）</text>
-
-    <!-- month axis -->
-    <line x1="300" y1="66" x2="300" y2="372" stroke="#e2e6ee" stroke-width="1"/>
-    <line x1="410" y1="66" x2="410" y2="372" stroke="#e2e6ee" stroke-width="1"/>
-    <line x1="520" y1="66" x2="520" y2="372" stroke="#e2e6ee" stroke-width="1"/>
-    <line x1="630" y1="66" x2="630" y2="372" stroke="#e2e6ee" stroke-width="1"/>
-    <line x1="740" y1="66" x2="740" y2="372" stroke="#e2e6ee" stroke-width="1"/>
-    <line x1="850" y1="66" x2="850" y2="372" stroke="#c9a961" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="300" y="60" text-anchor="middle" class="gt-ax">6ヶ月前</text>
-    <text x="410" y="60" text-anchor="middle" class="gt-ax">5ヶ月前</text>
-    <text x="520" y="60" text-anchor="middle" class="gt-ax">4ヶ月前</text>
-    <text x="630" y="60" text-anchor="middle" class="gt-ax">3ヶ月前</text>
-    <text x="740" y="60" text-anchor="middle" class="gt-ax">1〜2ヶ月前</text>
-    <text x="850" y="60" text-anchor="middle" class="gt-ax" style="fill:#8a5e1a;font-weight:800;">決済・引渡し</text>
-
-    <!-- task rows -->
-    <text x="40" y="96" class="gt-task">① 相場把握・残債確認</text>
-    <rect x="248" y="82" width="120" height="24" rx="5" fill="#8a5e1a"/>
-
-    <text x="40" y="140" class="gt-task">② 査定・会社選定・媒介契約</text>
-    <rect x="358" y="126" width="120" height="24" rx="5" fill="#8a5e1a"/>
-
-    <text x="40" y="184" class="gt-task">③ 売り出し（需要期に合わせる）</text>
-    <rect x="468" y="170" width="180" height="24" rx="5" fill="#a67c1a"/>
-    <text x="558" y="187" text-anchor="middle" class="gt-bar">新着期が山場</text>
-
-    <text x="40" y="228" class="gt-task">④ 内覧対応・売買契約</text>
-    <rect x="630" y="214" width="150" height="24" rx="5" fill="#8a5e1a"/>
-
-    <text x="40" y="272" class="gt-task" style="fill:#0E3273;">⑤ 新居探し（買主決定後・並行）</text>
-    <rect x="700" y="258" width="205" height="24" rx="5" fill="#0E3273"/>
-    <text x="802" y="275" text-anchor="middle" class="gt-bar">購入の動き</text>
-
-    <!-- milestone -->
-    <text x="40" y="330" class="gt-task">⑥ 決済・引渡し → 入居</text>
-    <path d="M850 312 l16 16 l-16 16 l-16 -16 z" fill="#8a5e1a"/>
-    <text x="850" y="360" text-anchor="middle" class="gt-ax" style="fill:#8a5e1a;font-weight:800;">ゴール</text>
-
-    <!-- legend -->
-    <rect x="300" y="392" width="14" height="14" rx="3" fill="#8a5e1a"/><text x="322" y="404" class="gt-ax">売却の動き</text>
-    <rect x="470" y="392" width="14" height="14" rx="3" fill="#0E3273"/><text x="492" y="404" class="gt-ax">購入（新居）の動き</text>
-  </svg>
-  <figcaption>売却の各工程を進めつつ、買主が決まった後半で新居探し（青）を並行させるイメージです。</figcaption>
-</figure>
-
-<p>購入先行なら順番が逆になり、<strong>①新居を確定 → ②入居 → ③旧居を売り出し</strong>。<br>
-この場合、旧居が売れるまでの二重ローン期間（＝売却期限まで）をいかに短くするかがスケジュールの主眼になります。</p>
-
-<hr>
-
-<h2>仮住まいを避ける・順番をつなぐ工夫</h2>
-
-<p>売却を確定させながら、仮住まいや二重ローンをできるだけ避けて住み替えるための実務の道具があります。<br>
-理想は、今の家の引渡しと新居の入居を近づける「同時進行」。代表的なのが次の2つです。</p>
-
-<div class="check-item"><div class="check-num">A</div><div class="check-text"><strong>買い替え特約</strong><p><strong>すでに今の家の売買契約が成立していることが前提</strong>で、万一その売却契約が解約（白紙）になった場合に、新居の購入契約も白紙解除できる。売却を確定させたうえで新居を契約するときの安全網で、「まだ買主がいない段階で使えるもの」ではない点に注意。</p></div></div>
-<div class="check-item"><div class="check-num">B</div><div class="check-text"><strong>引渡し猶予（決済後 約7日間）を使う</strong><p>売却の決済後、一定期間（目安7日程度）は旧居に住める「引渡し猶予」を売買契約で設定。その間に新居へ引っ越せば、仮住まいを挟まず住み替えられる。</p></div></div>
-
-<div class="info-box">
-  <p>どの手が使えるかは、物件・買主／売主の事情・スケジュール次第です。<br>
-組み合わせ方で結果が大きく変わるため、<strong>ここは自己判断せず、実務を分かっているプロと設計する</strong>のが正解です。</p>
-</div>
-
-<hr>
-
-<h2>見落としがちなコスト・税金</h2>
-
-<p>順番を決めるときは、諸費用まで含めた「手残り」で考えます。</p>
-
-<table class="comp-table">
-  <tr><th style="width:34%;">項目</th><th>目安</th></tr>
-  <tr><td class="row-head">売却時の諸費用</td><td>成約価格の<strong>4〜5%</strong>（仲介手数料、印紙税、抵当権抹消、ローン一括返済手数料 ほか）</td></tr>
-  <tr><td class="row-head">購入時の諸費用</td><td>購入価格の<strong>6〜8%</strong>（仲介手数料、印紙税、ローン関連費用、火災・地震保険、登記費用、不動産取得税 ほか）</td></tr>
-  <tr><td class="row-head">仮住まいコスト<br>（発生した場合）</td><td>敷金・礼金・仲介手数料・家賃 ＋ 引越し2回分</td></tr>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>時期（決済から逆算）</th><th>売却の動き</th><th>購入の動き</th></tr>
+  <tr><td>6か月前</td><td>相場の把握、残債の確認</td><td>予算の目安を立てる</td></tr>
+  <tr><td>5か月前</td><td>査定、仲介会社の選定、媒介契約</td><td>住宅ローンの事前相談</td></tr>
+  <tr><td>4〜3か月前</td><td>売り出し（需要期に合わせる）</td><td>候補エリアの情報収集</td></tr>
+  <tr><td>3〜1か月前</td><td>内見対応、売買契約</td><td>買主の決定後に新居探し・申込み</td></tr>
+  <tr class="hl"><td>決済</td><td>今の家の決済・引渡し</td><td>新居の決済・入居（同日決済なら同じ日）</td></tr>
 </table>
+</div>
 
-<p>税制も必ず確認を。使えるかどうかで手残りが数百万円変わります。</p>
+<p>購入先行なら順番が逆になり、新居の確定、入居、今の家の売り出しの順に進みます。<br>
+この場合は、二重ローンの期間をどれだけ短くするかがスケジュールの主眼です。<br>
+新築マンションを契約して引渡しを待つ場合の考え方は<a href="/columns/shinchiku-kaikae/">新築マンション契約後の買い替え</a>で整理しています。</p>
+
+<hr>
+
+<h2>仮住まいや二重ローンを避ける方法はあるか</h2>
+
+<p>買い替え特約と引渡し猶予を使えば、売却と購入の時期を近づけ、仮住まいや二重ローンを避けられる場合があります。<br>
+理想は、今の家の引渡しと新居の入居を同じ日か近い日にそろえる「同時進行」です。</p>
+
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>買い替え特約</strong><p>今の家の売却が不調に終わった場合に、新居の売買契約を白紙に戻せる特約です。<br>
+実務では「いつまでに、いくら以上で売れなかったら」という期日と金額を決めて入れます。<br>
+売主にとっては契約が白紙になるリスクがあるため、人気の物件や業者売主の物件では受け入れられにくい特約です。</p></div></div>
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>引渡し猶予</strong><p>今の家の決済後も、数日から1週間程度は住み続けられるように、売買契約で引渡しを猶予してもらう方法です。<br>
+その間に新居へ引っ越せば、仮住まいを挟まずに住み替えられます。<br>
+買主の同意が必要で、猶予中の事故や損傷の扱いも契約で決めておきます。</p></div></div>
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>同日決済</strong><p>今の家の決済と新居の決済を同じ日に行い、売却代金を新居の購入に充てる方法です。<br>
+買主、売主、2つの金融機関の日程を合わせる必要があり、難易度は最も高くなります。</p></div></div>
+
+<p>どの手が使えるかは、物件、相手方の事情、スケジュール次第です。<br>
+組み合わせ方で結果が大きく変わるため、自己判断せず、実務を分かっている担当者と設計してください。</p>
+
+<div class="src-box">出典：三菱地所ハウスネット「不動産用語集：買い換え特約」</div>
+
+<hr>
+
+<h2>買い替えで見落としがちなコストと税金は</h2>
+
+<p>見落としやすいのは、売却と購入の両方の諸費用と、3,000万円特別控除と住宅ローン控除の併用制限です。<br>
+順番を決めるときは、諸費用まで含めた手残りで考えます。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>項目</th><th>目安</th></tr>
+  <tr><td>売却時の諸費用</td><td>売却価格の約4%（8,000万円で約307万円。仲介手数料、印紙税、抵当権抹消、ローンの一括返済手数料など）</td></tr>
+  <tr><td>購入時の諸費用</td><td>購入価格の6〜8%（仲介手数料、印紙税、ローン関連費用、火災・地震保険、登記費用、不動産取得税など）</td></tr>
+  <tr><td>仮住まいの費用（発生した場合）</td><td>敷金・礼金・仲介手数料・家賃と、引越し2回分</td></tr>
+</table>
+</div>
+
+<p>購入時の諸費用の内訳は<a href="/columns/shokihiyo/">中古マンション購入の諸費用</a>で試算しています。<br>
+税制は、使えるかどうかで手残りが数百万円変わります。</p>
 
 <div class="warn-box">
-  <p><strong>最重要：3,000万円特別控除と住宅ローン控除は“併用不可”</strong></p>
-  <p>買い替えでは、<strong>売却側の「3,000万円特別控除」と、購入側の「住宅ローン控除」は、どちらか一方しか使えません</strong>（同時期の併用は不可）。<br>
-売却益が大きいなら3,000万円控除、売却益が小さく新居の借入が大きいなら住宅ローン控除、というように<strong>手残りが大きくなる方を試算して選ぶ</strong>のが鉄則です。<br>
-適用可否・要件（確定申告が必要）は、税理士・税務署で必ずご確認ください。</p>
+  <p>今の家の売却で3,000万円特別控除などの特例を使うと、新居の入居年とその前2年・後3年の計6年間に入る場合、新居で住宅ローン控除を受けられません。<br>
+  たとえば所有5年超で売却益が2,000万円なら、3,000万円特別控除を使わない場合の税金は約406万円（20.315%）です。<br>
+  この税額と、新居で受けられる住宅ローン控除の総額を比べ、手残りが大きくなる方を選びます。<br>
+  適用の可否と要件は、税理士や税務署で必ず確認してください。</p>
 </div>
+
+<p>売却で損が出た場合は、要件を満たせば、譲渡損失を給与所得などと損益通算し、残りを翌年以後3年間繰り越せます。<br>
+この買い替えの譲渡損失の特例は、2027年12月31日までの譲渡が対象で、所有期間5年超、新居に償還期間10年以上の住宅ローンがあることなどが要件です。<br>
+こちらは住宅ローン控除と併用できます。<br>
+売却時の税金の全体像は<a href="/columns/baikyaku-zeikin/">不動産売却にかかる税金</a>で整理しています。</p>
+
+<div class="src-box">出典：国税庁タックスアンサーNo.1211-1「中古住宅を取得した場合（住宅借入金等特別控除）」、No.3370「マイホームを買い換えた場合に譲渡損失が生じたとき（マイホームの買換えの場合の譲渡損失の損益通算及び繰越控除の特例）」（いずれも令和8年4月1日現在法令等）</div>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">住み替えは売却先行と購入先行のどちらがよいですか</h3><div class="col-faq-a"><p>今の家の売却額と時期が読め、二重ローンに耐えられるなら購入先行、そうでなければ売却先行です。<br>
+判断の材料は、査定額、ローンの残債、成約事例と売り物の数です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">売却先行だと必ず仮住まいが必要ですか</h3><div class="col-faq-a"><p>必要になるのは、今の家の引渡しまでに新居が決まらない場合だけです。<br>
+引渡し猶予や同日決済を使えば、仮住まいを挟まずに済むこともあります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">買い替え特約とは何ですか</h3><div class="col-faq-a"><p>今の家の売却が不調に終わった場合に、新居の売買契約を白紙に戻せる特約です。<br>
+期日と売却金額の条件を決めて入れますが、売主に受け入れられないこともあります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">3,000万円特別控除と住宅ローン控除は併用できますか</h3><div class="col-faq-a"><p>新居の入居年とその前2年・後3年の計6年間に3,000万円特別控除などを使うと、住宅ローン控除は受けられません。<br>
+どちらが得かは、税額を試算して選びます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">買い替えで売却に損が出たら税金はどうなりますか</h3><div class="col-faq-a"><p>要件を満たせば、譲渡損失を給与所得などと損益通算し、翌年以後3年間繰り越せます。<br>
+2027年12月31日までの譲渡が対象で、住宅ローン控除と併用できます。</p></div></div>
+</section>
+
+<h2>結論：順番は「今の家の数字」から逆算して決める</h2>
 
 <div class="info-box">
-  <p><strong>・3,000万円特別控除</strong>：マイホーム売却益のうち最大3,000万円まで非課税。<br>
-<strong>・譲渡損失の損益通算・繰越控除</strong>：売却で損が出た場合、給与所得等と相殺して税負担を軽減。</p>
+  <p><strong>住み替えの順番を決める前の確認事項</strong></p>
+  <p>・今の家の査定額と、成約事例に基づく売却の確実性</p>
+  <p>・住宅ローンの残債と、売却後の手残り</p>
+  <p>・二重ローンに耐えられる資金力と借入の余力</p>
+  <p>・買い替え特約、引渡し猶予、同日決済のどれが使えるか</p>
+  <p>・3,000万円特別控除と住宅ローン控除のどちらを使うかの試算</p>
 </div>
 
-<hr>
-
-<h2>まとめ</h2>
-
-<p>買い替えは「順番」で結果が決まります。感覚ではなく数字で選んでください。</p>
-
-<p>・今の家が<strong>十分な利益を確保できそうなら購入先行</strong>。理想の家を取りに行ける。<br>
-・<strong>売却額・時期が不透明で、二重ローンは避けたいが売値は狙いたいなら売却先行</strong>。まず確定させ、焦らず出口を取る。<br>
-・仮住まいは「新居が間に合わないときだけ」。買い替え特約や引渡し猶予でつなぐ工夫もある。<br>
-・最初にやるべきは、<strong>今の家の査定額・ローン残債・売却の確実性を数字で把握すること</strong>。</p>
-
-<p>買い替えは「完璧な物件」を待つゲームではありません。<br>
-今の家の出口を数字で押さえ、頭と尻尾は捨てて中間の適正解を取りに行く——これが失敗しない買い替えの原則です。</p>
-
-<hr>
-
-<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産購入・売却サポートを行っています。<br>
-住み替え・買い替えの順番でお悩みの方は、今の家の査定と資金計画の整理からお手伝いします。お気軽にお問い合わせください。</p>
+<p>買い替えは完璧な物件を待つゲームではなく、今の家の出口を数字で押さえて、中間の適正解を取りに行く作業です。<br>
+今の家の査定とローン残債がそろえば、どちらの順番が合うかはすぐに判断できます。<br>
+売却後の手残りは<a href="/simulator/#sell">売却シミュレーター</a>で試算でき、個別の資金計画もお手伝いします。</p>
