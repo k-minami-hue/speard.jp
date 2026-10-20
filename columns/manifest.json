@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "chintai-chu-baikyaku",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "賃貸中のマンションは売れるか——オーナーチェンジで売るか、退去を待って売るか",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/chintai-chu-baikyaku.jpg",
+      "thumb": "/columns/hero/chintai-chu-baikyaku-thumb.jpg",
+      "file": "columns/purchase/column_chintai_chu_baikyaku.html",
+      "description": "賃貸中のマンションは入居者がいるまま売れる。オーナーチェンジの価格は家賃÷期待利回りで決まる。普通借家の正当事由と立退料、定期借家の終了通知、3,000万円控除の期限まで、売り方の判断基準を解説。"
+    },
+    {
       "id": "hojin-shohizei",
       "category": "sell",
       "tags": [
