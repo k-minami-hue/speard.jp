@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "kaitori-saihan-erabikata",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "リノベーション済みマンションは買っていいか——買取再販物件で確認する5つのこと",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/kaitori-saihan-erabikata.jpg",
+      "thumb": "/columns/hero/kaitori-saihan-erabikata-thumb.jpg",
+      "file": "columns/purchase/column_kaitori_saihan_erabikata.html",
+      "description": "リノベーション済み（買取再販）マンションは買っていいか。業者売主の契約不適合責任2年以上、建物部分の消費税、登録免許税0.1%の特例、工事内容・保証・価格差の根拠など、買う前に確認する5つのことを解説。"
+    },
+    {
       "id": "urinushi-chigai",
       "category": "buy",
       "tags": [
