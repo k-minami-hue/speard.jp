@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "hojin-shohizei",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "法人が不動産を売るときの消費税——土地と建物の按分方法と、課税売上割合への影響",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/hojin-shohizei.jpg",
+      "thumb": "/columns/hero/hojin-shohizei-thumb.jpg",
+      "file": "columns/purchase/column_hojin_shohizei.html",
+      "description": "法人の不動産売却は建物部分に消費税10%、土地は非課税。契約書での区分、鑑定評価額・固定資産税評価額による按分の方法と注意点、按分で変わる税額、土地売却による課税売上割合の低下と準ずる割合の承認を解説。"
+    },
+    {
       "id": "yokohama-erabikata",
       "category": "buy",
       "tags": [
