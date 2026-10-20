@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "hojin-meigi",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "法人名義でマンションを買うべきか——個人購入と比べた税金・融資・売却時の違い",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/hojin-meigi.jpg",
+      "thumb": "/columns/hero/hojin-meigi-thumb.jpg",
+      "file": "columns/purchase/column_hojin_meigi.html",
+      "description": "自宅は個人名義が原則有利。住宅ローン控除と3,000万円特別控除は法人に使えない。法人名義の減価償却（RC造47年・中古の簡便法）、役員社宅の家賃、売却時の税率の違いと、名義の判断基準を解説。"
+    },
+    {
       "id": "chintai-chu-baikyaku",
       "category": "sell",
       "tags": [
