@@ -456,6 +456,9 @@ AUTOLINK = [
     ('購入先行', '/columns/kaikae-junban/'), ('利回り', '/columns/yield/'),
     ('売り時', '/columns/uridoki/'), ('階数', '/columns/tawaman-kakaku-sa/'),
     ('武蔵小杉', '/area/musashikosugi/'), ('湾岸エリア', '/area/wangan/'),
+    ('買取再販', '/columns/kaitori-saihan-erabikata/'), ('リノベーション済み', '/columns/kaitori-saihan-erabikata/'),
+    ('契約不適合責任', '/columns/urinushi-chigai/'), ('オーナーチェンジ', '/columns/chintai-chu-baikyaku/'),
+    ('法人名義', '/columns/hojin-meigi/'), ('課税売上割合', '/columns/hojin-shohizei/'),
 ]
 AUTOLINK.sort(key=lambda kv: -len(kv[0]))
 AUTOLINK_MAX = 5
@@ -523,6 +526,15 @@ AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">計算して�
              '<li><a href="/area/tokyo23/">東京23区のマンション売買</a></li><li><a href="/area/kanagawa/">横浜・神奈川のマンション売買</a></li>'
              '<li><a href="/area/">対応エリア一覧（一都三県）</a></li></ul></div>')
 
+def col_faq_ld(body):
+    """本文の「よくある質問」（.col-faq-item）を FAQPage の構造化データにする"""
+    items = re.findall(r'<div class="col-faq-item">\s*<h3 class="col-faq-q">(.*?)</h3>\s*<div class="col-faq-a">(.*?)</div>\s*</div>', body, flags=re.S)
+    if not items:
+        return None
+    txt = lambda h: re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', h)).strip()
+    return {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+        {'@type': 'Question', 'name': txt(q), 'acceptedAnswer': {'@type': 'Answer', 'text': txt(a)}} for q, a in items]}
+
 def build_columns():
     man = json.load(open(P('columns/manifest.json'), encoding='utf-8'))['columns']
     cols = []
@@ -582,8 +594,12 @@ def build_columns():
 {CTA_BOTTOM('まずはお気軽にご相談ください', '購入・売却のご相談はいつでも承っております。', contact_url(col_kind(c), c['id']))}
 </div>'''
         og_img = SITE + f'/columns/ogp/{c["id"]}.jpg' if os.path.exists(P(f'columns/ogp/{c["id"]}.jpg')) else hero_abs
+        ld = [article_ld]
+        faq_ld = col_faq_ld(c['body'])
+        if faq_ld:
+            ld.append(faq_ld)
         write(f'columns/{c["id"]}/index.html', page(url, c['title'], desc, body_html, og_image=og_img, og_type='article',
-                                                    jsonld=[article_ld], breadcrumbs=crumbs))
+                                                    jsonld=ld, breadcrumbs=crumbs))
 
     # 一覧
     crumbs = [('トップ', '/'), ('不動産コラム', '/columns/')]
