@@ -1,6 +1,20 @@
 {
   "columns": [
     {
+      "id": "kosugi-erabikata",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "武蔵小杉のタワーマンションの選び方——駅動線・築年・浸水対策で見る5つの基準",
+      "date": "2026.10.20",
+      "hero": "/columns/hero/kosugi-erabikata.jpg",
+      "thumb": "/columns/hero/kosugi-erabikata-thumb.jpg",
+      "file": "columns/purchase/column_kosugi_erabikata.html",
+      "description": "武蔵小杉のタワーマンションは建物で選ぶ。JR・東急の利用者数、横須賀線と東急線の動線、2008年〜2017年以降の築年代と修繕、2019年台風の浸水被害と川崎市の対策、1,438戸の新築供給との競合まで解説。"
+    },
+    {
       "id": "hojin-meigi",
       "category": "buy",
       "tags": [
