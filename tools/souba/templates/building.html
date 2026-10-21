@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import ad_cards, estimator, rep, faq_list, img, listing_card %}
+{% from "macros.html" import ad_cards, estimator, rep, faq_list, img, listing_card, notify %}
 {% set s = b.stats %}
 {% block title %}{{ b['マンション名'] }}の相場・売却価格｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}・推移｜{{ site.name }}{% endblock %}
 {% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのタワーマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのタワーマンションの相場。{% endif %}{% endblock %}
@@ -22,6 +22,13 @@
       {% else %}
       <p class="bmeta" style="margin-top:16px">{{ b.nodata_txt }}武蔵小杉のタワーマンションは、直近1年で坪単価{{ town.tsubo_txt }}前後です。</p>
       {% endif %}
+      {% set share_url = site.origin ~ b.url %}{% set share_txt = b['マンション名'] ~ 'の相場' ~ ('（坪単価' ~ s.tsubo_txt ~ '）' if s else '') %}
+      <div class="share" aria-label="このページを共有">
+        <span>共有</span>
+        <a href="https://social-plugins.line.me/lineit/share?url={{ share_url|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="line">LINE</a>
+        <a href="https://x.com/intent/post?url={{ share_url|urlencode }}&amp;text={{ share_txt|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="x">X</a>
+        <button type="button" data-copy="{{ share_url }}" data-ev="share" data-ad="copy">リンクをコピー</button>
+      </div>
       {{ estimator(site, buildings, preset=b.id, title=b.short ~ 'の部屋はいくら？') }}
     </div>
   </div>
@@ -50,7 +57,7 @@
           <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% if n.diff is not none %}<span class="sub {{ 'up' if n.diff > 0 else 'down' if n.diff < 0 else '' }}">{{ b.short }}より{{ '%+.0f' % n.diff }}万円</span>{% endif %}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
         {% endfor %}
       </ul>
-      <p style="margin-top:12px"><a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a></p>
+      <p style="margin-top:12px"><a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a>{% if s %}　<a class="more" href="{{ site.base }}loan/?b={{ b.id }}&amp;a=70">70㎡で住宅ローンを計算する</a>{% endif %}</p>
     </div>
     <div class="mapbox short" id="map" data-map="self" data-self="{{ b.id }}" role="region" aria-label="{{ b['マンション名'] }}と周辺の地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
   </div>
@@ -91,6 +98,7 @@
       <div class="sec-head"><div><h2 id="k-ttl">売る前・買う前に確認したいこと</h2></div></div>
       <ul class="checks">{% for p in b.points %}<li>{{ p }}</li>{% endfor %}
         <li>受変電設備の位置と、浸水への対策（管理組合の資料で確認）</li>
+        <li>洪水・内水・高潮の浸水の想定（<a href="https://disaportal.gsi.go.jp/maps/?ll={{ b.lat }},{{ b.lng }}&amp;z=16&amp;base=pale" target="_blank" rel="noopener" data-ev="hazard_click">重ねるハザードマップでこの場所を見る</a>）</li>
         <li>同じ建物と近くのタワーで、同じ条件の売出がどれだけ出ているか</li>
       </ul>
     </div>
@@ -122,6 +130,8 @@
   <p class="pr-notice">このセクションには広告（PR）を含みます。<a href="{{ site.base }}guide/">住み替えの準備の進め方</a></p>
   {{ ad_cards(my_ads[:2]) }}
 </div></section>{% endif %}
+
+<section class="sec" aria-label="相場の更新のお知らせ"><div class="wrap">{{ notify(site, b) }}</div></section>
 
 <section class="sec-wash" aria-label="ご相談"><div class="wrap">{{ rep(site, speard_link) }}</div></section>
 {% endblock %}

@@ -52,6 +52,28 @@ TOWN_FACTS = [             # 出典を確認済みの街のデータ
     ("新築の供給", "ザ・パークハウス 武蔵小杉タワーズ 1,438戸", "2027〜2028年竣工予定・売主発表"),
     ("交通", "JR横須賀線・湘南新宿ライン・南武線、東急東横線・目黒線", "新横浜へも直通"),
 ]
+GLOSSARY = [             # 用語集（/glossary/）。法令の数値は出典を確認したものだけ書く
+    ("坪単価", "価格を専有面積の坪数で割った値です。1坪は約3.3㎡で、このサイトでは「価格 ÷（専有面積 × 0.3025）」で計算しています。広さの違う部屋の価格を同じ物差しで比べるときに使います。"),
+    ("70㎡換算", "坪単価に70㎡を掛けた価格です。ファミリー向けの部屋の広さに近い70㎡にそろえて、マンションごとの価格の水準を比べやすくしています。"),
+    ("中央値", "数値を小さい順に並べたときに真ん中に来る値です。一部の高い取引や安い取引に引っ張られにくいため、このサイトの相場は平均ではなく中央値で示しています。"),
+    ("取引価格", "国土交通省が、不動産を買った人へのアンケートで集めた価格です。個別の取引が特定できないよう、面積や価格を丸めて公表されています。"),
+    ("成約価格", "不動産会社が指定流通機構（レインズ）に登録した、売買が成立したときの価格です。国土交通省の不動産情報ライブラリでは2021年以降の分が公表されています。"),
+    ("レインズ", "国土交通大臣が指定した不動産流通機構が運営する、不動産会社どうしの物件情報のネットワークです。売出中の物件と成約した物件の情報が登録されます。"),
+    ("専有面積", "住戸のうち、所有者だけが使える部分の面積です。広告やパンフレットでは壁の中心線で測る壁芯面積、登記簿では壁の内側で測る内法面積が使われるため、登記簿の面積のほうが小さくなります。"),
+    ("管理費", "共用部分の清掃・点検、管理会社への委託、共用部分の水道光熱費などに充てるため、毎月管理組合に払うお金です。"),
+    ("修繕積立金", "外壁や屋上、給排水管、エレベーターなどの計画的な修繕に備えて、毎月管理組合に積み立てるお金です。長期修繕計画にもとづいて、段階的に値上げされることがあります。"),
+    ("長期修繕計画", "マンションの修繕の時期・内容・費用を、おおむね30年以上の期間で見通した計画です。修繕積立金の額はこの計画をもとに決まります。購入前に、計画と積立金の残高を確認します。"),
+    ("大規模修繕", "外壁の補修、屋上の防水、鉄部の塗装などをまとめて行う工事です。足場を組むため、工事中は眺望やバルコニーの使用が制限されます。"),
+    ("免震構造", "建物と地盤のあいだに積層ゴムなどの免震装置を入れ、地震の揺れが建物に伝わりにくくする構造です。"),
+    ("制震構造", "建物の中にダンパーなどの制震装置を組み込み、地震の揺れのエネルギーを吸収して揺れを小さくする構造です。"),
+    ("媒介契約", "不動産会社に売却や購入の仲介を頼むときに結ぶ契約です。一般媒介・専任媒介・専属専任媒介の3種類があり、契約期間は専任媒介と専属専任媒介で3か月以内です。専任媒介は2週間に1回以上、専属専任媒介は1週間に1回以上、不動産会社が売主に業務の状況を報告します。"),
+    ("仲介手数料", "売買が成立したときに不動産会社に払う報酬です。上限は宅地建物取引業法で決まっており、売買価格が400万円を超える場合は「売買価格 × 3% + 6万円」に消費税を加えた額です。"),
+    ("取引態様", "広告を出している不動産会社が、その取引にどの立場で関わるかの表示です。売主、代理、媒介（仲介）のいずれかで、広告に表示することが義務づけられています。"),
+    ("売り先行・買い先行", "住み替えで、今の住まいの売却を先に進めるのが売り先行、次の住まいの購入を先に進めるのが買い先行です。資金計画と引越しの回数が変わります。"),
+    ("譲渡所得", "不動産を売った価格から、取得費（買った価格と諸費用から建物の減価償却費を引いた額）と譲渡費用（仲介手数料など）を引いた利益です。利益が出ると、翌年の確定申告で税金を納めます。"),
+    ("3,000万円の特別控除", "自分が住んでいる家（住まなくなってから3年目の年末までに売る家を含む）を売ったときに、譲渡所得から最高3,000万円を差し引ける特例です。親子や夫婦への売却などは対象外です（国税庁 No.3302）。"),
+    ("返済比率", "年収に対する、住宅ローンの年間返済額の割合です。金融機関は審査でこの割合に上限を設けており、上限と審査に使う金利は金融機関ごとに違います。"),
+]
 # ---------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parent
@@ -468,6 +490,7 @@ def build(out_dir, origin, base):
            rank_up=rank_up, rank_walk=rank_walk, rank_new=rank_new)
     render("compare.html", "compare/", "compare", jsonld(website, crumbs(("マンションを比べる", SITE["base"] + "compare/"))))
     render("tools.html", "tetori/", "tools", jsonld(website, crumbs(("売却の手取り計算", SITE["base"] + "tetori/"))))
+    render("loan.html", "loan/", "loan", jsonld(website, crumbs(("住宅ローン返済シミュレーション", SITE["base"] + "loan/"))))
 
     area_table = []
     near_name = "駅5分以内・2005年以降築"
@@ -479,6 +502,37 @@ def build(out_dir, origin, base):
         area_table.append(row)
     render("area.html", "trend/", "area", jsonld(website, crumbs(("相場の推移", SITE["base"] + "trend/"))),
            chart=json.dumps(chart_town, ensure_ascii=False), table=area_table)
+    # 相場データのダウンロード（/data/）
+    credit = "「不動産情報ライブラリ」（国土交通省）の不動産価格情報をもとに株式会社スピアードが加工して作成"
+    (out / "data").mkdir(parents=True, exist_ok=True)
+    with open(out / "data" / "souba-buildings.csv", "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["マンション名", "竣工年月", "総戸数", "地上階数", "最寄駅", "徒歩分", "構造種別", "坪単価中央値（万円）", "坪単価25%点（万円）", "坪単価75%点（万円）",
+                    "70㎡換算（万円）", "取引件数", "3年前比（%）", "集計期間", "合算した建物", "出典"])
+        for b in ranked + nodata:
+            st = b["stats"]
+            w.writerow([b["マンション名"], b["竣工年月"], b["総戸数"], b["地上階数"], b["最寄駅"], b["徒歩分"], b["struct"],
+                        round(st["tsubo"]) if st else "", round(st["lo"]) if st else "", round(st["hi"]) if st else "",
+                        round(st["p70"]) if st else "", st["n"] if st else 0, round(b["chg3"], 1) if b["chg3"] is not None else "",
+                        f"{common['recent_from_q']}〜{q_label(latest_q)}", "・".join(b["members"]), credit])
+    with open(out / "data" / "souba-quarterly.csv", "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["四半期", "タワーマンション坪単価中央値（万円）", "タワーマンション件数", "周辺全体 成約価格 坪単価中央値（万円）", "成約件数",
+                    "周辺全体 取引価格 坪単価中央値（万円）", "取引件数", "出典"])
+        for r in reversed(area_table):
+            w.writerow([r["q"], r["tower"] or "", r["tower_n"], r["closed"]["t"].replace("万円／坪", "").replace(",", "") if r["closed"] else "",
+                        r["closed"]["n"] if r["closed"] else "", r["trade"]["t"].replace("万円／坪", "").replace(",", "") if r["trade"] else "",
+                        r["trade"]["n"] if r["trade"] else "", credit])
+    dataset = {"@type": "Dataset", "name": "武蔵小杉のタワーマンション 棟別相場データ", "description": "武蔵小杉のタワーマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。",
+               "url": SITE["origin"] + SITE["base"] + "data/", "creator": org, "isAccessibleForFree": True, "inLanguage": "ja",
+               "dateModified": today.isoformat(), "spatialCoverage": "神奈川県川崎市中原区 武蔵小杉", "creditText": credit,
+               "isBasedOn": "https://www.reinfolib.mlit.go.jp/",
+               "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": SITE["origin"] + SITE["base"] + "data/" + n}
+                                for n in ("souba-buildings.csv", "souba-quarterly.csv")]}
+    render("data.html", "data/", "data", jsonld(dataset, crumbs(("相場データのダウンロード", SITE["base"] + "data/"))), credit=credit)
+    terms = {"@type": "DefinedTermSet", "name": "マンション売買の用語集", "url": SITE["origin"] + SITE["base"] + "glossary/",
+             "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t, "description": d} for t, d in GLOSSARY]}
+    render("glossary.html", "glossary/", "glossary", jsonld(terms, crumbs(("用語集", SITE["base"] + "glossary/"))), glossary=GLOSSARY)
     render("satei.html", "satei/", "satei", jsonld(website, crumbs(("無料査定", SITE["base"] + "satei/"))))
     render("sodan.html", "soudan/", "sodan", jsonld(website, crumbs(("購入・売却の相談", SITE["base"] + "soudan/"))))
     render("guide.html", "guide/", "guide", jsonld(website, crumbs(("住み替えの準備", SITE["base"] + "guide/"))))

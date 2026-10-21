@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}マンション売買の用語集｜坪単価・成約価格・修繕積立金・媒介契約・譲渡所得｜{{ site.name }}{% endblock %}
+{% block description %}マンションの相場を見るとき、売るとき、買うときに出てくる用語を、このサイトでの使い方とあわせて説明します。坪単価、70㎡換算、取引価格と成約価格、修繕積立金、媒介契約、仲介手数料、譲渡所得、返済比率など{{ glossary|length }}語。{% endblock %}
+{% block main %}
+<div class="wrap page">
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 用語集</p>
+<section>
+  <h1>マンション売買の用語集</h1>
+  <p class="answer">相場を見るとき、売るとき、買うときに出てくる用語を{{ glossary|length }}語にまとめました。</p>
+  <nav class="gl-index" aria-label="用語の一覧">{% for t, d in glossary %}<a href="#t{{ loop.index }}">{{ t }}</a>{% endfor %}</nav>
+</section>
+<section>
+  <dl class="gl">{% for t, d in glossary %}<div id="t{{ loop.index }}"><dt>{{ t }}</dt><dd>{{ d }}</dd></div>{% endfor %}</dl>
+  <p class="note">法令や税金の扱いは改正されることがあります。実際の取引では、契約書・重要事項説明書と、税務署・金融機関の案内で確認してください。</p>
+</section>
+<section class="cta">
+  <h2>用語の意味だけでなく、ご自身の場合を知りたい方へ</h2>
+  <p>売却の手取り、税金、住宅ローンの組み方を、具体的な数字でお伝えします。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}soudan/" data-ev="cta_sodan">相談する</a><a class="btn btn-ghost" href="{{ site.base }}tetori/">手取りと税金を計算する</a></div>
+</section>
+</div>
+{% endblock %}
