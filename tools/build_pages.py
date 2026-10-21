@@ -123,6 +123,7 @@ def header():
   <a href="/profile/">代表プロフィール</a>
   <a href="/simulator/">諸費用・ローンシミュレーター</a>
   <a href="/satei/">無料売却査定</a>
+  <a href="/line/">公式LINEで相談</a>
   <div class="mm-group">Property</div>
   <a href="/properties/">販売物件</a>
   <a href="/results/">成約実績</a>
@@ -162,6 +163,7 @@ FOOTER = f'''<footer class="site-footer">
         <li><a href="/simulator/">諸費用シミュレーター</a></li>
         <li><a href="/satei/">無料売却査定</a></li>
         <li><a href="/#contact">無料相談</a></li>
+        <li><a href="/line/">公式LINE相談</a></li>
       </ul></div>
       <div><h4>Property</h4><ul>
         <li><a href="/properties/">販売物件</a></li>
@@ -1028,7 +1030,7 @@ def build_tool_pages():
 {crumbs_html(crumbs)}
 {hero(meta.get('en', ''), esc(meta['h1']), esc(meta.get('sub', '')))}
 <div class="subpage-content">{body}</div>
-{CTA_BOTTOM(meta.get('cta_title', 'まずはお気軽にご相談ください'), meta.get('cta_sub', '購入・売却のご相談はいつでも承っております。'), meta.get('cta_url', '/#contact'))}
+{'' if meta.get('no_cta') else CTA_BOTTOM(meta.get('cta_title', 'まずはお気軽にご相談ください'), meta.get('cta_sub', '購入・売却のご相談はいつでも承っております。'), meta.get('cta_url', '/#contact'))}
 </div>'''
         write(meta['path'].strip('/') + '/index.html', page(meta['path'], meta['title'], meta['desc'], html_body,
                                                             jsonld=meta.get('jsonld'), breadcrumbs=crumbs))
