@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="{{ site.base }}assets/style.css">
 <script type="application/ld+json">{{ jsonld | safe }}</script>
 {% if site.ga_id %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga_id }}',{content_group:'souba'});</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','{{ site.ga_id }}',{content_group:'souba'});</script>
 {% endif %}</head>
 <body{% if page in ('satei', 'sodan') %} class="no-bar"{% endif %}>
 <a class="skip" href="#main">本文へ移動</a>
