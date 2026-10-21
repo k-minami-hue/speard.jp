@@ -1,0 +1,10 @@
+{% macro ad_cards(items) -%}
+{% if items %}<div class="pr-list">
+  {% for a in items %}<div class="pr-card">
+    <p class="pr-tag">PR</p>
+    <p class="pr-ttl">{{ a['見出し'] }}</p>
+    <p class="pr-desc">{{ a['説明'] }}</p>
+    <a class="btn btn-sub" href="{{ a['リンクURL'] }}" target="_blank" rel="sponsored noopener" data-ev="ad_click" data-ad="{{ a['id'] }}">{{ a['ボタン文言'] }}</a>{% if a['計測タグURL'] %}<img src="{{ a['計測タグURL'] }}" width="1" height="1" alt="" class="pr-px">{% endif %}
+  </div>{% endfor %}
+</div>{% endif %}
+{%- endmacro %}

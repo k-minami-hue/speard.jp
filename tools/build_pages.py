@@ -951,6 +951,7 @@ def build_areas(cols):
   {''.join(sentences_html(x) for x in a['lead'])}
   {area_gallery(a, imgs)}
   {f'<h2>{esc(a["name"])}の基本データ</h2><table class="prop-table area-facts"><tbody>{facts}</tbody></table>' if facts else ''}
+  {f'<p class="area-tool"><a href="{esc(a["tool"]["url"])}">{esc(a["tool"]["text"])} →</a></p>' if a.get('tool') else ''}
   {secs}
   <aside class="col-inline-cta"><p class="cic-ttl">{esc(a['name'])}のマンション、売却価格を根拠つきで試算します</p><p class="cic-sub">同じ建物・近隣の成約事例から、売り出し価格と手取りの目安をお出しします。購入のご相談も承ります。</p>
   <div class="cic-btns"><a class="cic-main" href="{contact_url('sell', 'area-' + a['id'])}">無料で売却査定を依頼する</a><a class="cic-sub-btn" href="{contact_url('buy', 'area-' + a['id'])}">購入の相談をする</a><a class="cic-line" href="{LINE_URL}" target="_blank" rel="noopener">LINEで相談する</a></div></aside>

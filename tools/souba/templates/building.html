@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% from "macros.html" import ad_cards %}
+{% set s = b.stats %}
+{% block title %}{{ b['マンション名'] }}の相場・坪単価の推移｜{{ site.name }}{% endblock %}
+{% block description %}{% if s %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場は、直近2年の国交省データで坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}。推移、面積別の価格、取引事例を掲載。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、武蔵小杉の駅近・築浅マンションの相場。{% endif %}{% endblock %}
+{% block main %}
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › {{ b['マンション名'] }}</p>
+
+<section class="intro">
+  <h1>{{ b['マンション名'] }}の相場</h1>
+  {% if s %}<p class="answer">{{ b['マンション名'] }}の相場は、直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡に換算すると{{ s.p70_txt }}です。{% if b.chg3 is not none %}<br>
+  3年前の同じ時期と比べると、坪単価は{{ '%+.0f' % b.chg3 }}%です。{% endif %}</p>
+  {% else %}<p class="answer">{{ b['マンション名'] }}は竣工前のため、中古の取引データはまだありません。<br>
+  参考として、武蔵小杉の駅徒歩5分以内・2005年以降築の中古マンションは、直近1年で坪単価{{ area_now_txt }}前後（70㎡換算{{ area_now_p70 }}前後）です。</p>{% endif %}
+  <p class="note">{{ b.built_txt }}・総戸数{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階・{{ b.walk_txt }}</p>
+</section>
+
+{% if s %}<section>
+  <div class="sec-head"><h2>相場の要約</h2><p class="asof">{{ recent_from_q }}〜{{ latest_q }}</p></div>
+  <table class="spec"><tbody>
+    <tr><th>坪単価（中央値）</th><td>{{ s.tsubo_txt }}</td></tr>
+    <tr><th>70㎡換算</th><td>{{ s.p70_txt }}</td></tr>
+    <tr><th>坪単価の幅</th><td>{{ s.range_txt }}<span class="sub">中央の半数が入る範囲（下位25%〜上位25%）</span></td></tr>
+    <tr><th>集計した取引</th><td>{{ s.n }}件<span class="sub">国交省の取引価格・成約価格の合計。同じ取引が両方に入っている場合があります</span></td></tr>
+  </tbody></table>
+  <p class="note">集計の対象は、{{ b['取引地区'] }}で{{ b['取引建築年'] }}年に建築された中古マンションの取引です。{% if b.members %}<br>
+  同じ条件の{{ b.members | join('、') }}の取引も含まれます。{% endif %}</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>坪単価の推移</h2><p class="note">四半期ごとの中央値（万円／坪）</p></div>
+  <div class="chart-box"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の坪単価推移グラフ"></canvas></div>
+  <p class="note">取引が3件未満の四半期は表示していません。新築時の取引が含まれる時期があります。</p>
+</section>
+
+<section>
+  <h2>面積ごとの価格</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>専有面積</th><th>件数</th><th>坪単価</th><th>価格（中央値）</th></tr></thead>
+    <tbody>{% for r in b.bands %}<tr><th class="nw">{{ r.label }}</th><td class="nw">{{ r.n }}件</td><td class="nw">{{ r.tsubo_txt }}</td><td class="nw">{{ r.price_txt }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>最近の取引事例</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>時期</th><th>面積・間取り</th><th>価格<span class="sub">坪単価</span></th></tr></thead>
+    <tbody>{% for c in b.cases %}<tr><td class="nw">{{ c.q }}<span class="sub">{{ c.kind }}</span></td><td class="nw">{{ c.area }}<span class="sub">{{ c.plan }}</span></td><td class="nw">{{ c.price }}<span class="sub">{{ c.tsubo }}</span></td></tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="note">面積と価格は、個別の取引が特定されないよう国交省が丸めて公表している値です。特定の住戸を示すものではなく、現在取引できる物件でもありません。</p>
+</section>
+{% endif %}
+
+<section class="prose">
+  <h2>このマンションで確認したいこと</h2>
+  <ul class="points">{% for p in b.points %}<li>{{ p }}</li>{% endfor %}
+    <li>受変電設備の位置と、浸水への対策（管理組合の資料で確認）</li>
+    <li>同じ建物と近隣のタワーで、同じ条件の売出がどれだけ出ているか</li>
+  </ul>
+  {% if b['備考'] %}<p class="note">{{ b['備考'] }}</p>{% endif %}
+</section>
+
+{% if b.comments['アピール'] or b.comments['ウィーク'] %}<section>
+  <h2>担当者の見方</h2>
+  <div class="comment">
+    {% if b.comments['アピール'] %}<h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul>{% endif %}
+    {% if b.comments['ウィーク'] %}<h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+  <p class="note">株式会社スピアード 代表 {{ site.ceo }}（宅地建物取引士）</p>
+</section>{% endif %}
+
+<section class="cta">
+  <h2>{{ b['マンション名'] }}の売却査定</h2>
+  <p>面積を入れると、このページのデータにもとづく目安がすぐに表示されます。<br>
+  階数・方位・眺望・室内の状態を反映した価格は、担当者が個別に査定します。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}satei/#{{ b.id }}" data-ev="cta_satei">無料で査定する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+</section>
+
+<section>
+  <h2>物件概要</h2>
+  <table class="spec"><tbody>
+    <tr><th>所在地</th><td>{{ b['所在地'] }}</td></tr>
+    <tr><th>交通</th><td>{{ b.walk_txt }}</td></tr>
+    <tr><th>竣工</th><td>{{ b.built_txt }}</td></tr>
+    <tr><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
+    <tr><th>構造・階数</th><td>{{ b['構造'] }} 地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}・地下{{ b['地下階数'] }}階{% endif %}</td></tr>
+    <tr><th>分譲会社</th><td>{{ b['分譲会社'] }}</td></tr>
+    <tr><th>管理会社</th><td>{{ b['管理会社'] or '―' }}</td></tr>
+  </tbody></table>
+  <p class="note">徒歩分数は道路距離80mを1分として計算した分譲時などの表示です。資料によって竣工年月や戸数に差がある場合があります。</p>
+</section>
+
+{% set my_ads = ads_here %}
+{% if my_ads %}<section>
+  <h2>住み替えの準備</h2>
+  <p class="pr-notice">このセクションには広告（PR）を含みます。<a href="{{ site.base }}guide/">住み替えの準備の進め方</a></p>
+  {{ ad_cards(my_ads[:2]) }}
+</section>{% endif %}
+
+<section>
+  <h2>ほかのマンション</h2>
+  <ul class="others">
+    {% for o in others %}<li><a href="{{ o.url }}"><span class="o-name">{{ o['マンション名'] }}</span><span class="o-val">{{ o.stats.tsubo_txt }}</span></a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+{% block data %}{% if s %}<script>window.CHART = {{ chart | safe }};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endif %}{% endblock %}

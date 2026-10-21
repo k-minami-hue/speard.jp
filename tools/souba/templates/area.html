@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}武蔵小杉エリアの中古マンション相場と推移｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉・新丸子・向河原駅が最寄りの中古マンションの坪単価と70㎡換算価格を、国土交通省の取引データから四半期ごとに集計。2015年からの推移を掲載しています。{% endblock %}
+{% block main %}
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › エリア相場</p>
+<section class="intro">
+  <h1>武蔵小杉エリアの中古マンション相場</h1>
+  <p class="answer">武蔵小杉の駅徒歩5分以内・2005年以降築の中古マンションは、直近1年で坪単価{{ area_now_txt }}前後、70㎡換算で{{ area_now_p70 }}前後です。</p>
+  <p>最寄駅が武蔵小杉・新丸子・向河原の中古マンションの取引を、国土交通省の不動産情報ライブラリから四半期ごとに集計しています。</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>坪単価の推移</h2><p class="note">四半期ごとの中央値（万円／坪）</p></div>
+  <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉エリアの坪単価推移グラフ"></canvas></div>
+</section>
+
+<section>
+  <h2>四半期ごとの集計</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>時期</th><th>駅5分以内・2005年以降築</th><th>成約価格（全体）</th><th>取引価格（全体）</th></tr></thead>
+    <tbody>{% for r in table %}<tr><td class="nw">{{ r.q }}</td>
+      {% for k in ('near', 'closed', 'trade') %}<td>{% if r[k] %}{{ r[k].t }}<span class="sub">70㎡ {{ r[k].p }}・{{ r[k].n }}件</span>{% else %}―{% endif %}</td>{% endfor %}
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="note">取引価格は国交省のアンケートによる情報、成約価格はレインズの成約情報を国交省が個別の取引が特定できないよう加工した情報です（2021年以降）。<br>
+  同じ取引が両方に入っている場合があります。「関係者間取引」「調停・競売等」など事情のある取引は除いています。</p>
+</section>
+
+<section class="cta">
+  <h2>マンションごとの相場</h2>
+  <p>棟ごとの坪単価と推移は、マンション一覧から確認できます。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}">マンション一覧へ</a><a class="btn btn-sub" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a></div>
+</section>
+{% endblock %}
+{% block data %}<script>window.CHART = {{ chart | safe }};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endblock %}

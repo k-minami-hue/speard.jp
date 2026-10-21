@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}運営会社｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉マンション相場帳は、株式会社スピアードが運営しています。{% endblock %}
+{% block main %}
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 運営会社</p>
+<section class="intro">
+  <h1>運営会社</h1>
+  <p>武蔵小杉マンション相場帳は、株式会社スピアードが運営しています。<br>
+  代表の南は武蔵小杉に住み、このエリアで複数のマンションを購入してきました。<br>
+  買うときも売るときも、マンションごとの相場を同じ基準で比べられる場所がなかったため、国の公開データを棟ごとに集計して公開することにしました。</p>
+</section>
+
+<section>
+  <table class="spec"><tbody>
+    <tr><th>会社名</th><td>{{ site.company }}</td></tr>
+    <tr><th>代表者</th><td>代表取締役 {{ site.ceo }}</td></tr>
+    <tr><th>所在地</th><td>{{ site.address }}</td></tr>
+    <tr><th>設立</th><td>{{ site.founded }}</td></tr>
+    <tr><th>免許番号</th><td>宅地建物取引業 {{ site.license }}</td></tr>
+    <tr><th>事業内容</th><td>マンションの売買仲介</td></tr>
+    <tr><th>ホームページ</th><td><a href="{{ speard_link }}" target="_blank" rel="noopener" data-ev="speard_click">{{ site.speard_url }}</a></td></tr>
+  </tbody></table>
+</section>
+
+<section class="cta">
+  <h2>ご相談</h2>
+  <p>武蔵小杉・湾岸・都心のマンションの売却、購入のご相談を受け付けています。</p>
+  <div class="actions">
+    <a class="btn" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a>
+    <a class="btn btn-sub" href="{{ speard_link }}" target="_blank" rel="noopener" data-ev="speard_click">スピアードのホームページ</a>
+  </div>
+</section>
+{% endblock %}

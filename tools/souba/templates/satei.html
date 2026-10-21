@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}武蔵小杉のマンション無料査定｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のタワーマンションの無料査定。マンション名と面積を入れると、国交省の取引データにもとづく価格の目安をすぐに表示します。運営は株式会社スピアード。{% endblock %}
+{% block main %}
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 無料査定</p>
+<section class="intro">
+  <h1>無料査定</h1>
+  <p>マンション名と専有面積を入れると、国交省の取引データにもとづく価格の目安を表示します。<br>
+  連絡先を送っていただければ、階数・方位・室内の状態を反映した査定結果を担当者がお送りします。<br>
+  売却を決めていなくても大丈夫です。</p>
+</section>
+
+<form class="form" id="sateiForm" novalidate>
+  <fieldset>
+    <legend>お部屋の情報</legend>
+    <label for="fBuilding">マンション名</label>
+    <select id="fBuilding" name="building" required>
+      <option value="">選択してください</option>
+      {% for b in buildings %}<option value="{{ b.id }}">{{ b['マンション名'] }}</option>{% endfor %}
+      <option value="other">上記以外のマンション</option>
+    </select>
+    <div id="otherWrap" hidden>
+      <label for="fOther">マンション名（一覧にない場合）</label>
+      <input id="fOther" name="other_building" type="text" placeholder="例：〇〇タワー">
+    </div>
+    <div class="row2">
+      <div><label for="fFloor">所在階</label><input id="fFloor" name="floor" type="number" inputmode="numeric" min="1" max="60" placeholder="例：25" required></div>
+      <div><label for="fArea">専有面積（㎡）</label><input id="fArea" name="area" type="number" inputmode="decimal" step="0.01" min="15" max="300" placeholder="例：70.12" required></div>
+    </div>
+    <div class="row2">
+      <div><label for="fPlan">間取り</label>
+        <select id="fPlan" name="plan"><option value="">選択してください</option><option>1R・1K</option><option>1LDK</option><option>2LDK</option><option>3LDK</option><option>4LDK以上</option></select></div>
+      <div><label for="fDir">方位</label>
+        <select id="fDir" name="direction"><option value="">選択してください</option><option>南</option><option>南東</option><option>南西</option><option>東</option><option>西</option><option>北</option><option>北東</option><option>北西</option></select></div>
+    </div>
+  </fieldset>
+
+  <div class="estimate" id="estimate" aria-live="polite">
+    <p class="est-label">価格の目安</p>
+    <p class="est-val" id="estVal">マンション名と面積を入れてください</p>
+    <p class="est-sub" id="estSub"></p>
+  </div>
+
+  <fieldset>
+    <legend>ご連絡先</legend>
+    <label for="fName">お名前</label>
+    <input id="fName" name="name" type="text" autocomplete="name" required>
+    <label for="fEmail">メールアドレス</label>
+    <input id="fEmail" name="email" type="email" autocomplete="email" required>
+    <label for="fTel">電話番号（任意）</label>
+    <input id="fTel" name="tel" type="tel" autocomplete="tel">
+    <label for="fWhen">売却の検討時期</label>
+    <select id="fWhen" name="timing"><option>すぐにでも</option><option>3か月以内</option><option>1年以内</option><option>相場を知りたい</option></select>
+    <label for="fNote">ご質問・ご要望（任意）</label>
+    <textarea id="fNote" name="note" rows="3"></textarea>
+    <p class="note">送信内容は、フォーム送信サービスFormSubmit（運営事業者の所在国：米国）を経由して当社のメールに届きます。詳しくは<a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a>をご確認ください。</p>
+    <label class="check"><input id="fAgree" type="checkbox" required> <span>個人情報の取扱い（外国にある事業者を経由した送信を含む）に同意します</span></label>
+  </fieldset>
+  <div class="hp" aria-hidden="true"><label for="fHp">この欄は空のままにしてください</label><input id="fHp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+  <button type="submit" class="btn btn-block">査定を依頼する</button>
+  <p class="form-msg" id="formMsg" role="status"></p>
+</form>
+
+<section class="cta">
+  <h2>LINEでも相談できます</h2>
+  <p>売るか貸すか、住み替えの順番など、決まっていない段階のご相談も受け付けています。</p>
+  <div class="actions"><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+</section>
+{% endblock %}
+{% block data %}<script>window.SATEI = {{ satei_json | safe }};</script>{% endblock %}

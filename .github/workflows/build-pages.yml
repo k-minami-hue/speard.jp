@@ -1,5 +1,6 @@
 # コラム・物件・成約実績の manifest や記事を更新して push すると、
 # 静的ページ（/columns/ /properties/ /results/）と sitemap.xml を自動で再生成してコミットする。
+# tools/souba/ のデータ・テンプレートを更新すると、武蔵小杉マンション相場帳（/souba/）も再生成する。
 name: build static pages
 
 on:
@@ -16,6 +17,7 @@ on:
       - 'index.html'
       - 'tools/build_pages.py'
       - 'tools/pages/**'
+      - 'tools/souba/**'
       - '**.jpg'
       - '**.jpeg'
       - '**.png'
@@ -36,7 +38,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -q pillow
+      - run: pip install -q pillow jinja2
       - name: 画像をWebP化（新しい画像だけ）
         run: python3 tools/make_webp.py
       - name: コラムのOGP画像（新規・タイトル変更のコラムだけ）
@@ -46,6 +48,8 @@ jobs:
             python3 tools/make_col_ogp.py
           fi
       - run: python3 tools/build_pages.py
+      - name: 武蔵小杉マンション相場帳（/souba/）
+        run: python3 tools/souba/build.py
       - name: commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then

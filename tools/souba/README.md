@@ -1,0 +1,40 @@
+# 武蔵小杉マンション相場帳（https://speard.jp/souba/）
+
+国交省「不動産情報ライブラリ」の取引データを棟ごとに集計して公開する、スピアードの相場サイト。
+目的は2つ：①武蔵小杉の売却・購入の相談（査定依頼・LINE）を集める ②住み替え関連のアフィリエイト収益。
+
+## 仕組み
+
+- `data/*.csv` と `templates/` から `build.py` が `/souba/` 以下の静的ページを生成する
+- main に push すると GitHub Actions（build-pages.yml）が自動でビルドしてコミットする。手元でのビルドは不要
+- 数値はすべてHTMLの本文に書き出す（検索エンジンとAIが読める）。ブラウザ側の `assets/app.js` はグラフ・査定の目安・フォーム送信・クリック計測だけ
+
+## ファイル
+
+- `data/buildings.csv`：棟マスタ（1棟1行）。「取引地区」「取引建築年」で国交省データと紐づける
+- `data/trades.csv`：棟ごとの集計に使う取引（地区・建築年・種別・時期・価格・面積・間取り）
+- `data/area_quarterly.csv`：エリア相場の四半期集計
+- `data/comments.csv`：担当者コメント（building_id, 区分＝アピール／ウィーク, 内容）。入れた棟だけ「担当者の見方」が出る
+- `data/ads.csv`：広告枠。リンクURLを入れて有効＝1の行だけ表示される
+- `scripts/fetch_reinfolib.py`：国交省APIから trades.csv と area_quarterly.csv を作り直す
+
+## 四半期ごとの更新（3か月に1回、15分）
+
+1. `REINFOLIB_KEY=キー python3 tools/souba/scripts/fetch_reinfolib.py 2015 2026`
+2. `build.py` の SITE の `data_asof`（最新の四半期）と `updated`（更新日）を書き換える
+3. コミットして main に push
+
+## 広告を出す手順
+
+1. ASPで提携申請（サイトURLは https://speard.jp/souba/guide/ ）
+2. 承認後、`data/ads.csv` の該当行の「リンクURL」に広告リンクを入れる。インプレッション計測用の画像URLがあれば「計測タグURL」に入れる
+3. push すると「住み替えの準備」ページ（と置き場所に書いたページ）に PR 表記つきで表示される
+
+置き場所：guide＝住み替えの準備、building＝各マンションのページ（最大2枠）、satei＝査定ページ（現在は表示しない）
+
+## 守ること
+
+- 広告は「PR」表記、rel="sponsored"（テンプレートで自動）。広告文に「今だけ」「必ず」「最安」等を書かない
+- 他社の不動産一括査定の広告は載せない（顧客情報が他社に渡るため）
+- コメントは事実と根拠で書く。「必ず値上がり」等の断定的判断はしない
+- 部屋番号・個人が特定できる情報は載せない

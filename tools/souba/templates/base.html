@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}{{ site.name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+<link rel="canonical" href="{{ site.origin }}{{ path }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.description() }}">
+<meta property="og:url" content="{{ site.origin }}{{ path }}">
+<meta property="og:image" content="{{ site.origin }}{{ site.base }}assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#122954">
+<link rel="icon" href="{{ site.base }}assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="{{ site.base }}assets/style.css">
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+{% if site.ga_id %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga_id }}',{content_group:'souba'});</script>
+{% endif %}</head>
+<body{% if page == 'satei' %} class="no-bar"{% endif %}>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="{{ site.base }}">{{ site.name }}</a>
+    <span class="op">運営：<a href="{{ speard_link }}" data-ev="speard_click">株式会社スピアード</a></span>
+  </div>
+  <nav class="wrap nav" aria-label="サイト内">
+    <a href="{{ site.base }}"{% if page == 'index' %} aria-current="page"{% endif %}>マンション一覧</a>
+    <a href="{{ site.base }}area/"{% if page == 'area' %} aria-current="page"{% endif %}>エリア相場</a>
+    <a href="{{ site.base }}satei/"{% if page == 'satei' %} aria-current="page"{% endif %}>無料査定</a>
+    <a href="{{ site.base }}guide/"{% if page == 'guide' %} aria-current="page"{% endif %}>住み替えの準備</a>
+    <a href="{{ site.base }}about/"{% if page == 'about' %} aria-current="page"{% endif %}>運営会社</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+{% block main %}{% endblock %}
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>{{ site.company }}（<a href="{{ speard_link }}" data-ev="speard_click">speard.jp</a>）<br>
+    宅地建物取引業 {{ site.license }}<br>
+    {{ site.address }}　TEL {{ site.tel }}{% if site.association %}<br>
+    {{ site.association }}{% endif %}</p>
+    <p class="foot-links"><a href="{{ site.base }}about/">運営会社</a><a href="{{ site.base }}disclaimer/">データ出典・免責事項</a><a href="{{ site.base }}disclaimer/#ads">広告について</a><a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a></p>
+    <p>出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）の不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。<br>
+    掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。</p>
+    <p>© {{ year }} Speared Co., Ltd.</p>
+  </div>
+</footer>
+
+{% if page != 'satei' %}<div class="line-bar">
+  <div class="wrap line-row">
+    <p class="line-text">武蔵小杉のマンションの売却・購入をLINEで相談できます</p>
+    <a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
+  </div>
+</div>{% endif %}
+
+<script>window.SITE = {{ {"form_endpoint": site.form_endpoint} | tojson }};</script>
+{% block data %}{% endblock %}
+<script src="{{ site.base }}assets/app.js" defer></script>
+</body>
+</html>
