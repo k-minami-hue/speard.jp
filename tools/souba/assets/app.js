@@ -74,6 +74,7 @@
       if (!b || !(area > 0)) { val.textContent = "マンション名と面積を入れてください"; sub.textContent = ""; return; }
       if (floor > b.floors) { val.textContent = "所在階を確認してください"; sub.textContent = `${b.name}は地上${b.floors}階建てです。`; return; }
       let lo = b.lo, hi = b.hi, basis = `このマンションと同じ町・同じ建築年の取引${b.n}件`;
+      if (!b.n) { val.textContent = "個別に査定します"; sub.textContent = "竣工前などで取引データがないため、担当者が個別に査定します。"; return; }
       if (!(b.n >= 5) || !Number.isFinite(lo)) {
         lo = data.area.lo; hi = data.area.hi; basis = data.area.label;
         if (!Number.isFinite(lo)) { val.textContent = "個別に査定します"; sub.textContent = "取引データが少ないため、担当者が個別に査定します。"; return; }

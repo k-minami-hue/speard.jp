@@ -2,13 +2,13 @@
 {% from "macros.html" import ad_cards %}
 {% set s = b.stats %}
 {% block title %}{{ b['マンション名'] }}の相場・坪単価の推移｜{{ site.name }}{% endblock %}
-{% block description %}{% if s %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場は、直近2年の国交省データで坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}。推移、面積別の価格、取引事例を掲載。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、武蔵小杉の駅近・築浅マンションの相場。{% endif %}{% endblock %}
+{% block description %}{% if s %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場は、直近2年の国交省データで坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.members %}（同じ町・同じ建築年の{{ b.members|length + 1 }}棟の合算）{% endif %}。推移、面積別の価格、取引事例を掲載。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、武蔵小杉の駅近・築浅マンションの相場。{% endif %}{% endblock %}
 {% block main %}
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › {{ b['マンション名'] }}</p>
 
 <section class="intro">
   <h1>{{ b['マンション名'] }}の相場</h1>
-  {% if s %}<p class="answer">{{ b['マンション名'] }}の相場は、直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡に換算すると{{ s.p70_txt }}です。{% if b.chg3 is not none %}<br>
+  {% if s %}<p class="answer">{{ b['マンション名'] }}の相場は、直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡に換算すると{{ s.p70_txt }}です{% if b.members %}（{{ b.members | join('、') }}との合算）{% endif %}。{% if b.chg3 is not none %}<br>
   3年前の同じ時期と比べると、坪単価は{{ '%+.0f' % b.chg3 }}%です。{% endif %}</p>
   {% else %}<p class="answer">{{ b['マンション名'] }}は竣工前のため、中古の取引データはまだありません。<br>
   参考として、武蔵小杉の駅徒歩5分以内・2005年以降築の中古マンションは、直近1年で坪単価{{ area_now_txt }}前後（70㎡換算{{ area_now_p70 }}前後）です。</p>{% endif %}
@@ -71,8 +71,9 @@
 
 <section class="cta">
   <h2>{{ b['マンション名'] }}の売却査定</h2>
-  <p>面積を入れると、このページのデータにもとづく目安がすぐに表示されます。<br>
-  階数・方位・眺望・室内の状態を反映した価格は、担当者が個別に査定します。</p>
+  {% if s %}<p>面積を入れると、このページのデータにもとづく目安がすぐに表示されます。<br>
+  階数・方位・眺望・室内の状態を反映した価格は、担当者が個別に査定します。</p>{% else %}<p>竣工前のため、このマンションの取引データはまだありません。<br>
+  売却や購入のご相談は、担当者が個別に査定・ご提案します。</p>{% endif %}
   <div class="actions"><a class="btn" href="{{ site.base }}satei/#{{ b.id }}" data-ev="cta_satei">無料で査定する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
 </section>
 
