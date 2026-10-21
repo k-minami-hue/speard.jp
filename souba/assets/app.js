@@ -56,7 +56,7 @@
         if (!b) { v.textContent = "マンションを選んでください"; w.textContent = ""; return; }
         if (!(a >= 15)) { v.textContent = "面積を入れてください"; w.textContent = b.t ? `${b.short}の坪単価は${tsuboTxt(b.t)}です。` : ""; return; }
         const r = rangeFor(b);
-        if (!r) { v.textContent = "個別に査定します"; w.textContent = "竣工前で取引データがないため、担当者が近隣の取引から査定します。"; return; }
+        if (!r) { v.textContent = "個別に査定します"; w.textContent = `${b.pre ? "竣工前で" : ""}取引データがないため、担当者が近隣の取引から査定します。`; return; }
         const sq = a * TSUBO;
         v.innerHTML = `<span class="nw">${man(r.lo * sq)}</span> 〜 <span class="nw">${man(r.hi * sq)}</span>`;
         w.textContent = `坪単価${Math.round(r.lo)}〜${Math.round(r.hi)}万円。${r.why}です。階数・方位・眺望で上下します。`;
@@ -115,10 +115,10 @@
   const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
   const pinIcon = (b, cls = "") => window.L.divIcon({
     className: "pin-wrap", iconSize: [0, 0],
-    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? b.t : "建設中"}</b></span></div>`,
+    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? b.t : esc(b.nodata)}</b></span></div>`,
   });
   const popup = (b) => `<p class="pop-name">${esc(b.name)}</p><p class="pop-meta">${esc(b.built)}・${b.units}戸・${esc(b.line)} 徒歩${b.walk}分</p>` +
-    (b.t ? `<p class="pop-t">${b.t.toLocaleString("ja-JP")}<small>万円／坪</small></p><p class="pop-meta">70㎡なら ${man(b.p70)}${b.chg != null ? `・3年 ${b.chg > 0 ? "+" : ""}${b.chg}%` : ""}</p>` : `<p class="pop-meta" style="margin-top:6px">竣工前のため取引データなし</p>`) +
+    (b.t ? `<p class="pop-t">${b.t.toLocaleString("ja-JP")}<small>万円／坪</small></p><p class="pop-meta">70㎡なら ${man(b.p70)}${b.chg != null ? `・3年 ${b.chg > 0 ? "+" : ""}${b.chg}%` : ""}</p>` : `<p class="pop-meta" style="margin-top:6px">${b.pre ? "竣工前のため" : ""}取引データなし</p>`) +
     `<p class="pop-row"><a href="${b.url}">相場を見る</a><a class="p" href="${SITE.base}satei/?b=${b.id}" data-ev="cta_satei_map">査定する</a></p>`;
   // 値札が重なるときは縦にずらす（ズームのたびに計算し直す）
   const spread = (map, markers) => {
@@ -331,7 +331,7 @@
       if (!b || !(area > 0)) { val.textContent = "マンション名と面積を入れてください"; sub.textContent = ""; return; }
       if (floor > b.floors) { val.textContent = "所在階を確認してください"; sub.textContent = `${b.name}は地上${b.floors}階建てです。`; return; }
       let lo = b.lo, hi = b.hi, basis = `このマンションと同じ町・同じ建築年の取引${b.n}件`;
-      if (!b.n) { val.textContent = "個別に査定します"; sub.textContent = "竣工前などで取引データがないため、担当者が個別に査定します。"; return; }
+      if (!b.n) { val.textContent = "個別に査定します"; sub.textContent = `${b.pre ? "竣工前で" : ""}取引データがないため、担当者が個別に査定します。`; return; }
       if (!(b.n >= 5) || !Number.isFinite(lo)) {
         lo = data.area.lo; hi = data.area.hi; basis = data.area.label;
         if (!Number.isFinite(lo)) { val.textContent = "個別に査定します"; sub.textContent = "取引データが少ないため、担当者が個別に査定します。"; return; }
@@ -396,6 +396,12 @@
       });
       $("#sOtherWrap").hidden = $("#sBuilding").value !== "other";
     };
+    const qs = new URLSearchParams(location.search);
+    const qk = form.querySelector(`[name="kind"][value="${CSS.escape(qs.get("kind") || "")}"]`);
+    if (qk) qk.checked = true;
+    const qb = A && byId[qs.get("b")];
+    if (qb) { $("#bTarget").value = qb.name; $("#sBuilding").value = qb.name; }
+    if (qs.get("ref")) $("#cNote").value = `売出物件（${qs.get("ref")}）について問い合わせます。`;
     form.addEventListener("change", sync);
     sync();
     form.addEventListener("submit", async (e) => {
