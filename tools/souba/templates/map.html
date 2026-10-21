@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}武蔵小杉のマンション相場マップ｜坪単価を地図で比較｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のタワーマンション{{ n_buildings }}棟の坪単価を地図で表示。築年数・駅徒歩・坪単価・免震／制震・総戸数で絞り込み、最大3棟を比較できます。{% endblock %}
+{% block head %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
+{% block main %}
+<div class="wrap">
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 相場マップ</p>
+  <h1 style="font-size:clamp(1.5rem,1.15rem + 1.6vw,2.2rem);margin:6px 0 4px">武蔵小杉のマンション相場マップ</h1>
+  <p class="muted" style="margin-bottom:18px">値札は坪単価（万円）。条件で絞り込み、チェックを入れた3棟までを並べて比べられます。</p>
+  <div class="atlas" id="atlas">
+    <div class="mapbox" id="map" data-map="atlas" role="region" aria-label="武蔵小杉のマンションの坪単価の地図">
+      <p class="map-fallback">地図を読み込んでいます。</p>
+      <p class="legend" aria-hidden="true">坪単価<i style="background:var(--b1)"></i>〜449万<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜</p>
+    </div>
+    <div class="panel">
+      <div class="filters" id="filters">
+        <div class="f-row" role="group" aria-label="築年数"><span class="f-label">築年数</span>
+          <button type="button" class="chip" data-f="age" data-v="10" aria-pressed="false">10年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="15" aria-pressed="false">15年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="20" aria-pressed="false">20年以内</button></div>
+        <div class="f-row" role="group" aria-label="駅徒歩"><span class="f-label">駅徒歩</span>
+          <button type="button" class="chip" data-f="walk" data-v="2" aria-pressed="false">2分以内</button>
+          <button type="button" class="chip" data-f="walk" data-v="4" aria-pressed="false">4分以内</button></div>
+        <div class="f-row" role="group" aria-label="坪単価"><span class="f-label">坪単価</span>
+          <button type="button" class="chip" data-f="band" data-v="4" aria-pressed="false">550万〜</button>
+          <button type="button" class="chip" data-f="band" data-v="3" aria-pressed="false">500万台</button>
+          <button type="button" class="chip" data-f="band" data-v="2" aria-pressed="false">450万台</button>
+          <button type="button" class="chip" data-f="band" data-v="1" aria-pressed="false">〜449万</button></div>
+        <div class="f-row" role="group" aria-label="建物"><span class="f-label">建物</span>
+          <button type="button" class="chip" data-f="struct" data-v="免震" aria-pressed="false">免震</button>
+          <button type="button" class="chip" data-f="struct" data-v="制震" aria-pressed="false">制震</button>
+          <button type="button" class="chip" data-f="units" data-v="500" aria-pressed="false">500戸以上</button></div>
+        <div class="f-foot"><span id="count" aria-live="polite">{{ n_buildings }}棟</span>
+          <label class="sr" for="sort">並べ替え</label>
+          <select id="sort"><option value="t">坪単価が高い順</option><option value="chg">値上がり率が大きい順</option><option value="year">築年が新しい順</option><option value="walk">駅に近い順</option><option value="units">総戸数が多い順</option></select></div>
+      </div>
+      <ul class="blist" id="blist">
+        {% for b in ranked + nodata %}<li class="bl" data-id="{{ b.id }}">
+          <span class="bl-pick"><input type="checkbox" value="{{ b.id }}" aria-label="{{ b['マンション名'] }}を比較に入れる"></span>
+          <div><a class="bl-name" href="{{ b.url }}">{{ b['マンション名'] }}</a>
+            <span class="bl-meta">{{ b.year }}年{% if b.year >= 2026 %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['地上階数'] }}階・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</span></div>
+          <div class="bl-val">{% if b.stats %}<span class="bl-t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span><span class="bl-p">70㎡ {{ b.stats.p70_txt }}</span>{% if b.chg3 is not none %}<span class="bl-c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}
+            {% else %}<span class="bl-p">竣工前</span>{% endif %}</div>
+        </li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+<div style="height:64px"></div>
+<div class="tray" id="tray" aria-live="polite"><div class="wrap tray-row"><span class="tray-names" id="trayNames"></span><button type="button" class="btn btn-sm btn-x" id="trayClear">解除</button><a class="btn btn-sm" id="trayGo" href="{{ site.base }}compare/" data-ev="compare_open">比べる</a></div></div>
+{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>{% endblock %}

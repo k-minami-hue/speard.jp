@@ -2,6 +2,7 @@
 {% block title %}武蔵小杉のマンション 購入相談・売却相談｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のタワーマンションの購入・売却・住み替えの個別相談。棟ごとの相場と成約事例をもとに、価格の根拠と進め方をご提案します。運営は株式会社スピアード（宅地建物取引業 {{ site.license }}）。{% endblock %}
 {% block main %}
+<div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 購入・売却の相談</p>
 
 <section class="intro">
@@ -81,7 +82,7 @@
     <p class="note">お預かりした情報は、ご相談への回答と、売却・購入に関するご提案にのみ使います。<br>
     住所・年収・勤務先などは、このフォームではお聞きしません。必要になった段階で、目的をお伝えしてから伺います。<br>
     送信内容は、外部のフォーム送信サービスFormSubmit（formsubmit.co）を経由して当社のメールに届きます。<br>
-    取扱いの詳細は<a href="/#privacy" target="_blank" rel="noopener">株式会社スピアードのプライバシーポリシー</a>をご確認ください。</p>
+    取扱いの詳細は<a href="https://speard.jp/#privacy" target="_blank" rel="noopener">株式会社スピアードのプライバシーポリシー</a>をご確認ください。</p>
     <label class="check"><input id="cAgree" type="checkbox" required> <span>プライバシーポリシーに同意します</span></label>
   </fieldset>
   <div class="hp" aria-hidden="true"><label for="cHp">この欄は空のままにしてください</label><input id="cHp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
@@ -108,4 +109,5 @@
     <tr><th>仲介手数料</th><td>宅地建物取引業法で定める上限の範囲内。売買価格が400万円を超える場合の上限は「売買価格×3%＋6万円」に消費税を加えた額です。<span class="sub">ご相談・査定は無料です。手数料は売買契約が成立した場合にのみ発生します。</span></td></tr>
   </tbody></table>
 </section>
+</div>
 {% endblock %}

@@ -49,7 +49,7 @@ jobs:
           fi
       - run: python3 tools/build_pages.py
       - name: 武蔵小杉マンション相場帳（/souba/）
-        run: python3 tools/souba/build.py
+        run: python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
       - name: commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then

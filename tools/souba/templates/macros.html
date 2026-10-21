@@ -4,7 +4,71 @@
     <p class="pr-tag">PR</p>
     <p class="pr-ttl">{{ a['見出し'] }}</p>
     <p class="pr-desc">{{ a['説明'] }}</p>
-    <a class="btn btn-sub" href="{{ a['リンクURL'] }}" target="_blank" rel="sponsored noopener" data-ev="ad_click" data-ad="{{ a['id'] }}">{{ a['ボタン文言'] }}</a>{% if a['計測タグURL'] %}<img src="{{ a['計測タグURL'] }}" width="1" height="1" alt="" class="pr-px">{% endif %}
+    <a class="btn btn-sm btn-ghost" href="{{ a['リンクURL'] }}" target="_blank" rel="sponsored noopener" data-ev="ad_click" data-ad="{{ a['id'] }}">{{ a['ボタン文言'] }}</a>{% if a['計測タグURL'] %}<img src="{{ a['計測タグURL'] }}" width="1" height="1" alt="" class="pr-px">{% endif %}
   </div>{% endfor %}
 </div>{% endif %}
+{%- endmacro %}
+
+{% macro img(site, key, alt, cls='', eager=False) -%}
+<picture><source type="image/webp" srcset="{{ site.base }}assets/img/{{ key }}.webp"><img src="{{ site.base }}assets/img/{{ key }}.jpg" alt="{{ alt }}" class="{{ cls }}"{% if not eager %} loading="lazy"{% endif %} decoding="async"></picture>
+{%- endmacro %}
+
+{% macro card(site, b, rank=None) -%}
+<li class="card" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-chg="{{ b.chg3|round|int if b.chg3 is not none else -999 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
+  <a class="cover" href="{{ b.url }}" aria-label="{{ b['マンション名'] }}の相場を見る"></a>
+  <div class="card-top">
+    {% if rank %}<span class="rank-no">{{ rank }}位</span>{% endif %}
+    {% if b.photo %}{{ img(site, b.photo.key, b.photo.caption) }}{% else %}<div class="plate"><b>{{ b.short }}</b><span>{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階</span></div>{% endif %}
+  </div>
+  <div class="card-body">
+    <p class="card-name">{{ b['マンション名'] }}</p>
+    <p class="card-meta">{{ b.year }}年{% if b.year >= 2026 %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</p>
+    {% if b.stats %}
+    <div class="card-price"><span class="t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span>{% if b.chg3 is not none %}<span class="c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}</div>
+    <p class="card-p70">70㎡なら <b>{{ b.stats.p70_txt }}</b></p>
+    {% if b.spark %}<svg class="spark" viewBox="0 0 {{ b.spark.w }} {{ b.spark.h }}" preserveAspectRatio="none" aria-hidden="true"><path d="{{ b.spark.d }}"/><circle cx="{{ b.spark.end[0] }}" cy="{{ b.spark.end[1] }}" r="3.5"/></svg>{% endif %}
+    {% else %}
+    <p class="card-empty">竣工前のため、中古の取引データはまだありません。</p>
+    {% endif %}
+  </div>
+</li>
+{%- endmacro %}
+
+{% macro estimator(site, buildings, preset=None, title='あなたの部屋はいくら？') -%}
+<div class="est" data-est>
+  <h2>{{ title }}</h2>
+  <p class="est-sub">マンションと専有面積を入れると、取引データから価格の目安をすぐに表示します。</p>
+  <div class="est-form">
+    <div><label for="eB{{ preset or '' }}" class="sr">マンション</label>
+      <select id="eB{{ preset or '' }}" data-est-b>
+        {% if not preset %}<option value="">マンションを選ぶ</option>{% endif %}
+        {% for x in buildings %}<option value="{{ x.id }}"{% if preset == x.id %} selected{% endif %}>{{ x['マンション名'] }}</option>{% endfor %}
+      </select></div>
+    <div><label for="eA{{ preset or '' }}" class="sr">専有面積（㎡）</label><input id="eA{{ preset or '' }}" data-est-a type="number" inputmode="decimal" min="15" max="300" step="0.01" placeholder="面積 ㎡"></div>
+  </div>
+  <div class="est-out" aria-live="polite"><p class="lbl">価格の目安</p><p class="val" data-est-v>面積を入れてください</p><p class="why" data-est-w></p></div>
+  <a class="btn btn-gold btn-block btn-lg" href="{{ site.base }}satei/" data-est-go data-ev="cta_satei_est">この部屋の正確な価格を無料で聞く</a>
+  <p class="est-foot">階数・方位・眺望を反映した査定は担当者がお送りします。売却を決めていなくても大丈夫です。</p>
+</div>
+{%- endmacro %}
+
+{% macro rep(site, speard_link) -%}
+<div class="rep">
+  <figure>{{ img(site, 'president', '株式会社スピアード 代表取締役 南 和希') }}</figure>
+  <div>
+    <p class="rep-role">このサイトの運営・監修</p>
+    <p class="rep-name">株式会社スピアード 代表取締役 南 和希</p>
+    <p class="rep-role">宅地建物取引士／2級FP技能士</p>
+    <blockquote>武蔵小杉のタワーマンションに住み、この街のマンションを自分でも買ってきました。<br>
+    同じ駅の徒歩数分の違い、築年の違い、眺望の違いが、売るときにいくらの差になるのか。<br>
+    それを数字で比べられるように、国の取引データを棟ごとに集計して公開しています。<br>
+    売る・買う・住み替えるの判断は、このサイトの数字に、階数と眺望と管理の状態を足して決めます。<br>
+    その先は、直接ご相談ください。</blockquote>
+    <div class="actions"><a class="btn" href="{{ site.base }}soudan/" data-ev="cta_sodan">南に相談する</a><a class="btn btn-ghost" href="https://speard.jp/profile/" target="_blank" rel="noopener">プロフィール</a></div>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro faq_list(items) -%}
+<div class="faq">{% for q, a in items %}<details{% if loop.first %} open{% endif %}><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}</div>
 {%- endmacro %}

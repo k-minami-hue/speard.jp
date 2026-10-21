@@ -1,34 +1,33 @@
 {% extends "base.html" %}
 {% block title %}武蔵小杉のマンションを比べる｜坪単価・推移・築年・駅距離｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のタワーマンションを最大3棟まで並べて比較。坪単価の中央値と幅、70㎡換算、3年前比、推移グラフ、築年、総戸数、駅徒歩、免震・制震を1つの表で確認できます。{% endblock %}
+{% block description %}武蔵小杉のタワーマンションを最大3棟まで並べて比較。坪単価、70㎡換算、3年前比、推移グラフ、築年、総戸数、駅徒歩、免震・制震を1つの表で確認できます。{% endblock %}
 {% block main %}
+<div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › マンションを比べる</p>
 <section>
   <h1>武蔵小杉のマンションを比べる</h1>
-  <p class="answer">3棟まで選ぶと、坪単価、推移、築年、駅までの距離、構造を1つの表で比べられます。</p>
+  <p class="lead">3棟まで選ぶと、坪単価、推移、築年、駅までの距離、構造を並べて比べられます。</p>
   <div class="picker" id="picker">
     {% for i in range(3) %}<div><label for="pk{{ i }}">{{ i + 1 }}棟目</label>
       <select id="pk{{ i }}"><option value="">選択してください</option>{% for b in buildings %}<option value="{{ b.id }}">{{ b['マンション名'] }}</option>{% endfor %}</select></div>{% endfor %}
   </div>
 </section>
-
 <section>
   <div class="tbl-wrap"><table class="cmp" id="cmpTable">
     <thead><tr><th></th><th id="h0">―</th><th id="h1">―</th><th id="h2">―</th></tr></thead>
     <tbody>
-      {% for key, label in [('t', '坪単価（中央値）'), ('p70', '70㎡換算'), ('range', '坪単価の幅'), ('chg', '3年前比'), ('n', '集計した取引'), ('built', '竣工'), ('units', '総戸数'), ('floors', '地上階数'), ('walk', '駅徒歩'), ('struct', '構造'), ('dev', '分譲会社'), ('mgr', '管理会社')] %}
+      {% for key, label in [('t', '坪単価'), ('p70', '70㎡なら'), ('range', '坪単価の幅'), ('chg', '3年前比'), ('n', '取引件数'), ('built', '竣工'), ('units', '総戸数'), ('floors', '地上階数'), ('walk', '駅徒歩'), ('struct', '構造'), ('dev', '分譲会社'), ('mgr', '管理会社')] %}
       <tr data-k="{{ key }}"><th>{{ label }}</th><td>―</td><td>―</td><td>―</td></tr>{% endfor %}
     </tbody>
   </table></div>
-  <p class="note">坪単価が最も高い棟、駅に最も近い棟などの値を紺の太字で示しています。合算の対象になっている棟は、表の下に注記します。</p>
+  <p class="note">紺の太字は、選んだ棟の中でいちばん良い値です。</p>
   <p class="note" id="cmpNotes"></p>
 </section>
-
 <section>
-  <div class="sec-head"><h2>坪単価の推移を重ねる</h2><span class="note">四半期の中央値（万円／坪）</span></div>
+  <div class="sec-head"><div><h2>坪単価の推移を重ねる</h2><p>四半期ごとの中央値（万円／坪）</p></div></div>
   <div class="chart-box"><canvas id="chart" role="img" aria-label="選んだマンションの坪単価推移の比較グラフ"></canvas></div>
-  <p class="note">取引が3件未満の四半期は表示していません。</p>
 </section>
+</div>
 {% endblock %}
 {% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endblock %}

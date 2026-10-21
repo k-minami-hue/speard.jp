@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "macros.html" import card %}
+{% block title %}武蔵小杉のタワーマンション ランキング｜坪単価・値上がり率・駅近｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のタワーマンション{{ n_buildings }}棟を、坪単価、3年間の値上がり率、駅からの近さ、築年でランキング。国土交通省の取引データから集計しています。{% endblock %}
+{% block main %}
+<div class="wrap page">
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › ランキング</p>
+  <section>
+    <h1>武蔵小杉のタワーマンション ランキング</h1>
+    <p class="lead">坪単価が最も高いのは{{ ranked[0]['マンション名'] }}（{{ ranked[0].stats.tsubo_txt }}）、3年間で最も上がったのは{{ rank_up[0]['マンション名'] }}（{{ '%+.0f' % rank_up[0].chg3 }}%）です。</p>
+  </section>
+  <section>
+    <div class="sec-head"><div><h2>坪単価ランキング</h2><p>直近2年の取引の中央値</p></div></div>
+    <ul class="cards">{% for b in ranked %}{{ card(site, b, rank=loop.index) }}{% endfor %}</ul>
+  </section>
+  <section>
+    <div class="ranks">
+      <div class="rank"><h3>値上がり率<span>3年前の同じ時期との比較</span></h3><ol>{% for b in rank_up %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv {{ 'up' if b.chg3 >= 0 else 'down' }}">{{ '%+.0f' % b.chg3 }}%</span></a></li>{% endfor %}</ol></div>
+      <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
+      <div class="rank"><h3>築年が新しい<span>竣工年</span></h3><ol>{% for b in rank_new %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
+    </div>
+    <p class="note">データは{{ latest_q }}まで。竣工前のマンションは取引データがないため含めていません。</p>
+  </section>
+</div>
+{% endblock %}

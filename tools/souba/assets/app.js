@@ -1,17 +1,19 @@
-/* 武蔵小杉マンション相場帳 — グラフ・査定の目安・フォーム送信・クリック計測
-   集計はすべて build.py で済ませ、ページに埋め込んだ window.CHART / window.SATEI を使う。 */
+/* 武蔵小杉マンション相場帳 — 地図・グラフ・価格の目安・比較・計算・フォーム
+   集計は build.py で済ませ、ページに埋め込んだ window.ATLAS / window.CHART を使う。 */
 (() => {
   const TSUBO = 0.3025;
   const SITE = window.SITE || {};
   const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const num = (v) => { const n = parseFloat(String(v ?? "").replace(/,/g, "")); return Number.isFinite(n) ? n : NaN; };
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const man = (v) => {
     if (!Number.isFinite(v)) return "―";
     const r = Math.round(v / 10) * 10, oku = Math.floor(r / 10000), rest = r % 10000;
     if (!oku) return `${rest.toLocaleString("ja-JP")}万円`;
     return rest ? `${oku}億${rest.toLocaleString("ja-JP")}万円` : `${oku}億円`;
   };
-  const man1 = (v) => { // 1万円単位（計算ツール用）
+  const man1 = (v) => {
     if (!Number.isFinite(v)) return "―";
     const r = Math.round(v), oku = Math.floor(r / 10000), rest = r % 10000;
     if (!oku) return `${rest.toLocaleString("ja-JP")}万円`;
@@ -19,10 +21,11 @@
   };
   const tsuboTxt = (v) => (Number.isFinite(v) ? `${Math.round(v).toLocaleString("ja-JP")}万円／坪` : "―");
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const A = window.ATLAS || null;
+  const byId = A ? Object.fromEntries(A.buildings.map((b) => [b.id, b])) : {};
 
-  /* ---------- 計測（GA4が読み込まれているときだけ送る） ---------- */
-  const track = (name, params = {}) => { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch { /* 計測の失敗は無視 */ } };
+  /* ---------- 計測（GA4があるときだけ） ---------- */
+  const track = (name, params = {}) => { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch { /* 無視 */ } };
   document.addEventListener("click", (e) => {
     const a = e.target.closest("[data-ev]");
     if (!a) return;
@@ -31,224 +34,201 @@
     track(a.dataset.ev, p);
   });
 
+  /* ---------- 価格の目安（トップ・物件ページ） ---------- */
+  const rangeFor = (b) => {
+    if (b && b.n >= 5 && Number.isFinite(b.lo)) return { lo: b.lo, hi: b.hi, why: `${b.short}の直近2年の取引${b.n}件の中央の半数の範囲` };
+    if (b && !b.n) return null;
+    if (A && Number.isFinite(A.fallback.lo)) return { lo: A.fallback.lo, hi: A.fallback.hi, why: "武蔵小杉のタワーマンションの直近1年の取引の中央の半数の範囲" };
+    return null;
+  };
+  const initEstimators = () => {
+    if (!A) return;
+    $$("[data-est]").forEach((box) => {
+      const sel = $("[data-est-b]", box), inp = $("[data-est-a]", box), v = $("[data-est-v]", box), w = $("[data-est-w]", box), go = $("[data-est-go]", box);
+      let tracked = false;
+      const run = () => {
+        const b = byId[sel.value], a = num(inp.value);
+        const q = new URLSearchParams();
+        if (b) q.set("b", b.id);
+        if (a > 0) q.set("a", String(a));
+        go.href = `${SITE.base}satei/${q.toString() ? "?" + q : ""}`;
+        v.classList.toggle("is-empty", !(b && a >= 15));
+        if (!b) { v.textContent = "マンションを選んでください"; w.textContent = ""; return; }
+        if (!(a >= 15)) { v.textContent = "面積を入れてください"; w.textContent = b.t ? `${b.short}の坪単価は${tsuboTxt(b.t)}です。` : ""; return; }
+        const r = rangeFor(b);
+        if (!r) { v.textContent = "個別に査定します"; w.textContent = "竣工前で取引データがないため、担当者が近隣の取引から査定します。"; return; }
+        const sq = a * TSUBO;
+        v.innerHTML = `<span class="nw">${man(r.lo * sq)}</span> 〜 <span class="nw">${man(r.hi * sq)}</span>`;
+        w.textContent = `坪単価${Math.round(r.lo)}〜${Math.round(r.hi)}万円。${r.why}です。階数・方位・眺望で上下します。`;
+        if (!tracked) { tracked = true; track("estimate_view", { building: b.name }); }
+      };
+      sel.addEventListener("change", run); inp.addEventListener("input", run);
+      run();
+    });
+  };
+
+  /* ---------- カードの並べ替え ---------- */
+  const initSorter = () => {
+    const list = $("#cards");
+    if (!list) return;
+    const keys = { t: (c) => -num(c.dataset.t), chg: (c) => -num(c.dataset.chg), walk: (c) => num(c.dataset.walk) * 1000 - num(c.dataset.t), year: (c) => -num(c.dataset.year), units: (c) => -num(c.dataset.units) };
+    $$(".sorter button").forEach((btn) => btn.addEventListener("click", () => {
+      $$(".sorter button").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
+      const k = keys[btn.dataset.sort];
+      $$(".card", list).sort((a, b) => k(a) - k(b)).forEach((c) => list.appendChild(c));
+      track("sort", { key: btn.dataset.sort });
+    }));
+  };
+
   /* ---------- グラフ ---------- */
-  const PALETTE = () => ({ ink: css("--ink"), gold: css("--gold"), muted: "#8a93a3", rule: css("--rule"), grey2: "#b5bdca" });
   const whenChart = (fn) => { if (window.Chart) fn(); else setTimeout(() => whenChart(fn), 120); };
-  const axisOpts = (muted, rule) => ({
-    x: { ticks: { color: muted, maxRotation: 0, autoSkipPadding: 16, font: { size: 11 } }, grid: { display: false } },
-    y: { ticks: { color: muted, font: { size: 11 }, callback: (v) => v.toLocaleString("ja-JP") }, grid: { color: rule } },
-  });
   const lineChart = (canvas, labels, series, colors) => {
-    const P = PALETTE();
+    const muted = "#6b7484", rule = css("--rule");
     return new window.Chart(canvas, {
       type: "line",
       data: { labels, datasets: series.map((s, i) => ({
         label: s.label, data: s.data, borderColor: colors[i], backgroundColor: colors[i],
-        borderWidth: i === 0 ? 2.25 : 1.5, borderDash: s.dash ? [4, 3] : [], pointRadius: 0, pointHoverRadius: 4, tension: 0, spanGaps: true,
+        borderWidth: i === 0 ? 2.5 : 1.6, pointRadius: 0, pointHoverRadius: 4, tension: 0.15, spanGaps: true,
       })) },
       options: {
-        responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 }, interaction: { mode: "index", intersect: false },
         plugins: {
-          legend: { display: series.length > 1, labels: { color: P.muted, boxWidth: 14, boxHeight: 2, font: { size: 11 } } },
+          legend: { display: series.length > 1, position: "top", align: "start", labels: { color: muted, boxWidth: 16, boxHeight: 3, font: { size: 12 } } },
           tooltip: { callbacks: { label: (c) => `${c.dataset.label}：${Number.isFinite(c.parsed.y) ? tsuboTxt(c.parsed.y) : "―"}` } },
         },
-        scales: axisOpts(P.muted, P.rule),
+        scales: {
+          x: { ticks: { color: muted, maxRotation: 0, autoSkipPadding: 18, font: { size: 11 } }, grid: { display: false } },
+          y: { ticks: { color: muted, font: { size: 11 }, callback: (v) => `${v.toLocaleString("ja-JP")}万` }, grid: { color: rule } },
+        },
       },
     });
   };
   const drawChart = () => {
     const canvas = $("#chart"), data = window.CHART;
     if (!canvas || !data || document.body.classList.contains("p-compare")) return;
-    whenChart(() => {
-      const P = PALETTE();
-      const series = data.series.map((s, i) => ({ ...s, dash: i === 2 }));
-      lineChart(canvas, data.labels, series, [P.ink, P.muted, P.grey2]);
-    });
-  };
-  const drawScatter = () => {
-    const canvas = $("#scatter"), A = window.ATLAS;
-    if (!canvas || !A) return;
-    whenChart(() => {
-      const P = PALETTE();
-      const pts = A.buildings.filter((b) => b.t).map((b) => ({ x: b.year, y: b.t, r: 4 + Math.sqrt(b.units) / 4, name: b.name, url: b.url }));
-      const ch = new window.Chart(canvas, {
-        type: "bubble",
-        data: { datasets: [{ data: pts, backgroundColor: "rgba(18,41,84,.72)", borderColor: P.gold, borderWidth: 1, hoverBorderWidth: 2 }] },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.name}：${c.raw.x}年・${tsuboTxt(c.raw.y)}` } } },
-          scales: {
-            x: { ticks: { color: P.muted, font: { size: 11 }, callback: (v) => `${v}年` }, grid: { display: false }, suggestedMin: 2005, suggestedMax: 2022 },
-            y: { ticks: { color: P.muted, font: { size: 11 } }, grid: { color: P.rule }, title: { display: true, text: "万円／坪", color: P.muted, font: { size: 11 } } },
-          },
-          onClick: (e, els) => { if (els[0]) location.href = pts[els[0].index].url; },
-        },
-      });
-      canvas.style.cursor = "pointer";
-      return ch;
-    });
+    whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
   };
 
   /* ---------- 地図 ---------- */
-  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png";
+  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
   const TILE_ATTR = '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
   const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
   const pinIcon = (b, cls = "") => window.L.divIcon({
     className: "pin-wrap", iconSize: [0, 0],
-    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span>${esc(b.name)}</span><b>${b.t ? b.t : "建設中"}</b></div>`,
+    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? b.t : "建設中"}</b></span></div>`,
   });
-  // 値札が重なるときは、上下に少しずらして読めるようにする（ズームのたびに計算し直す）
+  const popup = (b) => `<p class="pop-name">${esc(b.name)}</p><p class="pop-meta">${esc(b.built)}・${b.units}戸・${esc(b.line)} 徒歩${b.walk}分</p>` +
+    (b.t ? `<p class="pop-t">${b.t.toLocaleString("ja-JP")}<small>万円／坪</small></p><p class="pop-meta">70㎡なら ${man(b.p70)}${b.chg != null ? `・3年 ${b.chg > 0 ? "+" : ""}${b.chg}%` : ""}</p>` : `<p class="pop-meta" style="margin-top:6px">竣工前のため取引データなし</p>`) +
+    `<p class="pop-row"><a href="${b.url}">相場を見る</a><a class="p" href="${SITE.base}satei/?b=${b.id}" data-ev="cta_satei_map">査定する</a></p>`;
+  // 値札が重なるときは縦にずらす（ズームのたびに計算し直す）
   const spread = (map, markers) => {
     const run = () => {
-      const pts = markers.map((m) => ({ m, p: map.latLngToLayerPoint(m.getLatLng()), el: m.getElement() && m.getElement().querySelector(".pin") })).filter((x) => x.el);
-      pts.forEach((x) => { x.dx = 0; x.dy = 0; });
+      const pts = markers.map((m) => ({ p: map.latLngToLayerPoint(m.getLatLng()), el: m.getElement() && m.getElement().querySelector(".pin") })).filter((x) => x.el);
+      pts.forEach((x) => { x.dy = 0; x.w = x.el.querySelector(".tag").offsetWidth || 70; });
       pts.sort((a, b) => a.p.y - b.p.y);
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = 0; j < i; j++) {
-          const a = pts[j], b = pts[i];
-          if (Math.abs((a.p.x + a.dx) - (b.p.x + b.dx)) < 44 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < 26) {
-            b.dy = (a.p.y + a.dy) - b.p.y + 28;
-          }
-        }
+      for (let i = 0; i < pts.length; i++) for (let j = 0; j < i; j++) {
+        const a = pts[j], b = pts[i];
+        if (Math.abs(a.p.x - b.p.x) < (a.w + b.w) / 2 + 2 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < 44) b.dy = (a.p.y + a.dy) - b.p.y + 46;
       }
-      pts.forEach((x) => { x.el.style.setProperty("--dx", `${x.dx}px`); x.el.style.setProperty("--dy", `${x.dy}px`); });
+      pts.forEach((x) => x.el.style.setProperty("--dy", `${x.dy}px`));
     };
     map.on("zoomend", run); run();
   };
   const baseMap = (el, opts) => {
     const fb = el.querySelector(".map-fallback"); if (fb) fb.remove();
-    const map = window.L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true, ...opts });
+    const map = window.L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25, zoomDelta: 0.5, ...opts });
     window.L.tileLayer(TILE, { attribution: TILE_ATTR, maxZoom: 18, minZoom: 12 }).addTo(map);
-    (window.ATLAS.stations || []).forEach((s) => window.L.marker([s.lat, s.lng], { interactive: false, zIndexOffset: -2000, icon: window.L.divIcon({ className: "pin-wrap", iconSize: [0, 0], html: `<div class="stn">${esc(s.name)}</div>` }) }).addTo(map));
+    (A.stations || []).forEach((s) => window.L.marker([s.lat, s.lng], { interactive: false, zIndexOffset: -2000, icon: window.L.divIcon({ className: "pin-wrap", iconSize: [0, 0], html: `<div class="stn">${esc(s.name)}</div>` }) }).addTo(map));
     return map;
   };
-
-  /* ---------- トップ：地図＋一覧＋絞り込み＋比較 ---------- */
-  const initAtlas = () => {
-    const el = $("#map"), A = window.ATLAS;
-    if (!el || !A) return;
-    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
-    const items = [...document.querySelectorAll("#blist .bl")];
+  const addPins = (map, selfId) => {
     const pins = {};
+    A.buildings.forEach((b) => {
+      const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b, b.id === selfId ? "is-self" : ""), title: b.name, riseOnHover: true, zIndexOffset: b.id === selfId ? 1000 : 0 }).addTo(map);
+      m.bindPopup(popup(b), { offset: [0, -44], maxWidth: 280 });
+      m.on("popupopen", () => track("map_pin_open", { building: b.name }));
+      pins[b.id] = m;
+    });
+    return pins;
+  };
+  const initMaps = () => {
+    const el = $("#map");
+    if (!el || !A) return;
+    const mode = el.dataset.map;
+    whenLeaflet(() => {
+      const coarse = window.matchMedia("(pointer: coarse)").matches;
+      const map = baseMap(el, { center: [35.5755, 139.6595], zoom: 16, dragging: !coarse || mode === "atlas", tap: false });
+      const pins = addPins(map, el.dataset.self);
+      if (mode === "self") {
+        const self = byId[el.dataset.self];
+        const near = A.buildings.filter((b) => b.id !== self.id).sort((a, b) => map.distance([self.lat, self.lng], [a.lat, a.lng]) - map.distance([self.lat, self.lng], [b.lat, b.lng])).slice(0, 4);
+        map.fitBounds(window.L.latLngBounds([self, ...near].map((b) => [b.lat, b.lng])).pad(0.3), { maxZoom: 17 });
+      } else {
+        map.fitBounds(window.L.latLngBounds(A.buildings.map((b) => [b.lat, b.lng])), { paddingTopLeft: [90, 70], paddingBottomRight: [70, 20] });
+      }
+      spread(map, Object.values(pins));
+      if (mode === "atlas") initAtlas(map, pins);
+    });
+  };
+
+  /* ---------- 相場マップ：絞り込み・一覧・比較 ---------- */
+  const initAtlas = (map, pins) => {
+    const items = $$("#blist .bl");
     const state = { age: null, walk: null, band: null, struct: null, units: null };
     const NOW = new Date().getFullYear();
-    let map = null;
-
-    const setupMap = () => {
-      map = baseMap(el, { center: [35.5755, 139.6595], zoom: 16 });
-      A.buildings.forEach((b) => {
-        const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b), keyboard: true, title: b.name, riseOnHover: true }).addTo(map);
-        m.on("click", () => { track("map_pin_click", { building: b.name }); location.href = b.url; });
-        m.on("mouseover", () => hot(b.id, true));
-        m.on("mouseout", () => hot(b.id, false));
-        pins[b.id] = m;
-      });
-      map.fitBounds(window.L.latLngBounds(A.buildings.map((b) => [b.lat, b.lng])).pad(0.08));
-      spread(map, Object.values(pins));
-      apply();
-    };
-
     const pinEl = (id) => pins[id] && pins[id].getElement() && pins[id].getElement().querySelector(".pin");
     const hot = (id, on) => {
-      const li = items.find((x) => x.dataset.id === id);
-      if (li) li.classList.toggle("is-hot", on);
+      const li = items.find((x) => x.dataset.id === id); if (li) li.classList.toggle("is-hot", on);
       const p = pinEl(id); if (p) p.classList.toggle("is-hot", on);
-      if (on && pins[id]) pins[id].setZIndexOffset(1000); else if (pins[id]) pins[id].setZIndexOffset(0);
+      if (pins[id]) pins[id].setZIndexOffset(on ? 1000 : 0);
     };
-    items.forEach((li) => {
-      li.addEventListener("mouseenter", () => hot(li.dataset.id, true));
-      li.addEventListener("mouseleave", () => hot(li.dataset.id, false));
-    });
-
-    const pass = (b) =>
-      (!state.age || (b.year <= NOW && NOW - b.year <= state.age)) &&
-      (!state.walk || b.walk <= state.walk) &&
-      (!state.band || (b.t && String(b.band) === state.band)) &&
-      (!state.struct || b.struct === state.struct) &&
-      (!state.units || b.units >= state.units);
-    const sorters = {
-      t: (a, b) => (b.t || 0) - (a.t || 0),
-      chg: (a, b) => (b.chg ?? -999) - (a.chg ?? -999),
-      year: (a, b) => b.year - a.year,
-      walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0),
-      units: (a, b) => b.units - a.units,
-    };
+    items.forEach((li) => { li.addEventListener("mouseenter", () => hot(li.dataset.id, true)); li.addEventListener("mouseleave", () => hot(li.dataset.id, false)); });
+    Object.entries(pins).forEach(([id, m]) => { m.on("mouseover", () => hot(id, true)); m.on("mouseout", () => hot(id, false)); });
+    const pass = (b) => (!state.age || (b.year <= NOW && NOW - b.year <= state.age)) && (!state.walk || b.walk <= state.walk) &&
+      (!state.band || (b.t && String(b.band) === state.band)) && (!state.struct || b.struct === state.struct) && (!state.units || b.units >= state.units);
+    const sorters = { t: (a, b) => (b.t || 0) - (a.t || 0), chg: (a, b) => (b.chg ?? -999) - (a.chg ?? -999), year: (a, b) => b.year - a.year, walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0), units: (a, b) => b.units - a.units };
     const apply = () => {
-      let n = 0;
-      const list = $("#blist");
-      const order = A.buildings.slice().sort(sorters[$("#sort").value] || sorters.t);
-      order.forEach((b) => {
-        const li = items.find((x) => x.dataset.id === b.id);
-        const ok = pass(b);
+      let n = 0; const list = $("#blist");
+      A.buildings.slice().sort(sorters[$("#sort").value] || sorters.t).forEach((b) => {
+        const li = items.find((x) => x.dataset.id === b.id), ok = pass(b);
         if (ok) n++;
         if (li) { li.hidden = !ok; list.appendChild(li); }
         const p = pinEl(b.id); if (p) p.classList.toggle("is-dim", !ok);
       });
       $("#count").textContent = `${n}棟`;
-      let empty = $("#blEmpty");
-      if (!n && !empty) { list.insertAdjacentHTML("beforeend", '<li class="bl-empty" id="blEmpty">条件に合うマンションがありません。条件を1つ外してください。</li>'); }
+      const empty = $("#blEmpty");
+      if (!n && !empty) list.insertAdjacentHTML("beforeend", '<li class="bl-empty" id="blEmpty">条件に合うマンションがありません。条件を1つ外してください。</li>');
       else if (n && empty) empty.remove();
     };
-    document.querySelectorAll("#filters .chip").forEach((c) => c.addEventListener("click", () => {
+    $$("#filters .chip").forEach((c) => c.addEventListener("click", () => {
       const f = c.dataset.f, on = c.getAttribute("aria-pressed") !== "true";
-      document.querySelectorAll(`#filters .chip[data-f="${f}"]`).forEach((x) => x.setAttribute("aria-pressed", "false"));
-      c.setAttribute("aria-pressed", on ? "true" : "false");
+      $$(`#filters .chip[data-f="${f}"]`).forEach((x) => x.setAttribute("aria-pressed", "false"));
+      c.setAttribute("aria-pressed", String(on));
       state[f] = on ? (["struct", "band"].includes(f) ? c.dataset.v : Number(c.dataset.v)) : null;
-      apply();
-      track("filter", { filter: f, value: on ? c.dataset.v : "off" });
+      apply(); track("filter", { filter: f, value: on ? c.dataset.v : "off" });
     }));
     $("#sort").addEventListener("change", apply);
     apply();
-    whenLeaflet(setupMap);
-
-    // 比較トレイ
     const tray = $("#tray"), picked = [];
-    const syncTray = () => {
+    const sync = () => {
       items.forEach((li) => li.classList.toggle("is-picked", picked.includes(li.dataset.id)));
-      tray.classList.toggle("is-on", picked.length > 0);
-      document.body.classList.toggle("has-tray", picked.length > 0);
-      $("#trayNames").textContent = picked.length ? `比較：${picked.map((id) => byId[id].name).join("、")}` : "";
-      $("#trayGo").href = `${SITE.base}compare/?ids=${picked.join(",")}`;
-      $("#trayGo").textContent = `${picked.length}棟を比べる`;
+      tray.classList.toggle("is-on", picked.length > 0); document.body.classList.toggle("has-tray", picked.length > 0);
+      $("#trayNames").textContent = picked.length ? `比較：${picked.map((id) => byId[id].short).join("、")}` : "";
+      $("#trayGo").href = `${SITE.base}compare/?ids=${picked.join(",")}`; $("#trayGo").textContent = `${picked.length}棟を比べる`;
     };
-    document.querySelectorAll("#blist .bl-pick input").forEach((cb) => cb.addEventListener("change", () => {
-      const id = cb.value;
-      if (cb.checked) {
-        if (picked.length >= 3) { cb.checked = false; $("#trayNames").textContent = "比較できるのは3棟までです。1棟外してください。"; return; }
-        picked.push(id);
-      } else picked.splice(picked.indexOf(id), 1);
-      syncTray();
+    $$("#blist .bl-pick input").forEach((cb) => cb.addEventListener("change", () => {
+      if (cb.checked) { if (picked.length >= 3) { cb.checked = false; $("#trayNames").textContent = "比べられるのは3棟までです。"; return; } picked.push(cb.value); }
+      else picked.splice(picked.indexOf(cb.value), 1);
+      sync();
     }));
-    $("#trayClear").addEventListener("click", () => {
-      picked.splice(0); document.querySelectorAll("#blist .bl-pick input").forEach((cb) => { cb.checked = false; }); syncTray();
-    });
-  };
-
-  /* ---------- 物件ページの地図 ---------- */
-  const initMiniMap = () => {
-    const el = $("#miniMap"), A = window.ATLAS;
-    if (!el || !A) return;
-    whenLeaflet(() => {
-      const self = A.buildings.find((b) => b.id === el.dataset.self);
-      const map = baseMap(el, { center: [self.lat, self.lng], zoom: 16, dragging: !window.matchMedia("(pointer: coarse)").matches });
-      const ms = A.buildings.map((b) => {
-        const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b, b.id === self.id ? "is-self" : ""), title: b.name, zIndexOffset: b.id === self.id ? 1000 : 0 }).addTo(map);
-        if (b.id !== self.id) m.on("click", () => { location.href = b.url; });
-        return m;
-      });
-      const near = A.buildings.filter((b) => b.id !== self.id)
-        .sort((a, b) => map.distance([self.lat, self.lng], [a.lat, a.lng]) - map.distance([self.lat, self.lng], [b.lat, b.lng])).slice(0, 5);
-      map.fitBounds(window.L.latLngBounds([self, ...near].map((b) => [b.lat, b.lng])).pad(0.25), { maxZoom: 17 });
-      spread(map, ms);
-    });
+    $("#trayClear").addEventListener("click", () => { picked.splice(0); $$("#blist .bl-pick input").forEach((cb) => { cb.checked = false; }); sync(); });
   };
 
   /* ---------- 比べる ---------- */
   const initCompare = () => {
-    const tbl = $("#cmpTable"), A = window.ATLAS;
+    const tbl = $("#cmpTable");
     if (!tbl || !A) return;
-    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
-    const sels = [0, 1, 2].map((i) => $(`#pk${i}`));
+        const sels = [0, 1, 2].map((i) => $(`#pk${i}`));
     const q = new URLSearchParams(location.search).get("ids");
     const init = (q ? q.split(",") : ["k10", "k01", "k12"]).filter((id) => byId[id]).slice(0, 3);
     sels.forEach((s, i) => { s.value = init[i] || ""; });
@@ -279,21 +259,19 @@
       const ids = picked.map((b) => b.id).join(",");
       history.replaceState(null, "", ids ? `?ids=${ids}` : location.pathname);
       whenChart(() => {
-        const P = PALETTE();
         if (chart) chart.destroy();
-        chart = lineChart($("#chart"), A.labels, picked.map((b) => ({ label: b.name, data: b.chart })), [P.ink, P.gold, P.muted]);
+        chart = lineChart($("#chart"), A.labels, picked.map((b) => ({ label: b.name, data: b.chart })), [css("--ink"), css("--gold"), "#8a93a3"]);
       });
     };
     sels.forEach((s) => s.addEventListener("change", () => { render(); track("compare_change", {}); }));
     render();
   };
 
-  /* ---------- 手取り計算・坪単価計算 ---------- */
+  /* ---------- 手取り計算 ---------- */
   const initTools = () => {
-    const box = $("#netCalc"), A = window.ATLAS;
+    const box = $("#netCalc");
     if (!box || !A) return;
-    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
-    const fee = (p) => (p > 400 ? (p * 0.03 + 6) : p > 200 ? (p * 0.04 + 2) : p * 0.05) * 1.1; // 万円・税込
+        const fee = (p) => (p > 400 ? (p * 0.03 + 6) : p > 200 ? (p * 0.04 + 2) : p * 0.05) * 1.1; // 万円・税込
     let auto = true;
     $("#nPrice").addEventListener("input", () => { auto = false; calc(); });
     const suggest = () => {
@@ -329,13 +307,16 @@
     ["#cPrice", "#cArea"].forEach((id) => $(id).addEventListener("input", conv));
   };
 
-  /* ---------- 査定の目安とフォーム ---------- */
+  /* ---------- 無料査定 ---------- */
   const initSatei = () => {
-    const form = $("#sateiForm"), data = window.SATEI;
-    if (!form || !data) return;
+    const form = $("#sateiForm"), A = window.ATLAS;
+    if (!form || !A) return;
+    const data = { buildings: A.buildings, area: { lo: A.fallback.lo, hi: A.fallback.hi, label: "武蔵小杉のタワーマンションの直近1年の取引" } };
     const sel = $("#fBuilding");
-    const pre = location.hash.replace("#", "");
+    const qs = new URLSearchParams(location.search);
+    const pre = qs.get("b") || location.hash.replace("#", "");
     if (pre && data.buildings.some((b) => b.id === pre)) sel.value = pre;
+    if (qs.get("a")) $("#fArea").value = qs.get("a");
     let last = null;
 
     const update = () => {
@@ -446,6 +427,6 @@
     });
   };
 
-  const start = () => { drawChart(); drawScatter(); initAtlas(); initMiniMap(); initCompare(); initTools(); initSatei(); initSodan(); };
+  const start = () => { initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initSatei(); initSodan(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

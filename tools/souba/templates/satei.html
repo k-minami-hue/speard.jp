@@ -2,9 +2,10 @@
 {% block title %}武蔵小杉のマンション無料査定｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のタワーマンションの無料査定。マンション名と面積を入れると、国交省の取引データにもとづく価格の目安をすぐに表示します。運営は株式会社スピアード。{% endblock %}
 {% block main %}
+<div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 無料査定</p>
-<section class="intro">
-  <h1>無料査定</h1>
+<section>
+  <h1>武蔵小杉のマンション 無料査定</h1>
   <p>マンション名と専有面積を入れると、国交省の取引データにもとづく価格の目安を表示します。<br>
   連絡先を送っていただければ、階数・方位・室内の状態を反映した査定結果を担当者がお送りします。<br>
   売却を決めていなくても大丈夫です。</p>
@@ -53,7 +54,7 @@
     <select id="fWhen" name="timing"><option>すぐにでも</option><option>3か月以内</option><option>1年以内</option><option>相場を知りたい</option></select>
     <label for="fNote">ご質問・ご要望（任意）</label>
     <textarea id="fNote" name="note" rows="3"></textarea>
-    <p class="note">送信内容は、外部のフォーム送信サービスFormSubmit（formsubmit.co）を経由して当社のメールに届きます。詳しくは<a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a>をご確認ください。</p>
+    <p class="note">送信内容は、外部のフォーム送信サービスFormSubmit（formsubmit.co）を経由して当社のメールに届きます。詳しくは<a href="https://speard.jp/#privacy">個人情報の取扱い</a>をご確認ください。</p>
     <label class="check"><input id="fAgree" type="checkbox" required> <span>個人情報の取扱い（外部のフォーム送信サービスの利用を含む）に同意します</span></label>
   </fieldset>
   <div class="hp" aria-hidden="true"><label for="fHp">この欄は空のままにしてください</label><input id="fHp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
@@ -66,5 +67,6 @@
   <p>売るか貸すか、住み替えの順番など、決まっていない段階のご相談も受け付けています。</p>
   <div class="actions"><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
 </section>
+</div>
 {% endblock %}
-{% block data %}<script>window.SATEI = {{ satei_json | safe }};</script>{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>{% endblock %}
