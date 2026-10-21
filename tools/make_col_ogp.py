@@ -156,7 +156,7 @@ def main():
         man = json.load(open(os.path.join(ROOT, 'columns/manifest.json'), encoding='utf-8'))['columns']
         tpath = os.path.join(OUT, '.titles.json')
         done = json.load(open(tpath, encoding='utf-8')) if os.path.exists(tpath) else {}
-        for c in man + bp.legacy_columns():
+        for c in man + [x for x in bp.legacy_columns() if x['id'] not in {m['id'] for m in man}]:
             if done.get(c['id']) != c['title'] + '|' + (c.get('hero') or '') or not os.path.exists(os.path.join(OUT, f"{c['id']}.jpg")):
                 print(c['id'])
         return
@@ -164,7 +164,7 @@ def main():
         print('ogp: 日本語フォントがないためスキップ')
         return
     man = json.load(open(os.path.join(ROOT, 'columns/manifest.json'), encoding='utf-8'))['columns']
-    cols = man + bp.legacy_columns()
+    cols = man + [x for x in bp.legacy_columns() if x['id'] not in {m['id'] for m in man}]
     tpath = os.path.join(OUT, '.titles.json')
     done = json.load(open(tpath, encoding='utf-8')) if os.path.exists(tpath) else {}
     logo = Image.open(os.path.join(ROOT, 'logo.png')).convert('RGBA')
