@@ -23,7 +23,7 @@
 {% if site.ga_id %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga_id }}',{content_group:'souba'});</script>
 {% endif %}</head>
-<body{% if page == 'satei' %} class="no-bar"{% endif %}>
+<body{% if page in ('satei', 'sodan') %} class="no-bar"{% endif %}>
 <a class="skip" href="#main">本文へ移動</a>
 <header class="site-head">
   <div class="wrap head-row">
@@ -34,6 +34,7 @@
     <a href="{{ site.base }}"{% if page == 'index' %} aria-current="page"{% endif %}>マンション一覧</a>
     <a href="{{ site.base }}area/"{% if page == 'area' %} aria-current="page"{% endif %}>エリア相場</a>
     <a href="{{ site.base }}satei/"{% if page == 'satei' %} aria-current="page"{% endif %}>無料査定</a>
+    <a href="{{ site.base }}sodan/"{% if page == 'sodan' %} aria-current="page"{% endif %}>購入・売却の相談</a>
     <a href="{{ site.base }}guide/"{% if page == 'guide' %} aria-current="page"{% endif %}>住み替えの準備</a>
     <a href="{{ site.base }}about/"{% if page == 'about' %} aria-current="page"{% endif %}>運営会社</a>
   </nav>
@@ -49,14 +50,14 @@
     宅地建物取引業 {{ site.license }}<br>
     {{ site.address }}　TEL {{ site.tel }}{% if site.association %}<br>
     {{ site.association }}{% endif %}</p>
-    <p class="foot-links"><a href="{{ site.base }}about/">運営会社</a><a href="{{ site.base }}disclaimer/">データ出典・免責事項</a><a href="{{ site.base }}disclaimer/#ads">広告について</a><a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a></p>
+    <p class="foot-links"><a href="{{ site.base }}about/">運営会社</a><a href="{{ site.base }}sodan/">購入・売却の相談</a><a href="/#privacy">プライバシーポリシー</a><a href="{{ site.base }}disclaimer/">データ出典・免責事項</a><a href="{{ site.base }}disclaimer/#ads">広告について</a><a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a></p>
     <p>出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）の不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。<br>
     掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。</p>
     <p>© {{ year }} Speared Co., Ltd.</p>
   </div>
 </footer>
 
-{% if page != 'satei' %}<div class="line-bar">
+{% if page not in ('satei', 'sodan') %}<div class="line-bar">
   <div class="wrap line-row">
     <p class="line-text">武蔵小杉のマンションの売却・購入をLINEで相談できます</p>
     <a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>

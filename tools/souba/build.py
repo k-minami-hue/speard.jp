@@ -255,6 +255,7 @@ def build(out_dir):
     }
     render("satei.html", "satei/", "satei", jsonld(website, crumbs(("無料査定", SITE["base"] + "satei/"))),
            satei_json=json.dumps(satei_data, ensure_ascii=False), buildings=buildings)
+    render("sodan.html", "sodan/", "sodan", jsonld(website, crumbs(("購入・売却の相談", SITE["base"] + "sodan/"))), buildings=buildings)
     render("guide.html", "guide/", "guide", jsonld(website, crumbs(("住み替えの準備", SITE["base"] + "guide/"))))
     render("about.html", "about/", "about", jsonld(org, crumbs(("運営会社", SITE["base"] + "about/"))))
     render("disclaimer.html", "disclaimer/", "disclaimer", jsonld(website, crumbs(("データ出典・免責事項", SITE["base"] + "disclaimer/"))))

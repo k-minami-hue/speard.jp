@@ -125,6 +125,52 @@
     });
   };
 
-  const start = () => { drawChart(); initSatei(); };
+  /* ---------- 購入・売却の相談 ---------- */
+  const initSodan = () => {
+    const form = $("#sodanForm");
+    if (!form) return;
+    const kindOf = () => (form.querySelector('[name="kind"]:checked') || {}).value || "売却";
+    const sync = () => {
+      const k = kindOf();
+      form.querySelectorAll("fieldset[data-for]").forEach((fs) => {
+        const on = k.includes(fs.dataset.for);
+        fs.hidden = !on;
+        fs.querySelectorAll("input,select,textarea").forEach((el) => { el.disabled = !on; });
+      });
+      $("#sOtherWrap").hidden = $("#sBuilding").value !== "other";
+    };
+    form.addEventListener("change", sync);
+    sync();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = $("#sodanMsg");
+      msg.className = "form-msg";
+      if (!form.checkValidity() || !$("#cAgree").checked) {
+        msg.classList.add("err"); msg.textContent = "お名前とメールアドレスを入れ、プライバシーポリシーに同意してください。"; return;
+      }
+      const d = Object.fromEntries(new FormData(form).entries()); // 非表示の欄は disabled なので送られない
+      if (d._honey) return;
+      delete d._honey;
+      if (d.sell_building === "other") d.sell_building = d.sell_building_other || "一覧にないマンション";
+      delete d.sell_building_other;
+      d._subject = `【相場帳】${d.kind}の相談：${d.name}`;
+      d._template = "table";
+      d._captcha = "false";
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(d) });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok || String(j.success) === "false") throw new Error(j.message || String(res.status));
+        form.reset(); sync();
+        track("generate_lead", { form: "sodan", kind: d.kind });
+        msg.classList.add("ok"); msg.textContent = "送信しました。担当者からご連絡します。";
+      } catch {
+        msg.classList.add("err"); msg.textContent = "送信できませんでした。時間をおいてもう一度お試しいただくか、LINEからご連絡ください。";
+      } finally { btn.disabled = false; }
+    });
+  };
+
+  const start = () => { drawChart(); initSatei(); initSodan(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

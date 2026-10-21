@@ -143,7 +143,12 @@ input, select, textarea { font: inherit; font-size: 16px; color: var(--text); ba
 .form-msg.err { color: var(--red); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 #otherWrap { display: flex; flex-direction: column; gap: 6px; }
-#otherWrap[hidden] { display: none; }
+#otherWrap[hidden], #sOtherWrap[hidden], fieldset[hidden] { display: none; }
+#sOtherWrap { display: flex; flex-direction: column; gap: 6px; }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.seg label { margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border: 1px solid var(--line); border-radius: 4px; color: var(--text); font-size: 14px; cursor: pointer; }
+.seg label:has(input:checked) { border-color: var(--navy); color: var(--navy); font-weight: 700; }
+.seg input { width: auto; min-height: 0; margin: 0; }
 
 /* ほかのマンション */
 .others { list-style: none; margin: 0; padding: 0; }
