@@ -54,17 +54,16 @@
 
 {% macro rep(site, speard_link) -%}
 <div class="rep">
-  <figure>{{ img(site, 'president', '株式会社スピアード 代表取締役 南 和希') }}</figure>
+  <figure>{{ img(site, 'station', '武蔵小杉駅東口') }}</figure>
   <div>
-    <p class="rep-role">このサイトの運営・監修</p>
-    <p class="rep-name">株式会社スピアード 代表取締役 南 和希</p>
-    <p class="rep-role">宅地建物取引士／2級FP技能士</p>
-    <blockquote>武蔵小杉のタワーマンションに住み、この街のマンションを自分でも買ってきました。<br>
-    同じ駅の徒歩数分の違い、築年の違い、眺望の違いが、売るときにいくらの差になるのか。<br>
-    それを数字で比べられるように、国の取引データを棟ごとに集計して公開しています。<br>
-    売る・買う・住み替えるの判断は、このサイトの数字に、階数と眺望と管理の状態を足して決めます。<br>
-    その先は、直接ご相談ください。</blockquote>
-    <div class="actions"><a class="btn" href="{{ site.base }}soudan/" data-ev="cta_sodan">南に相談する</a><a class="btn btn-ghost" href="https://speard.jp/profile/" target="_blank" rel="noopener">プロフィール</a></div>
+    <p class="rep-role">武蔵小杉のマンションの売却・購入</p>
+    <p class="rep-name">株式会社スピアードがお手伝いします</p>
+    <ul class="serv">
+      <li><b>売却の査定</b>同じ建物と近くのタワーの取引から、売り出し価格と手取りの目安を根拠つきでお出しします。</li>
+      <li><b>住み替え</b>売却と購入をまとめて担当し、引渡しの順番と資金計画を組み立てます。</li>
+      <li><b>購入の相談</b>気になる棟の相場と、管理・修繕・眺望の確認ポイントをお伝えします。</li>
+    </ul>
+    <div class="actions"><a class="btn" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a><a class="btn btn-ghost" href="{{ site.base }}soudan/" data-ev="cta_sodan">購入・売却を相談する</a></div>
   </div>
 </div>
 {%- endmacro %}
