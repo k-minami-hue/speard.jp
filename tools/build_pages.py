@@ -327,6 +327,8 @@ def build_base_css():
 .col-toc li{ font-size:.9rem; line-height:1.8; margin:2px 0; }
 .col-toc a{ color:var(--navy); text-decoration:none; }
 .col-toc a:hover{ text-decoration:underline; }
+.column-hero-cap{ font-size:.68rem; color:#8a919c; text-align:right; margin-top:6px; line-height:1.6; }
+.column-hero-cap a{ color:#8a919c; }
 .col-inline-cta{ border:1px solid #e3e6ec; border-top:3px solid var(--gold); background:#fff; padding:22px 24px; margin:36px 0; border-radius:4px; box-shadow:0 4px 18px rgba(13,34,56,.06); }
 .col-inline-cta .cic-ttl{ font-family:'Noto Serif JP',serif; font-size:1.08rem; font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
 .col-inline-cta .cic-sub{ font-size:.88rem; color:#555; margin:0 0 14px !important; line-height:1.8; }
@@ -526,6 +528,15 @@ AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">計算して�
              '<li><a href="/area/tokyo23/">東京23区のマンション売買</a></li><li><a href="/area/kanagawa/">横浜・神奈川のマンション売買</a></li>'
              '<li><a href="/area/">対応エリア一覧（一都三県）</a></li></ul></div>')
 
+def hero_credit_html(c):
+    """表紙がクリエイティブ・コモンズの写真なら、写真の下に出典を表示する"""
+    h = c.get('hero_credit')
+    if not h:
+        return ''
+    return (f'<figcaption class="column-hero-cap">写真：{esc(h.get("caption") or "")}（{esc(h.get("author") or "作者不明")}／'
+            f'<a href="{esc(h["source"])}" target="_blank" rel="noopener">Wikimedia Commons</a>／'
+            f'<a href="{esc(h["license_url"])}" target="_blank" rel="noopener">{esc(h["license"])}</a>）。トリミングして掲載</figcaption>')
+
 def col_faq_ld(body):
     """本文の「よくある質問」（.col-faq-item）を FAQPage の構造化データにする"""
     items = re.findall(r'<div class="col-faq-item">\s*<h3 class="col-faq-q">(.*?)</h3>\s*<div class="col-faq-a">(.*?)</div>\s*</div>', body, flags=re.S)
@@ -572,7 +583,7 @@ def build_columns():
     <a href="/columns/" class="column-back">← コラム一覧に戻る</a>
     <div class="column-meta">{tags}<time class="column-meta-date" datetime="{iso(c['date'])}">{esc(c['date'])}</time>{(f'<span class="column-meta-date column-meta-mod">更新 <time datetime="{iso(c["modified"])}">{esc(c["modified"])}</time></span>') if c.get('modified') and c['modified'] != c['date'] else ''}</div>
     <h1 class="column-h1">{esc(c['title'])}</h1>
-    <figure class="column-hero-fig"><img src="{esc(c['hero'])}" alt="{esc(c['title'])}" width="1600" height="900" decoding="async" fetchpriority="high"></figure>
+    <figure class="column-hero-fig"><img src="{esc(c['hero'])}" alt="{esc((c.get('hero_credit') or {}).get('caption') or c['title'])}" width="1600" height="900" decoding="async" fetchpriority="high">{hero_credit_html(c)}</figure>
     <div class="column-share">
       <a class="cs-x" href="https://twitter.com/intent/tweet?text={stxt}&amp;url={share}" target="_blank" rel="noopener">Xでシェア</a>
       <a class="cs-fb" href="https://www.facebook.com/sharer/sharer.php?u={share}" target="_blank" rel="noopener">Facebookでシェア</a>

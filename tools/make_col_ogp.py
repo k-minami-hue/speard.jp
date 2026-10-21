@@ -79,6 +79,8 @@ def cover(im, w, h):
 def make(c, logo):
     hero = bp._local(c['hero']) if c.get('hero') else None
     bg = None
+    if hero and (c.get('hero_credit') or {}).get('license', 'CC0') not in ('CC0',):
+        hero = None  # 表示義務のあるCC写真はSNSカードに出典を載せられないため使わない
     if hero:
         src = Image.open(hero).convert('RGB')
         r, g, b = ImageStat.Stat(src.resize((200, 112))).mean

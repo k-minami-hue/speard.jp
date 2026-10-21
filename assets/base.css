@@ -1072,6 +1072,8 @@
 .col-toc li{ font-size:.9rem; line-height:1.8; margin:2px 0; }
 .col-toc a{ color:var(--navy); text-decoration:none; }
 .col-toc a:hover{ text-decoration:underline; }
+.column-hero-cap{ font-size:.68rem; color:#8a919c; text-align:right; margin-top:6px; line-height:1.6; }
+.column-hero-cap a{ color:#8a919c; }
 .col-inline-cta{ border:1px solid #e3e6ec; border-top:3px solid var(--gold); background:#fff; padding:22px 24px; margin:36px 0; border-radius:4px; box-shadow:0 4px 18px rgba(13,34,56,.06); }
 .col-inline-cta .cic-ttl{ font-family:'Noto Serif JP',serif; font-size:1.08rem; font-weight:700; color:var(--navy-dark); margin:0 0 8px !important; }
 .col-inline-cta .cic-sub{ font-size:.88rem; color:#555; margin:0 0 14px !important; line-height:1.8; }
