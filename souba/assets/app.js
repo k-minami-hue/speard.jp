@@ -110,7 +110,7 @@
   };
 
   /* ---------- 地図 ---------- */
-  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
+  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png";
   const TILE_ATTR = '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
   const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
   const pinIcon = (b, cls = "") => window.L.divIcon({
@@ -124,11 +124,11 @@
   const spread = (map, markers) => {
     const run = () => {
       const pts = markers.map((m) => ({ p: map.latLngToLayerPoint(m.getLatLng()), el: m.getElement() && m.getElement().querySelector(".pin") })).filter((x) => x.el);
-      pts.forEach((x) => { x.dy = 0; x.w = x.el.querySelector(".tag").offsetWidth || 70; });
+      pts.forEach((x) => { const t = x.el.querySelector(".tag"); x.dy = 0; x.w = t.offsetWidth || 70; x.h = t.offsetHeight + 7; });
       pts.sort((a, b) => a.p.y - b.p.y);
       for (let i = 0; i < pts.length; i++) for (let j = 0; j < i; j++) {
         const a = pts[j], b = pts[i];
-        if (Math.abs(a.p.x - b.p.x) < (a.w + b.w) / 2 + 2 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < 44) b.dy = (a.p.y + a.dy) - b.p.y + 46;
+        const hgt = (b.h || 40) + 4; if (Math.abs(a.p.x - b.p.x) < (a.w + b.w) / 2 + 2 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < hgt) b.dy = (a.p.y + a.dy) - b.p.y + hgt + 2;
       }
       pts.forEach((x) => x.el.style.setProperty("--dy", `${x.dy}px`));
     };
@@ -136,7 +136,7 @@
   };
   const baseMap = (el, opts) => {
     const fb = el.querySelector(".map-fallback"); if (fb) fb.remove();
-    const map = window.L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25, zoomDelta: 0.5, ...opts });
+    const map = window.L.map(el, { scrollWheelZoom: false, zoomSnap: 0.5, zoomDelta: 0.5, ...opts });
     window.L.tileLayer(TILE, { attribution: TILE_ATTR, maxZoom: 18, minZoom: 12 }).addTo(map);
     (A.stations || []).forEach((s) => window.L.marker([s.lat, s.lng], { interactive: false, zIndexOffset: -2000, icon: window.L.divIcon({ className: "pin-wrap", iconSize: [0, 0], html: `<div class="stn">${esc(s.name)}</div>` }) }).addTo(map));
     return map;
@@ -164,7 +164,8 @@
         const near = A.buildings.filter((b) => b.id !== self.id).sort((a, b) => map.distance([self.lat, self.lng], [a.lat, a.lng]) - map.distance([self.lat, self.lng], [b.lat, b.lng])).slice(0, 4);
         map.fitBounds(window.L.latLngBounds([self, ...near].map((b) => [b.lat, b.lng])).pad(0.3), { maxZoom: 17 });
       } else {
-        map.fitBounds(window.L.latLngBounds(A.buildings.map((b) => [b.lat, b.lng])), { paddingTopLeft: [90, 70], paddingBottomRight: [70, 20] });
+        const core = A.buildings.filter((b) => b.id !== "k16" && b.id !== "k13");
+        map.fitBounds(window.L.latLngBounds(core.map((b) => [b.lat, b.lng])), { paddingTopLeft: [60, 70], paddingBottomRight: [60, 10] });
       }
       spread(map, Object.values(pins));
       if (mode === "atlas") initAtlas(map, pins);
