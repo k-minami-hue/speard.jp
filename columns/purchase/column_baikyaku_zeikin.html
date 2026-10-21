@@ -1,108 +1,302 @@
-<h1>不動産売却にかかる税金——3,000万円控除と「5年の壁」を簡単解説</h1>
-
+<h1>マンション売却の税金はいくらか——3,000万円控除と「5年の壁」の判定方法</h1>
 <style>
-#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
-#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
-#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
-#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
 #col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
-@media (max-width:600px) { #col-art-body .price-table { font-size:.8rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:8px; } }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>マンションを売って税金がかかるのは売却益が出たときだけで、自宅なら3,000万円特別控除により売却益3,000万円までは税金がかかりません。<br>
+特例が使えない場合の税率は、売った年の1月1日時点で所有5年超なら20.315%、5年以下なら39.63%です。<br>
+売る時期と使う特例の組み合わせで税額は数百万円単位で変わるため、税金は売り出す前に計算しておきます。</p>
 
-<p>「売却したら、税金っていくら取られるんですか？」——売却相談で必ず出る質問です。そして答えを聞いて驚かれます。<strong>「多くの場合、マイホームの売却なら税金はかかりません」</strong>と。</p>
-
-<p>一方で、何も知らずに売ると<strong>数百万円単位の税金を無駄に払うケース</strong>も実在します。分かれ目は、制度を知っているかどうか。それだけです。</p>
-
-<p>いまの市況では、この知識の重要性が増しています。首都圏中古マンションの成約価格は13年連続で上昇し、2025年は平均5,200万円、<strong>東京都区部（23区）に限れば平均7,401万円</strong>（新築マンションなら23区平均1億3,613万円）。<strong>成約㎡単価はこの13年で117.3%上昇</strong>しました（東日本レインズ）。数年前に買った物件を売るだけで数千万円の利益が出ることが珍しくなくなった。売却益への課税は、もはや普通の住み替えの話です。</p>
-
-<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2025年）」（2026年1月公表）<br>https://www.reins.or.jp/pdf/trend/sf/sf_2025.pdf<br>出典（新築）：株式会社不動産経済研究所「首都圏 新築分譲マンション市場動向 2025年」（2026年1月公表）<br>https://www.fudousankeizai.co.jp/share/mansion/654/ss2025.pdf<br>※税額の最終確認は税理士または税務署へ。本記事は意思決定に必要な「構造」の解説です。</div>
-
-<hr>
-
-<h2>税金がかかるのは「利益が出たとき」だけ</h2>
-
-<p>大原則。売却価格そのものに税金がかかるわけではありません。課税されるのは<strong>譲渡所得＝売却で出た利益</strong>です。</p>
-
-<p><strong>譲渡所得 ＝ 売却価格 −（取得費 ＋ 譲渡費用）</strong></p>
-
-<p>取得費は「買ったときの物件価格＋購入時の諸費用」（建物部分は減価償却で目減り）。譲渡費用は仲介手数料・印紙税など売るための費用です。「買った値段＋諸経費」より高く売れて、初めて課税対象になります。</p>
-
-<div class="warn-box">
-  <p><strong>注意：購入時の契約書がないと「売却価格の5%」扱い</strong></p>
-  <p>相続物件などで購入時の契約書が見つからない場合、取得費は「譲渡価額の5%相当額」で計算されます（概算取得費）。5,000万円で売れた物件なら取得費250万円扱い。ほぼ全額が利益とみなされ、税額が跳ね上がります。<strong>売買契約書は数百万円の価値を持つ書類</strong>です。必ず保管を。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・税金の対象は売却益（譲渡所得）で、売却価格−（取得費＋譲渡費用）で計算する<br>
+　・自宅なら3,000万円特別控除で、売却益3,000万円までは税額0円（確定申告は必要）<br>
+　・特例なしの税率は所有5年超で20.315%、5年以下で39.63%で、5年は売った年の1月1日で判定する<br>
+　・3,000万円控除を使うと、新居の住宅ローン控除は受けられない（入居年と前後の年の売却）<br>
+　・売却損が出たら、一定の要件で給与などと損益通算でき、2027年12月31日までの売却が対象</p>
 </div>
 
-<div class="src-box">出典：国税庁 タックスアンサー No.3258「取得費が分からないとき」<br>https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3258.htm</div>
+<hr>
+
+<h2>マンションを売ると税金はかかるのか</h2>
+
+<p>マンションを売って税金がかかるのは、売却益（譲渡所得）が出たときだけです。<br>
+売却価格そのものに税金がかかるわけではなく、買った価格と諸費用を上回る部分が課税の対象になります。</p>
+
+<div class="info-box">
+  <p><strong>譲渡所得の計算</strong></p>
+  <p>・譲渡所得＝売却価格−（取得費＋譲渡費用）</p>
+  <p>・取得費＝購入価格＋購入時の諸費用−建物部分の減価償却費</p>
+  <p>・譲渡費用＝仲介手数料、印紙税など、売るために直接かかった費用</p>
+</div>
+
+<p>見落としやすいのが減価償却です。<br>
+自宅でも建物部分は年数に応じて価値が減ったものとして計算し、鉄筋コンクリート造のマンションなら建物の購入価格×0.9×0.015×経過年数を取得費から引きます。<br>
+そのため、買った価格と同じ価格で売っても、計算上は売却益が出ることがあります。<br>
+売却費用と残債を含めた手取りの計算は<a href="/columns/tedori-keisan/">マンション売却の手取りはいくら残るか</a>で扱っています。</p>
+
+<div class="src-box">出典：国税庁 タックスアンサーNo.3208「長期譲渡所得の税額の計算」</div>
 
 <hr>
 
-<h2>税率は「5年の壁」で倍近く変わる</h2>
+<h2>売却益が出たら税金はいくらになるか</h2>
 
+<p>売却益が約2,593万円の場合、税金は3,000万円控除を使えば0円、使えなければ約527万円か約1,027万円です。<br>
+8年前に6,000万円（坪単価約283.4万円）で買った70㎡のマンションを、9,000万円（坪単価約425.0万円）で売った例で計算します。</p>
+
+<div class="tbl-wrap">
 <table class="price-table">
-  <tr><th>区分</th><th>所有期間</th><th>税率（復興特別所得税込み）</th></tr>
-  <tr><td>短期譲渡所得</td><td>5年以下</td><td><strong>39.63%</strong></td></tr>
-  <tr><td>長期譲渡所得</td><td>5年超</td><td><strong>20.315%</strong></td></tr>
-  <tr><td>10年超所有の軽減税率<br>（マイホーム・6,000万円以下の部分）</td><td>10年超</td><td><strong>14.21%</strong></td></tr>
+  <tr><th>項目</th><th>金額</th></tr>
+  <tr><td>売却価格（70㎡・坪単価約425.0万円）</td><td class="num">9,000万円</td></tr>
+  <tr><td>購入価格＋購入時の諸費用</td><td class="num">6,360万円</td></tr>
+  <tr><td>建物部分2,400万円の減価償却費（8年）</td><td class="num">−約259万円</td></tr>
+  <tr><td>取得費</td><td class="num">約6,101万円</td></tr>
+  <tr><td>譲渡費用（仲介手数料303.6万円＋印紙税3万円）</td><td class="num">約307万円</td></tr>
+  <tr class="hl"><td>売却益（譲渡所得）</td><td class="num">約2,593万円</td></tr>
 </table>
+</div>
 
-<div class="src-box">出典：国税庁 タックスアンサー No.3211「短期譲渡所得の税額の計算」／No.3208「長期譲渡所得の税額の計算」／No.3305「マイホームを売ったときの軽減税率の特例」<br>https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3208.htm ほか</div>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 458" role="img" aria-label="売却益約2,593万円にかかる税金。3,000万円特別控除を使うと0円、特例なしで所有5年超なら約527万円、所有5年以下なら約1,027万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">売却益約2,593万円にかかる税金（70㎡の例）</text>
+<text x="40.0" y="76.0" font-size="17" fill="#333" text-anchor="start">自宅で3,000万円特別控除を使う</text>
+<rect x="40.0" y="86.0" width="4.0" height="34.0" rx="2" fill="#0E3273"/>
+<text x="54.0" y="110.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">0円</text>
+<text x="40.0" y="160.0" font-size="17" fill="#333" text-anchor="start">特例なし・所有5年超（20.315%）</text>
+<rect x="40.0" y="170.0" width="194.8" height="34.0" rx="2" fill="#3d5da8"/>
+<text x="244.8" y="194.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">約527万円</text>
+<text x="40.0" y="244.0" font-size="17" fill="#333" text-anchor="start">特例なし・所有5年以下（39.63%）</text>
+<rect x="40.0" y="254.0" width="380.0" height="34.0" rx="2" fill="#a67c1a"/>
+<text x="430.0" y="278.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">約1,027万円</text>
+<rect x="30.0" y="328.0" width="540.0" height="64.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="354.0" font-size="17" fill="#333" text-anchor="middle">同じ売却益でも、使える特例と所有期間で</text>
+<text x="300.0" y="378.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">税額は0円から約1,027万円まで変わる</text>
+<text x="30.0" y="418.0" font-size="15" fill="#777" text-anchor="start">6,000万円で買った70㎡を8年後に9,000万円で売った例</text>
+<text x="30.0" y="440.0" font-size="15" fill="#777" text-anchor="start">（坪単価約283.4万円→約425.0万円）</text>
+</g>
+</svg>
+<figcaption>自宅の3,000万円特別控除が使えるかと、所有期間が5年を超えるかで税額が大きく変わります（数字は本文の例）。</figcaption>
+</figure>
 
-<p>短期と長期で<strong>ほぼ2倍の差</strong>。そして最大の注意点——この「5年」は<strong>売却した年の1月1日時点</strong>で判定されます。</p>
-
-<p>2021年6月に購入した物件を2026年7月に売ると、実際の所有期間は5年超でも、2026年1月1日時点では「4年7ヶ月」なので<strong>短期扱い</strong>。長期になるのは2027年1月1日以降の売却です。利益が大きい物件では、<strong>売却時期を数ヶ月ずらすだけで税額が数百万円変わる</strong>ことがあります。</p>
+<p>自宅として住んでいて3,000万円特別控除の要件を満たせば、売却益が控除の範囲内なので税金はかかりません。<br>
+特例が使えないと、所有5年超で約527万円、5年以下なら約1,027万円です。<br>
+同じ物件、同じ売却価格でも、特例と売る時期の組み合わせで税額は1,000万円以上変わります。</p>
 
 <hr>
 
-<h2>最強の特例：3,000万円特別控除</h2>
+<h2>所有期間の「5年」はどう判定するか</h2>
 
-<p>マイホーム（居住用財産）の売却なら、<strong>所有期間の長短に関係なく、譲渡所得から最高3,000万円まで控除</strong>できます。利益が3,000万円以内なら<strong>税金はゼロ</strong>。「多くの場合税金はかからない」と言ったのは、この特例があるからです。</p>
+<p>所有期間の5年は、実際に持っていた期間ではなく、売った年の1月1日時点で判定します。<br>
+1月1日時点で5年を超えていれば長期譲渡所得、5年以下なら短期譲渡所得です。</p>
 
-<div class="info-box">
-  <p><strong>主な適用要件（国税庁 No.3302より要約）</strong></p>
-  <p>・自分が住んでいる家屋。以前住んでいた家屋は<strong>住まなくなった日から3年を経過する日の属する年の12月31日まで</strong>に売却</p>
-  <p>・売った年の前年・前々年にこの特例等を受けていない（<strong>実質3年に1度</strong>）</p>
-  <p>・親子や夫婦など「特別の関係がある人」への売却でない</p>
-  <p>・特例目的の入居、仮住まい、別荘は適用外</p>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>区分</th><th>売った年の1月1日時点の所有期間</th><th>税率（所得税・復興特別所得税・住民税）</th></tr>
+  <tr><td>短期譲渡所得</td><td>5年以下</td><td class="num">39.63%</td></tr>
+  <tr class="hl"><td>長期譲渡所得</td><td>5年超</td><td class="num">20.315%</td></tr>
+  <tr><td>自宅の軽減税率（譲渡所得のうち6,000万円以下の部分）</td><td>10年超</td><td class="num">14.21%</td></tr>
+</table>
 </div>
 
-<div class="src-box">出典：国税庁 タックスアンサー No.3302「マイホームを売ったときの特例」<br>https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3302.htm</div>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 402" role="img" aria-label="2021年6月に購入した物件は、2026年7月に売ると1月1日時点の所有期間が4年7か月で短期譲渡所得、2027年1月1日以降に売ると長期譲渡所得になる" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">「5年」は売った年の1月1日で判定する</text>
+<line x1="50.0" y1="110.0" x2="560.0" y2="110.0" stroke="#0E3273" stroke-width="3"/>
+<line x1="50.0" y1="102.0" x2="50.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="50.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2021</text>
+<line x1="135.0" y1="102.0" x2="135.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="135.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2022</text>
+<line x1="220.0" y1="102.0" x2="220.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="220.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2023</text>
+<line x1="305.0" y1="102.0" x2="305.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="305.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2024</text>
+<line x1="390.0" y1="102.0" x2="390.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="390.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2025</text>
+<line x1="475.0" y1="102.0" x2="475.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="475.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2026</text>
+<line x1="560.0" y1="102.0" x2="560.0" y2="118.0" stroke="#0E3273" stroke-width="2"/>
+<text x="560.0" y="142.0" font-size="17" fill="#333" text-anchor="middle">2027</text>
+<circle cx="85.4" cy="110" r="9" fill="#3d5da8"/>
+<text x="85.4" y="88.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">2021年6月 購入</text>
+<circle cx="517.5" cy="110" r="9" fill="#a67c1a"/>
+<text x="517.5" y="88.0" font-size="17" fill="#a67c1a" text-anchor="end" font-weight="700">2026年7月 売却</text>
+<rect x="30.0" y="180.0" width="540.0" height="92.0" rx="4" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<text x="46.0" y="210.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">2026年7月に売ると</text>
+<text x="46.0" y="236.0" font-size="17" fill="#333" text-anchor="start">2026年1月1日時点で4年7か月 → 短期</text>
+<text x="46.0" y="260.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">税率39.63%</text>
+<rect x="30.0" y="286.0" width="540.0" height="92.0" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="46.0" y="316.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">2027年1月1日以降に売ると</text>
+<text x="46.0" y="342.0" font-size="17" fill="#333" text-anchor="start">1月1日時点で5年超 → 長期</text>
+<text x="46.0" y="366.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">税率20.315%</text>
+</g>
+</svg>
+<figcaption>実際に持っていた期間が5年を超えていても、売った年の1月1日時点で5年以下なら短期の税率になります。</figcaption>
+</figure>
+
+<p>2021年6月に買った物件を2026年7月に売ると、実際の所有期間は5年を超えていますが、2026年1月1日時点では4年7か月なので短期になります。<br>
+長期になるのは2027年1月1日以降の売却です。<br>
+売却益が大きい物件では、売る時期を数か月ずらすだけで税額が数百万円変わります。</p>
+
+<p>所有期間が10年を超える自宅なら、3,000万円控除を引いた後の譲渡所得のうち6,000万円以下の部分に14.21%の軽減税率が使え、3,000万円控除と併用できます。<br>
+売却益が5,000万円なら、控除後の2,000万円にかかる税金は、軽減税率で約284万円、通常の長期の税率なら約406万円です。</p>
+
+<div class="src-box">出典：国税庁 タックスアンサーNo.3208「長期譲渡所得の税額の計算」、No.3211「短期譲渡所得の税額の計算」、No.3305「マイホームを売ったときの軽減税率の特例」</div>
+
+<hr>
+
+<h2>3,000万円特別控除はどんな条件で使えるか</h2>
+
+<p>3,000万円特別控除は、自分が住んでいる家、または住まなくなってから3年目の年末までに売った家に使えます。<br>
+所有期間の長短は問われず、売却益から最大3,000万円を差し引けます。</p>
+
+<div class="info-box">
+  <p><strong>主な要件（国税庁 No.3302より）</strong></p>
+  <p>・自分が住んでいる家屋、または住まなくなった日から3年を経過する日の属する年の12月31日までに売る家屋</p>
+  <p>・売った年の前年と前々年に、この特例やマイホームの譲渡損失の特例を受けていない</p>
+  <p>・売った年とその前年、前々年に、マイホームの買換えや交換の特例を受けていない</p>
+  <p>・親子や夫婦、生計を一にする親族など「特別の関係がある人」への売却でない</p>
+  <p>・特例を受けるためだけの入居、仮住まい、別荘ではない</p>
+</div>
+
+<p>税金が0円になる場合でも、特例を使うには確定申告が必要です。<br>
+申告しなければ控除は受けられません。</p>
+
+<div class="src-box">出典：国税庁 タックスアンサーNo.3302「マイホームを売ったときの特例」（令和8年4月1日現在法令等）</div>
+
+<hr>
+
+<h2>住宅ローン控除と3,000万円控除はどちらを使うべきか</h2>
+
+<p>住み替えでは、売却益が大きければ3,000万円控除、小さければ新居の住宅ローン控除を優先するのが基本です。<br>
+国税庁は、新居に入居した年とその前年、前々年に3,000万円控除を受けた場合、新居の住宅ローン控除は受けられないとしています。<br>
+入居した年の翌年から3年目までに旧居を売って3,000万円控除を受ける場合も、同じく住宅ローン控除は使えません。</p>
 
 <div class="warn-box">
-  <p><strong>最重要：住宅ローン控除と併用できない</strong></p>
-  <p>国税庁は、住宅ローン控除の入居年とその前年・前々年に3,000万円控除を受けた場合（入居年の翌年から3年目までの売却で使う場合も同様）、住宅ローン控除は適用できないと明記しています。</p>
-  <p>売却益が小さいなら→新居の住宅ローン控除を優先。売却益が大きいなら→3,000万円控除を優先。<strong>住み替えの資金計画は、売却前にこの比較まで済ませておくべきです。</strong></p>
+  <p>どちらが有利かは、旧居の売却益にかかる税金と、新居の住宅ローン控除で戻る税金の総額を比べて決めます。<br>
+  売り出してから考えると、売却と入居の時期の組み合わせを変えられなくなります。<br>
+  住み替えの資金計画は、売り出す前にこの比較まで済ませてください。</p>
 </div>
 
-<p>さらに、所有期間10年超のマイホームは、3,000万円控除後の課税譲渡所得のうち<strong>6,000万円以下の部分に14.21%の軽減税率</strong>が適用され、3,000万円控除と併用できます（国税庁 No.3305）。</p>
+<p>新居の住宅ローン控除の金額は、住宅の省エネ性能と入居の年で変わります。<br>
+控除額の計算は<a href="/columns/loan-kojo/">住宅ローン控除の2026年からの改正</a>で整理しています。</p>
 
 <hr>
 
-<h2>損が出た場合も申告する価値がある</h2>
+<h2>購入時の契約書がないとどうなるか</h2>
 
-<p>一定の要件を満たすマイホームの売却損は、<strong>給与所得など他の所得と損益通算</strong>でき、引き切れない分は<strong>翌年以後3年内に繰り越して控除</strong>できます（買換えの場合の特例と、住宅ローンが残っている場合の特例の2種類）。<strong>「損したから申告不要」ではなく「損したからこそ申告で取り返す」</strong>。知らずに放置している方が本当に多いです。</p>
+<p>購入時の売買契約書がなく取得費が分からない場合、取得費は売却価格の5%とみなされ、税金が大きく増えます。<br>
+相続した物件や、昔に買った物件で起こりやすい問題です。</p>
 
-<div class="src-box">出典：国税庁 タックスアンサー No.3370／No.3390（譲渡損失の損益通算・繰越控除）<br>https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3370.htm<br>https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3390.htm</div>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>5,000万円（坪単価約236.1万円）で売った場合</th><th>取得費</th><th>税額（所有5年超・特例なし）</th></tr>
+  <tr><td>契約書がなく、売却価格の5%とみなす</td><td class="num">250万円</td><td class="num">約930万円</td></tr>
+  <tr><td>契約書で取得費3,500万円を証明できる</td><td class="num">3,500万円</td><td class="num">約270万円</td></tr>
+  <tr class="hl"><td>差額</td><td class="num">3,250万円</td><td class="num">約660万円</td></tr>
+</table>
+</div>
 
-<h2>確定申告を忘れずに</h2>
+<p>この例では、契約書が1枚あるかどうかで税額が約660万円変わります。<br>
+購入時の売買契約書、諸費用の領収書、リフォームの契約書は、売るまで保管してください。<br>
+相続した物件の売却は<a href="/columns/souzoku-baikyaku/">相続したマンションを売却する</a>で扱っています。</p>
 
-<p>3,000万円控除も軽減税率も損益通算も、<strong>確定申告をして初めて適用されます</strong>。売却した翌年の2月16日〜3月15日に申告。「控除で税額ゼロだから申告不要」ではなく、<strong>申告しなければ控除自体が受けられない</strong>、が正解です。</p>
+<div class="src-box">出典：国税庁 タックスアンサーNo.3258「取得費が分からないとき」</div>
 
 <hr>
 
-<h2>まとめ：税金は「売る前」に設計するもの</h2>
+<h2>売却で損が出たら税金は戻るか</h2>
+
+<p>自宅の売却で損が出た場合は、一定の要件を満たせば給与所得などと損益通算でき、引ききれない分は翌年以後3年間繰り越せます。<br>
+所得税と住民税が戻る、または減るため、損が出たときほど申告する意味があります。<br>
+特例は2つあり、どちらも2027年12月31日までの売却が対象です。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>項目</th><th>買い換えた場合の特例</th><th>住宅ローンが残る場合の特例</th></tr>
+  <tr><td>対象</td><td>旧居を売って新居を買い、売却損が出た</td><td>住宅ローン残高を下回る価格で売り、売却損が出た</td></tr>
+  <tr><td>所有期間</td><td>売った年の1月1日時点で5年超</td><td>売った年の1月1日時点で5年超</td></tr>
+  <tr><td>主な条件</td><td>新居の床面積50㎡以上、新居に償還期間10年以上の住宅ローン</td><td>売買契約日の前日に償還期間10年以上の住宅ローン残高がある</td></tr>
+  <tr><td>損益通算できる額</td><td>譲渡損失</td><td>ローン残高から売却価格を引いた額まで</td></tr>
+  <tr><td>繰越控除</td><td>翌年以後3年間、合計所得3,000万円以下の年（旧居の敷地500㎡超の部分の損失は除く）</td><td>翌年以後3年間、合計所得3,000万円以下の年</td></tr>
+</table>
+</div>
+
+<p>住宅ローンが残る場合の特例は、新居の住宅ローン控除と併用できます。<br>
+どちらの特例も、繰越控除を受けるには損失が出た年から毎年続けて確定申告をする必要があります。<br>
+残債が売却価格を上回るときの売り方は<a href="/columns/zansai-baikyaku/">住宅ローンが残っていても家は売れるか</a>で整理しています。</p>
+
+<div class="src-box">出典：国税庁 タックスアンサーNo.3370「マイホームを買い換えた場合に譲渡損失が生じたとき」、No.3390「住宅ローンが残っているマイホームを売却して譲渡損失が生じたとき」（いずれも令和8年4月1日現在法令等）</div>
+
+<hr>
+
+<h2>確定申告はいつ、どんなときに必要か</h2>
+
+<p>確定申告は、売った翌年の2月16日から3月15日までに行います。<br>
+売却益が出て税金を納める場合に加え、3,000万円控除や軽減税率で税金が0円になる場合、損益通算で税金を取り戻す場合も申告が必要です。<br>
+「税金が0円だから申告しなくてよい」は誤りで、申告しなければ特例そのものが受けられません。</p>
+
+<p>個別の税額は、取得費の資料や所有期間、ほかの所得によって変わります。<br>
+最終的な税額は税理士または税務署で確認してください。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">マンションを売ったら税金はいくらかかりますか</h3><div class="col-faq-a"><p>税金がかかるのは売却益が出たときだけで、自宅なら3,000万円特別控除で売却益3,000万円まで税額は0円です。<br>
+特例が使えない場合は、売却益に所有5年超で20.315%、5年以下で39.63%がかかります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">所有期間5年はいつから数えますか</h3><div class="col-faq-a"><p>取得した日から、売った年の1月1日までの期間で判定します。<br>
+2021年6月に買った物件は、2027年1月1日以降に売れば長期譲渡所得になります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">3,000万円特別控除と住宅ローン控除は併用できますか</h3><div class="col-faq-a"><p>併用できません。<br>
+新居に入居した年とその前年、前々年、入居の翌年から3年目までに旧居で3,000万円控除を受けると、新居の住宅ローン控除は受けられません。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">税金が0円でも確定申告は必要ですか</h3><div class="col-faq-a"><p>必要です。<br>
+3,000万円特別控除などの特例は、売った翌年の2月16日から3月15日までに確定申告をして初めて適用されます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">マンションを売って損が出た場合、確定申告をすると得ですか</h3><div class="col-faq-a"><p>所有5年超の自宅で要件を満たせば、損失を給与所得などと損益通算でき、所得税と住民税が減ります。<br>
+対象は2027年12月31日までの売却です。</p></div></div>
+</section>
+
+<h2>結論：税金は売り出す前に計算する</h2>
 
 <div class="info-box">
-  <p>・課税されるのは利益のみ。<strong>購入時の契約書は絶対保管</strong>（ないと取得費5%扱い）</p>
-  <p>・<strong>5年の壁（1月1日判定）</strong>で税率は39.63%→20.315%に半減</p>
-  <p>・マイホームなら<strong>3,000万円控除</strong>で多くのケースは税額ゼロ</p>
-  <p>・ただし<strong>住宅ローン控除と併用不可</strong>。住み替えは事前比較を</p>
-  <p>・適用はすべて<strong>確定申告が条件</strong></p>
+  <p><strong>売り出す前に確認すること</strong></p>
+  <p>・購入時の売買契約書と諸費用の領収書がそろっているか</p>
+  <p>・売る予定の年の1月1日時点で、所有期間が5年を超えるか、10年を超えるか</p>
+  <p>・3,000万円特別控除の要件（住まなくなってからの期間、前年・前々年の特例利用）</p>
+  <p>・新居の住宅ローン控除と3,000万円控除のどちらが有利か</p>
+  <p>・売却損が出る場合、損益通算の特例の要件を満たすか</p>
 </div>
 
-<p>売却時期を数ヶ月調整するだけで手残りが数百万円変わる。税金は売却が終わってから考えるものではなく、<strong>売り出し前に設計するもの</strong>です。</p>
+<p>売却の税金は、売り終わってから計算するものではありません。<br>
+売る時期を数か月ずらすか、どの特例を使うかで手元に残る金額は数百万円変わります。<br>
+売却価格の見立てと税金を含めた手取りの試算は、<a href="/satei/">売却査定</a>でまとめてお出しします。</p>

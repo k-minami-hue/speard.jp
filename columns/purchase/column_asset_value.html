@@ -1,218 +1,259 @@
 <h1>資産価値が落ちにくいマンションの条件7つ——出口から逆算する物件選び</h1>
-
 <style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
-#col-art-body .comp-table { width:100%; border-collapse:collapse; margin:28px 0; font-size:.88rem; }
-#col-art-body .comp-table th { background:#1a2a52; color:#fff; padding:10px 12px; text-align:center; font-weight:600; border:1px solid #1a2a52; }
-#col-art-body .comp-table td { border:1px solid #dde2ec; padding:10px 12px; vertical-align:top; line-height:1.7; }
-#col-art-body .comp-table td.row-head { background:#f4f6fb; font-weight:600; color:#1a2a52; white-space:nowrap; }
-#col-art-body .comp-table tr:nth-child(even) td:not(.row-head) { background:#fafbfd; }
-#col-art-body .timeline { margin:28px 0; }
-#col-art-body .timeline-item { display:flex; gap:16px; margin-bottom:18px; align-items:flex-start; }
-#col-art-body .timeline-dot { width:36px; height:36px; border-radius:50%; background:#1a2a52; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; margin-top:2px; }
-#col-art-body .timeline-content strong { display:block; margin-bottom:4px; }
-#col-art-body .timeline-content p { font-size:.88rem; color:#555; margin:0; }
-#col-art-body .check-list { margin:28px 0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
 #col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
-#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#c9a961; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
 #col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
 #col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
-@media (max-width:600px) { #col-art-body .comp-table { font-size:.76rem; } }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>資産価値が落ちにくいマンションとは、売りたいときに、成約事例どおりの価格で、早く買い手が見つかるマンションです。<br>
+その条件は、駅距離や規模など買った後には変えられない部分でほぼ決まるため、資産性の勝負は買う前に大半がついています。<br>
+この記事では、物件を評価するときに使う7つの条件と、その条件を「10年後にいくらで売れるか」という数字に置き換える検証の手順を示します。</p>
 
-<p>マンションの資産価値は、買った後の努力ではほとんど変えられません。<br>
-リフォームで内装は変えられても、<strong>立地・規模・管理体制という資産価値の根幹は、購入した瞬間に決まっています</strong>。<br>
-つまり、資産性の勝負は「買う前」に9割決まるということです。</p>
-
-<p>この記事では、私自身が物件を評価するときに実際に使っている7つの条件を公開します。<br>
-一つひとつは地味ですが、すべて「将来の買い手がいるか」という出口の視点から逆算したものです。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・資産価値は価格の高さではなく、将来の買い手の数（需要の厚さ）で決まる<br>
+　・7条件のうち、駅距離、路線、規模、エリアの4つは買った後に変えられないので最優先する<br>
+　・駅からの徒歩分数は道路距離80m＝1分で表示され、検索条件は5分・7分・10分などで区切られる<br>
+　・7,000万円・借入6,300万円（金利1.2%・35年）なら10年後の残債は約4,761万円で、3割下がると売っても残債が残る<br>
+　・判断材料は感覚ではなく、同じマンションと近隣の成約事例と、10年後の売却試算</p>
+</div>
 
 <hr>
 
-<h2>大前提：資産価値＝「将来の買い手の数」</h2>
+<h2>マンションの資産価値とは何か</h2>
 
-<p>「資産価値が高い」とは、値段が高いことではありません。<br>
-<strong>売りたいときに、適正価格で、早く売れること</strong>です。<br>
-それを決めるのは、その物件を欲しがる人の数、つまり需要の厚さです。</p>
+<p>マンションの資産価値とは、売りたいときに適正な価格で早く売れる力のことで、それを決めるのは将来の買い手の数です。<br>
+同じ価格で買った2つの住戸でも、欲しがる人が多い方は値下げせずに売れ、少ない方は値下げを重ねて売ることになります。</p>
 
-<p>需要の厚さは感覚ではなく、データで確認できます。<br>
-同じマンション・同じエリアの<strong>過去の成約事例の件数と価格推移</strong>を見れば、「この物件は何ヶ月で、いくらで売れてきたか」という実績が分かります。<br>
-資産性の議論は、必ずこの実績ベースで行うべきです。</p>
+<p>需要の厚さは、感覚ではなくデータで確かめられます。<br>
+同じマンションと同じエリアの過去の成約事例の件数と価格の推移を見れば、その物件が何か月で、いくらで売れてきたかが分かります。<br>
+資産性の議論は、この実績を出発点にします。</p>
+
+<p>需要の差は、すでに価格の動きにも表れています。<br>
+2026年4〜6月期の中古マンションの成約㎡単価は、首都圏全体が前年同期比0.3%の上昇にとどまる一方、東京都区部は5.1%、横浜市・川崎市は7.9%上昇しました。<br>
+同じ首都圏でも、買い手が集まる場所とそうでない場所で、価格の方向は分かれています。</p>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2026年4〜6月期）」</div>
 
 <hr>
 
 <h2>資産価値が落ちにくいマンションの条件7つ</h2>
 
-<div class="check-list">
-  <div class="check-item">
-    <div class="check-num">1</div>
-    <div class="check-text">
-      <strong>駅徒歩10分以内（理想は7分以内）</strong>
-      <p>駅距離は資産価値の最重要因子。<br>
-中古市場では徒歩分数で検索が絞られるため、10分と11分の間には「検索に表示されるか否か」の壁がある。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">2</div>
-    <div class="check-text">
-      <strong>都心アクセスの良い路線・複数路線利用可</strong>
-      <p>主要ターミナルへ30分以内が目安。<br>
-複数路線が使える駅は通勤需要の間口が広く、景気変動時にも需要が底堅い。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">3</div>
-    <div class="check-text">
-      <strong>総戸数が多い大規模マンション</strong>
-      <p>目安は100戸以上。<br>
-管理費・修繕費の一戸あたり負担が軽く、成約事例が蓄積されるため価格が透明で、売却時に値付けしやすい。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">4</div>
-    <div class="check-text">
-      <strong>再開発・人口流入が続くエリア</strong>
-      <p>エリアの将来人口と再開発計画は行政資料で確認できる。<br>
-「今の街」ではなく「10年後の街」を買う意識を持つ。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">5</div>
-    <div class="check-text">
-      <strong>管理状態が良い（修繕履歴・積立金・滞納率）</strong>
-      <p>長期修繕計画どおりに修繕が実施され、積立金が計画的に貯まり、滞納率が低いこと。<br>
-管理は中古市場で確実に価格差になる。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">6</div>
-    <div class="check-text">
-      <strong>需要の厚い面積帯・間取り（55〜75㎡・2〜3LDK）</strong>
-      <p>ファミリーとDINKSの両方が買える「需要のボリュームゾーン」。<br>
-極端に狭い・広い住戸は買い手の母数が細る。</p>
-    </div>
-  </div>
-  <div class="check-item">
-    <div class="check-num">7</div>
-    <div class="check-text">
-      <strong>成約事例が多く、流動性が実証されている</strong>
-      <p>同一マンション・近隣で年に複数件の成約があるか。<br>
-取引が活発な物件は「売れる実績」そのものが資産性の証明になる。</p>
-    </div>
-  </div>
-</div>
+<p>7つの条件は、すべて「次の買い手が多いか」という出口の視点から逆算したものです。<br>
+駅距離や総戸数の具体的な基準と公的データは<a href="/columns/shisansei-joken/">資産性の高いマンションの条件</a>で詳しく扱っているため、ここでは条件ごとに「なぜ買い手の数に効くか」を整理します。</p>
 
-<figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-    <style>
-      .av-bar { fill: #0E3273; }
-      .av-bar-low { fill: #aab6d3; }
-      .av-label { fill: #555; font-family: 'Noto Sans JP', sans-serif; font-size: 13px; }
-      .av-val { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; }
-      .av-title { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; }
-      .av-note { fill: #888; font-family: 'Noto Sans JP', sans-serif; font-size: 11.5px; }
-    </style>
-    <text x="500" y="32" text-anchor="middle" class="av-title">駅徒歩分数と買い手の検索需要（概念図）</text>
-    <line x1="150" y1="370" x2="930" y2="370" stroke="#999" stroke-width="1.5"/>
-    <rect x="180" y="90" width="90" height="280" rx="4" class="av-bar"/>
-    <text x="225" y="395" text-anchor="middle" class="av-label">徒歩5分以内</text>
-    <text x="225" y="78" text-anchor="middle" class="av-val">最需要層</text>
-    <rect x="330" y="140" width="90" height="230" rx="4" class="av-bar"/>
-    <text x="375" y="395" text-anchor="middle" class="av-label">徒歩7分以内</text>
-    <rect x="480" y="220" width="90" height="150" rx="4" class="av-bar"/>
-    <text x="525" y="395" text-anchor="middle" class="av-label">徒歩10分以内</text>
-    <rect x="630" y="290" width="90" height="80" rx="4" class="av-bar-low"/>
-    <text x="675" y="395" text-anchor="middle" class="av-label">徒歩15分以内</text>
-    <rect x="780" y="330" width="90" height="40" rx="4" class="av-bar-low"/>
-    <text x="825" y="395" text-anchor="middle" class="av-label">徒歩15分超</text>
-    <line x1="605" y1="90" x2="605" y2="370" stroke="#D85A30" stroke-width="2" stroke-dasharray="6,4"/>
-    <text x="595" y="105" text-anchor="end" class="av-val" style="fill:#D85A30;">「徒歩10分」がポータル検索の分岐点</text>
-    <text x="595" y="125" text-anchor="end" class="av-note">検索条件から外れると、そもそも買い手の目に触れる回数が減る</text>
-    <text x="500" y="425" text-anchor="middle" class="av-note">※ポータルサイトの検索条件設定（〜5分／〜7分／〜10分）を踏まえた概念図</text>
-  </svg>
-  <figcaption>駅距離は「価格が下がりにくい」だけでなく「検索に引っかかる回数」を左右します。</figcaption>
-</figure>
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>駅から徒歩7分以内（10分を超えない）</strong><p>中古の買い手はポータルサイトで徒歩分数を絞り込んで探すため、条件から外れた物件は画面に表示されません。<br>
+徒歩分数は道路距離80mを1分として表示し、1分未満は切り上げるルールなので、体感とは別に表示上の分数で判断します。</p></div></div>
+
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>都心に出やすい路線、複数路線が使える駅</strong><p>通勤先の選択肢が広い駅ほど、買い手の勤務先を選びません。<br>
+主要なターミナル駅まで乗り換えなしで出られるかが目安です。</p></div></div>
+
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>総戸数100戸以上の規模</strong><p>規模が大きいほど1戸あたりの修繕負担が軽くなり、同じ建物内の成約事例が積み上がって価格の物差しができます。<br>
+2025年度に成約した首都圏の中古マンションの修繕積立金は、50戸未満が平均245円／㎡・月、200戸以上が197円／㎡・月でした。</p></div></div>
+
+<div class="check-item"><div class="check-num">4</div><div class="check-text"><strong>人口の流入や再開発が続くエリア</strong><p>将来の人口推計や再開発の計画は、自治体の資料で確認できます。<br>
+今の街並みではなく、10年後に住みたい人が増えている街かで判断します。</p></div></div>
+
+<div class="check-item"><div class="check-num">5</div><div class="check-text"><strong>管理の状態（修繕の履歴、積立金、滞納）</strong><p>長期修繕計画どおりに修繕が行われ、積立金が計画どおり貯まり、滞納が少ないことです。<br>
+次の買主も同じ書類を見て価格を判断します。</p></div></div>
+
+<div class="check-item"><div class="check-num">6</div><div class="check-text"><strong>買い手の多い広さと間取り</strong><p>夫婦のみの世帯と子どものいる世帯の両方が検討できる、55〜75㎡前後の2〜3LDKは買い手の幅が広い広さです。<br>
+登記簿上の面積が50㎡を下回ると、買主が登録免許税の軽減などを受けられないため、狭い住戸は出口で買い手が限られます。</p></div></div>
+
+<div class="check-item"><div class="check-num">7</div><div class="check-text"><strong>成約事例が多く、売れた実績がある</strong><p>同じマンションや近隣で、年に複数件の成約があるかを確認します。<br>
+取引が続いていること自体が、次も売れるという証明になります。</p></div></div>
+
+<div class="src-box">出典：不動産の表示に関する公正競争規約施行規則、公益財団法人東日本不動産流通機構「REINS TOPIC 首都圏中古マンションの管理費・修繕積立金（2025年度）」（2026年5月公表）、財務省「登録免許税の税率の軽減措置に関する主な改正」</div>
 
 <hr>
 
-<h2>条件の優先順位——迷ったら「変えられないもの」を取る</h2>
+<h2>7つの条件がそろわないときは何を優先するか</h2>
+
+<p>迷ったときは、駅距離、路線、規模、エリアという買った後に変えられない条件を優先し、内装や管理のように後から変えられる条件で妥協します。<br>
+7つすべてを満たす物件はほとんどなく、あっても価格に織り込まれています。<br>
+だからこそ、何を取って何を捨てるかの順番が結果を分けます。</p>
 
 <figure>
-  <img src="https://speard.jp/columns/thumbs/img_1449824913935-59a10b.jpg" alt="駅前の都市風景">
-  <figcaption>内装は変えられる。<br>立地は変えられない。<br>優先順位は「変更不可能なもの」から固めます。</figcaption>
+  <img src="/columns/thumbs/img_1449824913935-59a10b.jpg" alt="駅前の都市風景">
+  <figcaption>内装は後から変えられますが、立地は変えられないため、優先順位は変えられないものから固めます。</figcaption>
 </figure>
 
-<p>7つの条件をすべて満たす物件は、ほぼ存在しません。<br>
-存在しても、価格に織り込まれています。<br>
-だからこそ優先順位が重要です。<br>
-判断の原則はシンプルで、<strong>「後から変えられないもの」を優先する</strong>こと。</p>
-
-<p>立地（条件1・2・4）は絶対に変えられません。<br>
-規模（条件3）も変えられません。<br>
-一方、内装・設備はリフォームで変えられますし、管理状態（条件5）は理事会の努力で改善する余地があります。<br>
-つまり、<strong>妥協してよいのは「変えられるもの」、妥協してはいけないのは「変えられないもの」</strong>です。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 462" role="img" aria-label="資産価値の7条件を、買った後に変えられない条件（駅距離、路線、規模、エリア、広さと間取り）と、後から改善できる条件（管理の状態、内装・設備）に分けた図" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">優先するのは「買った後に変えられない条件」</text>
+<rect x="30" y="60" width="300" height="320" rx="6" fill="#0E3273"/>
+<text x="180" y="94" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">変えられない＝妥協しない</text>
+<rect x="50" y="112" width="260" height="44" rx="4" fill="#fff"/>
+<text x="180" y="141" font-size="17" fill="#0E3273" text-anchor="middle">1 駅からの距離</text>
+<rect x="50" y="164" width="260" height="44" rx="4" fill="#fff"/>
+<text x="180" y="193" font-size="17" fill="#0E3273" text-anchor="middle">2 路線と都心への近さ</text>
+<rect x="50" y="216" width="260" height="44" rx="4" fill="#fff"/>
+<text x="180" y="245" font-size="17" fill="#0E3273" text-anchor="middle">3 総戸数（規模）</text>
+<rect x="50" y="268" width="260" height="44" rx="4" fill="#fff"/>
+<text x="180" y="297" font-size="17" fill="#0E3273" text-anchor="middle">4 エリアの将来性</text>
+<rect x="50" y="320" width="260" height="44" rx="4" fill="#fff"/>
+<text x="180" y="349" font-size="17" fill="#0E3273" text-anchor="middle">6 広さと間取り</text>
+<rect x="350" y="60" width="220" height="216" rx="6" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="460" y="94" font-size="18" fill="#3d5da8" text-anchor="middle" font-weight="700">後から改善できる</text>
+<rect x="366" y="112" width="188" height="44" rx="4" fill="#fff" stroke="#c9d2e2"/>
+<text x="460" y="141" font-size="17" fill="#333" text-anchor="middle">5 管理の状態</text>
+<rect x="366" y="164" width="188" height="44" rx="4" fill="#fff" stroke="#c9d2e2"/>
+<text x="460" y="193" font-size="17" fill="#333" text-anchor="middle">内装・設備</text>
+<text x="460" y="240" font-size="15" fill="#777" text-anchor="middle">理事会の運営や</text>
+<text x="460" y="262" font-size="15" fill="#777" text-anchor="middle">リフォームで変えられる</text>
+<rect x="350" y="290" width="220" height="90" rx="6" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<text x="460" y="322" font-size="17" fill="#a67c1a" text-anchor="middle" font-weight="700">7 成約の実績</text>
+<text x="460" y="348" font-size="15" fill="#777" text-anchor="middle">1〜6の結果として</text>
+<text x="460" y="368" font-size="15" fill="#777" text-anchor="middle">表れる確認用の条件</text>
+<text x="300" y="420" font-size="17" fill="#333" text-anchor="middle">7条件のうち5つ以上を満たし、価格が</text>
+<text x="300" y="442" font-size="17" fill="#333" text-anchor="middle">成約事例と合っていれば買ってよい物件</text>
+</g>
+</svg>
+<figcaption>左の5つは購入後に変えられない条件、右上は後から改善できる条件、右下の成約実績は条件の結果を確かめるための物差しです。</figcaption>
+</figure>
 
 <div class="warn-box">
-  <p><strong>よくある失敗：「室内のきれいさ」に予算を払いすぎる</strong></p>
-  <p>フルリノベ済みの築古物件は見栄えが良く、内見での印象も強烈です。<br>
-しかし内装の価値は10年で大きく目減りする一方、リノベ費用は価格に満額乗っています。<br>
-「内装に払っているのか、立地に払っているのか」を冷静に分解してください。<br>
-資産として残るのは立地の方です。</p>
+  <p>よくある失敗は、室内のきれいさに予算を払いすぎることです。<br>
+  フルリノベーション済みの築古物件は内見の印象が強い一方で、内装の価値は10年で大きく目減りし、工事費は価格に上乗せされています。<br>
+  内装に払っているのか、立地に払っているのかを分けて考えてください。<br>
+  リノベーション済み物件の価格の見方は<a href="/columns/kaitori-saihan-erabikata/">リノベーション済みマンションは買っていいか</a>で扱っています。</p>
 </div>
 
-<h3>「完璧な物件」を待たない</h3>
-
-<p>7条件のうち5つ以上を満たし、価格が成約事例と整合していれば、十分に「買ってよい物件」です。<br>
-すべてを満たす物件を待ち続けると、市場の上昇に置いていかれ、結果的に高値掴みになる——この数年、何度も見てきた光景です。<br>
-<strong>満点を狙わず、合格点で決断する</strong>。<br>
-これが資産性重視の買い方の実際です。</p>
+<p>7条件のうち5つ以上を満たし、価格が成約事例と合っていれば、十分に買ってよい物件です。<br>
+すべてを満たす物件を待ち続けると、その間に相場が動き、結果として高い価格で買うことになりがちです。<br>
+満点を狙わず、合格点で決めることが、資産性を重視した買い方の実際です。</p>
 
 <hr>
 
-<h2>購入前にやるべき検証——感覚を数字に変える</h2>
+<h2>購入前に資産価値をどう検証するか</h2>
+
+<p>検証は、成約事例の確認、㎡単価での比較、10年後の売却試算の3段階で行います。<br>
+どれも購入申込みの前に終えられる作業です。</p>
 
 <figure>
-  <img src="https://speard.jp/columns/thumbs/img_1551288049-bebda4e38.jpg" alt="データ分析のグラフ" loading="lazy" decoding="async">
-  <figcaption>「良さそう」を「いくらで売れてきたか」に変換する。<br>それが資産性の検証作業です。</figcaption>
+  <img src="/columns/thumbs/img_1551288049-bebda4e38.jpg" alt="データ分析のグラフ" loading="lazy" decoding="async">
+  <figcaption>「良さそう」という感覚を、「いくらで売れてきたか」という数字に置き換えるのが検証の作業です。</figcaption>
 </figure>
 
-<p><strong>①同一マンション内の成約事例を調べる。<br>
-</strong>過去1年程度の成約価格・販売期間を確認します。<br>
-レインズのデータは不動産会社経由で確認できるほか、国土交通省の不動産情報ライブラリでも実取引価格を調べられます。</p>
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>同じマンションの成約事例を調べる</strong><p>過去1〜2年程度の成約価格と販売期間を確認します。<br>
+不動産会社を通じてレインズの成約データを見られるほか、国土交通省の不動産情報ライブラリでも取引価格を調べられます。</p></div></div>
 
-<p><strong>②㎡単価で周辺相場と比較する。<br>
-</strong>物件総額ではなく㎡単価に直すと、割高・割安が一目で分かります。<br>
-周辺の類似マンション3〜5棟と比較してください。</p>
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>㎡単価や坪単価に直して周辺と比べる</strong><p>総額ではなく単価に直すと、広さの違う住戸でも割高か割安かを比べられます。<br>
+周辺の似た条件のマンション3〜5棟と並べて比べます。</p></div></div>
 
-<p><strong>③「10年後に売る」シミュレーションをする。<br>
-</strong>仮に10年後、周辺成約事例の水準で売れたとして、ローン残債を引いた手残りはいくらか。<br>
-この計算をしてから買うかどうかを決めます。<br>
-<strong>売却見込み額がローン残高を上回る物件は資産として機能し、下回りそうな物件は住み心地への支出</strong>と、性格がはっきり分かれます。</p>
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>10年後に売った場合を試算する</strong><p>10年後に周辺の成約事例の水準で売れたとして、ローン残債と売却費用を引いて手元にいくら残るかを計算します。<br>
+価格が下がった場合も含めて計算してから、買うかどうかを決めます。</p></div></div>
 
-<div class="info-box">
-  <p><strong>ポイント：資産性と住み心地はトレードオフではない</strong></p>
-  <p>「資産性重視＝我慢して住む」ではありません。<br>
-駅近・管理良好・需要の厚い間取りは、住み心地としても優れていることがほとんどです。<br>
-資産性の7条件は、実は「多くの人が快適だと感じる条件」とほぼ一致します。<br>
-だからこそ需要が厚いのです。</p>
+<p>試算の例を示します。<br>
+70㎡を7,000万円（坪単価約330.6万円）で買い、6,300万円を金利1.2%・35年で借りると、毎月の返済は約18.4万円、10年後の残債は約4,761万円です。<br>
+売却費用を売却価格の約4%として、10年後の売却価格ごとに手元に残る額を計算すると次のとおりです。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>10年後の売却価格（70㎡）</th><th>坪単価</th><th>費用を引いた額</th><th>残債を返した後</th></tr>
+  <tr><td>7,000万円（購入時と同じ）</td><td class="num">330.6万円</td><td class="num">6,720万円</td><td class="num">1,959万円</td></tr>
+  <tr><td>6,300万円（1割下落）</td><td class="num">297.5万円</td><td class="num">6,048万円</td><td class="num">1,287万円</td></tr>
+  <tr><td>5,600万円（2割下落）</td><td class="num">264.5万円</td><td class="num">5,376万円</td><td class="num">615万円</td></tr>
+  <tr class="hl"><td>4,900万円（3割下落）</td><td class="num">231.4万円</td><td class="num">4,704万円</td><td class="num">−57万円</td></tr>
+</table>
 </div>
 
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="7,000万円で買い6,300万円を借りた場合の10年後。売却費用を引いた額は、同額なら6,720万円、1割下落で6,048万円、2割下落で5,376万円、3割下落で4,704万円。残債約4,761万円を3割下落のときだけ下回る" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">10年後に売ったとき、残債を返せるか</text>
+<text x="300" y="64" font-size="15" fill="#777" text-anchor="middle">70㎡・7,000万円で購入、6,300万円を借入（1.2%・35年）</text>
+<line x1="150" y1="84" x2="150" y2="324" stroke="#777" stroke-width="1.5"/>
+<text x="140" y="113" font-size="17" fill="#333" text-anchor="end">同額</text>
+<rect x="150" y="90" width="384.0" height="36" fill="#0E3273"/>
+<text x="164" y="114" font-size="17" fill="#fff" text-anchor="start" font-weight="700">6,720万円</text>
+<text x="140" y="171" font-size="17" fill="#333" text-anchor="end">1割下落</text>
+<rect x="150" y="148" width="345.6" height="36" fill="#3d5da8"/>
+<text x="164" y="172" font-size="17" fill="#fff" text-anchor="start" font-weight="700">6,048万円</text>
+<text x="140" y="229" font-size="17" fill="#333" text-anchor="end">2割下落</text>
+<rect x="150" y="206" width="307.2" height="36" fill="#3d5da8"/>
+<text x="164" y="230" font-size="17" fill="#fff" text-anchor="start" font-weight="700">5,376万円</text>
+<text x="140" y="287" font-size="17" fill="#333" text-anchor="end">3割下落</text>
+<rect x="150" y="264" width="268.8" height="36" fill="#a67c1a"/>
+<text x="164" y="288" font-size="17" fill="#fff" text-anchor="start" font-weight="700">4,704万円</text>
+<line x1="422.1" y1="80" x2="422.1" y2="316" stroke="#333" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="422" y="344" font-size="17" fill="#333" text-anchor="middle" font-weight="700">残債 約4,761万円</text>
+<text x="300" y="380" font-size="15" fill="#777" text-anchor="middle">棒は売却価格から売却費用（約4%）を引いた額</text>
+</g>
+</svg>
+<figcaption>点線が10年後の残債で、棒がこの線を越えていれば売って残債を返しきれ、3割下落のときだけ線に届きません。</figcaption>
+</figure>
+
+<p>10年後の売却額が残債を上回る物件は、住みながら資産として機能します。<br>
+下回りそうな物件は、住み心地にお金を払っている支出だと割り切る必要があります。<br>
+どちらの性格の物件かを買う前に知っておけば、住み替えや売却の選択肢を自分で持てます。<br>
+借入額の決め方は<a href="/columns/kariire-jogen/">住宅ローンはいくらまで借りていいか</a>で、購入予算の試算は<a href="/simulator/#buy">購入シミュレーター</a>で確認できます。</p>
+
+<div class="info-box">
+  <p><strong>資産性と住み心地は対立しない</strong></p>
+  <p>・駅に近く、管理が良く、買い手の多い間取りは、住み心地の面でも優れていることがほとんど</p>
+  <p>・資産性の7条件は、多くの人が快適だと感じる条件とほぼ重なる</p>
+  <p>・だからこそ買い手が多く、価格が落ちにくい</p>
+</div>
+
+<div class="src-box">出典：国土交通省「不動産情報ライブラリ」、公益財団法人東日本不動産流通機構「レインズ・マーケット・インフォメーション」</div>
+
 <hr>
 
-<h3>まとめ</h3>
+<h2>よくある質問</h2>
 
-<p>資産価値は買った瞬間に決まり、判断材料は感覚ではなく成約事例です。<br>
-妥協してよいのは変えられるもの、妥協してはいけないのは立地など変えられないもの。<br>
-そして諦めるのではなく納得する。<br>
-これらを守るだけで、物件選びの精度は大きく変わります。</p>
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">資産価値が落ちにくいマンションの条件は何ですか</h3><div class="col-faq-a"><p>駅からの距離、路線、規模、エリア、管理、広さと間取り、成約の実績の7つです。<br>
+このうち駅距離、路線、規模、エリアは買った後に変えられないため、最優先で判断します。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">駅徒歩何分までなら資産価値が落ちにくいですか</h3><div class="col-faq-a"><p>目安は徒歩7分以内で、10分を超えると検索条件から外れやすくなります。<br>
+徒歩分数は道路距離80mを1分として表示されます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">中古マンションの成約価格はどこで調べられますか</h3><div class="col-faq-a"><p>国土交通省の不動産情報ライブラリや、レインズ・マーケット・インフォメーションで調べられます。<br>
+同じマンションの詳しい成約事例は、不動産会社を通じてレインズのデータで確認します。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">リノベーション済みの築古マンションは資産価値がありますか</h3><div class="col-faq-a"><p>資産価値を決めるのは内装ではなく立地と建物です。<br>
+内装の価値は10年で大きく下がるため、工事費が上乗せされた価格に見合う立地かで判断します。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">条件をすべて満たす物件が見つからないときはどうすればよいですか</h3><div class="col-faq-a"><p>7条件のうち5つ以上を満たし、価格が成約事例と合っていれば買ってよい物件です。<br>
+妥協するなら、管理や内装のように後から変えられる条件で妥協します。</p></div></div>
+</section>
 
-<hr>
+<h2>結論：資産価値は「買う前の検証」で決まる</h2>
 
-<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産購入・売却サポートを行っています。<br>購入・売却をご検討中の方は、お気軽にお問い合わせください。</p>
+<div class="info-box">
+  <p><strong>購入前に確認すること</strong></p>
+  <p>・駅距離、路線、規模、エリアの4つで妥協していないか</p>
+  <p>・登記簿上の面積と間取りが、次の買い手の多い帯に入っているか</p>
+  <p>・同じマンションの過去1〜2年の成約価格と販売期間</p>
+  <p>・周辺の似た条件のマンションと比べた㎡単価、坪単価</p>
+  <p>・10年後に1〜3割下がった場合でも、売却額で残債を返せるか</p>
+</div>
+
+<p>資産価値は買った瞬間にほぼ決まり、その判断材料は感覚ではなく成約事例です。<br>
+変えられない条件を優先し、10年後の売却額まで数字にしてから買えば、物件選びの精度は大きく上がります。<br>
+候補の物件が10年後にいくらで売れそうかは、同じ建物と近隣の成約事例から個別に試算します。</p>

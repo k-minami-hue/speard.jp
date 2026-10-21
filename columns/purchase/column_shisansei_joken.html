@@ -1,120 +1,300 @@
 <h1>資産性の高いマンションの条件——駅距離・規模・管理の定量基準</h1>
-
 <style>
-#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
-#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
-#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
-#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
 #col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
-@media (max-width:600px) { #col-art-body .price-table { font-size:.8rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:8px; } }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>資産性の高いマンションの条件は、駅徒歩7分以内、総戸数100戸以上（できれば200戸以上）、修繕積立金が国の目安に届いていること、の3つを数字で満たすことです。<br>
+「立地が大事」「管理が大事」という言い方では、物件を選ぶ基準になりません。<br>
+ここでは、購入相談の実務で使っている判断基準を、公的な統計とあわせて示します。</p>
 
-<p>「資産性の高いマンションってどんな物件ですか？」——購入相談で、ほぼ毎回受ける質問です。<br>多くのメディアは「立地が大事」「管理が大事」と答えますが、<strong>それでは何も言っていないのと同じ</strong>です。</p>
-
-<p>駅から何分までなら合格なのか。総戸数は何戸以上が良いのか。判断に使えるのは、常に「数字」です。<br>このコラムでは、実務で使っている資産性の判断基準を、公的データの裏付けとともにそのまま公開します。</p>
-
-<p>先に断っておくと、<strong>すべての条件を満たす物件は、まず市場に出てきません</strong>。大切なのは、満点の物件を探すことではなく、「どの条件なら妥協してよいか」を見極めることです。</p>
-
-<hr>
-
-<h2>前提：市場はすでに「二極化」している</h2>
-
-<p>東日本レインズの統計によると、2025年の首都圏中古マンションの成約㎡単価は82.98万円で13年連続の上昇。<strong>この13年で117.3%、つまり2倍以上に上昇</strong>しています。ただし、この「首都圏平均」は郊外を含んだ数字です。<strong>東京都区部（23区）だけで見ると、成約㎡単価130.75万円・平均価格7,401万円</strong>。新築マンションなら23区平均は1億3,613万円（都心6区は1億9,503万円）に達しており、5,000万円台では23区の物件は買えないのが実勢です。</p>
-
-<p>ただし中身を見ると景色が変わります。2025年の成約㎡単価の前年比は、<strong>東京都区部が＋13.2%</strong>である一方、<strong>埼玉県−1.3%、千葉県−1.3%、神奈川県のうち横浜・川崎を除く地域は−3.9%と、下落に転じました</strong>。</p>
-
-<figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-    <text x="360" y="34" text-anchor="middle" font-size="16" font-weight="700" fill="#0E3273" font-family="'Noto Sans JP',sans-serif">首都圏中古マンション 成約㎡単価の前年比（2025年）</text>
-    <line x1="70" y1="190" x2="670" y2="190" stroke="#c9d2e2" stroke-width="2"/>
-    <g font-family="'Noto Sans JP',sans-serif">
-      <rect x="90" y="58" width="70" height="132" fill="#0E3273"/>
-      <text x="125" y="50" text-anchor="middle" font-size="15" font-weight="800" fill="#0E3273">+13.2%</text>
-      <text x="125" y="214" text-anchor="middle" font-size="12.5" fill="#333">東京都区部</text>
-      <rect x="205" y="176" width="70" height="14" fill="#3d5da8"/>
-      <text x="240" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#3d5da8">+1.4%</text>
-      <text x="240" y="214" text-anchor="middle" font-size="12.5" fill="#333">横浜・川崎</text>
-      <rect x="320" y="190" width="70" height="14" fill="#c0392b"/>
-      <text x="355" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">−1.3%</text>
-      <text x="355" y="240" text-anchor="middle" font-size="12.5" fill="#333">埼玉県</text>
-      <rect x="435" y="190" width="70" height="14" fill="#c0392b"/>
-      <text x="470" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">−1.3%</text>
-      <text x="470" y="240" text-anchor="middle" font-size="12.5" fill="#333">千葉県</text>
-      <rect x="550" y="190" width="70" height="40" fill="#c0392b"/>
-      <text x="585" y="248" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">−3.9%</text>
-      <text x="585" y="266" text-anchor="middle" font-size="12.5" fill="#333">神奈川県他</text>
-    </g>
-    <text x="360" y="310" text-anchor="middle" font-size="11.5" fill="#888" font-family="'Noto Sans JP',sans-serif">出典：東日本レインズ「首都圏不動産流通市場の動向（2025年）」より作成</text>
-  </svg>
-  <figcaption>首都圏中古マンションは「上がるエリア」と「下がり始めたエリア」に分化した。</figcaption>
-</figure>
-
-<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2025年）」都県・地域別（2026年1月公表）<br>https://www.reins.or.jp/pdf/trend/sf/sf_2025.pdf<br>出典（新築）：株式会社不動産経済研究所「首都圏 新築分譲マンション市場動向 2025年」（2026年1月公表）<br>https://www.fudousankeizai.co.jp/share/mansion/654/ss2025.pdf</div>
-
-<p>「マンションは上がっている」はもう正確ではありません。<strong>上がり続けるマンションと、既に下がり始めたマンションに分かれた</strong>。これが現在地です。だからこそ、これから買う人には「どちら側の物件か」を見極める基準が必要になります。</p>
-
-<hr>
-
-<h2>資産性を決める4つの軸</h2>
-
-<p>資産性は、突き詰めると<strong>①立地（駅距離×駅力）②規模（総戸数）③ブランド（分譲主）④管理（修繕計画）</strong>の4つで決まります。</p>
-
-<p>順番にも意味があります。<strong>後から変えられないものほど優先度が高い</strong>。立地と規模は一生変わりません。管理は住民の努力で改善し得ます。だからこそ、立地と規模で妥協した物件は、後からどうにもならないのです。</p>
-
-<h2>① 立地：駅徒歩7分以内。理想は5分以内</h2>
-
-<p>結論は<strong>徒歩7分以内</strong>です。理想は5分以内。</p>
-
-<p>中古マンション市場では、検索サイトの絞り込み条件が「5分以内」「7分以内」「10分以内」で区切られています。つまり徒歩8分の物件は、「7分以内」で検索する買い手の画面に<strong>そもそも表示されません</strong>。資産性とは、言い換えれば「将来の買い手の多さ」。検索にヒットしない物件は、その時点で買い手の母数を失っています。</p>
-
-<p>なお「徒歩◯分」は表示ルール上、<strong>道路距離80mを1分として計算し、1分未満は切り上げ。信号待ちや坂道は考慮されません</strong>（不動産の表示に関する公正競争規約施行規則）。表示上の7分と体感の7分は別物なので、必ず自分の足で確認してください。</p>
-
-<p>もう一つ重要なのが「駅力」です。<strong>複数路線・急行停車・駅前商業集積（再開発含む）</strong>。先ほどの二極化データで上がっているのは都区部と横浜・川崎、つまり駅力と都心アクセスに優れたエリアです。駅力の条件が揃った街は、市況変動があっても需要が途切れません。</p>
-
-<h2>② 規模：総戸数200戸以上。最低ラインは100戸</h2>
-
-<p>これは感覚論ではありません。<strong>規模のスケールメリットは公的データにはっきり表れています</strong>。東日本レインズが2025年度に成約した首都圏中古マンションを規模別に集計したデータでは、㎡当たりの修繕積立金（月額）は次の通りです。</p>
-
-<table class="price-table">
-  <tr><th>総戸数</th><th>修繕積立金（円/㎡・月）</th></tr>
-  <tr><td>50戸未満</td><td><strong>245円</strong></td></tr>
-  <tr><td>50〜99戸</td><td>216円</td></tr>
-  <tr><td>100〜149戸</td><td>202円</td></tr>
-  <tr><td>150〜199戸</td><td>197円</td></tr>
-  <tr><td>200戸以上</td><td><strong>197円</strong></td></tr>
-</table>
-
-<p>小規模マンションの修繕負担は、大規模マンションより<strong>約2割以上重い</strong>。国土交通省の修繕積立金ガイドラインも「建物の規模が大きくまとまった工事量になるほど、施工性が向上し、修繕工事の単価が安くなる傾向があります」と明記しています。</p>
-
-<div class="src-box">出典：東日本不動産流通機構「REINS TOPIC 首都圏中古マンションの管理費・修繕積立金（2025年度）」（2026年5月公表）https://www.reins.or.jp/pdf/trend/rt/rt_202605.pdf ／ 国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改定）https://www.mlit.go.jp/jutakukentiku/house/content/001747009.pdf</div>
-
-<p>規模のメリットはコストだけではありません。<strong>大規模物件は売買事例が豊富で、適正相場が形成されやすく、買い手も銀行も評価しやすい</strong>。年間数戸しか取引のない小規模マンションは相場の「ものさし」が育たず、売るときに査定がブレ、流動性が下がります。大規模マンションは、それ自体が一つの「市場」になるのです。</p>
-
-<h2>③ ブランド：財閥系・電鉄系は「売るとき」に効く</h2>
-
-<p>分譲主のブランドは、住んでいる間はほぼ関係ありません。効いてくるのは<strong>売却のとき</strong>です。大手デベロッパーの物件は中古市場で「安心の記号」として機能し、明確にプレミアムが付きます。</p>
-
-<p>ただし優先順位は立地・規模より下。<strong>「無名デベロッパーの駅徒歩3分」と「財閥系の駅徒歩12分」なら、迷わず前者</strong>です。ブランドは加点要素であって、立地の減点を埋めるものではありません。</p>
-
-<h2>④ 管理：買う前に「管理の通信簿」を見る</h2>
-
-<p>「マンションは管理を買え」は精神論ではなく、確認すべき書類が決まっています。<strong>長期修繕計画（5年以内の見直しが目安）、修繕積立金の水準（国交省ガイドラインの目安と比較）、総会議事録（値上げ否決の履歴）</strong>。詳しくは別コラム「修繕積立金で分かる、危険なマンションの見分け方」で解説しています。</p>
-
-<hr>
-
-<h2>まとめ：全部は揃わない。だから「捨てる条件」を決める</h2>
-
-<div class="info-box">
-  <p><strong>実務での優先順位：立地 ＞ 規模 ＞ 管理 ＞ ブランド</strong></p>
-  <p>・駅徒歩7分以内（理想5分）×駅力（複数路線・急行・再開発）</p>
-  <p>・総戸数200戸以上（最低100戸）</p>
-  <p>・修繕計画と積立金はガイドライン目安と比較</p>
-  <p>・ブランドは加点要素。立地の代わりにはならない</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・資産性とは「将来売るときの買い手の多さ」で、立地＞規模＞管理＞ブランドの順に効く<br>
+　・駅徒歩は7分以内、理想は5分以内（徒歩分数は道路距離80m＝1分で表示される）<br>
+　・総戸数は200戸以上、最低でも100戸（修繕積立金は50戸未満245円/㎡に対し200戸以上197円/㎡）<br>
+　・管理は、5年程度ごとに見直された長期修繕計画と、国の目安に届く積立金で判定する<br>
+　・東京都区部の成約㎡単価は136.22万円で、首都圏平均の約1.6倍（2026年4〜6月期）</p>
 </div>
 
-<p>これらは「将来売る・貸す」前提の物差しです。永住前提で暮らしの満足度を最優先するなら、優先順位が変わっても構いません。大切なのは、<strong>「自分は何を基準に選んだのか」を説明できる状態で買うこと</strong>。なんとなく買った物件は、売るときも、なんとなくの結果しか返ってきません。</p>
+<hr>
+
+<h2>資産性の高いマンションとは何か</h2>
+
+<p>資産性の高いマンションとは、将来売るときに買い手が多く、相場どおりの価格で早く売れるマンションです。<br>
+買った価格より高く売れるかどうかは市況にも左右されますが、買い手の多さは物件の条件でほぼ決まります。<br>
+買い手が多い物件は、市況が悪いときでも値下げ幅が小さく、売却期間も短く済みます。</p>
+
+<p>先に断っておくと、すべての条件を満たす物件はまず市場に出てきません。<br>
+出てきたとしても、価格はその分だけ高くなっています。<br>
+大切なのは満点の物件を探し続けることではなく、どの条件なら妥協してよいかを先に決めておくことです。</p>
+
+<hr>
+
+<h2>首都圏のマンション相場はエリアでどれだけ違うか</h2>
+
+<p>首都圏の中古マンションの成約㎡単価は、東京都区部と千葉県で約3.3倍の差があります。<br>
+東日本不動産流通機構の2026年4〜6月期の統計では、東京都区部が136.22万円/㎡、首都圏平均が83.13万円/㎡でした。<br>
+70㎡に換算すると、東京都区部は約9,535万円（坪単価約450.3万円）です。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>エリア</th><th>成約㎡単価</th><th>前年同期比</th><th>70㎡換算（坪単価）</th></tr>
+  <tr class="hl"><td>東京都区部</td><td class="num">136.22万円</td><td class="num">+5.1%</td><td class="num">約9,535万円（約450.3万円）</td></tr>
+  <tr><td>横浜・川崎市</td><td class="num">67.84万円</td><td class="num">+7.9%</td><td class="num">約4,749万円（約224.3万円）</td></tr>
+  <tr><td>東京都多摩</td><td class="num">58.19万円</td><td class="num">+8.6%</td><td class="num">約4,073万円（約192.4万円）</td></tr>
+  <tr><td>神奈川県他</td><td class="num">45.82万円</td><td class="num">+6.8%</td><td class="num">約3,207万円（約151.5万円）</td></tr>
+  <tr><td>埼玉県</td><td class="num">45.43万円</td><td class="num">+6.6%</td><td class="num">約3,180万円（約150.2万円）</td></tr>
+  <tr><td>千葉県</td><td class="num">41.66万円</td><td class="num">+9.1%</td><td class="num">約2,916万円（約137.7万円）</td></tr>
+  <tr><td>首都圏平均</td><td class="num">83.13万円</td><td class="num">+0.3%</td><td class="num">約5,819万円（約274.8万円）</td></tr>
+</table>
+</div>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 452" role="img" aria-label="2026年4〜6月期の中古マンション成約㎡単価。東京都区部136.22万円、横浜・川崎市67.84万円、東京都多摩58.19万円、神奈川県他45.82万円、埼玉県45.43万円、千葉県41.66万円、首都圏平均83.13万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">中古マンションの成約㎡単価（2026年4〜6月期）</text>
+<line x1="351.4" y1="66.0" x2="351.4" y2="362.0" stroke="#a67c1a" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="138.0" y="96.0" font-size="17" fill="#333" text-anchor="end">東京都区部</text>
+<rect x="150.0" y="74.0" width="330.0" height="32.0" rx="2" fill="#0E3273"/>
+<text x="488.0" y="96.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">136.22万円</text>
+<text x="138.0" y="144.0" font-size="17" fill="#333" text-anchor="end">横浜・川崎市</text>
+<rect x="150.0" y="122.0" width="164.3" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="322.3" y="144.0" font-size="17" fill="#333" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">67.84万円</text>
+<text x="138.0" y="192.0" font-size="17" fill="#333" text-anchor="end">東京都多摩</text>
+<rect x="150.0" y="170.0" width="141.0" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="299.0" y="192.0" font-size="17" fill="#333" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">58.19万円</text>
+<text x="138.0" y="240.0" font-size="17" fill="#333" text-anchor="end">神奈川県他</text>
+<rect x="150.0" y="218.0" width="111.0" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="269.0" y="240.0" font-size="17" fill="#333" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">45.82万円</text>
+<text x="138.0" y="288.0" font-size="17" fill="#333" text-anchor="end">埼玉県</text>
+<rect x="150.0" y="266.0" width="110.1" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="268.1" y="288.0" font-size="17" fill="#333" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">45.43万円</text>
+<text x="138.0" y="336.0" font-size="17" fill="#333" text-anchor="end">千葉県</text>
+<rect x="150.0" y="314.0" width="100.9" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="258.9" y="336.0" font-size="17" fill="#333" text-anchor="start" font-weight="700" stroke="#fff" stroke-width="5" paint-order="stroke">41.66万円</text>
+<text x="357.4" y="384.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">首都圏平均 83.13万円</text>
+<text x="30.0" y="410.0" font-size="15" fill="#777" text-anchor="start">東京都区部の70㎡換算は約9,535万円（坪単価約450.3万円）</text>
+<text x="30.0" y="434.0" font-size="15" fill="#777" text-anchor="start">単位：万円/㎡。東日本不動産流通機構の季報より作成</text>
+</g>
+</svg>
+<figcaption>東京都区部の成約㎡単価は首都圏平均の約1.6倍、千葉県の約3.3倍で、エリアの差は個別の物件の条件では埋まりません。</figcaption>
+</figure>
+
+<p>前年同期比では、2026年4〜6月期はどのエリアもプラスでした。<br>
+一方で、2026年7月の首都圏の成約㎡単価は84.17万円/㎡で前年同月比1.5%下落し、3か月連続の下落です。<br>
+同じ月に東京都区部は135.77万円/㎡で前年同月比2.7%上昇し、2020年5月から75か月連続で上がっています。</p>
+
+<p>首都圏全体の勢いが鈍る中で、東京都区部だけが上昇を続けているのが現在地です。<br>
+「マンションは上がっている」とひとくくりにはできず、どのエリアのどの物件かで結果が分かれます。<br>
+都心の価格水準の考え方は<a href="/columns/toshin-kaidoki/">都心の中古マンションは高すぎるか</a>で整理しています。</p>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2026年4〜6月期）」「月例速報 Market Watch（2026年7月度）」</div>
+
+<hr>
+
+<h2>資産性を決める4つの軸と優先順位は</h2>
+
+<p>資産性は、立地、規模、管理、ブランドの4つで決まり、優先順位はこの順番です。<br>
+基準は「後から変えられるかどうか」で、変えられないものほど優先度が高くなります。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>軸</th><th>見る数字</th><th>後から変えられるか</th></tr>
+  <tr class="hl"><td>1 立地</td><td>駅徒歩7分以内（理想5分）、駅の路線数と急行停車</td><td>変えられない</td></tr>
+  <tr><td>2 規模</td><td>総戸数200戸以上（最低100戸）</td><td>変えられない</td></tr>
+  <tr><td>3 管理</td><td>長期修繕計画の見直し時期、積立金の水準、滞納と借入</td><td>住民の努力で改善できる</td></tr>
+  <tr><td>4 ブランド</td><td>分譲主、施工会社</td><td>変えられないが、価格への影響は立地より小さい</td></tr>
+</table>
+</div>
+
+<p>立地と規模は建物がある限り変わりません。<br>
+管理は総会の決議で改善できますが、逆に悪くなることもあります。<br>
+立地と規模で妥協した物件は、後からどうにもならないと考えてください。</p>
+
+<hr>
+
+<h2>駅徒歩は何分以内なら資産性が高いか</h2>
+
+<p>駅徒歩7分以内が資産性の目安で、理想は5分以内です。<br>
+理由は、中古マンションの検索サイトの絞り込み条件が「5分以内」「7分以内」「10分以内」で区切られていることにあります。<br>
+徒歩8分の物件は「7分以内」で探す買い手の画面に表示されず、その時点で買い手の母数を失います。</p>
+
+<p>広告の「徒歩○分」は、道路距離80mを1分として計算し、1分未満を切り上げた数字です（不動産の表示に関する公正競争規約施行規則）。<br>
+信号待ちや坂道、マンションの敷地内の移動は含まれません。<br>
+表示上の7分と実際に歩いた7分は別物なので、購入前に自分の足で確認してください。</p>
+
+<p>もう一つ見るのが駅の力です。<br>
+複数路線が使えるか、急行や快速が停まるか、駅前に商業施設や再開発があるかで、その駅を選ぶ買い手の数が変わります。<br>
+駅の力が強い街の例として、JRと東急の複数路線が使える<a href="/area/musashikosugi/">武蔵小杉のエリア情報</a>も参考になります。</p>
+
+<div class="src-box">出典：不動産公正取引協議会連合会「不動産の表示に関する公正競争規約施行規則」</div>
+
+<hr>
+
+<h2>総戸数は何戸以上が有利か</h2>
+
+<p>総戸数は200戸以上が有利で、最低ラインは100戸です。<br>
+戸数が多いほど修繕費を多くの住戸で分担でき、1戸あたりの負担が軽くなります。<br>
+東日本不動産流通機構が2025年度に成約した首都圏の中古マンションを集計した結果は次のとおりです。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>総戸数</th><th>修繕積立金（円/㎡・月）</th><th>管理費（円/㎡・月）</th></tr>
+  <tr><td>50戸未満</td><td class="num">245円</td><td class="num">239円</td></tr>
+  <tr><td>50〜99戸</td><td class="num">216円</td><td class="num">208円</td></tr>
+  <tr><td>100〜149戸</td><td class="num">202円</td><td class="num">192円</td></tr>
+  <tr><td>150〜199戸</td><td class="num">197円</td><td class="num">200円</td></tr>
+  <tr class="hl"><td>200戸以上</td><td class="num">197円</td><td class="num">214円</td></tr>
+</table>
+</div>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 462" role="img" aria-label="総戸数別の修繕積立金。50戸未満245円、50〜99戸216円、100〜149戸202円、150〜199戸197円、200戸以上197円（円/㎡・月）" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">総戸数別の修繕積立金（2025年度成約・円/㎡・月）</text>
+<text x="128.0" y="96.0" font-size="17" fill="#333" text-anchor="end">50戸未満</text>
+<rect x="140.0" y="74.0" width="340.0" height="32.0" rx="2" fill="#a67c1a"/>
+<text x="488.0" y="96.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">245円</text>
+<text x="128.0" y="144.0" font-size="17" fill="#333" text-anchor="end">50〜99戸</text>
+<rect x="140.0" y="122.0" width="299.8" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="447.8" y="144.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">216円</text>
+<text x="128.0" y="192.0" font-size="17" fill="#333" text-anchor="end">100〜149戸</text>
+<rect x="140.0" y="170.0" width="280.3" height="32.0" rx="2" fill="#3d5da8"/>
+<text x="428.3" y="192.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">202円</text>
+<text x="128.0" y="240.0" font-size="17" fill="#333" text-anchor="end">150〜199戸</text>
+<rect x="140.0" y="218.0" width="273.4" height="32.0" rx="2" fill="#0E3273"/>
+<text x="421.4" y="240.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">197円</text>
+<text x="128.0" y="288.0" font-size="17" fill="#333" text-anchor="end">200戸以上</text>
+<rect x="140.0" y="266.0" width="273.4" height="32.0" rx="2" fill="#0E3273"/>
+<text x="421.4" y="288.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">197円</text>
+<rect x="30.0" y="328.0" width="540.0" height="64.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="354.0" font-size="17" fill="#333" text-anchor="middle">70㎡なら50戸未満は月約17,150円</text>
+<text x="300.0" y="378.0" font-size="17" fill="#333" text-anchor="middle">200戸以上は月約13,790円（差は月約3,360円）</text>
+<text x="30.0" y="422.0" font-size="15" fill="#777" text-anchor="start">東日本不動産流通機構「首都圏中古マンションの</text>
+<text x="30.0" y="444.0" font-size="15" fill="#777" text-anchor="start">管理費・修繕積立金（2025年度）」より作成</text>
+</g>
+</svg>
+<figcaption>50戸未満の修繕積立金は200戸以上の約1.24倍で、戸数が少ないほど1戸あたりの負担が重くなります。</figcaption>
+</figure>
+
+<p>50戸未満の修繕積立金は、200戸以上の約1.24倍です。<br>
+国土交通省のガイドラインも「一般的に建物の規模が大きくまとまった工事量になるほど、施工性が向上し、修繕工事の単価が安くなる傾向があります」と書いています。<br>
+ただし管理費は200戸以上で214円/㎡と、100〜149戸の192円/㎡より高く、規模が大きいほど一律に安くなるわけではありません。<br>
+共用施設や有人管理が増えると管理費は上がるため、その対価に価値があるかを見ます。</p>
+
+<p>規模の利点はコストだけではありません。<br>
+大規模マンションは同じ建物での売買事例が多く、相場がはっきりしているため、買い手も金融機関も価格を判断しやすくなります。<br>
+年に数件しか取引がない小規模マンションは比べる事例が少なく、売るときの査定がぶれやすくなります。</p>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏中古マンションの管理費・修繕積立金（2025年度）」、国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改訂）</div>
+
+<hr>
+
+<h2>ブランドはどこまで価格に効くか</h2>
+
+<p>分譲主のブランドが効くのは、住んでいる間ではなく売るときです。<br>
+大手の分譲主の物件は、中古の買い手にとって施工や管理の安心材料として働き、内見の予約が入りやすくなります。</p>
+
+<p>ただし優先順位は立地と規模より下です。<br>
+「無名の分譲主の駅徒歩3分」と「大手の分譲主の駅徒歩12分」なら、資産性では前者を選びます。<br>
+ブランドは加点であって、立地の減点を埋めるものではありません。</p>
+
+<hr>
+
+<h2>管理の良し悪しはどこで見るか</h2>
+
+<p>管理の良し悪しは、長期修繕計画、修繕積立金の水準、総会議事録の3つの書類で判断します。<br>
+「マンションは管理を買え」は心構えではなく、確認する書類が決まっている作業です。</p>
+
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>長期修繕計画</strong><p>国土交通省のガイドラインは、5年程度ごとの見直しを求めています。<br>
+10年以上見直されていない計画は、工事費の上昇が反映されていません。</p></div></div>
+
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>修繕積立金の水準</strong><p>月額を専有面積で割り、国の目安（20階未満で平均252〜335円/㎡、20階以上で平均338円/㎡）と比べます。<br>
+目安を大きく下回る物件は、将来の値上げか一時金を前提に考えます。</p></div></div>
+
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>総会議事録</strong><p>直近2〜3年分を読み、値上げ議案の否決、滞納の増加、理事のなり手不足がないかを確認します。<br>
+管理組合が機能しているかは、議事録に表れます。</p></div></div>
+
+<p>積立金の読み方は<a href="/columns/shuzen-kiken/">修繕積立金で分かる危険なマンションの見分け方</a>で、管理費とあわせた見方は<a href="/columns/kanrihi-shuzen/">管理費・修繕積立金の正しい見方</a>で詳しく扱っています。</p>
+
+<div class="src-box">出典：国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改訂）</div>
+
+<hr>
+
+<h2>条件を全部満たす物件がないときはどうするか</h2>
+
+<p>条件を全部満たす物件がなければ、後から変えられる条件から捨てます。<br>
+順番は、ブランド、管理の一部（改善の余地がある点）、規模、立地の順です。<br>
+立地を最後まで守る理由は、売るときの買い手の数に一番効くからです。</p>
+
+<div class="warn-box">
+  <p>「駅から遠いが新築で設備が良い」「駅から遠いが広くて安い」という物件は、買うときの満足度は高くても、売るときに検索条件から外れます。<br>
+  設備は年数とともに古くなりますが、駅からの距離は変わりません。<br>
+  出口の価格を考えるなら、設備の新しさより駅からの距離を優先してください。</p>
+</div>
+
+<p>一方で、ここでの基準は将来売る、または貸すことを前提にした物差しです。<br>
+売る予定がなく、暮らしの満足度を最優先するなら、優先順位を入れ替えて構いません。<br>
+大切なのは、何を基準に選んだかを自分で説明できる状態で買うことです。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">資産価値が落ちにくいマンションの条件は何ですか</h3><div class="col-faq-a"><p>駅徒歩7分以内、総戸数100戸以上（できれば200戸以上）、修繕積立金が国の目安に届いていることの3つです。<br>
+優先順位は立地、規模、管理、ブランドの順です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">マンションは駅徒歩何分までが資産価値の目安ですか</h3><div class="col-faq-a"><p>徒歩7分以内が目安で、理想は5分以内です。<br>
+検索サイトの条件が5分・7分・10分で区切られているため、8分を超えると買い手の画面に表示されにくくなります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">小規模マンションは資産価値が低いですか</h3><div class="col-faq-a"><p>修繕費の負担が重く、売買事例が少ない点で不利です。<br>
+2025年度の成約データでは、50戸未満の修繕積立金は245円/㎡で、200戸以上の197円/㎡の約1.24倍でした。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">ブランドマンションは高く売れますか</h3><div class="col-faq-a"><p>売るときの安心材料になりますが、立地の弱さを補うほどの効果はありません。<br>
+駅から遠い大手の物件より、駅に近い無名の物件の方が資産性では有利です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">東京23区の中古マンションの相場はいくらですか</h3><div class="col-faq-a"><p>2026年4〜6月期の成約㎡単価は136.22万円で、70㎡に換算すると約9,535万円（坪単価約450.3万円）です。<br>
+首都圏平均の83.13万円/㎡の約1.6倍です。</p></div></div>
+</section>
+
+<h2>結論：変えられない条件から順に守る</h2>
+
+<div class="info-box">
+  <p><strong>資産性で物件を選ぶときの確認事項</strong></p>
+  <p>・駅徒歩7分以内か、実際に歩いて何分か</p>
+  <p>・駅は複数路線か、急行や快速が停まるか</p>
+  <p>・総戸数は100戸以上か、できれば200戸以上か</p>
+  <p>・修繕積立金の㎡単価が国の目安に届いているか</p>
+  <p>・長期修繕計画が5年以内に見直されているか、総会で値上げが否決されていないか</p>
+  <p>・同じ建物の成約事例が十分にあるか</p>
+</div>
+
+<p>資産性の高い物件選びは、満点を探すことではなく、捨てる条件を決めることです。<br>
+立地と規模を守り、管理は書類で確かめ、ブランドは加点として扱えば、売るときに後悔する買い方は避けられます。<br>
+候補物件が基準を満たしているか、同じ建物の成約事例と書類から個別に確認します。</p>

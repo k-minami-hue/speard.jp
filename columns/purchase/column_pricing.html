@@ -1,237 +1,300 @@
 <h1>マンションの売り出し価格は高すぎると損をする——査定額との付き合い方</h1>
-
 <style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
-#col-art-body .good-box { background:#f0f7f1; border-left:4px solid #2e8b57; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
-#col-art-body .good-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
-#col-art-body .good-box p:last-child { margin-bottom:0; }
 #col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
 #col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
 #col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
 #col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
-@media (max-width:600px) { #col-art-body .price-table { font-size:.8rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:8px; } }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>相場より高すぎる売り出し価格は、販売期間を延ばし、値下げを重ねた末に、相場で出した場合より低い価格で売れる結果を招きやすくなります。<br>
+査定額はその価格で売れる保証ではなく、媒介契約を取るために高めに出されることもある参考値です。<br>
+高く売るために必要なのは、高く売り出すことではなく、最初の2週間の反響で価格を判断し、早めに手を打つことです。</p>
 
-<p>不動産の売却を決めたとき、多くの売主が最初に悩むのが「<strong>いくらで販売開始するか</strong>」です。<br>できるだけ高く売りたいのは当然の心理ですが、高すぎる販売価格が結果的に売却総額を下げてしまうことも珍しくありません。</p>
-
-<p>「高く売ること」と「高く販売に出すこと」は、全くの別物です。<br>この違いを理解しているかどうかが、売却結果に直接影響します。</p>
-
-<figure>
-  <img src="https://speard.jp/columns/thumbs/yield_hero.jpg" alt="マンション・不動産外観">
-  <figcaption>価格設定は売却戦略の中核。<br>最初の一手も重要です。</figcaption>
-</figure>
-
-<hr>
-
-<h2>査定額を鵜呑みにしてはいけない</h2>
-
-<p>査定額は<strong>「この価格で売れる可能性がある」という参考値</strong>であり、保証ではありません。<br>中古車の売却などと異なり、仲介会社が買取りする訳ではないため、仕組みの違いに注意しましょう。<br>一部の不動産会社は、媒介契約を獲得するために<strong>相場より高い査定額を提示</strong>することがあります。</p>
-
-<figure>
-  <img src="https://speard.jp/columns/thumbs/pricing_hero.jpg" alt="不動産査定・書類" loading="lazy" decoding="async">
-  <figcaption>査定額は「保証」ではなく「可能性の参考値」。<br>査定結果を分析し、根拠を確認することが必要です。</figcaption>
-</figure>
-
-<p>現実でも多いのが「実際に販売を開始してみて反響がなければ、その後に価格改定を勧めてくる。」<br>いわゆる「<strong>根拠のない高値査定で売れなかった</strong>」パターンです。<br>売主にとっては「高く査定してくれたから」と不動産会社を選んだのに、最終的に長期化・値崩れという結果を招きます。</p>
-
-<h3>複数社査定で「根拠」を見る</h3>
-
-<p>査定額の比較では、数字の高低ではなく<strong>「なぜその価格か」という根拠</strong>を必ず確認することが大切です。<br>成約事例データを開示し、エリア相場・物件の強み・弱みを具体的に説明できる会社を選ぶべきです。<br>根拠を示せない高値査定は、受注のための口実に過ぎません。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・2026年4〜6月期の首都圏の中古マンションは、売り出し価格の平均6,593万円に対し、成約価格の平均は5,201万円<br>
+　・査定額の根拠は、宅建業法で説明が義務づけられているので、成約事例と補正の内容を書面で求める<br>
+　・売り出しから2週間の問い合わせと内見の数で、価格が市場に合っているかを判断する<br>
+　・下げるなら小刻みにせず、5%前後か、ポータルサイトの価格帯の区切りを越える幅で一度に動かす<br>
+　・2025年1月から専任媒介の物件はレインズに取引状況の登録が必要になり、売主も囲い込みを確かめられる</p>
+</div>
 
 <hr>
 
-<h2>高すぎる価格で出した場合に何が起きるか</h2>
+<h2>査定額で売り出してよいか</h2>
 
-<p>「高値で出す → 反響なし → 長期在庫化 → 価格改定連発 → 相場以下で成約」——これが失敗パターンの典型です。</p>
+<p>査定額は「この価格で売れる可能性がある」という参考値なので、根拠を確かめずにそのまま売り出してはいけません。<br>
+仲介の場合、査定した会社がその価格で買い取るわけではなく、売れなかったときの値下げは売主が負担します。<br>
+一部の会社は、媒介契約を取るために相場より高い査定額を出すことがあります。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-    <style>
-      .pr-step { fill: #F5F5F5; }
-      .pr-step-bad { fill: #FEE; }
-      .pr-step-worst { fill: #D85A30; }
-      .pr-num { fill: #c9a961; font-family: 'Noto Sans JP', sans-serif; font-size: 22px; font-weight: 700; }
-      .pr-label { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; }
-      .pr-text { fill: #555; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
-      .pr-worst-text { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; }
-    </style>
-    <text x="500" y="28" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">高値設定による「悪循環」</text>
-    <rect x="30" y="70" width="180" height="120" rx="8" class="pr-step" stroke="#c9a961" stroke-width="2"/>
-    <text x="50" y="100" class="pr-num">①</text>
-    <text x="115" y="100" class="pr-label">高値設定</text>
-    <text x="50" y="140" class="pr-text">相場+10〜15%</text>
-    <text x="50" y="160" class="pr-text">「高く売りたい」</text>
-    <text x="50" y="180" class="pr-text">「査定が高かった」</text>
-    <text x="220" y="135" style="font-family:'Noto Sans JP';font-size:24px;font-weight:700;fill:#c9a961;">→</text>
-    <rect x="250" y="70" width="180" height="120" rx="8" class="pr-step-bad"/>
-    <text x="270" y="100" class="pr-num" style="fill:#D85A30;">②</text>
-    <text x="335" y="100" class="pr-label">反響なし</text>
-    <text x="270" y="140" class="pr-text">問合せ・内見が来ない</text>
-    <text x="270" y="160" class="pr-text">媒体への露出効果なし</text>
-    <text x="270" y="180" class="pr-text">時間だけが過ぎる</text>
-    <text x="440" y="135" style="font-family:'Noto Sans JP';font-size:24px;font-weight:700;fill:#c9a961;">→</text>
-    <rect x="470" y="70" width="180" height="120" rx="8" class="pr-step-bad"/>
-    <text x="490" y="100" class="pr-num" style="fill:#D85A30;">③</text>
-    <text x="555" y="100" class="pr-label">長期在庫化</text>
-    <text x="490" y="140" class="pr-text">3〜6ヶ月経過</text>
-    <text x="490" y="160" class="pr-text">「売れ残り」の印象</text>
-    <text x="490" y="180" class="pr-text">買い手から警戒される</text>
-    <text x="660" y="135" style="font-family:'Noto Sans JP';font-size:24px;font-weight:700;fill:#c9a961;">→</text>
-    <rect x="690" y="70" width="180" height="120" rx="8" class="pr-step-bad"/>
-    <text x="710" y="100" class="pr-num" style="fill:#D85A30;">④</text>
-    <text x="775" y="100" class="pr-label">価格改定連発</text>
-    <text x="710" y="140" class="pr-text">焦って2〜3回改定</text>
-    <text x="710" y="160" class="pr-text">買い手に足元を見られる</text>
-    <text x="710" y="180" class="pr-text">交渉も厳しくなる</text>
-    <text x="500" y="230" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:24px;font-weight:700;fill:#D85A30;">↓</text>
-    <rect x="200" y="250" width="600" height="80" rx="8" class="pr-step-worst"/>
-    <text x="500" y="280" text-anchor="middle" class="pr-worst-text" style="font-size:16px;">⑤ 結果：相場通りor相場以下で成約</text>
-    <text x="500" y="308" text-anchor="middle" class="pr-worst-text">最初から相場で出していれば防げた時間的損失</text>
-    <text x="500" y="360" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:13px;fill:#888;">高値スタートも悪いわけではないが、販売の長期化リスクがあります。</text>
-  </svg>
-  <figcaption>高値スタートが必ずしも悪いわけではありません。<br>ただし、販売が長期化するリスクを孕む点は理解しておきましょう。</figcaption>
+  <img src="/columns/thumbs/pricing_hero.jpg" alt="不動産査定・書類" loading="lazy" decoding="async">
+  <figcaption>査定額は保証ではなく、根拠を確かめてから使う参考値です。</figcaption>
 </figure>
 
-<h3>「売れ残り物件」のレッテルが貼られるまで</h3>
+<p>よくあるのは、高い査定額で売り出して反響がなく、1〜2か月後に担当者から値下げを勧められるパターンです。<br>
+高く査定してくれたからと会社を選んだのに、結果として販売が長引き、値崩れするという逆の結果になります。</p>
 
-<p>ポータルサイト（SUUMO・at homeなど）で同じ物件が3ヶ月以上掲載されていると、購入検討者に「あまり人気がないのか」という印象を与えます。<br>この<strong>「売れ残りの烙印」</strong>が一度ついてしまうと、価格改定しても反響が増えないという状況が生まれます。</p>
+<p>宅建業法は、不動産会社が売却価格について意見を述べるとき、その根拠を明らかにするよう義務づけています。<br>
+比べるべきは査定額の高さではなく、どの成約事例を使い、自分の住戸との違いをどう補正したかという根拠です。<br>
+査定額が会社ごとに違う理由と根拠の見方は<a href="/columns/satei-chigai/">マンションの査定額が会社ごとに違う理由</a>で詳しく扱っています。</p>
 
-<p>初期掲載時の「新着」期間は特に閲覧数が多く、この時期は多くの反響を得るブーストタイムです。<br>この黄金期を高値すぎる価格で無駄にしてしまうのは、機会損失になり得ます。</p>
+<div class="src-box">出典：宅地建物取引業法34条の2第2項（e-Gov法令検索）</div>
 
 <hr>
 
-<h2>最初の2週間が勝負——反響数で価格を判断する</h2>
+<h2>売り出し価格と成約価格はどれくらい違うか</h2>
+
+<p>2026年4〜6月期の首都圏の中古マンションは、売り出し価格（新規登録）の平均6,593万円に対し、成約価格の平均は5,201万円で、約1,392万円の差がありました。<br>
+売り出し中の物件と売れた物件は同じ住戸ではないため、この差がそのまま値引き額という意味ではありません。<br>
+ただ、高い価格で出された物件ほど売れ残り、実際に売れているのはより手頃な価格帯の物件だということは読み取れます。</p>
 
 <figure>
-  <img src="https://speard.jp/columns/thumbs/img_1611974789855-9c2a0a.jpg" alt="データ分析・不動産市場" loading="lazy" decoding="async">
-  <figcaption>数字を見て判断する。<br>感覚ではなくデータで価格戦略を動かすことが重要です。</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-label="2026年4〜6月期の首都圏中古マンションの平均価格。新規登録6,593万円、成約5,201万円で、差は約1,392万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">売り出し価格と成約価格（首都圏・平均）</text>
+<text x="300" y="62" font-size="15" fill="#777" text-anchor="middle">中古マンション・2026年4〜6月期</text>
+<line x1="150" y1="80" x2="150" y2="220" stroke="#777" stroke-width="1.5"/>
+<text x="140" y="121" font-size="17" fill="#333" text-anchor="end">売り出し</text>
+<rect x="150" y="94" width="400.0" height="42" fill="#3d5da8"/>
+<text x="538" y="121" font-size="17" fill="#fff" text-anchor="end" font-weight="700">6,593万円</text>
+<text x="140" y="191" font-size="17" fill="#333" text-anchor="end">成約</text>
+<rect x="150" y="164" width="315.5" height="42" fill="#0E3273"/>
+<text x="453" y="191" font-size="17" fill="#fff" text-anchor="end" font-weight="700">5,201万円</text>
+<text x="300" y="256" font-size="17" fill="#a67c1a" text-anchor="middle" font-weight="700">差は約1,392万円（成約は売り出しの約79%）</text>
+<text x="300" y="284" font-size="15" fill="#777" text-anchor="middle">売り出し中の物件と売れた物件は別の住戸の平均</text>
+</g>
+</svg>
+<figcaption>上の売り出し価格の平均と下の成約価格の平均には約1,392万円の開きがあり、希望価格と売れる価格は別物です。</figcaption>
 </figure>
 
-<p>販売開始後、<strong>最初の2週間〜1か月での問い合わせ数・内見数</strong>が価格の妥当性を判断する最初の指標です。</p>
+<p>首都圏の中古マンションは、売り出しから成約までの日数が2025年の平均で82.5日と、3か月弱かかっています。<br>
+相場から外れた価格で出すと、この期間はさらに延びます。</p>
 
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2026年4〜6月期）」「同（2025年）」</div>
+
+<hr>
+
+<h2>高すぎる価格で売り出すと何が起きるか</h2>
+
+<p>高すぎる価格で売り出すと、反響がないまま掲載期間が延び、値下げを重ねて、最終的に相場以下で売れることがあります。<br>
+典型的な流れは「高値で売り出す→反響がない→掲載が長引く→値下げを繰り返す→足元を見られて相場以下で成約」です。</p>
+
+<p>相場が8,000万円（坪単価約377.8万円）の70㎡の住戸を例に、2つの売り方を比べます。<br>
+数字は流れを示すための例です。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 470" role="img" aria-label="相場8,000万円の70平方メートルの住戸の売り方の比較（例）。Aは8,000万円で売り出し2か月目に7,900万円で成約。Bは8,800万円で売り出し、3か月目に8,400万円、5か月目に8,000万円へ下げ、7か月目に7,700万円で成約" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">高く出すほど高く売れるとは限らない（例）</text>
+<text x="300" y="62" font-size="15" fill="#777" text-anchor="middle">相場8,000万円の70㎡の住戸を売る2つのケース</text>
+<line x1="90" y1="300.0" x2="545" y2="300.0" stroke="#777" stroke-width="1"/>
+<text x="82" y="305.0" font-size="15" fill="#777" text-anchor="end">7,600</text>
+<line x1="90" y1="232.3" x2="545" y2="232.3" stroke="#c9d2e2" stroke-width="1"/>
+<text x="82" y="237.3" font-size="15" fill="#777" text-anchor="end">8,000</text>
+<line x1="90" y1="164.6" x2="545" y2="164.6" stroke="#c9d2e2" stroke-width="1"/>
+<text x="82" y="169.6" font-size="15" fill="#777" text-anchor="end">8,400</text>
+<line x1="90" y1="96.9" x2="545" y2="96.9" stroke="#c9d2e2" stroke-width="1"/>
+<text x="82" y="101.9" font-size="15" fill="#777" text-anchor="end">8,800</text>
+<text x="90" y="322.0" font-size="15" fill="#777" text-anchor="middle">0</text>
+<text x="145" y="322.0" font-size="15" fill="#777" text-anchor="middle">1</text>
+<text x="200" y="322.0" font-size="15" fill="#777" text-anchor="middle">2</text>
+<text x="255" y="322.0" font-size="15" fill="#777" text-anchor="middle">3</text>
+<text x="310" y="322.0" font-size="15" fill="#777" text-anchor="middle">4</text>
+<text x="365" y="322.0" font-size="15" fill="#777" text-anchor="middle">5</text>
+<text x="420" y="322.0" font-size="15" fill="#777" text-anchor="middle">6</text>
+<text x="475" y="322.0" font-size="15" fill="#777" text-anchor="middle">7</text>
+<text x="530" y="322.0" font-size="15" fill="#777" text-anchor="middle">8</text>
+<text x="545" y="344.0" font-size="15" fill="#777" text-anchor="end">売り出しからの月数</text>
+<text x="90" y="344.0" font-size="15" fill="#777" text-anchor="start">単位：万円</text>
+<line x1="90.0" y1="96.9" x2="255.0" y2="96.9" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<line x1="255.0" y1="96.9" x2="255.0" y2="164.6" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<line x1="255.0" y1="164.6" x2="365.0" y2="164.6" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<line x1="365.0" y1="164.6" x2="365.0" y2="232.3" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<line x1="365.0" y1="232.3" x2="475.0" y2="232.3" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<line x1="475.0" y1="232.3" x2="475.0" y2="283.1" stroke="#a67c1a" stroke-width="4" stroke-linecap="round"/>
+<circle cx="475" cy="283.1" r="7" fill="#a67c1a"/>
+<text x="172.5" y="86.9" font-size="17" fill="#a67c1a" text-anchor="middle" font-weight="700">B 8,800万円で売り出し</text>
+<text x="485" y="271.1" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">7,700</text>
+<line x1="90.0" y1="232.3" x2="200.0" y2="232.3" stroke="#0E3273" stroke-width="4" stroke-linecap="round"/>
+<line x1="200.0" y1="232.3" x2="200.0" y2="249.2" stroke="#0E3273" stroke-width="4" stroke-linecap="round"/>
+<circle cx="200" cy="249.2" r="7" fill="#0E3273"/>
+<text x="212" y="271.2" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">A 7,900で成約</text>
+<rect x="30" y="368" width="540" height="86" rx="4" fill="#eef3fb" stroke="#c9d2e2"/>
+<text x="48" y="400" font-size="17" fill="#0E3273" font-weight="700">A 相場で売り出し→2か月で7,900万円</text>
+<text x="48" y="434" font-size="17" fill="#a67c1a" font-weight="700">B 1割高く売り出し→7か月で7,700万円</text>
+</g></svg>
+<figcaption>濃い線のAは相場で出して2か月で売れ、金色の線のBは1割高く出したことで値下げを2回重ね、最後は交渉でも下がり、7か月かけてAより200万円低く売れています。</figcaption>
+</figure>
+
+<div class="tbl-wrap">
 <table class="price-table">
-  <tr>
-    <th>2週間の反響状況</th>
-    <th>判断</th>
-    <th>対応</th>
-  </tr>
-  <tr>
-    <td>問合せ3件以上・内見2件以上</td>
-    <td>適正価格</td>
-    <td>成約に向けてこのまま継続</td>
-  </tr>
-  <tr>
-    <td>問合せ1〜2件・内見0〜1件</td>
-    <td>価格がやや高め</td>
-    <td>更に2週間ほど様子を見て価格改定を検討</td>
-  </tr>
-  <tr>
-    <td>問合せ0件・内見なし</td>
-    <td>価格が明確に高すぎる</td>
-    <td>5%ほどの価格改定を検討</td>
-  </tr>
+  <tr><th>売り方（70㎡・相場8,000万円）</th><th>成約価格</th><th>坪単価</th><th>販売期間</th></tr>
+  <tr class="hl"><td>A：相場の8,000万円で売り出す</td><td class="num">7,900万円</td><td class="num">373.1万円</td><td class="num">2か月</td></tr>
+  <tr><td>B：8,800万円（坪415.6万円）で売り出す</td><td class="num">7,700万円</td><td class="num">363.6万円</td><td class="num">7か月</td></tr>
 </table>
+</div>
 
-<p>担当者から「もう少し様子を見よう」と言われても、数字が悪い場合はデータに基づいて判断しましょう。<br><strong>待つことで状況が好転することは、ほぼありません</strong>。</p>
+<p>Bは価格で200万円低く売れたうえに、5か月長く管理費、修繕積立金、ローンの利息を払い続けています。<br>
+住み替えの場合は、新居の資金計画や引渡しの時期にも影響します。<br>
+高値で出したこと自体ではなく、反響がないのに価格を動かさなかった時間が損失の正体です。</p>
+
+<h3>「売れ残り」の印象がつくまで</h3>
+
+<p>ポータルサイトに同じ物件が長く掲載され続けると、買い手は「人気がないのではないか」と考えます。<br>
+中古の買い手は掲載期間と値下げの履歴を見ているため、何度も値下げした物件は、さらなる値引きを求められる対象になります。<br>
+掲載直後の新着期間は閲覧と問い合わせが集中する時期で、ここを高すぎる価格で過ごすと、最も多くの買い手の目に触れる機会を失います。</p>
 
 <hr>
 
-<h2>適正な販売価格の決め方</h2>
+<h2>最初の2週間の反響で価格をどう判断するか</h2>
 
-<p><strong>①成約事例の確認</strong><br>
-同じマンション・近隣エリアで、直近1〜2年以内に成約した物件の<strong>実際の取引価格</strong>が基準になります。<br>不動産会社にレインズの成約事例データを確認してもらいましょう。</p>
-
-<p><strong>②需給バランスの確認</strong><br>
-同じエリア・同じ価格帯で現在販売中の物件がどれだけあるかを把握します。<br>希少性が高い物件であれば、強気な価格設定も成立しやすくなります。<br>逆に周囲に競合物件が多ければ、相場通りを狙いに行く戦略が有効です。</p>
-
-<p><strong>③物件の個別条件を加味する</strong><br>
-同じマンション内でも、階数・向き・リノベーション有無・駐車場付き等で価格差が生まれます。<br>成約事例と自物件の条件差を比較し、加算・減算する項目を論理的に検討します。</p>
+<p>売り出しから2週間の問い合わせと内見の数が、価格が市場に合っているかを判断する最初の指標です。<br>
+次の表は、当社が都心の中古マンションで使っている目安です。</p>
 
 <figure>
-  <img src="https://speard.jp/columns/thumbs/img_1560448204-e02f11c3d.jpg" alt="マンション内見・室内" loading="lazy" decoding="async">
-  <figcaption>物件の強み・弱みを正確に把握することが、価格設定の精度を高めます。</figcaption>
+  <img src="/columns/thumbs/img_1611974789855-9c2a0a.jpg" alt="データ分析・不動産市場" loading="lazy" decoding="async">
+  <figcaption>感覚ではなく、問い合わせと内見の数で価格を動かします。</figcaption>
 </figure>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>2週間の反響</th><th>判断</th><th>対応</th></tr>
+  <tr><td>問い合わせ3件以上、内見2件以上</td><td>価格は市場に合っている</td><td>このまま販売を続ける</td></tr>
+  <tr><td>問い合わせ1〜2件、内見0〜1件</td><td>価格がやや高い</td><td>さらに2週間反響を見て、価格の見直しを検討する</td></tr>
+  <tr class="hl"><td>問い合わせ0件、内見なし</td><td>価格が明らかに高い</td><td>5%前後の価格改定を検討する</td></tr>
+</table>
+</div>
+
+<p>反響の中身からも原因を読み取れます。<br>
+問い合わせはあるのに内見が入らないなら価格、内見はあるのに申込みがないなら価格か見せ方、問い合わせ自体がないなら価格が市場から外れています。<br>
+担当者に「もう少し様子を見ましょう」と言われても、数字が悪ければ待つことで状況が良くなることはほとんどありません。</p>
 
 <hr>
 
-<h2>「チャレンジ価格」を試す場合の考え方</h2>
+<h2>適正な売り出し価格はどう決めるか</h2>
 
-<p>高めで出す場合でも、<strong>最初の2〜3週間での反響数と内見数を必ず確認すること</strong>。<br>長期在庫になる前に、価格改定などの作戦変更に動けるかどうかが、最終的な売却価格を左右します。</p>
+<p>適正な売り出し価格は、成約事例、売り出し中の競合、自分の住戸の個別の条件の3つで決めます。<br>
+どれも売り出す前に確認できる情報です。</p>
+
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>成約事例を確認する</strong><p>同じマンションと近隣で、直近1〜2年に成約した物件の実際の取引価格が基準になります。<br>
+不動産会社にレインズの成約事例を出してもらい、㎡単価や坪単価に直して比べます。</p></div></div>
+
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>売り出し中の競合を確認する</strong><p>同じエリア、同じ価格帯で売り出し中の物件がどれだけあるかを確認します。<br>
+同じマンション内に競合が多ければ、相場どおりで出す方が早く売れます。</p></div></div>
+
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>個別の条件を加減する</strong><p>同じマンションでも、階数、向き、眺望、リノベーションの有無、駐車場の有無で価格は変わります。<br>
+成約事例との違いを洗い出し、加算と減算の理由を説明できる価格にします。</p></div></div>
+
+<figure>
+  <img src="/columns/thumbs/img_1560448204-e02f11c3d.jpg" alt="マンション内見・室内" loading="lazy" decoding="async">
+  <figcaption>住戸の強みと弱みを正確に把握すると、価格の加算と減算に根拠が持てます。</figcaption>
+</figure>
+
+<p>相場より高めのチャレンジ価格で出してよいのは、比べられる住戸が少ない、売り出し中の競合が少ない、売却の期限に余裕がある、といった条件がそろう場合です。<br>
+条件の詳しい整理と、チャレンジ価格が通用しない物件の見分け方は<a href="/columns/uridashi-kakaku/">売り出し価格の決め方</a>で扱っています。</p>
+
+<hr>
+
+<h2>価格改定はいつ、どれくらい下げるか</h2>
+
+<p>価格改定は、2〜4週間の反響を区切りに判断し、下げるなら一度に5%前後か、価格帯の区切りを越える幅で動かします。<br>
+100万円ずつ小刻みに下げると、買い手に「まだ下がるかもしれない」と思わせ、申込みが入りにくくなります。</p>
+
+<figure>
+  <img src="/columns/thumbs/img_1570129477492-45c003.jpg" alt="不動産売買・価格交渉" loading="lazy" decoding="async">
+  <figcaption>改定のタイミングと幅を誤ると、「まだ下がる物件」という印象が固まります。</figcaption>
+</figure>
+
+<p>ポータルサイトでは価格帯で絞り込んで探す買い手が多いため、70㎡で8,080万円（坪単価約381.6万円）を7,980万円（坪単価約376.9万円）にするように、区切りをまたぐ改定は新しい買い手の画面に表示されるきっかけになります。<br>
+改定のタイミングと幅は、売り出す前に担当者と決めておきます。<br>
+売れなかったときに考え始めると、判断が遅れるからです。</p>
 
 <div class="info-box">
-  <p><strong>チャレンジ価格が通用するケース</strong></p>
-  <p>・同マンション内に直近の成約事例がなく、競合がいない</p>
-  <p>・エリアに再開発・駅整備等の好材料が出てきた</p>
-  <p>・物件固有の強み（最上階・角部屋・リノベ済み等）が明確にある</p>
-  <p>・売り急ぎの必要がなく、時間を十分に使える</p>
+  <p><strong>当社が提案している進め方</strong></p>
+  <p>・最初の1か月は、根拠を説明できる範囲の高めの価格で売り出す</p>
+  <p>・反響が目安を下回れば、1か月を目安に価格を改定する</p>
+  <p>・それでも反応がなければ、成約事例どおりの価格まで改定する</p>
 </div>
 
-<hr>
-
-<h2>価格改定の正しい方法——タイミングと幅</h2>
-
-<figure>
-  <img src="https://speard.jp/columns/thumbs/img_1570129477492-45c003.jpg" alt="不動産売買・価格交渉" loading="lazy" decoding="async">
-  <figcaption>価格改定のタイミングと幅を誤ると、「安い物件」のイメージが固定されます。</figcaption>
-</figure>
-
-<p>価格改定は<strong>「1回で大きく動かす」</strong>のが原則です。<br>100万円ずつ小刻みに下げると、「さらに下がるかも」と買い手に思わせてしまい、申し込みが入りにくくなることもあります。</p>
-
-<p>下げるなら<strong>一度に全体の5%程度</strong>、あるいはポータル上の価格帯（5,000万円台→4,900万円台など）を跨ぐ幅で動かすことが効果的です。<br>心理的な価格帯の切れ目を意識した設定が、問い合わせ増加につながります。</p>
+<p>筆者自身も、仲介の立場だけでなく自分の物件の売主として、この進め方で売却した経験があります。<br>
+最初から安すぎる価格で出すのも機会の損失になり得るため、高めの価格で市場の反応を確かめ、反応がなければ早めに切り替えるのが、時間と価格の両方を取りにいく方法です。</p>
 
 <hr>
 
-<h2>エリア・物件タイプ別の価格設定の考え方</h2>
+<h2>囲い込みはどう防ぐか</h2>
 
-<p>都心部の人気マンションと、郊外のマンションでは、価格設定の戦略が全く異なります。</p>
+<p>囲い込みは、媒介契約を結んだ会社のレインズの登録状況を、売主自身が確かめることで防ぎます。<br>
+囲い込みとは、売主から依頼を受けた会社が、自社で買主も見つけて両方から手数料を得るために、他社からの紹介を断る行為です。<br>
+買い手の数が限られ、販売が長引き、結果として売却価格が下がります。</p>
 
-<p><strong>都心・高需要エリアの物件</strong>：需要が供給を上回るケースも多く、強気な価格設定が成立しやすい。<br>特に人気エリアは、強気価格でも申し込みが入ることもあります。</p>
+<p>2025年1月1日から、専任媒介と専属専任媒介の物件は、レインズに「公開中」「書面による購入申込みあり」「売主都合で一時紹介停止中」といった取引状況を登録することが義務になりました。<br>
+売主は、登録証明書に記載された確認用のIDとパスワードで、自分の物件がどう登録されているかを確かめられます。<br>
+頼んでいないのに「一時紹介停止中」になっていれば、囲い込みを疑うサインです。<br>
+媒介契約の選び方と囲い込みへの対策は<a href="/columns/baikai-keiyaku/">媒介契約は専任か一般か</a>で詳しく扱っています。</p>
 
-<p><strong>地方・郊外の一般的な物件</strong>：周囲に売却物件の競合が多く、反響自体も少ない。<br>希少性が薄ければ強気価格も成立しづらいため、相場通りの価格で成約を目指すのが基本戦略です。</p>
-
-<p>自分の物件が上記のうち、どちらに該当するのかということを事前に認知しておくことも重要です。</p>
-
-<hr>
-
-<h2>弊社のおすすめ売却戦略</h2>
-
-<p>筆者自身、仲介の立場だけでなく、自分自身でも不動産を売却した経験もあります。<br>
-そのときに実践したのが、<strong>段階的に作戦を切り替えていく方法</strong>です。</p>
-
-<p>・最初の1か月は「チャレンジ価格」で販売をスタート<br>
-・反響がなければ、1か月を目安に価格を改定<br>
-・それでも反応がなければ、相場通りの価格まで改定する</p>
-
-<p>最初から安すぎる価格で出すのも、機会損失になり得ます。<br>
-だからこそ、<strong>まずはチャレンジ価格で出してそのまま売れればラッキー、<br>難しければ作戦を変更して相場通りで売る</strong>。<br>
-ハイブリッドな戦略をとることで、「時間」と「高値」の両取りを狙えるのが理想です。</p>
-
-<hr>
-
-<h2>囲い込みに注意</h2>
-
-<p>売却を不動産会社に任せる際に見落とされがちなのが、「<strong>囲い込み</strong>」のリスクです。<br>媒介契約の前後で必ず押さえておきたいポイントです。<br>宅建業法で禁止されているにも関わらず、表沙汰になりづらく、業界内でも未だに横行しているのが現実です。</p>
-
-<div class="warn-box">
-  <p>高値査定後に「専任媒介でお願いします」と言われた場合は要注意。<br>他社からの問い合わせをブロックし、自社で両手仲介を狙う「囲い込み」が起きると、買い手が極端に限られ売却が長期化します。<br>レインズへの登録状況を定期的に確認することをおすすめします。</p>
-</div>
-
-<div class="good-box">
+<div class="info-box">
   <p><strong>スピアードの方針</strong></p>
-  <p>弊社は、こうした囲い込みを一切行いません。<br>
-  売主様の利益を最優先に、フラットな目線で価格戦略から販売活動までアドバイスします。<br>
-  他社からの問い合わせも歓迎し、最も良い条件での成約を第一に動きます。</p>
+  <p>・囲い込みは行わず、他社からの紹介も受けて、売主にとって最も良い条件での成約を優先する</p>
+  <p>・反響の数と内容は定期的に開示し、価格の判断材料にしていただく</p>
 </div>
+
+<div class="src-box">出典：国土交通省「レインズにおける取引状況の登録の義務化について」（2025年1月1日施行）</div>
 
 <hr>
 
-<p>販売価格は<strong>「希望」ではなく「戦略」</strong>で決める。<br>それが後悔しない売却の出発点です。</p>
+<h2>よくある質問</h2>
 
-<p>「できるだけ高く売りたい」という気持ちは当然ですが、最終的な売却満足度が高いのは「適正価格で早期成約」であることも多いです。<br>価格設定の判断は、感情ではなくデータと戦略で行いましょう。</p>
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">マンションは査定額で売り出すべきですか</h3><div class="col-faq-a"><p>査定額は売れる保証ではないため、成約事例と補正の根拠を確かめてから売り出し価格を決めます。<br>
+根拠を説明できない高い査定額は、そのまま使わないことです。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">売り出し価格が高すぎるとどうなりますか</h3><div class="col-faq-a"><p>反響がないまま掲載が長引き、値下げを重ねた末に、相場で出した場合より低い価格で売れることがあります。<br>
+その間の管理費やローンの利息も払い続けることになります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">価格を下げるタイミングはいつですか</h3><div class="col-faq-a"><p>売り出しから2〜4週間の問い合わせと内見の数で判断します。<br>
+2週間で問い合わせがゼロなら、価格が明らかに高いサインです。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">値下げはどれくらいの幅にすべきですか</h3><div class="col-faq-a"><p>小刻みにせず、5%前後か、ポータルサイトの価格帯の区切りを越える幅で一度に下げます。<br>
+区切りを越えると、新しい買い手の検索結果に表示されます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">囲い込みされているかを確認する方法はありますか</h3><div class="col-faq-a"><p>専任媒介と専属専任媒介なら、レインズの登録証明書にある確認用のIDとパスワードで、取引状況の登録内容を確かめられます。<br>
+依頼していないのに「売主都合で一時紹介停止中」になっていれば、会社に理由を確認します。</p></div></div>
+</section>
+
+<h2>結論：売り出し価格は「希望」ではなく「戦略」で決める</h2>
+
+<div class="info-box">
+  <p><strong>売り出す前に確認すること</strong></p>
+  <p>・査定額の根拠になった成約事例と、補正の内容を書面でもらったか</p>
+  <p>・同じマンションと近隣の成約坪単価、売り出し中の競合の数</p>
+  <p>・2週間の反響の目安と、改定のタイミングと幅を担当者と決めたか</p>
+  <p>・必要な手取りから逆算した、価格の下限</p>
+  <p>・レインズの登録状況を自分で確かめる方法</p>
+</div>
+
+<p>できるだけ高く売りたいのは当然ですが、売却の満足度が高いのは、適正な価格で早く成約したケースであることが多いです。<br>
+価格は感情ではなく、成約事例と反響の数字で決めてください。<br>
+いまの相場でいくらで売り出すべきかは、<a href="/satei/">売却査定</a>で成約事例をもとにお出しします。</p>

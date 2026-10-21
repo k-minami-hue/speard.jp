@@ -1,257 +1,285 @@
 <h1>住宅ローンの名義の決め方——収入合算・連帯債務・ペアローンの違い</h1>
-
 <style>
-#col-art-body figure { margin:28px 0; background:#fff; border:1px solid #e8ecf5; border-radius:10px; padding:20px 16px 12px; }
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
+#col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
 #col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
 #col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
-#col-art-body .comp-table { width:100%; border-collapse:collapse; margin:28px 0; font-size:.88rem; }
-#col-art-body .comp-table th { background:#1a2a52; color:#fff; padding:10px 12px; text-align:center; font-weight:600; border:1px solid #1a2a52; }
-#col-art-body .comp-table td { border:1px solid #dde2ec; padding:10px 12px; text-align:center; vertical-align:middle; line-height:1.7; }
-#col-art-body .comp-table td.row-head { background:#f4f6fb; font-weight:600; color:#1a2a52; white-space:nowrap; }
-#col-art-body .good { color:#1E4C9A; font-weight:600; }
-#col-art-body .bad { color:#C0392B; font-weight:600; }
-@media (max-width:600px) { #col-art-body .comp-table { font-size:.76rem; } }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>共働きの夫婦の住宅ローンは、収入差が大きければ収入合算、費用を抑えて控除を2人分使うなら連帯債務、団信も控除も2人分にするならペアローンが基本です。<br>
+どの方式でも借入可能額は増えますが、団信の効き方、住宅ローン控除の使い方、離婚や相続のときの処理は方式ごとに大きく違います。<br>
+違いを知らずに契約すると、後から数百万円単位の差になることがあります。</p>
 
-<p>共働きのご夫婦がマンションをご購入される際、必ず検討することになるのが「住宅ローンを誰の名義でどう組むか」という点です。<br>
-選択肢は主に3つあります。<br>
-収入合算、連帯債務、ペアローンです。<br>
-いずれを選んでも借入可能額は増加します。<br>
-一方で、団信の適用範囲、住宅ローン控除の使い方、離婚や相続が発生した際のリスクは、方式ごとに大きく異なります。<br>
-この違いを把握しないまま契約を進めると、後になって数百万円単位の差につながる場合があります。<br>
-先に結論を申し上げます。<br>
-収入差が大きい場合は収入合算、事務コストを抑えて2人で控除を受けたい場合は連帯債務、団信も控除も2人分確保したい場合はペアローンが適しています。<br>
-以下、順にご説明いたします。</p>
-
-<hr>
-
-<h2>まず「誰が債務者か」で全体像を掴む</h2>
-
-<p>3つの方式の違いは、突き詰めると「誰が借りているか」に集約されます。<br>
-収入合算は、1本のローンを主債務者が借り入れ、配偶者が連帯保証人として収入を合算する形です。<br>
-借入をしているのはあくまで主債務者お一人です。<br>
-配偶者は保証をしているのみで、債務者ではありません。<br>
-連帯債務は、1本のローンをご夫婦2人が連帯して借り入れる形です。<br>
-お二人とも債務者となります。<br>
-ペアローンは、ご夫婦がそれぞれ別々のローンを組む形です。<br>
-ローンが2本に分かれ、互いに相手の連帯保証人となります。</p>
-
-<figure>
-<svg viewBox="0 0 800 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3方式の構造図">
-  <g font-family="sans-serif">
-    <rect x="20" y="14" width="240" height="302" rx="12" fill="#F4F7FC" stroke="#d9e2ef"/>
-    <rect x="20" y="14" width="240" height="42" rx="12" fill="#0E3273"/>
-    <text x="140" y="42" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">収入合算（連帯保証型）</text>
-    <rect x="75" y="76" width="130" height="40" rx="8" fill="#1E4C9A"/>
-    <text x="140" y="102" font-size="14" fill="#fff" text-anchor="middle">ローン 1本</text>
-    <line x1="140" y1="116" x2="105" y2="168" stroke="#0E3273" stroke-width="2.5"/>
-    <circle cx="105" cy="190" r="15" fill="#0E3273"/>
-    <path d="M105 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="#0E3273"/>
-    <text x="105" y="272" font-size="13" fill="#0E3273" text-anchor="middle" font-weight="700">主債務者</text>
-    <circle cx="180" cy="190" r="15" fill="none" stroke="#5B7DB1" stroke-width="2.5" stroke-dasharray="4 3"/>
-    <path d="M180 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="none" stroke="#5B7DB1" stroke-width="2.5" stroke-dasharray="4 3"/>
-    <text x="180" y="272" font-size="13" fill="#5B7DB1" text-anchor="middle">連帯保証人</text>
-    <text x="140" y="300" font-size="12.5" fill="#6b7686" text-anchor="middle">借りているのは1人だけ</text>
-    <rect x="280" y="14" width="240" height="302" rx="12" fill="#F4F7FC" stroke="#d9e2ef"/>
-    <rect x="280" y="14" width="240" height="42" rx="12" fill="#0E3273"/>
-    <text x="400" y="42" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">連帯債務</text>
-    <rect x="335" y="76" width="130" height="40" rx="8" fill="#1E4C9A"/>
-    <text x="400" y="102" font-size="14" fill="#fff" text-anchor="middle">ローン 1本</text>
-    <line x1="385" y1="116" x2="365" y2="168" stroke="#0E3273" stroke-width="2.5"/>
-    <line x1="415" y1="116" x2="435" y2="168" stroke="#0E3273" stroke-width="2.5"/>
-    <circle cx="365" cy="190" r="15" fill="#0E3273"/>
-    <path d="M365 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="#0E3273"/>
-    <text x="365" y="272" font-size="13" fill="#0E3273" text-anchor="middle" font-weight="700">債務者</text>
-    <circle cx="435" cy="190" r="15" fill="#0E3273"/>
-    <path d="M435 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="#0E3273"/>
-    <text x="435" y="272" font-size="13" fill="#0E3273" text-anchor="middle" font-weight="700">債務者</text>
-    <text x="400" y="300" font-size="12.5" fill="#6b7686" text-anchor="middle">1本を2人で連帯して負う</text>
-    <rect x="540" y="14" width="240" height="302" rx="12" fill="#F4F7FC" stroke="#d9e2ef"/>
-    <rect x="540" y="14" width="240" height="42" rx="12" fill="#0E3273"/>
-    <text x="660" y="42" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">ペアローン</text>
-    <rect x="558" y="76" width="96" height="40" rx="8" fill="#1E4C9A"/>
-    <text x="606" y="102" font-size="13.5" fill="#fff" text-anchor="middle">ローンA</text>
-    <rect x="666" y="76" width="96" height="40" rx="8" fill="#1E4C9A"/>
-    <text x="714" y="102" font-size="13.5" fill="#fff" text-anchor="middle">ローンB</text>
-    <line x1="606" y1="116" x2="606" y2="168" stroke="#0E3273" stroke-width="2.5"/>
-    <line x1="714" y1="116" x2="714" y2="168" stroke="#0E3273" stroke-width="2.5"/>
-    <circle cx="606" cy="190" r="15" fill="#0E3273"/>
-    <path d="M606 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="#0E3273"/>
-    <text x="606" y="272" font-size="13" fill="#0E3273" text-anchor="middle" font-weight="700">債務者A</text>
-    <circle cx="714" cy="190" r="15" fill="#0E3273"/>
-    <path d="M714 208 q-20 0 -20 28 l0 12 40 0 0 -12 q0 -28 -20 -28z" fill="#0E3273"/>
-    <text x="714" y="272" font-size="13" fill="#0E3273" text-anchor="middle" font-weight="700">債務者B</text>
-    <path d="M632 232 q28 -18 56 0" fill="none" stroke="#C0392B" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="660" y="300" font-size="12.5" fill="#6b7686" text-anchor="middle">互いが相手の連帯保証人</text>
-  </g>
-</svg>
-<figcaption>3方式の違いは「誰が債務者か」に集約されます。この立場の差が団信と控除の差を生みます。</figcaption>
-</figure>
-
-<p>この「債務者が誰か」という違いが、後述する団信と控除の差につながります。<br>
-仕組みの名称まで覚えていただく必要はありません。<br>
-ご自身がどの立場に立つのかを、正確に押さえていただくことが重要です。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・収入合算（連帯保証型）はローン1本で、債務者・団信・控除はすべて主債務者1人<br>
+　・連帯債務はローン1本を2人で負い、控除は負担割合に応じて2人分、団信は原則1人<br>
+　・ペアローンはローン2本で、団信も控除も2人分だが、印紙税や登記費用などが2本分かかる<br>
+　・借入5,000万円で配偶者が亡くなると、収入合算と連帯債務は5,000万円、ペアローン（折半）は2,500万円が残る<br>
+　・どの方式でも、持分は資金の負担割合どおりに登記する（ずれると贈与税の対象になり得る）</p>
+</div>
 
 <hr>
 
-<h2>収入合算（連帯保証型）は管理が最もシンプル</h2>
+<h2>収入合算・連帯債務・ペアローンは何が違うか</h2>
 
-<p>主債務者お一人が借り入れ、配偶者の収入を審査上加算することで借入枠を広げる方式です。<br>
-最大のメリットは、手続きと管理がシンプルであることです。<br>
-ローンは1本のため、事務手数料も登記費用も1本分で済みます。<br>
-借入額を少し伸ばしたいだけであれば、最も無駄のない方法です。<br>
-一方、デメリットも明確です。<br>
-団信に加入できるのは主債務者のみです。<br>
-配偶者に万一のことがあっても、ローンは一切減額されません。<br>
-住宅ローン控除も主債務者しか利用できません。<br>
-配偶者は収入を合算しているのみで、税制上のメリットは受けられません。<br>
-適しているのは、ご夫婦の収入差が大きく、一方の収入が中心となっているケースです。<br>
-配偶者がパート勤務である場合や、近い将来に退職・休職の可能性がある場合は、無理に2人分の債務や控除を狙う必要はありません。<br>
-シンプルさを重視されるのであれば、この方式が適切です。</p>
+<p>3つの方式の違いは「誰が債務者か」に集約されます。<br>
+債務者が誰かによって、団信で守られる人と、住宅ローン控除を使える人が決まります。</p>
 
-<hr>
+<p>収入合算は、主債務者1人が1本のローンを借り、配偶者が連帯保証人として収入を合算する形です。<br>
+配偶者は保証をしているだけで、債務者ではありません。<br>
+連帯債務は、1本のローンを夫婦2人が連帯して借りる形で、2人とも債務者です。<br>
+ペアローンは、夫婦がそれぞれ別のローンを組み、互いに相手の連帯保証人になる形です。</p>
 
-<h2>連帯債務型は「控除2人分・事務費1本分」が強み</h2>
-
-<p>ご夫婦2人で1本のローンを連帯して負担する方式です。<br>
-フラット35や一部の金融機関でご利用いただけます。<br>
-メリットは、控除を2人で受けられる点です。<br>
-住宅ローン控除の対象は、年末のローン残高にご自身の債務負担割合を乗じた金額です。<br>
-持分と負担割合を実態に合わせて設定すれば、ご夫婦それぞれが控除を利用できます。<br>
-それでいてローンは1本のため、事務手数料はペアローンより抑えられます。<br>
-控除は受けたいがコストは抑えたい、というご夫婦に適した選択です。<br>
-注意すべきは団信です。<br>
-原則として、団信に加入できるのは主債務者お一人のみです。<br>
-連帯債務者である配偶者に万一のことがあっても、ローンは全額残ります。<br>
-フラット35のデュエットのようにご夫婦2人に保障をかけられる連生団信もありますが、金利に年0.18%が上乗せされます。<br>
-民間では三井住友銀行のクロスサポートなどが連帯債務向けの連生団信を取り扱っていますが、選択できる金融機関は現在も一部にとどまります。<br>
-適しているのは、お二人とも一定の収入があり、控除は2人で受けたいが事務手数料は抑えたいご夫婦です。<br>
-ただし、団信で保障されない部分は、掛け捨ての生命保険で補う設計を必ず併せてご検討ください。<br>
-ここを放置すると、万一の際に家計が大きな打撃を受けます。</p>
-
-<hr>
-
-<h2>ペアローンは団信も控除も最大化できるが、別れにくい</h2>
-
-<p>ご夫婦がそれぞれ独立したローンを組む方式です。<br>
-ローンは2本となり、互いに相手の連帯保証人となります。<br>
-最大のメリットは、団信も控除も2人分利用できる点です。<br>
-それぞれがご自身の団信に加入できます。<br>
-どちらかに万一のことがあれば、その方の分のローンは団信により弁済されます。<br>
-控除も各自がご自身の借入残高に対して利用できるため、ご夫婦合算での節税額は最も大きくなります。<br>
-保障と節税を最大化したい場合、最も効率的な方式です。</p>
-
-<figure>
-<svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="配偶者が亡くなったときに残るローン">
-  <g font-family="sans-serif">
-    <text x="400" y="30" font-size="16" font-weight="700" fill="#0E3273" text-anchor="middle">配偶者（合算者・連帯債務者・ペアの相手）が亡くなったとき、ローンはいくら残るか</text>
-    <text x="400" y="52" font-size="12.5" fill="#6b7686" text-anchor="middle">借入5000万円・夫婦折半のモデルで比較</text>
-    <g font-size="13.5">
-      <text x="190" y="98" fill="#1a2333" text-anchor="end">収入合算（連帯保証型）</text>
-      <rect x="205" y="82" width="480" height="24" rx="5" fill="#C0392B"/>
-      <text x="697" y="99" fill="#C0392B" font-weight="700">5000万円 残る</text>
-      <text x="190" y="146" fill="#1a2333" text-anchor="end">連帯債務（団信は1人）</text>
-      <rect x="205" y="130" width="480" height="24" rx="5" fill="#C0392B"/>
-      <text x="697" y="147" fill="#C0392B" font-weight="700">5000万円 残る</text>
-      <text x="190" y="194" fill="#1a2333" text-anchor="end">ペアローン</text>
-      <rect x="205" y="178" width="240" height="24" rx="5" fill="#C0392B"/>
-      <rect x="449" y="178" width="236" height="24" rx="5" fill="#DDE6F3"/>
-      <text x="697" y="195" fill="#C0392B" font-weight="700">2500万円 残る</text>
-      <text x="190" y="242" fill="#1a2333" text-anchor="end">連生団信を付けた場合</text>
-      <rect x="205" y="226" width="480" height="24" rx="5" fill="#DDE6F3"/>
-      <text x="215" y="243" fill="#0E3273" font-weight="700">残債0円（2人分とも消える）</text>
-    </g>
-    <g font-size="12" fill="#6b7686">
-      <rect x="240" y="278" width="14" height="14" fill="#C0392B" rx="3"/>
-      <text x="262" y="290">残る債務</text>
-      <rect x="352" y="278" width="14" height="14" fill="#DDE6F3" rx="3"/>
-      <text x="374" y="290">団信で消える部分</text>
-    </g>
-  </g>
-</svg>
-<figcaption>団信の効き方は方式でまるで違います。共働きで配偶者の収入が返済の柱なら、この差は無視できません。</figcaption>
-</figure>
-
-<p>一方、デメリットはコストと硬直性です。<br>
-ローンが2本となるため、事務手数料と登記費用も2本分かかります。<br>
-借入額によっては数十万円の差となります。<br>
-さらに注意が必要なのが、離婚時の処理です。<br>
-2本の債務と持分が複雑に関係するため、一方だけが簡単に抜けることはできません。<br>
-住み続ける側が相手の債務と持分を引き取るには、残債分の借り換え審査をご自身の年収のみで通過する必要があります。<br>
-審査に通らなければ、売却して清算する以外の選択肢がなくなります。<br>
-適しているのは、お二人とも安定した収入があり、長期的に共働きを続ける前提のご夫婦です。<br>
-言い換えれば、ペアローンは「解消しにくい設計」でもあります。<br>
-その点をご理解いただいたうえで選択すべき方式です。</p>
-
-<table class="comp-table">
-<tr><th>比較項目</th><th>収入合算（連帯保証）</th><th>連帯債務</th><th>ペアローン</th></tr>
-<tr><td class="row-head">団信</td><td class="bad">主債務者のみ</td><td>原則主債務者のみ（連生団信あり）</td><td class="good">2人分</td></tr>
-<tr><td class="row-head">住宅ローン控除</td><td class="bad">主債務者のみ</td><td class="good">負担割合に応じて2人分</td><td class="good">2人分</td></tr>
-<tr><td class="row-head">事務手数料・登記費用</td><td class="good">1本分</td><td class="good">1本分</td><td class="bad">2本分</td></tr>
-<tr><td class="row-head">離婚時の出口</td><td class="good">比較的シンプル</td><td>持分・債務の整理が必要</td><td class="bad">最も揉めやすい</td></tr>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>比較項目</th><th>収入合算（連帯保証）</th><th>連帯債務</th><th>ペアローン</th></tr>
+  <tr><td>ローンの本数</td><td>1本</td><td>1本</td><td>2本</td></tr>
+  <tr><td>債務者</td><td>主債務者1人</td><td>2人</td><td>2人（各自のローン）</td></tr>
+  <tr><td>団信</td><td>主債務者のみ</td><td>原則主債務者のみ（連生団信を扱う金融機関あり）</td><td>2人とも加入</td></tr>
+  <tr><td>住宅ローン控除</td><td>主債務者のみ</td><td>負担割合に応じて2人分</td><td>2人分</td></tr>
+  <tr><td>印紙税・登記費用</td><td>1本分</td><td>1本分</td><td>2本分</td></tr>
+  <tr><td>離婚時の整理</td><td>比較的簡単</td><td>持分と債務の整理が必要</td><td>最も調整が難しい</td></tr>
 </table>
+</div>
+
+<p>以下、方式ごとにメリットとデメリットを確認します。<br>
+ペアローン固有のリスクは<a href="/columns/pairloan-kiken/">ペアローンは危険か</a>で、離婚と収入減の試算まで扱っています。</p>
 
 <hr>
 
-<h2>本当の分かれ目は「団信」と「離婚」</h2>
+<h2>収入合算（連帯保証型）はどんな夫婦に向くか</h2>
 
-<p>3つの方式の違いを突き詰めると、判断軸は2つに絞られます。<br>
-1つ目は団信、すなわち「どちらかに万一のことがあった際、ローンがいくら弁済されるか」です。<br>
-収入合算は主債務者分のみ、連帯債務も原則として主債務者分のみ、ペアローンは各自の分が弁済されます。<br>
-共働きで配偶者の収入も返済の柱となっている場合、配偶者にも団信が付くペアローンの安心感は大きいといえます。<br>
-なお2024年以降、みずほ銀行をはじめとしてペアローン向けの連生団信が広がり、どちらかに万一のことがあれば2本とも残債がなくなる商品も選択できるようになりました。<br>
-保障設計の自由度は年々高まっています。<br>
-2つ目は離婚という出口です。<br>
-不動産は、購入時より手放す際のほうが難易度が上がります。<br>
-ペアローンは2本の債務が関係するため、離婚時に最も調整が難航しやすい方式です。<br>
-望ましくない事態だからこそ、契約前に出口まで想定しておくことをお勧めします。<br>
-「借りられる金額」だけで判断すると、数年後に後悔する可能性があります。</p>
+<p>収入合算は、収入差が大きく、一方の収入が家計の中心になっている夫婦に向きます。<br>
+ローンは1本なので、事務手数料も登記費用も1本分で済み、手続きと管理が最も簡単です。<br>
+借入額を少し伸ばしたいだけなら、最も無駄のない方法です。</p>
+
+<p>デメリットは、団信と控除が主債務者1人分しかないことです。<br>
+配偶者に万一のことがあっても、ローンは1円も減りません。<br>
+配偶者は収入を合算しているだけなので、住宅ローン控除も受けられません。</p>
+
+<p>配偶者がパート勤務の場合や、近い将来に退職・休職の予定がある場合は、2人分の債務や控除を狙う必要はありません。<br>
+金融機関によって、合算できる収入の割合（全額か半分までか）が違う点も確認します。</p>
 
 <hr>
 
-<h2>結論</h2>
+<h2>連帯債務型はどんな夫婦に向くか</h2>
+
+<p>連帯債務は、2人とも一定の収入があり、控除は2人で使いたいが費用は抑えたい夫婦に向きます。<br>
+フラット35や一部の金融機関で利用できます。<br>
+住宅ローン控除は、年末のローン残高に各自の負担割合を掛けた額が対象になります。</p>
+
+<p>たとえば年末残高5,000万円を負担割合2分の1ずつにすると、各自の対象残高は2,500万円です。<br>
+控除率は0.7%なので、各自の残高が借入限度額の範囲内であれば、控除額の上限は各自17.5万円、合計35万円になります。<br>
+実際に控除できるのは各自が納めた所得税（控除しきれない分は住民税の一部）の範囲内なので、1人の税額で使い切れない場合に2人に分ける効果が出ます。</p>
+
+<p>注意すべきは団信です。<br>
+多くの場合、団信に入れるのは主債務者1人で、連帯債務者である配偶者に万一のことがあっても、ローンは全額残ります。<br>
+フラット35には夫婦2人に保障をかけられる夫婦連生団信（デュエット）があり、民間でも連帯債務向けの連生団信を扱う金融機関がありますが、いずれも金利が上乗せされます。<br>
+連生団信を使わない場合は、配偶者側の保障を掛け捨ての生命保険で補う設計を合わせて考えます。</p>
+
+<div class="src-box">出典：国土交通省「住宅ローン減税」、独立行政法人住宅金融支援機構「フラット35」団体信用生命保険</div>
+
+<hr>
+
+<h2>ペアローンはどんな夫婦に向くか</h2>
+
+<p>ペアローンは、2人とも安定した収入があり、長く共働きを続ける前提の夫婦に向きます。<br>
+それぞれが自分の団信に入り、どちらかに万一のことがあれば、その人の分のローンは団信で返済されます。<br>
+控除も各自の借入残高に対して使えるため、夫婦合計の控除額は最も大きくなりやすい方式です。</p>
 
 <figure>
-<svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="名義の選び方フローチャート">
-  <defs>
-    <marker id="ar1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-      <path d="M0 0 L8 4 L0 8 z" fill="#0E3273"/>
-    </marker>
-  </defs>
-  <g font-family="sans-serif">
-    <rect x="270" y="16" width="260" height="52" rx="26" fill="#0E3273"/>
-    <text x="400" y="49" font-size="15.5" font-weight="700" fill="#fff" text-anchor="middle">夫婦の収入差は大きいか</text>
-    <line x1="400" y1="68" x2="180" y2="128" stroke="#0E3273" stroke-width="2" marker-end="url(#ar1)"/>
-    <line x1="400" y1="68" x2="400" y2="128" stroke="#0E3273" stroke-width="2" marker-end="url(#ar1)"/>
-    <text x="266" y="98" font-size="13" fill="#C0392B" font-weight="700">大きい・片方が退職予定</text>
-    <text x="418" y="104" font-size="13" fill="#1E4C9A" font-weight="700">2人とも働き続ける</text>
-    <rect x="60" y="132" width="240" height="64" rx="12" fill="#fff" stroke="#0E3273" stroke-width="2"/>
-    <text x="180" y="160" font-size="16" font-weight="900" fill="#0E3273" text-anchor="middle">収入合算</text>
-    <text x="180" y="182" font-size="12.5" fill="#6b7686" text-anchor="middle">手続きも維持も最もシンプル</text>
-    <rect x="270" y="132" width="260" height="52" rx="26" fill="#0E3273"/>
-    <text x="400" y="165" font-size="15.5" font-weight="700" fill="#fff" text-anchor="middle">何を最大化したいか</text>
-    <line x1="400" y1="184" x2="290" y2="248" stroke="#0E3273" stroke-width="2" marker-end="url(#ar1)"/>
-    <line x1="400" y1="184" x2="560" y2="248" stroke="#0E3273" stroke-width="2" marker-end="url(#ar1)"/>
-    <text x="240" y="220" font-size="13" fill="#1E4C9A" font-weight="700">控除2人分＋コスト圧縮</text>
-    <text x="500" y="220" font-size="13" fill="#1E4C9A" font-weight="700">保障と節税を最大化</text>
-    <rect x="160" y="252" width="260" height="88" rx="12" fill="#fff" stroke="#0E3273" stroke-width="2"/>
-    <text x="290" y="284" font-size="16" font-weight="900" fill="#0E3273" text-anchor="middle">連帯債務</text>
-    <text x="290" y="308" font-size="12.5" fill="#6b7686" text-anchor="middle">控除2人分・事務費1本分</text>
-    <text x="290" y="328" font-size="12.5" fill="#C0392B" text-anchor="middle">団信の穴は生命保険で埋める</text>
-    <rect x="440" y="252" width="260" height="88" rx="12" fill="#fff" stroke="#0E3273" stroke-width="2"/>
-    <text x="570" y="284" font-size="16" font-weight="900" fill="#0E3273" text-anchor="middle">ペアローン</text>
-    <text x="570" y="308" font-size="12.5" fill="#6b7686" text-anchor="middle">団信も控除も2人分フル</text>
-    <text x="570" y="328" font-size="12.5" fill="#C0392B" text-anchor="middle">離婚時の出口は最も重い</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 552" role="img" aria-label="配偶者が亡くなった場合に残る債務。収入合算5,000万円、連帯債務5,000万円、ペアローン2,500万円、連生団信付きペアローン0円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">配偶者が亡くなったとき、ローンはいくら残るか</text>
+<text x="300.0" y="64.0" font-size="15" fill="#777" text-anchor="middle">借入5,000万円、ペアローンは2,500万円ずつの例</text>
+<text x="40.0" y="110.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">収入合算（連帯保証）</text>
+<rect x="40.0" y="122.0" width="400.0" height="40.0" rx="2" fill="#0E3273"/>
+<text x="240.0" y="149.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">5,000万円残る</text>
+<text x="40.0" y="206.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">連帯債務（団信は主債務者のみ）</text>
+<rect x="40.0" y="218.0" width="400.0" height="40.0" rx="2" fill="#0E3273"/>
+<text x="240.0" y="245.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">5,000万円残る</text>
+<text x="40.0" y="302.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">ペアローン</text>
+<rect x="40.0" y="314.0" width="200.0" height="40.0" rx="2" fill="#0E3273"/>
+<rect x="240.0" y="314.0" width="200.0" height="40.0" rx="2" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="140.0" y="341.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">2,500万円残る</text>
+<text x="340.0" y="341.0" font-size="17" fill="#3d5da8" text-anchor="middle" font-weight="700">団信で返済</text>
+<text x="40.0" y="398.0" font-size="17" fill="#333" text-anchor="start" font-weight="700">ペアローン＋連生団信</text>
+<rect x="40.0" y="410.0" width="400.0" height="40.0" rx="2" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="240.0" y="437.0" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">0円（2本とも返済）</text>
+<rect x="40.0" y="480.0" width="22.0" height="22.0" rx="2" fill="#0E3273"/>
+<text x="72.0" y="498.0" font-size="15" fill="#333" text-anchor="start">残る債務</text>
+<rect x="170.0" y="480.0" width="22.0" height="22.0" rx="2" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="202.0" y="498.0" font-size="15" fill="#333" text-anchor="start">団信で返済される部分</text>
+<text x="40.0" y="532.0" font-size="15" fill="#777" text-anchor="start">配偶者＝連帯保証人、連帯債務者、またはペアの相手</text>
+</g>
 </svg>
-<figcaption>迷ったときの判断フローです。借りられる額ではなく、万一と出口から逆算して選びます。</figcaption>
+<figcaption>共働きで配偶者の収入も返済に充てているなら、配偶者側に団信が付くかどうかで残る債務が大きく変わります。</figcaption>
 </figure>
 
-<p>判断に迷われた際の目安は次のとおりです。<br>
-収入差が大きい、または一方に近い将来退職・休職の可能性があるご夫婦は、収入合算。<br>
-お二人とも働きつつ事務コストを抑えたいご夫婦は、連帯債務。<br>
-ただし団信で不足する保障は生命保険で補うことが前提です。<br>
-お二人とも安定した収入があり、長期の共働きを前提に節税と保障を最大化したいご夫婦は、ペアローン。<br>
-どの方式が適切かは、収入バランス、働き方、将来設計によって決まります。<br>
-借りられる金額ではなく、万一の際と出口で困らないかどうかで選ぶこと。<br>
-これが、名義選びで数百万円を失わないための判断基準です。</p>
+<p>デメリットは費用と硬直性です。<br>
+ローンが2本になるため、金銭消費貸借契約の印紙税、抵当権設定の登記費用、定額型の事務手数料が2本分かかります。<br>
+借入額の2.2%といった定率型の事務手数料なら、総額は1本の場合とほとんど変わりません。</p>
+
+<p>印紙税は契約書ごとの金額で決まり、1,000万円超5,000万円以下の契約書は2万円、5,000万円超1億円以下は6万円です。<br>
+5,000万円を1本で借りれば2万円ですが、2,500万円ずつ2本なら4万円になります。<br>
+逆に6,000万円を1本で借りると6万円で、3,000万円ずつ2本なら4万円と、ペアローンの方が安くなります。</p>
+
+<p>より大きな問題は離婚時の処理です。<br>
+住み続ける側が相手の債務と持分を引き取るには、残債を自分の年収だけで借り換える審査に通る必要があります。<br>
+通らなければ、売却して清算する以外の方法がなくなります。</p>
+
+<div class="src-box">出典：国税庁タックスアンサーNo.7140「印紙税額の一覧表（その1）」</div>
+
+<hr>
+
+<h2>名義を決めるときの判断軸は何か</h2>
+
+<p>判断軸は、万一のときにローンがいくら残るかと、離婚したときに清算できるかの2つです。<br>
+借りられる金額は、どの方式でもそれほど変わりません。</p>
+
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>団信：配偶者に万一のことがあったとき</strong><p>収入合算と連帯債務は、配偶者側に団信が付かないのが原則です。<br>
+配偶者の収入も返済の柱になっている共働き世帯では、配偶者にも団信が付くペアローンか、連生団信を選ぶ意味が大きくなります。<br>
+連生団信の上乗せ金利と、生命保険で備える場合の保険料を比べて決めます。</p></div></div>
+
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>離婚：出口で清算できるか</strong><p>不動産は買うときより手放すときの方が難しくなります。<br>
+ペアローンは2本の債務と持分が絡むため、離婚時の調整が最も難しい方式です。<br>
+売却手取りが残債を上回る物件を選んでおけば、どの方式でも売却して清算できます。</p></div></div>
+
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>持分：資金の負担割合と一致しているか</strong><p>国税庁は、共働きの夫婦が住宅を買ったとき、資金の負担割合と登記の持分が違えば、その差が贈与税の対象になり得るとしています。<br>
+連帯債務やペアローンでは、借入の負担割合、頭金、諸費用を合計して持分を決めます。</p></div></div>
+
+<div class="check-item"><div class="check-num">4</div><div class="check-text"><strong>控除：2人とも使い切れる税額があるか</strong><p>控除は納めた税額を超えては使えません。<br>
+一方が育休や時短勤務で税額が少なくなる時期があるなら、その人の負担割合を大きくしても控除は増えません。<br>
+控除の期間と借入限度額の要件は<a href="/columns/loan-kojo/">住宅ローン控除の2026年からの改正</a>で整理しています。</p></div></div>
+
+<div class="src-box">出典：国税庁タックスアンサーNo.4411「共働きの夫婦が住宅を買ったとき」</div>
+
+<hr>
+
+<h2>結局どの方式を選べばよいか</h2>
+
+<p>収入差が大きければ収入合算、2人とも働き続けて費用を抑えたいなら連帯債務、保障を厚くしたいならペアローンです。<br>
+次のフローで当てはまる方式を確認します。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 566" role="img" aria-label="名義の判断フロー。収入差が大きければ収入合算、2人とも働き続けるなら費用優先で連帯債務、保障優先でペアローン" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">名義の決め方の判断フロー</text>
+<rect x="110.0" y="62.0" width="380.0" height="52.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="94.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">夫婦の収入差は大きいか</text>
+<line x1="300.0" y1="114.0" x2="300.0" y2="134.0" stroke="#777" stroke-width="2"/>
+<line x1="160.0" y1="134.0" x2="440.0" y2="134.0" stroke="#777" stroke-width="2"/>
+<line x1="160.0" y1="134.0" x2="160.0" y2="160.0" stroke="#777" stroke-width="2"/>
+<line x1="153.0" y1="152.0" x2="160.0" y2="160.0" stroke="#777" stroke-width="2.5"/>
+<line x1="167.0" y1="152.0" x2="160.0" y2="160.0" stroke="#777" stroke-width="2.5"/>
+<line x1="440.0" y1="134.0" x2="440.0" y2="160.0" stroke="#777" stroke-width="2"/>
+<line x1="433.0" y1="152.0" x2="440.0" y2="160.0" stroke="#777" stroke-width="2.5"/>
+<line x1="447.0" y1="152.0" x2="440.0" y2="160.0" stroke="#777" stroke-width="2.5"/>
+<rect x="40.0" y="160.0" width="240.0" height="52.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="160.0" y="192.0" font-size="17" fill="#333" text-anchor="middle">大きい・片方が退職予定</text>
+<rect x="320.0" y="160.0" width="240.0" height="52.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="440.0" y="192.0" font-size="17" fill="#333" text-anchor="middle">2人とも働き続ける</text>
+<line x1="160.0" y1="212.0" x2="160.0" y2="240.0" stroke="#777" stroke-width="2"/>
+<line x1="153.0" y1="232.0" x2="160.0" y2="240.0" stroke="#777" stroke-width="2.5"/>
+<line x1="167.0" y1="232.0" x2="160.0" y2="240.0" stroke="#777" stroke-width="2.5"/>
+<line x1="440.0" y1="212.0" x2="440.0" y2="240.0" stroke="#777" stroke-width="2"/>
+<line x1="433.0" y1="232.0" x2="440.0" y2="240.0" stroke="#777" stroke-width="2.5"/>
+<line x1="447.0" y1="232.0" x2="440.0" y2="240.0" stroke="#777" stroke-width="2.5"/>
+<rect x="40.0" y="240.0" width="240.0" height="76.0" rx="4" fill="#0E3273"/>
+<text x="160.0" y="274.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">収入合算</text>
+<text x="160.0" y="298.0" font-size="15" fill="#fff" text-anchor="middle">手続きが最も簡単</text>
+<rect x="320.0" y="240.0" width="240.0" height="52.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="440.0" y="272.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">何を優先するか</text>
+<line x1="440.0" y1="292.0" x2="440.0" y2="312.0" stroke="#777" stroke-width="2"/>
+<line x1="370.0" y1="312.0" x2="510.0" y2="312.0" stroke="#777" stroke-width="2"/>
+<line x1="370.0" y1="312.0" x2="370.0" y2="336.0" stroke="#777" stroke-width="2"/>
+<line x1="363.0" y1="328.0" x2="370.0" y2="336.0" stroke="#777" stroke-width="2.5"/>
+<line x1="377.0" y1="328.0" x2="370.0" y2="336.0" stroke="#777" stroke-width="2.5"/>
+<line x1="510.0" y1="312.0" x2="510.0" y2="336.0" stroke="#777" stroke-width="2"/>
+<line x1="503.0" y1="328.0" x2="510.0" y2="336.0" stroke="#777" stroke-width="2.5"/>
+<line x1="517.0" y1="328.0" x2="510.0" y2="336.0" stroke="#777" stroke-width="2.5"/>
+<rect x="305.0" y="336.0" width="130.0" height="52.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="370.0" y="368.0" font-size="17" fill="#333" text-anchor="middle">費用を抑える</text>
+<rect x="445.0" y="336.0" width="130.0" height="52.0" rx="4" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="510.0" y="368.0" font-size="17" fill="#333" text-anchor="middle">保障を厚く</text>
+<line x1="370.0" y1="388.0" x2="370.0" y2="414.0" stroke="#777" stroke-width="2"/>
+<line x1="363.0" y1="406.0" x2="370.0" y2="414.0" stroke="#777" stroke-width="2.5"/>
+<line x1="377.0" y1="406.0" x2="370.0" y2="414.0" stroke="#777" stroke-width="2.5"/>
+<line x1="510.0" y1="388.0" x2="510.0" y2="414.0" stroke="#777" stroke-width="2"/>
+<line x1="503.0" y1="406.0" x2="510.0" y2="414.0" stroke="#777" stroke-width="2.5"/>
+<line x1="517.0" y1="406.0" x2="510.0" y2="414.0" stroke="#777" stroke-width="2.5"/>
+<rect x="305.0" y="414.0" width="130.0" height="76.0" rx="4" fill="#3d5da8"/>
+<text x="370.0" y="448.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">連帯債務</text>
+<text x="370.0" y="472.0" font-size="15" fill="#fff" text-anchor="middle">控除2人分</text>
+<rect x="445.0" y="414.0" width="130.0" height="76.0" rx="4" fill="#a67c1a"/>
+<text x="510.0" y="448.0" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">ペアローン</text>
+<text x="510.0" y="472.0" font-size="15" fill="#fff" text-anchor="middle">団信も2人分</text>
+<text x="40.0" y="520.0" font-size="15" fill="#555" text-anchor="start">連帯債務：団信の不足を生命保険で補う</text>
+<text x="40.0" y="546.0" font-size="15" fill="#555" text-anchor="start">ペアローン：離婚時に1人で借り換えられるかを確認</text>
+</g>
+</svg>
+<figcaption>借りられる額ではなく、万一のときと離婚時の出口から逆算して方式を選びます。</figcaption>
+</figure>
+
+<p>どの方式でも、借入額そのものは「返せる額」から決めます。<br>
+2人の収入をすべて前提にした借入額は、片方の収入が減ったときに家計を圧迫します。<br>
+借入額の上限の考え方は<a href="/columns/kariire-jogen/">住宅ローンはいくらまで借りていいか</a>で、金融機関の比べ方は<a href="/columns/bank-erabikata/">住宅ローンの選び方</a>で扱っています。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">収入合算と連帯債務の違いは何ですか</h3><div class="col-faq-a"><p>収入合算は配偶者が連帯保証人で、債務者は1人です。<br>
+連帯債務は2人とも債務者になり、負担割合に応じて2人とも住宅ローン控除を使えます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">連帯債務で配偶者が亡くなったらローンはどうなりますか</h3><div class="col-faq-a"><p>団信に入っているのが主債務者だけなら、ローンは全額残ります。<br>
+夫婦連生団信を付けていれば、どちらが亡くなっても残債はなくなります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">ペアローンと連帯債務はどちらが得ですか</h3><div class="col-faq-a"><p>費用を抑えるなら連帯債務、団信を2人分にするならペアローンが有利です。<br>
+控除はどちらも2人分使えます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">住宅ローンの名義と登記の持分は同じにする必要がありますか</h3><div class="col-faq-a"><p>持分は資金の負担割合と一致させます。<br>
+負担割合と持分がずれると、その差が贈与税の対象になり得ます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">専業主婦（主夫）の配偶者と収入合算できますか</h3><div class="col-faq-a"><p>収入がなければ合算はできません。<br>
+パート収入の場合は、合算できる割合や条件が金融機関ごとに違うため、事前審査で確認します。</p></div></div>
+</section>
+
+<h2>結論：名義は「万一」と「出口」から逆算して決める</h2>
+
+<div class="info-box">
+  <p><strong>名義を決める前の確認事項</strong></p>
+  <p>・配偶者に万一のことがあったとき、ローンはいくら残るか</p>
+  <p>・連生団信の上乗せ金利と、生命保険で備える費用を比べたか</p>
+  <p>・2人とも控除を使い切れる税額があるか</p>
+  <p>・持分を資金の負担割合どおりにしたか</p>
+  <p>・離婚時に、売却か1人での借り換えで清算できるか</p>
+</div>
+
+<p>名義の方式は、借りられる金額ではなく、万一のときと出口で困らないかどうかで選びます。<br>
+収入のバランス、働き方、将来の住み替えの予定によって、適した方式は変わります。<br>
+ご夫婦の収入と候補物件をもとに、方式ごとの団信・控除・費用の差を個別に試算します。</p>

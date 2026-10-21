@@ -1,103 +1,248 @@
 <h1>タワマンは買ってはいけないのか——修繕・管理・災害・暴落論を検証する</h1>
-
 <style>
-#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
-#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
-#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
-#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
 #col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
-@media (max-width:600px) { #col-art-body .price-table { font-size:.8rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:8px; } }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>タワーマンションだから買ってはいけない、という結論にはなりません。<br>
+修繕費、管理費、災害、暴落の4つの否定論は、どれも一部は事実ですが、タワーマンション全体ではなく個別の物件の条件の話です。<br>
+ここでは4つの否定論を、国の資料と市場統計で一つずつ検証します。</p>
 
-<p>「タワマンは買ってはいけない」——書店にもネットにも、この手の言説が溢れています。修繕費が爆発する、管理費が高い、災害に弱い、いずれ暴落する。</p>
-
-<p>ここでは、こうした否定論を印象論で片付けず、一つずつ公的データで検証します。</p>
-
-<p>結論を先に言えば——<strong>「タワマンだから買ってはいけない」は雑すぎる。「買ってはいけないタワマン」が存在するだけです。</strong></p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・修繕積立金の国の目安は20階以上で平均338円/㎡で、20階未満の大規模（255円）の約1.33倍<br>
+　・管理費は築10年以内の平均が269円/㎡で全体平均217円/㎡より高いが、共用サービスの対価でもある<br>
+　・高さ60m超の建物は構造について国土交通大臣の認定が必要で、弱点は建物より地下の電気設備と浸水<br>
+　・東京都区部の中古成約㎡単価は75か月連続上昇（2026年7月）だが、首都圏全体は3か月連続で下落<br>
+　・問うべきは「タワマンか」ではなく「この物件の立地・管理・出口は合格か」</p>
+</div>
 
 <hr>
 
-<h2>否定論①「修繕費が爆発する」→ 割高なのは事実。ただし約1.3倍</h2>
+<h2>タワマンの修繕費は本当に高いのか</h2>
 
-<p>タワマン（超高層）の大規模修繕は、通常の足場が組めずゴンドラや特殊足場での工事となるため割高です。国土交通省もガイドラインで「超高層マンションは特殊な足場が必要となるほか、共用部分の占める割合が高くなる等のため、修繕工事費が増大する傾向にある」と公式に認めています。では、どれくらい割高なのか。</p>
+<p>タワーマンションの修繕費が割高なのは事実で、国の目安では大規模な板状マンションの約1.33倍です。<br>
+国土交通省のガイドラインは、修繕積立金の目安の平均を20階以上で㎡あたり月338円、20階未満で延床2万㎡以上の建物を255円としています。<br>
+70㎡で比べると、月約23,660円と約17,850円で、差は月約5,810円です。</p>
+
+<p>割高になる理由もガイドラインに書かれています。<br>
+「外壁等の修繕のための特殊な足場が必要となるほか、共用部分の占める割合が高くなる等のため、修繕工事費が増大する傾向にある」というものです。<br>
+通常の足場が組めず、ゴンドラなどで工事をするため、同じ面積の外壁でも費用がかさみます。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-    <text x="360" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#0E3273" font-family="'Noto Sans JP',sans-serif">修繕積立金の目安・平均値（円/㎡・月）</text>
-    <g font-family="'Noto Sans JP',sans-serif">
-      <rect x="110" y="76" width="120" height="184" fill="#e67e22"/>
-      <text x="170" y="68" text-anchor="middle" font-size="16" font-weight="800" fill="#e67e22">335</text>
-      <text x="170" y="284" text-anchor="middle" font-size="12" fill="#333">20階未満・小規模</text>
-      <text x="170" y="302" text-anchor="middle" font-size="10.5" fill="#777">（延床5,000㎡未満）</text>
-      <rect x="300" y="120" width="120" height="140" fill="#3d5da8"/>
-      <text x="360" y="112" text-anchor="middle" font-size="16" font-weight="800" fill="#3d5da8">255</text>
-      <text x="360" y="284" text-anchor="middle" font-size="12" fill="#333">20階未満・大規模</text>
-      <text x="360" y="302" text-anchor="middle" font-size="10.5" fill="#777">（延床20,000㎡以上）</text>
-      <rect x="490" y="74" width="120" height="186" fill="#0E3273"/>
-      <text x="550" y="66" text-anchor="middle" font-size="16" font-weight="800" fill="#0E3273">338</text>
-      <text x="550" y="284" text-anchor="middle" font-size="12" fill="#333">20階以上</text>
-      <text x="550" y="302" text-anchor="middle" font-size="10.5" fill="#777">（タワーマンション）</text>
-    </g>
-  </svg>
-  <figcaption>タワマンと小規模マンションの修繕負担はほぼ同水準。「タワマンだけが高い」わけではない。<br>出典：国交省「マンションの修繕積立金に関するガイドライン」（令和6年6月改定）より作成</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 458" role="img" aria-label="修繕積立金の国の目安の平均値。20階以上338円、20階未満・延床5,000㎡未満335円、20階未満・延床2万㎡以上255円（円/㎡・月）" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">修繕積立金の国の目安（平均値）</text>
+<text x="40.0" y="76.0" font-size="17" fill="#333" text-anchor="start">20階以上（タワー）</text>
+<rect x="40.0" y="86.0" width="400.0" height="34.0" rx="2" fill="#0E3273"/>
+<text x="450.0" y="110.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">338円</text>
+<text x="50.0" y="109.0" font-size="17" fill="#fff" text-anchor="start" font-weight="700">70㎡で月約23,660円</text>
+<text x="40.0" y="160.0" font-size="17" fill="#333" text-anchor="start">20階未満・延床5,000㎡未満</text>
+<rect x="40.0" y="170.0" width="396.4" height="34.0" rx="2" fill="#3d5da8"/>
+<text x="446.4" y="194.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">335円</text>
+<text x="50.0" y="193.0" font-size="17" fill="#fff" text-anchor="start" font-weight="700">70㎡で月約23,450円</text>
+<text x="40.0" y="244.0" font-size="17" fill="#333" text-anchor="start">20階未満・延床2万㎡以上</text>
+<rect x="40.0" y="254.0" width="301.8" height="34.0" rx="2" fill="#3d5da8"/>
+<text x="351.8" y="278.0" font-size="17" fill="#3d5da8" text-anchor="start" font-weight="700">255円</text>
+<text x="50.0" y="277.0" font-size="17" fill="#fff" text-anchor="start" font-weight="700">70㎡で月約17,850円</text>
+<rect x="30.0" y="328.0" width="540.0" height="64.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="354.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">タワーは延床2万㎡以上の20階未満の約1.33倍</text>
+<text x="300.0" y="378.0" font-size="17" fill="#333" text-anchor="middle">差は70㎡で月約5,810円。小規模とはほぼ同水準</text>
+<text x="30.0" y="418.0" font-size="15" fill="#777" text-anchor="start">単位：円/㎡・月。国土交通省「マンションの修繕積立金に</text>
+<text x="30.0" y="440.0" font-size="15" fill="#777" text-anchor="start">関するガイドライン」（令和6年6月改訂）より作成</text>
+</g>
+</svg>
+<figcaption>タワーマンションの修繕積立金の目安は大規模な板状マンションの約1.33倍ですが、小規模マンションとはほぼ同じ水準です。</figcaption>
 </figure>
 
-<div class="src-box">出典：国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改定）<br>https://www.mlit.go.jp/jutakukentiku/house/content/001747009.pdf</div>
+<p>一方で、延床5,000㎡未満の小規模マンションの目安は335円で、タワーマンションとほぼ同じ水準です。<br>
+戸数が少ない建物では一時金や値上げの1戸あたりの負担が重くなりやすく、修繕費の問題はタワーマンションだけのものではありません。<br>
+検証すべきは建物の種類ではなく、その物件の長期修繕計画と積立金の残高です。</p>
 
-<p>20階未満の大規模物件（255円/㎡・月）との差は<strong>約1.3倍</strong>。70㎡換算で月6,000円弱の差です。たしかに高い。しかし「爆発」「破綻」と表現するレベルではなく、<strong>購入前に計算に織り込める程度の差</strong>です。</p>
+<p>月約5,810円の差は、購入前の資金計画に織り込める金額です。<br>
+「爆発する」「破綻する」と言えるかどうかは、計画どおりに値上げが決議されているか、積立金が目安に届いているかで決まります。<br>
+積立金の水準の見方は<a href="/columns/shuzen-kiken/">修繕積立金で分かる危険なマンションの見分け方</a>で詳しく扱っています。</p>
 
-<p>むしろ注目すべきは、小規模物件（延床5,000㎡未満）の平均値が<strong>335円とタワマンとほぼ同水準</strong>であること。戸数が少ない分、一時金や値上げのインパクトは小規模物件の方が深刻になりがちです。検証すべきは「タワマンか否か」ではなく、<strong>その物件の長期修繕計画と積立金残高</strong>。すべてのマンションに共通です。</p>
-
-<h2>否定論②「管理費が高すぎる」→ 本当。ただし対価があり、価格にも転嫁されている</h2>
-
-<p>コンシェルジュ、24時間有人管理、ジム、ゲストルーム。タワマンの管理費が高いのは事実です。参考値として、東日本レインズの集計では2025年度に成約した首都圏中古マンションの管理費は<strong>平均217円/㎡・月</strong>、築10年以内では<strong>269円/㎡・月</strong>。共用施設が充実した近年の物件ほど高い傾向がデータに表れています。</p>
-
-<p>問題は「高いか安いか」ではなく、<strong>その対価に価値を感じるか、中古市場が評価するか</strong>。実務の感覚では、管理体制と共用施設が充実したタワーは中古でも指名買いが入り、販売価格に転嫁できています。使わない施設だらけの物件を避ければ良いだけです。</p>
-
-<div class="src-box">出典：東日本不動産流通機構「REINS TOPIC 首都圏中古マンションの管理費・修繕積立金（2025年度）」（2026年5月公表）<br>https://www.reins.or.jp/pdf/trend/rt/rt_202605.pdf</div>
-
-<h2>否定論③「災害に弱い」→ 建物は強い。弱点はライフライン</h2>
-
-<p>耐震性については、タワマンは耐震・制震・免震の最新技術で設計されており、<strong>建物自体は日本の建築物の中で最も安全な部類</strong>です。</p>
-
-<p>一方、2019年10月の台風19号では、武蔵小杉のタワーマンションで<strong>地下電気設備の浸水による停電・断水</strong>が発生し、高層階の生活が長期間困難になりました。実際に起きたことであり、目を逸らすべきではありません。</p>
-
-<p>ただしこれも物件個別の話です。この被災を受けて、国土交通省と経済産業省は<strong>「建築物における電気設備の浸水対策ガイドライン」</strong>（令和2年6月）を策定。近年の新築タワーでは電源設備の上層階配置や止水板設置が標準化しつつあります。教訓は既に設計に反映されているのです。</p>
-
-<div class="info-box">
-  <p><strong>購入時の検証ポイントは3つ</strong></p>
-  <p>①電気室・非常用発電機の設置階（地下か上層階か）<br>②止水板・防水扉等の浸水対策<br>③ハザードマップ</p>
-  <p>いずれも重要事項説明や管理会社への照会で確認できます。</p>
-</div>
-
-<div class="src-box">出典：国土交通省・経済産業省「建築物における電気設備の浸水対策ガイドライン」（令和2年6月）<br>https://www.mlit.go.jp/jutakukentiku/build/jutakukentiku_house_tk_000101.html</div>
-
-<h2>否定論④「いずれ暴落する」→ 「暴落する」と言われ続けた13年間で、市場は2倍になった</h2>
-
-<p>「タワマンバブル崩壊」は10年以上言われ続けています。その間に市場がどう動いたか。東日本レインズの統計では、首都圏中古マンションの成約㎡単価は<strong>13年連続で上昇し、この13年で117.3%上昇</strong>。2倍以上です。2025年の東京都区部は前年比＋13.2%と、上昇はむしろ加速しています。</p>
-
-<p>上昇の主因は投機ではなく需給です。<strong>駅直結・駅近の大規模開発用地は有限</strong>で、供給は簡単に増やせない。一方、共働き世帯の都心志向は強まり続けている。</p>
-
-<p>もちろん、過去の実績は将来を保証しません。そして同じ統計は、<strong>埼玉・千葉・神奈川の一部エリアが既にマイナスに転じた</strong>ことも示しています。「タワマンだから安泰」でもない。上がってきたのは、正確には「駅力のある立地の、流動性の高いマンション」です。タワマンの多くがそこに該当してきた、というのが実態に近い。</p>
+<div class="src-box">出典：国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改訂）</div>
 
 <hr>
 
-<h2>買ってはいけないタワマン、買っていいタワマン</h2>
+<h2>タワマンの管理費は高すぎるのか</h2>
 
-<table class="price-table">
-  <tr><th>× 避けるべきタワマン</th><th>○ 買っていいタワマン</th></tr>
-  <tr><td>郊外駅・駅遠のタワー（立地の弱さを高さは補えない）</td><td>駅徒歩5分以内・再開発エリア・大規模</td></tr>
-  <tr><td>積立金が目安（338円/㎡・月）を大幅に下回る</td><td>修繕計画が現実的で、値上げが計画通り実行されている</td></tr>
-  <tr><td>電源設備が地下のみ＋浸水想定エリア</td><td>電源の上層階配置または止水対策あり</td></tr>
-  <tr><td>総会議事録が荒れている</td><td>中古市場での成約実績が豊富（出口の流動性が証明済み）</td></tr>
-</table>
+<p>タワーマンションの管理費が高いのは事実ですが、その分のサービスがあり、中古の価格にも反映されています。<br>
+東日本不動産流通機構の集計では、2025年度に成約した首都圏の中古マンションの管理費は平均217円/㎡、築10年以内では269円/㎡でした。<br>
+70㎡なら月約15,190円と月約18,830円で、共用施設や有人管理が充実した近年の物件ほど高くなっています。</p>
+
+<p>総戸数別に見ると、200戸以上の管理費は214円/㎡で、100〜149戸の192円/㎡より高い水準です。<br>
+規模が大きければ管理費が安くなるわけではなく、コンシェルジュ、24時間有人管理、ジム、ゲストルームなどの費用が上乗せされます。<br>
+問題は高いか安いかではなく、その対価に中古の買い手が価値を認めるかどうかです。</p>
+
+<div class="warn-box">
+  <p>利用者の少ない共用施設が多い物件は、管理費が高いまま下げにくくなります。<br>
+  施設の廃止や縮小には総会の決議が必要で、維持費は住んでいる限り負担し続けます。<br>
+  購入前に、共用施設の稼働状況と管理費の内訳を確認してください。</p>
+</div>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏中古マンションの管理費・修繕積立金（2025年度）」（2026年5月公表）</div>
+
+<hr>
+
+<h2>タワマンは災害に弱いのか</h2>
+
+<p>タワーマンションの建物そのものは地震に強く、弱点は地下の電気設備と浸水です。<br>
+建築基準法では、高さ60mを超える建築物は構造の安全性について国土交通大臣の認定を受ける必要があり、一般の建物より厳しい審査を経て建てられています。<br>
+ただし、高層階ほど長い周期の揺れが大きくなり、地震後はエレベーターが止まることがある点は、住む前に理解しておくべきです。</p>
+
+<p>実際に起きた被害もあります。<br>
+2019年10月の令和元年東日本台風（台風19号）では、武蔵小杉のタワーマンションで地下の電気設備が浸水して停電と断水が起き、高層階での生活が長期間困難になりました。<br>
+建物が無事でも、電気と水が止まれば暮らせません。</p>
+
+<p>この被害を受けて、国土交通省と経済産業省は2020年6月に「建築物における電気設備の浸水対策ガイドライン」を策定しました。<br>
+電気設備を浸水のおそれが低い上の階に置くことや、止水板などで浸水を防ぐことが示されています。<br>
+新しい物件ほど対策が進んでいますが、既存の物件では設備の位置が変わっていないこともあります。</p>
 
 <div class="info-box">
-  <p><strong>核心：問うべきは「タワマンを買っていいか」ではなく「この物件の立地・管理・出口は合格か」。</strong></p>
-  <p>その問いに耐えるタワマンは買っていいし、耐えない物件は板状マンションでも戸建てでも買うべきではない。それだけの話です。</p>
+  <p><strong>災害面で購入前に確認すること</strong></p>
+  <p>・電気室と非常用発電機の設置階（地下か、上の階か）</p>
+  <p>・止水板や防水扉などの浸水対策の有無</p>
+  <p>・ハザードマップの浸水想定（重要事項説明で説明を受ける）</p>
+  <p>・非常用発電機で動く設備（エレベーター、給水ポンプ）と稼働時間</p>
 </div>
+
+<p>武蔵小杉での物件選びで浸水対策をどう見るかは<a href="/columns/kosugi-erabikata/">武蔵小杉のタワーマンションの選び方</a>で整理しています。</p>
+
+<div class="src-box">出典：建築基準法20条（e-Gov法令検索）、国土交通省・経済産業省「建築物における電気設備の浸水対策ガイドライン」（2020年6月）</div>
+
+<hr>
+
+<h2>タワマンはいずれ暴落するのか</h2>
+
+<p>東京都区部の中古マンション価格は、2020年5月から75か月連続で上昇しており、2026年7月時点で暴落は起きていません。<br>
+東日本不動産流通機構によると、2026年7月の東京都区部の成約㎡単価は135.77万円で、前年同月比2.7%の上昇でした。<br>
+70㎡に換算すると約9,504万円（坪単価約448.8万円）です。</p>
+
+<p>ただし、首都圏全体では変化が出ています。<br>
+同じ7月の首都圏の成約㎡単価は84.17万円で前年同月比1.5%下落し、3か月連続の下落です。<br>
+売り出し中の物件の在庫は47,151件で前年同月比5.5%増え、新規登録の㎡単価117.86万円は成約の約1.4倍に開いています。</p>
+
+<p>売り出し価格と成約価格の差が広がり、在庫が増えている状態は、強気の売り出し価格が通りにくくなっているサインです。<br>
+加えて、日本銀行は2026年9月に政策金利を1.25%程度へ引き上げ、住宅ローン金利も上がる方向にあります。<br>
+過去の上昇は将来を保証せず、価格が上がってきたのは「駅に近い、流動性の高い物件」であって、タワーマンションという建物の種類ではありません。</p>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「月例速報 Market Watch（2026年7月度）」、日本銀行 金融政策決定会合（2026年9月17・18日）の決定（大和総研の解説レポートで確認）</div>
+
+<hr>
+
+<h2>買ってはいけないタワマンと買っていいタワマンの違いは</h2>
+
+<p>違いは、立地、修繕と管理の実績、災害対策、出口の流動性の4点で決まります。<br>
+同じタワーマンションでも、この4点の条件で売るときの価格と売れる速さが大きく変わります。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 534" role="img" aria-label="タワマン否定論4つの検証結果。修繕費は大規模の約1.33倍、管理費は築10年以内で269円/㎡、災害の弱点は地下の電気設備と浸水、価格は都区部が75か月連続上昇で首都圏全体は3か月連続下落" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">タワマン否定論の検証結果</text>
+<rect x="30.0" y="62.0" width="540.0" height="98.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="62.0" width="540.0" height="34.0" rx="6" fill="#eef3fb"/>
+<rect x="30.0" y="82.0" width="540.0" height="14.0" rx="0" fill="#eef3fb"/>
+<text x="46.0" y="86.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">否定論1：修繕費が爆発する</text>
+<text x="46.0" y="122.0" font-size="17" fill="#333" text-anchor="start">割高は事実。目安は大規模の約1.33倍</text>
+<text x="46.0" y="148.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">70㎡で月約5,810円の差</text>
+<rect x="30.0" y="172.0" width="540.0" height="98.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="172.0" width="540.0" height="34.0" rx="6" fill="#eef3fb"/>
+<rect x="30.0" y="192.0" width="540.0" height="14.0" rx="0" fill="#eef3fb"/>
+<text x="46.0" y="196.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">否定論2：管理費が高すぎる</text>
+<text x="46.0" y="232.0" font-size="17" fill="#333" text-anchor="start">事実。築10年以内の平均は269円/㎡</text>
+<text x="46.0" y="258.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">全体平均217円/㎡より約24%高い</text>
+<rect x="30.0" y="282.0" width="540.0" height="98.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="282.0" width="540.0" height="34.0" rx="6" fill="#eef3fb"/>
+<rect x="30.0" y="302.0" width="540.0" height="14.0" rx="0" fill="#eef3fb"/>
+<text x="46.0" y="306.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">否定論3：災害に弱い</text>
+<text x="46.0" y="342.0" font-size="17" fill="#333" text-anchor="start">構造は厳しい審査を経ている</text>
+<text x="46.0" y="368.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">弱点は地下の電気設備と浸水</text>
+<rect x="30.0" y="392.0" width="540.0" height="98.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="392.0" width="540.0" height="34.0" rx="6" fill="#eef3fb"/>
+<rect x="30.0" y="412.0" width="540.0" height="14.0" rx="0" fill="#eef3fb"/>
+<text x="46.0" y="416.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">否定論4：いずれ暴落する</text>
+<text x="46.0" y="452.0" font-size="17" fill="#333" text-anchor="start">都区部は75か月連続で上昇</text>
+<text x="46.0" y="478.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">首都圏全体は3か月連続で下落</text>
+<text x="30.0" y="516.0" font-size="15" fill="#777" text-anchor="start">数値の出典は本文の各節を参照（2025年度・2026年7月時点）</text>
+</g>
+</svg>
+<figcaption>4つの否定論はいずれも一部は事実ですが、タワーマンション全体ではなく個別の物件の条件で判断すべき内容です。</figcaption>
+</figure>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>項目</th><th>避けるべきタワマン</th><th>検討してよいタワマン</th></tr>
+  <tr><td>立地</td><td>郊外駅・駅から遠い（高さで立地の弱さは補えない）</td><td>駅徒歩5分以内、再開発エリア、大規模</td></tr>
+  <tr><td>修繕積立金</td><td>目安（平均338円/㎡）を大きく下回り、値上げが否決されている</td><td>計画が現実的で、値上げが計画どおり実行されている</td></tr>
+  <tr><td>災害対策</td><td>電気設備が地下のみで、浸水想定区域にある</td><td>電気設備が上の階にある、または止水対策がある</td></tr>
+  <tr><td>管理と出口</td><td>総会議事録が荒れている、成約事例が少ない</td><td>同じ建物の成約事例が多く、売るときの相場が明確</td></tr>
+</table>
+</div>
+
+<p>タワーマンションは同じ建物でも、階数、向き、眺望で価格が大きく変わります。<br>
+どの住戸を選ぶと出口で有利かは<a href="/columns/tawaman-kakaku-sa/">タワマンは階数・向き・眺望で価格がどれだけ変わるか</a>で扱っています。<br>
+なお、2018年度から課税が始まった高さ60m超のタワーマンション（2017年4月1日より前に売買契約を結んだ住戸を除く）は、固定資産税の負担が階数に応じて補正され、40階は1階の1.1倍になります。<br>
+保有コストの計算は<a href="/columns/koteishisanzei/">マンションの固定資産税はいくら</a>で確認できます。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">タワマンは買ってはいけないのですか</h3><div class="col-faq-a"><p>タワーマンションという理由だけで避ける必要はありません。<br>
+立地、修繕と管理の実績、災害対策、同じ建物の成約事例を確認し、条件を満たす物件なら検討してよいと判断します。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">タワマンの修繕積立金はいくらが目安ですか</h3><div class="col-faq-a"><p>国土交通省のガイドラインでは、20階以上のマンションの目安は㎡あたり月額平均338円です。<br>
+70㎡なら月約23,660円で、事例の3分の2は240〜410円/㎡に入ります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">タワマンは地震に弱いですか</h3><div class="col-faq-a"><p>高さ60mを超える建物は構造について国土交通大臣の認定が必要で、建物そのものは厳しい審査を経ています。<br>
+注意すべきは長い周期の揺れ、エレベーターの停止、地下の電気設備の浸水です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">タワマンの価格は暴落しますか</h3><div class="col-faq-a"><p>2026年7月時点で、東京都区部の中古成約㎡単価は75か月連続で上昇しており、暴落は起きていません。<br>
+ただし首都圏全体では3か月連続で下落し在庫も増えているため、立地の弱い物件ほど価格の調整を受けやすくなります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">タワマンの管理費はなぜ高いのですか</h3><div class="col-faq-a"><p>コンシェルジュや24時間有人管理、共用施設の維持費がかかるためです。<br>
+2025年度の成約データでは、築10年以内の管理費は平均269円/㎡で、全体平均の217円/㎡を上回りました。</p></div></div>
+</section>
+
+<h2>結論：「タワマンか」ではなく「この物件は合格か」で判断する</h2>
+
+<div class="info-box">
+  <p><strong>タワーマンションを買う前の確認事項</strong></p>
+  <p>・駅徒歩5分以内か、再開発や複数路線で駅の力があるか</p>
+  <p>・修繕積立金が目安（平均338円/㎡）に届き、値上げが計画どおり決議されているか</p>
+  <p>・管理費の内訳と共用施設の稼働状況</p>
+  <p>・電気室と非常用発電機の設置階、止水対策、ハザードマップ</p>
+  <p>・同じ建物の成約事例の件数と、売り出し価格と成約価格の差</p>
+</div>
+
+<p>否定論の多くは、タワーマンション全体ではなく条件の悪い物件にあてはまる話です。<br>
+立地、管理、災害対策、出口の4点を数字と書類で確認すれば、買ってよいタワーマンションと避けるべきタワーマンションは見分けられます。<br>
+候補の建物の成約事例と管理の資料をもとに、個別に判断をお手伝いします。</p>

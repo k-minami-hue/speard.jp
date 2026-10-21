@@ -1,207 +1,265 @@
 <h1>管理費・修繕積立金の正しい見方——「マンションは管理を買え」の本当の意味</h1>
-
 <style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
-#col-art-body .comp-table { width:100%; border-collapse:collapse; margin:28px 0; font-size:.88rem; }
-#col-art-body .comp-table th { background:#1a2a52; color:#fff; padding:10px 12px; text-align:center; font-weight:600; border:1px solid #1a2a52; }
-#col-art-body .comp-table td { border:1px solid #dde2ec; padding:10px 12px; vertical-align:top; line-height:1.7; }
-#col-art-body .comp-table td.row-head { background:#f4f6fb; font-weight:600; color:#1a2a52; white-space:nowrap; }
-#col-art-body .comp-table tr:nth-child(even) td:not(.row-head) { background:#fafbfd; }
-#col-art-body .timeline { margin:28px 0; }
-#col-art-body .timeline-item { display:flex; gap:16px; margin-bottom:18px; align-items:flex-start; }
-#col-art-body .timeline-dot { width:36px; height:36px; border-radius:50%; background:#1a2a52; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; margin-top:2px; }
-#col-art-body .timeline-content strong { display:block; margin-bottom:4px; }
-#col-art-body .timeline-content p { font-size:.88rem; color:#555; margin:0; }
-#col-art-body .check-list { margin:28px 0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
 #col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
-#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#c9a961; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
 #col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
 #col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
-@media (max-width:600px) { #col-art-body .comp-table { font-size:.76rem; } }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>「マンションは管理を買え」の本当の意味は、そのマンションの将来の出費と売却価格が、管理組合の家計簿に書いてあるということです。<br>
+清掃が行き届いているかを見るだけでは、管理を見たことにはなりません。<br>
+物件価格が同じでも、管理費と修繕積立金の中身しだいで保有中の支払いは数百万円単位で変わり、その差は売るときの価格にも表れます。</p>
 
-<p>「マンションは管理を買え」という格言があります。<br>
-多くの人がこれを「掃除が行き届いているかを見ろ」程度に理解していますが、本質は違います。<br>
-本当の意味は、<strong>「そのマンションの将来の出費と資産価値は、管理組合の家計簿にすべて書いてある」</strong>ということです。</p>
-
-    <p>物件価格が同じでも、管理費・修繕積立金の中身次第で、30年間の総支払額は数百万円単位で変わります。<br>
-そして管理状態は、売却時の価格にも確実に反映されます。<br>
-この記事では、購入前に必ず確認すべき「お金の見方」を解説します。</p>
-
-    
-
-    <hr>
-
-    <h2>管理費と修繕積立金——似て非なる二つのお金</h2>
-
-    <p>毎月支払う二つのお金は、目的がまったく異なります。<br>
-<strong>管理費は「現在の快適さ」のための消費、修繕積立金は「将来の建物価値」のための貯蓄</strong>です。</p>
-
-    <figure>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-        <style>
-          .km-card { fill: #F5F5F5; }
-          .km-head-blue { fill: #0E3273; }
-          .km-head-gold { fill: #c9a961; }
-          .km-title { fill: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 17px; font-weight: 700; }
-          .km-label { fill: #0E3273; font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; }
-          .km-text { fill: #333; font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
-        </style>
-        <text x="500" y="30" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">管理費と修繕積立金の違い</text>
-        <rect x="30" y="55" width="460" height="320" rx="8" class="km-card"/>
-        <rect x="30" y="55" width="460" height="46" rx="8" class="km-head-blue"/>
-        <text x="260" y="85" text-anchor="middle" class="km-title">管理費＝現在への支出</text>
-        <text x="55" y="135" class="km-label">▶ 使い道</text>
-        <text x="55" y="160" class="km-text">・管理員・コンシェルジュの人件費</text>
-        <text x="55" y="182" class="km-text">・共用部の清掃・電気代・設備点検</text>
-        <text x="55" y="204" class="km-text">・エレベーター保守、植栽管理</text>
-        <text x="55" y="226" class="km-text">・管理会社への業務委託費</text>
-        <text x="55" y="265" class="km-label" style="fill:#D85A30;">▶ チェックポイント</text>
-        <text x="55" y="290" class="km-text">・共用施設の規模に見合っているか</text>
-        <text x="55" y="312" class="km-text">・使わない施設に払い続けていないか</text>
-        <text x="55" y="334" class="km-text">・委託費が割高でないか（相見積の有無）</text>
-        <rect x="510" y="55" width="460" height="320" rx="8" class="km-card"/>
-        <rect x="510" y="55" width="460" height="46" rx="8" class="km-head-gold"/>
-        <text x="740" y="85" text-anchor="middle" class="km-title">修繕積立金＝将来への貯蓄</text>
-        <text x="535" y="135" class="km-label">▶ 使い道</text>
-        <text x="535" y="160" class="km-text">・大規模修繕工事（外壁・屋上防水など）</text>
-        <text x="535" y="182" class="km-text">・給排水管・エレベーターの更新</text>
-        <text x="535" y="204" class="km-text">・機械式駐車場の維持・更新</text>
-        <text x="535" y="226" class="km-text">・災害時の復旧費用</text>
-        <text x="535" y="265" class="km-label" style="fill:#D85A30;">▶ チェックポイント</text>
-        <text x="535" y="290" class="km-text">・長期修繕計画と残高が整合しているか</text>
-        <text x="535" y="312" class="km-text">・段階増額方式なら将来いくらになるか</text>
-        <text x="535" y="334" class="km-text">・借入や一時金徴収の履歴がないか</text>
-      </svg>
-      <figcaption>管理費は「サービスの対価」、修繕積立金は「建物の貯金」。<br>評価の仕方が異なります。</figcaption>
-    </figure>
-
-    <p>重要なのは、<strong>「安ければ良い」が成立するのは管理費だけ</strong>だということです。<br>
-管理費は同水準のサービスをより安く実現できていれば優秀です。<br>
-しかし修繕積立金が安いのは、多くの場合「貯蓄不足」を意味します。<br>
-安さを喜ぶのではなく、警戒すべき数字です。</p>
-
-    <hr>
-
-    <h2>最大の落とし穴——「段階増額方式」の構造</h2>
-
-    <p>新築分譲時の修繕積立金は、意図的に安く設定されています。<br>
-月々の負担額を低く見せた方が売りやすいからです。<br>
-その代わり、<strong>5年ごとなどの段階で増額していく「段階増額方式」</strong>が採用されており、計画上、将来の積立金が当初の2〜3倍以上になるマンションも珍しくありません。</p>
-
-    <figure>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" style="width:100%;height:auto;background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-        <style>
-          .st-axis { stroke: #999; stroke-width: 1.5; }
-          .st-label { fill: #555; font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
-          .st-step { fill: #D85A30; opacity: 0.85; }
-          .st-flat { fill: none; stroke: #0E3273; stroke-width: 3.5; stroke-dasharray: 8,5; }
-          .st-legend { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; }
-        </style>
-        <text x="500" y="30" text-anchor="middle" style="font-family:'Noto Sans JP';font-size:16px;font-weight:700;fill:#0E3273;">段階増額方式 vs 均等積立方式（イメージ）</text>
-        <line x1="100" y1="380" x2="940" y2="380" class="st-axis"/>
-        <line x1="100" y1="70" x2="100" y2="380" class="st-axis"/>
-        <text x="92" y="385" text-anchor="end" class="st-label">0</text>
-        <text x="88" y="100" text-anchor="end" class="st-label">月額</text>
-        <rect x="100" y="320" width="160" height="60" class="st-step"/>
-        <rect x="260" y="280" width="160" height="100" class="st-step"/>
-        <rect x="420" y="230" width="160" height="150" class="st-step"/>
-        <rect x="580" y="170" width="160" height="210" class="st-step"/>
-        <rect x="740" y="110" width="160" height="270" class="st-step"/>
-        <line x1="100" y1="245" x2="900" y2="245" class="st-flat"/>
-        <text x="180" y="405" text-anchor="middle" class="st-label">〜5年</text>
-        <text x="340" y="405" text-anchor="middle" class="st-label">〜10年</text>
-        <text x="500" y="405" text-anchor="middle" class="st-label">〜15年</text>
-        <text x="660" y="405" text-anchor="middle" class="st-label">〜20年</text>
-        <text x="820" y="405" text-anchor="middle" class="st-label">〜25年</text>
-        <rect x="130" y="80" width="420" height="62" rx="6" fill="#f4f6fb"/>
-        <rect x="150" y="95" width="26" height="14" class="st-step"/>
-        <text x="186" y="107" class="st-legend" style="fill:#D85A30;">段階増額方式：当初は安いが後で跳ね上がる</text>
-        <line x1="150" y1="128" x2="176" y2="128" class="st-flat"/>
-        <text x="186" y="133" class="st-legend" style="fill:#0E3273;">均等積立方式：最初から必要額を平準化</text>
-        <text x="820" y="95" text-anchor="middle" class="st-legend" style="fill:#D85A30;">当初の2〜3倍に</text>
-        <text x="500" y="440" text-anchor="middle" class="st-label" style="fill:#888;">※国土交通省は将来の負担増・積立不足を防ぐ観点から均等積立方式を推奨</text>
-      </svg>
-      <figcaption>「今の積立金が安い」は将来の値上げ予約。<br>長期修繕計画で増額カーブを必ず確認します。</figcaption>
-    </figure>
-
-    <p>中古購入時の確認はシンプルです。<br>
-<strong>長期修繕計画書を取り寄せ、「今の積立金月額」ではなく「10年後・20年後の計画月額」を見る</strong>こと。<br>
-販売図面に載っているのは現在の金額だけです。<br>
-将来の増額計画を知らずに買うと、住んでから「こんなはずでは」となります。</p>
-
-<p>さらに、円安による物価高で工事費が高騰しており、<strong>修繕積立金と管理費は今後も右肩上がりで値上がりしていくと予想されています</strong>。<br>
-「今の月額」を前提に資金計画を組むのではなく、将来の値上がりを織り込んでおくことが現実的です。</p>
-
-    <div class="warn-box">
-      <p><strong>要注意：積立不足のサインは「借入」と「一時金」</strong></p>
-      <p>管理組合の総会議事録に「修繕のための借入」「一時金の徴収」「工事の先送り」という言葉が出てきたら、積立不足の明確なサインです。<br>
-一時金は1戸あたり数十万〜百万円超になることもあり、購入直後に降ってくる可能性すらあります。<br>
-重要事項調査報告書と直近の総会議事録は、契約前に必ず読み込んでください。</p>
-    </div>
-
-    <h3>機械式駐車場は要注意</h3>
-
-    <p>見落とされがちなのが機械式駐車場です。<br>
-維持費・更新費が非常に重く、<strong>1パレットあたりの更新費は数十万〜百万円規模</strong>。<br>
-一方で都心では車離れにより空き区画が増え、駐車場収入をあてにした収支計画が崩れるマンションが増えています。<br>
-機械式駐車場の充足率（埋まり具合）は、管理組合の収支を左右する重要指標です。</p>
-
-    <hr>
-
-    <h2>購入前チェックリスト——書類で確認できる7項目</h2>
-
-    <p>以下はすべて、仲介会社経由で取得できる書類（重要事項調査報告書・長期修繕計画書・総会議事録）から確認できます。</p>
-
-    <table class="comp-table">
-      <tr><th style="width:30%;">確認項目</th><th>見るべきポイント</th></tr>
-      <tr><td class="row-head">①積立金残高</td><td>長期修繕計画上の「あるべき残高」と実際の残高が整合しているか。<br>乖離が大きいほど将来の値上げ・一時金リスクが高い。</td></tr>
-      <tr><td class="row-head">②積立方式</td><td>段階増額方式か均等積立方式か。<br>段階増額なら最終的な計画月額まで確認する。</td></tr>
-      <tr><td class="row-head">③修繕履歴</td><td>大規模修繕（目安12〜15年周期）が計画どおり実施されているか。<br>先送りの履歴は要警戒。</td></tr>
-      <tr><td class="row-head">④滞納状況</td><td>管理費・積立金の滞納額と滞納戸数。<br>滞納率の高さは管理組合の機能不全のサイン。</td></tr>
-      <tr><td class="row-head">⑤借入の有無</td><td>管理組合として借入があるか。<br>あれば返済原資と積立計画への影響を確認。</td></tr>
-      <tr><td class="row-head">⑥駐車場の充足率</td><td>特に機械式の場合。<br>空きが多いと収入減＋維持費負担で収支が悪化する。</td></tr>
-      <tr><td class="row-head">⑦総会議事録</td><td>直近2〜3年分。<br>値上げ議論・住民間トラブル・管理会社変更の経緯など、図面には絶対に出ない情報の宝庫。</td></tr>
-    </table>
-
-    <div class="info-box">
-      <p><strong>ポイント：「管理計画認定制度」も判断材料になる</strong></p>
-      <p>2022年に始まった国の管理計画認定制度や、業界団体によるマンション管理適正評価制度など、管理状態を外部評価する仕組みが整ってきました。<br>
-認定・高評価のマンションは、管理組合がきちんと機能している証左であり、将来的に中古市場での評価にもつながっていくと考えられます。</p>
-    </div>
-
-    <hr>
-
-    <h2>毎月のランニングコストは「ローン換算」で考える</h2>
-
-    <figure>
-      <img src="https://speard.jp/columns/thumbs/img_1554224155-8d04cb21c.jpg" alt="電卓と家計の計算">
-      <figcaption>管理費等の月額3万円は、ローンに換算すると借入1,000万円分に相当する重さがあります。</figcaption>
-    </figure>
-
-    <p>物件を比較するとき、価格は気にしても管理費・積立金を軽視する人が多いのですが、これは誤りです。<br>
-<strong>月3万円のランニングコストは、35年ローン（金利1%前後）に換算するとおよそ1,000万円の借入に相当</strong>します。<br>
-つまり「物件価格6,500万円・管理費等月3万円」と「物件価格7,000万円・管理費等月1.5万円」では、後者の方が実質負担は軽い可能性があるということです。</p>
-
-    <p>比較するときは、<strong>「物件価格＋（管理費＋積立金の月額×12×想定保有年数）」の総額ベース</strong>で並べてください。<br>
-月額の差は小さく見えても、保有期間で積み上がると物件価格の差を逆転することがあります。</p>
-
-    <hr>
-
-    <h3>まとめ</h3>
-
-<p>管理費は「サービスに見合うか」、修繕積立金は「将来の計画と整合しているか」で評価する。<br>
-今の安さに飛びつかず、長期修繕計画の増額カーブと積立残高を確認する。<br>
-月額コストはローン換算で物件価格と一体で比較する。<br>
-「管理を買え」とは、つまり<strong>このマンションの30年分の家計簿を読んでから買え</strong>、という意味です。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・管理費は今の暮らしへの支出、修繕積立金は将来の修繕のための貯蓄で、安くてよいのは管理費だけ<br>
+　・首都圏の中古マンションの修繕積立金は平均217円／㎡・月だが、築3年は111円と半分ほどで、多くは段階的に上がる<br>
+　・国のガイドラインは段階増額の場合、初期額を基準額の0.6倍以上、最終額を1.1倍以内とする目安を示している<br>
+　・管理費等の月3万円は、金利1.2%・35年のローンに換算すると約1,028万円の借入に相当する<br>
+　・購入前に重要事項調査報告書、長期修繕計画、総会議事録の3つで7項目を確認する</p>
+</div>
 
 <hr>
 
-<p>株式会社スピアードでは、首都圏を中心に「資産価値重視」の不動産購入・売却サポートを行っています。<br>購入・売却をご検討中の方は、お気軽にお問い合わせください。</p>
+<h2>管理費と修繕積立金は何が違うか</h2>
+
+<p>管理費は今の快適さのための支出、修繕積立金は将来の建物の価値のための貯蓄です。<br>
+どちらも毎月払うお金ですが、目的が違うため、良し悪しの見方も逆になります。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 470" role="img" aria-label="管理費は管理員の人件費、共用部の清掃と電気代、設備点検などに使い、同じサービスなら安いほど良い。修繕積立金は大規模修繕や設備の更新に使い、安いことは積立不足のサイン" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">管理費と修繕積立金の違い</text>
+<rect x="30" y="58" width="260" height="390" rx="6" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30" y="58" width="260" height="50" rx="6" fill="#0E3273"/>
+<text x="160" y="90" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">管理費＝今への支出</text>
+<text x="48" y="138" font-size="17" fill="#0E3273" font-weight="700">使い道</text>
+<text x="48" y="166" font-size="17" fill="#333">管理員・清掃の人件費</text>
+<text x="48" y="192" font-size="17" fill="#333">共用部の電気代</text>
+<text x="48" y="218" font-size="17" fill="#333">設備の点検・保守</text>
+<text x="48" y="244" font-size="17" fill="#333">管理会社への委託費</text>
+<text x="48" y="290" font-size="17" fill="#a67c1a" font-weight="700">見るところ</text>
+<text x="48" y="318" font-size="17" fill="#333">共用施設の規模に</text>
+<text x="48" y="344" font-size="17" fill="#333">見合っているか</text>
+<text x="48" y="370" font-size="17" fill="#333">委託費の見直し履歴</text>
+<text x="160" y="424" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">同じ内容なら安いほど良い</text>
+<rect x="310" y="58" width="260" height="390" rx="6" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<rect x="310" y="58" width="260" height="50" rx="6" fill="#a67c1a"/>
+<text x="440" y="90" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">修繕積立金＝将来への貯蓄</text>
+<text x="328" y="138" font-size="17" fill="#0E3273" font-weight="700">使い道</text>
+<text x="328" y="166" font-size="17" fill="#333">外壁・屋上防水の修繕</text>
+<text x="328" y="192" font-size="17" fill="#333">給排水管の更新</text>
+<text x="328" y="218" font-size="17" fill="#333">エレベーターの取替</text>
+<text x="328" y="244" font-size="17" fill="#333">機械式駐車場の取替</text>
+<text x="328" y="290" font-size="17" fill="#a67c1a" font-weight="700">見るところ</text>
+<text x="328" y="318" font-size="17" fill="#333">長期修繕計画と残高が</text>
+<text x="328" y="344" font-size="17" fill="#333">合っているか</text>
+<text x="328" y="370" font-size="17" fill="#333">将来の値上げ幅</text>
+<text x="440" y="424" font-size="17" fill="#a67c1a" text-anchor="middle" font-weight="700">安いのは積立不足のサイン</text>
+</g>
+</svg>
+<figcaption>左の管理費はサービスの対価として安さを評価し、右の修繕積立金は将来の工事に足りるかで評価します。</figcaption>
+</figure>
+
+<p>安ければ良いと言えるのは管理費だけです。<br>
+管理費は、同じ水準のサービスを安く実現できていれば、管理組合がよく運営されている証拠になります。<br>
+修繕積立金が安いのは、多くの場合、将来の工事に必要なお金を今は貯めていないという意味です。<br>
+安さを喜ぶのではなく、いつ、いくらまで上がる計画なのかを確認する数字です。</p>
+
+<hr>
+
+<h2>修繕積立金はなぜ途中で上がるのか</h2>
+
+<p>修繕積立金が途中で上がるのは、新築時の月額を低く設定し、5年ごとなどに引き上げる「段階増額積立方式」を採るマンションが多いからです。<br>
+分譲時に月々の負担を小さく見せた方が売りやすいため、初期の金額は必要額より低く設定されがちです。</p>
+
+<p>実際の数字にもこの構造が表れています。<br>
+2025年度に成約した首都圏の中古マンションの修繕積立金は平均217円／㎡・月ですが、築3年の物件は平均111円で、平均の半分ほどです。<br>
+築10年で203円、築11〜20年で231円と、築年数とともに上がっていきます。</p>
+
+<p>国土交通省のガイドラインは、将来の積立不足を防ぐ観点から、最初から同じ額を積み立てる均等積立方式が望ましいとしています。<br>
+段階増額方式を採る場合も、初期額は均等方式の基準額の0.6倍以上、最終額は1.1倍以内に収めるのが目安です。<br>
+70㎡の住戸で基準額を月17,640円（252円／㎡）とした場合の目安は次のとおりです。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>積立の方式（70㎡・基準額252円／㎡の例）</th><th>月額の目安</th></tr>
+  <tr><td>均等積立方式</td><td class="num">17,640円</td></tr>
+  <tr><td>段階増額方式の初期額（基準額の0.6倍以上）</td><td class="num">10,584円以上</td></tr>
+  <tr class="hl"><td>段階増額方式の最終額（基準額の1.1倍以内）</td><td class="num">19,404円以内</td></tr>
+</table>
+</div>
+
+<p>中古で買うときに見るべきは、今の月額ではなく、長期修繕計画に書かれた10年後、20年後の計画月額です。<br>
+販売図面に載っているのは現在の金額だけで、将来の増額は計画書を取り寄せないと分かりません。<br>
+建物の規模ごとの目安額と、危険な積立計画の見分け方は<a href="/columns/shuzen-kiken/">修繕積立金で分かる危険なマンションの見分け方</a>で詳しく扱っています。</p>
+
+<p>長期修繕計画は5年程度ごとに見直すことが推奨されています。<br>
+見直しで工事費の上昇が反映されると、計画より早く、大きく積立金が引き上げられることがあります。<br>
+10年以上見直されていない計画は、今の工事費で書かれていない可能性が高いと考えます。</p>
+
+<div class="warn-box">
+  <p>総会議事録に「修繕のための借入」「一時金の徴収」「工事の先送り」が出てきたら、積立不足のサインです。<br>
+  一時金は、購入した直後に請求されることもあります。<br>
+  値上げの議案が否決された履歴がある場合は、必要な額を集められない管理組合だと判断できます。</p>
+</div>
+
+<h3>機械式駐車場は収支を崩しやすい</h3>
+
+<p>見落とされやすいのが機械式駐車場です。<br>
+取替の時期は20年前後が目安で、維持費と更新費が重くかかります。<br>
+一方で都心では車を持たない世帯が増え、空き区画が多いと駐車場収入が計画を下回り、その穴を修繕積立金で埋めることになります。<br>
+空き区画が多い建物では、取替ではなく撤去や平面化を検討している例もあります。</p>
+
+<div class="src-box">出典：国土交通省「マンションの修繕積立金に関するガイドライン」（令和6年6月改訂）、国土交通省「長期修繕計画作成ガイドライン」、公益財団法人東日本不動産流通機構「REINS TOPIC 首都圏中古マンションの管理費・修繕積立金（2025年度）」（2026年5月公表）</div>
+
+<hr>
+
+<h2>購入前に書類で確認するべき7項目は</h2>
+
+<p>購入前に確認するのは、積立金の残高、積立方式、修繕履歴、滞納、借入、駐車場の稼働、総会議事録の7項目です。<br>
+いずれも仲介会社を通じて取り寄せる重要事項調査報告書、長期修繕計画書、総会議事録で確認できます。</p>
+
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>修繕積立金の残高</strong><p>長期修繕計画上の「この時点であるべき残高」と、実際の残高を比べます。<br>
+差が大きいほど、将来の値上げや一時金の可能性が高くなります。</p></div></div>
+
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>積立の方式</strong><p>段階増額方式か均等積立方式かを確認します。<br>
+段階増額方式なら、最終的な計画月額まで見ます。</p></div></div>
+
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>修繕の履歴</strong><p>大規模修繕（目安は12〜15年周期）が計画どおりに行われているかを確認します。<br>
+先送りの履歴がある建物は、資金か合意形成のどちらかに問題があります。</p></div></div>
+
+<div class="check-item"><div class="check-num">4</div><div class="check-text"><strong>管理費と修繕積立金の滞納</strong><p>滞納の額と戸数を確認します。<br>
+滞納が多い管理組合は、値上げの合意も取りにくくなります。</p></div></div>
+
+<div class="check-item"><div class="check-num">5</div><div class="check-text"><strong>管理組合の借入</strong><p>借入がある場合は、返済の原資と、積立計画への影響を確認します。<br>
+借入は、積立不足を借金で埋めた過去を示しています。</p></div></div>
+
+<div class="check-item"><div class="check-num">6</div><div class="check-text"><strong>駐車場の稼働</strong><p>特に機械式駐車場の空き区画の数を確認します。<br>
+空きが多いと、収入が減ったまま維持費だけがかかり続けます。</p></div></div>
+
+<div class="check-item"><div class="check-num">7</div><div class="check-text"><strong>直近2〜3年分の総会議事録</strong><p>値上げの議論、住民間のトラブル、管理会社の変更の経緯など、図面には出ない情報が書かれています。<br>
+理事のなり手がいない、議案が毎年否決されるといった記録は、管理組合が機能していないサインです。</p></div></div>
+
+<hr>
+
+<h2>管理の良し悪しは売却価格にどう表れるか</h2>
+
+<p>管理の良し悪しは、次の買主が見る書類と毎月の負担額を通じて、売却価格に表れます。<br>
+売るときにも、買主は同じ重要事項調査報告書と議事録を見て、積立不足や値上げの予定を価格に織り込むからです。</p>
+
+<p>管理の状態を外から確かめられる仕組みも整ってきました。<br>
+2022年4月に始まった管理計画認定制度は、管理組合の運営や長期修繕計画が一定の基準を満たすマンションを地方公共団体が認定するものです。<br>
+同じ時期にマンション管理業協会による管理適正評価制度も始まり、管理の状態が点数で示されるようになりました。<br>
+認定や高い評価を受けた建物は、買主にとって管理を確かめる手間が省けるため、中古市場で選ばれる材料になります。</p>
+
+<p>2026年4月には改正区分所有法が施行され、所在が分からない区分所有者を決議の母数から外せる仕組みや、集会の出席者の多数決で決められる範囲が整えられました。<br>
+連絡の取れない所有者が多く、値上げや修繕の決議が進まなかった建物にとっては、合意を取りやすくなる変更です。<br>
+ただし制度が変わっても、必要な額を集めると決める管理組合かどうかは、議事録の中身で判断するしかありません。</p>
+
+<div class="src-box">出典：国土交通省「マンション管理計画認定制度」、一般社団法人マンション管理業協会「マンション管理適正評価制度」、法務省「建物の区分所有等に関する法律等の一部を改正する法律」（2026年4月1日施行）</div>
+
+<hr>
+
+<h2>管理費と修繕積立金はローンに換算するといくらか</h2>
+
+<p>管理費等の月3万円は、金利1.2%・35年のローンに換算すると約1,028万円の借入に相当します。<br>
+毎月払う額が同じなら、管理費等に払うか、ローンの返済に充てるかの違いでしかないからです。<br>
+物件を比べるとき、価格は気にしても管理費等を軽く見る人が多いのは、この換算をしていないためです。</p>
+
+<figure>
+  <img src="/columns/thumbs/img_1554224155-8d04cb21c.jpg" alt="電卓と家計の計算">
+  <figcaption>毎月の管理費と修繕積立金は、物件価格と同じ物差しに直してから比べます。</figcaption>
+</figure>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-label="管理費と修繕積立金の月額を金利1.2%・35年のローンに換算した借入額。月1万円で約343万円、月2万円で約686万円、月3万円で約1,028万円、月4万円で約1,371万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">管理費等の月額をローンの借入額に直すと</text>
+<text x="300" y="64" font-size="15" fill="#777" text-anchor="middle">金利1.2%・35年・元利均等で換算</text>
+<line x1="130" y1="84" x2="130" y2="324" stroke="#777" stroke-width="1.5"/>
+<text x="118" y="121" font-size="17" fill="#333" text-anchor="end">月1万円</text>
+<rect x="130" y="94" width="105.0" height="42" fill="#c9d2e2"/>
+<text x="245" y="121" font-size="17" fill="#333" font-weight="700">約343万円</text>
+<text x="118" y="181" font-size="17" fill="#333" text-anchor="end">月2万円</text>
+<rect x="130" y="154" width="210.0" height="42" fill="#3d5da8"/>
+<text x="350" y="181" font-size="17" fill="#333" font-weight="700">約686万円</text>
+<text x="118" y="241" font-size="17" fill="#333" text-anchor="end">月3万円</text>
+<rect x="130" y="214" width="315.0" height="42" fill="#0E3273"/>
+<text x="455" y="241" font-size="17" fill="#333" font-weight="700">約1,028万円</text>
+<text x="118" y="301" font-size="17" fill="#333" text-anchor="end">月4万円</text>
+<rect x="130" y="274" width="420.0" height="42" fill="#a67c1a"/>
+<text x="538" y="301" font-size="17" fill="#fff" text-anchor="end" font-weight="700">約1,371万円</text>
+<text x="300" y="356" font-size="15" fill="#777" text-anchor="middle">月1万円の差は、物件価格にして約343万円の差</text>
+</g>
+</svg>
+<figcaption>棒の長さは借入額に比例し、管理費等が月1万円増えるごとに約343万円分の借入と同じ重さになります。</figcaption>
+</figure>
+
+<p>たとえば70㎡で「物件価格6,500万円（坪単価約307.0万円）・管理費等月3万円」と「物件価格7,000万円（坪単価約330.6万円）・管理費等月1.5万円」を比べます。<br>
+月1.5万円の差は、同じ条件のローンに換算すると約514万円で、価格差の500万円とほぼ同じ重さです。<br>
+表示価格では500万円安く見えるA物件も、毎月の負担まで含めると実質的な差はほとんどありません。</p>
+
+<p>この換算は売るときにも効きます。<br>
+次の買主の毎月の支払い予算が同じなら、管理費等が月1.5万円高い物件には、約514万円少ない借入でしか手が届きません。<br>
+管理費等の高さは、出口で買主の予算を削り、そのまま売却価格の上限を下げる要因になります。<br>
+返済額から借入の上限を考える方法は<a href="/columns/kariire-jogen/">住宅ローンはいくらまで借りていいか</a>で整理しています。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">管理費と修繕積立金の違いは何ですか</h3><div class="col-faq-a"><p>管理費は清掃や管理員、共用部の電気代など今のサービスに使うお金で、修繕積立金は大規模修繕や設備の更新のために貯めるお金です。<br>
+管理費は安いほど良いと言えますが、修繕積立金が安いのは積立不足のサインです。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">中古マンションの修繕積立金の平均はいくらですか</h3><div class="col-faq-a"><p>2025年度に成約した首都圏の中古マンションの平均は217円／㎡・月で、70㎡なら月約15,190円です。<br>
+築3年は111円と低く、築年数とともに上がります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">修繕積立金が安いマンションは避けるべきですか</h3><div class="col-faq-a"><p>安さだけで避ける必要はありませんが、長期修繕計画で将来いくらまで上がるかを確認してから判断します。<br>
+最終額が今の2倍以上になる計画や、値上げが否決された履歴がある建物は慎重に見ます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">管理状態はどの書類で確認できますか</h3><div class="col-faq-a"><p>重要事項調査報告書、長期修繕計画書、直近2〜3年分の総会議事録の3つです。<br>
+いずれも仲介会社を通じて購入前に取り寄せられます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">管理計画認定制度とは何ですか</h3><div class="col-faq-a"><p>管理組合の運営や長期修繕計画が一定の基準を満たすマンションを、地方公共団体が認定する制度で、2022年4月に始まりました。<br>
+認定の有無は、購入前に管理の状態を確かめる材料になります。</p></div></div>
+</section>
+
+<h2>結論：「管理を買え」とは、30年分の家計簿を読んでから買うこと</h2>
+
+<div class="info-box">
+  <p><strong>購入前に確認すること</strong></p>
+  <p>・修繕積立金の今の月額と、10年後・20年後の計画月額</p>
+  <p>・段階増額の場合、初期額と最終額が基準額の0.6倍以上・1.1倍以内に収まるか</p>
+  <p>・積立金の残高が計画上あるべき残高に届いているか</p>
+  <p>・借入、一時金、工事の先送り、値上げ否決の履歴</p>
+  <p>・機械式駐車場の空き区画の数</p>
+  <p>・管理費等の月額をローンに換算した額を、物件価格に足して比べたか</p>
+</div>
+
+<p>管理費は「サービスに見合うか」、修繕積立金は「将来の計画に足りるか」で評価します。<br>
+今の安さではなく、計画の増額カーブと積立残高、そして月額を価格に換算した総額で比べれば、買ってから後悔する建物はかなり避けられます。<br>
+気になる物件の重要事項調査報告書や長期修繕計画の読み方は、取り寄せのうえで一緒に確認します。</p>

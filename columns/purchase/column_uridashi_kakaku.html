@@ -1,91 +1,250 @@
-<h1>売り出し価格の決め方——チャレンジ価格が許される物件、即死する物件</h1>
-
+<h1>売り出し価格の決め方——相場より高く出してよい物件と、売れ残る物件の違い</h1>
 <style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
 #col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .info-box p:last-child { margin-bottom:0; }
 #col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
 #col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
 #col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
 #col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
-#col-art-body figure svg { width:100%; height:auto; }
-#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
 </style>
+<p>マンションの売り出し価格は、同じ建物と近隣の成約価格を基準に決め、相場より高く出すのは条件がそろった物件だけに限ります。<br>
+2026年7月の首都圏では、売り出し中の物件の㎡単価が成約の約1.4倍に開き、在庫も増えています。<br>
+強気の価格が通りにくい市場では、売り出す前に改定の時期と幅まで決めておくことが、手取りを守る一番の方法です。</p>
 
-<p>売却の成否は、<strong>売り出し価格を決めた瞬間に8割決まります</strong>。<br>販売活動の頑張りや写真の質も重要ですが、それらはすべて「価格設定が合理的であること」が前提です。</p>
-
-<p>このコラムでは、「チャレンジ価格はアリかナシか」「売れなかったとき、いつ・いくら下げるか」を、市場データとともに解説します。</p>
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・基準は売り出し価格ではなく成約価格で、首都圏の新規登録㎡単価117.86万円は成約84.17万円の約1.4倍（2026年7月）<br>
+　・相場より高く出してよいのは、唯一性がある、同じ建物に競合が少ない、売却期限に余裕がある、の3条件がそろう物件だけ<br>
+　・比べられやすい中住戸で、競合が多いのに強気に出すと、値下げを重ねて売れ残りの印象がつく<br>
+　・改定は2〜4週ごとに反響で判定し、検索の価格帯の境目を越える幅で動かす<br>
+　・専任媒介の期間は最長3か月なので、3か月で売り切る計画を売り出す前に作る</p>
+</div>
 
 <hr>
 
-<h2>まず数字で見る：売り出しから成約まで「約3ヶ月」</h2>
+<h2>売り出し価格と成約価格はどれだけ違うか</h2>
 
-<p>東日本レインズの統計によると、首都圏中古マンションが<strong>登録から成約に至る日数は、2025年で平均82.5日</strong>（2024年は85.3日）。標準的な物件でも、売り出しから成約までおおむね3ヶ月弱かかるのが実勢です。契約から引渡しまでの期間を加えると、「売ろう」と決めてから現金化までは4〜5ヶ月が現実的な線です。</p>
-
-<p>もう一つ重要な数字。2025年の東京都区部（23区）の中古マンションは、<strong>新規登録物件（売り出し中）の平均価格が8,288万円</strong>に対し、<strong>成約物件の平均価格は7,401万円</strong>。市場に出ている「売り希望価格」と実際に「売れた価格」の間には、常に開きがあることをデータは示しています。</p>
-
-<p>よく引き合いに出される「首都圏平均」は成約5,200万円ですが、これは価格が下落した埼玉・千葉・神奈川を含んだ数字です。<strong>23区で売買を考えるなら、この平均はあてになりません</strong>。中古でも23区平均は7,401万円、新築マンションに至っては23区平均1億3,613万円（都心6区は1億9,503万円）。相場観は必ず「自分の区・エリア」で持つべきです。</p>
+<p>首都圏の中古マンションでは、2026年7月時点で売り出し価格の㎡単価が成約価格の約1.4倍です。<br>
+東日本不動産流通機構によると、新規登録の㎡単価は117.86万円で前年同月比20.4%上昇した一方、成約の㎡単価は84.17万円で1.5%下落しました。<br>
+在庫は47,151件で前年同月比5.5%増え、成約件数は3,638件で8.6%減っています。</p>
 
 <figure>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
-    <text x="360" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#0E3273" font-family="'Noto Sans JP',sans-serif">「売り希望」と「現実」（東京都区部・中古マンション・2025年）</text>
-    <g font-family="'Noto Sans JP',sans-serif">
-      <rect x="120" y="80" width="480" height="52" rx="6" fill="#c9a961"/>
-      <text x="360" y="113" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">新規登録価格（平均） 8,288万円</text>
-      <rect x="120" y="160" width="429" height="52" rx="6" fill="#0E3273"/>
-      <text x="335" y="193" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">成約価格（平均） 7,401万円</text>
-      <text x="360" y="248" text-anchor="middle" font-size="13" fill="#555">売り出し価格は「願望」、成約価格は「現実」</text>
-    </g>
-    <text x="360" y="282" text-anchor="middle" font-size="11.5" fill="#888" font-family="'Noto Sans JP',sans-serif">出典：東日本レインズ「首都圏不動産流通市場の動向（2025年）」より作成</text>
-  </svg>
-  <figcaption>この2つの距離をどう設計するかが、売り出し価格戦略のすべて。</figcaption>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 486" role="img" aria-label="2026年7月の首都圏中古マンションの㎡単価。在庫118.30万円、新規登録117.86万円、成約84.17万円。在庫47,151件で前年同月比5.5%増、成約件数3,638件で8.6%減" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">首都圏中古マンションの㎡単価（2026年7月）</text>
+<text x="40.0" y="76.0" font-size="17" fill="#333" text-anchor="start">在庫（売り出し中）</text>
+<rect x="40.0" y="86.0" width="420.0" height="34.0" rx="2" fill="#a67c1a"/>
+<text x="470.0" y="110.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">118.30万円</text>
+<text x="40.0" y="160.0" font-size="17" fill="#333" text-anchor="start">新規登録（売り出し）</text>
+<rect x="40.0" y="170.0" width="418.4" height="34.0" rx="2" fill="#a67c1a"/>
+<text x="468.4" y="194.0" font-size="17" fill="#a67c1a" text-anchor="start" font-weight="700">117.86万円</text>
+<text x="40.0" y="244.0" font-size="17" fill="#333" text-anchor="start">成約（実際に売れた）</text>
+<rect x="40.0" y="254.0" width="298.8" height="34.0" rx="2" fill="#0E3273"/>
+<text x="348.8" y="278.0" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">84.17万円</text>
+<rect x="30.0" y="328.0" width="540.0" height="92.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="356.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">売り出しの㎡単価は成約の約1.4倍</text>
+<text x="300.0" y="382.0" font-size="17" fill="#333" text-anchor="middle">在庫47,151件（前年同月比5.5%増）</text>
+<text x="300.0" y="406.0" font-size="17" fill="#333" text-anchor="middle">成約件数3,638件（同8.6%減）</text>
+<text x="30.0" y="446.0" font-size="15" fill="#777" text-anchor="start">単位：万円/㎡。東日本不動産流通機構「月例速報</text>
+<text x="30.0" y="468.0" font-size="15" fill="#777" text-anchor="start">Market Watch（2026年7月度）」より作成</text>
+</g>
+</svg>
+<figcaption>売り出し中の物件の㎡単価は成約の約1.4倍に開き、在庫が増えて成約が減っている状態です。</figcaption>
 </figure>
 
-<div class="src-box">出典：公益財団法人東日本不動産流通機構「首都圏不動産流通市場の動向（2025年）」都県・地域別（2026年1月公表）<br>https://www.reins.or.jp/pdf/trend/sf/sf_2025.pdf<br>出典（新築）：株式会社不動産経済研究所「首都圏 新築分譲マンション市場動向 2025年」（2026年1月公表）<br>https://www.fudousankeizai.co.jp/share/mansion/654/ss2025.pdf</div>
+<p>この差は、同じ物件の値引き幅ではありません。<br>
+売り出し中の物件と実際に売れた物件は別の集団で、価格の高い物件ほど売れ残って在庫に積み上がるため、差が大きく見えます。<br>
+それでも、売り出し価格が成約価格から離れ、在庫が増えているという事実は、強気の価格が通りにくくなっていることを示しています。</p>
+
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>首都圏中古マンション</th><th>新規登録（売り出し）</th><th>成約</th></tr>
+  <tr><td>2026年4〜6月期の㎡単価</td><td class="num">114.11万円（+22.5%）</td><td class="num">83.13万円（+0.3%）</td></tr>
+  <tr><td>2026年4〜6月期の平均価格</td><td class="num">6,593万円</td><td class="num">5,201万円</td></tr>
+  <tr class="hl"><td>2026年7月の㎡単価</td><td class="num">117.86万円（+20.4%）</td><td class="num">84.17万円（−1.5%）</td></tr>
+  <tr><td>2026年7月の平均価格</td><td class="num">6,834万円</td><td class="num">5,267万円</td></tr>
+</table>
+</div>
+
+<p>首都圏の平均は郊外を含む数字なので、東京都区部で売るなら区部の数字で考えます。<br>
+2026年4〜6月期の東京都区部の成約㎡単価は136.22万円で、70㎡に換算すると約9,535万円（坪単価約450.3万円）でした。<br>
+相場観は、首都圏や都区部の平均ではなく、同じ建物と同じ駅の成約事例で持ってください。</p>
+
+<div class="src-box">出典：公益財団法人東日本不動産流通機構「月例速報 Market Watch（2026年7月度）」「首都圏不動産流通市場の動向（2026年4〜6月期）」</div>
 
 <hr>
 
-<h2>チャレンジ価格が「許される物件」の3条件</h2>
+<h2>相場より高い売り出し価格はどんな物件なら通るか</h2>
 
-<p>相場より高めに出すチャレンジ価格。条件が揃えば推奨します。ただし、許されるのは次の3条件を満たす場合だけです。</p>
+<p>相場より高い価格が通るのは、唯一性があり、競合が少なく、売却期限に余裕がある物件だけです。<br>
+3つのうち1つでも欠けると、高い価格は買い手に比べられて選ばれず、時間だけが過ぎます。</p>
 
-<p><strong>条件1：物件に「唯一性」がある</strong><br>角部屋、最上階、眺望抜け、希少な間取り、フルリノベーション済み。<strong>比較対象が存在しない物件は、価格の説得力を売主側が握れます</strong>。</p>
+<div class="check-item"><div class="check-num">1</div><div class="check-text"><strong>物件に唯一性がある</strong><p>角部屋、最上階、眺望が抜けている、希少な間取り、質の高いリノベーション済みなど、同じ条件の住戸がほかにない物件です。<br>
+比べる相手がいなければ、価格の根拠を売主側で示せます。</p></div></div>
 
-<p><strong>条件2：競合が少ない</strong><br>同じマンション内に売り出しが3件も4件もある状態でのチャレンジ価格は機能しません。買い手は必ず比較します。<strong>マンション内の売出状況は、価格を決める前に必ず確認</strong>してください。なお2025年の成約㎡単価は東京都区部＋13.2%に対し埼玉・千葉・神奈川の一部はマイナス。「相場が上がっているから強気で」が通用するエリアと、しなくなったエリアに分かれています。</p>
+<div class="check-item"><div class="check-num">2</div><div class="check-text"><strong>同じ建物と近隣に競合が少ない</strong><p>同じマンションで3件も4件も売り出されている状態では、高い価格は通りません。<br>
+買い手は必ず比べるので、価格を決める前に同じ建物と近隣の売り出し状況を確認します。</p></div></div>
 
-<p><strong>条件3：時間に余裕がある</strong><br>チャレンジ価格は「市場の反応を試す」行為で、試すには時間がかかります。成約まで平均約3ヶ月という実勢を踏まえると、<strong>期限がある売却は最初から適正価格で出す</strong>。これが鉄則です。</p>
+<div class="check-item"><div class="check-num">3</div><div class="check-text"><strong>売却期限に余裕がある</strong><p>相場より高い価格は、市場の反応を確かめる行為で、確かめるには時間がかかります。<br>
+住み替えの期限や資金の予定がある売却は、最初から相場どおりの価格で出します。</p></div></div>
 
-<h2>逆に「即死する」パターン</h2>
+<hr>
+
+<h2>売れ残る売り出し価格の典型は</h2>
+
+<p>売れ残る典型は、比べられやすい物件を相場より高く出し、改定の計画もないまま始めるパターンです。<br>
+特に次の3つは、価格を下げても取り戻しにくい失敗になります。</p>
 
 <div class="warn-box">
-  <p>・<strong>中住戸・標準的な間取り・競合多数</strong>という「比較されやすい物件」で強気に出す</p>
-  <p>・「ダメなら下げればいい」と<strong>改定計画なし</strong>で始める</p>
-  <p>・<strong>査定額が一番高い会社を選び、その金額のまま売り出す</strong></p>
+  <p>・中住戸、標準的な間取り、同じ建物に競合が多いという、比べられやすい物件で強気に出す</p>
+  <p>・「売れなければ下げればいい」と、改定の時期と幅を決めずに始める</p>
+  <p>・一番高い査定額を出した会社を選び、その金額のまま売り出す</p>
 </div>
 
-<p>特に3つ目は要注意。媒介契約欲しさに高い査定を出す会社は存在します。反響ゼロで値下げを繰り返した時点で、物件には「売れ残り」の印象がついています。<strong>中古の買い手は掲載期間と価格改定履歴を見ています。</strong>「3ヶ月前から300万円下がっている物件」は指値の標的です。</p>
+<p>3つ目には特に注意が必要です。<br>
+媒介契約を取るために、根拠の薄い高い査定額を出す会社もあります。<br>
+宅建業者は価格について意見を述べるとき、その根拠を明らかにする義務があるので、査定額の根拠になった成約事例を必ず見せてもらってください。</p>
+
+<p>中古の買い手は、ポータルサイトの掲載期間と価格の変更履歴を見ています。<br>
+「3か月前から300万円下がっている物件」は、さらに下がると読まれ、大きな値引き交渉の対象になります。<br>
+査定額の見方は<a href="/columns/satei-chigai/">マンションの査定額が会社ごとに違う理由</a>で詳しく扱っています。</p>
+
+<div class="src-box">出典：宅地建物取引業法34条の2第2項（e-Gov法令検索）</div>
 
 <hr>
 
-<h2>価格改定は「事前に設計」しておく</h2>
+<h2>価格改定はいつ、どれだけ下げるか</h2>
 
-<p>売れなかったときに考えるのではなく、<strong>売り出す前にタイミングと幅を決めておく</strong>。実務の目安は以下です。</p>
+<p>価格改定は2〜4週ごとに反響の数字で判定し、検索の価格帯の境目を越える幅で動かします。<br>
+売れなかったときに考えるのではなく、売り出す前に時期と幅を決めておきます。</p>
 
-<p><strong>・判定期間は2〜4週間単位</strong>：ポータルサイトでは掲載直後の新着期間に反響が集中します。この初動の数字がすべての判断材料です。<br>
-<strong>・反響の読み方</strong>：問い合わせはあるが内見ゼロ→価格が原因の可能性大。内見はあるが申込みなし→価格または見せ方。問い合わせ自体がない→価格が市場から無視されている状態。<br>
-<strong>・改定幅は「検索の壁」を跨ぐ</strong>：100万円刻みの微調整より、6,980万円→6,780万円のように検索価格帯の壁を越える改定の方が、新しい買い手層の画面に表示されて効果的です。</p>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>反響の状態</th><th>考えられる原因</th><th>打ち手</th></tr>
+  <tr><td>問い合わせがない</td><td>価格が市場から外れている</td><td>価格帯の境目を越える改定</td></tr>
+  <tr><td>問い合わせはあるが内見がない</td><td>価格が原因の可能性が高い</td><td>改定、または比較される物件との差の説明</td></tr>
+  <tr><td>内見はあるが申込みがない</td><td>価格か見せ方</td><td>室内の見せ方の改善、条件の見直し</td></tr>
+</table>
+</div>
 
-<p>平均成約日数82.5日から逆算すると、<strong>「2〜4週間×2〜3回の判定サイクル」でちょうど3ヶ月</strong>。市場の実勢と改定サイクルは、きれいに噛み合うように設計できます。</p>
+<p>ポータルサイトでは、掲載直後の新着の期間に反響が集まります。<br>
+最初の2〜4週の問い合わせと内見の数が、その後の判断のすべての材料です。<br>
+改定の幅は小刻みな値下げより、買い手が使う検索条件の境目を越える方が効果があります。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 518" role="img" aria-label="70㎡の売り出し価格改定計画の例。1〜4週は7,480万円、5〜8週は7,280万円、9〜12週は6,980万円。専任媒介の期間は最長3か月" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300.0" y="38.0" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">売り出し価格の改定計画の例（70㎡・3か月）</text>
+<rect x="30.0" y="66.0" width="540.0" height="86.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="66.0" width="110.0" height="86.0" rx="6" fill="#a67c1a"/>
+<rect x="120.0" y="66.0" width="20.0" height="86.0" rx="0" fill="#a67c1a"/>
+<text x="85.0" y="116.0" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">1〜4週</text>
+<text x="160.0" y="100.0" font-size="18" fill="#333" text-anchor="start" font-weight="700">7,480万円（坪約353.2万円）</text>
+<text x="160.0" y="130.0" font-size="17" fill="#777" text-anchor="start">反響を測る</text>
+<line x1="300.0" y1="154.0" x2="300.0" y2="177.0" stroke="#777" stroke-width="2"/><line x1="293" y1="169" x2="300" y2="177" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="307" y1="169" x2="300" y2="177" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="30.0" y="180.0" width="540.0" height="86.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="180.0" width="110.0" height="86.0" rx="6" fill="#3d5da8"/>
+<rect x="120.0" y="180.0" width="20.0" height="86.0" rx="0" fill="#3d5da8"/>
+<text x="85.0" y="230.0" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">5〜8週</text>
+<text x="160.0" y="214.0" font-size="18" fill="#333" text-anchor="start" font-weight="700">7,280万円（坪約343.8万円）</text>
+<text x="160.0" y="244.0" font-size="17" fill="#777" text-anchor="start">1回目の改定</text>
+<line x1="300.0" y1="268.0" x2="300.0" y2="291.0" stroke="#777" stroke-width="2"/><line x1="293" y1="283" x2="300" y2="291" stroke="#777" stroke-width="2.5" stroke-linecap="round"/><line x1="307" y1="283" x2="300" y2="291" stroke="#777" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="30.0" y="294.0" width="540.0" height="86.0" rx="6" fill="#fff" stroke="#c9d2e2" stroke-width="1.5"/>
+<rect x="30.0" y="294.0" width="110.0" height="86.0" rx="6" fill="#0E3273"/>
+<rect x="120.0" y="294.0" width="20.0" height="86.0" rx="0" fill="#0E3273"/>
+<text x="85.0" y="344.0" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">9〜12週</text>
+<text x="160.0" y="328.0" font-size="18" fill="#333" text-anchor="start" font-weight="700">6,980万円（坪約329.6万円）</text>
+<text x="160.0" y="358.0" font-size="17" fill="#777" text-anchor="start">7,000万円以下の検索に入る</text>
+<rect x="30.0" y="408.0" width="540.0" height="64.0" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="300.0" y="434.0" font-size="17" fill="#333" text-anchor="middle" font-weight="700">専任媒介の期間は最長3か月</text>
+<text x="300.0" y="458.0" font-size="17" fill="#333" text-anchor="middle">更新の前に、反響の数字で次の手を決める</text>
+<text x="30.0" y="500.0" font-size="15" fill="#777" text-anchor="start">成約の想定を7,000万円（坪約330.6万円）とした例</text>
+</g>
+</svg>
+<figcaption>改定の時期と幅を売り出す前に決めておき、反響の数字に応じて計画どおりに動かします（金額は例）。</figcaption>
+</figure>
+
+<p>図の例では、成約の想定を7,000万円（坪単価約330.6万円）とし、7,480万円（坪単価約353.2万円）から始めています。<br>
+2回目の改定で6,980万円（坪単価約329.6万円）にすると、「7,000万円以下」で探す買い手の画面に初めて表示されます。<br>
+金額は計画の立て方を示す例で、実際の価格は同じ建物の成約事例から決めます。</p>
+
+<p>専任媒介契約と専属専任媒介契約の期間は、宅建業法で最長3か月と決まっています。<br>
+3か月で売り切る前提で改定の計画を作り、更新の前に反響の数字で次の手を決めてください。<br>
+媒介契約の種類ごとの違いは<a href="/columns/baikai-keiyaku/">媒介契約は専任か一般か</a>で整理しています。</p>
+
+<div class="src-box">出典：宅地建物取引業法34条の2第3項（e-Gov法令検索）</div>
 
 <hr>
 
-<h2>「頭と尻尾はくれてやれ」</h2>
+<h2>天井で売り抜けることを狙うべきか</h2>
 
-<p>相場の天井で売り抜けたい。誰もがそう思います。ですが、天井は過ぎてから分かるものです。天井を狙って時間をかけた結果、市況が反転して数百万円逃すケースを、私たちは何度も見てきました。</p>
+<p>天井を狙うより、納得できる価格で売り切る方が結果は良くなります。<br>
+天井は過ぎてから分かるもので、天井を待って時間をかけた結果、市況が変わって数百万円を逃すことがあるからです。<br>
+2026年7月の首都圏のように、成約単価が3か月連続で下がり在庫が増えている局面では、待つことのリスクは大きくなります。</p>
 
 <div class="info-box">
-  <p><strong>核心：頭と尻尾はくれてやれ。</strong></p>
-  <p>最高値の一歩手前でも、納得できる価格でスパッと売り切る。売却で得た資金と時間を、次の意思決定に回す方がトータルでは勝ちます。</p>
+  <p><strong>頭と尻尾はくれてやれ</strong></p>
+  <p>天井の一歩手前でも、納得できる価格で売り切る。<br>
+  売却で得た資金と時間を次の判断に回す方が、全体では有利になります。</p>
 </div>
 
-<p>最後に。価格戦略をどれだけ緻密に設計しても、実行するのは仲介の担当者です。改定のタイミングで的確に助言し、反響データを開示し、囲い込みをしない。<strong>そういう担当者と組めるかどうかが、価格設計と同じくらい売却の結果を左右します。</strong></p>
+<p>売り出し価格を決めるときは、必要な手取りから逆算した下限も出しておきます。<br>
+下限があれば、改定のたびに迷わずに済みます。<br>
+手取りの計算は<a href="/columns/tedori-keisan/">マンション売却の手取りはいくら残るか</a>と<a href="/simulator/#sell">売却シミュレーター</a>で確認できます。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">マンションの売り出し価格はどう決めればいいですか</h3><div class="col-faq-a"><p>同じ建物と近隣の成約価格を基準にし、物件の唯一性、競合の数、売却期限の余裕で上乗せするかを決めます。<br>
+売り出し中の物件の価格は、相場の基準になりません。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">売り出し価格は査定額より高くしてもいいですか</h3><div class="col-faq-a"><p>唯一性があり、競合が少なく、期限に余裕がある物件なら高めに出せます。<br>
+条件がそろわない物件では、値下げを重ねて結果的に安く売ることになりやすいです。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">値下げはいつ、いくらすればいいですか</h3><div class="col-faq-a"><p>売り出しから2〜4週の反響で判定し、検索の価格帯の境目を越える幅で下げます。<br>
+時期と幅は、売り出す前に計画しておきます。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">売り出し価格と成約価格はどれくらい違いますか</h3><div class="col-faq-a"><p>2026年7月の首都圏の中古マンションでは、新規登録の㎡単価117.86万円に対し、成約は84.17万円で約1.4倍の差でした。<br>
+売り出し中と成約は別の物件の集計なので、この差がそのまま値引き幅ではありません。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">一番高い査定を出した会社に任せるべきですか</h3><div class="col-faq-a"><p>査定額の高さだけで選ぶべきではありません。<br>
+査定の根拠になった成約事例を見せてもらい、その価格で売れる理由を説明できる会社を選びます。</p></div></div>
+</section>
+
+<h2>結論：売り出す前に、価格の下限と改定計画まで決める</h2>
+
+<div class="info-box">
+  <p><strong>売り出し価格を決める前の確認事項</strong></p>
+  <p>・同じ建物と同じ駅の直近の成約事例（売り出し価格ではなく成約価格）</p>
+  <p>・同じ建物と近隣で売り出し中の競合物件の数と価格</p>
+  <p>・唯一性、競合の少なさ、期限の余裕の3条件がそろうか</p>
+  <p>・必要な手取りから逆算した価格の下限</p>
+  <p>・2〜4週ごとの判定と、検索の価格帯を越える改定の計画</p>
+</div>
+
+<p>売り出し価格は、出したあとに考えるものではなく、出す前に設計するものです。<br>
+成約事例で相場を押さえ、高く出す条件があるかを見極め、改定の計画まで決めておけば、売れ残りで価格を下げ続ける失敗は避けられます。<br>
+いま売れる価格の見立ては、<a href="/satei/">売却査定</a>で同じ建物の成約事例をもとにお出しします。</p>
