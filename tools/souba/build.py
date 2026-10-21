@@ -10,6 +10,7 @@ data/*.csv と templates/ から、speard.jp の /souba/ 以下の静的ペー�
 """
 import csv
 import datetime as dt
+import math
 import json
 import shutil
 import statistics
@@ -103,6 +104,22 @@ def summarize(trs):
     }
 
 
+PRICE_BANDS = [(550, 4), (500, 3), (450, 2), (0, 1)]  # 坪単価（万円）の帯：地図の色分け
+
+
+def band_of(t):
+    if t is None:
+        return 0
+    return next(b for lo, b in PRICE_BANDS if t >= lo)
+
+
+def km(a, b):
+    R = 6371.0
+    la1, lo1, la2, lo2 = map(math.radians, (a["lat"], a["lng"], b["lat"], b["lng"]))
+    h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(h))
+
+
 AREA_BANDS = [("55㎡未満", 0, 55), ("55〜70㎡未満", 55, 70), ("70〜85㎡未満", 70, 85), ("85㎡以上", 85, 999)]
 
 
@@ -146,6 +163,8 @@ def build(out_dir):
     near = area_series.get(near_name, {})
     near_recent = [int(near[q]["中央値"]) for q in quarters if q in near and q_index(q) > latest_i - 4]
     area_now = round(statistics.median(near_recent)) if near_recent else None
+    near_old = [int(near[q]["中央値"]) for q in quarters if q in near and latest_i - 16 < q_index(q) <= latest_i - 12]
+    area_chg = (area_now / statistics.median(near_old) - 1) * 100 if near_recent and near_old else None
 
     # 棟ごとの集計
     for b in buildings:
@@ -180,10 +199,25 @@ def build(out_dir):
         b["points"] = era_points(b["year"])
         b["url"] = f'{SITE["base"]}b/{b["slug"]}/'
         b["walk_txt"] = f'{b["路線"]}「{b["最寄駅"]}」駅 徒歩{b["徒歩分"]}分'
+        b["lat"], b["lng"] = float(b["緯度"]), float(b["経度"])
+        b["struct"] = b.get("構造種別", "").strip()
+        b["band"] = band_of(b["stats"]["tsubo"] if b["stats"] else None)
     for b in buildings:
         b["members"] = [o["マンション名"] for o in buildings if o["key"] and o["key"] == b["key"] and o["id"] != b["id"]]
+        near = sorted((o for o in buildings if o["id"] != b["id"]), key=lambda o: km(b, o))[:5]
+        b["near"] = [{"b": o, "m": round(km(b, o) * 1000 / 10) * 10,
+                      "diff": (o["stats"]["tsubo"] - b["stats"]["tsubo"]) if (o["stats"] and b["stats"]) else None} for o in near]
 
     ranked = sorted([b for b in buildings if b["stats"]], key=lambda b: -b["stats"]["tsubo"])
+    atlas = [{
+        "id": b["id"], "name": b["マンション名"], "url": b["url"], "lat": b["lat"], "lng": b["lng"], "band": b["band"],
+        "t": round(b["stats"]["tsubo"]) if b["stats"] else None, "p70": round(b["stats"]["p70"]) if b["stats"] else None,
+        "lo": round(b["stats"]["lo"]) if b["stats"] else None, "hi": round(b["stats"]["hi"]) if b["stats"] else None,
+        "n": b["stats"]["n"] if b["stats"] else 0, "chg": round(b["chg3"]) if b["chg3"] is not None else None,
+        "year": b["year"], "built": b["built_txt"], "units": int(b["総戸数"]), "floors": int(b["地上階数"]),
+        "walk": int(b["徒歩分"]), "line": b["路線"], "struct": b["struct"], "dev": b["分譲会社"], "mgr": b["管理会社"],
+        "members": b["members"], "chart": b["chart"],
+    } for b in buildings]
     nodata = [b for b in buildings if not b["stats"]]
 
     # 出力
@@ -201,6 +235,10 @@ def build(out_dir):
         "speard_link": SITE["speard_url"] + "?utm_source=souba&utm_medium=referral",
         "ads": ads,
         "ad": {a["id"]: a for a in ads},
+        "ver": __import__("hashlib").md5(b"".join((ROOT / "assets" / f).read_bytes() for f in ("app.js", "style.css"))).hexdigest()[:8],
+        "area_now_txt": tsubo_txt(area_now), "area_now_p70": man(p70(area_now)), "area_now": area_now, "area_chg": area_chg,
+        "atlas_json": json.dumps({"buildings": atlas, "labels": [q_label(q) for q in quarters],
+                                  "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]}, ensure_ascii=False).replace("</", "<\\/"),
     }
 
     def ads_for(place):
@@ -233,8 +271,11 @@ def build(out_dir):
         "series": [{"label": name, "data": [int(area_series[name][q]["中央値"]) if q in area_series[name] and int(area_series[name][q]["件数"]) >= 5 else None for q in quarters]}
                    for name in (near_name, "成約価格（全体）", "取引価格（全体）") if name in area_series],
     }
-    render("index.html", "", "index", jsonld(website, crumbs()), ranked=ranked, nodata=nodata, area_now=area_now,
-           area_now_txt=tsubo_txt(area_now), area_now_p70=man(p70(area_now)), chart=json.dumps(chart_area, ensure_ascii=False), buildings=buildings)
+    render("index.html", "", "index", jsonld(website, crumbs()), ranked=ranked, nodata=nodata,
+           chart=json.dumps(chart_area, ensure_ascii=False), buildings=buildings, bands=PRICE_BANDS)
+    render("compare.html", "compare/", "compare", jsonld(website, crumbs(("マンションを比べる", SITE["base"] + "compare/"))),
+           chart=json.dumps(chart_area, ensure_ascii=False), buildings=buildings)
+    render("tools.html", "tools/", "tools", jsonld(website, crumbs(("売却の手取り計算", SITE["base"] + "tools/"))), buildings=buildings)
 
     area_table = []
     for q in reversed(quarters):
@@ -244,7 +285,7 @@ def build(out_dir):
             row[key] = {"n": r["件数"], "t": tsubo_txt(int(r["中央値"])), "p": man(p70(int(r["中央値"])))} if r else None
         area_table.append(row)
     render("area.html", "area/", "area", jsonld(website, crumbs(("エリア相場", SITE["base"] + "area/"))),
-           chart=json.dumps(chart_area, ensure_ascii=False), table=area_table, area_now_txt=tsubo_txt(area_now), area_now_p70=man(p70(area_now)))
+           chart=json.dumps(chart_area, ensure_ascii=False), table=area_table)
 
     satei_data = {
         "buildings": [{"id": b["id"], "name": b["マンション名"], "floors": int(b["地上階数"]),
@@ -269,7 +310,7 @@ def build(out_dir):
             {"label": "エリア（駅5分以内・2005年以降築）", "data": chart_area["series"][0]["data"] if chart_area["series"] else []}]}
         others = [o for o in ranked if o["id"] != b["id"]]
         render("building.html", f'b/{b["slug"]}/', "building", jsonld(ld, crumbs((b["マンション名"], b["url"]))),
-               b=b, chart=json.dumps(chart, ensure_ascii=False), others=others, area_now_txt=tsubo_txt(area_now), area_now_p70=man(p70(area_now)))
+               b=b, chart=json.dumps(chart, ensure_ascii=False), others=others)
 
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"  <url><loc>{SITE['origin']}{u}</loc><lastmod>{today.isoformat()}</lastmod></url>" for u in urls]

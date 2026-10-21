@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}マンション売却の手取り計算｜仲介手数料・ローン残高から試算｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。価格と面積から坪単価・70㎡換算も計算できます。{% endblock %}
+{% block main %}
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 売却の手取り計算</p>
+<section>
+  <h1>マンション売却の手取り計算</h1>
+  <p class="answer">手取りは「売却価格 − 仲介手数料 − ローン残高 − その他の費用」で決まります。<br>
+  マンションと面積を選ぶと、このサイトの相場から売却価格の目安が入ります。</p>
+</section>
+
+<section class="calc-grid" id="netCalc">
+  <div>
+    <label for="nB">マンション（任意）</label>
+    <select id="nB"><option value="">選択しない</option>{% for b in buildings %}<option value="{{ b.id }}">{{ b['マンション名'] }}</option>{% endfor %}</select>
+    <div class="row2">
+      <div><label for="nArea">専有面積（㎡）</label><input id="nArea" type="number" inputmode="decimal" step="0.01" min="15" placeholder="例：70"></div>
+      <div><label for="nPrice">売却価格（万円）</label><input id="nPrice" type="number" inputmode="numeric" min="0" step="10" placeholder="例：10000"></div>
+    </div>
+    <div class="row2">
+      <div><label for="nLoan">ローン残高（万円）</label><input id="nLoan" type="number" inputmode="numeric" min="0" step="10" value="0"></div>
+      <div><label for="nOther">その他の費用（万円）</label><input id="nOther" type="number" inputmode="numeric" min="0" step="1" value="0"></div>
+    </div>
+    <p class="note">その他の費用には、売買契約書の印紙税、抵当権の抹消登記の費用、引越し費用などを入れます。金額は契約内容や金融機関で変わるため、見積もりで確認してください。</p>
+  </div>
+  <div class="result" aria-live="polite">
+    <dl>
+      <dt>売却価格</dt><dd id="rPrice">―</dd>
+      <dt>坪単価</dt><dd id="rTsubo">―</dd>
+      <dt>仲介手数料（上限・税込）</dt><dd id="rFee">―</dd>
+      <dt>ローン残高</dt><dd id="rLoan">―</dd>
+      <dt>その他の費用</dt><dd id="rOther">―</dd>
+      <dt class="total">手取り（税金の前）</dt><dd class="total" id="rNet">―</dd>
+    </dl>
+    <p class="note" id="rNote" style="margin-top:10px">仲介手数料は宅地建物取引業法の上限（400万円超は売買価格×3%＋6万円、消費税10%）で計算しています。<br>
+    売却益が出た場合の譲渡所得税は含みません。マイホームの売却では3,000万円の特別控除などを使える場合があります。</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>坪単価と70㎡換算を計算する</h2></div>
+  <div class="calc-grid">
+    <div>
+      <div class="row2">
+        <div><label for="cPrice">価格（万円）</label><input id="cPrice" type="number" inputmode="numeric" min="0" step="10" placeholder="例：12800"></div>
+        <div><label for="cArea">専有面積（㎡）</label><input id="cArea" type="number" inputmode="decimal" step="0.01" min="15" placeholder="例：72.5"></div>
+      </div>
+      <p class="note">売出中の物件の価格を、このサイトの相場と同じ物差しで比べるときに使います。</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <dl>
+        <dt>坪単価</dt><dd id="cTsubo">―</dd>
+        <dt>70㎡換算</dt><dd id="cP70">―</dd>
+        <dt class="total">エリアの中央値との差</dt><dd class="total" id="cDiff">―</dd>
+      </dl>
+      <p class="note" style="margin-top:10px">エリアの中央値は、駅徒歩5分以内・2005年以降築の直近1年の坪単価{{ area_now_txt }}です。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>正確な手取りを知りたい方へ</h2></div>
+  <p>手取りは、売却価格の見立てと、売却と購入の順番で大きく変わります。<br>
+  査定と合わせて、税金と住宅ローンを含めた手取りの試算をお出しします。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a><a class="btn btn-ghost" href="{{ site.base }}sodan/" data-ev="cta_sodan">売却の相談</a></div>
+</section>
+{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }}; window.AREA_NOW = {{ area_now or 'null' }};</script>{% endblock %}

@@ -1,55 +1,94 @@
 {% extends "base.html" %}
-{% block title %}武蔵小杉のマンション相場｜主要{{ buildings|length }}棟の坪単価と推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のタワーマンションなど主要{{ buildings|length }}棟の相場を、国土交通省の取引データから棟ごとに集計。坪単価の中央値、70㎡換算価格、3年前との比較、推移グラフを掲載しています。{% endblock %}
-{% block main %}
-<section class="intro">
-  <h1>武蔵小杉のマンション相場</h1>
-  <p class="answer">武蔵小杉の駅徒歩5分以内・2005年以降築の中古マンションは、直近1年の取引で坪単価{{ area_now_txt }}前後、70㎡に換算すると{{ area_now_p70 }}前後です。</p>
-  <p>このページでは、国土交通省の取引データを、マンションと同じ町・同じ建築年の取引に絞って棟ごとに集計しています。<br>
-  価格には坪単価と、70㎡に換算した価格を並べています。</p>
-  <p class="asof">データ：{{ latest_q }}まで（直近2年＝{{ recent_from_q }}〜{{ latest_q }}）。更新日 {{ updated }}</p>
-</section>
+{% block title %}武蔵小杉のマンション相場マップ｜主要{{ buildings|length }}棟の坪単価・70㎡換算・推移｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のタワーマンションなど主要{{ buildings|length }}棟の相場を地図と一覧で。国土交通省の取引データから棟ごとに坪単価の中央値、70㎡換算価格、3年前との比較を集計。築年数・駅徒歩・価格帯・免震で絞り込み、最大3棟を比較できます。{% endblock %}
+{% block head %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
+{% block full %}
+<div class="wrap hero">
+  <h1>武蔵小杉のマンション相場マップ</h1>
+  <p class="answer">駅徒歩5分以内・2005年以降築の中古マンションは、直近1年で坪単価<strong class="nw">{{ area_now_txt }}</strong>前後、70㎡換算で<strong class="nw">{{ area_now_p70 }}</strong>前後です。{% if area_chg is not none %}3年前の同じ時期より{{ '%+.0f' % area_chg }}%です。{% endif %}</p>
+  <p class="asof">国土交通省の取引データ {{ recent_from_q }}〜{{ latest_q }}（直近2年）を棟ごとに集計。更新日 {{ updated }}</p>
 
-<section id="list">
-  <div class="sec-head"><h2>マンションごとの相場</h2><p class="note">坪単価が高い順・直近2年の中央値</p></div>
-  <div class="tbl-wrap"><table class="rank">
-    <thead><tr><th>マンション</th><th>坪単価<span class="sub">70㎡換算</span></th><th>3年前比</th></tr></thead>
-    <tbody>
-    {% for b in ranked %}<tr>
-      <td class="name"><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分・{{ b.stats.n }}件</span></td>
-      <td class="nw">{{ b.stats.tsubo_txt }}<span class="sub">{{ b.stats.p70_txt }}</span></td>
-      <td class="nw">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}%{% else %}―{% endif %}</td>
-    </tr>{% endfor %}
-    {% for b in nodata %}<tr>
-      <td class="name"><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分</span></td>
-      <td colspan="2">竣工前のため<br>取引データなし</td>
-    </tr>{% endfor %}
-    </tbody>
-  </table></div>
-  <p class="note">同じ町・同じ建築年に複数のマンションがある場合は、合算した値です（各マンションのページに対象を書いています）。<br>
-  3年前比は、直近1年と3年前の同じ1年の坪単価中央値の比較です。</p>
+  <div class="atlas" id="atlas">
+    <div class="map" id="map" role="region" aria-label="武蔵小杉のマンションの坪単価の地図">
+      <p class="map-fallback">地図を読み込んでいます。表示されない場合は右（スマホでは下）の一覧をご覧ください。</p>
+      <div class="map-badge" aria-hidden="true">地図の数字は坪単価（万円）<span class="legend"><i style="background:var(--b1)"></i>〜450<i style="background:var(--b2)"></i>450〜<i style="background:var(--b3)"></i>500〜<i style="background:var(--b4)"></i>550〜</span></div>
+    </div>
+    <div class="panel">
+      <div class="filters" id="filters">
+        <div class="f-row" role="group" aria-label="築年数"><span class="f-label">築年数</span>
+          <button type="button" class="chip" data-f="age" data-v="10" aria-pressed="false">10年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="15" aria-pressed="false">15年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="20" aria-pressed="false">20年以内</button></div>
+        <div class="f-row" role="group" aria-label="駅徒歩"><span class="f-label">駅徒歩</span>
+          <button type="button" class="chip" data-f="walk" data-v="2" aria-pressed="false">2分以内</button>
+          <button type="button" class="chip" data-f="walk" data-v="4" aria-pressed="false">4分以内</button></div>
+        <div class="f-row" role="group" aria-label="坪単価"><span class="f-label">坪単価</span>
+          <button type="button" class="chip" data-f="band" data-v="4" aria-pressed="false">550万〜</button>
+          <button type="button" class="chip" data-f="band" data-v="3" aria-pressed="false">500万台</button>
+          <button type="button" class="chip" data-f="band" data-v="2" aria-pressed="false">450万台</button>
+          <button type="button" class="chip" data-f="band" data-v="1" aria-pressed="false">〜450万</button></div>
+        <div class="f-row" role="group" aria-label="建物"><span class="f-label">建物</span>
+          <button type="button" class="chip" data-f="struct" data-v="免震" aria-pressed="false">免震</button>
+          <button type="button" class="chip" data-f="struct" data-v="制震" aria-pressed="false">制震</button>
+          <button type="button" class="chip" data-f="units" data-v="500" aria-pressed="false">500戸以上</button></div>
+        <div class="f-foot"><span id="count" aria-live="polite">{{ buildings|length }}棟</span>
+          <label class="sr" for="sort">並べ替え</label>
+          <select id="sort"><option value="t">坪単価が高い順</option><option value="chg">3年前比が大きい順</option><option value="year">築年が新しい順</option><option value="walk">駅に近い順</option><option value="units">総戸数が多い順</option></select></div>
+      </div>
+      <ul class="blist" id="blist">
+        {% for b in ranked + nodata %}<li class="bl" data-id="{{ b.id }}">
+          <span class="bl-pick"><input type="checkbox" value="{{ b.id }}" aria-label="{{ b['マンション名'] }}を比較に入れる"></span>
+          <div><a class="bl-name" href="{{ b.url }}">{{ b['マンション名'] }}</a>
+            <span class="bl-meta">{{ b.built_txt }}・{{ b['総戸数'] }}戸・{{ b['地上階数'] }}階・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</span></div>
+          <div class="bl-val">{% if b.stats %}<span class="bl-t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ {{ b.stats.p70_txt }}</span>
+            {% if b.chg3 is not none %}<span class="bl-c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年前比 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}
+            {% else %}<span class="bl-p">竣工前<br>取引データなし</span>{% endif %}</div>
+        </li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<section class="charts" aria-label="グラフ">
+  <div>
+    <div class="sec-head"><h2>エリアの坪単価の推移</h2><span class="note">四半期の中央値（万円／坪）</span></div>
+    <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉エリアの坪単価推移グラフ"></canvas></div>
+    <p class="note">成約価格は2021年以降。件数が5件未満の四半期は表示していません。<a href="{{ site.base }}area/">四半期ごとの表</a></p>
+  </div>
+  <div>
+    <div class="sec-head"><h2>築年と坪単価</h2><span class="note">円の大きさは総戸数</span></div>
+    <div class="chart-box"><canvas id="scatter" role="img" aria-label="竣工年と坪単価の散布図"></canvas></div>
+    <p class="note">同じ築年代でも坪単価には差があります。比べるときは、駅までの距離、建物の規模、管理の状態もあわせて確認します。</p>
+  </div>
 </section>
 
 <section>
-  <div class="sec-head"><h2>武蔵小杉エリアの坪単価の推移</h2><p class="note">四半期ごとの中央値（万円／坪）</p></div>
-  <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉エリアの坪単価推移グラフ"></canvas></div>
-  <p class="note">成約価格は2021年以降のデータです。四半期の件数が5件未満の点は表示していません。<a href="{{ site.base }}area/">四半期ごとの表を見る</a></p>
+  <div class="doors">
+    <a class="door" href="{{ site.base }}compare/"><b>3棟まで並べて比べる</b><span>坪単価、推移、築年、駅距離、構造を1つの表で。</span></a>
+    <a class="door" href="{{ site.base }}tools/"><b>売ったら手元にいくら残るか</b><span>売却価格、仲介手数料、ローン残高から手取りを計算。</span></a>
+    <a class="door" href="{{ site.base }}satei/" data-ev="cta_satei"><b>自分の部屋の価格の目安</b><span>マンション名と面積で、取引データの幅をすぐ表示。</span></a>
+  </div>
 </section>
 
 <section class="prose">
   <h2>このデータの見方</h2>
   <p>国土交通省のデータには建物名が入っていません。<br>
   そこで、マンションの所在地の町名と建築年が一致する取引を、そのマンションの取引として集計しています。<br>
-  同じ町で同じ年に建った別の建物の取引が混ざることがあるため、目安として使ってください。<br>
-  階数・方位・眺望はデータに含まれていないため、同じマンションでも住戸によって価格は大きく変わります。</p>
+  同じ町で同じ年に建った別の建物の取引が混ざる場合は、各マンションのページにその旨を書いています。<br>
+  階数・方位・眺望はデータに含まれないため、同じマンションでも住戸によって価格は大きく変わります。</p>
 </section>
 
-<section class="cta">
-  <h2>お部屋の価格を知りたい方へ</h2>
-  <p>マンション名と面積を入れると、このデータにもとづく目安がすぐに表示されます。<br>
-  階数・方位・室内の状態を反映した査定は、担当者が個別にお出しします。</p>
-  <div class="actions"><a class="btn" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a><a class="btn btn-sub" href="{{ site.base }}sodan/" data-ev="cta_sodan">購入・売却の相談</a></div>
-</section>
+<div class="tray" id="tray" aria-live="polite">
+  <div class="wrap tray-row">
+    <span class="tray-names" id="trayNames"></span>
+    <button type="button" class="btn btn-sm btn-x" id="trayClear">解除</button>
+    <a class="btn btn-sm" id="trayGo" href="{{ site.base }}compare/" data-ev="compare_open">比べる</a>
+  </div>
+</div>
 {% endblock %}
-{% block data %}<script>window.CHART = {{ chart | safe }};</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endblock %}
+{% block data %}<script>window.CHART = {{ chart | safe }}; window.ATLAS = {{ atlas_json | safe }};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>{% endblock %}

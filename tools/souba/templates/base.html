@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <title>{% block title %}{{ site.name }}{% endblock %}</title>
 <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
 <link rel="canonical" href="{{ site.origin }}{{ path }}">
@@ -18,54 +19,76 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="{{ site.base }}assets/style.css">
+{% block head %}{% endblock %}
+<link rel="stylesheet" href="{{ site.base }}assets/style.css?v={{ ver }}">
 <script type="application/ld+json">{{ jsonld | safe }}</script>
 {% if site.ga_id %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','{{ site.ga_id }}',{content_group:'souba'});</script>
 {% endif %}</head>
-<body{% if page in ('satei', 'sodan') %} class="no-bar"{% endif %}>
+<body class="p-{{ page }}">
 <a class="skip" href="#main">本文へ移動</a>
 <header class="site-head">
   <div class="wrap head-row">
-    <a class="logo" href="{{ site.base }}">{{ site.name }}</a>
-    <span class="op">運営：<a href="{{ speard_link }}" data-ev="speard_click">株式会社スピアード</a></span>
+    <a class="logo" href="{{ site.base }}"><b>{{ site.name }}</b><small>運営 株式会社スピアード</small></a>
+    <nav class="nav" aria-label="サイト内">
+      <a href="{{ site.base }}"{% if page == 'index' %} aria-current="page"{% endif %}>相場マップ</a>
+      <a href="{{ site.base }}compare/"{% if page == 'compare' %} aria-current="page"{% endif %}>比べる</a>
+      <a href="{{ site.base }}area/"{% if page == 'area' %} aria-current="page"{% endif %}>エリアの推移</a>
+      <a href="{{ site.base }}satei/"{% if page == 'satei' %} aria-current="page"{% endif %}>無料査定</a>
+      <a href="{{ site.base }}tools/"{% if page == 'tools' %} aria-current="page"{% endif %}>手取り計算</a>
+      <a href="{{ site.base }}guide/"{% if page == 'guide' %} aria-current="page"{% endif %}>住み替えの準備</a>
+    </nav>
+    <a class="btn btn-sm head-cta" href="{{ site.base }}sodan/" data-ev="cta_sodan">相談する</a>
   </div>
-  <nav class="wrap nav" aria-label="サイト内">
-    <a href="{{ site.base }}"{% if page == 'index' %} aria-current="page"{% endif %}>マンション一覧</a>
-    <a href="{{ site.base }}area/"{% if page == 'area' %} aria-current="page"{% endif %}>エリア相場</a>
-    <a href="{{ site.base }}satei/"{% if page == 'satei' %} aria-current="page"{% endif %}>無料査定</a>
-    <a href="{{ site.base }}sodan/"{% if page == 'sodan' %} aria-current="page"{% endif %}>購入・売却の相談</a>
-    <a href="{{ site.base }}guide/"{% if page == 'guide' %} aria-current="page"{% endif %}>住み替えの準備</a>
-    <a href="{{ site.base }}about/"{% if page == 'about' %} aria-current="page"{% endif %}>運営会社</a>
-  </nav>
 </header>
 
-<main id="main" class="wrap">
+<main id="main">
+{% block full %}{% endblock %}
+<div class="wrap page">
 {% block main %}{% endblock %}
+</div>
+{% block after %}{% if page not in ('sodan', 'satei') %}
+<section class="band" aria-labelledby="band-ttl">
+  <div class="wrap band-in">
+    <div>
+      <div class="rule"></div>
+      <h2 id="band-ttl">数字の先は、担当者が根拠つきでお答えします</h2>
+      <p>階数・方位・眺望・室内の状態まで含めた査定と、買い時・売り時の判断材料をお出しします。<br>
+      代表の南は武蔵小杉のタワーマンションに住み、この街のマンションを自ら購入してきました。</p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="{{ site.base }}sodan/" data-ev="cta_sodan">購入・売却を相談する</a>
+      <a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
+    </div>
+  </div>
+</section>{% endif %}{% endblock %}
 </main>
 
 <footer class="site-foot">
-  <div class="wrap">
-    <p>{{ site.company }}（<a href="{{ speard_link }}" data-ev="speard_click">speard.jp</a>）<br>
-    宅地建物取引業 {{ site.license }}<br>
-    {{ site.address }}　TEL {{ site.tel }}{% if site.association %}<br>
-    {{ site.association }}{% endif %}</p>
-    <p class="foot-links"><a href="{{ site.base }}about/">運営会社</a><a href="{{ site.base }}sodan/">購入・売却の相談</a><a href="/#privacy">プライバシーポリシー</a><a href="{{ site.base }}disclaimer/">データ出典・免責事項</a><a href="{{ site.base }}disclaimer/#ads">広告について</a><a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a></p>
-    <p>出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）の不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。<br>
-    掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。</p>
-    <p>© {{ year }} Speared Co., Ltd.</p>
+  <div class="wrap foot-grid">
+    <div>
+      <b>{{ site.company }}</b><br>
+      宅地建物取引業 {{ site.license }}<br>
+      {{ site.address }}<br>
+      TEL {{ site.tel }}（9:30〜18:00、火曜・水曜定休）{% if site.association %}<br>
+      {{ site.association }}{% endif %}
+    </div>
+    <div class="foot-links">
+      <a href="{{ site.base }}sodan/">購入・売却の相談</a>
+      <a href="{{ site.base }}about/">運営会社</a>
+      <a href="{{ site.base }}disclaimer/">データ出典・免責事項</a>
+      <a href="{{ site.base }}disclaimer/#ads">広告について</a>
+      <a href="/#privacy">プライバシーポリシー</a>
+      <a href="{{ speard_link }}" data-ev="speard_click">speard.jp</a>
+    </div>
+    <p class="foot-src">出典：国土交通省 不動産情報ライブラリの不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。地図：国土地理院 地理院タイル。<br>
+    掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。<br>
+    © {{ year }} Speared Co., Ltd.</p>
   </div>
 </footer>
 
-{% if page not in ('satei', 'sodan') %}<div class="line-bar">
-  <div class="wrap line-row">
-    <p class="line-text">武蔵小杉のマンションの売却・購入をLINEで相談できます</p>
-    <a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
-  </div>
-</div>{% endif %}
-
-<script>window.SITE = {{ {"form_endpoint": site.form_endpoint} | tojson }};</script>
+<script>window.SITE = {{ {"form_endpoint": site.form_endpoint, "base": site.base, "line_url": site.line_url} | tojson }};</script>
 {% block data %}{% endblock %}
-<script src="{{ site.base }}assets/app.js" defer></script>
+<script src="{{ site.base }}assets/app.js?v={{ ver }}" defer></script>
 </body>
 </html>

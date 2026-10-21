@@ -11,8 +11,15 @@
     if (!oku) return `${rest.toLocaleString("ja-JP")}万円`;
     return rest ? `${oku}億${rest.toLocaleString("ja-JP")}万円` : `${oku}億円`;
   };
+  const man1 = (v) => { // 1万円単位（計算ツール用）
+    if (!Number.isFinite(v)) return "―";
+    const r = Math.round(v), oku = Math.floor(r / 10000), rest = r % 10000;
+    if (!oku) return `${rest.toLocaleString("ja-JP")}万円`;
+    return rest ? `${oku}億${rest.toLocaleString("ja-JP")}万円` : `${oku}億円`;
+  };
   const tsuboTxt = (v) => (Number.isFinite(v) ? `${Math.round(v).toLocaleString("ja-JP")}万円／坪` : "―");
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   /* ---------- 計測（GA4が読み込まれているときだけ送る） ---------- */
   const track = (name, params = {}) => { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch { /* 計測の失敗は無視 */ } };
@@ -25,33 +32,301 @@
   });
 
   /* ---------- グラフ ---------- */
-  const drawChart = () => {
-    const canvas = $("#chart"), data = window.CHART;
-    if (!canvas || !data) return;
-    if (!window.Chart) { setTimeout(drawChart, 150); return; }
-    const colors = [css("--navy"), css("--muted"), css("--line-strong") || "#9aa3b2"];
-    const muted = css("--muted"), rule = css("--line");
-    new window.Chart(canvas, {
+  const PALETTE = () => ({ ink: css("--ink"), gold: css("--gold"), muted: "#8a93a3", rule: css("--rule"), grey2: "#b5bdca" });
+  const whenChart = (fn) => { if (window.Chart) fn(); else setTimeout(() => whenChart(fn), 120); };
+  const axisOpts = (muted, rule) => ({
+    x: { ticks: { color: muted, maxRotation: 0, autoSkipPadding: 16, font: { size: 11 } }, grid: { display: false } },
+    y: { ticks: { color: muted, font: { size: 11 }, callback: (v) => v.toLocaleString("ja-JP") }, grid: { color: rule } },
+  });
+  const lineChart = (canvas, labels, series, colors) => {
+    const P = PALETTE();
+    return new window.Chart(canvas, {
       type: "line",
-      data: {
-        labels: data.labels,
-        datasets: data.series.map((s, i) => ({
-          label: s.label, data: s.data, borderColor: colors[i % 3], backgroundColor: colors[i % 3],
-          borderWidth: i === 0 ? 2 : 1.5, borderDash: i === 2 ? [4, 3] : [], pointRadius: 0, pointHoverRadius: 4, tension: 0, spanGaps: true,
-        })),
-      },
+      data: { labels, datasets: series.map((s, i) => ({
+        label: s.label, data: s.data, borderColor: colors[i], backgroundColor: colors[i],
+        borderWidth: i === 0 ? 2.25 : 1.5, borderDash: s.dash ? [4, 3] : [], pointRadius: 0, pointHoverRadius: 4, tension: 0, spanGaps: true,
+      })) },
       options: {
         responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
         plugins: {
-          legend: { display: data.series.length > 1, labels: { color: muted, boxWidth: 14, font: { size: 11 } } },
+          legend: { display: series.length > 1, labels: { color: P.muted, boxWidth: 14, boxHeight: 2, font: { size: 11 } } },
           tooltip: { callbacks: { label: (c) => `${c.dataset.label}：${Number.isFinite(c.parsed.y) ? tsuboTxt(c.parsed.y) : "―"}` } },
         },
-        scales: {
-          x: { ticks: { color: muted, maxRotation: 0, autoSkipPadding: 14, font: { size: 11 } }, grid: { display: false } },
-          y: { ticks: { color: muted, font: { size: 11 }, callback: (v) => v.toLocaleString("ja-JP") }, grid: { color: rule } },
-        },
+        scales: axisOpts(P.muted, P.rule),
       },
     });
+  };
+  const drawChart = () => {
+    const canvas = $("#chart"), data = window.CHART;
+    if (!canvas || !data || document.body.classList.contains("p-compare")) return;
+    whenChart(() => {
+      const P = PALETTE();
+      const series = data.series.map((s, i) => ({ ...s, dash: i === 2 }));
+      lineChart(canvas, data.labels, series, [P.ink, P.muted, P.grey2]);
+    });
+  };
+  const drawScatter = () => {
+    const canvas = $("#scatter"), A = window.ATLAS;
+    if (!canvas || !A) return;
+    whenChart(() => {
+      const P = PALETTE();
+      const pts = A.buildings.filter((b) => b.t).map((b) => ({ x: b.year, y: b.t, r: 4 + Math.sqrt(b.units) / 4, name: b.name, url: b.url }));
+      const ch = new window.Chart(canvas, {
+        type: "bubble",
+        data: { datasets: [{ data: pts, backgroundColor: "rgba(18,41,84,.72)", borderColor: P.gold, borderWidth: 1, hoverBorderWidth: 2 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.name}：${c.raw.x}年・${tsuboTxt(c.raw.y)}` } } },
+          scales: {
+            x: { ticks: { color: P.muted, font: { size: 11 }, callback: (v) => `${v}年` }, grid: { display: false }, suggestedMin: 2005, suggestedMax: 2022 },
+            y: { ticks: { color: P.muted, font: { size: 11 } }, grid: { color: P.rule }, title: { display: true, text: "万円／坪", color: P.muted, font: { size: 11 } } },
+          },
+          onClick: (e, els) => { if (els[0]) location.href = pts[els[0].index].url; },
+        },
+      });
+      canvas.style.cursor = "pointer";
+      return ch;
+    });
+  };
+
+  /* ---------- 地図 ---------- */
+  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png";
+  const TILE_ATTR = '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
+  const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
+  const pinIcon = (b, cls = "") => window.L.divIcon({
+    className: "pin-wrap", iconSize: [0, 0],
+    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span>${esc(b.name)}</span><b>${b.t ? b.t : "建設中"}</b></div>`,
+  });
+  // 値札が重なるときは、上下に少しずらして読めるようにする（ズームのたびに計算し直す）
+  const spread = (map, markers) => {
+    const run = () => {
+      const pts = markers.map((m) => ({ m, p: map.latLngToLayerPoint(m.getLatLng()), el: m.getElement() && m.getElement().querySelector(".pin") })).filter((x) => x.el);
+      pts.forEach((x) => { x.dx = 0; x.dy = 0; });
+      pts.sort((a, b) => a.p.y - b.p.y);
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = 0; j < i; j++) {
+          const a = pts[j], b = pts[i];
+          if (Math.abs((a.p.x + a.dx) - (b.p.x + b.dx)) < 44 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < 26) {
+            b.dy = (a.p.y + a.dy) - b.p.y + 28;
+          }
+        }
+      }
+      pts.forEach((x) => { x.el.style.setProperty("--dx", `${x.dx}px`); x.el.style.setProperty("--dy", `${x.dy}px`); });
+    };
+    map.on("zoomend", run); run();
+  };
+  const baseMap = (el, opts) => {
+    const fb = el.querySelector(".map-fallback"); if (fb) fb.remove();
+    const map = window.L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true, ...opts });
+    window.L.tileLayer(TILE, { attribution: TILE_ATTR, maxZoom: 18, minZoom: 12 }).addTo(map);
+    (window.ATLAS.stations || []).forEach((s) => window.L.marker([s.lat, s.lng], { interactive: false, zIndexOffset: -2000, icon: window.L.divIcon({ className: "pin-wrap", iconSize: [0, 0], html: `<div class="stn">${esc(s.name)}</div>` }) }).addTo(map));
+    return map;
+  };
+
+  /* ---------- トップ：地図＋一覧＋絞り込み＋比較 ---------- */
+  const initAtlas = () => {
+    const el = $("#map"), A = window.ATLAS;
+    if (!el || !A) return;
+    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
+    const items = [...document.querySelectorAll("#blist .bl")];
+    const pins = {};
+    const state = { age: null, walk: null, band: null, struct: null, units: null };
+    const NOW = new Date().getFullYear();
+    let map = null;
+
+    const setupMap = () => {
+      map = baseMap(el, { center: [35.5755, 139.6595], zoom: 16 });
+      A.buildings.forEach((b) => {
+        const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b), keyboard: true, title: b.name, riseOnHover: true }).addTo(map);
+        m.on("click", () => { track("map_pin_click", { building: b.name }); location.href = b.url; });
+        m.on("mouseover", () => hot(b.id, true));
+        m.on("mouseout", () => hot(b.id, false));
+        pins[b.id] = m;
+      });
+      map.fitBounds(window.L.latLngBounds(A.buildings.map((b) => [b.lat, b.lng])).pad(0.08));
+      spread(map, Object.values(pins));
+      apply();
+    };
+
+    const pinEl = (id) => pins[id] && pins[id].getElement() && pins[id].getElement().querySelector(".pin");
+    const hot = (id, on) => {
+      const li = items.find((x) => x.dataset.id === id);
+      if (li) li.classList.toggle("is-hot", on);
+      const p = pinEl(id); if (p) p.classList.toggle("is-hot", on);
+      if (on && pins[id]) pins[id].setZIndexOffset(1000); else if (pins[id]) pins[id].setZIndexOffset(0);
+    };
+    items.forEach((li) => {
+      li.addEventListener("mouseenter", () => hot(li.dataset.id, true));
+      li.addEventListener("mouseleave", () => hot(li.dataset.id, false));
+    });
+
+    const pass = (b) =>
+      (!state.age || (b.year <= NOW && NOW - b.year <= state.age)) &&
+      (!state.walk || b.walk <= state.walk) &&
+      (!state.band || (b.t && String(b.band) === state.band)) &&
+      (!state.struct || b.struct === state.struct) &&
+      (!state.units || b.units >= state.units);
+    const sorters = {
+      t: (a, b) => (b.t || 0) - (a.t || 0),
+      chg: (a, b) => (b.chg ?? -999) - (a.chg ?? -999),
+      year: (a, b) => b.year - a.year,
+      walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0),
+      units: (a, b) => b.units - a.units,
+    };
+    const apply = () => {
+      let n = 0;
+      const list = $("#blist");
+      const order = A.buildings.slice().sort(sorters[$("#sort").value] || sorters.t);
+      order.forEach((b) => {
+        const li = items.find((x) => x.dataset.id === b.id);
+        const ok = pass(b);
+        if (ok) n++;
+        if (li) { li.hidden = !ok; list.appendChild(li); }
+        const p = pinEl(b.id); if (p) p.classList.toggle("is-dim", !ok);
+      });
+      $("#count").textContent = `${n}棟`;
+      let empty = $("#blEmpty");
+      if (!n && !empty) { list.insertAdjacentHTML("beforeend", '<li class="bl-empty" id="blEmpty">条件に合うマンションがありません。条件を1つ外してください。</li>'); }
+      else if (n && empty) empty.remove();
+    };
+    document.querySelectorAll("#filters .chip").forEach((c) => c.addEventListener("click", () => {
+      const f = c.dataset.f, on = c.getAttribute("aria-pressed") !== "true";
+      document.querySelectorAll(`#filters .chip[data-f="${f}"]`).forEach((x) => x.setAttribute("aria-pressed", "false"));
+      c.setAttribute("aria-pressed", on ? "true" : "false");
+      state[f] = on ? (["struct", "band"].includes(f) ? c.dataset.v : Number(c.dataset.v)) : null;
+      apply();
+      track("filter", { filter: f, value: on ? c.dataset.v : "off" });
+    }));
+    $("#sort").addEventListener("change", apply);
+    apply();
+    whenLeaflet(setupMap);
+
+    // 比較トレイ
+    const tray = $("#tray"), picked = [];
+    const syncTray = () => {
+      items.forEach((li) => li.classList.toggle("is-picked", picked.includes(li.dataset.id)));
+      tray.classList.toggle("is-on", picked.length > 0);
+      document.body.classList.toggle("has-tray", picked.length > 0);
+      $("#trayNames").textContent = picked.length ? `比較：${picked.map((id) => byId[id].name).join("、")}` : "";
+      $("#trayGo").href = `${SITE.base}compare/?ids=${picked.join(",")}`;
+      $("#trayGo").textContent = `${picked.length}棟を比べる`;
+    };
+    document.querySelectorAll("#blist .bl-pick input").forEach((cb) => cb.addEventListener("change", () => {
+      const id = cb.value;
+      if (cb.checked) {
+        if (picked.length >= 3) { cb.checked = false; $("#trayNames").textContent = "比較できるのは3棟までです。1棟外してください。"; return; }
+        picked.push(id);
+      } else picked.splice(picked.indexOf(id), 1);
+      syncTray();
+    }));
+    $("#trayClear").addEventListener("click", () => {
+      picked.splice(0); document.querySelectorAll("#blist .bl-pick input").forEach((cb) => { cb.checked = false; }); syncTray();
+    });
+  };
+
+  /* ---------- 物件ページの地図 ---------- */
+  const initMiniMap = () => {
+    const el = $("#miniMap"), A = window.ATLAS;
+    if (!el || !A) return;
+    whenLeaflet(() => {
+      const self = A.buildings.find((b) => b.id === el.dataset.self);
+      const map = baseMap(el, { center: [self.lat, self.lng], zoom: 16, dragging: !window.matchMedia("(pointer: coarse)").matches });
+      const ms = A.buildings.map((b) => {
+        const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b, b.id === self.id ? "is-self" : ""), title: b.name, zIndexOffset: b.id === self.id ? 1000 : 0 }).addTo(map);
+        if (b.id !== self.id) m.on("click", () => { location.href = b.url; });
+        return m;
+      });
+      const near = A.buildings.filter((b) => b.id !== self.id)
+        .sort((a, b) => map.distance([self.lat, self.lng], [a.lat, a.lng]) - map.distance([self.lat, self.lng], [b.lat, b.lng])).slice(0, 5);
+      map.fitBounds(window.L.latLngBounds([self, ...near].map((b) => [b.lat, b.lng])).pad(0.25), { maxZoom: 17 });
+      spread(map, ms);
+    });
+  };
+
+  /* ---------- 比べる ---------- */
+  const initCompare = () => {
+    const tbl = $("#cmpTable"), A = window.ATLAS;
+    if (!tbl || !A) return;
+    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
+    const sels = [0, 1, 2].map((i) => $(`#pk${i}`));
+    const q = new URLSearchParams(location.search).get("ids");
+    const init = (q ? q.split(",") : ["k10", "k01", "k12"]).filter((id) => byId[id]).slice(0, 3);
+    sels.forEach((s, i) => { s.value = init[i] || ""; });
+    let chart = null;
+    const fmt = {
+      t: (b) => (b.t ? tsuboTxt(b.t) : "―"), p70: (b) => (b.p70 ? man(b.p70) : "―"),
+      range: (b) => (b.lo ? `${b.lo}〜${b.hi}万円／坪` : "―"), chg: (b) => (b.chg != null ? `${b.chg > 0 ? "+" : ""}${b.chg}%` : "―"),
+      n: (b) => `${b.n}件`, built: (b) => b.built, units: (b) => `${b.units.toLocaleString("ja-JP")}戸`, floors: (b) => `${b.floors}階`,
+      walk: (b) => `${b.line} 徒歩${b.walk}分`, struct: (b) => b.struct || "―", dev: (b) => b.dev || "―", mgr: (b) => b.mgr || "―",
+    };
+    const best = { t: (v) => v.t, p70: null, chg: (v) => v.chg, units: (v) => v.units, walk: (v) => -v.walk, n: (v) => v.n };
+    const render = () => {
+      const picked = sels.map((s) => byId[s.value]).filter(Boolean);
+      const cols = sels.map((s) => byId[s.value] || null);
+      cols.forEach((b, i) => { $(`#h${i}`).innerHTML = b ? `<a href="${b.url}">${esc(b.name)}</a>` : "―"; });
+      tbl.querySelectorAll("tbody tr").forEach((tr) => {
+        const k = tr.dataset.k, tds = tr.querySelectorAll("td");
+        const scoreFn = best[k];
+        const scores = cols.map((b) => (b && scoreFn ? scoreFn(b) : null));
+        const top = picked.length > 1 && scoreFn ? Math.max(...scores.filter((x) => x != null)) : null;
+        cols.forEach((b, i) => {
+          tds[i].textContent = b ? fmt[k](b) : "―";
+          tds[i].classList.toggle("hi", top != null && scores[i] === top);
+        });
+      });
+      const notes = picked.filter((b) => b.members.length).map((b) => `${b.name}の値は${b.members.join("、")}との合算です。`);
+      $("#cmpNotes").textContent = notes.join("");
+      const ids = picked.map((b) => b.id).join(",");
+      history.replaceState(null, "", ids ? `?ids=${ids}` : location.pathname);
+      whenChart(() => {
+        const P = PALETTE();
+        if (chart) chart.destroy();
+        chart = lineChart($("#chart"), A.labels, picked.map((b) => ({ label: b.name, data: b.chart })), [P.ink, P.gold, P.muted]);
+      });
+    };
+    sels.forEach((s) => s.addEventListener("change", () => { render(); track("compare_change", {}); }));
+    render();
+  };
+
+  /* ---------- 手取り計算・坪単価計算 ---------- */
+  const initTools = () => {
+    const box = $("#netCalc"), A = window.ATLAS;
+    if (!box || !A) return;
+    const byId = Object.fromEntries(A.buildings.map((b) => [b.id, b]));
+    const fee = (p) => (p > 400 ? (p * 0.03 + 6) : p > 200 ? (p * 0.04 + 2) : p * 0.05) * 1.1; // 万円・税込
+    let auto = true;
+    $("#nPrice").addEventListener("input", () => { auto = false; calc(); });
+    const suggest = () => {
+      const b = byId[$("#nB").value], area = num($("#nArea").value);
+      if (auto && b && b.t && area > 0) $("#nPrice").value = Math.round((b.t * area * TSUBO) / 10) * 10;
+    };
+    const calc = () => {
+      const p = num($("#nPrice").value), area = num($("#nArea").value), loan = num($("#nLoan").value) || 0, oth = num($("#nOther").value) || 0;
+      if (!(p > 0)) { ["#rPrice", "#rTsubo", "#rFee", "#rLoan", "#rOther", "#rNet"].forEach((id) => { $(id).textContent = "―"; }); return; }
+      const f = fee(p);
+      $("#rPrice").textContent = man1(p);
+      $("#rTsubo").textContent = area > 0 ? tsuboTxt(p / (area * TSUBO)) : "面積を入れると表示";
+      $("#rFee").textContent = `−${man1(f)}`;
+      $("#rLoan").textContent = loan ? `−${man1(loan)}` : "0円";
+      $("#rOther").textContent = oth ? `−${man1(oth)}` : "0円";
+      const net = p - f - loan - oth;
+      $("#rNet").textContent = net >= 0 ? man1(net) : `${man1(-net)}の不足`;
+      $("#rNet").classList.toggle("down", net < 0);
+    };
+    ["#nB", "#nArea"].forEach((id) => $(id).addEventListener("input", () => { if ($("#nB").value) auto = true; suggest(); calc(); }));
+    ["#nLoan", "#nOther"].forEach((id) => $(id).addEventListener("input", calc));
+    $("#nB").addEventListener("change", () => { auto = true; suggest(); calc(); track("tool_net", {}); });
+    calc();
+    const conv = () => {
+      const p = num($("#cPrice").value), a = num($("#cArea").value);
+      if (!(p > 0 && a > 0)) { ["#cTsubo", "#cP70", "#cDiff"].forEach((id) => { $(id).textContent = "―"; }); return; }
+      const t = p / (a * TSUBO);
+      $("#cTsubo").textContent = tsuboTxt(t);
+      $("#cP70").textContent = man(t * 70 * TSUBO);
+      const base = window.AREA_NOW;
+      $("#cDiff").textContent = base ? `${t >= base ? "+" : "−"}${Math.abs(Math.round(t - base)).toLocaleString("ja-JP")}万円／坪（${t >= base ? "+" : "−"}${Math.abs(Math.round((t / base - 1) * 100))}%）` : "―";
+    };
+    ["#cPrice", "#cArea"].forEach((id) => $(id).addEventListener("input", conv));
   };
 
   /* ---------- 査定の目安とフォーム ---------- */
@@ -171,6 +446,6 @@
     });
   };
 
-  const start = () => { drawChart(); initSatei(); initSodan(); };
+  const start = () => { drawChart(); drawScatter(); initAtlas(); initMiniMap(); initCompare(); initTools(); initSatei(); initSodan(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
