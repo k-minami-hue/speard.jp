@@ -163,6 +163,25 @@ h3 { font-size: 1.05rem; }
 .spark-note { font-size: 11px; color: var(--muted); }
 .card-empty { font-size: 13px; color: var(--muted); }
 
+/* ---------- 売出中の住戸 ---------- */
+.lsts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 760px) { .lsts { grid-template-columns: 1fr; gap: 14px; } }
+.lst { background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--ink); display: flex; flex-direction: column; min-width: 0; }
+.lst-head { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--rule); background: var(--wash); font-weight: 700; color: var(--ink); line-height: 1.45; }
+.lst-head a { color: var(--ink); text-decoration: none; } .lst-head a:hover { text-decoration: underline; }
+.lst-tag { flex: none; font-size: 12px; font-weight: 700; color: var(--ink-deep); background: var(--gold); padding: 2px 9px; border-radius: 2px; }
+.lst-spec { margin: 0; padding: 6px 18px 0; display: grid; grid-template-columns: 1fr 1fr; }
+.lst-spec > div { display: flex; flex-direction: column; padding: 9px 0; border-bottom: 1px dotted var(--rule); min-width: 0; }
+.lst-spec > div:nth-child(odd) { padding-right: 12px; }
+.lst-spec dt { font-size: 12px; color: var(--muted); }
+.lst-spec dd { margin: 0; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1.5; }
+.lst-spec .lst-price { grid-column: 1 / -1; flex-direction: row; align-items: baseline; justify-content: space-between; gap: 10px; }
+.lst-price dd { font-size: 1.6rem; color: var(--ink); }
+.lst-spec .lst-wide { grid-column: 1 / -1; padding-right: 0; }
+.lst-foot { padding: 10px 18px 0; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.lst .actions { padding: 12px 18px 16px; margin-top: auto; }
+@media (max-width: 340px) { .lst-spec { grid-template-columns: 1fr; } .lst-spec > div:nth-child(odd) { padding-right: 0; } }
+
 /* ---------- 地図 ---------- */
 .mapbox { position: relative; height: 700px; border: 1px solid var(--rule); background: var(--wash); }
 .mapbox.short { height: 420px; }

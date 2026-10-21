@@ -32,7 +32,6 @@ SITE = {
     "ga_id": "G-VZ45Q8VCWE",
     "gsc_verification": "",   # Google Search Console の HTMLタグ認証の content 値
     "company": "株式会社スピアード",
-    "ceo": "南 和希",
     "address": "東京都港区南青山2丁目2番8号 DFビル10F",
     "tel": "050-7109-3701",
     "email": "info@speard.jp",
@@ -104,6 +103,11 @@ def man(v):
 
 def tsubo_txt(v):
     return "―" if v is None else f"{round(v):,}万円／坪"
+
+
+def yen(v):
+    v = str(v or "").replace(",", "").strip()
+    return f"{int(float(v)):,}円" if v.replace(".", "", 1).isdigit() else v
 
 
 def pct(v):
@@ -246,8 +250,12 @@ def build(out_dir, origin, base):
     for b in buildings:
         b["key"] = f'{b["取引地区"]}|{b["取引建築年"]}' if b["取引地区"] else ""
         b["year"] = int(b["竣工年月"][:4])
-        b["built_txt"] = b["竣工年月"].replace("-", "年") + "月" + ("竣工予定" if b["year"] >= 2026 else "竣工")
-        b["age"] = max(0, dt.date.today().year - b["year"]) if b["year"] < 2026 else None
+        b["pre"] = b["竣工年月"][:7] > SITE["updated"][:7]   # 更新日の時点で竣工前か
+        b["built_txt"] = b["竣工年月"].replace("-", "年") + "月" + ("竣工予定" if b["pre"] else "竣工")
+        b["age"] = None if b["pre"] else max(0, dt.date.fromisoformat(SITE["updated"]).year - b["year"])
+        b["nodata_short"] = "竣工前" if b["pre"] else "集計中"
+        b["nodata_txt"] = ("竣工前のため、中古の取引データはまだありません。" if b["pre"]
+                           else "国土交通省の取引データで、この建物に当てはまる取引がまだ集計できていません。")
         mine = [t for t in trades if b["key"] and t["key"] == b["key"]]
         recent = [t for t in mine if t["qi"] >= recent_from]
         b["stats"] = summarize(recent)
@@ -282,6 +290,39 @@ def build(out_dir, origin, base):
         near = sorted((o for o in buildings if o["id"] != b["id"]), key=lambda o: km(b, o))[:5]
         b["near"] = [{"b": o, "m": round(km(b, o) * 1000 / 10) * 10,
                       "diff": (o["stats"]["tsubo"] - b["stats"]["tsubo"]) if (o["stats"] and b["stats"]) else None} for o in near]
+
+    # 自社の売出物件（data/listings.csv）。自社で媒介を受けた物件、または元付業者と売主の掲載承諾がある物件だけを入れる。
+    # 他社サイト・ポータルからの転載や自動取得はしない。次回更新予定日を過ぎた行は、おとり広告を防ぐため出さない。
+    by_id = {b["id"]: b for b in buildings}
+    upd = dt.date.fromisoformat(SITE["updated"])
+    listings = []
+    for r in read_csv("listings.csv"):
+        if r.get("有効", "").strip() != "1":
+            continue
+        b = by_id.get(r["building_id"].strip())
+        need = ("価格", "専有面積", "間取り", "所在階", "取引態様", "情報更新日", "次回更新予定日")
+        miss = [k for k in need if not r.get(k, "").strip()]
+        if not b or miss:
+            print(f'  売出物件 {r.get("id")} を出しません：{"棟IDが不明" if not b else "未記入 " + "・".join(miss)}')
+            continue
+        if dt.date.fromisoformat(r["次回更新予定日"].strip()) < upd:
+            print(f'  売出物件 {r["id"]} を出しません：次回更新予定日 {r["次回更新予定日"]} を過ぎています。販売状況を確認して日付を更新してください')
+            continue
+        price, area = float(r["価格"]), float(r["専有面積"])
+        t = price / (area * TSUBO)
+        base = b["stats"]["tsubo"] if b["stats"] else None
+        listings.append({
+            "id": r["id"], "b": b, "status": r.get("状態", "").strip() or "販売中",
+            "price_txt": man(price), "tsubo_txt": tsubo_txt(t), "p70_txt": man(p70(t)),
+            "area_txt": f"{area:.2f}㎡", "balcony": r.get("バルコニー面積", "").strip(), "plan": r["間取り"].strip(),
+            "floor": r["所在階"].strip(), "dir": r.get("向き", "").strip() or "―",
+            "kanri": yen(r.get("管理費", "")), "shuzen": yen(r.get("修繕積立金", "")),
+            "taiyo": r["取引態様"].strip(), "updated": r["情報更新日"].strip(), "next": r["次回更新予定日"].strip(),
+            "url": r.get("詳細URL", "").strip(),
+            "diff": (t - base) if base else None, "diff_pct": (t / base - 1) * 100 if base else None,
+        })
+    for b in buildings:
+        b["listings"] = [x for x in listings if x["b"]["id"] == b["id"]]
 
     ranked = sorted([b for b in buildings if b["stats"]], key=lambda b: -b["stats"]["tsubo"])
     nodata = [b for b in buildings if not b["stats"]]
@@ -322,7 +363,7 @@ def build(out_dir, origin, base):
         "t": round(b["stats"]["tsubo"]) if b["stats"] else None, "p70": round(b["stats"]["p70"]) if b["stats"] else None,
         "lo": round(b["stats"]["lo"]) if b["stats"] else None, "hi": round(b["stats"]["hi"]) if b["stats"] else None,
         "n": b["stats"]["n"] if b["stats"] else 0, "chg": round(b["chg3"]) if b["chg3"] is not None else None,
-        "year": b["year"], "built": b["built_txt"], "units": int(b["総戸数"]), "floors": int(b["地上階数"]),
+        "year": b["year"], "pre": b["pre"], "nodata": b["nodata_short"], "built": b["built_txt"], "units": int(b["総戸数"]), "floors": int(b["地上階数"]),
         "walk": int(b["徒歩分"]), "line": b["路線"], "struct": b["struct"], "dev": b["分譲会社"], "mgr": b["管理会社"],
         "members": b["members"], "chart": b["chart"],
     } for b in buildings]
@@ -330,7 +371,7 @@ def build(out_dir, origin, base):
 
     # speard.jp のコラム
     cols = []
-    cp = ROOT / "data" / "columns.json"   # speard.jp のコラムの一覧（scripts/sync_columns.py で更新）
+    cp = ROOT / "data" / "columns.json"   # speard.jp の columns/manifest.json の写し（コラムを足したら手で更新）
     if cp.exists():
         byid = {c["id"]: c for c in json.loads(cp.read_text(encoding="utf-8"))}
         for cid in COLUMNS:
@@ -376,7 +417,7 @@ def build(out_dir, origin, base):
         "latest_q": q_label(latest_q), "recent_from_q": next((q_label(q) for q in quarters if q_index(q) == recent_from), ""),
         "speard_link": SITE["speard_url"] + "?utm_source=kosugi-souba&utm_medium=referral",
         "ads": ads, "ad": {a["id"]: a for a in ads}, "ver": ver, "town": town, "photos": photos, "hero_photo": hero_photo,
-        "buildings": buildings, "ranked": ranked, "nodata": nodata, "n_buildings": len(buildings), "town_facts": TOWN_FACTS,
+        "buildings": buildings, "listings": listings, "ranked": ranked, "nodata": nodata, "n_buildings": len(buildings), "town_facts": TOWN_FACTS,
         "atlas_json": json.dumps({"buildings": atlas, "labels": [q_label(q) for q in quarters], "fallback": est_fallback,
                                   "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]}, ensure_ascii=False).replace("</", "<\\/"),
     }
@@ -416,7 +457,7 @@ def build(out_dir, origin, base):
     for b in buildings:
         s = b["stats"]
         ogp_image(ogp_dir / f'{b["slug"]}.jpg', b["マンション名"], f'{b["built_txt"]}・{b["総戸数"]}戸の相場',
-                  f'坪単価 {round(s["tsubo"])}万円' if s else "竣工前", bgs.get(b["photo"]["key"]) if b["photo"] else bgs.get("skyline"))
+                  f'坪単価 {round(s["tsubo"])}万円' if s else b["nodata_short"], bgs.get(b["photo"]["key"]) if b["photo"] else bgs.get("skyline"))
     if ogp_dir.exists():
         shutil.copytree(ogp_dir, out / "assets" / "ogp", dirs_exist_ok=True)
 
@@ -475,7 +516,7 @@ def build(out_dir, origin, base):
         (out / ".nojekyll").write_text("", encoding="utf-8")
         nf = env.get_template("404.html").render(**common, page="404", path=SITE["base"] + "404.html", jsonld=jsonld(website), ads_here=[], ogp="site.jpg")
         (out / "404.html").write_text(nf, encoding="utf-8")
-    print(f"built {len(urls)} pages -> {out}  （最新 {q_label(latest_q)}、タワー坪単価 {town['tsubo_txt']} {town['chg_txt']}、広告 {len(ads)}件）")
+    print(f"built {len(urls)} pages -> {out}  （最新 {q_label(latest_q)}、タワー坪単価 {town['tsubo_txt']} {town['chg_txt']}、広告 {len(ads)}件、売出物件 {len(listings)}件）")
 
 
 if __name__ == "__main__":

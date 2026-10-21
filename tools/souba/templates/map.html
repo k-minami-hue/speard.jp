@@ -38,9 +38,9 @@
         {% for b in ranked + nodata %}<li class="bl" data-id="{{ b.id }}">
           <span class="bl-pick"><input type="checkbox" value="{{ b.id }}" aria-label="{{ b['マンション名'] }}を比較に入れる"></span>
           <div><a class="bl-name" href="{{ b.url }}">{{ b['マンション名'] }}</a>
-            <span class="bl-meta">{{ b.year }}年{% if b.year >= 2026 %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['地上階数'] }}階・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</span></div>
+            <span class="bl-meta">{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['地上階数'] }}階・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</span></div>
           <div class="bl-val">{% if b.stats %}<span class="bl-t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span><span class="bl-p">70㎡ {{ b.stats.p70_txt }}</span>{% if b.chg3 is not none %}<span class="bl-c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}
-            {% else %}<span class="bl-p">竣工前</span>{% endif %}</div>
+            {% else %}<span class="bl-p">{{ b.nodata_short }}</span>{% endif %}</div>
         </li>{% endfor %}
       </ul>
     </div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import ad_cards, estimator, rep, faq_list, img %}
+{% from "macros.html" import ad_cards, estimator, rep, faq_list, img, listing_card %}
 {% set s = b.stats %}
 {% block title %}{{ b['マンション名'] }}の相場・売却価格｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}・推移｜{{ site.name }}{% endblock %}
 {% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのタワーマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのタワーマンションの相場。{% endif %}{% endblock %}
@@ -20,12 +20,19 @@
       </dl>
       <p class="bnote">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引{{ s.n }}件の中央値。{% if b.rank %}掲載{{ ranked|length }}棟中{{ b.rank }}位。{% endif %}{% if b.members %}{{ b.members|join('、') }}と合わせた値です。{% endif %}</p>
       {% else %}
-      <p class="bmeta" style="margin-top:16px">竣工前のため中古の取引データはまだありません。武蔵小杉のタワーマンションは、直近1年で坪単価{{ town.tsubo_txt }}前後です。</p>
+      <p class="bmeta" style="margin-top:16px">{{ b.nodata_txt }}武蔵小杉のタワーマンションは、直近1年で坪単価{{ town.tsubo_txt }}前後です。</p>
       {% endif %}
       {{ estimator(site, buildings, preset=b.id, title=b.short ~ 'の部屋はいくら？') }}
     </div>
   </div>
 </div>
+
+{% if b.listings %}<section class="sec" aria-labelledby="l-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="l-ttl">{{ b.short }}の売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。</p></div></div>
+    <ul class="lsts">{% for x in b.listings %}{{ listing_card(site, x, show_name=False) }}{% endfor %}</ul>
+  </div>
+</section>{% endif %}
 
 {% if s %}<section class="sec" aria-labelledby="t-ttl">
   <div class="wrap">
@@ -40,7 +47,7 @@
       <div class="sec-head"><div><h2 id="n-ttl">近くのタワーマンションと比べる</h2><p>直線距離と坪単価の差</p></div></div>
       <ul class="near">
         {% for n in b.near %}<li><a href="{{ n.b.url }}"><span class="n-name">{{ n.b['マンション名'] }}<span class="n-dist">約{{ n.m }}m・{{ n.b.built_txt }}・{{ n.b['総戸数'] }}戸</span></span>
-          <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% if n.diff is not none %}<span class="sub {{ 'up' if n.diff > 0 else 'down' if n.diff < 0 else '' }}">{{ b.short }}より{{ '%+.0f' % n.diff }}万円</span>{% endif %}{% else %}竣工前{% endif %}</span></a></li>
+          <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% if n.diff is not none %}<span class="sub {{ 'up' if n.diff > 0 else 'down' if n.diff < 0 else '' }}">{{ b.short }}より{{ '%+.0f' % n.diff }}万円</span>{% endif %}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
         {% endfor %}
       </ul>
       <p style="margin-top:12px"><a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a></p>

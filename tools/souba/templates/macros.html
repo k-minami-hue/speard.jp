@@ -22,13 +22,13 @@
   </div>
   <div class="card-body">
     <p class="card-name">{{ b['マンション名'] }}</p>
-    <p class="card-meta">{{ b.year }}年{% if b.year >= 2026 %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</p>
+    <p class="card-meta">{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</p>
     {% if b.stats %}
     <div class="card-price"><span class="t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span>{% if b.chg3 is not none %}<span class="c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}</div>
     <p class="card-p70">70㎡なら <b>{{ b.stats.p70_txt }}</b></p>
     {% if b.spark %}<svg class="spark" viewBox="0 0 {{ b.spark.w }} {{ b.spark.h }}" preserveAspectRatio="none" aria-hidden="true"><path d="{{ b.spark.d }}"/><circle cx="{{ b.spark.end[0] }}" cy="{{ b.spark.end[1] }}" r="3.5"/></svg>{% endif %}
     {% else %}
-    <p class="card-empty">竣工前のため、中古の取引データはまだありません。</p>
+    <p class="card-empty">{{ b.nodata_txt }}</p>
     {% endif %}
   </div>
 </li>
@@ -70,4 +70,26 @@
 
 {% macro faq_list(items) -%}
 <div class="faq">{% for q, a in items %}<details{% if loop.first %} open{% endif %}><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}</div>
+{%- endmacro %}
+
+
+{% macro listing_card(site, x, show_name=True) -%}
+<li class="lst">
+  <div class="lst-head"><span class="lst-tag">{{ x.status }}</span>{% if show_name %}<a href="{{ x.b.url }}">{{ x.b['マンション名'] }}</a>{% else %}<span>{{ x.floor }}階・{{ x.plan }}</span>{% endif %}</div>
+  <dl class="lst-spec">
+    <div class="lst-price"><dt>価格</dt><dd>{{ x.price_txt }}</dd></div>
+    <div><dt>坪単価</dt><dd>{{ x.tsubo_txt }}</dd></div>
+    <div><dt>70㎡換算</dt><dd>{{ x.p70_txt }}</dd></div>
+    <div><dt>専有面積</dt><dd>{{ x.area_txt }}{% if x.balcony %}<span class="sub">バルコニー {{ x.balcony }}㎡</span>{% endif %}</dd></div>
+    <div><dt>間取り</dt><dd>{{ x.plan }}</dd></div>
+    <div><dt>所在階・向き</dt><dd>{{ x.floor }}階・{{ x.dir }}</dd></div>
+    {% if x.kanri or x.shuzen %}<div><dt>管理費・修繕積立金</dt><dd>{{ x.kanri or '―' }}・{{ x.shuzen or '―' }}<span class="sub">月額</span></dd></div>{% endif %}
+    {% if x.diff is not none %}<div class="lst-wide"><dt>この棟の相場との差</dt><dd>{{ '%+.0f' % x.diff }}万円／坪（{{ '%+.0f' % x.diff_pct }}%）<span class="sub">直近2年の取引の中央値との比較</span></dd></div>{% endif %}
+  </dl>
+  <p class="lst-foot">取引態様：{{ x.taiyo }}　情報更新日：{{ x.updated }}　次回更新予定日：{{ x.next }}</p>
+  <div class="actions">
+    {% if x.url %}<a class="btn btn-sm" href="{{ x.url }}" target="_blank" rel="noopener" data-ev="listing_detail" data-ad="{{ x.id }}">物件の詳細を見る</a>{% endif %}
+    <a class="btn btn-sm btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;b={{ x.b.id }}&amp;ref={{ x.id }}" data-ev="listing_inquiry" data-ad="{{ x.id }}">この物件を問い合わせる</a>
+  </div>
+</li>
 {%- endmacro %}

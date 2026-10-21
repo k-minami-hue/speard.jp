@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import card, estimator, rep, faq_list, img %}
+{% from "macros.html" import card, estimator, rep, faq_list, img, listing_card %}
 {% block title %}武蔵小杉のマンション相場｜タワーマンション{{ n_buildings }}棟の坪単価・売却価格｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のタワーマンションの相場を棟ごとに掲載。直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の坪単価・推移・ランキングと、面積を入れるだけの価格の目安。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
@@ -46,7 +46,14 @@
   </div>
 </section>
 
-<section class="sec-wash" aria-labelledby="map-ttl">
+{% if listings %}<section class="sec" id="listings" aria-labelledby="lst-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="lst-ttl">売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。坪単価と、その棟の相場との差を並べています。</p></div></div>
+    <ul class="lsts">{% for x in listings %}{{ listing_card(site, x) }}{% endfor %}</ul>
+  </div>
+</section>
+
+{% endif %}<section class="sec-wash" aria-labelledby="map-ttl">
   <div class="wrap">
     <div class="sec-head"><div><h2 id="map-ttl">地図で見る相場</h2><p>値札は坪単価（万円）。タップすると詳しい数字が出ます。</p></div><a class="more" href="{{ site.base }}map/">条件で絞り込む</a></div>
     <div class="mapbox" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの坪単価の地図">
