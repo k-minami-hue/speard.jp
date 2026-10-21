@@ -16,7 +16,7 @@
       <dl class="bfigs">
         <div class="fig"><dt>坪単価</dt><dd>{{ '{:,}'.format(s.tsubo|round|int) }}<small>万円</small></dd></div>
         <div class="fig"><dt>70㎡なら</dt><dd>{{ s.p70_txt|replace('万円','') }}<small>万円</small></dd></div>
-        <div class="fig"><dt>3年前比</dt><dd class="{{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}<small>%</small>{% else %}―{% endif %}</dd></div>
+        <div class="fig"><dt>3年前比（直近1年）</dt><dd class="{{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}<small>%</small>{% else %}―{% endif %}</dd></div>
       </dl>
       <p class="bnote">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引{{ s.n }}件の中央値。{% if b.rank %}掲載{{ ranked|length }}棟中{{ b.rank }}位。{% endif %}{% if b.members %}{{ b.members|join('、') }}と合わせた値です。{% endif %}</p>
       {% else %}
