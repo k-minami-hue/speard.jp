@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>武蔵小杉のマンション相場データ（CSV）｜棟別の坪単価・四半期の推移｜武蔵小杉マンション相場帳</title>
+<meta name="description" content="武蔵小杉のタワーマンション15棟の坪単価中央値・70㎡換算・取引件数・3年前比と、四半期ごとの坪単価の推移をCSVでダウンロードできます。出典を書けば、記事や資料に引用・利用できます。">
+<link rel="canonical" href="https://speard.jp/souba/data/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="武蔵小杉マンション相場帳">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="武蔵小杉のマンション相場データ（CSV）｜棟別の坪単価・四半期の推移｜武蔵小杉マンション相場帳">
+<meta property="og:description" content="武蔵小杉のタワーマンション15棟の坪単価中央値・70㎡換算・取引件数・3年前比と、四半期ごとの坪単価の推移をCSVでダウンロードできます。出典を書けば、記事や資料に引用・利用できます。">
+<meta property="og:url" content="https://speard.jp/souba/data/">
+<meta property="og:image" content="https://speard.jp/souba/assets/ogp/site.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#122954">
+<link rel="icon" href="/souba/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+
+<link rel="stylesheet" href="/souba/assets/style.css?v=f526f798">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Dataset", "name": "武蔵小杉のタワーマンション 棟別相場データ", "description": "武蔵小杉のタワーマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。", "url": "https://speard.jp/souba/data/", "creator": {"@type": "RealEstateAgent", "@id": "https://speard.jp/#org", "name": "株式会社スピアード", "url": "https://speard.jp/", "telephone": "050-7109-3701", "address": {"@type": "PostalAddress", "addressCountry": "JP", "addressRegion": "東京都", "addressLocality": "港区", "streetAddress": "南青山2丁目2番8号 DFビル10F"}, "areaServed": "川崎市中原区武蔵小杉"}, "isAccessibleForFree": true, "inLanguage": "ja", "dateModified": "2026-10-21", "spatialCoverage": "神奈川県川崎市中原区 武蔵小杉", "creditText": "「不動産情報ライブラリ」（国土交通省）の不動産価格情報をもとに株式会社スピアードが加工して作成", "isBasedOn": "https://www.reinfolib.mlit.go.jp/", "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://speard.jp/souba/data/souba-buildings.csv"}, {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://speard.jp/souba/data/souba-quarterly.csv"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "武蔵小杉マンション相場帳", "item": "https://speard.jp/souba/"}, {"@type": "ListItem", "position": 2, "name": "相場データのダウンロード", "item": "https://speard.jp/souba/data/"}]}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','G-VZ45Q8VCWE',{content_group:'kosugi-souba'});</script>
+</head>
+<body class="p-data">
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="/souba/"><span class="logo-mark" aria-hidden="true">杉</span><span class="logo-txt"><b>武蔵小杉マンション相場帳</b><small>武蔵小杉のタワーマンション相場</small></span></a>
+    <nav class="nav" aria-label="サイト内">
+      <a href="/souba/#list">マンション一覧</a>
+      <a href="/souba/map/">相場マップ</a>
+      <a href="/souba/ranking/">ランキング</a>
+      <a href="/souba/trend/">相場の推移</a>
+      <a href="/souba/compare/">比べる</a>
+      <a href="/souba/tetori/">手取り・税金</a>
+      <a href="/souba/loan/">ローン計算</a>
+      <a href="/souba/guide/">住み替え</a>
+    </nav>
+    <div class="head-cta">
+      <a class="btn btn-sm btn-ghost" href="/souba/soudan/" data-ev="cta_sodan">相談</a>
+      <a class="btn btn-sm" href="/souba/satei/" data-ev="cta_satei">無料査定</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap page">
+<p class="crumbs"><a href="/souba/">武蔵小杉マンション相場帳</a> › 相場データのダウンロード</p>
+<section>
+  <h1>相場データのダウンロード</h1>
+  <p class="answer">このサイトで集計した武蔵小杉のマンションの相場を、CSVファイルで公開しています。<br>
+  ブログや資料、ご自身の分析に使っていただけます。</p>
+  <div class="dl-list">
+    <a class="dl" href="/souba/data/souba-buildings.csv" download data-ev="data_download" data-ad="buildings"><b>棟別の相場</b><span>15棟・坪単価の中央値と幅、70㎡換算、取引件数、3年前比</span><i>CSV</i></a>
+    <a class="dl" href="/souba/data/souba-quarterly.csv" download data-ev="data_download" data-ad="quarterly"><b>四半期ごとの推移</b><span>タワーマンションと周辺の中古マンション全体の坪単価</span><i>CSV</i></a>
+  </div>
+  <p class="note">最新のデータは2026年1Q分（更新日 2026年10月21日）。文字コードはUTF-8（BOM付き）で、Excelでそのまま開けます。</p>
+</section>
+
+<section>
+  <div class="sec-head"><div><h2>棟別の相場</h2><p>直近2年（2024年2Q〜2026年1Q）の取引</p></div></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>マンション</th><th>坪単価</th><th>70㎡換算</th><th>件数</th><th>3年前比</th></tr></thead>
+    <tbody><tr><td><a href="/souba/mansion/city-tower-musashikosugi/">シティタワー武蔵小杉</a><span class="sub">2016年01月竣工・800戸</span></td>
+      <td class="nw">614万円／坪<span class="sub">568万円／坪〜661万円／坪</span></td><td class="nw">1億3,000万円</td><td class="nw">50件</td>
+      <td class="nw">+57%</td></tr><tr><td><a href="/souba/mansion/eclas-tower-musashikosugi/">エクラスタワー武蔵小杉</a><span class="sub">2013年02月竣工・326戸</span></td>
+      <td class="nw">599万円／坪<span class="sub">545万円／坪〜622万円／坪</span></td><td class="nw">1億2,680万円</td><td class="nw">22件</td>
+      <td class="nw">+63%</td></tr><tr><td><a href="/souba/mansion/kosugi-3rd-avenue-the-residence/">コスギ サード アヴェニュー ザ・レジデンス</a><span class="sub">2020年06月竣工・519戸</span></td>
+      <td class="nw">566万円／坪<span class="sub">516万円／坪〜617万円／坪</span></td><td class="nw">1億1,980万円</td><td class="nw">38件</td>
+      <td class="nw">+39%</td></tr><tr><td><a href="/souba/mansion/park-city-the-garden-towers-west/">パークシティ武蔵小杉 ザ ガーデン タワーズウエスト</a><span class="sub">2018年12月竣工・613戸</span></td>
+      <td class="nw">537万円／坪<span class="sub">485万円／坪〜570万円／坪</span></td><td class="nw">1億1,370万円</td><td class="nw">38件</td>
+      <td class="nw">+51%</td></tr><tr><td><a href="/souba/mansion/proud-tower-musashikosugi/">プラウドタワー武蔵小杉</a><span class="sub">2015年01月竣工・450戸</span></td>
+      <td class="nw">529万円／坪<span class="sub">465万円／坪〜563万円／坪</span></td><td class="nw">1億1,200万円</td><td class="nw">23件</td>
+      <td class="nw">+46%</td></tr><tr><td><a href="/souba/mansion/park-city-the-garden-towers-east/">パークシティ武蔵小杉 ザ ガーデン タワーズイースト</a><span class="sub">2017年12月竣工・592戸</span></td>
+      <td class="nw">519万円／坪<span class="sub">473万円／坪〜570万円／坪</span></td><td class="nw">1億980万円</td><td class="nw">34件</td>
+      <td class="nw">+49%</td></tr><tr><td><a href="/souba/mansion/park-city-the-grand-wing-tower/">パークシティ武蔵小杉 ザ・グランドウイングタワー</a><span class="sub">2013年11月竣工・506戸</span></td>
+      <td class="nw">501万円／坪<span class="sub">476万円／坪〜549万円／坪</span></td><td class="nw">1億610万円</td><td class="nw">24件</td>
+      <td class="nw">+34%</td></tr><tr><td><a href="/souba/mansion/residence-the-musashikosugi/">レジデンス・ザ・武蔵小杉</a><span class="sub">2007年09月竣工・389戸</span></td>
+      <td class="nw">485万円／坪<span class="sub">418万円／坪〜509万円／坪</span></td><td class="nw">1億270万円</td><td class="nw">9件</td>
+      <td class="nw">+47%</td></tr><tr><td><a href="/souba/mansion/park-city-station-forest-tower/">パークシティ武蔵小杉 ステーションフォレストタワー</a><span class="sub">2008年10月竣工・643戸</span></td>
+      <td class="nw">481万円／坪<span class="sub">446万円／坪〜518万円／坪</span></td><td class="nw">1億190万円</td><td class="nw">64件</td>
+      <td class="nw">+44%</td></tr><tr><td><a href="/souba/mansion/park-city-midsky-tower/">パークシティ武蔵小杉 ミッドスカイタワー</a><span class="sub">2009年04月竣工・794戸</span></td>
+      <td class="nw">481万円／坪<span class="sub">446万円／坪〜518万円／坪</span></td><td class="nw">1億190万円</td><td class="nw">64件</td>
+      <td class="nw">+44%</td></tr><tr><td><a href="/souba/mansion/lietocourt-the-classy-tower/">リエトコート武蔵小杉 ザ・クラッシィタワー</a><span class="sub">2008年02月竣工・542戸</span></td>
+      <td class="nw">434万円／坪<span class="sub">397万円／坪〜464万円／坪</span></td><td class="nw">9,180万円</td><td class="nw">76件</td>
+      <td class="nw">+37%</td></tr><tr><td><a href="/souba/mansion/lietocourt-east-tower/">リエトコート武蔵小杉 イーストタワー</a><span class="sub">2008年02月竣工・542戸</span></td>
+      <td class="nw">434万円／坪<span class="sub">397万円／坪〜464万円／坪</span></td><td class="nw">9,180万円</td><td class="nw">76件</td>
+      <td class="nw">+37%</td></tr><tr><td><a href="/souba/mansion/the-kosugi-tower/">ザ・コスギタワー</a><span class="sub">2008年06月竣工・689戸</span></td>
+      <td class="nw">434万円／坪<span class="sub">397万円／坪〜464万円／坪</span></td><td class="nw">9,180万円</td><td class="nw">76件</td>
+      <td class="nw">+37%</td></tr><tr><td><a href="/souba/mansion/garden-tiara-musashikosugi/">ガーデンティアラ武蔵小杉</a><span class="sub">2006年12月竣工・600戸</span></td>
+      <td class="nw">311万円／坪<span class="sub">298万円／坪〜335万円／坪</span></td><td class="nw">6,590万円</td><td class="nw">20件</td>
+      <td class="nw">+24%</td></tr></tbody>
+  </table></div>
+</section>
+
+<section class="prose">
+  <h2>使うときのお願い</h2>
+  <p>引用・転載するときは、「武蔵小杉マンション相場帳（株式会社スピアード）」とこのページへのリンクを書いてください。<br>
+  元のデータの出典として、「不動産情報ライブラリ」（国土交通省）の不動産価格情報をもとに株式会社スピアードが加工して作成したものであることもあわせて書いてください。<br>
+  集計の方法は<a href="/souba/disclaimer/">データ出典・免責事項</a>にまとめています。<br>
+  過去の取引にもとづく参考値で、現在の売出価格や将来の価格を示すものではありません。</p>
+</section>
+</div>
+
+
+<section class="band" aria-labelledby="band-ttl">
+  <div class="wrap band-in">
+    <div>
+      <div class="rule"></div>
+      <h2 id="band-ttl">あなたの部屋がいくらで売れるか、根拠つきでお答えします</h2>
+      <p>このサイトの相場に、階数・方位・眺望・室内の状態を加えて査定します。<br>
+      売却を決めていない段階でも、売り時・買い時の判断材料をお出しします。</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-lg" href="/souba/satei/" data-ev="cta_satei">無料で査定する</a>
+      <a class="btn btn-lg btn-line" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <b>武蔵小杉マンション相場帳</b>
+      運営：株式会社スピアード<br>
+      宅地建物取引業 東京都知事（1）第112752号<br>
+      東京都港区南青山2丁目2番8号 DFビル10F<br>
+      TEL 050-7109-3701（9:30〜18:00、火曜・水曜定休）
+    </div>
+    <div>
+      <h3>相場を見る</h3>
+      <ul>
+        <li><a href="/souba/#list">マンション一覧</a></li>
+        <li><a href="/souba/map/">相場マップ</a></li>
+        <li><a href="/souba/ranking/">ランキング</a></li>
+        <li><a href="/souba/trend/">相場の推移</a></li>
+        <li><a href="/souba/compare/">マンションを比べる</a></li>
+        <li><a href="/souba/data/">相場データのダウンロード</a></li>
+        <li><a href="/souba/glossary/">用語集</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>売る・買う</h3>
+      <ul>
+        <li><a href="/souba/satei/">無料査定</a></li>
+        <li><a href="/souba/soudan/">購入・売却の相談</a></li>
+        <li><a href="/souba/tetori/">売却の手取り・税金の計算</a></li>
+        <li><a href="/souba/loan/">住宅ローン返済シミュレーション</a></li>
+        <li><a href="/souba/guide/">住み替えの準備</a></li>
+        <li><a href="/souba/about/">運営会社</a></li>
+        <li><a href="/souba/disclaimer/">データ出典・免責事項・広告について</a></li>
+        <li><a href="https://speard.jp/#privacy">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <p class="foot-src">価格：国土交通省 不動産情報ライブラリの不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。<br>
+    地図：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院 地理院タイル</a>。写真：多摩川の河川敷から見た武蔵小杉のタワーマンション群（Asanagi／<a href="https://creativecommons.org/publicdomain/zero/1.0/deed.ja" target="_blank" rel="noopener">CC0</a>／<a href="https://commons.wikimedia.org/wiki/File%3AMusashi-kosugi_2023-12-10.jpg" target="_blank" rel="noopener">出典</a>）、パークシティ武蔵小杉ミッドスカイタワー（掬茶／<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-SA 4.0</a>／<a href="https://commons.wikimedia.org/wiki/File%3APark_CITY_Musashi-Kosugi_Mid_Sky_Tower_20150201-2.jpg" target="_blank" rel="noopener">出典</a>）、パークシティ武蔵小杉ステーションフォレストタワー（Syced／<a href="https://creativecommons.org/publicdomain/zero/1.0/deed.ja" target="_blank" rel="noopener">CC0</a>／<a href="https://commons.wikimedia.org/wiki/File%3A%E3%83%91%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%86%E3%82%A3%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%95%E3%82%A9%E3%83%AC%E3%82%B9%E3%83%88%E3%82%BF%E3%83%AF%E3%83%BC.jpg" target="_blank" rel="noopener">出典</a>）、リエトコート武蔵小杉（掬茶／<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-SA 4.0</a>／<a href="https://commons.wikimedia.org/wiki/File%3ALieto_Court_Musashi-Kosugi.jpg" target="_blank" rel="noopener">出典</a>）、小杉コアパーク周辺のタワーマンション（掬茶／<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-SA 4.0</a>／<a href="https://commons.wikimedia.org/wiki/File%3AView_from_Kosugi_Core_Park.jpg" target="_blank" rel="noopener">出典</a>）、武蔵小杉駅東口（インターネット川崎ガイド／<a href="https://creativecommons.org/licenses/by/3.0/deed.ja" target="_blank" rel="noopener">CC BY 3.0</a>／<a href="https://commons.wikimedia.org/wiki/File%3A%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E9%A7%85%E6%9D%B1%E5%8F%A3_-_panoramio.jpg" target="_blank" rel="noopener">出典</a>）<br>
+    © 2026 Speared Co., Ltd.</p>
+  </div>
+</footer>
+
+<script>window.SITE = {"base": "/souba/", "form_endpoint": "https://formsubmit.co/ajax/info@speard.jp", "line_url": "https://line.me/R/ti/p/%40xef5208i"};</script>
+
+<script src="/souba/assets/app.js?v=f526f798" defer></script>
+</body>
+</html>

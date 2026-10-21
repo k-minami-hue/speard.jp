@@ -435,11 +435,39 @@ input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: n
 .calc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
 .calc-grid > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 @media (max-width: 860px) { .calc-grid { grid-template-columns: 1fr; } }
-.result dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 8px 0; font-variant-numeric: tabular-nums; }
+.result dl { margin: 0; display: grid; grid-template-columns: minmax(8.5em, 1fr) minmax(0, auto); gap: 8px 0; font-variant-numeric: tabular-nums; }
 .result dt { color: var(--muted); font-size: 14px; }
-.result dd { margin: 0; text-align: right; font-weight: 500; padding-left: 16px; }
+.result dd { margin: 0; text-align: right; font-weight: 500; padding-left: 16px; overflow-wrap: anywhere; }
 .result .total { border-top: 1px solid var(--ink); padding-top: 10px; margin-top: 4px; }
 .result dd.total { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+
+/* ---------- お知らせ登録・共有・データ・用語集 ---------- */
+.notify { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 20px 40px; align-items: center; border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 26px 28px; background: #fff; }
+.notify h2 { font-size: clamp(1.15rem, 1rem + .6vw, 1.4rem); }
+.notify p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+.notify-form { display: flex; flex-direction: column; gap: 8px; }
+.notify-row { display: flex; gap: 8px; }
+.notify-row input { flex: 1; min-width: 0; }
+.notify-row .btn { flex: none; min-height: 48px; }
+.notify .check { margin: 0; font-size: 13px; }
+@media (max-width: 860px) { .notify { grid-template-columns: 1fr; padding: 20px 18px; } }
+.share { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 16px; font-size: 13px; color: var(--muted); }
+.share a, .share button { font: inherit; font-size: 13px; color: var(--ink); background: #fff; border: 1px solid var(--rule); border-radius: 999px; padding: 4px 12px; text-decoration: none; cursor: pointer; min-height: 32px; display: inline-flex; align-items: center; }
+.share a:hover, .share button:hover { border-color: var(--ink); }
+.dl-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 860px; }
+@media (max-width: 640px) { .dl-list { grid-template-columns: 1fr; } }
+.dl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--rule); border-left: 3px solid var(--ink); text-decoration: none; color: var(--text); background: #fff; }
+.dl:hover { border-color: var(--ink); }
+.dl b { color: var(--ink); } .dl span { grid-column: 1; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.dl i { grid-column: 2; grid-row: 1 / span 2; font-style: normal; font-weight: 700; font-size: 12px; color: var(--ink-deep); background: var(--gold); padding: 3px 9px; border-radius: 2px; }
+.gl-index { display: flex; flex-wrap: wrap; gap: 6px; }
+.gl-index a { font-size: 13px; text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; }
+.gl-index a:hover { border-color: var(--ink); }
+.gl { margin: 0; border-top: 1px solid var(--ink); max-width: 52em; }
+.gl > div { padding: 16px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: calc(var(--head-h) + 16px); }
+.gl dt { font-weight: 700; color: var(--ink); font-size: 1.05rem; }
+.gl dd { margin: 4px 0 0; }
+.result dd input:disabled, input:disabled { background: var(--wash); color: var(--muted); }
 
 /* ---------- フッター ---------- */
 .site-foot { background: var(--ink-deep); color: rgba(255,255,255,.78); padding-block: 44px 40px; font-size: 13px; }

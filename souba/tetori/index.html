@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>マンション売却の手取り計算｜仲介手数料・ローン残高から試算｜武蔵小杉マンション相場帳</title>
-<meta name="description" content="武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。価格と面積から坪単価・70㎡換算も計算できます。">
+<title>マンション売却の手取り計算｜仲介手数料・ローン残高・譲渡所得税から試算｜武蔵小杉マンション相場帳</title>
+<meta name="description" content="武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。譲渡所得税（3,000万円特別控除・10年超の軽減税率）の概算と、価格と面積から坪単価・70㎡換算も計算できます。">
 <link rel="canonical" href="https://speard.jp/souba/tetori/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="武蔵小杉マンション相場帳">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="マンション売却の手取り計算｜仲介手数料・ローン残高から試算｜武蔵小杉マンション相場帳">
-<meta property="og:description" content="武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。価格と面積から坪単価・70㎡換算も計算できます。">
+<meta property="og:title" content="マンション売却の手取り計算｜仲介手数料・ローン残高・譲渡所得税から試算｜武蔵小杉マンション相場帳">
+<meta property="og:description" content="武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。譲渡所得税（3,000万円特別控除・10年超の軽減税率）の概算と、価格と面積から坪単価・70㎡換算も計算できます。">
 <meta property="og:url" content="https://speard.jp/souba/tetori/">
 <meta property="og:image" content="https://speard.jp/souba/assets/ogp/site.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
 
-<link rel="stylesheet" href="/souba/assets/style.css?v=cf03c30b">
+<link rel="stylesheet" href="/souba/assets/style.css?v=f526f798">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "武蔵小杉マンション相場帳", "url": "https://speard.jp/souba/", "inLanguage": "ja", "publisher": {"@type": "RealEstateAgent", "@id": "https://speard.jp/#org", "name": "株式会社スピアード", "url": "https://speard.jp/", "telephone": "050-7109-3701", "address": {"@type": "PostalAddress", "addressCountry": "JP", "addressRegion": "東京都", "addressLocality": "港区", "streetAddress": "南青山2丁目2番8号 DFビル10F"}, "areaServed": "川崎市中原区武蔵小杉"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "武蔵小杉マンション相場帳", "item": "https://speard.jp/souba/"}, {"@type": "ListItem", "position": 2, "name": "売却の手取り計算", "item": "https://speard.jp/souba/tetori/"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','G-VZ45Q8VCWE',{content_group:'kosugi-souba'});</script>
@@ -39,7 +39,8 @@
       <a href="/souba/ranking/">ランキング</a>
       <a href="/souba/trend/">相場の推移</a>
       <a href="/souba/compare/">比べる</a>
-      <a href="/souba/tetori/" aria-current="page">手取り計算</a>
+      <a href="/souba/tetori/" aria-current="page">手取り・税金</a>
+      <a href="/souba/loan/">ローン計算</a>
       <a href="/souba/guide/">住み替え</a>
     </nav>
     <div class="head-cta">
@@ -85,6 +86,47 @@
     <p class="note" id="rNote" style="margin-top:10px">仲介手数料は宅地建物取引業法の上限（400万円超は売買価格×3%＋6万円、消費税10%）で計算しています。<br>
     売却益が出た場合の譲渡所得税は含みません。マイホームの売却では3,000万円の特別控除などを使える場合があります。</p>
   </div>
+</section>
+
+<section id="taxCalc">
+  <div class="sec-head"><div><h2>売却にかかる税金の概算</h2><p>譲渡所得税（所得税・復興特別所得税・住民税）</p></div></div>
+  <p>売って利益が出たときは、翌年の確定申告で譲渡所得税を納めます。<br>
+  上の売却価格と仲介手数料を使って、所有期間と特例に応じた税額の目安を計算します。</p>
+  <div class="calc-grid">
+    <div>
+      <div class="row2">
+        <div><label for="tCost">購入価格（万円）</label><input id="tCost" type="number" inputmode="numeric" min="0" step="10" placeholder="例：7000"></div>
+        <div><label for="tCostExp">購入時の諸費用（万円）</label><input id="tCostExp" type="number" inputmode="numeric" min="0" step="1" value="0"></div>
+      </div>
+      <div class="row2">
+        <div><label for="tDep">建物の減価償却費（万円）</label><input id="tDep" type="number" inputmode="numeric" min="0" step="1" value="0"></div>
+        <div><label for="tOtherExp">売却時のその他の費用（万円）</label><input id="tOtherExp" type="number" inputmode="numeric" min="0" step="1" value="0"></div>
+      </div>
+      <div class="row2">
+        <div><label for="tBuyY">購入した年</label><input id="tBuyY" type="number" inputmode="numeric" min="1950" max="2100" step="1" placeholder="例：2016"></div>
+        <div><label for="tSellY">売却する年</label><input id="tSellY" type="number" inputmode="numeric" min="1950" max="2100" step="1" value="2026"></div>
+      </div>
+      <label class="check"><input id="tHome" type="checkbox" checked> <span>自分が住んでいる（住んでいた）家を売る</span></label>
+      <label class="check"><input id="tEst" type="checkbox"> <span>購入価格が分からないので、売却価格の5%を取得費にする</span></label>
+      <p class="note">取得費は「購入価格＋購入時の諸費用−建物の減価償却費」です。<br>
+      減価償却費は建物部分だけにかかり、購入時の契約書と築年数で計算します。分からない場合は概算になります。</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <dl>
+        <dt>譲渡所得（利益）</dt><dd id="tGain">―</dd>
+        <dt>特別控除</dt><dd id="tDed">―</dd>
+        <dt>所有期間の区分</dt><dd id="tKind">―</dd>
+        <dt>所得税＋復興特別所得税</dt><dd id="tInc">―</dd>
+        <dt>住民税</dt><dd id="tRes">―</dd>
+        <dt class="total">税金の合計（目安）</dt><dd class="total" id="tTax">―</dd>
+        <dt class="total">税引き後の手取り</dt><dd class="total" id="tNet">―</dd>
+      </dl>
+      <p class="note" id="tNote" style="margin-top:10px">所有期間は売却した年の1月1日時点で判定します。5年以下は短期（所得税30%・住民税9%）、5年超は長期（所得税15%・住民税5%）、復興特別所得税は所得税額の2.1%です。<br>
+      自宅の売却は3,000万円の特別控除が使え、所有期間が10年を超えると課税所得6,000万円以下の部分の税率が下がります（所得税10%・住民税4%）。</p>
+    </div>
+  </div>
+  <p class="note">特例には、親子・夫婦など特別な関係の人への売却ではないこと、住まなくなってから3年目の年末までに売ることなどの要件があり、住宅ローン控除や買換えの特例との関係にも注意が必要です。<br>
+  この計算は目安です。実際の税額は税務署または税理士にご確認ください（出典：国税庁 タックスアンサー No.3208・3211・3302・3305）。</p>
 </section>
 
 <section>
@@ -150,6 +192,8 @@
         <li><a href="/souba/ranking/">ランキング</a></li>
         <li><a href="/souba/trend/">相場の推移</a></li>
         <li><a href="/souba/compare/">マンションを比べる</a></li>
+        <li><a href="/souba/data/">相場データのダウンロード</a></li>
+        <li><a href="/souba/glossary/">用語集</a></li>
       </ul>
     </div>
     <div>
@@ -157,7 +201,8 @@
       <ul>
         <li><a href="/souba/satei/">無料査定</a></li>
         <li><a href="/souba/soudan/">購入・売却の相談</a></li>
-        <li><a href="/souba/tetori/">売却の手取り計算</a></li>
+        <li><a href="/souba/tetori/">売却の手取り・税金の計算</a></li>
+        <li><a href="/souba/loan/">住宅ローン返済シミュレーション</a></li>
         <li><a href="/souba/guide/">住み替えの準備</a></li>
         <li><a href="/souba/about/">運営会社</a></li>
         <li><a href="/souba/disclaimer/">データ出典・免責事項・広告について</a></li>
@@ -172,6 +217,6 @@
 
 <script>window.SITE = {"base": "/souba/", "form_endpoint": "https://formsubmit.co/ajax/info@speard.jp", "line_url": "https://line.me/R/ti/p/%40xef5208i"};</script>
 <script>window.ATLAS = {"buildings": [{"id": "k15", "name": "レジデンス・ザ・武蔵小杉", "short": "レジデンス・ザ", "url": "/souba/mansion/residence-the-musashikosugi/", "lat": 35.57371, "lng": 139.66274, "band": 2, "t": 485, "p70": 10267, "lo": 418, "hi": 509, "n": 9, "chg": 47, "year": 2007, "pre": false, "nodata": "集計中", "built": "2007年09月竣工", "units": 389, "floors": 24, "walk": 4, "line": "東急東横線", "struct": "", "dev": "コスモスイニシア・明豊エンタープライズ", "mgr": "大和ライフネクスト", "members": [], "chart": [null, null, null, null, null, null, null, null, null, 293, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 331, null, null, null, null, null, null, null, 372, null, null, null, 409, null, null, null, null, null, null, 534]}, {"id": "k16", "name": "ガーデンティアラ武蔵小杉", "short": "ガーデンティアラ", "url": "/souba/mansion/garden-tiara-musashikosugi/", "lat": 35.57912, "lng": 139.64957, "band": 1, "t": 311, "p70": 6595, "lo": 298, "hi": 335, "n": 20, "chg": 24, "year": 2006, "pre": false, "nodata": "集計中", "built": "2006年12月竣工", "units": 600, "floors": 15, "walk": 12, "line": "JR南武線", "struct": "", "dev": "ナイス・相鉄不動産ほか", "mgr": "", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 236, null, null, null, null, null, null, null, 256, null, 262, null, 279, null, null, null, 287, null, 294, null, 295, 315, null, null, null, null, 335]}, {"id": "k06", "name": "リエトコート武蔵小杉 ザ・クラッシィタワー", "short": "クラッシィタワー", "url": "/souba/mansion/lietocourt-the-classy-tower/", "lat": 35.57212, "lng": 139.66109, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "pre": false, "nodata": "集計中", "built": "2008年02月竣工", "units": 542, "floors": 45, "walk": 2, "line": "JR横須賀線", "struct": "", "dev": "住友商事・三井不動産レジデンシャル", "mgr": "住商建物", "members": ["リエトコート武蔵小杉 イーストタワー", "ザ・コスギタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k07", "name": "リエトコート武蔵小杉 イーストタワー", "short": "リエトイースト", "url": "/souba/mansion/lietocourt-east-tower/", "lat": 35.57263, "lng": 139.6621, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "pre": false, "nodata": "集計中", "built": "2008年02月竣工", "units": 542, "floors": 45, "walk": 2, "line": "JR横須賀線", "struct": "", "dev": "住友不動産", "mgr": "住友不動産建物サービス", "members": ["リエトコート武蔵小杉 ザ・クラッシィタワー", "ザ・コスギタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k08", "name": "ザ・コスギタワー", "short": "コスギタワー", "url": "/souba/mansion/the-kosugi-tower/", "lat": 35.57165, "lng": 139.66192, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "pre": false, "nodata": "集計中", "built": "2008年06月竣工", "units": 689, "floors": 49, "walk": 3, "line": "JR横須賀線", "struct": "制震", "dev": "伊藤忠都市開発・東京建物・ジョイント・コーポレーション", "mgr": "伊藤忠アーバンコミュニティ", "members": ["リエトコート武蔵小杉 ザ・クラッシィタワー", "リエトコート武蔵小杉 イーストタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k02", "name": "パークシティ武蔵小杉 ステーションフォレストタワー", "short": "ステーションフォレスト", "url": "/souba/mansion/park-city-station-forest-tower/", "lat": 35.57519, "lng": 139.66159, "band": 2, "t": 481, "p70": 10189, "lo": 446, "hi": 518, "n": 64, "chg": 44, "year": 2008, "pre": false, "nodata": "集計中", "built": "2008年10月竣工", "units": 643, "floors": 47, "walk": 2, "line": "東急東横線", "struct": "制震", "dev": "三井不動産レジデンシャル・三井都市開発・新日石不動産", "mgr": "三井不動産レジデンシャルサービス", "members": ["パークシティ武蔵小杉 ミッドスカイタワー"], "chart": [325, 331, null, null, 313, 323, null, 305, 331, 298, null, 307, 321, 295, null, null, 336, 292, 327, 310, null, null, 289, null, 278, 331, 312, 335, 331, 353, 367, 342, 353, 369, 352, 376, 360, 391, 449, 485, 458, 485, 494, 515, 519]}, {"id": "k01", "name": "パークシティ武蔵小杉 ミッドスカイタワー", "short": "ミッドスカイ", "url": "/souba/mansion/park-city-midsky-tower/", "lat": 35.57473, "lng": 139.66118, "band": 2, "t": 481, "p70": 10189, "lo": 446, "hi": 518, "n": 64, "chg": 44, "year": 2009, "pre": false, "nodata": "集計中", "built": "2009年04月竣工", "units": 794, "floors": 59, "walk": 2, "line": "東急東横線", "struct": "制震", "dev": "三井不動産レジデンシャル・三井都市開発・新日石不動産", "mgr": "三井不動産レジデンシャルサービス", "members": ["パークシティ武蔵小杉 ステーションフォレストタワー"], "chart": [325, 331, null, null, 313, 323, null, 305, 331, 298, null, 307, 321, 295, null, null, 336, 292, 327, 310, null, null, 289, null, 278, 331, 312, 335, 331, 353, 367, 342, 353, 369, 352, 376, 360, 391, 449, 485, 458, 485, 494, 515, 519]}, {"id": "k09", "name": "エクラスタワー武蔵小杉", "short": "エクラスタワー", "url": "/souba/mansion/eclas-tower-musashikosugi/", "lat": 35.57582, "lng": 139.65914, "band": 4, "t": 599, "p70": 12680, "lo": 545, "hi": 622, "n": 22, "chg": 63, "year": 2013, "pre": false, "nodata": "集計中", "built": "2013年02月竣工", "units": 326, "floors": 39, "walk": 1, "line": "東急東横線", "struct": "免震", "dev": "東京急行電鉄・東急不動産・丸紅・東電不動産", "mgr": "東急コミュニティー", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 368, null, null, null, null, null, null, null, null, 541, 557, null, 661, 603, null, null]}, {"id": "k03", "name": "パークシティ武蔵小杉 ザ・グランドウイングタワー", "short": "グランドウイング", "url": "/souba/mansion/park-city-the-grand-wing-tower/", "lat": 35.57482, "lng": 139.65976, "band": 3, "t": 501, "p70": 10613, "lo": 476, "hi": 549, "n": 24, "chg": 34, "year": 2013, "pre": false, "nodata": "集計中", "built": "2013年11月竣工", "units": 506, "floors": 38, "walk": 1, "line": "東急東横線", "struct": "制震", "dev": "三井都市開発・三井不動産レジデンシャル", "mgr": "", "members": [], "chart": [397, 413, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 358, 358, 358, null, 362, null, null, null, null, 413, null, 448, null, 432, 458, 484, null, 473, 509, 570, 549, null, null]}, {"id": "k11", "name": "プラウドタワー武蔵小杉", "short": "プラウドタワー", "url": "/souba/mansion/proud-tower-musashikosugi/", "lat": 35.57609, "lng": 139.65653, "band": 3, "t": 529, "p70": 11200, "lo": 465, "hi": 563, "n": 23, "chg": 46, "year": 2015, "pre": false, "nodata": "集計中", "built": "2015年01月竣工", "units": 450, "floors": 45, "walk": 4, "line": "東急東横線", "struct": "制震", "dev": "野村不動産・相鉄不動産", "mgr": "野村不動産パートナーズ", "members": [], "chart": [294, null, null, null, null, null, null, null, null, null, null, null, null, null, 430, 345, 321, null, null, null, null, null, 343, null, 331, 346, 361, 358, 376, null, null, 383, 392, 406, 412, 401, 408, 441, null, null, null, 524, 567, null, null]}, {"id": "k10", "name": "シティタワー武蔵小杉", "short": "シティタワー", "url": "/souba/mansion/city-tower-musashikosugi/", "lat": 35.57282, "lng": 139.66016, "band": 4, "t": 614, "p70": 13000, "lo": 568, "hi": 661, "n": 50, "chg": 57, "year": 2016, "pre": false, "nodata": "集計中", "built": "2016年01月竣工", "units": 800, "floors": 53, "walk": 4, "line": "JR横須賀線", "struct": "免震", "dev": "住友不動産", "mgr": "住友不動産建物サービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 375, 383, 375, 387, 391, 411, 410, 430, 463, 455, 451, 438, 469, 481, 573, 567, 598, null, 614, 661, 708]}, {"id": "k04", "name": "パークシティ武蔵小杉 ザ ガーデン タワーズイースト", "short": "ガーデンタワーズE", "url": "/souba/mansion/park-city-the-garden-towers-east/", "lat": 35.57771, "lng": 139.65687, "band": 3, "t": 519, "p70": 10983, "lo": 473, "hi": 570, "n": 34, "chg": 49, "year": 2017, "pre": false, "nodata": "集計中", "built": "2017年12月竣工", "units": 592, "floors": 53, "walk": 4, "line": "JR南武線", "struct": "免震", "dev": "三井不動産レジデンシャル・JX不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 345, 342, 379, 364, 368, 380, 392, null, 381, 384, 426, 426, 441, 448, 472, 507, 512, 559, 579, 573, 610]}, {"id": "k05", "name": "パークシティ武蔵小杉 ザ ガーデン タワーズウエスト", "short": "ガーデンタワーズW", "url": "/souba/mansion/park-city-the-garden-towers-west/", "lat": 35.57776, "lng": 139.65551, "band": 3, "t": 537, "p70": 11375, "lo": 485, "hi": 570, "n": 38, "chg": 51, "year": 2018, "pre": false, "nodata": "集計中", "built": "2018年12月竣工", "units": 613, "floors": 53, "walk": 5, "line": "JR南武線", "struct": "免震", "dev": "三井不動産レジデンシャル・JX不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 369, 356, 355, 385, 370, 370, 381, null, 403, 401, 383, 405, 464, null, 485, 508, 567, 533, 617, 567]}, {"id": "k12", "name": "コスギ サード アヴェニュー ザ・レジデンス", "short": "サードアヴェニュー", "url": "/souba/mansion/kosugi-3rd-avenue-the-residence/", "lat": 35.57562, "lng": 139.65863, "band": 4, "t": 566, "p70": 11978, "lo": 516, "hi": 617, "n": 38, "chg": 39, "year": 2020, "pre": false, "nodata": "集計中", "built": "2020年06月竣工", "units": 519, "floors": 38, "walk": 1, "line": "JR南武線", "struct": "制震", "dev": "三井不動産レジデンシャル・東急不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 366, null, null, null, null, 423, 453, null, 456, null, 473, 470, 490, 490, null, 556, 537, 595, 606, null, 661]}, {"id": "k13", "name": "ザ・パークハウス 武蔵小杉タワーズ", "short": "パークハウスタワーズ", "url": "/souba/mansion/the-parkhouse-musashikosugi-towers/", "lat": 35.57903, "lng": 139.65808, "band": 0, "t": null, "p70": null, "lo": null, "hi": null, "n": 0, "chg": null, "year": 2027, "pre": true, "nodata": "竣工前", "built": "2027年09月竣工予定", "units": 1438, "floors": 50, "walk": 3, "line": "JR南武線", "struct": "免震", "dev": "三菱地所レジデンス・東京建物・東急・東急不動産", "mgr": "", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}], "labels": ["2015年1Q", "2015年2Q", "2015年3Q", "2015年4Q", "2016年1Q", "2016年2Q", "2016年3Q", "2016年4Q", "2017年1Q", "2017年2Q", "2017年3Q", "2017年4Q", "2018年1Q", "2018年2Q", "2018年3Q", "2018年4Q", "2019年1Q", "2019年2Q", "2019年3Q", "2019年4Q", "2020年1Q", "2020年2Q", "2020年3Q", "2020年4Q", "2021年1Q", "2021年2Q", "2021年3Q", "2021年4Q", "2022年1Q", "2022年2Q", "2022年3Q", "2022年4Q", "2023年1Q", "2023年2Q", "2023年3Q", "2023年4Q", "2024年1Q", "2024年2Q", "2024年3Q", "2024年4Q", "2025年1Q", "2025年2Q", "2025年3Q", "2025年4Q", "2026年1Q"], "fallback": {"lo": 494, "hi": 614}, "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]}; window.AREA_NOW = 559;</script>
-<script src="/souba/assets/app.js?v=cf03c30b" defer></script>
+<script src="/souba/assets/app.js?v=f526f798" defer></script>
 </body>
 </html>

@@ -306,6 +306,106 @@
       $("#cDiff").textContent = base ? `${t >= base ? "+" : "−"}${Math.abs(Math.round(t - base)).toLocaleString("ja-JP")}万円／坪（${t >= base ? "+" : "−"}${Math.abs(Math.round((t / base - 1) * 100))}%）` : "―";
     };
     ["#cPrice", "#cArea"].forEach((id) => $(id).addEventListener("input", conv));
+
+    /* 譲渡所得税の概算（国税庁 No.3208・3211・3302・3305） */
+    const tax = () => {
+      const out = (id, t) => { $(id).textContent = t; };
+      const p = num($("#nPrice").value);
+      const ids = ["#tGain", "#tDed", "#tKind", "#tInc", "#tRes", "#tTax", "#tNet"];
+      if (!(p > 0)) { ids.forEach((id) => out(id, "―")); out("#tGain", "上で売却価格を入れてください"); return; }
+      const est = $("#tEst").checked;
+      ["#tCost", "#tCostExp", "#tDep"].forEach((id) => { $(id).disabled = est; });
+      const cost = est ? p * 0.05 : (num($("#tCost").value) || 0) + (num($("#tCostExp").value) || 0) - (num($("#tDep").value) || 0);
+      const sellExp = fee(p) + (num($("#tOtherExp").value) || 0);
+      const gain = p - Math.max(cost, 0) - sellExp;
+      const by = num($("#tBuyY").value), sy = num($("#tSellY").value);
+      if (!est && !(num($("#tCost").value) > 0)) { ids.forEach((id) => out(id, "―")); out("#tGain", "購入価格を入れてください"); return; }
+      if (!(by > 0 && sy >= by)) { ids.forEach((id) => out(id, "―")); out("#tGain", "購入した年と売却する年を入れてください"); return; }
+      const years = sy - by;               // 1月1日時点の所有期間：年の差が6以上で5年超、11以上で10年超
+      const long = years >= 6, ten = years >= 11, home = $("#tHome").checked;
+      out("#tGain", gain > 0 ? man1(gain) : `${man1(-gain)}の損失`);
+      const ded = home ? Math.min(3000, Math.max(gain, 0)) : 0;
+      out("#tDed", ded ? `−${man1(ded)}` : "なし");
+      out("#tKind", `${long ? "長期" : "短期"}（1月1日時点で${long ? "5年超" : "5年以下"}）${home && ten ? "・10年超の軽減税率" : ""}`);
+      const base = Math.max(gain - ded, 0);
+      let inc, res;
+      if (!long) { inc = base * 0.30; res = base * 0.09; }
+      else if (home && ten) { const a = Math.min(base, 6000), b = Math.max(base - 6000, 0); inc = a * 0.10 + b * 0.15; res = a * 0.04 + b * 0.05; }
+      else { inc = base * 0.15; res = base * 0.05; }
+      inc *= 1.021;
+      out("#tInc", man1(inc)); out("#tRes", man1(res)); out("#tTax", man1(inc + res));
+      const loan = num($("#nLoan").value) || 0, oth = num($("#nOther").value) || 0;
+      const net = p - fee(p) - loan - oth - inc - res;
+      out("#tNet", net >= 0 ? man1(net) : `${man1(-net)}の不足`);
+    };
+    if ($("#taxCalc")) {
+      ["#tCost", "#tCostExp", "#tDep", "#tOtherExp", "#tBuyY", "#tSellY", "#tHome", "#tEst", "#nPrice", "#nB", "#nArea", "#nLoan", "#nOther"].forEach((id) => {
+        $(id).addEventListener("input", () => setTimeout(tax)); $(id).addEventListener("change", () => setTimeout(tax));
+      });
+      tax();
+    }
+  };
+
+  /* ---------- 住宅ローン返済シミュレーション ---------- */
+  const pmt = (amt, rate, years) => { const n = years * 12, r = rate / 100 / 12; return r ? amt * r / (1 - Math.pow(1 + r, -n)) : amt / n; };
+  const schedule = (amt, rate, years, type) => {
+    const n = years * 12, r = rate / 100 / 12, m = pmt(amt, rate, years), rows = [];
+    let bal = amt, paid = 0, intSum = 0, first = 0;
+    for (let i = 1; i <= n; i++) {
+      const it = bal * r, pr = type === "p" ? amt / n : m - it, pay = pr + it;
+      if (i === 1) first = pay;
+      bal = Math.max(bal - pr, 0); paid += pay; intSum += it;
+      if (i % 60 === 0 || i === n) rows.push({ y: i / 12, bal, intSum });
+    }
+    return { first, total: paid, interest: intSum, rows };
+  };
+  const initLoan = () => {
+    const box = $("#loanCalc");
+    if (!box || !A) return;
+    let autoPrice = true, autoAmt = true;
+    const qs = new URLSearchParams(location.search);
+    if (byId[qs.get("b")]) $("#lB").value = qs.get("b");
+    if (qs.get("a")) $("#lArea").value = qs.get("a");
+    if (qs.get("p")) { $("#lPrice").value = qs.get("p"); autoPrice = false; }
+    $("#lPrice").addEventListener("input", () => { autoPrice = false; });
+    $("#lAmt").addEventListener("input", () => { autoAmt = !$("#lAmt").value; });
+    const calc = () => {
+      const b = byId[$("#lB").value], area = num($("#lArea").value);
+      if (autoPrice && b && b.t && area > 0) $("#lPrice").value = Math.round((b.t * area * TSUBO) / 10) * 10;
+      const price = num($("#lPrice").value), down = num($("#lDown").value) || 0;
+      if (autoAmt && price > 0) $("#lAmt").value = Math.max(Math.round(price - down), 0);
+      const amt = num($("#lAmt").value), rate = num($("#lRate").value), years = num($("#lYears").value), inc = num($("#lIncome").value), type = $("#lType").value;
+      $("#oTsubo").textContent = price > 0 && area > 0 ? `${tsuboTxt(price / (area * TSUBO))}（70㎡換算 ${man(price / (area * TSUBO) * 70 * TSUBO)}）` : "物件価格と面積を入れると表示";
+      const ids = ["#oAmt", "#oMonth", "#oYear", "#oTotal", "#oInt", "#oRatio", "#oMult"];
+      if (!(amt > 0 && rate >= 0 && $("#lRate").value !== "" && years > 0)) {
+        ids.forEach((id) => { $(id).textContent = "―"; }); if (amt > 0) $("#oAmt").textContent = man1(amt);
+        $("#oStress").innerHTML = '<tr><td colspan="4" style="text-align:left">借入額と金利を入れると表示します。</td></tr>';
+        $("#oBal").innerHTML = '<tr><td colspan="3" style="text-align:left">借入額と金利を入れると表示します。</td></tr>';
+        return;
+      }
+      const yen = (v) => `${Math.round(v * 10000).toLocaleString("ja-JP")}円`;
+      const s = schedule(amt, rate, years, type);
+      $("#oMonthL").textContent = type === "p" ? "毎月の返済額（1回目）" : "毎月の返済額";
+      $("#oAmt").textContent = man1(amt);
+      $("#oMonth").textContent = yen(s.first);
+      $("#oYear").textContent = yen(s.first * 12);
+      $("#oTotal").textContent = man1(s.total);
+      $("#oInt").textContent = man1(s.interest);
+      $("#oRatio").textContent = inc > 0 ? `${((s.first * 12) / inc * 100).toFixed(1)}%` : "年収を入れると表示";
+      $("#oMult").textContent = inc > 0 ? `${(amt / inc).toFixed(1)}倍` : "年収を入れると表示";
+      const base = pmt(amt, rate, years);
+      $("#oStress").innerHTML = [0, 0.5, 1, 1.5, 2].map((d) => {
+        const m = pmt(amt, rate + d, years);
+        return `<tr><td class="nw">${parseFloat((rate + d).toFixed(3))}%${d ? `<span class="sub">今より+${d}%</span>` : '<span class="sub">入力した金利</span>'}</td><td class="nw">${yen(m)}</td><td class="nw">${d ? "+" + yen(m - base) : "―"}</td><td class="nw">${man1(m * years * 12)}</td></tr>`;
+      }).join("");
+      $("#oBal").innerHTML = s.rows.map((r) => `<tr><td class="nw">${r.y}年後</td><td class="nw">${man1(r.bal)}</td><td class="nw">${man1(r.intSum)}</td></tr>`).join("");
+    };
+    $("#lB").addEventListener("change", () => { autoPrice = true; autoAmt = true; calc(); track("tool_loan", {}); });
+    $("#lArea").addEventListener("input", () => { if ($("#lB").value) autoPrice = true; autoAmt = true; calc(); });
+    $("#lDown").addEventListener("input", () => { autoAmt = true; calc(); });
+    $("#lPrice").addEventListener("input", () => { autoAmt = true; calc(); });
+    ["#lAmt", "#lRate", "#lYears", "#lType", "#lIncome"].forEach((id) => { $(id).addEventListener("input", calc); $(id).addEventListener("change", calc); });
+    calc();
   };
 
   /* ---------- 無料査定 ---------- */
@@ -434,6 +534,37 @@
     });
   };
 
-  const start = () => { initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initSatei(); initSodan(); };
+  /* ---------- 相場の更新のお知らせ登録 ---------- */
+  const initNotify = () => {
+    $$("[data-notify]").forEach((form) => form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = $(".form-msg", form); msg.className = "form-msg";
+      if (!form.checkValidity() || !$("[data-agree]", form).checked) { msg.classList.add("err"); msg.textContent = "メールアドレスを入れ、個人情報の取扱いに同意してください。"; return; }
+      const d = Object.fromEntries(new FormData(form).entries());
+      if (d._honey) return; delete d._honey;
+      d._subject = `【相場帳】お知らせ登録：${d.building}`; d._template = "table"; d._captcha = "false"; d.page = location.pathname;
+      const btn = $("button[type=submit]", form); btn.disabled = true;
+      try {
+        const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(d) });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok || String(j.success) === "false") throw new Error(String(res.status));
+        form.reset(); track("generate_lead", { form: "notify", building: d.building });
+        msg.classList.add("ok"); msg.textContent = "登録しました。次の更新からお知らせします。";
+      } catch { msg.classList.add("err"); msg.textContent = "登録できませんでした。時間をおいてもう一度お試しください。"; }
+      finally { btn.disabled = false; }
+    }));
+  };
+
+  /* ---------- リンクのコピー ---------- */
+  const initShare = () => {
+    $$("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
+      const label = btn.textContent;
+      try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent = "コピーしました"; }
+      catch { window.prompt("このURLをコピーしてください", btn.dataset.copy); }
+      setTimeout(() => { btn.textContent = label; }, 1800);
+    }));
+  };
+
+  const start = () => { initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
