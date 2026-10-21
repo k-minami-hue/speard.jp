@@ -1,6 +1,6 @@
 # コラム・物件・成約実績の manifest や記事を更新して push すると、
 # 静的ページ（/columns/ /properties/ /results/）と sitemap.xml を自動で再生成してコミットする。
-# tools/souba/ のデータ・テンプレートを更新すると、武蔵小杉マンション相場帳（/souba/）も再生成する。
+# 武蔵小杉マンション相場帳は kosugi-souba.jp（k-minami-hue/kosugi-souba）へ移転。/souba/ は転送ページのみ（tools/souba/redirect.py で生成済み）。
 name: build static pages
 
 on:
@@ -17,7 +17,6 @@ on:
       - 'index.html'
       - 'tools/build_pages.py'
       - 'tools/pages/**'
-      - 'tools/souba/**'
       - '**.jpg'
       - '**.jpeg'
       - '**.png'
@@ -48,8 +47,6 @@ jobs:
             python3 tools/make_col_ogp.py
           fi
       - run: python3 tools/build_pages.py
-      - name: 武蔵小杉マンション相場帳（/souba/）
-        run: python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
       - name: commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then

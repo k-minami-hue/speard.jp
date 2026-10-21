@@ -8,4 +8,4 @@ Disallow: /tools/
 Disallow: /assets/guide/
 
 Sitemap: https://speard.jp/sitemap.xml
-Sitemap: https://speard.jp/souba/sitemap.xml
+Sitemap: https://kosugi-souba.jp/sitemap.xml
