@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>武蔵小杉のマンション相場｜主要15棟の坪単価と推移｜武蔵小杉マンション相場帳</title>
-<meta name="description" content="武蔵小杉のタワーマンションなど主要15棟の相場を、国土交通省の取引データから棟ごとに集計。坪単価の中央値、70㎡換算価格、3年前との比較、推移グラフを掲載しています。">
+<meta name="color-scheme" content="light">
+<title>武蔵小杉のマンション相場マップ｜主要15棟の坪単価・70㎡換算・推移｜武蔵小杉マンション相場帳</title>
+<meta name="description" content="武蔵小杉のタワーマンションなど主要15棟の相場を地図と一覧で。国土交通省の取引データから棟ごとに坪単価の中央値、70㎡換算価格、3年前との比較を集計。築年数・駅徒歩・価格帯・免震で絞り込み、最大3棟を比較できます。">
 <link rel="canonical" href="https://speard.jp/souba/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="武蔵小杉マンション相場帳">
-<meta property="og:title" content="武蔵小杉のマンション相場｜主要15棟の坪単価と推移｜武蔵小杉マンション相場帳">
-<meta property="og:description" content="武蔵小杉のタワーマンションなど主要15棟の相場を、国土交通省の取引データから棟ごとに集計。坪単価の中央値、70㎡換算価格、3年前との比較、推移グラフを掲載しています。">
+<meta property="og:title" content="武蔵小杉のマンション相場マップ｜主要15棟の坪単価・70㎡換算・推移｜武蔵小杉マンション相場帳">
+<meta property="og:description" content="武蔵小杉のタワーマンションなど主要15棟の相場を地図と一覧で。国土交通省の取引データから棟ごとに坪単価の中央値、70㎡換算価格、3年前との比較を集計。築年数・駅徒歩・価格帯・免震で絞り込み、最大3棟を比較できます。">
 <meta property="og:url" content="https://speard.jp/souba/">
 <meta property="og:image" content="https://speard.jp/souba/assets/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,155 +19,270 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="/souba/assets/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/souba/assets/style.css?v=9b8e39ca">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "武蔵小杉マンション相場帳", "url": "https://speard.jp/souba/", "publisher": {"@type": "RealEstateAgent", "name": "株式会社スピアード", "url": "https://speard.jp/", "telephone": "050-7109-3701", "address": {"@type": "PostalAddress", "addressRegion": "東京都", "addressLocality": "港区", "streetAddress": "南青山2丁目2番8号 DFビル10F"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "スピアード", "item": "https://speard.jp/"}, {"@type": "ListItem", "position": 2, "name": "武蔵小杉マンション相場帳", "item": "https://speard.jp/souba/"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','G-VZ45Q8VCWE',{content_group:'souba'});</script>
 </head>
-<body>
+<body class="p-index">
 <a class="skip" href="#main">本文へ移動</a>
 <header class="site-head">
   <div class="wrap head-row">
-    <a class="logo" href="/souba/">武蔵小杉マンション相場帳</a>
-    <span class="op">運営：<a href="https://speard.jp/?utm_source=souba&amp;utm_medium=referral" data-ev="speard_click">株式会社スピアード</a></span>
+    <a class="logo" href="/souba/"><b>武蔵小杉マンション相場帳</b><small>運営 株式会社スピアード</small></a>
+    <nav class="nav" aria-label="サイト内">
+      <a href="/souba/" aria-current="page">相場マップ</a>
+      <a href="/souba/compare/">比べる</a>
+      <a href="/souba/area/">エリアの推移</a>
+      <a href="/souba/satei/">無料査定</a>
+      <a href="/souba/tools/">手取り計算</a>
+      <a href="/souba/guide/">住み替えの準備</a>
+    </nav>
+    <a class="btn btn-sm head-cta" href="/souba/sodan/" data-ev="cta_sodan">相談する</a>
   </div>
-  <nav class="wrap nav" aria-label="サイト内">
-    <a href="/souba/" aria-current="page">マンション一覧</a>
-    <a href="/souba/area/">エリア相場</a>
-    <a href="/souba/satei/">無料査定</a>
-    <a href="/souba/sodan/">購入・売却の相談</a>
-    <a href="/souba/guide/">住み替えの準備</a>
-    <a href="/souba/about/">運営会社</a>
-  </nav>
 </header>
 
-<main id="main" class="wrap">
+<main id="main">
 
-<section class="intro">
-  <h1>武蔵小杉のマンション相場</h1>
-  <p class="answer">武蔵小杉の駅徒歩5分以内・2005年以降築の中古マンションは、直近1年の取引で坪単価533万円／坪前後、70㎡に換算すると1億1,290万円前後です。</p>
-  <p>このページでは、国土交通省の取引データを、マンションと同じ町・同じ建築年の取引に絞って棟ごとに集計しています。<br>
-  価格には坪単価と、70㎡に換算した価格を並べています。</p>
-  <p class="asof">データ：2026年1Qまで（直近2年＝2024年2Q〜2026年1Q）。更新日 2026年10月21日</p>
-</section>
+<div class="wrap hero">
+  <h1>武蔵小杉のマンション相場マップ</h1>
+  <p class="answer">駅徒歩5分以内・2005年以降築の中古マンションは、直近1年で坪単価<strong class="nw">533万円／坪</strong>前後、70㎡換算で<strong class="nw">1億1,290万円</strong>前後です。3年前の同じ時期より+44%です。</p>
+  <p class="asof">国土交通省の取引データ 2024年2Q〜2026年1Q（直近2年）を棟ごとに集計。更新日 2026年10月21日</p>
 
-<section id="list">
-  <div class="sec-head"><h2>マンションごとの相場</h2><p class="note">坪単価が高い順・直近2年の中央値</p></div>
-  <div class="tbl-wrap"><table class="rank">
-    <thead><tr><th>マンション</th><th>坪単価<span class="sub">70㎡換算</span></th><th>3年前比</th></tr></thead>
-    <tbody>
-    <tr>
-      <td class="name"><a href="/souba/b/city-tower-musashikosugi/">シティタワー武蔵小杉</a><span class="sub">2016年01月竣工・800戸・武蔵小杉駅 徒歩4分・50件</span></td>
-      <td class="nw">614万円／坪<span class="sub">1億3,000万円</span></td>
-      <td class="nw">+57%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/eclas-tower-musashikosugi/">エクラスタワー武蔵小杉</a><span class="sub">2013年02月竣工・326戸・武蔵小杉駅 徒歩1分・22件</span></td>
-      <td class="nw">599万円／坪<span class="sub">1億2,680万円</span></td>
-      <td class="nw">+63%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/kosugi-3rd-avenue-the-residence/">コスギ サード アヴェニュー ザ・レジデンス</a><span class="sub">2020年06月竣工・519戸・武蔵小杉駅 徒歩1分・38件</span></td>
-      <td class="nw">566万円／坪<span class="sub">1億1,980万円</span></td>
-      <td class="nw">+39%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/park-city-the-garden-towers-west/">パークシティ武蔵小杉 ザ ガーデン タワーズウエスト</a><span class="sub">2018年12月竣工・613戸・武蔵小杉駅 徒歩5分・38件</span></td>
-      <td class="nw">537万円／坪<span class="sub">1億1,370万円</span></td>
-      <td class="nw">+51%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/proud-tower-musashikosugi/">プラウドタワー武蔵小杉</a><span class="sub">2015年01月竣工・450戸・武蔵小杉駅 徒歩4分・23件</span></td>
-      <td class="nw">529万円／坪<span class="sub">1億1,200万円</span></td>
-      <td class="nw">+46%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/park-city-the-garden-towers-east/">パークシティ武蔵小杉 ザ ガーデン タワーズイースト</a><span class="sub">2017年12月竣工・592戸・武蔵小杉駅 徒歩4分・34件</span></td>
-      <td class="nw">519万円／坪<span class="sub">1億980万円</span></td>
-      <td class="nw">+49%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/park-city-the-grand-wing-tower/">パークシティ武蔵小杉 ザ・グランドウイングタワー</a><span class="sub">2013年11月竣工・506戸・武蔵小杉駅 徒歩1分・24件</span></td>
-      <td class="nw">501万円／坪<span class="sub">1億610万円</span></td>
-      <td class="nw">+34%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/residence-the-musashikosugi/">レジデンス・ザ・武蔵小杉</a><span class="sub">2007年09月竣工・389戸・武蔵小杉駅 徒歩4分・9件</span></td>
-      <td class="nw">485万円／坪<span class="sub">1億270万円</span></td>
-      <td class="nw">+47%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/park-city-station-forest-tower/">パークシティ武蔵小杉 ステーションフォレストタワー</a><span class="sub">2008年10月竣工・643戸・武蔵小杉駅 徒歩2分・64件</span></td>
-      <td class="nw">481万円／坪<span class="sub">1億190万円</span></td>
-      <td class="nw">+44%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/park-city-midsky-tower/">パークシティ武蔵小杉 ミッドスカイタワー</a><span class="sub">2009年04月竣工・794戸・武蔵小杉駅 徒歩2分・64件</span></td>
-      <td class="nw">481万円／坪<span class="sub">1億190万円</span></td>
-      <td class="nw">+44%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/lietocourt-the-classy-tower/">リエトコート武蔵小杉 ザ・クラッシィタワー</a><span class="sub">2008年02月竣工・542戸・武蔵小杉駅 徒歩2分・76件</span></td>
-      <td class="nw">434万円／坪<span class="sub">9,180万円</span></td>
-      <td class="nw">+37%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/lietocourt-east-tower/">リエトコート武蔵小杉 イーストタワー</a><span class="sub">2008年02月竣工・542戸・武蔵小杉駅 徒歩2分・76件</span></td>
-      <td class="nw">434万円／坪<span class="sub">9,180万円</span></td>
-      <td class="nw">+37%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/the-kosugi-tower/">ザ・コスギタワー</a><span class="sub">2008年06月竣工・689戸・武蔵小杉駅 徒歩3分・76件</span></td>
-      <td class="nw">434万円／坪<span class="sub">9,180万円</span></td>
-      <td class="nw">+37%</td>
-    </tr><tr>
-      <td class="name"><a href="/souba/b/garden-tiara-musashikosugi/">ガーデンティアラ武蔵小杉</a><span class="sub">2006年12月竣工・600戸・武蔵小杉駅 徒歩12分・20件</span></td>
-      <td class="nw">311万円／坪<span class="sub">6,590万円</span></td>
-      <td class="nw">+24%</td>
-    </tr>
-    <tr>
-      <td class="name"><a href="/souba/b/the-parkhouse-musashikosugi-towers/">ザ・パークハウス 武蔵小杉タワーズ</a><span class="sub">2027年09月竣工予定・1438戸・武蔵小杉駅 徒歩3分</span></td>
-      <td colspan="2">竣工前のため<br>取引データなし</td>
-    </tr>
-    </tbody>
-  </table></div>
-  <p class="note">同じ町・同じ建築年に複数のマンションがある場合は、合算した値です（各マンションのページに対象を書いています）。<br>
-  3年前比は、直近1年と3年前の同じ1年の坪単価中央値の比較です。</p>
+  <div class="atlas" id="atlas">
+    <div class="map" id="map" role="region" aria-label="武蔵小杉のマンションの坪単価の地図">
+      <p class="map-fallback">地図を読み込んでいます。表示されない場合は右（スマホでは下）の一覧をご覧ください。</p>
+      <div class="map-badge" aria-hidden="true">地図の数字は坪単価（万円）<span class="legend"><i style="background:var(--b1)"></i>〜450<i style="background:var(--b2)"></i>450〜<i style="background:var(--b3)"></i>500〜<i style="background:var(--b4)"></i>550〜</span></div>
+    </div>
+    <div class="panel">
+      <div class="filters" id="filters">
+        <div class="f-row" role="group" aria-label="築年数"><span class="f-label">築年数</span>
+          <button type="button" class="chip" data-f="age" data-v="10" aria-pressed="false">10年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="15" aria-pressed="false">15年以内</button>
+          <button type="button" class="chip" data-f="age" data-v="20" aria-pressed="false">20年以内</button></div>
+        <div class="f-row" role="group" aria-label="駅徒歩"><span class="f-label">駅徒歩</span>
+          <button type="button" class="chip" data-f="walk" data-v="2" aria-pressed="false">2分以内</button>
+          <button type="button" class="chip" data-f="walk" data-v="4" aria-pressed="false">4分以内</button></div>
+        <div class="f-row" role="group" aria-label="坪単価"><span class="f-label">坪単価</span>
+          <button type="button" class="chip" data-f="band" data-v="4" aria-pressed="false">550万〜</button>
+          <button type="button" class="chip" data-f="band" data-v="3" aria-pressed="false">500万台</button>
+          <button type="button" class="chip" data-f="band" data-v="2" aria-pressed="false">450万台</button>
+          <button type="button" class="chip" data-f="band" data-v="1" aria-pressed="false">〜450万</button></div>
+        <div class="f-row" role="group" aria-label="建物"><span class="f-label">建物</span>
+          <button type="button" class="chip" data-f="struct" data-v="免震" aria-pressed="false">免震</button>
+          <button type="button" class="chip" data-f="struct" data-v="制震" aria-pressed="false">制震</button>
+          <button type="button" class="chip" data-f="units" data-v="500" aria-pressed="false">500戸以上</button></div>
+        <div class="f-foot"><span id="count" aria-live="polite">15棟</span>
+          <label class="sr" for="sort">並べ替え</label>
+          <select id="sort"><option value="t">坪単価が高い順</option><option value="chg">3年前比が大きい順</option><option value="year">築年が新しい順</option><option value="walk">駅に近い順</option><option value="units">総戸数が多い順</option></select></div>
+      </div>
+      <ul class="blist" id="blist">
+        <li class="bl" data-id="k10">
+          <span class="bl-pick"><input type="checkbox" value="k10" aria-label="シティタワー武蔵小杉を比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/city-tower-musashikosugi/">シティタワー武蔵小杉</a>
+            <span class="bl-meta">2016年01月竣工・800戸・53階・徒歩4分・免震</span></div>
+          <div class="bl-val"><span class="bl-t">614<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億3,000万円</span>
+            <span class="bl-c up">3年前比 +57%</span>
+            </div>
+        </li><li class="bl" data-id="k09">
+          <span class="bl-pick"><input type="checkbox" value="k09" aria-label="エクラスタワー武蔵小杉を比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/eclas-tower-musashikosugi/">エクラスタワー武蔵小杉</a>
+            <span class="bl-meta">2013年02月竣工・326戸・39階・徒歩1分・免震</span></div>
+          <div class="bl-val"><span class="bl-t">599<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億2,680万円</span>
+            <span class="bl-c up">3年前比 +63%</span>
+            </div>
+        </li><li class="bl" data-id="k12">
+          <span class="bl-pick"><input type="checkbox" value="k12" aria-label="コスギ サード アヴェニュー ザ・レジデンスを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/kosugi-3rd-avenue-the-residence/">コスギ サード アヴェニュー ザ・レジデンス</a>
+            <span class="bl-meta">2020年06月竣工・519戸・38階・徒歩1分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">566<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億1,980万円</span>
+            <span class="bl-c up">3年前比 +39%</span>
+            </div>
+        </li><li class="bl" data-id="k05">
+          <span class="bl-pick"><input type="checkbox" value="k05" aria-label="パークシティ武蔵小杉 ザ ガーデン タワーズウエストを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/park-city-the-garden-towers-west/">パークシティ武蔵小杉 ザ ガーデン タワーズウエスト</a>
+            <span class="bl-meta">2018年12月竣工・613戸・53階・徒歩5分・免震</span></div>
+          <div class="bl-val"><span class="bl-t">537<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億1,370万円</span>
+            <span class="bl-c up">3年前比 +51%</span>
+            </div>
+        </li><li class="bl" data-id="k11">
+          <span class="bl-pick"><input type="checkbox" value="k11" aria-label="プラウドタワー武蔵小杉を比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/proud-tower-musashikosugi/">プラウドタワー武蔵小杉</a>
+            <span class="bl-meta">2015年01月竣工・450戸・45階・徒歩4分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">529<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億1,200万円</span>
+            <span class="bl-c up">3年前比 +46%</span>
+            </div>
+        </li><li class="bl" data-id="k04">
+          <span class="bl-pick"><input type="checkbox" value="k04" aria-label="パークシティ武蔵小杉 ザ ガーデン タワーズイーストを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/park-city-the-garden-towers-east/">パークシティ武蔵小杉 ザ ガーデン タワーズイースト</a>
+            <span class="bl-meta">2017年12月竣工・592戸・53階・徒歩4分・免震</span></div>
+          <div class="bl-val"><span class="bl-t">519<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億980万円</span>
+            <span class="bl-c up">3年前比 +49%</span>
+            </div>
+        </li><li class="bl" data-id="k03">
+          <span class="bl-pick"><input type="checkbox" value="k03" aria-label="パークシティ武蔵小杉 ザ・グランドウイングタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/park-city-the-grand-wing-tower/">パークシティ武蔵小杉 ザ・グランドウイングタワー</a>
+            <span class="bl-meta">2013年11月竣工・506戸・38階・徒歩1分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">501<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億610万円</span>
+            <span class="bl-c up">3年前比 +34%</span>
+            </div>
+        </li><li class="bl" data-id="k15">
+          <span class="bl-pick"><input type="checkbox" value="k15" aria-label="レジデンス・ザ・武蔵小杉を比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/residence-the-musashikosugi/">レジデンス・ザ・武蔵小杉</a>
+            <span class="bl-meta">2007年09月竣工・389戸・24階・徒歩4分</span></div>
+          <div class="bl-val"><span class="bl-t">485<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億270万円</span>
+            <span class="bl-c up">3年前比 +47%</span>
+            </div>
+        </li><li class="bl" data-id="k02">
+          <span class="bl-pick"><input type="checkbox" value="k02" aria-label="パークシティ武蔵小杉 ステーションフォレストタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/park-city-station-forest-tower/">パークシティ武蔵小杉 ステーションフォレストタワー</a>
+            <span class="bl-meta">2008年10月竣工・643戸・47階・徒歩2分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">481<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億190万円</span>
+            <span class="bl-c up">3年前比 +44%</span>
+            </div>
+        </li><li class="bl" data-id="k01">
+          <span class="bl-pick"><input type="checkbox" value="k01" aria-label="パークシティ武蔵小杉 ミッドスカイタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/park-city-midsky-tower/">パークシティ武蔵小杉 ミッドスカイタワー</a>
+            <span class="bl-meta">2009年04月竣工・794戸・59階・徒歩2分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">481<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 1億190万円</span>
+            <span class="bl-c up">3年前比 +44%</span>
+            </div>
+        </li><li class="bl" data-id="k06">
+          <span class="bl-pick"><input type="checkbox" value="k06" aria-label="リエトコート武蔵小杉 ザ・クラッシィタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/lietocourt-the-classy-tower/">リエトコート武蔵小杉 ザ・クラッシィタワー</a>
+            <span class="bl-meta">2008年02月竣工・542戸・45階・徒歩2分</span></div>
+          <div class="bl-val"><span class="bl-t">434<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 9,180万円</span>
+            <span class="bl-c up">3年前比 +37%</span>
+            </div>
+        </li><li class="bl" data-id="k07">
+          <span class="bl-pick"><input type="checkbox" value="k07" aria-label="リエトコート武蔵小杉 イーストタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/lietocourt-east-tower/">リエトコート武蔵小杉 イーストタワー</a>
+            <span class="bl-meta">2008年02月竣工・542戸・45階・徒歩2分</span></div>
+          <div class="bl-val"><span class="bl-t">434<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 9,180万円</span>
+            <span class="bl-c up">3年前比 +37%</span>
+            </div>
+        </li><li class="bl" data-id="k08">
+          <span class="bl-pick"><input type="checkbox" value="k08" aria-label="ザ・コスギタワーを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/the-kosugi-tower/">ザ・コスギタワー</a>
+            <span class="bl-meta">2008年06月竣工・689戸・49階・徒歩3分・制震</span></div>
+          <div class="bl-val"><span class="bl-t">434<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 9,180万円</span>
+            <span class="bl-c up">3年前比 +37%</span>
+            </div>
+        </li><li class="bl" data-id="k16">
+          <span class="bl-pick"><input type="checkbox" value="k16" aria-label="ガーデンティアラ武蔵小杉を比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/garden-tiara-musashikosugi/">ガーデンティアラ武蔵小杉</a>
+            <span class="bl-meta">2006年12月竣工・600戸・15階・徒歩12分</span></div>
+          <div class="bl-val"><span class="bl-t">311<small>万円／坪</small></span>
+            <span class="bl-p">70㎡ 6,590万円</span>
+            <span class="bl-c up">3年前比 +24%</span>
+            </div>
+        </li><li class="bl" data-id="k13">
+          <span class="bl-pick"><input type="checkbox" value="k13" aria-label="ザ・パークハウス 武蔵小杉タワーズを比較に入れる"></span>
+          <div><a class="bl-name" href="/souba/b/the-parkhouse-musashikosugi-towers/">ザ・パークハウス 武蔵小杉タワーズ</a>
+            <span class="bl-meta">2027年09月竣工予定・1438戸・50階・徒歩3分・免震</span></div>
+          <div class="bl-val"><span class="bl-p">竣工前<br>取引データなし</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="wrap page">
+
+<section class="charts" aria-label="グラフ">
+  <div>
+    <div class="sec-head"><h2>エリアの坪単価の推移</h2><span class="note">四半期の中央値（万円／坪）</span></div>
+    <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉エリアの坪単価推移グラフ"></canvas></div>
+    <p class="note">成約価格は2021年以降。件数が5件未満の四半期は表示していません。<a href="/souba/area/">四半期ごとの表</a></p>
+  </div>
+  <div>
+    <div class="sec-head"><h2>築年と坪単価</h2><span class="note">円の大きさは総戸数</span></div>
+    <div class="chart-box"><canvas id="scatter" role="img" aria-label="竣工年と坪単価の散布図"></canvas></div>
+    <p class="note">同じ築年代でも坪単価には差があります。比べるときは、駅までの距離、建物の規模、管理の状態もあわせて確認します。</p>
+  </div>
 </section>
 
 <section>
-  <div class="sec-head"><h2>武蔵小杉エリアの坪単価の推移</h2><p class="note">四半期ごとの中央値（万円／坪）</p></div>
-  <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉エリアの坪単価推移グラフ"></canvas></div>
-  <p class="note">成約価格は2021年以降のデータです。四半期の件数が5件未満の点は表示していません。<a href="/souba/area/">四半期ごとの表を見る</a></p>
+  <div class="doors">
+    <a class="door" href="/souba/compare/"><b>3棟まで並べて比べる</b><span>坪単価、推移、築年、駅距離、構造を1つの表で。</span></a>
+    <a class="door" href="/souba/tools/"><b>売ったら手元にいくら残るか</b><span>売却価格、仲介手数料、ローン残高から手取りを計算。</span></a>
+    <a class="door" href="/souba/satei/" data-ev="cta_satei"><b>自分の部屋の価格の目安</b><span>マンション名と面積で、取引データの幅をすぐ表示。</span></a>
+  </div>
 </section>
 
 <section class="prose">
   <h2>このデータの見方</h2>
   <p>国土交通省のデータには建物名が入っていません。<br>
   そこで、マンションの所在地の町名と建築年が一致する取引を、そのマンションの取引として集計しています。<br>
-  同じ町で同じ年に建った別の建物の取引が混ざることがあるため、目安として使ってください。<br>
-  階数・方位・眺望はデータに含まれていないため、同じマンションでも住戸によって価格は大きく変わります。</p>
+  同じ町で同じ年に建った別の建物の取引が混ざる場合は、各マンションのページにその旨を書いています。<br>
+  階数・方位・眺望はデータに含まれないため、同じマンションでも住戸によって価格は大きく変わります。</p>
 </section>
 
-<section class="cta">
-  <h2>お部屋の価格を知りたい方へ</h2>
-  <p>マンション名と面積を入れると、このデータにもとづく目安がすぐに表示されます。<br>
-  階数・方位・室内の状態を反映した査定は、担当者が個別にお出しします。</p>
-  <div class="actions"><a class="btn" href="/souba/satei/" data-ev="cta_satei">無料で査定する</a><a class="btn btn-sub" href="/souba/sodan/" data-ev="cta_sodan">購入・売却の相談</a></div>
-</section>
-
-</main>
-
-<footer class="site-foot">
-  <div class="wrap">
-    <p>株式会社スピアード（<a href="https://speard.jp/?utm_source=souba&amp;utm_medium=referral" data-ev="speard_click">speard.jp</a>）<br>
-    宅地建物取引業 東京都知事（1）第112752号<br>
-    東京都港区南青山2丁目2番8号 DFビル10F　TEL 050-7109-3701</p>
-    <p class="foot-links"><a href="/souba/about/">運営会社</a><a href="/souba/sodan/">購入・売却の相談</a><a href="/#privacy">プライバシーポリシー</a><a href="/souba/disclaimer/">データ出典・免責事項</a><a href="/souba/disclaimer/#ads">広告について</a><a href="/souba/disclaimer/#privacy">個人情報の取扱い</a></p>
-    <p>出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）の不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。<br>
-    掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。</p>
-    <p>© 2026 Speared Co., Ltd.</p>
-  </div>
-</footer>
-
-<div class="line-bar">
-  <div class="wrap line-row">
-    <p class="line-text">武蔵小杉のマンションの売却・購入をLINEで相談できます</p>
-    <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
+<div class="tray" id="tray" aria-live="polite">
+  <div class="wrap tray-row">
+    <span class="tray-names" id="trayNames"></span>
+    <button type="button" class="btn btn-sm btn-x" id="trayClear">解除</button>
+    <a class="btn btn-sm" id="trayGo" href="/souba/compare/" data-ev="compare_open">比べる</a>
   </div>
 </div>
 
-<script>window.SITE = {"form_endpoint": "https://formsubmit.co/ajax/info@speard.jp"};</script>
-<script>window.CHART = {"labels": ["2015年1Q", "2015年2Q", "2015年3Q", "2015年4Q", "2016年1Q", "2016年2Q", "2016年3Q", "2016年4Q", "2017年1Q", "2017年2Q", "2017年3Q", "2017年4Q", "2018年1Q", "2018年2Q", "2018年3Q", "2018年4Q", "2019年1Q", "2019年2Q", "2019年3Q", "2019年4Q", "2020年1Q", "2020年2Q", "2020年3Q", "2020年4Q", "2021年1Q", "2021年2Q", "2021年3Q", "2021年4Q", "2022年1Q", "2022年2Q", "2022年3Q", "2022年4Q", "2023年1Q", "2023年2Q", "2023年3Q", "2023年4Q", "2024年1Q", "2024年2Q", "2024年3Q", "2024年4Q", "2025年1Q", "2025年2Q", "2025年3Q", "2025年4Q", "2026年1Q"], "series": [{"label": "駅5分以内・2005年以降築", "data": [298, 331, 304, null, 313, 321, 302, 302, 320, 298, 319, 327, 321, 303, 339, 295, 312, 316, 327, 347, 309, 350, 327, 353, 331, 335, 349, 350, 346, 364, 362, 383, 375, 387, 413, 425, 408, 441, 463, 491, 496, 525, 529, 537, 559]}, {"label": "成約価格（全体）", "data": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 275, 295, 301, 304, 305, 349, 331, 333, 331, 348, 363, 367, 354, 399, 354, 441, 441, 430, 474, 452, 463]}, {"label": "取引価格（全体）", "data": [290, 252, 214, 225, 256, 273, 249, 285, 258, 240, 278, 280, 301, 292, 277, 306, 264, 255, 255, 309, 284, 291, 289, 258, 279, 314, 311, 331, 350, 347, 331, 347, 341, 309, 339, 383, 331, 383, 381, 409, 383, 397, 413, 375, 484]}]};</script>
+</div>
+
+<section class="band" aria-labelledby="band-ttl">
+  <div class="wrap band-in">
+    <div>
+      <div class="rule"></div>
+      <h2 id="band-ttl">数字の先は、担当者が根拠つきでお答えします</h2>
+      <p>階数・方位・眺望・室内の状態まで含めた査定と、買い時・売り時の判断材料をお出しします。<br>
+      代表の南は武蔵小杉のタワーマンションに住み、この街のマンションを自ら購入してきました。</p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/souba/sodan/" data-ev="cta_sodan">購入・売却を相談する</a>
+      <a class="btn btn-line" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <b>株式会社スピアード</b><br>
+      宅地建物取引業 東京都知事（1）第112752号<br>
+      東京都港区南青山2丁目2番8号 DFビル10F<br>
+      TEL 050-7109-3701（9:30〜18:00、火曜・水曜定休）
+    </div>
+    <div class="foot-links">
+      <a href="/souba/sodan/">購入・売却の相談</a>
+      <a href="/souba/about/">運営会社</a>
+      <a href="/souba/disclaimer/">データ出典・免責事項</a>
+      <a href="/souba/disclaimer/#ads">広告について</a>
+      <a href="/#privacy">プライバシーポリシー</a>
+      <a href="https://speard.jp/?utm_source=souba&amp;utm_medium=referral" data-ev="speard_click">speard.jp</a>
+    </div>
+    <p class="foot-src">出典：国土交通省 不動産情報ライブラリの不動産価格（取引価格・成約価格）情報をもとに株式会社スピアードが加工して作成。地図：国土地理院 地理院タイル。<br>
+    掲載の価格は過去の取引にもとづく参考値で、現在の売出物件や将来の価格を示すものではありません。<br>
+    © 2026 Speared Co., Ltd.</p>
+  </div>
+</footer>
+
+<script>window.SITE = {"base": "/souba/", "form_endpoint": "https://formsubmit.co/ajax/info@speard.jp", "line_url": "https://line.me/R/ti/p/%40xef5208i"};</script>
+<script>window.CHART = {"labels": ["2015年1Q", "2015年2Q", "2015年3Q", "2015年4Q", "2016年1Q", "2016年2Q", "2016年3Q", "2016年4Q", "2017年1Q", "2017年2Q", "2017年3Q", "2017年4Q", "2018年1Q", "2018年2Q", "2018年3Q", "2018年4Q", "2019年1Q", "2019年2Q", "2019年3Q", "2019年4Q", "2020年1Q", "2020年2Q", "2020年3Q", "2020年4Q", "2021年1Q", "2021年2Q", "2021年3Q", "2021年4Q", "2022年1Q", "2022年2Q", "2022年3Q", "2022年4Q", "2023年1Q", "2023年2Q", "2023年3Q", "2023年4Q", "2024年1Q", "2024年2Q", "2024年3Q", "2024年4Q", "2025年1Q", "2025年2Q", "2025年3Q", "2025年4Q", "2026年1Q"], "series": [{"label": "駅5分以内・2005年以降築", "data": [298, 331, 304, null, 313, 321, 302, 302, 320, 298, 319, 327, 321, 303, 339, 295, 312, 316, 327, 347, 309, 350, 327, 353, 331, 335, 349, 350, 346, 364, 362, 383, 375, 387, 413, 425, 408, 441, 463, 491, 496, 525, 529, 537, 559]}, {"label": "成約価格（全体）", "data": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 275, 295, 301, 304, 305, 349, 331, 333, 331, 348, 363, 367, 354, 399, 354, 441, 441, 430, 474, 452, 463]}, {"label": "取引価格（全体）", "data": [290, 252, 214, 225, 256, 273, 249, 285, 258, 240, 278, 280, 301, 292, 277, 306, 264, 255, 255, 309, 284, 291, 289, 258, 279, 314, 311, 331, 350, 347, 331, 347, 341, 309, 339, 383, 331, 383, 381, 409, 383, 397, 413, 375, 484]}]}; window.ATLAS = {"buildings": [{"id": "k15", "name": "レジデンス・ザ・武蔵小杉", "url": "/souba/b/residence-the-musashikosugi/", "lat": 35.57371, "lng": 139.66274, "band": 2, "t": 485, "p70": 10267, "lo": 418, "hi": 509, "n": 9, "chg": 47, "year": 2007, "built": "2007年09月竣工", "units": 389, "floors": 24, "walk": 4, "line": "東急東横線", "struct": "", "dev": "コスモスイニシア・明豊エンタープライズ", "mgr": "大和ライフネクスト", "members": [], "chart": [null, null, null, null, null, null, null, null, null, 293, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 331, null, null, null, null, null, null, null, 372, null, null, null, 409, null, null, null, null, null, null, 534]}, {"id": "k16", "name": "ガーデンティアラ武蔵小杉", "url": "/souba/b/garden-tiara-musashikosugi/", "lat": 35.57912, "lng": 139.64957, "band": 1, "t": 311, "p70": 6595, "lo": 298, "hi": 335, "n": 20, "chg": 24, "year": 2006, "built": "2006年12月竣工", "units": 600, "floors": 15, "walk": 12, "line": "JR南武線", "struct": "", "dev": "ナイス・相鉄不動産ほか", "mgr": "", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 236, null, null, null, null, null, null, null, 256, null, 262, null, 279, null, null, null, 287, null, 294, null, 295, 315, null, null, null, null, 335]}, {"id": "k06", "name": "リエトコート武蔵小杉 ザ・クラッシィタワー", "url": "/souba/b/lietocourt-the-classy-tower/", "lat": 35.57212, "lng": 139.66109, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "built": "2008年02月竣工", "units": 542, "floors": 45, "walk": 2, "line": "JR横須賀線", "struct": "", "dev": "住友商事・三井不動産レジデンシャル", "mgr": "住商建物", "members": ["リエトコート武蔵小杉 イーストタワー", "ザ・コスギタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k07", "name": "リエトコート武蔵小杉 イーストタワー", "url": "/souba/b/lietocourt-east-tower/", "lat": 35.57263, "lng": 139.6621, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "built": "2008年02月竣工", "units": 542, "floors": 45, "walk": 2, "line": "JR横須賀線", "struct": "", "dev": "住友不動産", "mgr": "住友不動産建物サービス", "members": ["リエトコート武蔵小杉 ザ・クラッシィタワー", "ザ・コスギタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k08", "name": "ザ・コスギタワー", "url": "/souba/b/the-kosugi-tower/", "lat": 35.57165, "lng": 139.66192, "band": 1, "t": 434, "p70": 9182, "lo": 397, "hi": 464, "n": 76, "chg": 37, "year": 2008, "built": "2008年06月竣工", "units": 689, "floors": 49, "walk": 3, "line": "JR横須賀線", "struct": "制震", "dev": "伊藤忠都市開発・東京建物・ジョイント・コーポレーション", "mgr": "伊藤忠アーバンコミュニティ", "members": ["リエトコート武蔵小杉 ザ・クラッシィタワー", "リエトコート武蔵小杉 イーストタワー"], "chart": [290, null, null, null, null, null, 280, 293, 283, null, null, 274, null, 275, null, null, null, 283, null, 278, null, null, null, null, 283, 301, 300, 300, 307, 325, 325, 339, 344, 333, 351, 366, 366, 381, 390, 402, 441, 442, 452, 468, 472]}, {"id": "k02", "name": "パークシティ武蔵小杉 ステーションフォレストタワー", "url": "/souba/b/park-city-station-forest-tower/", "lat": 35.57519, "lng": 139.66159, "band": 2, "t": 481, "p70": 10189, "lo": 446, "hi": 518, "n": 64, "chg": 44, "year": 2008, "built": "2008年10月竣工", "units": 643, "floors": 47, "walk": 2, "line": "東急東横線", "struct": "制震", "dev": "三井不動産レジデンシャル・三井都市開発・新日石不動産", "mgr": "三井不動産レジデンシャルサービス", "members": ["パークシティ武蔵小杉 ミッドスカイタワー"], "chart": [325, 331, null, null, 313, 323, null, 305, 331, 298, null, 307, 321, 295, null, null, 336, 292, 327, 310, null, null, 289, null, 278, 331, 312, 335, 331, 353, 367, 342, 353, 369, 352, 376, 360, 391, 449, 485, 458, 485, 494, 515, 519]}, {"id": "k01", "name": "パークシティ武蔵小杉 ミッドスカイタワー", "url": "/souba/b/park-city-midsky-tower/", "lat": 35.57473, "lng": 139.66118, "band": 2, "t": 481, "p70": 10189, "lo": 446, "hi": 518, "n": 64, "chg": 44, "year": 2009, "built": "2009年04月竣工", "units": 794, "floors": 59, "walk": 2, "line": "東急東横線", "struct": "制震", "dev": "三井不動産レジデンシャル・三井都市開発・新日石不動産", "mgr": "三井不動産レジデンシャルサービス", "members": ["パークシティ武蔵小杉 ステーションフォレストタワー"], "chart": [325, 331, null, null, 313, 323, null, 305, 331, 298, null, 307, 321, 295, null, null, 336, 292, 327, 310, null, null, 289, null, 278, 331, 312, 335, 331, 353, 367, 342, 353, 369, 352, 376, 360, 391, 449, 485, 458, 485, 494, 515, 519]}, {"id": "k09", "name": "エクラスタワー武蔵小杉", "url": "/souba/b/eclas-tower-musashikosugi/", "lat": 35.57582, "lng": 139.65914, "band": 4, "t": 599, "p70": 12680, "lo": 545, "hi": 622, "n": 22, "chg": 63, "year": 2013, "built": "2013年02月竣工", "units": 326, "floors": 39, "walk": 1, "line": "東急東横線", "struct": "免震", "dev": "東京急行電鉄・東急不動産・丸紅・東電不動産", "mgr": "東急コミュニティー", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 368, null, null, null, null, null, null, null, null, 541, 557, null, 661, 603, null, null]}, {"id": "k03", "name": "パークシティ武蔵小杉 ザ・グランドウイングタワー", "url": "/souba/b/park-city-the-grand-wing-tower/", "lat": 35.57482, "lng": 139.65976, "band": 3, "t": 501, "p70": 10613, "lo": 476, "hi": 549, "n": 24, "chg": 34, "year": 2013, "built": "2013年11月竣工", "units": 506, "floors": 38, "walk": 1, "line": "東急東横線", "struct": "制震", "dev": "三井都市開発・三井不動産レジデンシャル", "mgr": "", "members": [], "chart": [397, 413, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 358, 358, 358, null, 362, null, null, null, null, 413, null, 448, null, 432, 458, 484, null, 473, 509, 570, 549, null, null]}, {"id": "k11", "name": "プラウドタワー武蔵小杉", "url": "/souba/b/proud-tower-musashikosugi/", "lat": 35.57609, "lng": 139.65653, "band": 3, "t": 529, "p70": 11200, "lo": 465, "hi": 563, "n": 23, "chg": 46, "year": 2015, "built": "2015年01月竣工", "units": 450, "floors": 45, "walk": 4, "line": "東急東横線", "struct": "制震", "dev": "野村不動産・相鉄不動産", "mgr": "野村不動産パートナーズ", "members": [], "chart": [294, null, null, null, null, null, null, null, null, null, null, null, null, null, 430, 345, 321, null, null, null, null, null, 343, null, 331, 346, 361, 358, 376, null, null, 383, 392, 406, 412, 401, 408, 441, null, null, null, 524, 567, null, null]}, {"id": "k10", "name": "シティタワー武蔵小杉", "url": "/souba/b/city-tower-musashikosugi/", "lat": 35.57282, "lng": 139.66016, "band": 4, "t": 614, "p70": 13000, "lo": 568, "hi": 661, "n": 50, "chg": 57, "year": 2016, "built": "2016年01月竣工", "units": 800, "floors": 53, "walk": 4, "line": "JR横須賀線", "struct": "免震", "dev": "住友不動産", "mgr": "住友不動産建物サービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 375, 383, 375, 387, 391, 411, 410, 430, 463, 455, 451, 438, 469, 481, 573, 567, 598, null, 614, 661, 708]}, {"id": "k04", "name": "パークシティ武蔵小杉 ザ ガーデン タワーズイースト", "url": "/souba/b/park-city-the-garden-towers-east/", "lat": 35.57771, "lng": 139.65687, "band": 3, "t": 519, "p70": 10983, "lo": 473, "hi": 570, "n": 34, "chg": 49, "year": 2017, "built": "2017年12月竣工", "units": 592, "floors": 53, "walk": 4, "line": "JR南武線", "struct": "免震", "dev": "三井不動産レジデンシャル・JX不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 345, 342, 379, 364, 368, 380, 392, null, 381, 384, 426, 426, 441, 448, 472, 507, 512, 559, 579, 573, 610]}, {"id": "k05", "name": "パークシティ武蔵小杉 ザ ガーデン タワーズウエスト", "url": "/souba/b/park-city-the-garden-towers-west/", "lat": 35.57776, "lng": 139.65551, "band": 3, "t": 537, "p70": 11375, "lo": 485, "hi": 570, "n": 38, "chg": 51, "year": 2018, "built": "2018年12月竣工", "units": 613, "floors": 53, "walk": 5, "line": "JR南武線", "struct": "免震", "dev": "三井不動産レジデンシャル・JX不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 369, 356, 355, 385, 370, 370, 381, null, 403, 401, 383, 405, 464, null, 485, 508, 567, 533, 617, 567]}, {"id": "k12", "name": "コスギ サード アヴェニュー ザ・レジデンス", "url": "/souba/b/kosugi-3rd-avenue-the-residence/", "lat": 35.57562, "lng": 139.65863, "band": 4, "t": 566, "p70": 11978, "lo": 516, "hi": 617, "n": 38, "chg": 39, "year": 2020, "built": "2020年06月竣工", "units": 519, "floors": 38, "walk": 1, "line": "JR南武線", "struct": "制震", "dev": "三井不動産レジデンシャル・東急不動産", "mgr": "三井不動産レジデンシャルサービス", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 366, null, null, null, null, 423, 453, null, 456, null, 473, 470, 490, 490, null, 556, 537, 595, 606, null, 661]}, {"id": "k13", "name": "ザ・パークハウス 武蔵小杉タワーズ", "url": "/souba/b/the-parkhouse-musashikosugi-towers/", "lat": 35.57903, "lng": 139.65808, "band": 0, "t": null, "p70": null, "lo": null, "hi": null, "n": 0, "chg": null, "year": 2027, "built": "2027年09月竣工予定", "units": 1438, "floors": 50, "walk": 3, "line": "JR南武線", "struct": "免震", "dev": "三菱地所レジデンス・東京建物・東急・東急不動産", "mgr": "", "members": [], "chart": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}], "labels": ["2015年1Q", "2015年2Q", "2015年3Q", "2015年4Q", "2016年1Q", "2016年2Q", "2016年3Q", "2016年4Q", "2017年1Q", "2017年2Q", "2017年3Q", "2017年4Q", "2018年1Q", "2018年2Q", "2018年3Q", "2018年4Q", "2019年1Q", "2019年2Q", "2019年3Q", "2019年4Q", "2020年1Q", "2020年2Q", "2020年3Q", "2020年4Q", "2021年1Q", "2021年2Q", "2021年3Q", "2021年4Q", "2022年1Q", "2022年2Q", "2022年3Q", "2022年4Q", "2023年1Q", "2023年2Q", "2023年3Q", "2023年4Q", "2024年1Q", "2024年2Q", "2024年3Q", "2024年4Q", "2025年1Q", "2025年2Q", "2025年3Q", "2025年4Q", "2026年1Q"], "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
-<script src="/souba/assets/app.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+<script src="/souba/assets/app.js?v=9b8e39ca" defer></script>
 </body>
 </html>
