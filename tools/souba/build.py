@@ -5,7 +5,7 @@ data/*.csv と templates/ から静的サイトを生成します。
 ブラウザ側の assets/app.js は、地図・グラフ・査定の目安・比較・計算・フォームだけを担当します。
 
 使い方：
-  python3 build.py                                   # 独自ドメイン（https://kosugi-souba.jp/）用に dist/ へ出力
+  python3 build.py                                   # speard.jp/souba/ 用に dist/ へ出力（公開は GitHub Actions が souba/ に出力）
   python3 build.py --out DIR --origin https://speard.jp --base /souba/   # speard.jp/souba/ 用
 """
 import re
@@ -25,8 +25,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 SITE = {
     "name": "武蔵小杉マンション相場帳",
     "tagline": "武蔵小杉のタワーマンション、棟ごとの相場と売却価格",
-    "origin": "https://kosugi-souba.jp",
-    "base": "/",
+    "origin": "https://speard.jp",
+    "base": "/souba/",
     "speard_url": "https://speard.jp/",
     "line_url": "https://line.me/R/ti/p/%40xef5208i",
     "form_endpoint": "https://formsubmit.co/ajax/info@speard.jp",
@@ -446,7 +446,7 @@ def build(out_dir, origin, base):
     common = {
         "site": SITE, "year": today.year, "updated": f"{today.year}年{today.month}月{today.day}日", "updated_iso": today.isoformat(),
         "latest_q": q_label(latest_q), "recent_from_q": next((q_label(q) for q in quarters if q_index(q) == recent_from), ""),
-        "speard_link": SITE["speard_url"] + "?utm_source=kosugi-souba&utm_medium=referral",
+        "speard_link": SITE["speard_url"] + "?from=souba",
         "ads": ads, "ad": {a["id"]: a for a in ads}, "ver": ver, "town": town, "photos": photos, "hero_photo": hero_photo,
         "buildings": buildings, "listings": listings, "ranked": ranked, "nodata": nodata, "n_buildings": len(buildings), "town_facts": TOWN_FACTS,
         "atlas_json": json.dumps({"buildings": atlas, "labels": [q_label(q) for q in quarters], "fallback": est_fallback,
