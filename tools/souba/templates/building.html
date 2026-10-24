@@ -2,7 +2,7 @@
 {% from "macros.html" import ad_cards, estimator, rep, faq_list, img, listing_card, notify %}
 {% set s = b.stats %}
 {% block title %}{{ b['マンション名'] }}の相場・売却価格｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}・推移｜{{ site.name }}{% endblock %}
-{% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのタワーマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのタワーマンションの相場。{% endif %}{% endblock %}
+{% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのマンションの相場。{% endif %}{% endblock %}
 {% block head %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
 {% block main %}
 <div class="wrap">
@@ -52,7 +52,7 @@
 <section class="sec" aria-labelledby="n-ttl">
   <div class="wrap split">
     <div>
-      <div class="sec-head"><div><h2 id="n-ttl">近くのタワーマンションと比べる</h2><p>直線距離と坪単価の差</p></div></div>
+      <div class="sec-head"><div><h2 id="n-ttl">近くのマンションと比べる</h2><p>直線距離と坪単価の差</p></div></div>
       <ul class="near">
         {% for n in b.near %}<li><a href="{{ n.b.url }}"><span class="n-name">{{ n.b['マンション名'] }}<span class="n-dist">約{{ n.m }}m・{{ n.b.built_txt }}・{{ n.b['総戸数'] }}戸</span></span>
           <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% if n.diff is not none %}<span class="sub {{ 'up' if n.diff > 0 else 'down' if n.diff < 0 else '' }}">{{ b.short }}より{{ '%+.0f' % n.diff }}万円</span>{% endif %}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>

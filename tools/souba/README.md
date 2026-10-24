@@ -34,6 +34,14 @@
 
 置き場所：guide＝住み替えの準備、building＝各マンションのページ（最大2枠）、satei＝査定ページ（現在は表示しない）
 
+## 掲載棟を増やす（全棟化）
+
+1. `REINFOLIB_KEY=キー python3 tools/souba/scripts/fetch_reinfolib.py 2015 2026` で trades_area.csv（駅圏の全取引）を作る
+2. `python3 tools/souba/scripts/candidates.py` で candidates.csv（まだ載っていない「地区×建築年×構造」の組み合わせ、取引8件以上）を作る
+3. 候補ごとに、マンション名・総戸数・地上階数・竣工年月・分譲会社・所在地を自社の物件資料と分譲会社の公表資料で確認して埋める（ポータルの建物データベースから書き写さない）
+4. 同じ地区・同じ建築年に建物が複数あって分けられない候補は載せない
+5. 確認した行を buildings.csv に移し（取引地区・取引建築年に候補の地区・建築年を入れる）、fetch_reinfolib.py をもう一度実行して push
+
 ## 守ること
 
 - 広告は「PR」表記、rel="sponsored"（テンプレートで自動）。広告文に「今だけ」「必ず」「最安」等を書かない

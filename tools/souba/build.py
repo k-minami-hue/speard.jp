@@ -24,7 +24,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 # ---- ここを編集 ------------------------------------------------------------
 SITE = {
     "name": "武蔵小杉マンション相場帳",
-    "tagline": "武蔵小杉のタワーマンション、棟ごとの相場と売却価格",
+    "tagline": "武蔵小杉のマンション、棟ごとの相場と売却価格",
     "origin": "https://speard.jp",
     "base": "/souba/",
     "speard_url": "https://speard.jp/",
@@ -484,7 +484,7 @@ def build(out_dir, origin, base):
 
     # OGP画像
     bgs = {p["key"]: ROOT / "assets" / "img" / f'{p["key"]}.jpg' for p in photos}
-    ogp_image(ogp_dir / "site.jpg", "武蔵小杉マンション相場帳", "タワーマンション15棟の相場を棟ごとに", f"坪単価 {round(town['tsubo'])}万円", bgs.get("skyline"))
+    ogp_image(ogp_dir / "site.jpg", "武蔵小杉マンション相場帳", f"マンション{len(buildings)}棟の相場を棟ごとに", f"坪単価 {round(town['tsubo'])}万円", bgs.get("skyline"))
     for b in buildings:
         s = b["stats"]
         ogp_image(ogp_dir / f'{b["slug"]}.jpg', b["マンション名"], f'{b["built_txt"]}・{b["総戸数"]}戸の相場',
@@ -532,7 +532,7 @@ def build(out_dir, origin, base):
             w.writerow([r["q"], r["tower"] or "", r["tower_n"], r["closed"]["t"].replace("万円／坪", "").replace(",", "") if r["closed"] else "",
                         r["closed"]["n"] if r["closed"] else "", r["trade"]["t"].replace("万円／坪", "").replace(",", "") if r["trade"] else "",
                         r["trade"]["n"] if r["trade"] else "", credit])
-    dataset = {"@type": "Dataset", "name": "武蔵小杉のタワーマンション 棟別相場データ", "description": "武蔵小杉のタワーマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。",
+    dataset = {"@type": "Dataset", "name": "武蔵小杉のマンション 棟別相場データ", "description": "武蔵小杉のマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。",
                "url": SITE["origin"] + SITE["base"] + "data/", "creator": org, "isAccessibleForFree": True, "inLanguage": "ja",
                "dateModified": today.isoformat(), "spatialCoverage": "神奈川県川崎市中原区 武蔵小杉", "creditText": credit,
                "isBasedOn": "https://www.reinfolib.mlit.go.jp/",

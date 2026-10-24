@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "macros.html" import card, estimator, rep, faq_list, img, listing_card, notify %}
-{% block title %}武蔵小杉のマンション相場｜タワーマンション{{ n_buildings }}棟の坪単価・売却価格｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のタワーマンションの相場を棟ごとに掲載。直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の坪単価・推移・ランキングと、面積を入れるだけの価格の目安。{% endblock %}
+{% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・売却価格・推移｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。タワーマンションの直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の坪単価・推移・ランキングと、面積を入れるだけの価格の目安。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
 {% block main %}
@@ -9,7 +9,7 @@
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
   <div class="wrap hero-in">
     <div>
-      <h1>武蔵小杉のタワーマンション、<br>いま売ったらいくら？</h1>
+      <h1>武蔵小杉のマンション、<br>いま売ったらいくら？</h1>
       <p class="hero-lead">シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の相場を、国土交通省の取引データから棟ごとに集計。<br>面積を入れれば、あなたの部屋の価格の目安がその場でわかります。</p>
       <div class="hero-chips">{% for b in ranked[:6] %}<a href="{{ b.url }}">{{ b.short }}</a>{% endfor %}<a href="#list">全{{ n_buildings }}棟</a></div>
     </div>

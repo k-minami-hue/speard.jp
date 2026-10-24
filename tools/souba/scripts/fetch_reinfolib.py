@@ -11,6 +11,7 @@ APIキーは https://www.reinfolib.mlit.go.jp/api/request/ から申請します
 
 集計の定義（ページの説明文と合わせている。変える場合はテンプレートの説明も直す）
   trades.csv        ：data/buildings.csv の「取引地区」に含まれる町の中古マンション等の取引（1件1行）
+  trades_area.csv   ：最寄駅が武蔵小杉・新丸子・向河原の中古マンション等の取引（1件1行、構造・最寄駅・徒歩分つき）。全棟化の候補づくりに使う
   area_quarterly.csv：最寄駅が武蔵小杉・新丸子・向河原の中古マンション等の取引を四半期ごとに集計
       取引価格（全体）           … 種別＝取引価格
       成約価格（全体）           … 種別＝成約価格（2021年以降）
@@ -68,7 +69,7 @@ def main():
     with open(DATA / "buildings.csv", encoding="utf-8-sig", newline="") as f:
         districts = {r["取引地区"] for r in csv.DictReader(f) if r["取引地区"]}
 
-    trades, area = [], []
+    trades, area, area_trades = [], [], []
     for year in range(y0, y1 + 1):
         for quarter in (1, 2, 3, 4):
             for cls, kind in KIND.items():
@@ -90,6 +91,10 @@ def main():
                     q = f"{year}Q{quarter}"
                     if d.get("DistrictName") in districts and by:
                         trades.append([d["DistrictName"], int(by), kind, q, man, int(a), d.get("FloorPlan", "")])
+                    if d.get("NearestStation") in STATIONS and by:
+                        # 全棟化の候補づくり用（地区×建築年×構造で棟を推定する）。scripts/candidates.py が読む
+                        area_trades.append([d.get("DistrictName", ""), int(by), d.get("Structure", ""), kind, q, man, int(a), d.get("FloorPlan", ""),
+                                            d.get("NearestStation", ""), to_num(d.get("TimeToNearestStation")) or ""])
                     if d.get("NearestStation") in STATIONS:
                         walk = to_num(d.get("TimeToNearestStation"))
                         area.append({"q": q, "kind": kind, "tsubo": man / (a * TSUBO),
@@ -103,6 +108,12 @@ def main():
         w.writerow(["地区", "建築年", "種別", "時期", "価格", "面積", "間取り"])
         w.writerows(trades)
 
+    area_trades.sort(key=lambda r: (r[0], r[1], qi(r[4])))
+    with open(DATA / "trades_area.csv", "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["地区", "建築年", "構造", "種別", "時期", "価格", "面積", "間取り", "最寄駅", "徒歩分"])
+        w.writerows(area_trades)
+
     rows = []
     for q in sorted({r["q"] for r in area}, key=qi):
         for name, pick in (("取引価格（全体）", lambda r: r["kind"] == "取引価格"),
@@ -115,7 +126,7 @@ def main():
         w = csv.writer(f)
         w.writerow(["時期", "系列", "件数", "中央値", "下位25", "上位25"])
         w.writerows(rows)
-    print(f"trades.csv {len(trades)}件 / area_quarterly.csv {len(rows)}行 を書き出しました")
+    print(f"trades.csv {len(trades)}件 / trades_area.csv {len(area_trades)}件 / area_quarterly.csv {len(rows)}行 を書き出しました")
 
 
 if __name__ == "__main__":
