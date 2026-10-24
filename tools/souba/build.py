@@ -43,7 +43,7 @@ SITE = {
     # 会員機能（売出・値下げ通知、自宅価格ウォッチ、会員限定データ）の受付先。
     # Google Apps Script をウェブアプリとして公開したURL（https://script.google.com/macros/s/…/exec）を入れる。
     # 空のあいだは登録内容を form_endpoint（メール）で受け付け、マイページは「準備中」と表示する。
-    "member_api": "",
+    "member_api": "https://script.google.com/macros/s/AKfycbzIq_q22txCkksBid6A3lkMssmtOWhd8WVS39NPsKSd8D7TRpulke_YMTe3WTCbyJ3U/exec",
 }
 RECENT_QUARTERS = 8        # 棟ごとの相場に使う期間（2年）
 MIN_TSUBO = 100            # これ未満の坪単価（万円）は特殊な取引とみなして除外

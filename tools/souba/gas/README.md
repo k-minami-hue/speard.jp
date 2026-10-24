@@ -3,6 +3,7 @@
 会員の登録・通知の条件・自宅の登録はすべて「武蔵小杉マンション相場帳 会員管理」スプレッドシートに入る。
 メールは k-minami@speard.jp の Google アカウントから自動で送られる（差出人名：武蔵小杉マンション相場帳（株式会社スピアード）、返信先：info@speard.jp）。
 
+Apps Script（ウェブアプリ）：https://script.google.com/home/projects/1C8YJx13FMu7YPLAiaRYYSGsIsrTtzM1ql7DtKSKaeJS3AnWjbUgNlJl_/edit（プロジェクト名「相場帳 会員」）
 スプレッドシート：https://docs.google.com/spreadsheets/d/1xr9JcKRMxGkDjxYYyIfjCk0LBrTx-GgILiHoYGp9SQk/edit
 
 ## 初回の設定（1回だけ、10分）
