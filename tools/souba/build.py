@@ -49,7 +49,7 @@ RECENT_QUARTERS = 8        # 棟ごとの相場に使う期間（2年）
 MIN_TSUBO = 100            # これ未満の坪単価（万円）は特殊な取引とみなして除外
 TOWER_FLOORS = 20          # 「タワーマンション」として集計する地上階数
 COLUMNS = [                # speard.jp のコラム（id）
-    "kosugi-erabikata", "kosugi-tawaman-uru", "tawaman-kakaku-sa", "tedori-keisan", "shinchiku-kaikae", "chikugo-tawaman",
+    "park-city-kosugi-baikyaku", "kosugi-erabikata", "kosugi-tawaman-uru", "tawaman-kakaku-sa", "tedori-keisan", "shinchiku-kaikae", "chikugo-tawaman",
 ]
 TOWN_FACTS = [             # 出典を確認済みの街のデータ
     ("駅の利用者", "JR武蔵小杉駅の1日平均乗車人員 113,452人", "2024年度・JR東日本"),
@@ -366,6 +366,12 @@ def build(out_dir, origin, base):
     for b in buildings:
         hit = next((x for x in res_list if x.get("building") and norm(x["name"]) == norm(b["マンション名"])), None)
         b["result"] = {"url": f'{SITE["speard_url"]}results/{hit.get("slug") or hit["id"]}/', "floor": hit.get("floor", "")} if hit else None
+    BUILDING_COLUMNS = {"パークシティ": "park-city-kosugi-baikyaku"}   # 棟名に含まれる語 → 棟ページで案内するコラム
+    mf = REPO / "columns" / "manifest.json"
+    col_by = {c["id"]: c for c in json.loads(mf.read_text(encoding="utf-8"))["columns"]} if mf.exists() else {}
+    for b in buildings:
+        cid = next((v for k, v in BUILDING_COLUMNS.items() if k in b["マンション名"]), None)
+        b["column"] = {"title": col_by[cid]["title"], "url": f'{SITE["speard_url"]}columns/{cid}/'} if cid in col_by else None
     for b in buildings:
         b["members"] = [o["マンション名"] for o in buildings if o["key"] and o["key"] == b["key"] and o["id"] != b["id"]]
         near = sorted((o for o in buildings if o["id"] != b["id"]), key=lambda o: km(b, o))[:5]
@@ -454,9 +460,9 @@ def build(out_dir, origin, base):
 
     # speard.jp のコラム
     cols = []
-    cp = ROOT / "data" / "columns.json"   # speard.jp の columns/manifest.json の写し（コラムを足したら手で更新）
+    cp = REPO / "columns" / "manifest.json"   # speard.jp のコラム一覧をそのまま読む
     if cp.exists():
-        byid = {c["id"]: c for c in json.loads(cp.read_text(encoding="utf-8"))}
+        byid = {c["id"]: c for c in json.loads(cp.read_text(encoding="utf-8"))["columns"]}
         for cid in COLUMNS:
             c = byid.get(cid)
             if c:
