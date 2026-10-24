@@ -1,6 +1,21 @@
 {
   "columns": [
     {
+      "id": "uri-mae-reform",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "売却前のリフォームは必要か——クリーニングと補修で足りる範囲と、やると損をする範囲",
+      "date": "2026.10.24",
+      "hero": "/columns/hero/uri-mae-reform.jpg",
+      "thumb": "/columns/hero/uri-mae-reform-thumb.jpg",
+      "file": "columns/sale/column_uri_mae_reform.html",
+      "description": "マンション売却前の全面リフォームは、費用を価格に上乗せできず手取りが減りやすい。400万円の改装でも手元は約110万円少なくなる例を計算し、クリーニングと補修の範囲、契約不適合責任、修繕費の税務上の扱いまで解説。",
+      "seo_title": "マンション売却前にリフォームは必要？損しない範囲を解説"
+    },
+    {
       "id": "kaitori-saihan-erabikata",
       "category": "buy",
       "tags": [
