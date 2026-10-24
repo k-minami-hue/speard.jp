@@ -84,6 +84,9 @@ def main():
     hits = [w for w in FORBIDDEN if w in visible]
     ok('禁止表現が0件', not hits, '、'.join(hits))
 
+    has_price = re.search(r'\d[\d,.]*万円', visible) is not None
+    ok('物件価格を出すなら坪単価も併記', not has_price or '坪' in visible, '価格はあるが「坪」の記載なし' if has_price and '坪' not in visible else '')
+
     ids = {x['id'] for x in cur}
     links = set(re.findall(r'href="(/[^"#?]*)', body))
     broken = []
