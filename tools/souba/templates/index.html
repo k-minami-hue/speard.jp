@@ -11,7 +11,7 @@
     <div>
       <h1>武蔵小杉のマンション、<br>いま売ったらいくら？</h1>
       <p class="hero-lead">シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の相場を、国土交通省の取引データから棟ごとに集計。<br>面積を入れれば、あなたの部屋の価格の目安がその場でわかります。</p>
-      <div class="hero-chips">{% for b in ranked[:6] %}<a href="{{ b.url }}">{{ b.short }}</a>{% endfor %}<a href="#list">全{{ n_buildings }}棟</a></div>
+      <div class="hero-chips">{% for b in ranked[:6] %}<a href="{{ b.url }}">{{ b.short }}</a>{% endfor %}<a href="#list">全{{ n_buildings }}棟</a><a href="{{ site.base }}baikyaku/">売却相場の一覧</a></div>
     </div>
     {{ estimator(site, buildings) }}
   </div>

@@ -35,7 +35,7 @@
 {%- endmacro %}
 
 {% macro estimator(site, buildings, preset=None, title='あなたの部屋はいくら？') -%}
-<div class="est" data-est>
+<div class="est" data-est id="est">
   <h2>{{ title }}</h2>
   <p class="est-sub">マンションと専有面積を入れると、取引データから価格の目安をすぐに表示します。</p>
   <div class="est-form">

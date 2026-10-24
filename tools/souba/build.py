@@ -588,6 +588,18 @@ def build(out_dir, origin, base):
              "hasDefinedTerm": [{"@type": "DefinedTerm", "name": t, "description": d} for t, d in GLOSSARY]}
     render("glossary.html", "glossary/", "glossary", jsonld(terms, crumbs(("用語集", SITE["base"] + "glossary/"))), glossary=GLOSSARY)
     render("satei.html", "satei/", "satei", jsonld(website, crumbs(("無料査定", SITE["base"] + "satei/"))))
+    faq_sell = [
+        ("武蔵小杉のマンションの売却相場はいくらですか。",
+         f"タワーマンションは直近1年の取引で坪単価{town['tsubo_txt']}前後、70㎡に換算すると{town['p70_txt']}前後です。"
+         f"棟ごとでは{ranked[-1]['マンション名']}の{ranked[-1]['stats']['tsubo_txt']}から{ranked[0]['マンション名']}の{ranked[0]['stats']['tsubo_txt']}まで開きがあります。過去の取引にもとづく参考値です。"),
+        ("武蔵小杉のマンションは今が売り時ですか。",
+         f"直近1年の坪単価は3年前の同じ時期と比べて{town['chg_txt']}です。売り時は相場だけでなく、住み替え先の購入時期、ローンの残り、税金（所有期間5年の区切り）で変わるため、手取りから逆算して判断します。"),
+        ("売り出し価格はどう決めればいいですか。",
+         "同じ建物で同時に出ている売出と、階数・向き・広さが近い住戸の成約事例を並べて決めます。棟の相場は出発点で、最初の価格が比較の中で高すぎると問い合わせが止まります。"),
+        ("査定を頼むと、売らなければいけませんか。",
+         "いいえ。査定の依頼は無料で、売却を決めていない段階でも構いません。価格の目安だけを定期的に知りたい場合は、自宅価格ウォッチ（無料会員）も使えます。"),
+    ]
+    render("baikyaku.html", "baikyaku/", "baikyaku", jsonld(website, crumbs(("武蔵小杉のマンション売却相場", SITE["base"] + "baikyaku/")), faq_ld(faq_sell)), faq=faq_sell)
     render("sodan.html", "soudan/", "sodan", jsonld(website, crumbs(("購入・売却の相談", SITE["base"] + "soudan/"))))
     render("guide.html", "guide/", "guide", jsonld(website, crumbs(("住み替えの準備", SITE["base"] + "guide/"))))
     render("about.html", "about/", "about", jsonld(org, crumbs(("運営会社", SITE["base"] + "about/"))))
@@ -658,7 +670,7 @@ HP_BAND_COPY = {
              "sub_label": "自分の部屋の査定を依頼する", "sub_path": "satei/", "compact": True, "mini": "武蔵小杉のタワーマンションの相場を、棟ごとに公開しています。", "chips": 8},
     "sell": {"title": "売り出す前に、同じ建物の相場を確認する",
              "sub": "タワーマンションの価格は、同じ建物の過去の取引で大きく決まります。棟ごとの坪単価と推移を公開しています。",
-             "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "compact": True, "mini": "売り出す前に、同じ建物の取引相場を確認できます。", "chips": 8},
+             "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "compact": True, "main_path": "baikyaku/", "mini": "売り出す前に、棟ごとの売却相場（70㎡の目安）を一覧で確認できます。", "chips": 8},
     "buy":  {"title": "買う前に、棟ごとの相場を比べる",
              "sub": "同じ武蔵小杉でも、棟によって坪単価は{lo}から{hi}まで開きがあります。気になるマンションの相場と推移を確認できます。",
              "sub_label": "購入の相談をする", "sub_path": "soudan/", "compact": True, "mini": "気になる棟の相場と推移を、購入前に比べられます。", "chips": 8},

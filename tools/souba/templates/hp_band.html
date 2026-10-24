@@ -1,6 +1,6 @@
 {%- if copy.compact %}
 <aside class="souba-mini" aria-label="武蔵小杉マンション相場帳">
-  <a class="sm-in" href="{{ root }}?from=hp-{{ v }}">
+  <a class="sm-in" href="{{ root }}{{ copy.main_path or '' }}?from=hp-{{ v }}">
     <span class="sm-label">武蔵小杉マンション相場帳</span>
     <span class="sm-text">{{ copy.mini }}<span class="sm-num">タワーの坪単価 {{ town.tsubo_txt }}（70㎡換算 {{ town.p70_txt }}）</span></span>
     <span class="sm-go">相場を見る</span>
