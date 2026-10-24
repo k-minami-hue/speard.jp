@@ -101,6 +101,7 @@
   var f=document.getElementById('st-form'),err=document.getElementById('st-err'),btn=document.getElementById('st-btn');
   var src=new URLSearchParams(location.search).get('from')||document.referrer.replace(/^https?:\/\/[^/]+/,'')||'direct';
   document.getElementById('st-src').value=src;
+  var mq=new URLSearchParams(location.search).get('m');if(mq){var mb=document.getElementById('st-name-b');if(mb&&!mb.value)mb.value=mq.slice(0,80);}
   function val(n){var el=f.querySelector('[name="'+n+'"]:checked')||f.querySelector('[name="'+n+'"]');return el?(el.value||'').trim():'';}
   f.addEventListener('submit',function(e){
     e.preventDefault();err.style.display='none';

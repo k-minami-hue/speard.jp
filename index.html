@@ -1410,7 +1410,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
     if(!g) return;
     if(!list.length){document.getElementById('home-results').style.display='none';return;}
     g.innerHTML=list.slice(0,8).map(function(x){
-      return '<div class="hm-res"><div class="hm-res-img">'+(x.image?img(x.image,x.name+' 外観'):'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></div>';
+      var tg=x.building?'a href="/results/'+esc(x.slug||x.id)+'/"':'div',te=x.building?'a':'div';return '<'+tg+' class="hm-res"><div class="hm-res-img">'+(x.image?img(x.image,x.name+' 外観'):'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></'+te+'>';
     }).join('');
   }).catch(function(){});
   fetch('columns/manifest.json').then(function(r){return r.ok?r.json():{columns:[]};}).then(function(d){
@@ -3685,10 +3685,10 @@ async function renderResults() {
   } catch (e) { console.warn('results manifest load failed', e); }
   if (empty) empty.style.display = list.length ? 'none' : 'block';
   grid.innerHTML = list.map(x =>
-    '<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>' +
+    (x.building ? '<a href="/results/' + propEsc(x.slug || x.id) + '/" class="res-card">' : '<div class="res-card">') + '<div class="res-thumb"><span class="res-badge">SOLD OUT</span>' +
       (x.image ? '<div class="res-bg" style="background-image:url(\'' + propEsc(x.image) + '\')"></div><img src="' + propEsc(x.image) + '" alt="' + propEsc(x.name) + ' 外観" loading="lazy" decoding="async">'
                : '<div class="prop-noimg"><span class="prop-noimg-en">Speard Result</span><span class="prop-noimg-name">' + propEsc(x.name) + '</span></div>') +
-    '</div><div class="res-body"><div class="res-name">' + propEsc(x.name) + '</div>' + (x.floor ? '<div class="res-floor">' + propEsc(x.floor) + '</div>' : '') + '</div></div>'
+    '</div><div class="res-body"><div class="res-name">' + propEsc(x.name) + '</div>' + (x.floor ? '<div class="res-floor">' + propEsc(x.floor) + '</div>' : '') + '</div>' + (x.building ? '</a>' : '</div>')
   ).join('');
   const cr = document.getElementById('res-credits');
   const credited = list.filter(x => x.image && x.credit);

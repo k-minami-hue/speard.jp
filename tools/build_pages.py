@@ -822,8 +822,9 @@ def build_results():
         img = '/' + x['image'].lstrip('/') if x.get('image') else ''
         thumb = (f'<div class="res-bg" style="background-image:url(\'{esc(img)}\')"></div><img src="{esc(img)}" alt="{esc(x["name"])} 外観" loading="lazy" decoding="async">'
                  if img else f'<div class="prop-noimg"><span class="prop-noimg-en">Speard Result</span><span class="prop-noimg-name">{esc(x["name"])}</span></div>')
-        cards.append(f'<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>{thumb}</div>'
-                     f'<div class="res-body"><h2 class="res-name">{esc(x["name"])}</h2>' + (f'<div class="res-floor">{esc(x["floor"])}</div>' if x.get('floor') else '') + '</div></div>')
+        tag, end = (f'a href="/results/{res_slug(x)}/"', 'a') if x.get('building') else ('div', 'div')
+        cards.append(f'<{tag} class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>{thumb}</div>'
+                     f'<div class="res-body"><h2 class="res-name">{esc(x["name"])}</h2>' + (f'<div class="res-floor">{esc(x["floor"])}</div>' if x.get('floor') else '') + f'</div></{end}>')
     credited = [x for x in res if x.get('image') and x.get('credit')]
     credits = ('画像出典：' + '、'.join(f'{esc(x["name"])}（<a href="{esc(x.get("credit_url") or "#")}" target="_blank" rel="noopener">{esc(re.sub(r"^Photo:\s*", "", x["credit"]))}</a>）' for x in credited)) if credited else ''
     crumbs = [('トップ', '/'), ('成約実績', '/results/')]
@@ -841,6 +842,161 @@ def build_results():
                                      f'株式会社スピアードの成約実績（一例）。{names}など、首都圏のタワーマンションを中心に売買をお手伝いしています。',
                                      body, breadcrumbs=crumbs))
     return res
+
+
+# ------------------------------------------------------------------
+# 4b. 成約実績の建物ページ（/results/<slug>/）
+#   results/manifest.json の building（分譲時資料などで確認した事実）から、
+#   「建物名＋売却・査定」で探す人向けのページを作る。価格は載せない。
+#   building の項目：pref, city, town, station, built(YYYY-MM か YYYY), units, units_note,
+#   floors, basement, structure, seismic, developer（不確かな項目は入れない＝表示しない）
+# ------------------------------------------------------------------
+SOUBA_IDS = {'シティタワー武蔵小杉': 'city-tower-musashikosugi',
+             'パークシティ武蔵小杉ミッドスカイタワー': 'park-city-midsky-tower'}
+
+def res_slug(x):
+    return x.get('slug') or x['id']
+
+def _walk(station):
+    if '直結' in (station or ''):
+        return 0
+    m = [int(v) for v in re.findall(r'徒歩(\d+)', station or '')]
+    return min(m) if m else None
+
+def _built_text(b):
+    s = str(b.get('built') or '')
+    if re.match(r'^\d{4}-\d{2}$', s):
+        return f'{s[:4]}年{int(s[5:]):d}月'
+    return f'{s}年' if s else '-'
+
+def res_points(x, b, year):
+    name = x['name']
+    by = int(str(b.get('built'))[:4]) if b.get('built') else None
+    age = (year - by) if by else None
+    pts = []
+    if age is not None:
+        if age <= 2:
+            pts.append(('築浅の時期', '竣工から間もないため、新築時の分譲価格や、同じ時期に分譲された近隣の新築マンションと比べられます。'
+                        '新築時からの値上がりを根拠にした価格設定は、買主の住宅ローンの借入額にも響くため、成約事例との差を確認して決めます。'))
+        elif age < 10:
+            pts.append(('大規模修繕の前', f'築{age}年で、1回目の大規模修繕（一般に築12〜15年前後）の前にあたります。'
+                        f'買主は長期修繕計画と、修繕積立金の値上げ予定を確認します。'))
+        elif age < 18:
+            pts.append(('大規模修繕の時期', f'築{age}年で、1回目の大規模修繕の時期にあたります。'
+                        f'工事が終わっているか、予定と費用、一時金の有無は買主が必ず確認する項目です。'))
+        else:
+            pts.append(('修繕の履歴', f'築{age}年。大規模修繕の実施履歴と次回の予定、修繕積立金の残高が価格の判断材料になります。'
+                        f'管理状態が良い建物ほど、築年数のわりに価格が保たれます。'))
+    u = b.get('units')
+    if u and u >= 500:
+        pts.append(('同じ棟との比較', f'総戸数{u:,}戸の大規模マンションで、同じ棟の売り出しが重なりやすくなります。'
+                    f'買主は同じ棟の他の住戸と並べて見るため、階数・向き・眺望の違いを価格で説明できるかが成約の分かれ目です。'))
+    elif u and u <= 60:
+        pts.append(('成約事例の少なさ', f'総戸数{u}戸と小規模なため、同じマンションの成約事例が少なくなります。'
+                    f'価格の根拠は、近隣の築年・規模が近いマンションの事例と合わせて組み立てます。'))
+    w = _walk(b.get('station'))
+    if w is not None and w <= 5:
+        pts.append(('駅からの近さ', ('駅直結' if w == 0 else f'駅徒歩{w}分') + 'で、駅からの近さは価格が下がりにくい条件のひとつです。'
+                    '購入の検索条件から外れにくく、売り出してからの反響も集まりやすくなります。'))
+    elif w is not None and w >= 10:
+        pts.append(('駅までの距離', f'最寄駅まで徒歩{w}分。駅からの距離で検索から外されやすいため、他の路線やバスの使い方、周辺の生活環境まで含めて伝え方を考えます。'))
+    if (b.get('floors') or 0) >= 20:
+        pts.append(('階数と方位の差', f'地上{b["floors"]}階建て。タワーマンションは同じ棟でも階数・方位・眺望で価格差が大きく、棟の平均ではなく住戸ごとに見る必要があります。'))
+    pts.append(('税金の確認', 'ご自宅として住んでいた住戸なら、売却益から最大3,000万円を差し引ける特例があります。'
+                '所有期間（売った年の1月1日時点）が5年以下だと税率が高くなるため、売る時期によって手元に残る額が変わります。'))
+    return pts
+
+def build_result_pages(res):
+    A = json.load(open(P('area/manifest.json'), encoding='utf-8')) if os.path.exists(P('area/manifest.json')) else {'areas': []}
+    area_of = {}
+    for a in A.get('areas', []):
+        for n in a.get('results') or []:
+            area_of.setdefault(n, (a['id'], a['name']))
+    by_name = {x['name']: x for x in res if x.get('building')}
+    year = datetime.date.today().year
+    from urllib.parse import quote
+    out = []
+    for x in res:
+        b = x.get('building')
+        if not b:
+            continue
+        slug = res_slug(x); url = f'/results/{slug}/'
+        name = x['name']; floor = x.get('floor') or ''
+        loc = f'{b.get("pref","")}{b.get("city","")}{b.get("town","")}'
+        floors = (f'地上{b["floors"]}階' + (f'・地下{b["basement"]}階' if b.get('basement') else '') + '建') if b.get('floors') else None
+        rows = [('マンション名', esc(name)), ('所在地', esc(loc)), ('交通', esc(b.get('station'))),
+                ('竣工', esc(_built_text(b))),
+                ('総戸数', f'{b["units"]:,}戸' + (f'<small>{esc(b["units_note"])}</small>' if b.get('units_note') else '')) if b.get('units') else None,
+                ('階数', esc(floors)) if floors else None,
+                ('構造', esc(b['structure'] + (f'（{b["seismic"]}）' if b.get('seismic') else ''))) if b.get('structure') else None,
+                ('分譲会社', esc(b['developer'])) if b.get('developer') else None]
+        table = ''.join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k, v in filter(None, rows))
+        pts = ''.join(f'<li><strong>{esc(t)}</strong><span>{esc(s)}</span></li>' for t, s in res_points(x, b, year))
+        satei = f'/satei/?m={quote(name)}&amp;from=results-{slug}'
+        buy = contact_url('buy', f'results-{slug}')
+        img = '/' + x['image'].lstrip('/') if x.get('image') else ''
+        photo = (f'<figure class="rb-photo"><img src="{esc(img)}" alt="{esc(name)} 外観" fetchpriority="high" decoding="async">'
+                 + (f'<figcaption>画像出典：<a href="{esc(x.get("credit_url") or "#")}" target="_blank" rel="noopener">{esc(re.sub(r"^Photo:\s*", "", x["credit"]))}</a></figcaption>' if x.get('credit') else '')
+                 + '</figure>') if img else ''
+        area = area_of.get(name)
+        links = []
+        if name in SOUBA_IDS:
+            links.append(f'<li><a href="/souba/mansion/{SOUBA_IDS[name]}/">{esc(name)}の取引価格の推移（武蔵小杉マンション相場帳）</a></li>')
+        if area:
+            links.append(f'<li><a href="/area/{area[0]}/">{esc(area[1])}のマンション売買</a></li>')
+        links += ['<li><a href="/columns/uridashi-kakaku/">売り出し価格の決め方</a></li>',
+                  '<li><a href="/columns/satei-chigai/">査定額が会社ごとに違う理由</a></li>',
+                  '<li><a href="/columns/tedori-keisan/">マンション売却の手取りはいくら残るか</a></li>']
+        if (b.get('floors') or 0) >= 20:
+            links.append('<li><a href="/columns/tawaman-kakaku-sa/">同じタワーマンションでも価格に差が出る理由</a></li>')
+        sib = [y for y in by_name.values() if y is not x and area and area_of.get(y['name']) == area][:6]
+        sib_html = ''.join(f'<li><a href="/results/{res_slug(y)}/">{esc(y["name"])}</a></li>' for y in sib)
+        body = f'''<div class="subpage-wrap">
+{crumbs_html([('トップ', '/'), ('成約実績', '/results/'), (name, url)])}
+<div class="prop-detail-grid">
+  <div class="prop-detail-main">
+    <a href="/results/" class="column-back">← 成約実績の一覧に戻る</a>
+    <div class="prop-detail-head"><span class="prop-status ps-sold">成約実績</span><span class="prop-type">{esc(floor)}の住戸</span></div>
+    <h1 class="prop-detail-title">{esc(name)}の売却・購入のご相談</h1>
+    <p class="rb-lead">スピアードは{esc(name)}の{esc(floor)}の住戸で、売買のお手伝いをしました。同じマンションの売却査定・購入のご相談を承っています。査定は無料で、訪問なしの概算から対応します。</p>
+    {photo}
+    <div class="prop-sec"><h2 class="prop-sec-title">物件概要</h2><table class="prop-table"><tbody>{table}</tbody></table>
+      <div class="prop-legal">分譲時の資料など公表されている情報をもとに掲載しています。<br>管理規約・登記記録など最新の資料と異なる場合は、そちらを優先します。</div></div>
+    <div class="rb-cta-sp"><a class="prop-btn prop-btn-contact" href="{satei}">このマンションの売却査定（無料）</a><a class="prop-btn prop-btn-line" href="{LINE_URL}" target="_blank" rel="noopener">{LINE_SVG}公式LINEで相談する</a></div>
+    <div class="prop-sec"><h2 class="prop-sec-title">このマンションを売るときに見られる点</h2><ul class="rb-points">{pts}</ul></div>
+    <div class="prop-sec"><h2 class="prop-sec-title">スピアードの取引実績</h2>
+      <p class="rb-text">{esc(name)}の{esc(floor)}の住戸で成約しました。<br>お客様のプライバシーのため、価格・お部屋の詳細は掲載していません。</p></div>
+    <div class="prop-sec"><h2 class="prop-sec-title">あわせて読みたい</h2><ul class="rb-links">{''.join(links)}</ul></div>
+    {f'<div class="prop-sec"><h2 class="prop-sec-title">{esc(area[1])}のほかの成約実績</h2><ul class="rb-links rb-sib">{sib_html}</ul></div>' if sib_html else ''}
+  </div>
+  <aside class="prop-side">
+    <div class="prop-side-card">
+      <div class="prop-side-label">{esc(name)}</div>
+      <div class="prop-side-spec">{esc(loc)}<br>{esc(b.get("station") or "")}<br>竣工 {esc(_built_text(b))}{f"｜総戸数 {b['units']:,}戸" if b.get('units') else ''}</div>
+    </div>
+    <a class="prop-btn prop-btn-contact" href="{satei}">このマンションの売却査定（無料）</a>
+    <a class="prop-btn prop-btn-suumo" href="{buy}">このマンションの購入相談</a>
+    <a class="prop-btn prop-btn-line" href="{LINE_URL}" target="_blank" rel="noopener">{LINE_SVG}公式LINEで相談する</a>
+  </aside>
+</div>
+{CTA_BOTTOM(f'{name}の売却査定・ご相談', '売るかどうか決めていない段階でもかまいません。根拠と手取りまでお出しします。', satei)}
+</div>'''
+        built_y = str(b.get('built') or '')[:4]
+        title = f'{name}の売却査定・購入相談｜成約実績あり'
+        desc = (f'{name}（{b.get("city","")}{b.get("town","")}' + (f'・{built_y}年竣工' if built_y else '') +
+                (f'・総戸数{b["units"]:,}戸' if b.get('units') else '') +
+                f'）の売却査定・購入相談。スピアードは{floor}の住戸で成約実績があります。査定は無料です。')
+        ld = {'@context': 'https://schema.org', '@type': 'ApartmentComplex', 'name': name, 'url': SITE + url,
+              'address': {'@type': 'PostalAddress', 'addressCountry': 'JP', 'addressRegion': b.get('pref'),
+                          'addressLocality': f'{b.get("city","")}{b.get("town","")}'}}
+        if b.get('units'):
+            ld['numberOfAccommodationUnits'] = b['units']
+        if img:
+            ld['image'] = SITE + img
+        write(f'results/{slug}/index.html', page(url, title, desc, body, og_image=(SITE + img) if img else None,
+                                                  jsonld=[ld], breadcrumbs=[('トップ', '/'), ('成約実績', '/results/'), (name, url)]))
+        out.append(url)
+    return out
 
 
 # ------------------------------------------------------------------
@@ -1070,7 +1226,7 @@ if __name__ == '__main__':
     props = build_properties()
     res = build_results()
     nq, nv = build_faq_voices()
-    extra = ['/faq/', '/voices/'] + build_areas(cols) + build_column_hubs(cols) + build_tool_pages()
+    extra = ['/faq/', '/voices/'] + build_result_pages(res) + build_areas(cols) + build_column_hubs(cols) + build_tool_pages()
     n = build_sitemap(cols, props, extra)
     # 手書きページ（トップ・購入・売却・コンサル・404）にも画像最適化をかける（何度かけても結果は同じ）
     for hp in ('index.html', 'buy.html', 'sell.html', 'consulting.html', '404.html'):

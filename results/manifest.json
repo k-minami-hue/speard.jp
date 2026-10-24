@@ -4,241 +4,736 @@
       "id": "city-tower-musashikosugi",
       "name": "シティタワー武蔵小杉",
       "floor": "31階部分",
-      "image": "results/city-tower-musashikosugi.jpg"
+      "image": "results/city-tower-musashikosugi.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "川崎市中原区",
+        "town": "市ノ坪",
+        "station": "JR横須賀線・東急東横線「武蔵小杉」駅 徒歩4分",
+        "built": "2015-12",
+        "units": 800,
+        "floors": 53,
+        "basement": 3,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "seismic": "中間免震",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "the-tower-yokohama-kitanaka",
       "name": "ザ・タワー横浜北仲",
       "floor": "11階部分",
-      "image": "results/the-tower-yokohama-kitanaka.jpg"
+      "image": "results/the-tower-yokohama-kitanaka.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "横浜市中区",
+        "town": "北仲通5丁目",
+        "station": "みなとみらい線「馬車道」駅 直結",
+        "built": "2020-02",
+        "units": 1176,
+        "floors": 58,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "developer": "三井不動産レジデンシャル・丸紅"
+      }
     },
     {
       "id": "proud-tower-futakotamagawa",
       "name": "プラウドタワー二子玉川",
       "floor": "23階部分",
-      "image": "results/proud-tower-futakotamagawa.jpg"
+      "image": "results/proud-tower-futakotamagawa.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "世田谷区",
+        "town": "玉川3丁目",
+        "station": "東急田園都市線・大井町線「二子玉川」駅 徒歩2分",
+        "built": "2005-12",
+        "units": 201,
+        "floors": 27,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "野村不動産"
+      }
     },
     {
       "id": "r004",
       "name": "HARUMI FLAG SUN VILLAGE T棟",
       "floor": "4階部分",
-      "image": "results/r004.jpg"
+      "image": "results/r004.jpg",
+      "slug": "harumi-flag-sun-village-t",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "晴海5丁目",
+        "station": "都営大江戸線「勝どき」駅 徒歩18分",
+        "built": "2025-09",
+        "units": 733,
+        "units_note": "SUN VILLAGE T棟の戸数",
+        "floors": 50,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三井不動産レジデンシャル・三菱地所レジデンス・野村不動産・住友不動産 ほか"
+      }
     },
     {
       "id": "r005",
       "name": "プライムパークス品川シーサイド ザ・タワー",
       "floor": "27階部分",
-      "image": "results/r005.jpg"
+      "image": "results/r005.jpg",
+      "slug": "prime-parks-shinagawa-seaside-the-tower",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "東品川4丁目",
+        "station": "りんかい線「品川シーサイド」駅 徒歩3分",
+        "built": "2019-01",
+        "units": 817,
+        "floors": 29,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三菱地所レジデンス ほか"
+      }
     },
     {
       "id": "r006",
       "name": "プラウドタワー亀戸クロス",
       "floor": "21階部分",
-      "image": "results/r006.jpg"
+      "image": "results/r006.jpg",
+      "slug": "proud-tower-kameido-cross",
+      "building": {
+        "pref": "東京都",
+        "city": "江東区",
+        "town": "亀戸6丁目",
+        "station": "JR総武線「亀戸」駅 徒歩2分",
+        "built": "2021-12",
+        "units": 934,
+        "units_note": "ゲートタワーを含む全体の戸数",
+        "floors": 25,
+        "basement": 2,
+        "structure": "鉄筋コンクリート造",
+        "developer": "野村不動産 ほか"
+      }
     },
     {
       "id": "r007",
       "name": "ワールドシティタワーズ アクアタワー",
       "floor": "30階部分",
-      "image": "results/r007.jpg"
+      "image": "results/r007.jpg",
+      "slug": "world-city-towers-aqua",
+      "building": {
+        "pref": "東京都",
+        "city": "港区",
+        "town": "港南4丁目",
+        "station": "東京モノレール「天王洲アイル」駅 徒歩5分",
+        "built": "2005-10",
+        "units": 1038,
+        "units_note": "3棟合計では2,090戸",
+        "floors": 42,
+        "basement": 2,
+        "structure": "鉄筋コンクリート造",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "r008",
       "name": "プラウドタワー小岩ファースト",
       "floor": "18階部分",
-      "image": "results/r008.jpg"
+      "image": "results/r008.jpg",
+      "slug": "proud-tower-koiwa-first",
+      "building": {
+        "pref": "東京都",
+        "city": "江戸川区",
+        "town": "南小岩6丁目",
+        "station": "JR総武線「小岩」駅 徒歩1分",
+        "built": "2022-03",
+        "units": 233,
+        "floors": 22,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "developer": "野村不動産・タカラレーベン・清水建設"
+      }
     },
     {
       "id": "r009",
       "name": "品川イーストシティタワー",
       "floor": "8階部分",
-      "image": "results/r009.jpg"
+      "image": "results/r009.jpg",
+      "slug": "shinagawa-east-city-tower",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "東品川5丁目",
+        "station": "東京モノレール「天王洲アイル」駅 徒歩5分",
+        "built": "2018-07",
+        "units": 363,
+        "floors": 26,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "r010",
       "name": "シティタワー品川パークフロント",
       "floor": "11階部分",
-      "image": "results/r010.jpg"
+      "image": "results/r010.jpg",
+      "slug": "city-tower-shinagawa-parkfront",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "南大井2丁目",
+        "station": "京急本線「大森海岸」駅 徒歩5分",
+        "built": "2018-08",
+        "units": 312,
+        "floors": 23,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "r011",
       "name": "Brillia新川一丁目",
       "floor": "2階部分",
-      "image": "results/r011.jpg"
+      "image": "results/r011.jpg",
+      "slug": "brillia-shinkawa-1chome",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "新川1丁目",
+        "station": "JR京葉線「八丁堀」駅 徒歩7分",
+        "built": "2018-12",
+        "units": 36,
+        "floors": 10,
+        "structure": "鉄筋コンクリート造",
+        "developer": "東京建物"
+      }
     },
     {
       "id": "r012",
       "name": "ザ・パークハウス晴海タワーズ クロノレジデンス",
       "floor": "19階部分",
-      "image": "results/r012.jpg"
+      "image": "results/r012.jpg",
+      "slug": "parkhouse-harumi-towers-chrono",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "晴海2丁目",
+        "station": "都営大江戸線「勝どき」駅 徒歩11分",
+        "built": "2013-11",
+        "units": 883,
+        "floors": 49,
+        "basement": 2,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三菱地所レジデンス・鹿島建設"
+      }
     },
     {
       "id": "r013",
       "name": "パークホームズ荻窪ザレジデンス",
       "floor": "1階部分",
-      "image": "results/r013.jpg"
+      "image": "results/r013.jpg",
+      "slug": "parkhomes-ogikubo-the-residence",
+      "building": {
+        "pref": "東京都",
+        "city": "杉並区",
+        "town": "荻窪4丁目",
+        "station": "JR中央線・東京メトロ丸ノ内線「荻窪」駅 徒歩7分",
+        "built": "2018-07",
+        "units": 30,
+        "floors": 3,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三井不動産レジデンシャル"
+      }
     },
     {
       "id": "r014",
       "name": "パークシティ中野 ザ・タワー ブリーズ",
       "floor": "13階部分",
-      "image": "results/r014.jpg"
+      "image": "results/r014.jpg",
+      "slug": "park-city-nakano-breeze",
+      "building": {
+        "pref": "東京都",
+        "city": "中野区",
+        "town": "中野4丁目",
+        "station": "JR中央線・東京メトロ東西線「中野」駅 徒歩8分",
+        "built": "2026-03",
+        "units": 262,
+        "floors": 20,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三井不動産レジデンシャル"
+      }
     },
     {
       "id": "r015",
       "name": "Brillia Mare有明 TOWER&GARDEN",
       "floor": "30階部分",
-      "image": "results/r015.jpg"
+      "image": "results/r015.jpg",
+      "slug": "brillia-mare-ariake",
+      "building": {
+        "pref": "東京都",
+        "city": "江東区",
+        "town": "有明1丁目",
+        "station": "ゆりかもめ「有明テニスの森」駅 徒歩5分",
+        "built": "2008-12",
+        "units": 1085,
+        "floors": 33,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "東京建物 ほか"
+      }
     },
     {
       "id": "r016",
       "name": "クレヴィア神楽坂",
       "floor": "5階部分",
-      "image": "results/r016.jpg"
+      "image": "results/r016.jpg",
+      "slug": "crevia-kagurazaka",
+      "building": {
+        "pref": "東京都",
+        "city": "新宿区",
+        "town": "西五軒町",
+        "station": "東京メトロ東西線「神楽坂」駅 徒歩6分",
+        "built": "2013-09",
+        "units": 44,
+        "floors": 9,
+        "structure": "鉄筋コンクリート造",
+        "developer": "伊藤忠都市開発"
+      }
     },
     {
       "id": "r017",
       "name": "プラウド大島セントラル",
       "floor": "10階部分",
-      "image": "results/r017.jpg"
+      "image": "results/r017.jpg",
+      "slug": "proud-ojima-central",
+      "building": {
+        "pref": "東京都",
+        "city": "江東区",
+        "town": "大島7丁目",
+        "station": "都営新宿線「大島」駅 徒歩5分",
+        "built": "2011-02",
+        "floors": 13,
+        "structure": "鉄筋コンクリート造",
+        "developer": "野村不動産"
+      }
     },
     {
       "id": "r018",
       "name": "インプレストコア浅草橋",
       "floor": "10階部分",
-      "image": "results/r018.jpg"
+      "image": "results/r018.jpg",
+      "slug": "impressed-core-asakusabashi",
+      "building": {
+        "pref": "東京都",
+        "city": "台東区",
+        "town": "浅草橋3丁目",
+        "station": "都営浅草線「浅草橋」駅 徒歩5分",
+        "built": "2017-02",
+        "units": 48,
+        "floors": 13,
+        "structure": "鉄筋コンクリート造",
+        "developer": "双日新都市開発"
+      }
     },
     {
       "id": "r019",
       "name": "プレディア東中野",
       "floor": "1階部分",
-      "image": "results/r019.jpg"
+      "image": "results/r019.jpg",
+      "slug": "predia-higashinakano",
+      "building": {
+        "pref": "東京都",
+        "city": "中野区",
+        "town": "東中野5丁目",
+        "station": "東京メトロ東西線「落合」駅 徒歩5分／JR中央・総武線「東中野」駅 徒歩7分",
+        "built": "2023-02",
+        "units": 40,
+        "floors": 5,
+        "structure": "鉄筋コンクリート造",
+        "developer": "JR西日本プロパティーズ"
+      }
     },
     {
       "id": "r020",
       "name": "グリーンパーク日本橋堀留町",
       "floor": "10階部分",
-      "image": "results/r020.jpg"
+      "image": "results/r020.jpg",
+      "slug": "green-park-nihonbashi-horidomecho",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "日本橋堀留町2丁目",
+        "station": "東京メトロ日比谷線「小伝馬町」駅 徒歩3分",
+        "built": "2015-08",
+        "units": 78,
+        "floors": 12,
+        "structure": "鉄筋コンクリート造",
+        "developer": "坂入産業"
+      }
     },
     {
       "id": "r021",
       "name": "白金ザ・スカイ",
       "floor": "21階部分",
-      "image": "results/r021.jpg"
+      "image": "results/r021.jpg",
+      "slug": "shirokane-the-sky",
+      "building": {
+        "pref": "東京都",
+        "city": "港区",
+        "town": "白金1丁目",
+        "station": "東京メトロ南北線・都営三田線「白金高輪」駅 徒歩3分",
+        "built": "2023-02",
+        "units": 1247,
+        "units_note": "東棟・西棟などを含む全体の戸数",
+        "floors": 45,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "東京建物・長谷工コーポレーション ほか"
+      }
     },
     {
       "id": "r022",
       "name": "アトラスタワー町田",
       "floor": "15階部分",
-      "image": "results/r022.jpg"
+      "image": "results/r022.jpg",
+      "slug": "atlas-tower-machida",
+      "building": {
+        "pref": "東京都",
+        "city": "町田市",
+        "town": "原町田3丁目",
+        "station": "JR横浜線「町田」駅 徒歩2分",
+        "built": "2016-02",
+        "units": 155,
+        "floors": 22,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "旭化成不動産レジデンス"
+      }
     },
     {
       "id": "r023",
       "name": "ピアース武蔵小杉EAST",
       "floor": "11階部分",
-      "image": "results/r023.jpg"
+      "image": "results/r023.jpg",
+      "slug": "pierce-musashikosugi-east",
+      "building": {
+        "pref": "神奈川県",
+        "city": "川崎市中原区",
+        "town": "上丸子八幡町",
+        "station": "東急東横線「新丸子」駅 徒歩4分",
+        "built": "2022-06",
+        "units": 57,
+        "floors": 14,
+        "structure": "鉄筋コンクリート造",
+        "developer": "モリモト"
+      }
     },
     {
       "id": "r024",
       "name": "ザ・パークハウス戸越公園タワー",
       "floor": "15階部分",
-      "image": "results/r024.jpg"
+      "image": "results/r024.jpg",
+      "slug": "parkhouse-togoshikoen-tower",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "戸越5丁目",
+        "station": "東急大井町線「戸越公園」駅 徒歩1分",
+        "built": "2024-02",
+        "units": 241,
+        "floors": 23,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "developer": "三菱地所レジデンス・大成建設 ほか"
+      }
     },
     {
       "id": "r025",
       "name": "クレストラフィーネ旗の台",
       "floor": "2階部分",
-      "image": "results/r025.jpg"
+      "image": "results/r025.jpg",
+      "slug": "crest-lafine-hatanodai",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "旗の台6丁目",
+        "station": "東急大井町線「旗の台」駅 徒歩5分",
+        "built": "2014-04",
+        "units": 32,
+        "floors": 14,
+        "structure": "鉄筋コンクリート造",
+        "developer": "ゴールドクレスト"
+      }
     },
     {
       "id": "parkhouse-toyocho-suihinkaku",
       "name": "ザ・パークハウス 東陽町翠賓閣",
       "floor": "4階部分",
-      "image": "results/parkhouse-toyocho-suihinkaku.jpg"
+      "image": "results/parkhouse-toyocho-suihinkaku.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "江東区",
+        "town": "東陽7丁目",
+        "station": "東京メトロ東西線「東陽町」駅 徒歩8分",
+        "built": "2019-03",
+        "units": 117,
+        "floors": 11,
+        "structure": "鉄筋コンクリート造",
+        "developer": "三菱地所レジデンス ほか"
+      }
     },
     {
       "id": "deux-tours",
       "name": "DEUX TOURS",
       "floor": "44階部分",
-      "image": "results/deux-tours.jpg"
+      "image": "results/deux-tours.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "晴海3丁目",
+        "station": "都営大江戸線「勝どき」駅 徒歩5分",
+        "built": "2015",
+        "units": 1450,
+        "units_note": "EAST・WESTの2棟合計",
+        "floors": 52,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "seismic": "免震",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "cityterrace-yokohama-nakamachidai-1",
       "name": "シティテラス横濱仲町台壱番館",
       "floor": "5階部分",
-      "image": "results/cityterrace-yokohama-nakamachidai-1.jpg"
+      "image": "results/cityterrace-yokohama-nakamachidai-1.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "横浜市都筑区",
+        "town": "茅ケ崎南2丁目",
+        "station": "横浜市営地下鉄ブルーライン「仲町台」駅 徒歩8分",
+        "built": "2012-08",
+        "units": 245,
+        "floors": 7,
+        "structure": "鉄筋コンクリート造",
+        "developer": "住友不動産"
+      }
     },
     {
       "id": "markone-tower-nagatsuta",
       "name": "マークワンタワー長津田",
       "floor": "11階部分",
-      "image": "results/markone-tower-nagatsuta.jpg"
+      "image": "results/markone-tower-nagatsuta.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "横浜市緑区",
+        "town": "長津田2丁目",
+        "station": "東急田園都市線・JR横浜線「長津田」駅 徒歩2分",
+        "built": "2013-04",
+        "units": 209,
+        "floors": 28,
+        "basement": 1,
+        "structure": "鉄骨鉄筋コンクリート造",
+        "developer": "横浜市住宅供給公社"
+      }
     },
     {
       "id": "park-tower-harumi",
       "name": "パークタワー晴海",
       "floor": "38階部分",
-      "image": "results/park-tower-harumi.jpg"
+      "image": "results/park-tower-harumi.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "晴海2丁目",
+        "station": "東京メトロ有楽町線・都営大江戸線「月島」駅 徒歩12分",
+        "built": "2019-05",
+        "units": 1076,
+        "floors": 48,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "seismic": "免震",
+        "developer": "三井不動産レジデンシャル ほか"
+      }
     },
     {
       "id": "proud-tower-shibaura",
       "name": "プラウドタワー芝浦",
       "floor": "14階部分",
-      "image": "results/proud-tower-shibaura.jpg"
+      "image": "results/proud-tower-shibaura.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "港区",
+        "town": "芝浦4丁目",
+        "station": "JR山手線「田町」駅 徒歩11分",
+        "built": "2023-01",
+        "units": 421,
+        "floors": 33,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造",
+        "developer": "野村不動産"
+      }
     },
     {
       "id": "gracia-towers-ebina",
       "name": "グレーシアタワーズ海老名",
       "floor": "21階部分",
-      "image": "results/gracia-towers-ebina.jpg"
+      "image": "results/gracia-towers-ebina.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "海老名市",
+        "town": "扇町",
+        "station": "小田急線・相鉄線「海老名」駅 徒歩6分",
+        "built": "2019-05",
+        "units": 477,
+        "floors": 25,
+        "structure": "鉄筋コンクリート造",
+        "developer": "相鉄不動産 ほか"
+      }
     },
     {
       "id": "lupinus-azabu-cityform",
       "name": "ルピナス麻布シティフォルム",
       "floor": "4階部分",
-      "image": "results/lupinus-azabu-cityform.jpg"
+      "image": "results/lupinus-azabu-cityform.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "港区",
+        "town": "東麻布2丁目",
+        "station": "都営大江戸線「赤羽橋」駅 徒歩6分／東京メトロ南北線「麻布十番」駅 徒歩8分",
+        "built": "2000-04",
+        "units": 47,
+        "floors": 8,
+        "structure": "鉄筋コンクリート造",
+        "developer": "スルガコーポレーション"
+      }
     },
     {
       "id": "hills-akatsutsumi",
       "name": "ヒルズ赤堤",
       "floor": "1階部分",
-      "image": "results/hills-akatsutsumi.jpg"
+      "image": "results/hills-akatsutsumi.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "世田谷区",
+        "town": "赤堤5丁目",
+        "station": "京王線「下高井戸」駅 徒歩5分",
+        "built": "2000-03",
+        "units": 26,
+        "floors": 5,
+        "structure": "鉄筋コンクリート造",
+        "developer": "野村不動産"
+      }
     },
     {
       "id": "park-city-musashikosugi-midsky",
       "name": "パークシティ武蔵小杉ミッドスカイタワー",
       "floor": "51階部分",
-      "image": "results/park-city-musashikosugi-midsky.jpg"
+      "image": "results/park-city-musashikosugi-midsky.jpg",
+      "building": {
+        "pref": "神奈川県",
+        "city": "川崎市中原区",
+        "town": "新丸子東3丁目",
+        "station": "東急東横線・JR南武線「武蔵小杉」駅 徒歩3分",
+        "built": "2008-08",
+        "units": 794,
+        "floors": 61,
+        "basement": 3,
+        "structure": "鉄筋コンクリート造",
+        "seismic": "制震",
+        "developer": "三井不動産レジデンシャル ほか"
+      }
     },
     {
       "id": "park-tower-kachidoki-south",
       "name": "パークタワー勝どきサウス",
       "floor": "22階部分",
-      "image": "results/park-tower-kachidoki-south.jpg"
+      "image": "results/park-tower-kachidoki-south.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "勝どき4丁目",
+        "station": "都営大江戸線「勝どき」駅 徒歩2分",
+        "built": "2023-08",
+        "units": 1666,
+        "floors": 58,
+        "basement": 3,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "developer": "三井不動産レジデンシャル・鹿島建設"
+      }
     },
     {
       "id": "osaki-west-city-towers",
       "name": "大崎ウエストシティタワーズ",
       "floor": "15階部分",
-      "image": "results/osaki-west-city-towers.jpg"
+      "image": "results/osaki-west-city-towers.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "品川区",
+        "town": "大崎2丁目",
+        "station": "JR山手線「大崎」駅 徒歩3〜4分",
+        "built": "2009-09",
+        "units": 1084,
+        "units_note": "E棟・W棟の2棟合計",
+        "floors": 39,
+        "structure": "鉄筋コンクリート造",
+        "developer": "住友不動産・NIPPO ほか"
+      }
     },
     {
       "id": "chiba-central-tower",
       "name": "CHIBA CENTRAL TOWER",
       "floor": "25階部分",
-      "image": "results/chiba-central-tower.jpg"
+      "image": "results/chiba-central-tower.jpg",
+      "building": {
+        "pref": "千葉県",
+        "city": "千葉市中央区",
+        "town": "中央3丁目",
+        "station": "京成千葉線「千葉中央」駅 徒歩4分／JR「千葉」駅 徒歩10分",
+        "built": "2009-02",
+        "floors": 43,
+        "basement": 1,
+        "structure": "鉄筋コンクリート造（一部鉄骨造）",
+        "developer": "オリックス・リアルエステート・ニチモ"
+      }
     },
     {
       "id": "proud-tower-kawaguchi-cross",
       "name": "プラウドタワー川口クロス",
       "floor": "11階部分",
-      "image": "results/proud-tower-kawaguchi-cross.jpg"
+      "image": "results/proud-tower-kawaguchi-cross.jpg",
+      "building": {
+        "pref": "埼玉県",
+        "city": "川口市",
+        "town": "栄町3丁目",
+        "station": "JR京浜東北線「川口」駅 徒歩3分",
+        "built": "2023-02",
+        "units": 481,
+        "floors": 28,
+        "developer": "野村不動産"
+      }
     },
     {
       "id": "kachidoki-the-tower",
       "name": "勝どきザ・タワー",
       "floor": "41階部分",
-      "image": "results/kachidoki-the-tower.jpg"
+      "image": "results/kachidoki-the-tower.jpg",
+      "building": {
+        "pref": "東京都",
+        "city": "中央区",
+        "town": "勝どき5丁目",
+        "station": "都営大江戸線「勝どき」駅 徒歩6分",
+        "built": "2016-11",
+        "units": 1420,
+        "floors": 53,
+        "basement": 2,
+        "structure": "鉄筋コンクリート造",
+        "seismic": "制震（VDコアフレーム構法）",
+        "developer": "鹿島建設・三井不動産レジデンシャル ほか"
+      }
     }
   ]
 }
