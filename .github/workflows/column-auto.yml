@@ -1,0 +1,87 @@
+# コラム自動作成・公開（月・水・金 8:40 日本時間）。PCを開いていなくても GitHub 上で完結する。
+# 1) Claude（claude-code-action、代表の Claude サブスクリプションの枠を使用）が原稿・manifest・見出し画像を書く
+# 2) tools/check_column.py で検査。1項目でも NG なら公開しない（失敗通知メールが届く）
+# 3) build-pages と同じ手順で静的ページを生成し、main に push → GitHub Pages に反映
+# 手順書：.github/prompts/column.md
+name: column auto publish
+
+on:
+  schedule:
+    - cron: '40 23 * * 0,2,4'   # 月・水・金 8:40（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: column-auto
+  cancel-in-progress: false
+
+jobs:
+  write-and-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q pillow jinja2
+      - name: 今日の日付
+        run: echo "TODAY=$(TZ=Asia/Tokyo date +%Y.%m.%d)" >> "$GITHUB_ENV"
+
+      - name: Claude がコラムを書く
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            リポジトリ直下の .github/prompts/column.md を読み、その手順どおりにコラムを1本作成してください。
+            今日の日付（日本時間）は ${{ env.TODAY }} です。manifest の date はこの日付にしてください。
+            git の commit・push はしないでください（後続のステップが行います）。
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 150
+            --allowedTools "Read,Write,Edit,MultiEdit,Glob,Grep,WebSearch,WebFetch,Bash(python3:*),Bash(cp:*),Bash(ls:*),Bash(mkdir:*),Bash(git status:*),Bash(git diff:*),Bash(git checkout:*),Bash(git clean:*),Bash(cat:*),Bash(wc:*)"
+
+      - name: 生成物を一度戻す（原稿・manifest・画像だけ残す）
+        run: |
+          git status --porcelain
+          git diff --name-only | grep -v -E '^columns/(manifest\.json|purchase/|sale/|hero/)' | xargs -r git checkout --
+          git ls-files --others --exclude-standard | grep -v -E '^columns/(purchase/|sale/|hero/)' | xargs -r rm -f
+          git status --porcelain
+
+      - name: 自動チェック（NGなら公開しない）
+        run: python3 tools/check_column.py
+
+      - name: 静的ページを生成
+        run: |
+          python3 tools/make_webp.py
+          if [ -n "$(python3 tools/make_col_ogp.py --pending)" ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
+            python3 tools/make_col_ogp.py
+          fi
+          python3 tools/build_pages.py
+
+      - name: 公開（main に push）
+        run: |
+          ID=$(python3 -c "import json;print(json.load(open('columns/manifest.json'))['columns'][0]['id'])")
+          TITLE=$(python3 -c "import json;print(json.load(open('columns/manifest.json'))['columns'][0]['title'])")
+          git config user.name "speard-bot"
+          git config user.email "info@speard.jp"
+          git add -A
+          git commit -m "コラム追加：${TITLE}"
+          git pull --rebase origin main
+          git push
+          echo "公開：https://speard.jp/columns/${ID}/ （${TITLE}）" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 結果を残す
+        if: always()
+        run: |
+          if [ -f /tmp/column_result.json ]; then
+            echo '### Claude の結果' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat /tmp/column_result.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi

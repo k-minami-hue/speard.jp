@@ -1,0 +1,76 @@
+# 公式LINE 週1コラム配信の本文作成（金曜 11:30 日本時間）。PCを開いていなくても GitHub 上で完結する。
+# Claude（claude-code-action、代表の Claude サブスクリプションの枠を使用）が本文を作り、line-queue ブランチの queue/next.json に置く。
+# 送信は 18:00 に line-broadcast.yml が行う。手順書：.github/prompts/line.md
+name: LINE weekly draft
+
+on:
+  schedule:
+    - cron: '30 2 * * 5'   # 毎週金曜 11:30（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: line-draft
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: line-queue
+          path: q
+      - name: 今日の日付
+        run: echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
+
+      - name: Claude が本文を作る
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            リポジトリ直下の .github/prompts/line.md を読み、その手順どおりに今週の公式LINE配信の本文を作って q/queue/next.json に書いてください。
+            今日の日付（日本時間）は ${{ env.TODAY }} です。git の commit・push はしないでください。
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 60
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python3:*),Bash(cat:*),Bash(ls:*)"
+
+      - name: 本文を検査
+        run: |
+          python3 - <<'EOF'
+          import json, os, sys
+          q = json.load(open('q/queue/next.json', encoding='utf-8'))
+          today = os.environ['TODAY']
+          errs = []
+          if q.get('status') == 'skip':
+              print('今週は紹介できるコラムなし：', q.get('note')); sys.exit(0)
+          if q.get('status') != 'ready': errs.append(f'status={q.get("status")}')
+          if q.get('date') != today: errs.append(f'date={q.get("date")}')
+          t = q.get('text') or ''
+          if not 150 <= len(t) <= 500: errs.append(f'本文{len(t)}字')
+          if 'https://speard.jp/columns/' not in t or '?from=line-col' not in t: errs.append('記事URLなし')
+          for w in ['**', '※', '＊', '絶対', '必ず儲かる', '確実に']:
+              if w in t: errs.append(f'禁止表現「{w}」')
+          s = os.environ.get('GITHUB_STEP_SUMMARY')
+          with open(s, 'a', encoding='utf-8') as f:
+              f.write('### LINE本文\n\n' + json.dumps(q, ensure_ascii=False, indent=2) + '\n\n' + ('NG：' + '、'.join(errs) if errs else 'OK') + '\n')
+          if errs:
+              print('NG：', errs); sys.exit(1)
+          print('OK')
+          EOF
+
+      - name: 配信予約に置く（line-queue に push）
+        working-directory: q
+        run: |
+          git config user.name "speard-bot"
+          git config user.email "info@speard.jp"
+          git add queue/next.json
+          git commit -m "LINE配信予約：${TODAY}" || exit 0
+          git push
