@@ -273,30 +273,8 @@ article.column .col-toc a, .col-toc a{ white-space:normal; text-decoration:none;
 
 /* =========================================================
    武蔵小杉マンション相場帳への導線（2026-10-24）
-   ヘッダーのボタン／メニュー先頭／各ページのバナー
+   各ページのバナー（トップ・売却・購入は控えめな1行、エリアページは詳細）
    ========================================================= */
-/* ヘッダー：金枠のボタン。641px以上は常に表示（ナビがハンバーガーになっても残す） */
-header#header .btn-nav-souba{ display:inline-flex !important; align-items:center; gap:7px; height:40px; padding:0 16px !important; border:1.5px solid var(--sp-gold) !important; border-radius:3px; color:#fff !important; font-size:.84rem !important; font-weight:600; letter-spacing:.05em; text-decoration:none; white-space:nowrap; background:rgba(196,154,48,.12); transition:background .2s; }
-header#header .btn-nav-souba:hover{ background:rgba(196,154,48,.28); }
-header#header .btn-nav-souba svg{ flex:none; }
-header#header .btn-nav-souba::after{ content:none !important; }
-/* 項目が1つ増えた分、PCナビを畳む幅を広げる */
-@media (max-width:1319px){
-  header#header .nav-links{ display:none !important; }
-  header#header .hamburger{ display:flex !important; }
-  header#header nav{ gap:10px; }
-}
-@media (max-width:640px){ header#header .btn-nav-souba{ display:none !important; } }
-
-/* モバイルメニュー先頭の相場帳 */
-.mobile-menu a.mm-souba{ margin:14px 0 4px; padding:14px 16px !important; border:1.5px solid var(--sp-gold) !important; border-radius:4px; background:rgba(196,154,48,.12); flex-direction:row; }
-.mobile-menu a.mm-souba span{ display:flex; flex-direction:column; gap:2px; color:#fff; font-weight:600; letter-spacing:.04em; }
-.mobile-menu a.mm-souba small{ color:var(--sp-gold); font-size:.74rem; font-weight:500; letter-spacing:.06em; }
-.mobile-menu a.mm-souba::after{ color:var(--sp-gold) !important; }
-
-/* フッターの相場帳リンク */
-.site-footer .ft-souba{ color:var(--sp-gold) !important; font-weight:600; }
-
 /* バナー（数値は tools/souba/build.py が四半期ごとに書き換える） */
 .souba-band{ background:var(--sp-off); padding:clamp(48px,7vw,84px) clamp(16px,4vw,48px); }
 .souba-band-in{ max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 1.05fr; gap:clamp(24px,4vw,56px); align-items:center; }
@@ -333,3 +311,13 @@ header#header .btn-nav-souba::after{ content:none !important; }
   .souba-band .sb-stats div:first-child{ grid-column:1 / -1; }
   .souba-band .sb-btns a{ width:100%; }
 }
+/* 控えめな1行バナー（トップ・売却・購入） */
+.souba-mini{ max-width:1120px; margin:0 auto; padding:28px clamp(16px,4vw,48px) 8px; }
+.souba-mini .sm-in{ display:flex; align-items:center; gap:14px 20px; flex-wrap:wrap; padding:14px 18px; border:1px solid var(--sp-beige); border-radius:4px; background:#fff; color:var(--sp-text); text-decoration:none; transition:border-color .2s; }
+.souba-mini .sm-in:hover{ border-color:var(--sp-gold); }
+.souba-mini .sm-label{ flex:none; font-size:.74rem; font-weight:700; letter-spacing:.08em; color:var(--sp-navy); border:1px solid var(--sp-navy); border-radius:999px; padding:3px 10px; }
+.souba-mini .sm-text{ flex:1 1 320px; font-size:.86rem; line-height:1.7; color:var(--sp-text-mid); }
+.souba-mini .sm-num{ display:block; color:var(--sp-navy-dark); font-weight:600; }
+.souba-mini .sm-go{ flex:none; font-size:.84rem; font-weight:700; color:var(--sp-navy-dark); }
+.souba-mini .sm-go::after{ content:" →"; }
+.souba-mini .sm-note{ margin:8px 2px 0; font-size:.7rem; color:var(--sp-text-mid); line-height:1.6; }

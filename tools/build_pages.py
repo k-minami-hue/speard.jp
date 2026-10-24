@@ -105,7 +105,6 @@ NAV = [('/buy.html', '購入'), ('/sell.html', '売却'), ('/consulting.html', '
 
 # 武蔵小杉マンション相場帳（独自ドメインへ移したらここだけ書き換える）
 SOUBA_URL = '/souba/'
-SOUBA_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>'
 
 def header():
     links = '\n'.join(f'      <a href="{h}">{t}</a>' for h, t in NAV)
@@ -115,19 +114,18 @@ def header():
     <div class="nav-links">
 {links}
     </div>
-    <a href="{SOUBA_URL}?from=hp-nav" class="btn-nav-souba">{SOUBA_SVG}武蔵小杉の相場</a>
     <a href="/#contact" class="btn-nav">無料相談</a>
     <a href="{LINE_URL}" target="_blank" rel="noopener" class="btn-nav-line">{LINE_SVG}LINE相談</a>
   </nav>
   <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="{SOUBA_URL}?from=hp-menu" class="mm-souba"><span><small>棟ごとの坪単価と推移を無料で公開中</small>武蔵小杉マンション相場帳</span></a>
   <div class="mm-group">Service</div>
   <a href="/buy.html">購入について</a>
   <a href="/sell.html">売却について</a>
   <a href="/consulting.html">不動産コンサルティング</a>
   <a href="/area/">対応エリア</a>
+  <a href="{SOUBA_URL}?from=hp-menu">武蔵小杉マンション相場帳</a>
   <a href="/profile/">代表プロフィール</a>
   <a href="/simulator/">諸費用・ローンシミュレーター</a>
   <a href="/satei/">無料売却査定</a>
@@ -164,7 +162,7 @@ FOOTER = f'''<footer class="site-footer">
     </div>
     <div class="ft-nav">
       <div><h4>Service</h4><ul>
-        <li><a href="{SOUBA_URL}?from=hp-footer" class="ft-souba">武蔵小杉マンション相場帳</a></li>
+        <li><a href="{SOUBA_URL}?from=hp-footer">武蔵小杉マンション相場帳</a></li>
         <li><a href="/buy.html">購入について</a></li>
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
