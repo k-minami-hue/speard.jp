@@ -47,6 +47,8 @@ def main():
     ok('IDが英小文字とハイフン', re.fullmatch(r'[a-z0-9]+(-[a-z0-9]+)*', c['id'] or ''), c['id'])
     ok('カテゴリが buy か sell', c.get('category') in ('buy', 'sell'), c.get('category'))
     ok('description が80〜160字', 80 <= len(c.get('description') or '') <= 160, f'{len(c.get("description") or "")}字')
+    folder = 'columns/sale/' if c.get('category') == 'sell' else 'columns/purchase/'
+    ok('原稿がカテゴリに合ったフォルダにある', (c.get('file') or '').startswith(folder), f'{c.get("file")}（{folder} であるべき）')
     for k in ('file', 'hero', 'thumb'):
         ok(f'{k} のファイルが実在', c.get(k) and os.path.exists(P(c[k])), c.get(k))
     if not (c.get('file') and os.path.exists(P(c['file']))):

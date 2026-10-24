@@ -59,7 +59,7 @@ jobs:
         run: |
           python3 tools/make_webp.py
           if [ -n "$(python3 tools/make_col_ogp.py --pending)" ]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
+            sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk fonts-noto-cjk-extra >/dev/null
             python3 tools/make_col_ogp.py
           fi
           python3 tools/build_pages.py
