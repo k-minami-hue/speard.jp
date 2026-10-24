@@ -1102,9 +1102,9 @@ def build_areas(cols):
         facts = ''.join(f'<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>' for k, v in a.get('facts', []))
         secs = ''.join(f'<h2>{esc(h)}</h2>{sentences_html(t)}' for h, t in a.get('sections', []))
         rcards = ''.join(
-            f'<div class="res-card"><div class="res-thumb"><span class="res-badge">SOLD OUT</span>'
+            (f'<a href="/results/{res_slug(res[n])}/" class="res-card">' if res[n].get('building') else '<div class="res-card">') + '<div class="res-thumb"><span class="res-badge">SOLD OUT</span>'
             + (f'<div class="res-bg" style="background-image:url(\'/{esc(res[n]["image"].lstrip("/"))}\')"></div><img src="/{esc(res[n]["image"].lstrip("/"))}" alt="{esc(n)} 外観" loading="lazy" decoding="async">' if res[n].get('image') else '')
-            + f'</div><div class="res-body"><h3 class="res-name">{esc(n)}</h3>' + (f'<div class="res-floor">{esc(res[n].get("floor"))}</div>' if res[n].get('floor') else '') + '</div></div>'
+            + f'</div><div class="res-body"><h3 class="res-name">{esc(n)}</h3>' + (f'<div class="res-floor">{esc(res[n].get("floor"))}</div>' if res[n].get('floor') else '') + '</div>' + ('</a>' if res[n].get('building') else '</div>')
             for n in a.get('results', []) if n in res)
         rel = [cmap[i] for i in a.get('columns', []) if i in cmap]
         imgs = IMG.get(a['id'], [])
