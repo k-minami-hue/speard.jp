@@ -1,0 +1,29 @@
+<section class="souba-band" aria-labelledby="souba-band-{{ v }}">
+  <div class="souba-band-in">
+    <div class="sb-main">
+      <span class="sb-en">Market Data</span>
+      <p class="sb-brand">武蔵小杉マンション相場帳</p>
+      <h2 id="souba-band-{{ v }}" class="sb-ttl">{{ copy.title }}</h2>
+      <p class="sb-sub">{{ copy.sub }}</p>
+      <div class="sb-btns">
+        <a class="sb-btn-main" href="{{ root }}?from=hp-{{ v }}">相場帳を見る（無料・登録不要）</a>
+        <a class="sb-btn-sub" href="{{ root }}{{ copy.sub_path }}?from=hp-{{ v }}">{{ copy.sub_label }}</a>
+      </div>
+    </div>
+    <div class="sb-data">
+      <dl class="sb-stats">
+        <div><dt>タワーの坪単価</dt><dd>{{ town.tsubo_txt }}</dd><small>直近1年・{{ town.n }}件の中央値</small></div>
+        <div><dt>70㎡に換算すると</dt><dd>{{ town.p70_txt }}</dd></div>
+        <div><dt>3年前と比べて</dt><dd>{{ town.chg_txt }}</dd></div>
+      </dl>
+      <p class="sb-chips-ttl">マンションごとの坪単価（直近2年の中央値）</p>
+      <ul class="sb-chips">
+        {%- for b in ranked[:chips] %}
+        <li><a href="{{ host }}{{ b.url }}?from=hp-{{ v }}">{{ b.short }} <b>{{ b.stats.tsubo | round | int }}万</b></a></li>
+        {%- endfor %}
+        <li class="sb-all"><a href="{{ root }}?from=hp-{{ v }}#list">全{{ n_all }}棟を見る</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="sb-note">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに株式会社スピアードが集計（{{ latest_q }}分まで）。過去の取引にもとづく参考値で、将来の価格を示すものではありません。</p>
+</section>

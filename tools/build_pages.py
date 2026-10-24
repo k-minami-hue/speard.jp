@@ -19,7 +19,9 @@ import html, json, os, re, datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://speard.jp'
-VER = datetime.date.today().strftime('%Y%m%d')
+import hashlib
+# CSSを変えた日に2回目の公開をしても古いCSSが残らないよう、日付＋中身のハッシュにする
+VER = datetime.date.today().strftime('%Y%m%d') + hashlib.md5(open(os.path.join(ROOT, 'assets', 'site.css'), 'rb').read()).hexdigest()[:6]
 TODAY = datetime.date.today().isoformat()
 OG_DEFAULT = SITE + '/assets/ogp.jpg'
 LINE_URL = 'https://line.me/R/ti/p/%40xef5208i'
@@ -101,6 +103,10 @@ NAV = [('/buy.html', '購入'), ('/sell.html', '売却'), ('/consulting.html', '
        ('/properties/', '販売物件'), ('/results/', '成約実績'), ('/voices/', 'お客様の声'),
        ('/columns/', 'コラム'), ('/#company', '会社概要')]
 
+# 武蔵小杉マンション相場帳（独自ドメインへ移したらここだけ書き換える）
+SOUBA_URL = '/souba/'
+SOUBA_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>'
+
 def header():
     links = '\n'.join(f'      <a href="{h}">{t}</a>' for h, t in NAV)
     return f'''<header id="header" class="scrolled">
@@ -109,12 +115,14 @@ def header():
     <div class="nav-links">
 {links}
     </div>
+    <a href="{SOUBA_URL}?from=hp-nav" class="btn-nav-souba">{SOUBA_SVG}武蔵小杉の相場</a>
     <a href="/#contact" class="btn-nav">無料相談</a>
     <a href="{LINE_URL}" target="_blank" rel="noopener" class="btn-nav-line">{LINE_SVG}LINE相談</a>
   </nav>
   <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </header>
 <div class="mobile-menu" id="mobileMenu">
+  <a href="{SOUBA_URL}?from=hp-menu" class="mm-souba"><span><small>棟ごとの坪単価と推移を無料で公開中</small>武蔵小杉マンション相場帳</span></a>
   <div class="mm-group">Service</div>
   <a href="/buy.html">購入について</a>
   <a href="/sell.html">売却について</a>
@@ -156,6 +164,7 @@ FOOTER = f'''<footer class="site-footer">
     </div>
     <div class="ft-nav">
       <div><h4>Service</h4><ul>
+        <li><a href="{SOUBA_URL}?from=hp-footer" class="ft-souba">武蔵小杉マンション相場帳</a></li>
         <li><a href="/buy.html">購入について</a></li>
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
@@ -953,6 +962,7 @@ def build_areas(cols):
 <div class="subpage-content area-page">
   {''.join(sentences_html(x) for x in a['lead'])}
   {area_gallery(a, imgs)}
+  {'<!-- SOUBA_BAND:area --><!-- /SOUBA_BAND -->' if a['id'] == 'musashikosugi' else ''}
   {f'<h2>{esc(a["name"])}の基本データ</h2><table class="prop-table area-facts"><tbody>{facts}</tbody></table>' if facts else ''}
   {f'<p class="area-tool"><a href="{esc(a["tool"]["url"])}">{esc(a["tool"]["text"])} →</a></p>' if a.get('tool') else ''}
   {secs}

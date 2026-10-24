@@ -8,6 +8,7 @@ data/*.csv と templates/ から静的サイトを生成します。
   python3 build.py                                   # 独自ドメイン（https://kosugi-souba.jp/）用に dist/ へ出力
   python3 build.py --out DIR --origin https://speard.jp --base /souba/   # speard.jp/souba/ 用
 """
+import re
 import csv
 import datetime as dt
 import hashlib
@@ -570,7 +571,55 @@ def build(out_dir, origin, base):
         (out / ".nojekyll").write_text("", encoding="utf-8")
         nf = env.get_template("404.html").render(**common, page="404", path=SITE["base"] + "404.html", jsonld=jsonld(website), ads_here=[], ogp="site.jpg")
         (out / "404.html").write_text(nf, encoding="utf-8")
+    patch_hp_bands(env, town, ranked, q_label(latest_q), len(buildings))
     print(f"built {len(urls)} pages -> {out}  （最新 {q_label(latest_q)}、タワー坪単価 {town['tsubo_txt']} {town['chg_txt']}、広告 {len(ads)}件、売出物件 {len(listings)}件）")
+
+
+# ---- speard.jp 本体のバナー ------------------------------------------------
+# speard.jp の HTML にある <!-- SOUBA_BAND:種類 --> 〜 <!-- /SOUBA_BAND --> の間を、最新の相場で書き換える。
+# 相場を更新して push するたびに、HP本体の数値も自動でそろう。
+HP_BAND_COPY = {
+    "top":  {"title": "武蔵小杉のタワーマンション、いま売ったらいくら？",
+             "sub": "棟ごとの相場を、国土交通省の取引データから集計して公開しています。面積を入れるだけで、価格の目安がその場でわかります。",
+             "sub_label": "自分の部屋の査定を依頼する", "sub_path": "satei/", "chips": 8},
+    "sell": {"title": "売り出す前に、同じ建物の相場を確認する",
+             "sub": "タワーマンションの価格は、同じ建物の過去の取引で大きく決まります。棟ごとの坪単価と推移を公開しています。",
+             "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "chips": 8},
+    "buy":  {"title": "買う前に、棟ごとの相場を比べる",
+             "sub": "同じ武蔵小杉でも、棟によって坪単価は{lo}から{hi}まで開きがあります。気になるマンションの相場と推移を確認できます。",
+             "sub_label": "購入の相談をする", "sub_path": "soudan/", "chips": 8},
+    "area": {"title": "武蔵小杉のマンション相場を、棟ごとに見る",
+             "sub": "タワーマンションの坪単価・推移・ランキングを、国土交通省の取引データから集計して公開しています。",
+             "sub_label": "無料で査定を依頼する", "sub_path": "satei/", "chips": 16},
+}
+HP_FILES = ["index.html", "sell.html", "buy.html", "area/musashikosugi/index.html"]
+
+
+def patch_hp_bands(env, town, ranked, latest_q, n_all):
+    if not ranked:
+        return
+    same_site = SITE["origin"] == SITE["speard_url"].rstrip("/")
+    host = "" if same_site else SITE["origin"]
+    root = host + SITE["base"]
+    lo, hi = tsubo_txt(ranked[-1]["stats"]["tsubo"]), tsubo_txt(ranked[0]["stats"]["tsubo"])
+    tpl = env.get_template("hp_band.html")
+    pat = re.compile(r"<!-- SOUBA_BAND:(\w+) -->.*?<!-- /SOUBA_BAND -->", re.S)
+    for rel in HP_FILES:
+        f = REPO / rel
+        if not f.exists():
+            continue
+        src = f.read_text(encoding="utf-8")
+
+        def rep(m):
+            v = m.group(1)
+            c = dict(HP_BAND_COPY.get(v, HP_BAND_COPY["top"]))
+            c["sub"] = c["sub"].format(lo=lo, hi=hi)
+            band = tpl.render(v=v, copy=c, town=town, ranked=ranked, chips=c["chips"], n_all=n_all, latest_q=latest_q, root=root, host=host)
+            return f"<!-- SOUBA_BAND:{v} -->\n{band}\n<!-- /SOUBA_BAND -->"
+
+        new = pat.sub(rep, src)
+        if new != src:
+            f.write_text(new, encoding="utf-8")
 
 
 if __name__ == "__main__":
