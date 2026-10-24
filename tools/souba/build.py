@@ -359,6 +359,13 @@ def build(out_dir, origin, base):
         b["short"] = b["略称"]
         b["photo"] = photo_by.get(b["id"])
         b["tower"] = int(b["地上階数"]) >= TOWER_FLOORS
+    # speard.jp の成約実績（/results/<slug>/）がある棟は、棟ページから実績ページへつなぐ
+    norm = lambda t: re.sub(r"[\s・　]", "", t or "")
+    res_path = REPO / "results" / "manifest.json"
+    res_list = json.loads(res_path.read_text(encoding="utf-8")).get("results", []) if res_path.exists() else []
+    for b in buildings:
+        hit = next((x for x in res_list if x.get("building") and norm(x["name"]) == norm(b["マンション名"])), None)
+        b["result"] = {"url": f'{SITE["speard_url"]}results/{hit.get("slug") or hit["id"]}/', "floor": hit.get("floor", "")} if hit else None
     for b in buildings:
         b["members"] = [o["マンション名"] for o in buildings if o["key"] and o["key"] == b["key"] and o["id"] != b["id"]]
         near = sorted((o for o in buildings if o["id"] != b["id"]), key=lambda o: km(b, o))[:5]

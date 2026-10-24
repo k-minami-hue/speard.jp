@@ -535,3 +535,5 @@ input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: n
 .c-cta p { font-size: 14px; flex: 1 1 320px; }
 .c-cta .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 @media (max-width: 600px) { .c-cta .actions, .c-cta .btn { width: 100%; } }
+.c-result { margin-top: 16px; font-size: 14px; padding: 10px 14px; border: 1px solid var(--rule); background: #fff; }
+.c-result a { font-weight: 700; margin-left: 6px; }

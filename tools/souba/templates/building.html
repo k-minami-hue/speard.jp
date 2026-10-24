@@ -108,6 +108,7 @@
       <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
       <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
     </div>
+    {% if b.result %}<p class="c-result">株式会社スピアードは、{{ b['マンション名'] }}{% if b.result.floor %}の{{ b.result.floor }}の住戸{% endif %}でお取引をお手伝いしました（価格・お部屋の詳細は非公開）。<a href="{{ b.result.url }}?from=souba">成約実績を見る</a></p>{% endif %}
     <div class="c-cta">
       <p>{{ b.short }}を売るなら、ウィークポイントを先に潰した売り方で価格は変わります。階数・向き・室内の状態を加えた査定を、根拠つきでお出しします。</p>
       <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
