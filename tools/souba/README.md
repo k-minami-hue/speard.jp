@@ -17,6 +17,7 @@
 - `data/comments.csv`：担当者コメント（building_id, 区分＝アピール／ウィーク, 内容）。入れた棟だけ「担当者の見方」が出る
 - `data/ads.csv`：広告枠。リンクURLを入れて有効＝1の行だけ表示される
 - `data/listings.csv`：スピアードが扱う売出中の住戸（1住戸1行）。有効＝1で、トップと該当マンションのページに出る
+- `gas/`：無料会員の仕組み（Googleスプレッドシート＋Apps Script）。設定と運用は gas/README.md
 - `scripts/fetch_reinfolib.py`：国交省APIから trades.csv と area_quarterly.csv を作り直す
 
 ## 四半期ごとの更新（3か月に1回、15分）

@@ -85,7 +85,19 @@
   </div>
 </section>
 
-<section class="sec" aria-label="相場の更新のお知らせ"><div class="wrap">{{ notify(site) }}</div></section>
+<section class="sec" aria-labelledby="mem-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="mem-ttl">無料会員でできること</h2><p>メールアドレスだけで登録できます。配信はいつでも止められます。</p></div><a class="more" href="{{ site.base }}member/">会員について詳しく</a></div>
+    <ul class="m-feats m-feats-4">
+      <li><b>売出アラート</b><span>棟・間取り・広さ・階数・予算に合う住戸の売出をお知らせ</span></li>
+      <li><b>値下げアラート</b><span>登録した棟で値下げがあれば、変更前後の価格をお知らせ</span></li>
+      <li><b>自宅価格ウォッチ</b><span>自分の部屋の価格の目安を、相場の更新ごとにお届け</span></li>
+      <li><b>会員限定データ</b><span>棟ごとの全取引明細と、四半期ごとの取引件数・坪単価</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" aria-label="売出・値下げのお知らせ"><div class="wrap">{{ notify(site) }}</div></section>
 
 <section class="sec-wash" aria-label="ご相談">
   <div class="wrap">{{ rep(site, speard_link) }}</div>

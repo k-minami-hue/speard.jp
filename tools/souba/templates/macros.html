@@ -98,15 +98,16 @@
 {% macro notify(site, b=None) -%}
 <div class="notify">
   <div>
-    <h2>{% if b %}{{ b.short }}の{% endif %}相場の更新をメールで受け取る</h2>
-    <p>四半期ごとに国土交通省のデータを取り込んで相場を更新したとき{% if b %}と、{{ b.short }}の売出中の住戸を載せたとき{% else %}と、売出中の住戸を載せたとき{% endif %}にお知らせします。<br>
-    登録は無料です。配信の停止は、届いたメールへの返信で受け付けます。</p>
+    <h2>{% if b %}{{ b.short }}の売出・値下げをメールで受け取る{% else %}売出・値下げをメールで受け取る{% endif %}</h2>
+    <p>{% if b %}{{ b.short }}{% else %}掲載マンション{% endif %}に新しい売出や値下げが出たら、メールでお知らせします（無料会員）。相場を更新したときのお知らせも届きます。<br>
+    <a href="{{ site.base }}member/{% if b %}?b={{ b.id }}{% endif %}#register">間取り・広さ・予算の条件や、自宅価格ウォッチも登録できます</a></p>
   </div>
   <form class="notify-form" data-notify novalidate>
-    <input type="hidden" name="building" value="{{ b['マンション名'] if b else '武蔵小杉のマンション全体' }}">
+    <input type="hidden" name="building" value="{{ b.id if b else '' }}">
+    <input type="hidden" name="building_name" value="{{ b['マンション名'] if b else '武蔵小杉の掲載マンションすべて' }}">
     <label class="sr" for="nEmail{{ b.id if b else '' }}">メールアドレス</label>
-    <div class="notify-row"><input id="nEmail{{ b.id if b else '' }}" name="email" type="email" autocomplete="email" placeholder="メールアドレス" required><button type="submit" class="btn">登録する</button></div>
-    <label class="check"><input type="checkbox" data-agree required> <span><a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a>（外部のフォーム送信サービスの利用を含む）に同意します</span></label>
+    <div class="notify-row"><input id="nEmail{{ b.id if b else '' }}" name="email" type="email" autocomplete="email" placeholder="メールアドレス" required><button type="submit" class="btn">無料で登録</button></div>
+    <label class="check"><input type="checkbox" data-agree required> <span><a href="{{ site.base }}member/terms/">会員規約</a>と<a href="{{ site.base }}disclaimer/#privacy">個人情報の取扱い</a>に同意します</span></label>
     <div class="hp" aria-hidden="true"><input name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
     <p class="form-msg" role="status"></p>
   </form>

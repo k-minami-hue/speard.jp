@@ -482,3 +482,49 @@ input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: n
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 @media print { .site-head, .tray, .band, .mapbox, .est { display: none !important; } }
+
+/* ---------- 無料会員 ---------- */
+.head-member { display: inline-flex; align-items: center; min-height: 40px; padding: 0 6px; font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.head-member:hover { text-decoration: underline; }
+@media (max-width: 600px) { .head-member { font-size: 13px; padding: 0 2px; } }
+.m-feats { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.m-feats-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.m-feats li { border: 1px solid var(--rule); border-top: 3px solid var(--gold); background: #fff; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; }
+.m-feats b { color: var(--ink); font-size: 16px; }
+.m-feats span { color: var(--muted); font-size: 14px; line-height: 1.7; }
+@media (max-width: 960px) { .m-feats-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .m-feats, .m-feats-4 { grid-template-columns: 1fr; } }
+.m-form h2 { font-size: clamp(1.2rem, 1rem + .7vw, 1.5rem); }
+.m-chks { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.m-bld { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; padding: 12px 14px; border: 1px solid var(--rule); background: var(--wash); }
+.m-bld .check:first-child { grid-column: 1 / -1; font-weight: 700; }
+@media (max-width: 600px) { .m-bld { grid-template-columns: 1fr; } }
+.m-box { border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 24px; background: #fff; display: flex; flex-direction: column; gap: 12px; }
+.m-box-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.m-who { color: var(--muted); font-size: 14px; }
+.m-box h3 { margin-top: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.m-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.m-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; background: var(--wash); font-size: 14px; }
+.m-del { flex: none; min-height: 36px; padding: 0 12px; border: 1px solid var(--rule); background: #fff; color: var(--down); font: inherit; font-size: 13px; border-radius: 4px; cursor: pointer; }
+.m-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.m-links a { display: inline-flex; min-height: 36px; align-items: center; padding: 0 12px; border: 1px solid var(--rule); border-radius: 999px; font-size: 13px; text-decoration: none; }
+.m-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.m-login { border-top: 1px solid var(--rule); padding-top: 28px; max-width: 660px; }
+.m-cta { margin: 12px 0 4px; font-size: 14px; }
+.m-cta a { font-weight: 700; }
+.m-badge { display: inline-block; vertical-align: middle; margin-left: 10px; padding: 2px 10px; font-size: 12px; font-weight: 700; color: var(--ink-deep); background: var(--gold-wash); border: 1px solid var(--gold); border-radius: 999px; letter-spacing: .04em; }
+.m-gate-lock { position: relative; }
+.m-blur { filter: blur(4px); user-select: none; pointer-events: none; opacity: .7; }
+.m-gate-msg { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.92)); }
+.m-gate-msg p { font-size: 14px; color: var(--text); }
+.m-gate-msg b { color: var(--ink); }
+.m-scroll { max-height: 440px; overflow-y: auto; border: 1px solid var(--rule); }
+.m-gate-open h3 { margin-bottom: 8px; }
+.m-gate-open .note { margin-top: 12px; }
+.legal h2 { font-size: 1.1rem; margin-top: 18px; }
+.legal ol { margin: 0; padding-left: 1.4em; }
+[hidden] { display: none !important; }
+@media (min-width: 1041px) and (max-width: 1320px) {
+  .nav a { font-size: 13.5px; padding: 8px 7px; }
+  .head-cta .btn-ghost { display: none; }
+}

@@ -29,6 +29,7 @@
         <a href="https://x.com/intent/post?url={{ share_url|urlencode }}&amp;text={{ share_txt|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="x">X</a>
         <button type="button" data-copy="{{ share_url }}" data-ev="share" data-ad="copy">リンクをコピー</button>
       </div>
+      <p class="m-cta"><a href="{{ site.base }}member/?b={{ b.id }}#register" data-ev="member_cta">{{ b.short }}の売出・値下げをメールで受け取る（無料）</a></p>
       {{ estimator(site, buildings, preset=b.id, title=b.short ~ 'の部屋はいくら？') }}
     </div>
   </div>
@@ -78,6 +79,24 @@
         <thead><tr><th>時期</th><th>広さ・間取り</th><th>価格<span class="sub">坪単価</span></th></tr></thead>
         <tbody>{% for c in b.cases[:8] %}<tr><td class="nw">{{ c.q }}<span class="sub">{{ c.kind }}</span></td><td class="nw">{{ c.area }}<span class="sub">{{ c.plan }}</span></td><td class="nw">{{ c.price }}<span class="sub">{{ c.tsubo }}</span></td></tr>{% endfor %}</tbody>
       </table></div>
+    </div>
+  </div>
+</section>{% endif %}
+
+{% if b.all_cases %}<section class="sec" id="members" aria-labelledby="m-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="m-ttl">{{ b.short }}の全取引明細<span class="m-badge">会員限定</span></h2><p>2015年以降の取引{{ b.all_cases|length }}件と、四半期ごとの取引件数・坪単価（国土交通省の公表値）</p></div></div>
+    <div class="m-gate" data-members="{{ b.slug }}">
+      <div class="m-gate-lock">
+        <div class="tbl-wrap m-blur" aria-hidden="true"><table><thead><tr><th>時期</th><th>広さ・間取り</th><th>価格</th><th>坪単価</th></tr></thead>
+        <tbody>{% for c in b.all_cases[:5] %}<tr><td>{{ c.q }}</td><td>{{ c.area }}㎡ {{ c.plan }}</td><td>{{ '{:,}'.format(c.price) }}万円</td><td>{{ c.tsubo }}万円</td></tr>{% endfor %}</tbody></table></div>
+        <div class="m-gate-msg">
+          <p><b>無料会員になると、{{ b.all_cases|length }}件すべての取引明細を見られます。</b><br>売出・値下げのお知らせも受け取れます。</p>
+          <a class="btn" href="{{ site.base }}member/?b={{ b.id }}#register" data-ev="member_cta">無料で会員登録</a>
+          <a class="more" href="{{ site.base }}member/#login">登録済みの方はこちら</a>
+        </div>
+      </div>
+      <div class="m-gate-open" hidden></div>
     </div>
   </div>
 </section>{% endif %}

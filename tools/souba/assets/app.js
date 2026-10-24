@@ -534,22 +534,169 @@
     });
   };
 
-  /* ---------- 相場の更新のお知らせ登録 ---------- */
+  /* ---------- 無料会員（売出・値下げ通知、自宅価格ウォッチ、会員限定データ） ----------
+     受付は Google Apps Script（SITE.member_api）。未設定のあいだは登録内容を form_endpoint（メール）で受け付ける。 */
+  const MKEY = "souba_member";
+  const mGet = () => { try { return JSON.parse(localStorage.getItem(MKEY) || "null"); } catch { return null; } };
+  const mSet = (v) => { try { v ? localStorage.setItem(MKEY, JSON.stringify(v)) : localStorage.removeItem(MKEY); } catch { /* 無視 */ } };
+  const mApi = async (action, payload = {}) => {
+    if (!SITE.member_api) throw new Error("not_ready");
+    const res = await fetch(SITE.member_api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action, ...payload }) });
+    const j = await res.json();
+    if (!j.ok) throw new Error(j.error || "error");
+    return j;
+  };
+  const bName = (id) => (byId[id] ? byId[id].name : id);
+  const intOr = (v) => { const n = num(v); return Number.isFinite(n) ? n : null; };
+  const alertTxt = (a) => {
+    const p = [];
+    p.push((a.kinds || []).join("・") || "売出・値下げ");
+    p.push(a.buildings && a.buildings.length ? a.buildings.map(bName).join("、") : "掲載マンションすべて");
+    if (a.plans && a.plans.length) p.push(a.plans.join("・"));
+    if (a.area_min || a.area_max) p.push(`${a.area_min || ""}〜${a.area_max || ""}㎡`);
+    if (a.floor_min || a.floor_max) p.push(`${a.floor_min || ""}〜${a.floor_max || ""}階`);
+    if (a.price_max) p.push(`${man1(a.price_max)}まで`);
+    return p.join("／");
+  };
+  // 届いたメールのリンク（?mt=トークン）で開いたとき：本登録してこのブラウザに保存
+  const mFromUrl = async () => {
+    const qs = new URLSearchParams(location.search), t = qs.get("mt");
+    if (!t) return;
+    qs.delete("mt"); history.replaceState(null, "", location.pathname + (qs.toString() ? "?" + qs : "") + location.hash);
+    try { const j = await mApi("verify", { token: t }); mSet({ t, email: j.email }); track("sign_up", { method: "email" }); }
+    catch { /* 期限切れ等。ログインフォームから再送できる */ }
+  };
+  const fallbackSend = async (subject, d) => {
+    const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify({ ...d, _subject: subject, _template: "table", _captcha: "false", page: location.pathname }) });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok || String(j.success) === "false") throw new Error(String(res.status));
+  };
+  const initMemberNav = () => {
+    if (!mGet()) return;
+    $$("[data-member-nav]").forEach((a) => { a.textContent = "マイページ"; a.href = `${SITE.base}member/#mypage`; });
+  };
+
+  // 会員限定データ（棟ページ）
+  const initGate = async () => {
+    const g = $("[data-members]");
+    if (!g || !mGet()) return;
+    try {
+      const res = await fetch(`${SITE.base}api/b/${g.dataset.members}.json`);
+      const d = await res.json();
+      const rows = d.cases.map((c) => `<tr><td class="nw">${esc(c.q)}<span class="sub">${esc(c.kind)}</span></td><td class="nw">${esc(c.area)}㎡<span class="sub">${esc(c.plan || "―")}</span></td><td class="nw">${man1(c.price)}</td><td class="nw">${tsuboTxt(c.tsubo)}</td></tr>`).join("");
+      const qrows = d.quarters.map((q) => `<tr><td class="nw">${esc(q.q)}</td><td class="nw">${q.n}件</td><td class="nw">${tsuboTxt(q.med)}</td></tr>`).join("");
+      const open = $(".m-gate-open", g);
+      open.innerHTML = `<div class="split"><div><h3>取引明細（${d.cases.length}件）</h3><div class="tbl-wrap m-scroll"><table><thead><tr><th>時期</th><th>広さ・間取り</th><th>価格</th><th>坪単価</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+        <div><h3>四半期ごとの取引件数と坪単価（中央値）</h3><div class="tbl-wrap m-scroll"><table><thead><tr><th>時期</th><th>件数</th><th>坪単価</th></tr></thead><tbody>${qrows}</tbody></table></div></div></div>
+        <p class="note">国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計（${esc(d.asof)}分まで）。面積と価格は公表時点で丸められた値です。過去の取引にもとづく参考値で、将来の価格を示すものではありません。会員規約により、出典を示さない転載・再配布はできません。</p>`;
+      open.hidden = false; $(".m-gate-lock", g).hidden = true;
+    } catch { /* 読めなければ案内のまま */ }
+  };
+
+  // 会員ページ
+  const initMemberPage = async () => {
+    const form = $("#register");
+    if (!form) return;
+    const qs = new URLSearchParams(location.search), pre = qs.get("b");
+    if (pre) { const c = form.querySelector(`[name="bld"][value="${CSS.escape(pre)}"]`); if (c) c.checked = true; }
+    const all = $("#bldAll");
+    all.addEventListener("change", () => { if (all.checked) $$('[name="bld"]', form).forEach((c) => { c.checked = false; }); });
+    $$('[name="bld"]', form).forEach((c) => c.addEventListener("change", () => { if (c.checked) all.checked = false; }));
+
+    const readForm = () => {
+      const fd = new FormData(form);
+      const alert = { kinds: fd.getAll("kind"), buildings: all.checked ? [] : fd.getAll("bld"), plans: fd.getAll("plan"),
+        area_min: intOr(fd.get("area_min")), area_max: intOr(fd.get("area_max")), floor_min: intOr(fd.get("floor_min")),
+        floor_max: intOr(fd.get("floor_max")), price_max: intOr(fd.get("price_max")) };
+      const watch = fd.get("w_building") ? { building: fd.get("w_building"), floor: intOr(fd.get("w_floor")), area: intOr(fd.get("w_area")), dir: fd.get("w_dir") || "" } : null;
+      return { alert, watch, email: String(fd.get("email") || "").trim(), honey: fd.get("_honey") };
+    };
+
+    const mp = $("#mypage"), msg = $("#regMsg");
+    const showMypage = async () => {
+      const m = mGet();
+      if (!m) return;
+      mp.hidden = false; $("#regTtl").textContent = "通知の条件を追加する"; $("#regContact").hidden = true; $("#mEmail").required = false;
+      $("#regBtn").textContent = "この条件を追加する"; $("#login").hidden = true;
+      $("#mpWho").textContent = m.email ? `${m.email} でログイン中` : "";
+      try {
+        const j = await mApi("me", { token: m.t });
+        $("#mpAlerts").innerHTML = j.alerts.length ? j.alerts.map((a) => `<li><span>${esc(alertTxt(a))}</span><button type="button" class="m-del" data-del="alert" data-id="${esc(a.id)}">削除</button></li>`).join("") : '<li class="muted">まだありません。下のフォームから追加できます。</li>';
+        $("#mpWatches").innerHTML = j.watches.length ? j.watches.map((w) => `<li><span>${esc(bName(w.building))} ${w.floor ? esc(w.floor) + "階" : ""} ${w.area ? esc(w.area) + "㎡" : ""} ${esc(w.dir || "")}</span><button type="button" class="m-del" data-del="watch" data-id="${esc(w.id)}">削除</button></li>`).join("") : '<li class="muted">登録していません。下のフォームの「自宅価格ウォッチ」から登録できます。</li>';
+      } catch (err) {
+        $("#mpAlerts").innerHTML = `<li class="muted">${err.message === "not_ready" ? "マイページは準備中です。登録内容は担当者が受け付けています。" : "読み込めませんでした。時間をおいて開き直してください。"}</li>`;
+        $("#mpWatches").innerHTML = "";
+        if (err.message === "unknown_token") { mSet(null); location.reload(); }
+      }
+    };
+    mp.addEventListener("click", async (e) => {
+      const b = e.target.closest("[data-del]");
+      if (!b) return;
+      b.disabled = true;
+      try { await mApi("remove", { token: mGet().t, kind: b.dataset.del, id: b.dataset.id }); await showMypage(); }
+      catch { b.disabled = false; $("#mpMsg").className = "form-msg err"; $("#mpMsg").textContent = "削除できませんでした。"; }
+    });
+    $("#mpLogout").addEventListener("click", () => { mSet(null); location.href = `${SITE.base}member/`; });
+    $("#mpLeave").addEventListener("click", async () => {
+      if (!confirm("退会すると、登録した条件と住戸の情報を削除し、すべての配信を止めます。よろしいですか。")) return;
+      try { await mApi("leave", { token: mGet().t }); mSet(null); alert("退会しました。ご利用ありがとうございました。"); location.href = SITE.base; }
+      catch { $("#mpMsg").className = "form-msg err"; $("#mpMsg").textContent = "退会の処理ができませんでした。お手数ですがメールでご連絡ください。"; }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.className = "form-msg";
+      const m = mGet(), d = readForm();
+      if (d.honey) return;
+      if (!d.alert.kinds.length && !d.watch) { msg.classList.add("err"); msg.textContent = "通知の種類か、自宅価格ウォッチのどちらかを選んでください。"; return; }
+      if (d.watch && !d.watch.area) { msg.classList.add("err"); msg.textContent = "自宅価格ウォッチには専有面積を入れてください。"; return; }
+      if (!m && (!$("#mEmail").checkValidity() || !$("#mAgree").checked)) { msg.classList.add("err"); msg.textContent = "メールアドレスを入れ、会員規約と個人情報の取扱いに同意してください。"; return; }
+      const btn = $("#regBtn"); btn.disabled = true;
+      const payload = { alerts: d.alert.kinds.length ? [d.alert] : [], watch: d.watch, source: qs.get("from") || document.referrer || "" };
+      try {
+        if (m) { await mApi("add", { token: m.t, ...payload }); msg.classList.add("ok"); msg.textContent = "追加しました。"; form.reset(); await showMypage(); }
+        else if (SITE.member_api) {
+          await mApi("register", { email: d.email, ...payload });
+          msg.classList.add("ok"); msg.textContent = "確認のメールを送りました。メールのリンクを開くと登録が完了します（届かない場合は迷惑メールフォルダもご確認ください）。";
+          track("generate_lead", { form: "member" }); form.reset();
+        } else {
+          await fallbackSend("【相場帳】会員登録", { email: d.email, 通知の条件: payload.alerts.map(alertTxt).join(" ｜ ") || "なし",
+            自宅価格ウォッチ: d.watch ? `${bName(d.watch.building)} ${d.watch.floor || ""}階 ${d.watch.area}㎡ ${d.watch.dir}` : "なし" });
+          msg.classList.add("ok"); msg.textContent = "登録を受け付けました。開始のご案内をメールでお送りします。";
+          track("generate_lead", { form: "member" }); form.reset();
+        }
+      } catch { msg.classList.add("err"); msg.textContent = "登録できませんでした。時間をおいてもう一度お試しください。"; }
+      finally { btn.disabled = false; }
+    });
+
+    const lf = $("#loginForm");
+    lf.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const lm = $("#lgMsg"); lm.className = "form-msg";
+      if (!lf.checkValidity()) { lm.classList.add("err"); lm.textContent = "メールアドレスを入れてください。"; return; }
+      try { await mApi("login", { email: $("#lgEmail").value.trim() }); lm.classList.add("ok"); lm.textContent = "ご登録のあるアドレスなら、マイページを開くリンクを送りました。"; }
+      catch (err) { lm.classList.add("err"); lm.textContent = err.message === "not_ready" ? "マイページは準備中です。" : "送れませんでした。時間をおいてもう一度お試しください。"; }
+    });
+    await showMypage();
+  };
+
+  // 棟ページ・トップの簡易登録
   const initNotify = () => {
     $$("[data-notify]").forEach((form) => form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = $(".form-msg", form); msg.className = "form-msg";
-      if (!form.checkValidity() || !$("[data-agree]", form).checked) { msg.classList.add("err"); msg.textContent = "メールアドレスを入れ、個人情報の取扱いに同意してください。"; return; }
+      if (!form.checkValidity() || !$("[data-agree]", form).checked) { msg.classList.add("err"); msg.textContent = "メールアドレスを入れ、会員規約と個人情報の取扱いに同意してください。"; return; }
       const d = Object.fromEntries(new FormData(form).entries());
-      if (d._honey) return; delete d._honey;
-      d._subject = `【相場帳】お知らせ登録：${d.building}`; d._template = "table"; d._captcha = "false"; d.page = location.pathname;
+      if (d._honey) return;
+      const alerts = [{ kinds: ["売出", "値下げ"], buildings: d.building ? [d.building] : [] }];
       const btn = $("button[type=submit]", form); btn.disabled = true;
       try {
-        const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(d) });
-        const j = await res.json().catch(() => ({}));
-        if (!res.ok || String(j.success) === "false") throw new Error(String(res.status));
-        form.reset(); track("generate_lead", { form: "notify", building: d.building });
-        msg.classList.add("ok"); msg.textContent = "登録しました。次の更新からお知らせします。";
+        const m = mGet();
+        if (m) { await mApi("add", { token: m.t, alerts, source: location.pathname }); msg.classList.add("ok"); msg.textContent = "通知の条件に追加しました。"; }
+        else if (SITE.member_api) { await mApi("register", { email: d.email, alerts, source: location.pathname }); msg.classList.add("ok"); msg.textContent = "確認のメールを送りました。メールのリンクを開くと登録が完了します。"; }
+        else { await fallbackSend(`【相場帳】会員登録：${d.building_name}`, { email: d.email, 通知の条件: `売出・値下げ／${d.building_name}` }); msg.classList.add("ok"); msg.textContent = "登録を受け付けました。開始のご案内をメールでお送りします。"; }
+        form.reset(); track("generate_lead", { form: "notify", building: d.building_name });
       } catch { msg.classList.add("err"); msg.textContent = "登録できませんでした。時間をおいてもう一度お試しください。"; }
       finally { btn.disabled = false; }
     }));
@@ -565,6 +712,6 @@
     }));
   };
 
-  const start = () => { initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

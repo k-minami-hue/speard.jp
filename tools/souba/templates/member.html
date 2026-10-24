@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}無料会員登録｜売出・値下げ通知と自宅価格ウォッチ｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンションの売出・値下げをメールでお知らせ。自分の部屋を登録すると、相場の更新ごとに価格の目安が届きます。会員限定で棟ごとの全取引明細も見られます。登録無料、いつでも停止できます。{% endblock %}
+{% block main %}
+<div class="wrap page member">
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 無料会員</p>
+
+<section class="m-hero">
+  <h1>無料会員でできること</h1>
+  <p>メールアドレスだけで登録できます。費用はかかりません。配信はいつでも止められます。</p>
+  <ul class="m-feats">
+    <li><b>売出アラート</b><span>棟・間取り・広さ・階数・予算を登録すると、条件に合う住戸の売出をメールでお知らせします。</span></li>
+    <li><b>値下げアラート</b><span>登録した棟で価格が下がった住戸があれば、変更前と変更後の価格をお知らせします。</span></li>
+    <li><b>自宅価格ウォッチ</b><span>自分の部屋を登録すると、相場を更新するたび（3か月ごと）に価格の目安をお送りします。</span></li>
+    <li><b>会員限定データ</b><span>棟ごとの全取引明細（時期・広さ・間取り・価格）と、四半期ごとの取引件数・坪単価を見られます。</span></li>
+  </ul>
+  <p class="note">お知らせする住戸は、株式会社スピアードが取り扱う住戸と、売主様・元付業者様から広告の承諾を得た住戸です。条件に合う売出のすべてを網羅するものではありません。</p>
+</section>
+
+<section id="mypage" hidden aria-labelledby="mp-ttl">
+  <div class="m-box">
+    <div class="m-box-head"><h2 id="mp-ttl">マイページ</h2><p class="m-who" id="mpWho"></p></div>
+    <p class="form-msg" id="mpMsg" role="status"></p>
+    <h3>登録中の通知の条件</h3>
+    <ul class="m-list" id="mpAlerts"><li class="muted">読み込んでいます。</li></ul>
+    <h3>自宅価格ウォッチ</h3>
+    <ul class="m-list" id="mpWatches"><li class="muted">読み込んでいます。</li></ul>
+    <h3>会員限定データ</h3>
+    <p>各マンションのページの「全取引明細」が、このブラウザで見られるようになっています。</p>
+    <ul class="m-links">{% for b in buildings if b.stats %}<li><a href="{{ b.url }}#members">{{ b.short }}</a></li>{% endfor %}</ul>
+    <div class="m-actions">
+      <a class="btn btn-ghost btn-sm" href="#register" id="mpAdd">条件を追加する</a>
+      <button type="button" class="btn btn-ghost btn-sm" id="mpLogout">このブラウザでログアウト</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="mpLeave">退会する（配信をすべて止める）</button>
+    </div>
+  </div>
+</section>
+
+<form class="form m-form" id="register" novalidate>
+  <h2 id="regTtl">会員登録（無料）</h2>
+  <fieldset>
+    <legend>売出・値下げの通知の条件</legend>
+    <p class="note">指定しない項目は「こだわらない」として扱います。条件はあとからマイページで追加・削除できます。</p>
+    <label>通知の種類</label>
+    <div class="m-chks">
+      <label class="check"><input type="checkbox" name="kind" value="売出" checked> <span>新しい売出</span></label>
+      <label class="check"><input type="checkbox" name="kind" value="値下げ" checked> <span>値下げ</span></label>
+    </div>
+    <label>マンション</label>
+    <div class="m-chks m-bld">
+      <label class="check"><input type="checkbox" name="bld_all" value="1" id="bldAll"> <span>武蔵小杉のすべての掲載マンション</span></label>
+      {% for b in buildings %}<label class="check"><input type="checkbox" name="bld" value="{{ b.id }}"> <span>{{ b['マンション名'] }}</span></label>{% endfor %}
+    </div>
+    <label>間取り</label>
+    <div class="m-chks">{% for p in ['1R・1K', '1LDK', '2LDK', '3LDK', '4LDK以上'] %}<label class="check"><input type="checkbox" name="plan" value="{{ p }}"> <span>{{ p }}</span></label>{% endfor %}</div>
+    <div class="row2">
+      <div><label for="mAmin">専有面積（㎡）の下限</label><input id="mAmin" name="area_min" type="number" inputmode="decimal" min="15" max="300" placeholder="例：60"></div>
+      <div><label for="mAmax">専有面積（㎡）の上限</label><input id="mAmax" name="area_max" type="number" inputmode="decimal" min="15" max="300" placeholder="例：90"></div>
+    </div>
+    <div class="row2">
+      <div><label for="mFmin">所在階の下限</label><input id="mFmin" name="floor_min" type="number" inputmode="numeric" min="1" max="60" placeholder="例：20"></div>
+      <div><label for="mFmax">所在階の上限</label><input id="mFmax" name="floor_max" type="number" inputmode="numeric" min="1" max="60" placeholder="例：45"></div>
+    </div>
+    <label for="mPmax">予算の上限（万円）</label>
+    <input id="mPmax" name="price_max" type="number" inputmode="numeric" min="1000" max="100000" step="10" placeholder="例：15000">
+  </fieldset>
+
+  <fieldset>
+    <legend>自宅価格ウォッチ（任意）</legend>
+    <p class="note">お住まいの部屋を登録すると、相場の更新ごとに価格の目安をメールでお送りします。部屋番号は不要です。</p>
+    <label for="wBld">マンション名</label>
+    <select id="wBld" name="w_building"><option value="">登録しない</option>{% for b in buildings %}<option value="{{ b.id }}">{{ b['マンション名'] }}</option>{% endfor %}</select>
+    <div class="row2">
+      <div><label for="wFloor">所在階</label><input id="wFloor" name="w_floor" type="number" inputmode="numeric" min="1" max="60" placeholder="例：25"></div>
+      <div><label for="wArea">専有面積（㎡）</label><input id="wArea" name="w_area" type="number" inputmode="decimal" step="0.01" min="15" max="300" placeholder="例：70.12"></div>
+    </div>
+    <label for="wDir">方位</label>
+    <select id="wDir" name="w_dir"><option value="">選択してください</option>{% for d in ['南', '南東', '南西', '東', '西', '北', '北東', '北西'] %}<option>{{ d }}</option>{% endfor %}</select>
+  </fieldset>
+
+  <fieldset id="regContact">
+    <legend>メールアドレス</legend>
+    <label for="mEmail">メールアドレス</label>
+    <input id="mEmail" name="email" type="email" autocomplete="email" required>
+    <p class="note">登録すると確認のメールが届きます。メールのリンクを開いた時点で登録が完了します。</p>
+    <label class="check"><input id="mAgree" type="checkbox" required> <span><a href="{{ site.base }}member/terms/" target="_blank">会員規約</a>と<a href="{{ site.base }}disclaimer/#privacy" target="_blank">個人情報の取扱い</a>に同意します</span></label>
+  </fieldset>
+  <div class="hp" aria-hidden="true"><label for="mHp">この欄は空のままにしてください</label><input id="mHp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+  <button type="submit" class="btn btn-block" id="regBtn">無料で登録する</button>
+  <p class="form-msg" id="regMsg" role="status"></p>
+</form>
+
+<section id="login" class="m-login" aria-labelledby="lg-ttl">
+  <h2 id="lg-ttl">登録済みの方</h2>
+  <p>登録したメールアドレスに、マイページを開くリンクをお送りします。</p>
+  <form class="notify-row" id="loginForm" novalidate>
+    <label class="sr" for="lgEmail">メールアドレス</label>
+    <input id="lgEmail" name="email" type="email" autocomplete="email" placeholder="メールアドレス" required>
+    <button type="submit" class="btn">リンクを送る</button>
+  </form>
+  <p class="form-msg" id="lgMsg" role="status"></p>
+</section>
+</div>
+{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>{% endblock %}

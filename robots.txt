@@ -5,6 +5,7 @@ Disallow: /inquiry/
 Disallow: /columns/purchase/*.html$
 Disallow: /columns/sale/*.html$
 Disallow: /tools/
+Disallow: /souba/api/
 Disallow: /assets/guide/
 
 Sitemap: https://speard.jp/sitemap.xml

@@ -40,6 +40,10 @@ SITE = {
     "association": "",        # 所属団体名と公正取引協議会加盟の旨。入れるとフッターに出る
     "founded": "2025年6月",
     "updated": "2026-10-21",  # データやページを更新した日（YYYY-MM-DD）
+    # 会員機能（売出・値下げ通知、自宅価格ウォッチ、会員限定データ）の受付先。
+    # Google Apps Script をウェブアプリとして公開したURL（https://script.google.com/macros/s/…/exec）を入れる。
+    # 空のあいだは登録内容を form_endpoint（メール）で受け付け、マイページは「準備中」と表示する。
+    "member_api": "",
 }
 RECENT_QUARTERS = 8        # 棟ごとの相場に使う期間（2年）
 MIN_TSUBO = 100            # これ未満の坪単価（万円）は特殊な取引とみなして除外
@@ -289,6 +293,10 @@ def build(out_dir, origin, base):
             s = summarize(g)
             b["bands"].append({"label": label, "n": len(g), "tsubo_txt": s["tsubo_txt"] if s else "―",
                                "price_txt": man(statistics.median([t["price"] for t in g])) if g else "―"})
+        b["all_cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": round(t["area"]), "plan": t["間取り"] or "",
+                           "price": round(t["price"]), "tsubo": round(t["tsubo"])} for t in sorted(mine, key=lambda t: (-t["qi"], -t["tsubo"]))]
+        b["q_table"] = [{"q": q_label(q), "n": len(g2), "med": round(statistics.median(g2))}
+                        for q in reversed(quarters) for g2 in [[t["tsubo"] for t in mine if t["時期"] == q]] if g2]
         b["cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": f'{t["area"]:.0f}㎡',
                        "plan": t["間取り"] or "―", "price": man(t["price"]), "tsubo": tsubo_txt(t["tsubo"])}
                       for t in sorted(recent, key=lambda t: (-t["qi"], -t["tsubo"]))[:10]]
@@ -559,12 +567,33 @@ def build(out_dir, origin, base):
         render("building.html", f'mansion/{b["slug"]}/', "building", jsonld(ld, crumbs((name, b["url"])), faq_ld(faq)),
                ogp=f'{b["slug"]}.jpg', b=b, faq=faq, chart=json.dumps(chart, ensure_ascii=False))
 
+    # 会員ページ
+    render("member.html", "member/", "member", jsonld(website, crumbs(("無料会員", SITE["base"] + "member/"))))
+    render("member_terms.html", "member/terms/", "member_terms", jsonld(website, crumbs(("無料会員", SITE["base"] + "member/"), ("会員規約", SITE["base"] + "member/terms/"))))
+
+    # 会員機能が読むデータ（GASの自宅価格ウォッチ・マイページ・会員限定データ）
+    api = out / "api"
+    (api / "b").mkdir(parents=True, exist_ok=True)
+    (api / "buildings.json").write_text(json.dumps({
+        "asof": q_label(latest_q), "updated": today.isoformat(), "origin": SITE["origin"] + SITE["base"],
+        "town": {"tsubo": round(town["tsubo"]) if town["tsubo"] else None, "lo": round(town["lo"]) if town["lo"] else None, "hi": round(town["hi"]) if town["hi"] else None},
+        "buildings": [{"id": b["id"], "slug": b["slug"], "name": b["マンション名"], "short": b["short"], "url": SITE["origin"] + b["url"],
+                       "floors": int(b["地上階数"]),
+                       "tsubo": round(b["stats"]["tsubo"]) if b["stats"] else None, "lo": round(b["stats"]["lo"]) if b["stats"] else None,
+                       "hi": round(b["stats"]["hi"]) if b["stats"] else None, "n": b["stats"]["n"] if b["stats"] else 0,
+                       "chg3": round(b["chg3"]) if b["chg3"] is not None else None} for b in buildings],
+    }, ensure_ascii=False), encoding="utf-8")
+    for b in buildings:
+        (api / "b" / f'{b["slug"]}.json').write_text(json.dumps({
+            "id": b["id"], "name": b["マンション名"], "asof": q_label(latest_q), "cases": b["all_cases"], "quarters": b["q_table"],
+        }, ensure_ascii=False), encoding="utf-8")
+
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"  <url><loc>{SITE['origin']}{u}</loc><lastmod>{today.isoformat()}</lastmod></url>" for u in urls]
     sm.append("</urlset>")
     (out / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
     if SITE["base"] == "/":
-        (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE['origin']}/sitemap.xml\n", encoding="utf-8")
+        (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {SITE['origin']}/sitemap.xml\n", encoding="utf-8")
         host = SITE["origin"].split("//", 1)[1]
         if not host.endswith("github.io"):
             (out / "CNAME").write_text(host + "\n", encoding="utf-8")
