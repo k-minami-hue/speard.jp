@@ -101,22 +101,26 @@
   </div>
 </section>{% endif %}
 
+{% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="c-ttl">担当者の見方</h2><p>武蔵小杉のタワーマンションの売買を担当する株式会社スピアードの見方です</p></div></div>
+    <div class="comment">
+      <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
+      <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
+    </div>
+    <div class="c-cta">
+      <p>{{ b.short }}を売るなら、ウィークポイントを先に潰した売り方で価格は変わります。階数・向き・室内の状態を加えた査定を、根拠つきでお出しします。</p>
+      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+    </div>
+  </div>
+</section>{% endif %}
+
 {% if b.dpoints['アピール'] or b.dpoints['ウィーク'] %}<section class="sec" aria-labelledby="d-ttl">
   <div class="wrap">
     <div class="sec-head"><div><h2 id="d-ttl">データで見る{{ b.short }}の特徴</h2><p>取引データと物件概要から機械的に整理したものです（{{ latest_q }}時点）</p></div></div>
     <div class="comment">
       <div><h3>アピールポイント</h3><ul>{% for c in b.dpoints['アピール'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
       <div><h3>ウィークポイント</h3><ul>{% for c in b.dpoints['ウィーク'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
-    </div>
-  </div>
-</section>{% endif %}
-
-{% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="c-ttl">担当者の見方</h2></div></div>
-    <div class="comment">
-      <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
-      <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
     </div>
   </div>
 </section>{% endif %}

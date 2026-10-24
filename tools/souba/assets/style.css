@@ -531,3 +531,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: n
 
 .nav { overflow-x: auto; scrollbar-width: none; }
 .nav::-webkit-scrollbar { display: none; }
+.c-cta { margin-top: 18px; padding: 18px 20px; background: var(--gold-wash); border: 1px solid var(--gold); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.c-cta p { font-size: 14px; flex: 1 1 320px; }
+.c-cta .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 600px) { .c-cta .actions, .c-cta .btn { width: 100%; } }
