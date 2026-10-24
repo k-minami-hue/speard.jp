@@ -370,7 +370,7 @@ def build(out_dir, origin, base):
     mf = REPO / "columns" / "manifest.json"
     col_by = {c["id"]: c for c in json.loads(mf.read_text(encoding="utf-8"))["columns"]} if mf.exists() else {}
     for b in buildings:
-        cid = next((v for k, v in BUILDING_COLUMNS.items() if k in b["マンション名"]), None)
+        cid = next((v for k, v in BUILDING_COLUMNS.items() if k in b["マンション名"]), "kosugi-uridoki")
         b["column"] = {"title": col_by[cid]["title"], "url": f'{SITE["speard_url"]}columns/{cid}/'} if cid in col_by else None
     for b in buildings:
         b["members"] = [o["マンション名"] for o in buildings if o["key"] and o["key"] == b["key"] and o["id"] != b["id"]]
