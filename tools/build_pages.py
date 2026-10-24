@@ -25,6 +25,9 @@ VER = datetime.date.today().strftime('%Y%m%d') + hashlib.md5(open(os.path.join(R
 TODAY = datetime.date.today().isoformat()
 OG_DEFAULT = SITE + '/assets/ogp.jpg'
 LINE_URL = 'https://line.me/R/ti/p/%40xef5208i'
+# Googleビジネスプロフィール（店舗ID 0xe74192b0ae010d88）
+GMAP_URL = 'https://maps.google.com/?cid=16663761383778749832'
+GREVIEW_URL = 'https://g.page/r/CYgNAa6wkkHnEBM/review'
 
 def P(*a): return os.path.join(ROOT, *a)
 def esc(s): return html.escape('' if s is None else str(s), quote=True)
@@ -1045,6 +1048,7 @@ def build_faq_voices():
 <div class="subpage-content">
   <div class="voice-tabs col-filter"><button class="voice-tab vt-active-all" data-f="all">すべて<span class="vt-count">{n}</span></button><button class="voice-tab" data-f="buy">購入<span class="vt-count">{nb}</span></button><button class="voice-tab" data-f="sell">売却<span class="vt-count">{ns}</span></button></div>
   <div class="reviews-grid" id="rv-grid" data-paginate="6" data-item=".review-card">{fix_paths(grid)}</div>
+  <div class="col-souba gmap-reviews"><p>Googleマップにも、お取引いただいたお客様のクチコミが掲載されています。<br><a href="{GMAP_URL}" target="_blank" rel="noopener">Googleマップでクチコミを見る</a>　／　<a href="{GREVIEW_URL}" target="_blank" rel="noopener">お取引いただいた方はこちらからクチコミを投稿できます</a></p></div>
 </div>
 {CTA_BOTTOM('ご購入・ご売却のご相談', '初めての方も、買い替えの方も、まずはお気軽にご相談ください。')}
 </div>
