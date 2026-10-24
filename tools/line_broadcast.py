@@ -61,6 +61,21 @@ def main():
 
     now = datetime.datetime.now(JST)
     today = now.date().isoformat()
+    if '--check' in sys.argv:  # 送信せず、トークンが有効かと友だち数・残り通数だけ確認する
+        token = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
+        if not token:
+            log('LINE_CHANNEL_ACCESS_TOKEN が未設定です。')
+            return 1
+        code, quota = api('GET', '/v2/bot/message/quota', token)
+        if code != 200:
+            log(f'トークンが無効です：HTTP {code} {json.dumps(quota, ensure_ascii=False)}')
+            return 1
+        _, used = api('GET', '/v2/bot/message/quota/consumption', token)
+        _, fol = api('GET', '/v2/bot/insight/followers?date=' + (now - datetime.timedelta(days=1)).strftime('%Y%m%d'), token)
+        log('疎通OK（送信はしていません）：' + json.dumps(
+            {'quota': quota, 'used': used.get('totalUsage'), 'followers': fol.get('followers'),
+             'targeted_reaches': fol.get('targetedReaches'), 'blocks': fol.get('blocks')}, ensure_ascii=False))
+        return 0
     if q.get('status') != 'ready' or q.get('date') != today:
         log(f'今日（{today}）の配信予定なし：status={q.get("status")} date={q.get("date")}。送信しません。')
         return 0

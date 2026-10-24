@@ -13,6 +13,10 @@ on:
         description: '18:00 を待たずに今すぐ送る（本日分が ready のときだけ）'
         type: boolean
         default: false
+      check:
+        description: '送信せず、トークンの疎通と友だち数・残り通数だけ確認する'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -34,7 +38,7 @@ jobs:
       - name: 配信
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
-        run: python3 tools/line_broadcast.py q ${{ inputs.now && '--now' || '' }}
+        run: python3 tools/line_broadcast.py q ${{ inputs.now && '--now' || '' }} ${{ inputs.check && '--check' || '' }}
       - name: 配信記録を保存
         if: always()
         working-directory: q
