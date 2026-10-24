@@ -1,6 +1,28 @@
 {
   "columns": [
     {
+      "id": "park-city-kosugi-baikyaku",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "パークシティ武蔵小杉を売るなら——5棟の相場差と、シリーズ内で比べられる前提の売り方",
+      "date": "2026.10.24",
+      "hero": "/columns/hero/park-city-kosugi-baikyaku.jpg",
+      "thumb": "/columns/hero/park-city-kosugi-baikyaku-thumb.jpg",
+      "file": "columns/sale/column_park_city_kosugi_baikyaku.html",
+      "description": "パークシティ武蔵小杉5棟の直近2年の坪単価は481万〜537万円で、70㎡では約1,190万円の差。買主は5棟を並べて比べる前提で、棟ごとの強みと弱み、ミッドスカイ70㎡の売り出し価格の試算、税金と新築竣工を踏まえた売る時期を整理。",
+      "seo_title": "パークシティ武蔵小杉の売却｜5棟の相場と売り出し価格の決め方",
+      "hero_credit": {
+        "author": "インターネット川崎ガイド",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/deed.ja",
+        "source": "https://commons.wikimedia.org/wiki/File%3A%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E9%A7%85%E6%9D%B1%E5%8F%A3_-_panoramio.jpg",
+        "caption": "武蔵小杉駅東口"
+      }
+    },
+    {
       "id": "uri-mae-reform",
       "category": "sell",
       "tags": [
