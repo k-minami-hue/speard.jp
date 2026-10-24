@@ -242,15 +242,15 @@ function listingBody_(L, b) {
     '専有面積：' + area.toFixed(2) + '㎡',
     '間取り：' + L['間取り'] + (L['方位'] ? '（' + L['方位'] + '向き）' : ''),
     L['種類'] === '値下げ' ? '価格：' + man_(price) + '（変更前 ' + man_(L['変更前の価格（万円）']) + '）' : '価格：' + man_(price),
-    '坪単価：' + Math.round(t).toLocaleString() + '万円／坪（70㎡換算 ' + man_(t * 70 * TSUBO) + '）',
+    '坪単価：' + fmt_(Math.round(t)) + '万円／坪（70㎡換算 ' + man_(t * 70 * TSUBO) + '）',
   ];
   if (b.tsubo) {
     const diff = Math.round(t - b.tsubo);
     lines.push('この棟の相場との差：直近2年の取引の中央値 ' + b.tsubo + '万円／坪より' + (diff >= 0 ? '+' : '') + diff + '万円');
   }
   lines.push(
-    '管理費：' + (L['管理費（円/月）'] ? Number(L['管理費（円/月）']).toLocaleString() + '円／月' : '詳細ページで確認'),
-    '修繕積立金：' + (L['修繕積立金（円/月）'] ? Number(L['修繕積立金（円/月）']).toLocaleString() + '円／月' : '詳細ページで確認'),
+    '管理費：' + (L['管理費（円/月）'] ? fmt_(L['管理費（円/月）']) + '円／月' : '詳細ページで確認'),
+    '修繕積立金：' + (L['修繕積立金（円/月）'] ? fmt_(L['修繕積立金（円/月）']) + '円／月' : '詳細ページで確認'),
     '取引態様：' + L['取引態様'],
     '情報登録日：' + Utilities.formatDate(L['登録日'] instanceof Date ? L['登録日'] : new Date(), 'Asia/Tokyo', 'yyyy年M月d日'), '',
     '詳細・販売状況：' + L['掲載ページURL'],
@@ -415,6 +415,7 @@ function cleanId_(v) { return String(v || '').replace(/[^A-Za-z0-9_-]/g, '').sli
 function numOr_(v) { const n = Number(v); return v !== null && v !== '' && isFinite(n) && n > 0 ? n : ''; }
 function man_(v) {
   const r = Math.round(Number(v)), oku = Math.floor(r / 10000), rest = r % 10000;
-  return oku ? oku + '億' + (rest ? rest.toLocaleString() + '万円' : '円') : rest.toLocaleString() + '万円';
+  return oku ? oku + '億' + (rest ? fmt_(rest) + '万円' : '円') : fmt_(rest) + '万円';
 }
+function fmt_(v) { return String(Math.round(Number(v))).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }   // 3桁区切り（GASのtoLocaleStringは区切らないことがある）
 function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
