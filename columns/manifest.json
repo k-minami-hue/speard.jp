@@ -1,6 +1,28 @@
 {
   "columns": [
     {
+      "id": "kosugi-uridoki",
+      "category": "sell",
+      "tags": [
+        "売却編"
+      ],
+      "tag": "売却編",
+      "title": "武蔵小杉のマンションの売り時——新築1,438戸の竣工前に売るか、後に売るか",
+      "date": "2026.10.24",
+      "hero": "/columns/hero/kosugi-uridoki.jpg",
+      "thumb": "/columns/hero/kosugi-uridoki-thumb.jpg",
+      "file": "columns/sale/column_kosugi_uridoki.html",
+      "description": "武蔵小杉のタワーの坪単価は2022年1Qの346万円から2026年1Qの573万円へ。売り時は所有5年・手取り・住み替え先の3条件で絞り、2027〜2028年の新築1,438戸の竣工前に売るか後に売るかを、税額と売り物の量で比べて決める。",
+      "seo_title": "武蔵小杉のマンションの売り時｜新築竣工の前後で比べる",
+      "hero_credit": {
+        "author": "Asanagi",
+        "license": "CC0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.ja",
+        "source": "https://commons.wikimedia.org/wiki/File%3AMusashi-kosugi_2023-12-10.jpg",
+        "caption": "多摩川の河川敷から見た武蔵小杉のタワーマンション群"
+      }
+    },
+    {
       "id": "park-city-kosugi-baikyaku",
       "category": "sell",
       "tags": [

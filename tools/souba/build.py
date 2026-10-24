@@ -49,7 +49,7 @@ RECENT_QUARTERS = 8        # 棟ごとの相場に使う期間（2年）
 MIN_TSUBO = 100            # これ未満の坪単価（万円）は特殊な取引とみなして除外
 TOWER_FLOORS = 20          # 「タワーマンション」として集計する地上階数
 COLUMNS = [                # speard.jp のコラム（id）
-    "park-city-kosugi-baikyaku", "kosugi-erabikata", "kosugi-tawaman-uru", "tawaman-kakaku-sa", "tedori-keisan", "shinchiku-kaikae", "chikugo-tawaman",
+    "kosugi-uridoki", "park-city-kosugi-baikyaku", "kosugi-erabikata", "kosugi-tawaman-uru", "tawaman-kakaku-sa", "tedori-keisan", "shinchiku-kaikae", "chikugo-tawaman",
 ]
 TOWN_FACTS = [             # 出典を確認済みの街のデータ
     ("駅の利用者", "JR武蔵小杉駅の1日平均乗車人員 113,452人", "2024年度・JR東日本"),
