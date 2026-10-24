@@ -524,7 +524,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: n
 .legal h2 { font-size: 1.1rem; margin-top: 18px; }
 .legal ol { margin: 0; padding-left: 1.4em; }
 [hidden] { display: none !important; }
-@media (min-width: 1041px) and (max-width: 1320px) {
+@media (min-width: 1041px) and (max-width: 1640px) {
   .nav a { font-size: 13.5px; padding: 8px 7px; }
   .head-cta .btn-ghost { display: none; }
 }
+
+.nav { overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }

@@ -323,16 +323,18 @@ function createMember_(email, source) {
 }
 
 function addConditions_(mid, alerts, watch) {
+  const known = new Set(rowsOf_(NAMES.building).map((b) => String(b['棟ID'])));   // 相場帳にない棟IDは捨てる
   (Array.isArray(alerts) ? alerts : []).slice(0, 10).forEach((a) => {
     const kinds = (a.kinds || []).filter((k) => k === '売出' || k === '値下げ');
-    if (!kinds.length) return;
+    const ids = (a.buildings || []).map(cleanId_).filter((id) => known.has(id));
+    if (!kinds.length || ((a.buildings || []).length && !ids.length)) return;   // 棟を指定したのに全部不明なら「全棟」にしない
     appendRow_(NAMES.alert, {
       '条件ID': 'A' + Date.now().toString(36) + Math.floor(Math.random() * 1000), '会員ID': mid, '種類': kinds.join(','),
-      '棟ID': (a.buildings || []).map(cleanId_).filter(String).join(','), '間取り': (a.plans || []).filter((p) => PLANS.indexOf(p) >= 0).join(','),
+      '棟ID': ids.join(','), '間取り': (a.plans || []).filter((p) => PLANS.indexOf(p) >= 0).join(','),
       '面積下限': numOr_(a.area_min), '面積上限': numOr_(a.area_max), '階数下限': numOr_(a.floor_min), '階数上限': numOr_(a.floor_max),
       '予算上限': numOr_(a.price_max), '登録日時': new Date() });
   });
-  if (watch && watch.building && numOr_(watch.area) !== '') {
+  if (watch && known.has(cleanId_(watch.building)) && numOr_(watch.area) !== '') {
     appendRow_(NAMES.watch, {
       'ウォッチID': 'W' + Date.now().toString(36) + Math.floor(Math.random() * 1000), '会員ID': mid, '棟ID': cleanId_(watch.building),
       '所在階': numOr_(watch.floor), '専有面積': numOr_(watch.area), '方位': String(watch.dir || '').slice(0, 4), '登録日時': new Date() });
