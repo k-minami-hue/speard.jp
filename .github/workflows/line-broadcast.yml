@@ -1,0 +1,48 @@
+# 公式LINEの週1コラム配信（毎週金曜18:00、すべての友だち）。
+# 本文は line-queue ブランチの queue/next.json（Claude の定期タスクが金曜昼に作成）。
+# Actions の定時起動は遅れることがあるため 17:35 に起動し、スクリプト内で 18:00 まで待って送る。
+# PCを開いていなくても GitHub 上で動く。失敗すると GitHub から通知メールが届く。
+name: LINE weekly broadcast
+
+on:
+  schedule:
+    - cron: '35 8 * * 5'   # 毎週金曜 17:35（日本時間）
+  workflow_dispatch:
+    inputs:
+      now:
+        description: '18:00 を待たずに今すぐ送る（本日分が ready のときだけ）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: line-broadcast
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: line-queue
+          path: q
+      - name: 配信
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        run: python3 tools/line_broadcast.py q ${{ inputs.now && '--now' || '' }}
+      - name: 配信記録を保存
+        if: always()
+        working-directory: q
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add -A
+            git commit -m "LINE配信記録を更新"
+            git push
+          fi
