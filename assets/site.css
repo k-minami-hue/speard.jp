@@ -321,3 +321,7 @@ article.column .col-toc a, .col-toc a{ white-space:normal; text-decoration:none;
 .souba-mini .sm-go{ flex:none; font-size:.84rem; font-weight:700; color:var(--sp-navy-dark); }
 .souba-mini .sm-go::after{ content:" →"; }
 .souba-mini .sm-note{ margin:8px 2px 0; font-size:.7rem; color:var(--sp-text-mid); line-height:1.6; }
+/* コラム内の相場帳への案内 */
+.col-souba{ margin:28px 0; padding:16px 20px; border:1px solid var(--sp-beige); border-left:3px solid var(--sp-gold); background:var(--sp-off); }
+.col-souba p{ margin:0; font-size:.94rem; line-height:1.9; }
+.col-souba a{ font-weight:700; }
