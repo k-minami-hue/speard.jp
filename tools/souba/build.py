@@ -208,6 +208,49 @@ def era_points(year):
     return ["段階的に上がる修繕積立金の改定スケジュール", "1回目の大規模修繕の予定時期と資金計画"]
 
 
+def data_points(b, ranked, town, buildings):
+    """取引データと物件概要から、棟の特徴を「アピールポイント」「ウィークポイント」に分けて書き出す。
+    事実と数字だけで書く（推測・将来の予想・断定的な評価は入れない）。"""
+    good, weak = [], []
+    if b["members"]:   # 合算の注記は最初に出す（件数・相場の読み方に関わるため）
+        weak.append(f"国土交通省のデータでは{'・'.join(b['members'])}と区別できないため、相場は合わせた値")
+    s, n = b["stats"], len(ranked)
+    walk, units = int(b["徒歩分"]), int(b["総戸数"])
+    walks = sorted(int(o["徒歩分"]) for o in buildings)
+    if walk <= 2:
+        good.append(f"{b['最寄駅']}駅から徒歩{walk}分。掲載マンションの中でも駅に近い")
+    elif walk >= 8:
+        weak.append(f"{b['最寄駅']}駅から徒歩{walk}分。掲載棟の多くは徒歩{walks[len(walks) // 2]}分以内")
+    if b["struct"] == "免震":
+        good.append("免震構造（揺れを建物に伝えにくくする構造）")
+    if s:
+        r = b["rank"]
+        if r <= 3:
+            good.append(f"直近2年の坪単価{s['tsubo_txt']}は、掲載{n}棟中{r}位")
+        elif r > n - 3:
+            weak.append(f"直近2年の坪単価{s['tsubo_txt']}は、掲載{n}棟中{r}位。同じエリアの上位棟との差は{round(ranked[0]['stats']['tsubo'] - s['tsubo'])}万円／坪")
+        if b["chg3"] is not None and town["chg3"] is not None:
+            d = b["chg3"] - town["chg3"]
+            if d >= 5:
+                good.append(f"3年前比{pct(b['chg3'])}で、武蔵小杉のタワーマンション全体（{town['chg_txt']}）を上回る")
+            elif d <= -5:
+                weak.append(f"3年前比{pct(b['chg3'])}で、武蔵小杉のタワーマンション全体（{town['chg_txt']}）より伸びが小さい")
+        if s["n"] >= 40 and not b["members"]:
+            good.append(f"直近2年の取引が{s['n']}件と多く、相場をつかみやすい")
+        elif s["n"] < 12:
+            weak.append(f"直近2年の取引は{s['n']}件。件数が少なく、相場の数字がぶれやすい")
+    if b["age"] is not None:
+        if b["age"] <= 8:
+            good.append(f"築{b['age']}年。掲載棟の中では新しい")
+        elif b["age"] >= 15:
+            weak.append(f"築{b['age']}年。大規模修繕の実施状況と修繕積立金の水準は、売買の前に確認が必要")
+    if units >= 600:
+        weak.append(f"総戸数{units}戸。同じ建物で売出が重なると、価格を比べられやすい")
+    if b["pre"]:
+        weak.append("竣工前のため、中古の取引データはまだない")
+    return {"アピール": good[:4], "ウィーク": weak[:4]}
+
+
 def ogp_image(path, title, sub, big=None, bg=None):
     """OGP画像（1200x630）を作る。日本語フォントがない環境では作らない（既存の画像を使う）"""
     try:
@@ -372,6 +415,8 @@ def build(out_dir, origin, base):
     town["tsubo_txt"] = tsubo_txt(town["tsubo"])
     town["p70_txt"] = man(p70(town["tsubo"]))
     town["chg_txt"] = pct(town["chg3"])
+    for b in buildings:
+        b["dpoints"] = data_points(b, ranked, town, buildings)
     tq = {}
     for t in tw:
         tq.setdefault(t["時期"], []).append(t["tsubo"])
