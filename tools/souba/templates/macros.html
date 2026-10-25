@@ -113,3 +113,60 @@
   </form>
 </div>
 {%- endmacro %}
+
+{% macro row(site, b) -%}
+<li class="brow" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-chg="{{ b.chg3|round|int if b.chg3 is not none else -999 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
+  <a href="{{ b.url }}">
+    <span class="br-name"><b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
+    {% if b.stats %}
+    <span class="br-v br-t"><small>坪単価</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
+    <span class="br-v br-p"><small>70㎡なら</small><b>{{ b.stats.p70_txt|replace('万円','') }}<i>万円</i></b></span>
+    <span class="br-v br-c"><small>3年前比</small>{% if b.chg3 is not none %}<b class="{{ 'up' if b.chg3 >= 0 else 'down' }}">{{ '%+.0f' % b.chg3 }}%</b>{% else %}<b>―</b>{% endif %}</span>
+    <span class="br-v br-a"><small>1億円なら</small><b>約{{ (10000 / (b.stats.tsubo * 0.3025))|round|int }}<i>㎡</i></b></span>
+    {% if b.spark %}<svg class="br-spark" viewBox="0 0 {{ b.spark.w }} {{ b.spark.h }}" preserveAspectRatio="none" aria-hidden="true"><path d="{{ b.spark.d }}"/><circle cx="{{ b.spark.end[0] }}" cy="{{ b.spark.end[1] }}" r="3.5"/></svg>{% else %}<span class="br-spark"></span>{% endif %}
+    {% else %}
+    <span class="br-empty">{{ b.nodata_txt }}</span>
+    {% endif %}
+  </a>
+</li>
+{%- endmacro %}
+
+{% macro tool(site, buildings, preset=None, b=None) -%}
+<div class="tool" data-tool{% if preset %} data-preset="{{ preset }}"{% endif %} id="est">
+  <div class="tool-tabs" role="tablist" aria-label="目的を選ぶ">
+    <button type="button" role="tab" id="tabBuy{{ preset or '' }}" aria-controls="panBuy{{ preset or '' }}" aria-selected="true" data-tab="buy">買う・比べる</button>
+    <button type="button" role="tab" id="tabSell{{ preset or '' }}" aria-controls="panSell{{ preset or '' }}" aria-selected="false" data-tab="sell" tabindex="-1">売る・価格を知る</button>
+  </div>
+  <div class="tool-pan" role="tabpanel" id="panBuy{{ preset or '' }}" aria-labelledby="tabBuy{{ preset or '' }}" data-pan="buy">
+    <h2>{% if b %}{{ b.short }}を予算から見る{% else %}予算からマンションを探す{% endif %}</h2>
+    <p class="est-sub">予算を入れると、{% if b %}この棟で{% else %}棟ごとに{% endif %}買える広さの目安をすぐに表示します。</p>
+    <label for="bud{{ preset or '' }}" class="tool-lbl">予算（ボタンで選ぶか、万円で入力）</label>
+    <div class="tool-chips" role="group" aria-label="よく使う予算">
+      {% for v, l in [(8000, '8,000万円'), (10000, '1億円'), (12000, '1.2億円'), (15000, '1.5億円')] %}<button type="button" data-bud="{{ v }}" aria-pressed="{{ 'true' if v == 10000 else 'false' }}">{{ l }}</button>{% endfor %}
+    </div>
+    <input id="bud{{ preset or '' }}" data-bud-in type="number" inputmode="numeric" min="1000" max="100000" step="10" value="10000">
+    <div class="tool-out" aria-live="polite" data-bud-out></div>
+    <div class="tool-acts">
+      <a class="btn btn-block" href="{{ site.base }}member/{% if preset %}?b={{ preset }}{% endif %}#register" data-bud-alert data-ev="member_cta">この予算の売出をメールで受け取る（無料）</a>
+      <a class="btn btn-ghost btn-block" href="{{ site.base }}{% if b %}loan/?b={{ b.id }}&amp;a=70{% else %}kounyu/{% endif %}" data-ev="buy_more">{% if b %}70㎡で住宅ローンを計算する{% else %}全棟の購入相場を表で見る{% endif %}</a>
+    </div>
+  </div>
+  <div class="tool-pan" role="tabpanel" id="panSell{{ preset or '' }}" aria-labelledby="tabSell{{ preset or '' }}" data-pan="sell" hidden>
+    <div class="est" data-est>
+      <h2>{% if b %}{{ b.short }}の部屋はいくら？{% else %}あなたの部屋はいくら？{% endif %}</h2>
+      <p class="est-sub">マンションと専有面積を入れると、取引データから価格の目安をすぐに表示します。</p>
+      <div class="est-form">
+        <div><label for="eB{{ preset or '' }}" class="sr">マンション</label>
+          <select id="eB{{ preset or '' }}" data-est-b>
+            {% if not preset %}<option value="">マンションを選ぶ</option>{% endif %}
+            {% for x in buildings %}<option value="{{ x.id }}"{% if preset == x.id %} selected{% endif %}>{{ x['マンション名'] }}</option>{% endfor %}
+          </select></div>
+        <div><label for="eA{{ preset or '' }}" class="sr">専有面積（㎡）</label><input id="eA{{ preset or '' }}" data-est-a type="number" inputmode="decimal" min="15" max="300" step="0.01" placeholder="面積 ㎡"></div>
+      </div>
+      <div class="est-out" aria-live="polite"><p class="lbl">価格の目安</p><p class="val" data-est-v>面積を入れてください</p><p class="why" data-est-w></p></div>
+      <a class="btn btn-gold btn-block btn-lg" href="{{ site.base }}satei/" data-est-go data-ev="cta_satei_est">この部屋の正確な価格を無料で聞く</a>
+      <p class="est-foot">階数・方位・眺望を反映した査定は担当者がお送りします。売却を決めていなくても大丈夫です。</p>
+    </div>
+  </div>
+</div>
+{%- endmacro %}

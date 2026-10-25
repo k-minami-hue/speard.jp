@@ -67,6 +67,55 @@
     });
   };
 
+  /* ---------- 買う・売るの切り替えと、予算から探す ---------- */
+  const initTool = () => {
+    if (!A) return;
+    $$("[data-tool]").forEach((box) => {
+      const tabs = $$("[data-tab]", box), pans = $$("[data-pan]", box);
+      const show = (name, focus) => {
+        tabs.forEach((t) => { const on = t.dataset.tab === name; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+        pans.forEach((p) => { p.hidden = p.dataset.pan !== name; });
+      };
+      tabs.forEach((t, i) => {
+        t.addEventListener("click", () => { show(t.dataset.tab); track("tool_tab", { tab: t.dataset.tab }); });
+        t.addEventListener("keydown", (e) => {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; show(n.dataset.tab, true);
+        });
+      });
+      if (new URLSearchParams(location.search).get("tab") === "sell") show("sell");
+
+      const inp = $("[data-bud-in]", box), out = $("[data-bud-out]", box), alertA = $("[data-bud-alert]", box);
+      if (!inp) return;
+      const preset = box.dataset.preset ? byId[box.dataset.preset] : null;
+      const list = A.buildings.filter((b) => b.t).sort((a, b) => b.t - a.t);
+      const sq = (bud, t) => Math.round(bud / (t * TSUBO));
+      const run = () => {
+        const bud = num(inp.value);
+        $$("[data-bud]", box).forEach((c) => c.setAttribute("aria-pressed", String(num(c.dataset.bud) === bud)));
+        const q = new URLSearchParams();
+        if (preset) q.set("b", preset.id);
+        if (bud > 0) q.set("p", String(bud));
+        alertA.href = `${SITE.base}member/?${q}#register`;
+        if (!(bud >= 1000)) { out.innerHTML = '<p class="tool-empty">予算を入れてください</p>'; return; }
+        if (preset) {
+          if (!preset.t) { out.innerHTML = `<p class="tool-empty">${esc(preset.short)}は${preset.pre ? "竣工前で" : ""}取引データがまだないため、広さの目安を出せません。</p>`; return; }
+          const mid = sq(bud, preset.t), big = preset.lo ? sq(bud, preset.lo) : mid, small = preset.hi ? sq(bud, preset.hi) : mid;
+          out.innerHTML = `<p class="tool-big">約<b>${mid}</b>㎡</p><p class="tool-why">${esc(preset.short)}の坪単価の中央値${tsuboTxt(preset.t)}で計算。取引の中央の半数なら約${small}〜${big}㎡です。高層階や眺望の良い住戸は狭くなります。</p>`;
+          return;
+        }
+        const max = Math.max(...list.map((b) => sq(bud, b.t)));
+        out.innerHTML = `<p class="tool-cap">${man1(bud)}で買える広さの目安（坪単価の中央値で計算）</p><ul class="tool-list">${list.map((b) => {
+          const a = sq(bud, b.t);
+          return `<li><a href="${esc(b.url)}"><span class="tl-n">${esc(b.short)}</span><span class="tl-bar"><i style="width:${Math.round(a / max * 100)}%"></i></span><span class="tl-v">約${a}㎡</span></a></li>`;
+        }).join("")}</ul>`;
+      };
+      $$("[data-bud]", box).forEach((c) => c.addEventListener("click", () => { inp.value = c.dataset.bud; run(); track("budget_pick", { budget: c.dataset.bud }); }));
+      inp.addEventListener("input", run);
+      run();
+    });
+  };
+
   /* ---------- カードの並べ替え ---------- */
   const initSorter = () => {
     const list = $("#cards");
@@ -75,7 +124,7 @@
     $$(".sorter button").forEach((btn) => btn.addEventListener("click", () => {
       $$(".sorter button").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
       const k = keys[btn.dataset.sort];
-      $$(".card", list).sort((a, b) => k(a) - k(b)).forEach((c) => list.appendChild(c));
+      [...list.children].filter((c) => c.dataset.t !== undefined).sort((a, b) => k(a) - k(b)).forEach((c) => list.appendChild(c));
       track("sort", { key: btn.dataset.sort });
     }));
   };
@@ -600,6 +649,7 @@
     if (!form) return;
     const qs = new URLSearchParams(location.search), pre = qs.get("b");
     if (pre) { const c = form.querySelector(`[name="bld"][value="${CSS.escape(pre)}"]`); if (c) c.checked = true; }
+    if (num(qs.get("p")) >= 1000) $("#mPmax").value = String(Math.round(num(qs.get("p"))));
     const all = $("#bldAll");
     all.addEventListener("change", () => { if (all.checked) $$('[name="bld"]', form).forEach((c) => { c.checked = false; }); });
     $$('[name="bld"]', form).forEach((c) => c.addEventListener("change", () => { if (c.checked) all.checked = false; }));
@@ -712,6 +762,6 @@
     }));
   };
 
-  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

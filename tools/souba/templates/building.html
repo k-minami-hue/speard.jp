@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import ad_cards, estimator, rep, faq_list, img, listing_card, notify %}
+{% from "macros.html" import ad_cards, tool, rep, faq_list, img, listing_card, notify %}
 {% set s = b.stats %}
 {% block title %}{{ b['マンション名'] }}の相場・売却価格｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}・推移｜{{ site.name }}{% endblock %}
 {% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのマンションの相場。{% endif %}{% endblock %}
@@ -29,8 +29,7 @@
         <a href="https://x.com/intent/post?url={{ share_url|urlencode }}&amp;text={{ share_txt|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="x">X</a>
         <button type="button" data-copy="{{ share_url }}" data-ev="share" data-ad="copy">リンクをコピー</button>
       </div>
-      <p class="m-cta"><a href="{{ site.base }}member/?b={{ b.id }}#register" data-ev="member_cta">{{ b.short }}の売出・値下げをメールで受け取る（無料）</a></p>
-      {{ estimator(site, buildings, preset=b.id, title=b.short ~ 'の部屋はいくら？') }}
+      {{ tool(site, buildings, preset=b.id, b=b) }}
     </div>
   </div>
 </div>
@@ -111,8 +110,8 @@
     {% if b.column %}<p class="c-result">あわせて読む：<a href="{{ b.column.url }}?from=souba-{{ b.slug }}">{{ b.column.title }}</a></p>{% endif %}
     {% if b.result %}<p class="c-result">株式会社スピアードは、{{ b['マンション名'] }}{% if b.result.floor %}の{{ b.result.floor }}の住戸{% endif %}でお取引をお手伝いしました（価格・お部屋の詳細は非公開）。<a href="{{ b.result.url }}?from=souba">成約実績を見る</a></p>{% endif %}
     <div class="c-cta">
-      <p>{{ b.short }}を売るなら、ウィークポイントを先に潰した売り方で価格は変わります。階数・向き・室内の状態を加えた査定を、根拠つきでお出しします。</p>
-      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+      <p>買うなら、ウィークポイントを知ったうえで価格が妥当かを判断できます。売るなら、ウィークポイントを先に潰した売り方で価格は変わります。どちらも根拠つきでお答えします。</p>
+      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=comment" data-ev="cta_sodan">{{ b.short }}の購入を相談する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
     </div>
   </div>
 </section>{% endif %}

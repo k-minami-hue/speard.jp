@@ -475,6 +475,9 @@ def build(out_dir, origin, base):
         ("武蔵小杉のタワーマンションの相場はいくらですか。",
          f"直近1年の取引では坪単価{town['tsubo_txt']}前後、70㎡に換算すると{town['p70_txt']}前後です。"
          f"棟ごとでは、最も高い{ranked[0]['マンション名']}が{ranked[0]['stats']['tsubo_txt']}、最も低い{ranked[-1]['マンション名']}が{ranked[-1]['stats']['tsubo_txt']}です。"),
+        ("武蔵小杉で1億円ならどのくらいの広さが買えますか。",
+         f"直近2年の取引の坪単価で計算すると、棟によって約{round(10000 / (ranked[0]['stats']['tsubo'] * TSUBO))}㎡から約{round(10000 / (ranked[-1]['stats']['tsubo'] * TSUBO))}㎡です。"
+         "棟ごとの広さは購入相場のページで比べられます。過去の取引にもとづく参考値です。"),
         ("武蔵小杉で坪単価が高いマンションはどこですか。",
          "直近2年の取引の中央値では、" + "、".join(f"{b['マンション名']}（{b['stats']['tsubo_txt']}）" for b in top3) + "の順です。"),
         ("武蔵小杉のタワーマンションの価格は上がっていますか。",
@@ -612,6 +615,26 @@ def build(out_dir, origin, base):
         ("査定を頼むと、売らなければいけませんか。",
          "いいえ。査定の依頼は無料で、売却を決めていない段階でも構いません。価格の目安だけを定期的に知りたい場合は、自宅価格ウォッチ（無料会員）も使えます。"),
     ]
+    # 購入相場（/kounyu/）：予算で買える広さと、広さごとの価格
+    budgets = [{"v": v, "label": man(v)} for v in (8000, 10000, 12000, 15000)]
+    sqm = lambda budget, t: round(budget / (t * TSUBO))
+    budget_rows = [{"b": b, "cells": [sqm(x["v"], b["stats"]["tsubo"]) for x in budgets]} for b in ranked]
+    areas = [60, 70, 80]
+    area_rows = [{"b": b, "cells": [man(b["stats"]["tsubo"] * a * TSUBO) for a in areas]} for b in ranked]
+    a1 = [sqm(10000, b["stats"]["tsubo"]) for b in ranked]
+    faq_buy = [
+        ("武蔵小杉で1億円ならどのくらいの広さのマンションが買えますか。",
+         f"直近2年の取引の坪単価で計算すると、棟によって約{min(a1)}㎡から約{max(a1)}㎡です。"
+         f"坪単価が最も高い{ranked[0]['マンション名']}では約{sqm(10000, ranked[0]['stats']['tsubo'])}㎡、最も低い{ranked[-1]['マンション名']}では約{sqm(10000, ranked[-1]['stats']['tsubo'])}㎡が目安です。過去の取引にもとづく参考値です。"),
+        ("武蔵小杉の中古マンションは高くなりすぎていませんか。",
+         f"タワーマンションの直近1年の坪単価は、3年前の同じ時期と比べて{town['chg_txt']}です。"
+         "過去と比べて高い位置にあることは確かですが、この先の動きは誰にも分かりません。価格が妥当かどうかは、同じ建物の成約事例と比べて判断します。"),
+        ("買う棟はどう選べばいいですか。",
+         "予算で買える広さ、駅までの距離、築年と大規模修繕の時期、修繕積立金の水準を比べ、将来売るときにどの棟と比べられるかも想定して選びます。"
+         "気になる棟の売出は、無料会員の売出アラートで受け取れます。"),
+    ]
+    render("kounyu.html", "kounyu/", "kounyu", jsonld(website, crumbs(("武蔵小杉のマンション購入相場", SITE["base"] + "kounyu/")), faq_ld(faq_buy)),
+           faq=faq_buy, budgets=budgets, budget_rows=budget_rows, areas=areas, area_rows=area_rows, area_min=min(a1), area_max=max(a1))
     render("baikyaku.html", "baikyaku/", "baikyaku", jsonld(website, crumbs(("武蔵小杉のマンション売却相場", SITE["base"] + "baikyaku/")), faq_ld(faq_sell)), faq=faq_sell)
     render("sodan.html", "soudan/", "sodan", jsonld(website, crumbs(("購入・売却の相談", SITE["base"] + "soudan/"))))
     render("guide.html", "guide/", "guide", jsonld(website, crumbs(("住み替えの準備", SITE["base"] + "guide/"))))
@@ -680,13 +703,13 @@ def build(out_dir, origin, base):
 HP_BAND_COPY = {
     "top":  {"title": "武蔵小杉のタワーマンション、いま売ったらいくら？",
              "sub": "棟ごとの相場を、国土交通省の取引データから集計して公開しています。面積を入れるだけで、価格の目安がその場でわかります。",
-             "sub_label": "自分の部屋の査定を依頼する", "sub_path": "satei/", "compact": True, "mini": "武蔵小杉のタワーマンションの相場を、棟ごとに公開しています。", "chips": 8},
+             "sub_label": "自分の部屋の査定を依頼する", "sub_path": "satei/", "compact": True, "mini": "武蔵小杉のマンションの相場を、棟ごとに公開しています。買う前の比較にも、売る前の価格確認にも。", "chips": 8},
     "sell": {"title": "売り出す前に、同じ建物の相場を確認する",
              "sub": "タワーマンションの価格は、同じ建物の過去の取引で大きく決まります。棟ごとの坪単価と推移を公開しています。",
              "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "compact": True, "main_path": "baikyaku/", "mini": "売り出す前に、棟ごとの売却相場（70㎡の目安）を一覧で確認できます。", "chips": 8},
     "buy":  {"title": "買う前に、棟ごとの相場を比べる",
              "sub": "同じ武蔵小杉でも、棟によって坪単価は{lo}から{hi}まで開きがあります。気になるマンションの相場と推移を確認できます。",
-             "sub_label": "購入の相談をする", "sub_path": "soudan/", "compact": True, "mini": "気になる棟の相場と推移を、購入前に比べられます。", "chips": 8},
+             "sub_label": "購入の相談をする", "sub_path": "soudan/", "compact": True, "main_path": "kounyu/", "mini": "予算から、棟ごとに買える広さを一覧で確認できます。", "chips": 8},
     "area": {"title": "武蔵小杉のマンション相場を、棟ごとに見る",
              "sub": "タワーマンションの坪単価・推移・ランキングを、国土交通省の取引データから集計して公開しています。",
              "sub_label": "無料で査定を依頼する", "sub_path": "satei/", "chips": 16},

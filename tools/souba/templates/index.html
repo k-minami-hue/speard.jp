@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from "macros.html" import card, estimator, rep, faq_list, img, listing_card, notify %}
-{% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・売却価格・推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。タワーマンションの直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の坪単価・推移・ランキングと、面積を入れるだけの価格の目安。{% endblock %}
+{% from "macros.html" import card, row, tool, rep, faq_list, img, listing_card, notify %}
+{% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・価格・推移｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。タワーマンションの直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。予算から棟ごとに買える広さ、{{ n_buildings }}棟の坪単価・推移・ランキング、部屋の価格の目安。購入・売却どちらの比較にも。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
 {% block main %}
@@ -9,11 +9,15 @@
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
   <div class="wrap hero-in">
     <div>
-      <h1>武蔵小杉のマンション、<br>いま売ったらいくら？</h1>
-      <p class="hero-lead">シティタワー、ミッドスカイタワー、ガーデンタワーズなど{{ n_buildings }}棟の相場を、国土交通省の取引データから棟ごとに集計。<br>面積を入れれば、あなたの部屋の価格の目安がその場でわかります。</p>
-      <div class="hero-chips">{% for b in ranked[:6] %}<a href="{{ b.url }}">{{ b.short }}</a>{% endfor %}<a href="#list">全{{ n_buildings }}棟</a><a href="{{ site.base }}baikyaku/">売却相場の一覧</a></div>
+      <h1>武蔵小杉のマンション相場を、<br>棟ごとに。</h1>
+      <p class="hero-lead">買う前の比較にも、売る前の価格確認にも。<br>国土交通省の取引データから、{{ n_buildings }}棟の坪単価と推移を棟ごとに集計しています。</p>
+      <ul class="hero-points">
+        <li>予算から、棟ごとに買える広さがわかる</li>
+        <li>棟ごとの坪単価・3年前比・取引件数を比べられる</li>
+        <li>自分の部屋の価格の目安がその場で出る</li>
+      </ul>
     </div>
-    {{ estimator(site, buildings) }}
+    {{ tool(site, buildings) }}
   </div>
   {% if hero_photo %}<p class="credit">写真：{{ hero_photo.author }}（{{ hero_photo.license }}）</p>{% endif %}
 </section>
@@ -30,7 +34,7 @@
 <section class="sec" id="list" aria-labelledby="list-ttl">
   <div class="wrap">
     <div class="sec-head">
-      <div><h2 id="list-ttl">マンションごとの相場</h2><p>直近2年の取引の坪単価（中央値）。カードの線は過去5年の推移です。</p></div>
+      <div><h2 id="list-ttl">マンションごとの相場</h2><p>直近2年の取引の中央値。線は過去5年の推移です。</p></div>
       <div class="sorter" role="group" aria-label="並べ替え">
         <button type="button" data-sort="t" aria-pressed="true">坪単価</button>
         <button type="button" data-sort="chg" aria-pressed="false">値上がり率</button>
@@ -39,10 +43,37 @@
         <button type="button" data-sort="units" aria-pressed="false">戸数</button>
       </div>
     </div>
-    <ul class="cards" id="cards">
-      {% for b in ranked %}{{ card(site, b) }}{% endfor %}
-      {% for b in nodata %}{{ card(site, b) }}{% endfor %}
-    </ul>
+    <ol class="blist" id="cards">
+      {% for b in ranked %}{{ row(site, b) }}{% endfor %}
+      {% for b in nodata %}{{ row(site, b) }}{% endfor %}
+    </ol>
+    <p class="note" style="margin-top:12px">70㎡の価格と1億円で買える広さは、坪単価の中央値から計算した目安です。過去の取引にもとづく参考値で、将来の価格を示すものではありません。</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="goal-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="goal-ttl">目的から探す</h2></div></div>
+    <div class="goals">
+      <div class="goal">
+        <h3>買う・住み替え先を探す</h3>
+        <ul>
+          <li><a href="{{ site.base }}kounyu/">武蔵小杉のマンション購入相場</a><span>予算ごとに、棟ごとに買える広さ</span></li>
+          <li><a href="{{ site.base }}compare/">マンションを比べる</a><span>最大3棟の相場と推移を並べる</span></li>
+          <li><a href="{{ site.base }}loan/">住宅ローン返済シミュレーション</a><span>棟と広さから月々の返済額</span></li>
+          <li><a href="{{ site.base }}member/#register">売出・値下げアラート</a><span>条件に合う売出をメールで受け取る</span></li>
+        </ul>
+      </div>
+      <div class="goal">
+        <h3>売る・価格を知る</h3>
+        <ul>
+          <li><a href="{{ site.base }}baikyaku/">武蔵小杉のマンション売却相場</a><span>棟ごとの70㎡の価格の目安</span></li>
+          <li><a href="{{ site.base }}satei/">無料査定</a><span>階数・向き・眺望を加えた価格</span></li>
+          <li><a href="{{ site.base }}tetori/">売却の手取り・税金の計算</a><span>手元に残る額の目安</span></li>
+          <li><a href="{{ site.base }}member/#register">自宅価格ウォッチ</a><span>相場の更新ごとに価格の目安が届く</span></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -66,7 +97,7 @@
 <section class="sec" aria-labelledby="trend-ttl">
   <div class="wrap">
     <div class="trend-head">
-      <div class="sec-head" style="margin:0"><div><h2 id="trend-ttl">武蔵小杉のタワマンの坪単価、この3年の動き</h2><p>四半期ごとの坪単価の中央値（万円／坪）</p></div></div>
+      <div class="sec-head" style="margin:0"><div><h2 id="trend-ttl">武蔵小杉のタワーマンションの坪単価の動き</h2><p>四半期ごとの坪単価の中央値（万円／坪）</p></div></div>
       <p class="big-chg">{{ town.chg_txt }}<small>3年前比</small></p>
     </div>
     <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉のタワーマンションの坪単価の推移グラフ"></canvas></div>
@@ -94,10 +125,9 @@
       <li><b>自宅価格ウォッチ</b><span>自分の部屋の価格の目安を、相場の更新ごとにお届け</span></li>
       <li><b>会員限定データ</b><span>棟ごとの全取引明細と、四半期ごとの取引件数・坪単価</span></li>
     </ul>
+    <div style="margin-top:20px">{{ notify(site) }}</div>
   </div>
 </section>
-
-<section class="sec" aria-label="売出・値下げのお知らせ"><div class="wrap">{{ notify(site) }}</div></section>
 
 <section class="sec-wash" aria-label="ご相談">
   <div class="wrap">{{ rep(site, speard_link) }}</div>
@@ -112,7 +142,7 @@
 
 {% if cols %}<section class="sec" aria-labelledby="col-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="col-ttl">武蔵小杉で売る・買う前に読むコラム</h2><p>株式会社スピアードのコラムから</p></div><a class="more" href="https://speard.jp/columns/" target="_blank" rel="noopener">コラム一覧</a></div>
+    <div class="sec-head"><div><h2 id="col-ttl">武蔵小杉で買う・売る前に読むコラム</h2><p>株式会社スピアードのコラムから</p></div><a class="more" href="https://speard.jp/columns/" target="_blank" rel="noopener">コラム一覧</a></div>
     <ul class="cols">{% for c in cols %}<li><a href="{{ c.url }}" target="_blank" rel="noopener"><img src="{{ c.img }}" alt="" loading="lazy" decoding="async"><b>{{ c.title }}</b><span>{{ c.date }}</span></a></li>{% endfor %}</ul>
   </div>
 </section>{% endif %}

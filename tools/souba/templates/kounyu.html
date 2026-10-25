@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "macros.html" import faq_list %}
+{% block title %}武蔵小杉のマンション購入相場｜予算でいくらの広さが買えるか、棟ごとの価格の目安｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉でマンションを買う前に。予算8,000万円・1億円・1億2,000万円・1億5,000万円で買える広さと、60㎡・70㎡・80㎡の価格の目安を{{ ranked|length }}棟分まとめました。タワーの坪単価は直近1年で{{ town.tsubo_txt }}前後。買う前に確認すること、売るときを見据えた選び方。{% endblock %}
+{% block main %}
+<div class="wrap page">
+<p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 武蔵小杉のマンション購入相場</p>
+
+<section class="intro">
+  <h1>武蔵小杉のマンション購入相場</h1>
+  <p class="answer">予算1億円で買える広さは、武蔵小杉のマンションでは棟によって約{{ area_min }}㎡から約{{ area_max }}㎡まで違います。</p>
+  <p>タワーマンションの坪単価は、直近1年の取引で{{ town.tsubo_txt }}前後、70㎡に換算すると{{ town.p70_txt }}前後です（3年前比{{ town.chg_txt }}）。<br>
+  同じ1億円でも、どの棟を選ぶかで手に入る広さは約{{ area_max - area_min }}㎡変わります。<br>
+  下の表で、予算と広さの両方から候補の棟を絞り込んでください。</p>
+</section>
+
+<section aria-labelledby="b-ttl">
+  <h2 id="b-ttl">予算で買える広さ（棟ごと）</h2>
+  <p class="note">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引の坪単価の中央値で計算した、専有面積の目安です。諸費用は含みません。</p>
+  <div class="tbl-wrap"><table class="kt">
+    <thead><tr><th>マンション</th>{% for v in budgets %}<th class="num">{{ v.label }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in budget_rows %}<tr>
+      <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.built_txt }}・{{ r.b['総戸数'] }}戸・徒歩{{ r.b['徒歩分'] }}分{% if r.b.struct %}・{{ r.b.struct }}{% endif %}</span></th>
+      {% for c in r.cells %}<td class="num{% if c >= 70 %} kt-ok{% endif %}">約{{ c }}㎡</td>{% endfor %}
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="note">色のついたマスは、70㎡以上が買える目安です。同じ棟でも階数・向き・眺望で価格は変わり、高層階は目安より狭くなります。</p>
+</section>
+
+<section aria-labelledby="a-ttl">
+  <h2 id="a-ttl">広さごとの価格の目安（棟ごと）</h2>
+  <p class="note">坪単価の中央値×専有面積で計算した目安です。マンション名の下は坪単価です。</p>
+  <div class="tbl-wrap"><table class="kt">
+    <thead><tr><th>マンション</th>{% for a in areas %}<th class="num">{{ a }}㎡</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in area_rows %}<tr>
+      <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.stats.tsubo_txt }}</span></th>
+      {% for c in r.cells %}<td class="num">{{ c }}</td>{% endfor %}
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="note">価格は国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計した、過去の取引にもとづく参考値です。現在の売出価格や将来の価格を示すものではありません。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}member/?from=kounyu#register" data-ev="member_cta">条件に合う売出をメールで受け取る（無料）</a><a class="btn btn-ghost" href="{{ site.base }}compare/" data-ev="buy_compare">気になる棟を並べて比べる</a></div>
+</section>
+
+<section aria-labelledby="c-ttl">
+  <h2 id="c-ttl">武蔵小杉でマンションを買う前に確認する5つのこと</h2>
+  <ol class="steps">
+    <li><b>同じ建物の売り物と成約事例</b><span>武蔵小杉のタワーは戸数が多く、同じ建物で複数の住戸が売りに出ていることがよくあります。<br>気になる住戸の価格は、同じ建物の売り物と、近い階数・向きの成約事例と並べて妥当かどうかを判断します。</span></li>
+    <li><b>管理費・修繕積立金と長期修繕計画</b><span>毎月の支払いは住宅ローンだけではありません。<br>修繕積立金がいつ、どれだけ上がる計画になっているかを、長期修繕計画で確認します。</span></li>
+    <li><b>築年と大規模修繕の時期</b><span>築12〜15年前後で1回目、築25〜30年前後で2回目の大規模修繕を迎えるのが一般的です。<br>買う時期と大規模修繕の時期が重なるかどうかで、数年内の負担と売りやすさが変わります。</span></li>
+    <li><b>駅までの距離と構造</b><span>掲載棟は駅から徒歩1分から12分まで幅があり、免震・制震などの構造も棟ごとに違います。<br>毎日の通勤と、売るときに買主から見られる点の両方で確認します。</span></li>
+    <li><b>売るときの比較相手</b><span>2027〜2028年にはザ・パークハウス 武蔵小杉タワーズ（1,438戸）の竣工が予定されています。<br>将来売るときに、どの棟の住戸と比べられるかを想定して選ぶと、出口で困りにくくなります。</span></li>
+  </ol>
+</section>
+
+<section aria-labelledby="l-ttl" class="m-box">
+  <h2 id="l-ttl">月々の返済額を確かめる</h2>
+  <p>棟と広さを選ぶと、相場から計算した価格で住宅ローンの月々の返済額を試算できます。<br>
+  借入額・金利・期間は自由に変えられるので、無理のない予算を先に決めてから棟を選べます。</p>
+  <div class="actions"><a class="btn" href="{{ site.base }}loan/?from=kounyu" data-ev="buy_loan">住宅ローン返済シミュレーションを開く</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;from=kounyu" data-ev="cta_sodan">購入の相談をする（無料）</a></div>
+</section>
+
+<section aria-labelledby="q-ttl">
+  <h2 id="q-ttl">よくある質問</h2>
+  {{ faq_list(faq) }}
+</section>
+</div>
+{% endblock %}

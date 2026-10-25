@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
 
-<link rel="stylesheet" href="/souba/assets/style.css?v=0a3754c8">
+<link rel="stylesheet" href="/souba/assets/style.css?v=275a2809">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Dataset", "name": "武蔵小杉のマンション 棟別相場データ", "description": "武蔵小杉のマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。", "url": "https://speard.jp/souba/data/", "creator": {"@type": "RealEstateAgent", "@id": "https://speard.jp/#org", "name": "株式会社スピアード", "url": "https://speard.jp/", "telephone": "050-7109-3701", "address": {"@type": "PostalAddress", "addressCountry": "JP", "addressRegion": "東京都", "addressLocality": "港区", "streetAddress": "南青山2丁目2番8号 DFビル10F"}, "areaServed": "川崎市中原区武蔵小杉"}, "isAccessibleForFree": true, "inLanguage": "ja", "dateModified": "2026-10-21", "spatialCoverage": "神奈川県川崎市中原区 武蔵小杉", "creditText": "「不動産情報ライブラリ」（国土交通省）の不動産価格情報をもとに株式会社スピアードが加工して作成", "isBasedOn": "https://www.reinfolib.mlit.go.jp/", "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://speard.jp/souba/data/souba-buildings.csv"}, {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://speard.jp/souba/data/souba-quarterly.csv"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "武蔵小杉マンション相場帳", "item": "https://speard.jp/souba/"}, {"@type": "ListItem", "position": 2, "name": "相場データのダウンロード", "item": "https://speard.jp/souba/data/"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ45Q8VCWE"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-G-VZ45Q8VCWE']=true;}catch(e){} })();gtag('config','G-VZ45Q8VCWE',{content_group:'kosugi-souba'});</script>
@@ -35,17 +35,16 @@
     <a class="logo" href="/souba/"><span class="logo-mark" aria-hidden="true">杉</span><span class="logo-txt"><b>武蔵小杉マンション相場帳</b><small>武蔵小杉のマンション相場</small></span></a>
     <nav class="nav" aria-label="サイト内">
       <a href="/souba/#list">マンション一覧</a>
+      <a href="/souba/kounyu/">購入相場</a>
+      <a href="/souba/baikyaku/">売却相場</a>
       <a href="/souba/map/">相場マップ</a>
       <a href="/souba/ranking/">ランキング</a>
-      <a href="/souba/trend/">相場の推移</a>
       <a href="/souba/compare/">比べる</a>
-      <a href="/souba/tetori/">手取り・税金</a>
       <a href="/souba/loan/">ローン計算</a>
-      <a href="/souba/guide/">住み替え</a>
     </nav>
     <div class="head-cta">
       <a class="head-member" href="/souba/member/" data-ev="member_nav" data-member-nav>会員登録</a>
-      <a class="btn btn-sm btn-ghost" href="/souba/soudan/" data-ev="cta_sodan">相談</a>
+      <a class="btn btn-sm btn-ghost" href="/souba/soudan/" data-ev="cta_sodan">購入・売却の相談</a>
       <a class="btn btn-sm" href="/souba/satei/" data-ev="cta_satei">無料査定</a>
     </div>
   </div>
@@ -150,9 +149,10 @@
       </ul>
     </div>
     <div>
-      <h3>売る・買う</h3>
+      <h3>買う・売る</h3>
       <ul>
         <li><a href="/souba/member/">無料会員（売出・値下げ通知）</a></li>
+        <li><a href="/souba/kounyu/">武蔵小杉のマンション購入相場</a></li>
         <li><a href="/souba/baikyaku/">武蔵小杉のマンション売却相場</a></li>
         <li><a href="/souba/satei/">無料査定</a></li>
         <li><a href="/souba/soudan/">購入・売却の相談</a></li>
@@ -172,6 +172,6 @@
 
 <script>window.SITE = {"base": "/souba/", "form_endpoint": "https://formsubmit.co/ajax/info@speard.jp", "line_url": "https://line.me/R/ti/p/%40xef5208i", "member_api": "https://script.google.com/macros/s/AKfycbzIq_q22txCkksBid6A3lkMssmtOWhd8WVS39NPsKSd8D7TRpulke_YMTe3WTCbyJ3U/exec"};</script>
 
-<script src="/souba/assets/app.js?v=0a3754c8" defer></script>
+<script src="/souba/assets/app.js?v=275a2809" defer></script>
 </body>
 </html>
