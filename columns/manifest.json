@@ -1,6 +1,21 @@
 {
   "columns": [
     {
+      "id": "chuko-shutokuzei",
+      "category": "buy",
+      "tags": [
+        "購入編"
+      ],
+      "tag": "購入編",
+      "title": "中古マンションの不動産取得税はいくらか——自分で住むなら0円になる計算と、課税される3つのケース",
+      "date": "2026.10.26",
+      "hero": "/columns/hero/chuko-shutokuzei.jpg",
+      "thumb": "/columns/hero/chuko-shutokuzei-thumb.jpg",
+      "file": "columns/purchase/column_chuko_shutokuzei.html",
+      "description": "中古マンションの不動産取得税は、自分で住むなら控除1,200万円と土地の減額で0円になる例が多い。投資用・法人は同じ物件で54.0万円。築年次別の控除額、30日以内の申告、3%と土地2分の1が2027年3月31日までの特例である点を整理。",
+      "seo_title": "中古マンションの不動産取得税｜0円になる計算と課税ケース"
+    },
+    {
       "id": "kosugi-uridoki",
       "category": "sell",
       "tags": [

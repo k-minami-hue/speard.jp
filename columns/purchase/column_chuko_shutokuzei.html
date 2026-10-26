@@ -1,0 +1,342 @@
+<h1>中古マンションの不動産取得税はいくらか——自分で住むなら0円になる計算と、課税される3つのケース</h1>
+<style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
+#col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
+</style>
+<p>中古マンションを自分で住むために買う場合、不動産取得税は0円になることが多く、投資用や法人名義で買うと数十万円の請求が届きます。<br>
+差を生むのは、建物の控除額と、土地にかかる減額の2つです。<br>
+しかも税率3%と土地の評価額を2分の1にする特例は、2027年3月31日までの取得が対象です。<br>
+この記事では、実務でよく聞かれる「請求書が来る前に、いくらかかるのか」を、数字で整理します。</p>
+
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・計算は建物と土地を別々に行い、建物は評価額から控除額を引いて3%、土地は評価額の2分の1に3%をかけて減額を引く<br>
+　・新築が1997年4月以降の中古住宅なら控除額は1,200万円。評価額900万円の建物は0円になる<br>
+　・評価額1,800万円の土地でも、減額が上回って0円になる計算例がある。自分で住むなら全体で0円<br>
+　・投資用や法人名義は控除が使えず、同じ物件で54.0万円。特例が終われば108.0万円の計算になる<br>
+　・軽減は申告が前提。取得から30日以内に申告し、納税通知書は取得後半年から1年半ほどで届く</p>
+</div>
+
+<hr>
+
+<h2>中古マンションの不動産取得税は、どう計算するのか</h2>
+
+<p>不動産取得税は、買ったときに一度だけ都道府県に納める税金で、固定資産税評価額をもとに建物と土地を別々に計算します。<br>
+売買価格にかかるのではなく、市区町村が決めた評価額が基準になる点は、固定資産税と同じです。<br>
+評価額は売買価格よりかなり低く、7,000万円（70㎡、坪単価約331万円）の物件でも、建物と土地を合わせて2,700万円ほどという例は珍しくありません。</p>
+
+<p>東京都主税局の案内では、2027年3月31日までの取得なら、土地と住宅の税率は本則の4%ではなく3%です。<br>
+さらに宅地の評価額には2分の1をかけて、課税の対象額を下げます。<br>
+住宅以外の建物は、この期間でも4%のままです。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 396" role="img" aria-label="不動産取得税の計算の流れ。建物は評価額から控除額を引いて税率3%、土地は評価額の2分の1に税率3%をかけて減額を引き、合計する" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">不動産取得税の計算の流れ（住宅の特例を使う場合）</text>
+<rect x="40" y="60" width="240" height="76" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="160" y="90" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">建物</text>
+<text x="160" y="118" font-size="16" fill="#333" text-anchor="middle">固定資産税評価額 − 控除額</text>
+<rect x="320" y="60" width="240" height="76" rx="4" fill="#eef3fb" stroke="#c9d2e2" stroke-width="1.5"/>
+<text x="440" y="90" font-size="17" fill="#0E3273" text-anchor="middle" font-weight="700">土地</text>
+<text x="440" y="118" font-size="16" fill="#333" text-anchor="middle">固定資産税評価額 × 1/2</text>
+<line x1="160" y1="136" x2="160" y2="168" stroke="#7d8fb3" stroke-width="2.5"/><polygon points="153,167 167,167 160,176" fill="#7d8fb3"/>
+<line x1="440" y1="136" x2="440" y2="168" stroke="#7d8fb3" stroke-width="2.5"/><polygon points="433,167 447,167 440,176" fill="#7d8fb3"/>
+<rect x="40" y="176" width="240" height="76" rx="4" fill="#0E3273"/>
+<text x="160" y="206" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">× 税率3%</text>
+<text x="160" y="234" font-size="15" fill="#fff" text-anchor="middle">（控除が大きければ0円）</text>
+<rect x="320" y="176" width="240" height="76" rx="4" fill="#0E3273"/>
+<text x="440" y="206" font-size="17" fill="#fff" text-anchor="middle" font-weight="700">× 税率3% − 減額</text>
+<text x="440" y="234" font-size="15" fill="#fff" text-anchor="middle">減額は45,000円とBの多い方</text>
+<line x1="160" y1="252" x2="160" y2="284" stroke="#7d8fb3" stroke-width="2.5"/><polygon points="153,283 167,283 160,292" fill="#7d8fb3"/>
+<line x1="440" y1="252" x2="440" y2="284" stroke="#7d8fb3" stroke-width="2.5"/><polygon points="433,283 447,283 440,292" fill="#7d8fb3"/>
+<rect x="40" y="292" width="520" height="56" rx="4" fill="#fff" stroke="#0E3273" stroke-width="1.5"/>
+<text x="300" y="327" font-size="18" fill="#0E3273" text-anchor="middle" font-weight="700">建物分 ＋ 土地分 ＝ 不動産取得税</text>
+<text x="300" y="378" font-size="15" fill="#777" text-anchor="middle">マイナスになる部分は0円。建物と土地は別々に計算する</text>
+</g>
+</svg>
+<figcaption>図1：不動産取得税の計算の流れ。建物と土地は別々に計算し、マイナスになった分は0円として合計します。</figcaption>
+</figure>
+
+<p>土地の減額は、次のAとBのうち多い方の金額です。<br>
+Aは45,000円で、Bは「土地1㎡あたりの評価額×1/2×課税床面積の2倍（200㎡まで）×3%」です。<br>
+課税床面積は、専有部分に共用部分を持分で加えた面積で、マンションは小さくなりやすく、Bの面積は1戸あたり数十㎡から百数十㎡にとどまります。</p>
+
+<div class="src-box">出典：東京都主税局「不動産取得税」、広島県「不動産取得税の軽減（控除・減額）について」</div>
+
+<hr>
+
+<h2>自分で住むなら、なぜ0円になることが多いのか</h2>
+
+<p>自分で住むために築年が新しめの中古マンションを買うなら、建物の控除額が評価額を上回り、土地も減額で打ち消されて、不動産取得税が0円になることが多くなります。<br>
+次の前提で計算します。<br>
+築12年のマンション、専有70㎡（課税床面積70㎡）、建物の評価額900万円、土地の評価額1,800万円、土地の持分は40㎡です。<br>
+売買価格は7,000万円で、70㎡で坪単価に直すと約331万円になります。</p>
+
+<figure>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>項目</th><th>計算</th><th>金額</th></tr>
+  <tr><td>建物の課税標準</td><td>900万円 − 控除1,200万円</td><td class="num">0円（マイナスは0）</td></tr>
+  <tr><td>土地：税額</td><td>1,800万円×1/2×3%</td><td class="num">27.0万円</td></tr>
+  <tr><td>土地：減額B</td><td>（1,800万円÷40㎡）×1/2×140㎡×3%</td><td class="num">94.5万円</td></tr>
+  <tr><td>土地：減額の採用額</td><td>Aの4.5万円とBの多い方</td><td class="num">94.5万円</td></tr>
+  <tr class="hl"><td>不動産取得税の合計</td><td>27.0万円 − 94.5万円（マイナスは0）</td><td class="num">0円</td></tr>
+</table>
+</div>
+<figcaption>図2：自分で住む場合の計算の内訳。建物も土地も0円になり、合計も0円です（試算）。</figcaption>
+</figure>
+
+<p>この結果だけを見ると「ほぼ誰でも0円」と感じますが、そうでない場合もあります。<br>
+減額Bは課税床面積に比例するため、面積が小さい物件や、土地の評価額が高い都心の物件ほど、土地の税額が減額を上回って残りやすくなります。<br>
+たとえば土地の持分が小さくて評価額が高い物件では、土地分が数万円残ることもあります。</p>
+
+<div class="warn-box">
+  <p>0円になる計算には、次の要件があります。</p>
+  <p>・取得する人が自分で居住する住宅であること（個人が取得）</p>
+  <p>・床面積が40㎡以上240㎡以下であること（2026年4月1日以降の取得。それ以前は50㎡以上）</p>
+  <p>・1982年1月1日以降に新築されたこと。それ以前なら、取得前2年以内に耐震基準適合の証明を受けたこと</p>
+  <p>・軽減の申告書を出すこと。自動では適用されない</p>
+</div>
+
+<p>床面積は、登記簿の面積ではなく現況で判定され、共用部分を専有部分の割合で按分した面積も含めます。<br>
+40㎡前後のコンパクトな物件は、登記簿上は40㎡を切っても共用部分を含めると超える場合があります。<br>
+一方で、東京23区の一部の区域では50㎡の要件が残るとする解説もあるため、50㎡未満の物件は、買う前に管轄の都税事務所へ確認してください。</p>
+
+<p>購入時の現金の全体像は<a href="/columns/shokihiyo/">中古マンション購入の諸費用</a>で整理しています。<br>
+不動産取得税は諸費用には入らず、後から請求が来る税金なので、資金計画では別枠で見ておく必要があります。</p>
+
+<div class="src-box">出典：東京都主税局「不動産取得税」、広島県「不動産取得税の軽減（控除・減額）について」</div>
+
+<hr>
+
+<h2>築年次で控除額はどう変わるのか</h2>
+
+<p>中古住宅の控除額は、築年数ではなく新築された時期で決まり、1997年4月以降の新築なら1,200万円、1989年4月から1997年3月なら1,000万円です。<br>
+1989年3月以前の新築は450万円以下まで下がります。<br>
+東京都主税局の区分は図3のとおりです。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 586" role="img" aria-label="中古住宅の控除額。1997年4月以降の新築は1,200万円、1989年4月から1997年3月は1,000万円、1985年7月から1989年3月は450万円、1981年7月から1985年6月は420万円、1976年1月から1981年6月は350万円、1973年から1975年は230万円、1964年から1972年は150万円、1954年7月から1963年は100万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">中古住宅の控除額（新築時期別・1戸あたり）</text>
+<text x="40" y="70" font-size="16" fill="#333" text-anchor="start" font-weight="700">1997年4月以降</text>
+<rect x="40" y="78" width="400.0" height="24" rx="2" fill="#0E3273"/>
+<text x="448.0" y="97" font-size="16" fill="#0E3273" text-anchor="start" font-weight="700">1,200万円</text>
+<text x="40" y="128" font-size="16" fill="#333" text-anchor="start" font-weight="700">1989年4月〜1997年3月</text>
+<rect x="40" y="136" width="333.3" height="24" rx="2" fill="#3d5da8"/>
+<text x="381.3" y="155" font-size="16" fill="#3d5da8" text-anchor="start" font-weight="700">1,000万円</text>
+<text x="40" y="186" font-size="16" fill="#333" text-anchor="start">1985年7月〜1989年3月</text>
+<rect x="40" y="194" width="150.0" height="24" rx="2" fill="#7d8fb3"/>
+<text x="198.0" y="213" font-size="16" fill="#555" text-anchor="start" font-weight="700">450万円</text>
+<text x="40" y="244" font-size="16" fill="#333" text-anchor="start">1981年7月〜1985年6月</text>
+<rect x="40" y="252" width="140.0" height="24" rx="2" fill="#7d8fb3"/>
+<text x="188.0" y="271" font-size="16" fill="#555" text-anchor="start" font-weight="700">420万円</text>
+<text x="40" y="302" font-size="16" fill="#333" text-anchor="start">1976年1月〜1981年6月</text>
+<rect x="40" y="310" width="116.7" height="24" rx="2" fill="#7d8fb3"/>
+<text x="164.7" y="329" font-size="16" fill="#555" text-anchor="start" font-weight="700">350万円</text>
+<text x="40" y="360" font-size="16" fill="#333" text-anchor="start">1973年1月〜1975年12月</text>
+<rect x="40" y="368" width="76.7" height="24" rx="2" fill="#7d8fb3"/>
+<text x="124.7" y="387" font-size="16" fill="#555" text-anchor="start" font-weight="700">230万円</text>
+<text x="40" y="418" font-size="16" fill="#333" text-anchor="start">1964年1月〜1972年12月</text>
+<rect x="40" y="426" width="50.0" height="24" rx="2" fill="#7d8fb3"/>
+<text x="98.0" y="445" font-size="16" fill="#555" text-anchor="start" font-weight="700">150万円</text>
+<text x="40" y="476" font-size="16" fill="#333" text-anchor="start">1954年7月〜1963年12月</text>
+<rect x="40" y="484" width="33.3" height="24" rx="2" fill="#7d8fb3"/>
+<text x="81.3" y="503" font-size="16" fill="#555" text-anchor="start" font-weight="700">100万円</text>
+<text x="40" y="542" font-size="15" fill="#777" text-anchor="start">1954年6月以前に新築の住宅は控除なし</text>
+<text x="40" y="566" font-size="15" fill="#777" text-anchor="start">1981年12月以前の新築は耐震基準適合の証明が別に必要</text>
+</g>
+</svg>
+<figcaption>図3：中古住宅の控除額（新築時期別）。1997年4月を境に、控除額が1,000万円から1,200万円に変わります。</figcaption>
+</figure>
+
+<p>築年次が古いと、建物の評価額も下がるので、控除が小さくても税額は小さくなりやすい傾向にあります。<br>
+たとえば1983年新築で控除額420万円、建物の評価額が500万円なら、建物分は（500万円−420万円）×3%で2.4万円です。<br>
+土地分を先ほどと同じ条件で0円とすると、合計は2.4万円にとどまります。</p>
+
+<p>気をつけたいのは、1981年12月以前に新築された旧耐震のマンションです。<br>
+控除を受けるには、取得前2年以内の耐震基準適合の証明が要り、取得後に耐震改修をする場合は、取得から6か月以内に改修・証明・入居を終える必要があります。<br>
+控除の金額は小さく、住宅ローン控除や登録免許税の軽減も使いにくくなります。<br>
+旧耐震の判断については<a href="/columns/kyutaishin/">旧耐震マンションは買っていいか</a>で詳しく扱っています。</p>
+
+<div class="src-box">出典：東京都主税局「不動産取得税」（Q13）、広島県「不動産取得税の軽減（控除・減額）について」</div>
+
+<hr>
+
+<h2>投資用・法人名義・セカンドハウスは課税される</h2>
+
+<p>自分で住まない目的で買うと、中古住宅の控除と土地の減額が使えず、同じ物件でも不動産取得税が数十万円かかります。<br>
+投資用に貸す場合、法人名義で買う場合、住まずに持つセカンドハウスのように、居住の要件を満たさないケースです。<br>
+先ほどの物件を投資用に買ったときの計算は次のとおりです。</p>
+
+<p>建物は900万円×3%で27.0万円、土地は1,800万円×1/2×3%で27.0万円なので、合計は54.0万円です。<br>
+自分で住む場合の0円との差は54.0万円になります。<br>
+物件の利回りを計算するときは、この54.0万円も取得コストに入れておかないと、実質利回りを高く見積もってしまいます。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 392" role="img" aria-label="同じマンションの不動産取得税の比較。自分で住む場合は0円、投資用で特例の期間内は54.0万円、特例なしの本則計算は108.0万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">同じマンションの税額の比較（試算）</text>
+<text x="300" y="62" font-size="15" fill="#777" text-anchor="middle">建物評価額900万円・土地評価額1,800万円の場合</text>
+<text x="40" y="104" font-size="17" fill="#333" text-anchor="start" font-weight="700">自分で住む（特例あり）</text>
+<rect x="40" y="114" width="4" height="30" rx="2" fill="#0E3273"/>
+<text x="54" y="137" font-size="18" fill="#0E3273" text-anchor="start" font-weight="700">0円</text>
+<text x="40" y="184" font-size="17" fill="#333" text-anchor="start" font-weight="700">投資用・法人（特例の期間内）</text>
+<rect x="40" y="194" width="200.0" height="30" rx="2" fill="#3d5da8"/>
+<text x="250.0" y="217" font-size="18" fill="#3d5da8" text-anchor="start" font-weight="700">54.0万円</text>
+<text x="40" y="264" font-size="17" fill="#333" text-anchor="start" font-weight="700">参考：特例なしの本則計算</text>
+<rect x="40" y="274" width="400.0" height="30" rx="2" fill="#a67c1a"/>
+<text x="450.0" y="297" font-size="18" fill="#a67c1a" text-anchor="start" font-weight="700">108.0万円</text>
+<text x="40" y="348" font-size="15" fill="#777" text-anchor="start">投資用は建物27.0万円＋土地27.0万円。本則は建物36.0万円＋土地72.0万円</text>
+<text x="40" y="372" font-size="15" fill="#777" text-anchor="start">3%と土地の2分の1は2027年3月31日までの特例</text>
+</g>
+</svg>
+<figcaption>図4：同じ物件の税額の比較。自分で住むと0円、投資用の特例期間内は54.0万円、特例がない本則なら108.0万円です。</figcaption>
+</figure>
+
+<p>図4の108.0万円は、3%の税率と土地の2分の1が使えない本則の計算で、建物900万円×4%＝36.0万円、土地1,800万円×4%＝72.0万円を足した数字です。<br>
+これは仮の比較で、実際に期限後どうなるかは決まっていません。<br>
+2027年3月31日を過ぎる取得では、延長されるかどうかを税制改正の内容で確認する必要があります。<br>
+投資用や法人名義で買う予定があれば、引渡し日を期限内に収められるかどうかが、費用に直結します。</p>
+
+<p>法人購入の税金や融資の違いは<a href="/columns/hojin-meigi/">法人名義でマンションを買うべきか</a>で比べています。</p>
+
+<div class="warn-box">
+  <p>勘違いされやすい点があります。</p>
+  <p>・賃貸に出す予定がなくても、取得時に誰も住んでいなければ居住用の要件を満たさない</p>
+  <p>・親族から生前贈与を受けた場合は課税される。相続による取得は非課税</p>
+  <p>・住む予定が変わりそうな場合は、取得前に都税事務所へ確認しておく</p>
+</div>
+
+<div class="src-box">出典：東京都主税局「不動産取得税」（Q4、Q21〜Q23）</div>
+
+<hr>
+
+<h2>申告と納付の流れと、売るときに効く視点</h2>
+
+<p>軽減を受けるには、取得から30日以内に都税事務所へ申告書を出します。<br>
+登記を30日以内に申請していれば、原則として申告そのものは不要です。<br>
+ただし軽減を受ける場合は、申告書に必要書類をつけて提出する必要があります。<br>
+納税通知書が届くのは取得から半年から1年半ほど後で、東京都は毎月7日前後に発送し、納期限は原則として発送月の月末です。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-label="申告から納付までの流れ。取得から30日以内に軽減の申告、取得後およそ半年から1年半で納税通知書、納期限は発送月の月末" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="36" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">申告から納付までの流れ</text>
+<line x1="62" y1="90" x2="62" y2="280" stroke="#c9d2e2" stroke-width="3"/>
+<circle cx="62" cy="92" r="16" fill="#0E3273"/>
+<text x="62" y="98" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+<text x="100" y="88" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">引渡し・登記</text>
+<text x="100" y="114" font-size="16" fill="#333" text-anchor="start">取得した日が起点</text>
+<circle cx="62" cy="158" r="16" fill="#0E3273"/>
+<text x="62" y="164" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+<text x="100" y="154" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">取得から30日以内</text>
+<text x="100" y="180" font-size="16" fill="#333" text-anchor="start">軽減の申告書を提出</text>
+<circle cx="62" cy="224" r="16" fill="#0E3273"/>
+<text x="62" y="230" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+<text x="100" y="220" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">取得後およそ半年〜1年半</text>
+<text x="100" y="246" font-size="16" fill="#333" text-anchor="start">納税通知書が届く</text>
+<circle cx="62" cy="290" r="16" fill="#0E3273"/>
+<text x="62" y="296" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+<text x="100" y="286" font-size="17" fill="#0E3273" text-anchor="start" font-weight="700">納期限</text>
+<text x="100" y="312" font-size="16" fill="#333" text-anchor="start">発送月の月末</text>
+<text x="40" y="358" font-size="15" fill="#777" text-anchor="start">登記を30日以内に申請していれば、申告は原則不要</text>
+</g>
+</svg>
+<figcaption>図5：申告から納付までの流れ。軽減の申告は取得から30日以内、納税通知書は半年から1年半ほど後に届きます。</figcaption>
+</figure>
+
+<p>納税通知書が届く頃には、取得したことを忘れている方も多く、急に数十万円の請求が来て驚くケースを見ます。<br>
+自分で住むのに通知書が届いた場合は、軽減の申告が漏れている可能性があるので、納付する前に都税事務所へ連絡してください。</p>
+
+<p>免税点も2026年4月に引き上げられました。<br>
+2026年4月1日以降の取得では、土地は16万円未満、売買などで取得した家屋は34万円未満の税額なら課税されません。<br>
+先ほど計算した2.4万円のように、少額の税額はそもそも課税されないこともあります。</p>
+
+<div class="info-box">
+  <p>申告の前に確認しておくもの</p>
+  <p>・売買契約書と登記簿の新築年月日（控除額の判定に使う）</p>
+  <p>・固定資産税の課税明細書（建物・土地の評価額を確認する）</p>
+  <p>・耐震基準適合を証明する書類（1981年12月以前の新築の場合）</p>
+  <p>・住民票（住所を移した後に提出する場合）</p>
+</div>
+
+<div class="src-box">出典：東京都主税局「不動産取得税」（Q4、Q7、Q10）、三井のリハウス「不動産取得税」</div>
+
+<hr>
+
+<h3>売るときの視点では、取得税はどう効くのか</h3>
+
+<p>不動産取得税は買主が払う税金で、売主の手取りには直接関係しませんが、売りやすさには間接的に効いてきます。<br>
+築年が新しくて面積が40㎡以上あれば、自分で住む買主はほぼ0円で買えます。<br>
+逆に旧耐震や小さい面積の物件は、控除が小さかったり使えなかったりして、買主の実負担が増えます。</p>
+
+<p>出口から逆算すると、買うときの資産性の判断に、「次の買主が使える特例の範囲に入っているか」も加えられます。<br>
+1982年以降の新築、40㎡以上、住宅ローン控除の対象という条件がそろうと、買い手の幅が広がります。<br>
+売却の際には、買主が投資家なのか自分で住む人なのかで、税負担の差が最大数十万円になるため、買い手の見込みを考えて価格を設計します。<br>
+固定資産税などの保有コストは<a href="/columns/koteishisanzei/">マンションの固定資産税</a>で整理しています。</p>
+
+<p>税務の取り扱いは、物件や取得者の状況によって変わります。<br>
+個別の判断は、管轄の都税事務所や税理士にご相談ください。<br>
+購入予定の物件で計算を知りたい場合は、<a href="/simulator/#buy">購入シミュレーター</a>や、<a href="/profile/">代表の南和希のプロフィール</a>からの相談もお使いください。</p>
+
+<hr>
+
+<h2>よくある質問</h2>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">中古マンションの不動産取得税はいくらですか</h3><div class="col-faq-a"><p>自分で住む築年の新しい物件なら、控除と減額で0円になることが多いです。<br>
+投資用では、評価額が建物900万円・土地1,800万円の例で54.0万円です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">不動産取得税はいつ請求されますか</h3><div class="col-faq-a"><p>取得後およそ半年から1年半ほどで納税通知書が届きます。<br>
+東京都の納期限は、発送月の月末が原則です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">軽減の申告をしないとどうなりますか</h3><div class="col-faq-a"><p>軽減が適用されず、請求が届く可能性があります。<br>
+届いたら、納付の前に都税事務所へ相談してください。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">相続でマンションを取得した場合は課税されますか</h3><div class="col-faq-a"><p>相続による取得は非課税です。<br>
+生前贈与や相続時精算課税による取得は課税の対象です。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">3%の税率はいつまでですか</h3><div class="col-faq-a"><p>東京都主税局の案内では、2027年3月31日までの取得です。<br>
+その後の扱いは、税制改正の内容を確認してください。</p></div></div>
+</section>
+
+<h2>まとめ</h2>
+
+<div class="info-box">
+  <p>不動産取得税の確認事項</p>
+  <p>・自分で住む1997年4月以降の新築の中古は、控除1,200万円で建物分が0円になりやすい</p>
+  <p>・土地は評価額の2分の1に3%をかけ、減額を引く。結果が0円になる例が多い</p>
+  <p>・投資用・法人名義は控除が使えず、評価額900万円・1,800万円の例で54.0万円</p>
+  <p>・3%と土地の2分の1は2027年3月31日まで。軽減は申告が前提</p>
+</div>
+
+<p>不動産取得税は、買った後に忘れた頃に届く税金です。<br>
+目的が居住なのか投資なのかで金額が大きく変わるため、買う前に自分のケースを一度計算しておくことをお勧めします。</p>
+
+<div class="src-box">参考資料：東京都主税局「不動産取得税」、広島県「不動産取得税の軽減（控除・減額）について」、青森県「令和8年度県税改正のお知らせ」、三井のリハウス「不動産取得税」</div>
