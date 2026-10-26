@@ -1,0 +1,50 @@
+# 武蔵小杉マンション相場帳（/souba/）の相場データを、国土交通省 不動産情報ライブラリAPIから取り直す。
+# 国交省の公表は四半期終了の約3か月後（例：4〜6月分は9月下旬ごろ）。新しい四半期が出ていれば
+# データとページが更新されてコミットされ、出ていなければ何も変わらない。
+# APIキーはリポジトリの Settings → Secrets and variables → Actions に REINFOLIB_KEY として登録する（コードには書かない）。
+name: souba data update
+
+on:
+  schedule:
+    - cron: '17 0 1,15 * *'   # 毎月1日・15日 9:17（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q pillow jinja2
+      - name: 国交省APIから取引データを取得
+        env:
+          REINFOLIB_KEY: ${{ secrets.REINFOLIB_KEY }}
+        run: |
+          if [ -z "$REINFOLIB_KEY" ]; then echo "REINFOLIB_KEY が未登録のためスキップ"; exit 0; fi
+          python3 tools/souba/scripts/fetch_reinfolib.py 2015 "$(TZ=Asia/Tokyo date +%Y)" | grep -v '^skip'
+          python3 tools/souba/scripts/candidates.py
+      - name: 相場帳を再生成
+        run: |
+          if git diff --quiet -- tools/souba/data/trades.csv tools/souba/data/area_quarterly.csv; then echo "データの変更なし"; exit 0; fi
+          python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
+          python3 tools/make_webp.py
+      - name: commit if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add -A
+            git commit -m "相場帳：国交省データの自動更新"
+            git pull --rebase -q
+            git push
+          fi

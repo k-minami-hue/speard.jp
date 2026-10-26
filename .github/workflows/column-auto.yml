@@ -63,6 +63,9 @@ jobs:
             python3 tools/make_col_ogp.py
           fi
           python3 tools/build_pages.py
+          # build_pages.py は HP の相場帳ブロック（SOUBA_BAND）を空にするので、相場帳も作り直して埋め直す
+          python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
+          python3 tools/make_webp.py
 
       - name: 公開（main に push）
         run: |

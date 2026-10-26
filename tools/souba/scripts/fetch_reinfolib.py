@@ -11,11 +11,13 @@ APIキーは https://www.reinfolib.mlit.go.jp/api/request/ から申請します
 
 集計の定義（ページの説明文と合わせている。変える場合はテンプレートの説明も直す）
   trades.csv        ：data/buildings.csv の「取引地区」に含まれる町の中古マンション等の取引（1件1行）
-  trades_area.csv   ：最寄駅が武蔵小杉・新丸子・向河原の中古マンション等の取引（1件1行、構造・最寄駅・徒歩分つき）。全棟化の候補づくりに使う
+  trades_area.csv   ：最寄駅が武蔵小杉・新丸子・向河原の中古マンション等の取引（1件1行、構造・最寄駅つき）。全棟化の候補づくりに使う
   area_quarterly.csv：最寄駅が武蔵小杉・新丸子・向河原の中古マンション等の取引を四半期ごとに集計
       取引価格（全体）           … 種別＝取引価格
       成約価格（全体）           … 種別＝成約価格（2021年以降）
-      駅5分以内・2005年以降築    … 取引価格と成約価格の合計のうち、駅徒歩5分以内かつ2005年以降築
+  最寄駅はAPIの出力にないため、駅コード（国土数値情報 N02_005g）で駅ごとに取得して判定する。
+  APIは徒歩分を返さないので trades_area.csv の徒歩分は空欄になる。
+  タワーマンション全体の推移は build.py が trades.csv（掲載棟の取引）から計算する。
   共通の除外：備考に「関係者間取引」「調停・競売等」「隣地の購入」などがあるもの、坪単価100万円未満
 """
 import csv
@@ -32,15 +34,17 @@ from pathlib import Path
 
 API = "https://www.reinfolib.mlit.go.jp/ex-api/external/XIT001"
 CITY = "14133"  # 川崎市中原区
-STATIONS = {"武蔵小杉", "新丸子", "向河原"}
+# 国土数値情報 鉄道データ N02_005g（武蔵小杉は南武線・東横線が同じグループ。横須賀線 004301 も同じ結果を返す）
+STATIONS = {"004297": "武蔵小杉", "004287": "新丸子", "004308": "向河原"}
 KIND = {"01": "取引価格", "02": "成約価格"}
 EXCLUDE = ("関係者間", "調停", "競売", "隣地", "瑕疵", "他の権利", "代物弁済")
 TSUBO = 0.3025
 DATA = Path(__file__).resolve().parent.parent / "data"
 
 
-def fetch(key, year, quarter, cls):
-    q = urllib.parse.urlencode({"year": year, "quarter": quarter, "city": CITY, "priceClassification": cls, "language": "ja"})
+def fetch(key, year, quarter, cls, station=None):
+    where = {"station": station} if station else {"city": CITY}
+    q = urllib.parse.urlencode({"year": year, "quarter": quarter, **where, "priceClassification": cls, "language": "ja"})
     req = urllib.request.Request(f"{API}?{q}", headers={"Ocp-Apim-Subscription-Key": key, "Accept-Encoding": "gzip"})
     with urllib.request.urlopen(req, timeout=60) as res:
         raw = res.read()
@@ -70,37 +74,49 @@ def main():
         districts = {r["取引地区"] for r in csv.DictReader(f) if r["取引地区"]}
 
     trades, area, area_trades = [], [], []
+
+    def rows_of(data):
+        for d in data:
+            if d.get("Type") != "中古マンション等" or any(x in (d.get("Remarks") or "") for x in EXCLUDE):
+                continue
+            a, price = to_num(d.get("Area")), to_num(d.get("TradePrice"))
+            by = to_num((d.get("BuildingYear") or "").replace("年", ""))
+            if not a or not price or a < 15:
+                continue
+            man = round(price / 10000)
+            if man / (a * TSUBO) < 100:
+                continue
+            yield d, a, man, by
+
     for year in range(y0, y1 + 1):
         for quarter in (1, 2, 3, 4):
+            q = f"{year}Q{quarter}"
             for cls, kind in KIND.items():
                 try:
                     data = fetch(key, year, quarter, cls)
                 except Exception as e:  # 未公表の四半期などは飛ばす
-                    print(f"skip {year}Q{quarter} {kind}: {e}")
+                    print(f"skip {q} {kind}: {e}")
                     continue
-                for d in data:
-                    if d.get("Type") != "中古マンション等" or any(x in (d.get("Remarks") or "") for x in EXCLUDE):
-                        continue
-                    a, price = to_num(d.get("Area")), to_num(d.get("TradePrice"))
-                    by = to_num((d.get("BuildingYear") or "").replace("年", ""))
-                    if not a or not price or a < 15:
-                        continue
-                    man = round(price / 10000)
-                    if man / (a * TSUBO) < 100:
-                        continue
-                    q = f"{year}Q{quarter}"
+                for d, a, man, by in rows_of(data):
                     if d.get("DistrictName") in districts and by:
                         trades.append([d["DistrictName"], int(by), kind, q, man, int(a), d.get("FloorPlan", "")])
-                    if d.get("NearestStation") in STATIONS and by:
-                        # 全棟化の候補づくり用（地区×建築年×構造で棟を推定する）。scripts/candidates.py が読む
-                        area_trades.append([d.get("DistrictName", ""), int(by), d.get("Structure", ""), kind, q, man, int(a), d.get("FloorPlan", ""),
-                                            d.get("NearestStation", ""), to_num(d.get("TimeToNearestStation")) or ""])
-                    if d.get("NearestStation") in STATIONS:
-                        walk = to_num(d.get("TimeToNearestStation"))
-                        area.append({"q": q, "kind": kind, "tsubo": man / (a * TSUBO),
-                                     "near": bool(walk is not None and walk <= 5 and by and by >= 2005)})
                 time.sleep(0.5)
+                for code, st in STATIONS.items():
+                    try:
+                        data = fetch(key, year, quarter, cls, code)
+                    except Exception as e:
+                        print(f"skip {q} {kind} {st}: {e}")
+                        continue
+                    for d, a, man, by in rows_of(data):
+                        area.append({"q": q, "kind": kind, "tsubo": man / (a * TSUBO)})
+                        if by:
+                            # 全棟化の候補づくり用（地区×建築年×構造で棟を推定する）。scripts/candidates.py が読む
+                            area_trades.append([d.get("DistrictName", ""), int(by), d.get("Structure", ""), kind, q, man, int(a),
+                                                d.get("FloorPlan", ""), st, ""])
+                    time.sleep(0.5)
 
+    if not trades or not area:
+        sys.exit("取得できたデータがありません。APIキーと通信を確認してください（ファイルは書き換えていません）")
     qi = lambda q: int(q[:4]) * 4 + int(q[-1])
     trades.sort(key=lambda r: (r[0], r[1], qi(r[3])))
     with open(DATA / "trades.csv", "w", encoding="utf-8", newline="") as f:
@@ -117,8 +133,7 @@ def main():
     rows = []
     for q in sorted({r["q"] for r in area}, key=qi):
         for name, pick in (("取引価格（全体）", lambda r: r["kind"] == "取引価格"),
-                           ("成約価格（全体）", lambda r: r["kind"] == "成約価格"),
-                           ("駅5分以内・2005年以降築", lambda r: r["near"])):
+                           ("成約価格（全体）", lambda r: r["kind"] == "成約価格")):
             v = [r["tsubo"] for r in area if r["q"] == q and pick(r)]
             if v:
                 rows.append([q, name, len(v), round(statistics.median(v)), round(quantile(v, 0.25)), round(quantile(v, 0.75))])
