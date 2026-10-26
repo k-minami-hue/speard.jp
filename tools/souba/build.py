@@ -653,6 +653,11 @@ def build(out_dir, origin, base):
             if b["chg3"] is not None:
                 faq.append((f"{name}の価格は上がっていますか。", f"直近1年の坪単価は、3年前の同じ時期と比べて{pct(b['chg3'])}です。過去の取引の推移で、将来の価格を示すものではありません。"))
             faq.append((f"{name}を売るといくらになりますか。", f"70㎡の部屋なら、取引データの中央の半数で{s['p70_lo']}〜{s['p70_hi']}が目安です。階数・方位・眺望・室内の状態で変わるため、正確な価格は査定で確認します。"))
+            merged = f"（{'・'.join(b['members'])}と合わせた件数）" if b["members"] else ""
+            faq.append((f"{name}は売れにくいですか。",
+                        f"直近2年（{common['recent_from_q']}〜{q_label(latest_q)}）で{s['n']}件の取引があり{merged}、売買は続いています。"
+                        "売れにくくなるのは、同じ建物や近くの棟で同時に出ている売出と比べて、価格や条件が見劣りするときです。"
+                        "売り出す前に、同じ建物の売出と、階数・向きの近い成約事例を並べて価格を決めます。"))
         faq.append((f"{name}は築何年・何戸のマンションですか。", f"{b['built_txt']}、総戸数{b['総戸数']}戸、地上{b['地上階数']}階建てです。最寄りは{b['walk_txt']}です。"))
         chart = {"labels": [q_label(q) for q in quarters], "series": [
             {"label": name, "data": b["chart"]},
