@@ -633,3 +633,60 @@ table.kt td.kt-ok { background: var(--gold-wash); font-weight: 700; color: var(-
   .br-v b { white-space: nowrap; }
 }
 @media (max-width: 380px) { .br-v b { font-size: .98rem; } }
+
+/* ---------- 2026-10-26 見やすさの追加改善 ---------- */
+/* ランキングの順位 */
+.br-rank { float: left; font-style: normal; width: 30px; height: 30px; margin: 2px 10px 0 0; border-radius: 50%; background: var(--wash-2); color: var(--ink); font-weight: 700; font-size: 14px; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.blist-rank li:nth-child(-n+3) .br-rank { background: var(--gold); color: var(--ink-deep); }
+
+/* 棟ページの目次 */
+.jump { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: #fff; margin-top: 28px; }
+.jump ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-block: 10px; }
+.jump ul::-webkit-scrollbar { display: none; }
+.jump a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 999px; font-size: 14px; color: var(--ink); text-decoration: none; white-space: nowrap; background: var(--wash); }
+.jump a:hover { border-color: var(--ink); }
+
+/* 表：スマホでは1棟ずつのまとまりに */
+@media (max-width: 640px) {
+  .kt-wrap { overflow: visible; }
+  table.kt thead { display: none; }
+  table.kt, table.kt tbody { display: block; }
+  table.kt tr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  table.kt th { grid-column: 1 / -1; padding: 0 0 4px; border: 0; text-align: left; }
+  table.kt td { display: flex; flex-direction: column; padding: 4px 6px; border: 0; text-align: left; font-size: 15px; }
+  table.kt td::before { content: attr(data-label); font-size: 11.5px; color: var(--muted); font-weight: 400; }
+  table.kt td.kt-ok { border-radius: 4px; }
+  table.kt td.kt-wide { grid-column: span 2; }
+  table.kt tr:has(td:nth-child(5)) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* コラム一覧：スマホでは小さな画像＋タイトル */
+@media (max-width: 560px) {
+  .cols { gap: 0; }
+  .cols li { border-bottom: 1px solid var(--rule); }
+  .cols a { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 12px; padding: 12px 0; }
+  .cols img { grid-row: 1 / span 2; width: 112px; }
+  .cols b { font-size: 14.5px; line-height: 1.55; }
+}
+
+/* ヘッダー：スマホではロゴを1行に */
+@media (max-width: 600px) {
+  .logo small { display: none; }
+  .logo b { font-size: .98rem; white-space: nowrap; }
+  .logo-mark { width: 26px; height: 26px; font-size: 13px; }
+  .head-cta .btn-sm { padding: 0 12px; }
+}
+
+/* 本文の読みやすさ */
+.page p, .sec p { line-height: 1.9; }
+.note { font-size: 13px; }
+.band .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 760px) { .band .actions .btn { flex: 1 1 140px; } }
+@media (max-width: 560px) {
+  table.kt.kt-sell tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  table.kt.kt-sell td.kt-wide { grid-column: 1 / -1; order: 5; flex-direction: row; align-items: baseline; gap: 10px; background: var(--gold-wash); border-radius: 4px; font-weight: 700; color: var(--ink); }
+  table.kt.kt-sell td.kt-wide::before { flex: none; }
+}
+@media (max-width: 560px) {
+  table.kt td, table.kt td.num { align-items: flex-start; text-align: left; }
+}

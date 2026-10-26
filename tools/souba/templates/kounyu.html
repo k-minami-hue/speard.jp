@@ -17,11 +17,11 @@
 <section aria-labelledby="b-ttl">
   <h2 id="b-ttl">予算で買える広さ（棟ごと）</h2>
   <p class="note">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引の坪単価の中央値で計算した、専有面積の目安です。諸費用は含みません。</p>
-  <div class="tbl-wrap"><table class="kt">
+  <div class="tbl-wrap kt-wrap"><table class="kt">
     <thead><tr><th>マンション</th>{% for v in budgets %}<th class="num">{{ v.label }}</th>{% endfor %}</tr></thead>
     <tbody>{% for r in budget_rows %}<tr>
       <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.built_txt }}・{{ r.b['総戸数'] }}戸・徒歩{{ r.b['徒歩分'] }}分{% if r.b.struct %}・{{ r.b.struct }}{% endif %}</span></th>
-      {% for c in r.cells %}<td class="num{% if c >= 70 %} kt-ok{% endif %}">約{{ c }}㎡</td>{% endfor %}
+      {% for c in r.cells %}<td class="num{% if c >= 70 %} kt-ok{% endif %}" data-label="{{ budgets[loop.index0].label }}">約{{ c }}㎡</td>{% endfor %}
     </tr>{% endfor %}</tbody>
   </table></div>
   <p class="note">色のついたマスは、70㎡以上が買える目安です。同じ棟でも階数・向き・眺望で価格は変わり、高層階は目安より狭くなります。</p>
@@ -30,11 +30,11 @@
 <section aria-labelledby="a-ttl">
   <h2 id="a-ttl">広さごとの価格の目安（棟ごと）</h2>
   <p class="note">坪単価の中央値×専有面積で計算した目安です。マンション名の下は坪単価です。</p>
-  <div class="tbl-wrap"><table class="kt">
+  <div class="tbl-wrap kt-wrap"><table class="kt">
     <thead><tr><th>マンション</th>{% for a in areas %}<th class="num">{{ a }}㎡</th>{% endfor %}</tr></thead>
     <tbody>{% for r in area_rows %}<tr>
       <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.stats.tsubo_txt }}</span></th>
-      {% for c in r.cells %}<td class="num">{{ c }}</td>{% endfor %}
+      {% for c in r.cells %}<td class="num" data-label="{{ areas[loop.index0] }}㎡">{{ c }}</td>{% endfor %}
     </tr>{% endfor %}</tbody>
   </table></div>
   <p class="note">価格は国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計した、過去の取引にもとづく参考値です。現在の売出価格や将来の価格を示すものではありません。</p>

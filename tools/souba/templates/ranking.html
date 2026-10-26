@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import card %}
+{% from "macros.html" import row %}
 {% block title %}武蔵小杉のマンション ランキング｜坪単価・値上がり率・駅近｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のマンション{{ n_buildings }}棟を、坪単価、3年間の値上がり率、駅からの近さ、築年でランキング。国土交通省の取引データから集計しています。{% endblock %}
 {% block main %}
@@ -11,7 +11,7 @@
   </section>
   <section>
     <div class="sec-head"><div><h2>坪単価ランキング</h2><p>直近2年の取引の中央値</p></div></div>
-    <ul class="cards">{% for b in ranked %}{{ card(site, b, rank=loop.index) }}{% endfor %}</ul>
+    <ol class="blist blist-rank">{% for b in ranked %}{{ row(site, b, rank=loop.index) }}{% endfor %}</ol>
   </section>
   <section>
     <div class="ranks">

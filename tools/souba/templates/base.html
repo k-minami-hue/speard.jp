@@ -52,17 +52,18 @@
 
 <main id="main">
 {% block main %}{% endblock %}
-{% block after %}{% if page not in ('sodan', 'satei') %}
+{% block after %}{% if page not in ('sodan', 'satei', 'index') %}
 <section class="band" aria-labelledby="band-ttl">
   <div class="wrap band-in">
     <div>
       <div class="rule"></div>
-      <h2 id="band-ttl">あなたの部屋がいくらで売れるか、根拠つきでお答えします</h2>
-      <p>このサイトの相場に、階数・方位・眺望・室内の状態を加えて査定します。<br>
-      売却を決めていない段階でも、売り時・買い時の判断材料をお出しします。</p>
+      <h2 id="band-ttl">武蔵小杉のマンションの購入・売却は、無料で相談できます</h2>
+      <p>買うなら、価格が相場に照らして妥当か。売るなら、いくらで出すか。<br>
+      どちらも、このサイトの相場と同じ建物の成約事例をもとに根拠つきでお答えします。</p>
     </div>
     <div class="actions">
-      <a class="btn btn-lg" href="{{ site.base }}satei/" data-ev="cta_satei">無料で査定する</a>
+      <a class="btn btn-lg" href="{{ site.base }}soudan/?kind=購入" data-ev="cta_sodan">購入の相談</a>
+      <a class="btn btn-lg" href="{{ site.base }}satei/" data-ev="cta_satei">無料査定</a>
       <a class="btn btn-lg btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a>
     </div>
   </div>

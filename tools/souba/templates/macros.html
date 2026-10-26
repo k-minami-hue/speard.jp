@@ -114,10 +114,10 @@
 </div>
 {%- endmacro %}
 
-{% macro row(site, b) -%}
+{% macro row(site, b, rank=None) -%}
 <li class="brow" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-chg="{{ b.chg3|round|int if b.chg3 is not none else -999 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
   <a href="{{ b.url }}">
-    <span class="br-name"><b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
+    <span class="br-name">{% if rank %}<em class="br-rank">{{ rank }}</em>{% endif %}<b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
     {% if b.stats %}
     <span class="br-v br-t"><small>坪単価</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
     <span class="br-v br-p"><small>70㎡なら</small><b>{{ b.stats.p70_txt|replace('万円','') }}<i>万円</i></b></span>

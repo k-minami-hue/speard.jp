@@ -34,6 +34,17 @@
   </div>
 </div>
 
+<nav class="jump" aria-label="このページの内容">
+  <div class="wrap"><ul>
+    {% if b.stats %}<li><a href="#t-ttl">相場の推移</a></li>{% endif %}
+    {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
+    <li><a href="#n-ttl">近くと比べる</a></li>
+    {% if b.stats %}<li><a href="#a-ttl">広さ・取引事例</a></li>{% endif %}
+    <li><a href="#s-ttl">物件概要</a></li>
+    <li><a href="#q-ttl">よくある質問</a></li>
+  </ul></div>
+</nav>
+
 {% if b.listings %}<section class="sec" aria-labelledby="l-ttl">
   <div class="wrap">
     <div class="sec-head"><div><h2 id="l-ttl">{{ b.short }}の売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。</p></div></div>
@@ -45,6 +56,32 @@
   <div class="wrap">
     <div class="sec-head"><div><h2 id="t-ttl">坪単価の推移</h2><p>四半期ごとの中央値（万円／坪）。紺が{{ b.short }}、灰色が武蔵小杉のタワーマンション全体</p></div></div>
     <div class="chart-box"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の坪単価推移グラフ"></canvas></div>
+  </div>
+</section>{% endif %}
+
+{% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="c-ttl">担当者の見方</h2><p>武蔵小杉のタワーマンションの売買を担当する株式会社スピアードの見方です</p></div></div>
+    <div class="comment">
+      <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
+      <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
+    </div>
+    {% if b.column %}<p class="c-result">あわせて読む：<a href="{{ b.column.url }}?from=souba-{{ b.slug }}">{{ b.column.title }}</a></p>{% endif %}
+    {% if b.result %}<p class="c-result">株式会社スピアードは、{{ b['マンション名'] }}{% if b.result.floor %}の{{ b.result.floor }}の住戸{% endif %}でお取引をお手伝いしました（価格・お部屋の詳細は非公開）。<a href="{{ b.result.url }}?from=souba">成約実績を見る</a></p>{% endif %}
+    <div class="c-cta">
+      <p>買うなら、ウィークポイントを知ったうえで価格が妥当かを判断できます。売るなら、ウィークポイントを先に潰した売り方で価格は変わります。どちらも根拠つきでお答えします。</p>
+      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=comment" data-ev="cta_sodan">{{ b.short }}の購入を相談する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+    </div>
+  </div>
+</section>{% endif %}
+
+{% if b.dpoints['アピール'] or b.dpoints['ウィーク'] %}<section class="sec" aria-labelledby="d-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="d-ttl">データで見る{{ b.short }}の特徴</h2><p>取引データと物件概要から機械的に整理したものです（{{ latest_q }}時点）</p></div></div>
+    <div class="comment">
+      <div><h3>アピールポイント</h3><ul>{% for c in b.dpoints['アピール'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
+      <div><h3>ウィークポイント</h3><ul>{% for c in b.dpoints['ウィーク'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
+    </div>
   </div>
 </section>{% endif %}
 
@@ -100,31 +137,9 @@
   </div>
 </section>{% endif %}
 
-{% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="c-ttl">担当者の見方</h2><p>武蔵小杉のタワーマンションの売買を担当する株式会社スピアードの見方です</p></div></div>
-    <div class="comment">
-      <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
-      <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
-    </div>
-    {% if b.column %}<p class="c-result">あわせて読む：<a href="{{ b.column.url }}?from=souba-{{ b.slug }}">{{ b.column.title }}</a></p>{% endif %}
-    {% if b.result %}<p class="c-result">株式会社スピアードは、{{ b['マンション名'] }}{% if b.result.floor %}の{{ b.result.floor }}の住戸{% endif %}でお取引をお手伝いしました（価格・お部屋の詳細は非公開）。<a href="{{ b.result.url }}?from=souba">成約実績を見る</a></p>{% endif %}
-    <div class="c-cta">
-      <p>買うなら、ウィークポイントを知ったうえで価格が妥当かを判断できます。売るなら、ウィークポイントを先に潰した売り方で価格は変わります。どちらも根拠つきでお答えします。</p>
-      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=comment" data-ev="cta_sodan">{{ b.short }}の購入を相談する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
-    </div>
-  </div>
-</section>{% endif %}
 
-{% if b.dpoints['アピール'] or b.dpoints['ウィーク'] %}<section class="sec" aria-labelledby="d-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="d-ttl">データで見る{{ b.short }}の特徴</h2><p>取引データと物件概要から機械的に整理したものです（{{ latest_q }}時点）</p></div></div>
-    <div class="comment">
-      <div><h3>アピールポイント</h3><ul>{% for c in b.dpoints['アピール'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
-      <div><h3>ウィークポイント</h3><ul>{% for c in b.dpoints['ウィーク'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
-    </div>
-  </div>
-</section>{% endif %}
+
+
 
 <section class="sec" aria-labelledby="k-ttl">
   <div class="wrap split">
@@ -135,7 +150,7 @@
       </ul>
     </div>
     <div>
-      <div class="sec-head"><div><h2>物件概要</h2></div></div>
+      <div class="sec-head"><div><h2 id="s-ttl">物件概要</h2></div></div>
       <table class="spec"><tbody>
         <tr><th>所在地</th><td>{{ b['所在地'] }}</td></tr>
         <tr><th>交通</th><td>{{ b.walk_txt }}</td></tr>
@@ -165,7 +180,6 @@
 
 <section class="sec" aria-label="相場の更新のお知らせ"><div class="wrap">{{ notify(site, b) }}</div></section>
 
-<section class="sec-wash" aria-label="ご相談"><div class="wrap">{{ rep(site, speard_link) }}</div></section>
 {% endblock %}
 {% block data %}<script>window.ATLAS = {{ atlas_json | safe }};{% if s %} window.CHART = {{ chart | safe }};{% endif %}</script>
 {% if s %}<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endif %}

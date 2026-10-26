@@ -17,14 +17,14 @@
 <section aria-labelledby="t-ttl">
   <h2 id="t-ttl">棟ごとの売却相場（70㎡の目安）</h2>
   <p class="note">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引の中央値。「70㎡の目安」は取引の中央の半数が入る範囲です。</p>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>マンション</th><th>坪単価</th><th>70㎡の目安</th><th>3年前比</th><th>取引件数</th></tr></thead>
+  <div class="tbl-wrap kt-wrap"><table class="kt kt-sell">
+    <thead><tr><th>マンション</th><th class="num">坪単価</th><th class="num">70㎡の目安</th><th class="num">3年前比</th><th class="num">取引件数</th></tr></thead>
     <tbody>{% for b in ranked %}<tr>
-      <th class="nw"><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸・{{ b.walk_txt }}</span></th>
-      <td class="nw">{{ b.stats.tsubo_txt }}</td>
-      <td class="nw">{{ b.stats.p70_lo }}〜{{ b.stats.p70_hi }}</td>
-      <td class="nw {{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}%{% else %}―{% endif %}</td>
-      <td class="nw">{{ b.stats.n }}件</td>
+      <th><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.year }}年築・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分</span></th>
+      <td class="num" data-label="坪単価">{{ b.stats.tsubo_txt }}</td>
+      <td class="num kt-wide" data-label="70㎡の目安">{{ b.stats.p70_lo }}〜{{ b.stats.p70_hi }}</td>
+      <td class="num {{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}" data-label="3年前比">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}%{% else %}―{% endif %}</td>
+      <td class="num" data-label="取引件数">{{ b.stats.n }}件</td>
     </tr>{% endfor %}</tbody>
   </table></div>
   <p class="note">価格は国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計した、過去の取引にもとづく参考値です。現在の売出価格や将来の価格を示すものではありません。階数・方位・眺望・室内の状態で価格は変わります。</p>
