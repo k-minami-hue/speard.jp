@@ -43,6 +43,9 @@ SITE = {
     # 会員機能（売出・値下げ通知、自宅価格ウォッチ、会員限定データ）の受付先。
     # Google Apps Script をウェブアプリとして公開したURL（https://script.google.com/macros/s/…/exec）を入れる。
     # 空のあいだは登録内容を form_endpoint（メール）で受け付け、マイページは「準備中」と表示する。
+    # Google マップ（地図ページ・棟ページ）。Google Cloud の Maps JavaScript API キー（speard.jp だけで使えるよう制限したもの）。
+    # 空のあいだは、地図ページは国土地理院の淡色地図、棟ページは Google マップの埋め込み（キー不要）で表示する。
+    "gmaps_key": "",
     "member_api": "https://script.google.com/macros/s/AKfycbzIq_q22txCkksBid6A3lkMssmtOWhd8WVS39NPsKSd8D7TRpulke_YMTe3WTCbyJ3U/exec",
 }
 RECENT_QUARTERS = 8        # 棟ごとの相場に使う期間（2年）
@@ -59,7 +62,7 @@ TOWN_FACTS = [             # 出典を確認済みの街のデータ
 ]
 GLOSSARY = [             # 用語集（/glossary/）。法令の数値は出典を確認したものだけ書く
     ("坪単価", "価格を専有面積の坪数で割った値です。1坪は約3.3㎡で、このサイトでは「価格 ÷（専有面積 × 0.3025）」で計算しています。広さの違う部屋の価格を同じ物差しで比べるときに使います。"),
-    ("70㎡換算", "坪単価に70㎡を掛けた価格です。ファミリー向けの部屋の広さに近い70㎡にそろえて、マンションごとの価格の水準を比べやすくしています。"),
+    ("㎡単価", "価格を専有面積（㎡）で割った値です。坪単価を3.3058で割った値と同じです。"),
     ("中央値", "数値を小さい順に並べたときに真ん中に来る値です。一部の高い取引や安い取引に引っ張られにくいため、このサイトの相場は平均ではなく中央値で示しています。"),
     ("取引価格", "国土交通省が、不動産を買った人へのアンケートで集めた価格です。個別の取引が特定できないよう、面積や価格を丸めて公表されています。"),
     ("成約価格", "不動産会社が指定流通機構（レインズ）に登録した、売買が成立したときの価格です。国土交通省の不動産情報ライブラリでは2021年以降の分が公表されています。"),
@@ -137,33 +140,30 @@ def yen(v):
     return f"{int(float(v)):,}円" if v.replace(".", "", 1).isdigit() else v
 
 
-def pct(v):
-    return "―" if v is None else f"{v:+.0f}%"
-
-
-def p70(t):
-    return None if t is None else t * 70 * TSUBO
-
-
 def summarize(trs):
     ts = [t["tsubo"] for t in trs]
     if not ts:
         return None
     med = statistics.median(ts)
+    ps = [t["price"] for t in trs]
     return {
-        "n": len(ts), "tsubo": med, "lo": quantile(ts, 0.25), "hi": quantile(ts, 0.75),
-        "p70": p70(med), "p70_txt": man(p70(med)), "tsubo_txt": tsubo_txt(med),
-        "p70_lo": man(p70(quantile(ts, 0.25))), "p70_hi": man(p70(quantile(ts, 0.75))),
+        "n": len(ts), "tsubo": med, "lo": quantile(ts, 0.25), "hi": quantile(ts, 0.75), "tsubo_txt": tsubo_txt(med),
         "range_txt": f"{tsubo_txt(quantile(ts, 0.25))}〜{tsubo_txt(quantile(ts, 0.75))}",
+        "p_med": statistics.median(ps), "p_med_txt": man(statistics.median(ps)),
     }
 
 
-def chg(trs, latest_i):
-    now = [t["tsubo"] for t in trs if t["qi"] > latest_i - 4]
-    old = [t["tsubo"] for t in trs if latest_i - 16 < t["qi"] <= latest_i - 12]
-    if len(now) >= 3 and len(old) >= 3:
-        return (statistics.median(now) / statistics.median(old) - 1) * 100
-    return None
+def pstats(trs):
+    """湾岸マンション価格ナビと同じ見せ方：価格・坪単価・㎡単価の最小〜最大と中央値"""
+    if not trs:
+        return None
+    ps = [t["price"] for t in trs]
+    ts = [t["tsubo"] for t in trs]
+    ms = [t["price"] / t["area"] for t in trs]
+    return {"n": len(trs),
+            "p_lo": min(ps), "p_hi": max(ps), "p_med": statistics.median(ps),
+            "t_lo": min(ts), "t_hi": max(ts), "t_med": statistics.median(ts),
+            "m_lo": min(ms), "m_hi": max(ms), "m_med": statistics.median(ms)}
 
 
 def sparkline(vals, w=240, h=48):
@@ -229,12 +229,6 @@ def data_points(b, ranked, town, buildings):
             good.append(f"直近2年の坪単価{s['tsubo_txt']}は、掲載{n}棟中{r}位")
         elif r > n - 3:
             weak.append(f"直近2年の坪単価{s['tsubo_txt']}は、掲載{n}棟中{r}位。同じエリアの上位棟との差は{round(ranked[0]['stats']['tsubo'] - s['tsubo'])}万円／坪")
-        if b["chg3"] is not None and town["chg3"] is not None:
-            d = b["chg3"] - town["chg3"]
-            if d >= 5:
-                good.append(f"3年前比{pct(b['chg3'])}で、武蔵小杉のタワーマンション全体（{town['chg_txt']}）を上回る")
-            elif d <= -5:
-                weak.append(f"3年前比{pct(b['chg3'])}で、武蔵小杉のタワーマンション全体（{town['chg_txt']}）より伸びが小さい")
         if s["n"] >= 40 and not b["members"]:
             good.append(f"直近2年の取引が{s['n']}件と多く、相場をつかみやすい")
         elif s["n"] < 12:
@@ -307,6 +301,10 @@ def build(out_dir, origin, base):
     latest_i = q_index(latest_q)
     recent_from = latest_i - RECENT_QUARTERS + 1
     quarters = sorted({r["時期"] for r in area_rows}, key=q_index)
+    def q_months(i, end=False):
+        y, q = divmod(i, 4)
+        return f"{y}年{q * 3 + (3 if end else 1)}月"
+    period = f"{q_months(recent_from)}〜{q_months(latest_i, end=True)}"
     spark_q = quarters[-20:]  # カードの小さな推移は直近5年
 
     photo_by = {}
@@ -329,7 +327,12 @@ def build(out_dir, origin, base):
         mine = [t for t in trades if b["key"] and t["key"] == b["key"]]
         recent = [t for t in mine if t["qi"] >= recent_from]
         b["stats"] = summarize(recent)
-        b["chg3"] = chg(mine, latest_i)
+        b["closed"] = pstats([t for t in recent if t["種別"] == "成約価格"])
+        b["traded"] = pstats([t for t in recent if t["種別"] == "取引価格"])
+        b["plot"] = {"成約価格": [], "取引価格": []}
+        for t in mine:
+            y, qq = t["時期"].split("Q")
+            b["plot"].setdefault(t["種別"], []).append({"x": round(int(y) + (int(qq) - 0.5) / 4, 3), "y": round(t["tsubo"]), "a": round(t["area"]), "p": round(t["price"])})
         b["bands"] = []
         for label, lo, hi in AREA_BANDS:
             g = [t for t in recent if lo <= t["area"] < hi]
@@ -400,7 +403,7 @@ def build(out_dir, origin, base):
         base = b["stats"]["tsubo"] if b["stats"] else None
         listings.append({
             "id": r["id"], "b": b, "status": r.get("状態", "").strip() or "販売中",
-            "price_txt": man(price), "tsubo_txt": tsubo_txt(t), "p70_txt": man(p70(t)),
+            "price_txt": man(price), "tsubo_txt": tsubo_txt(t),
             "area_txt": f"{area:.2f}㎡", "balcony": r.get("バルコニー面積", "").strip(), "plan": r["間取り"].strip(),
             "floor": r["所在階"].strip(), "dir": r.get("向き", "").strip() or "―",
             "kanri": yen(r.get("管理費", "")), "shuzen": yen(r.get("修繕積立金", "")),
@@ -422,12 +425,9 @@ def build(out_dir, origin, base):
     tw_now = [t["tsubo"] for t in tw if t["qi"] > latest_i - 4]
     town = {
         "tsubo": statistics.median(tw_now) if tw_now else None, "n": len(tw_now),
-        "chg3": chg(tw, latest_i),
         "lo": quantile(tw_now, 0.25), "hi": quantile(tw_now, 0.75),
     }
     town["tsubo_txt"] = tsubo_txt(town["tsubo"])
-    town["p70_txt"] = man(p70(town["tsubo"]))
-    town["chg_txt"] = pct(town["chg3"])
     for b in buildings:
         b["dpoints"] = data_points(b, ranked, town, buildings)
     tq = {}
@@ -443,15 +443,15 @@ def build(out_dir, origin, base):
         {"label": "武蔵小杉周辺の中古マンション全体", "data": [int(whole[q]["中央値"]) if q in whole and int(whole[q]["件数"]) >= 5 else None for q in quarters]},
     ]}
 
-    rank_up = sorted([b for b in buildings if b["chg3"] is not None], key=lambda b: -b["chg3"])
     rank_walk = sorted([b for b in ranked], key=lambda b: (int(b["徒歩分"]), -b["stats"]["tsubo"]))
     rank_new = sorted([b for b in ranked], key=lambda b: -b["year"])
 
     atlas = [{
         "id": b["id"], "name": b["マンション名"], "short": b["short"], "url": b["url"], "lat": b["lat"], "lng": b["lng"], "band": b["band"],
-        "t": round(b["stats"]["tsubo"]) if b["stats"] else None, "p70": round(b["stats"]["p70"]) if b["stats"] else None,
+        "t": round(b["stats"]["tsubo"]) if b["stats"] else None, "pm": round(b["stats"]["p_med"]) if b["stats"] else None,
         "lo": round(b["stats"]["lo"]) if b["stats"] else None, "hi": round(b["stats"]["hi"]) if b["stats"] else None,
-        "n": b["stats"]["n"] if b["stats"] else 0, "chg": round(b["chg3"]) if b["chg3"] is not None else None,
+        "n": b["stats"]["n"] if b["stats"] else 0, "addr": b["所在地"], "tower": b["tower"], "stn": b["最寄駅"],
+        "cm": round(b["closed"]["p_med"]) if b["closed"] else None, "cn": b["closed"]["n"] if b["closed"] else 0,
         "year": b["year"], "pre": b["pre"], "nodata": b["nodata_short"], "built": b["built_txt"], "units": int(b["総戸数"]), "floors": int(b["地上階数"]),
         "walk": int(b["徒歩分"]), "line": b["路線"], "struct": b["struct"], "dev": b["分譲会社"], "mgr": b["管理会社"],
         "members": b["members"], "chart": b["chart"],
@@ -471,26 +471,19 @@ def build(out_dir, origin, base):
 
     # FAQ（データから作る）
     top3 = ranked[:3]
+    town_closed = pstats([t for t in tw if t["qi"] > latest_i - 4 and t["種別"] == "成約価格"])
     faq_top = [
         ("武蔵小杉のタワーマンションの相場はいくらですか。",
-         f"直近1年の取引では坪単価{town['tsubo_txt']}前後、70㎡に換算すると{town['p70_txt']}前後です。"
-         f"棟ごとでは、最も高い{ranked[0]['マンション名']}が{ranked[0]['stats']['tsubo_txt']}、最も低い{ranked[-1]['マンション名']}が{ranked[-1]['stats']['tsubo_txt']}です。"),
-        ("武蔵小杉で1億円ならどのくらいの広さが買えますか。",
-         f"直近2年の取引の坪単価で計算すると、棟によって約{round(10000 / (ranked[0]['stats']['tsubo'] * TSUBO))}㎡から約{round(10000 / (ranked[-1]['stats']['tsubo'] * TSUBO))}㎡です。"
-         "棟ごとの広さは購入相場のページで比べられます。過去の取引にもとづく参考値です。"),
+         f"直近1年の取引の坪単価の中央値は{town['tsubo_txt']}です。"
+         f"棟ごとでは、最も高い{ranked[0]['マンション名']}が{ranked[0]['stats']['tsubo_txt']}、最も低い{ranked[-1]['マンション名']}が{ranked[-1]['stats']['tsubo_txt']}です（直近2年の中央値）。"),
+        ("武蔵小杉のマンションの成約価格はいくらですか。",
+         (f"掲載しているタワーマンションの直近1年の成約価格は{round(town_closed['p_lo']):,}万円〜{round(town_closed['p_hi']):,}万円で、中央値は{round(town_closed['p_med']):,}万円です。" if town_closed else "")
+         + "棟ごとの成約価格と取引価格は、各マンションのページにまとめています。"),
         ("武蔵小杉で坪単価が高いマンションはどこですか。",
          "直近2年の取引の中央値では、" + "、".join(f"{b['マンション名']}（{b['stats']['tsubo_txt']}）" for b in top3) + "の順です。"),
-        ("武蔵小杉のタワーマンションの価格は上がっていますか。",
-         f"直近1年の坪単価は、3年前の同じ時期と比べて{town['chg_txt']}です。"
-         + (f"棟ごとでは{rank_up[0]['マンション名']}が{pct(rank_up[0]['chg3'])}で最も大きく上がっています。" if rank_up else "")
-         + "過去の取引の推移で、将来の価格を示すものではありません。"),
-        ("70㎡の部屋を売るといくらになりますか。",
-         "坪単価に70㎡を掛けて換算すると、マンションによって"
-         f"{man(p70(ranked[-1]['stats']['tsubo']))}から{man(p70(ranked[0]['stats']['tsubo']))}の幅があります。"
-         "同じマンションでも階数・方位・眺望で価格は大きく変わるため、正確な価格は査定で確認します。"),
         ("このサイトの相場はどのデータを使っていますか。",
          "国土交通省の不動産情報ライブラリの取引価格・成約価格を、マンションの所在地と建築年で棟ごとに集計しています。"
-         f"最新のデータは{q_label(latest_q)}分です。"),
+         f"最新のデータは{q_label(latest_q)}分です。過去の取引価格をまとめたもので、将来の価格を示すものでも、不動産の購入や投資をすすめるものでもありません。"),
     ]
 
     # 出力
@@ -506,9 +499,9 @@ def build(out_dir, origin, base):
     ver = hashlib.md5(b"".join((ROOT / "assets" / f).read_bytes() for f in ("app.js", "style.css"))).hexdigest()[:8]
     common = {
         "site": SITE, "year": today.year, "updated": f"{today.year}年{today.month}月{today.day}日", "updated_iso": today.isoformat(),
-        "latest_q": q_label(latest_q), "recent_from_q": next((q_label(q) for q in quarters if q_index(q) == recent_from), ""),
+        "latest_q": q_label(latest_q), "period": period, "recent_from_q": next((q_label(q) for q in quarters if q_index(q) == recent_from), ""),
         "speard_link": SITE["speard_url"] + "?from=souba",
-        "ads": ads, "ad": {a["id"]: a for a in ads}, "ver": ver, "town": town, "photos": photos, "hero_photo": hero_photo,
+        "ads": ads, "ad": {a["id"]: a for a in ads}, "ver": ver, "town": town, "town_closed": town_closed, "photos": photos, "hero_photo": hero_photo,
         "buildings": buildings, "listings": listings, "ranked": ranked, "nodata": nodata, "n_buildings": len(buildings), "town_facts": TOWN_FACTS,
         "atlas_json": json.dumps({"buildings": atlas, "labels": [q_label(q) for q in quarters], "fallback": est_fallback,
                                   "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]}, ensure_ascii=False).replace("</", "<\\/"),
@@ -554,10 +547,10 @@ def build(out_dir, origin, base):
         shutil.copytree(ogp_dir, out / "assets" / "ogp", dirs_exist_ok=True)
 
     render("index.html", "", "index", jsonld(website, org, crumbs(), faq_ld(faq_top)),
-           chart=json.dumps(chart_town, ensure_ascii=False), faq=faq_top, rank_up=rank_up, rank_walk=rank_walk, rank_new=rank_new, cols=cols)
+           chart=json.dumps(chart_town, ensure_ascii=False), faq=faq_top, rank_walk=rank_walk, rank_new=rank_new, cols=cols)
     render("map.html", "map/", "map", jsonld(website, crumbs(("相場マップ", SITE["base"] + "map/"))))
     render("ranking.html", "ranking/", "ranking", jsonld(website, crumbs(("ランキング", SITE["base"] + "ranking/"))),
-           rank_up=rank_up, rank_walk=rank_walk, rank_new=rank_new)
+           rank_walk=rank_walk, rank_new=rank_new)
     render("compare.html", "compare/", "compare", jsonld(website, crumbs(("マンションを比べる", SITE["base"] + "compare/"))))
     render("tools.html", "tetori/", "tools", jsonld(website, crumbs(("売却の手取り計算", SITE["base"] + "tetori/"))))
     render("loan.html", "loan/", "loan", jsonld(website, crumbs(("住宅ローン返済シミュレーション", SITE["base"] + "loan/"))))
@@ -578,12 +571,12 @@ def build(out_dir, origin, base):
     with open(out / "data" / "souba-buildings.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
         w.writerow(["マンション名", "竣工年月", "総戸数", "地上階数", "最寄駅", "徒歩分", "構造種別", "坪単価中央値（万円）", "坪単価25%点（万円）", "坪単価75%点（万円）",
-                    "70㎡換算（万円）", "取引件数", "3年前比（%）", "集計期間", "合算した建物", "出典"])
+                    "成約価格中央値（万円）", "取引件数", "集計期間", "合算した建物", "出典"])
         for b in ranked + nodata:
             st = b["stats"]
             w.writerow([b["マンション名"], b["竣工年月"], b["総戸数"], b["地上階数"], b["最寄駅"], b["徒歩分"], b["struct"],
                         round(st["tsubo"]) if st else "", round(st["lo"]) if st else "", round(st["hi"]) if st else "",
-                        round(st["p70"]) if st else "", st["n"] if st else 0, round(b["chg3"], 1) if b["chg3"] is not None else "",
+                        round(b["closed"]["p_med"]) if b["closed"] else "", st["n"] if st else 0,
                         f"{common['recent_from_q']}〜{q_label(latest_q)}", "・".join(b["members"]), credit])
     with open(out / "data" / "souba-quarterly.csv", "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
@@ -593,7 +586,7 @@ def build(out_dir, origin, base):
             w.writerow([r["q"], r["tower"] or "", r["tower_n"], r["closed"]["t"].replace("万円／坪", "").replace(",", "") if r["closed"] else "",
                         r["closed"]["n"] if r["closed"] else "", r["trade"]["t"].replace("万円／坪", "").replace(",", "") if r["trade"] else "",
                         r["trade"]["n"] if r["trade"] else "", credit])
-    dataset = {"@type": "Dataset", "name": "武蔵小杉のマンション 棟別相場データ", "description": "武蔵小杉のマンションの坪単価中央値・70㎡換算価格・取引件数・3年前比と、四半期ごとの坪単価の推移。",
+    dataset = {"@type": "Dataset", "name": "武蔵小杉のマンション 棟別相場データ", "description": "武蔵小杉のマンションの坪単価中央値・成約価格中央値・取引件数と、四半期ごとの坪単価。",
                "url": SITE["origin"] + SITE["base"] + "data/", "creator": org, "isAccessibleForFree": True, "inLanguage": "ja",
                "dateModified": today.isoformat(), "spatialCoverage": "神奈川県川崎市中原区 武蔵小杉", "creditText": credit,
                "isBasedOn": "https://www.reinfolib.mlit.go.jp/",
@@ -606,10 +599,10 @@ def build(out_dir, origin, base):
     render("satei.html", "satei/", "satei", jsonld(website, crumbs(("無料査定", SITE["base"] + "satei/"))))
     faq_sell = [
         ("武蔵小杉のマンションの売却相場はいくらですか。",
-         f"タワーマンションは直近1年の取引で坪単価{town['tsubo_txt']}前後、70㎡に換算すると{town['p70_txt']}前後です。"
+         f"タワーマンションの直近1年の取引の坪単価の中央値は{town['tsubo_txt']}です。"
          f"棟ごとでは{ranked[-1]['マンション名']}の{ranked[-1]['stats']['tsubo_txt']}から{ranked[0]['マンション名']}の{ranked[0]['stats']['tsubo_txt']}まで開きがあります。過去の取引にもとづく参考値です。"),
-        ("武蔵小杉のマンションは今が売り時ですか。",
-         f"直近1年の坪単価は3年前の同じ時期と比べて{town['chg_txt']}です。売り時は相場だけでなく、住み替え先の購入時期、ローンの残り、税金（所有期間5年の区切り）で変わるため、手取りから逆算して判断します。"),
+        ("売る時期はどう決めればいいですか。",
+         "住み替え先の購入時期、ローンの残り、税金（所有期間5年の区切り）で決まるため、相場の数字だけでなく、売った後の手取りから逆算して判断します。"),
         ("売り出し価格はどう決めればいいですか。",
          "同じ建物で同時に出ている売出と、階数・向き・広さが近い住戸の成約事例を並べて決めます。棟の相場は出発点で、最初の価格が比較の中で高すぎると問い合わせが止まります。"),
         ("査定を頼むと、売らなければいけませんか。",
@@ -619,22 +612,19 @@ def build(out_dir, origin, base):
     budgets = [{"v": v, "label": man(v)} for v in (8000, 10000, 12000, 15000)]
     sqm = lambda budget, t: round(budget / (t * TSUBO))
     budget_rows = [{"b": b, "cells": [sqm(x["v"], b["stats"]["tsubo"]) for x in budgets]} for b in ranked]
-    areas = [60, 70, 80]
-    area_rows = [{"b": b, "cells": [man(b["stats"]["tsubo"] * a * TSUBO) for a in areas]} for b in ranked]
     a1 = [sqm(10000, b["stats"]["tsubo"]) for b in ranked]
     faq_buy = [
         ("武蔵小杉で1億円ならどのくらいの広さのマンションが買えますか。",
          f"直近2年の取引の坪単価で計算すると、棟によって約{min(a1)}㎡から約{max(a1)}㎡です。"
          f"坪単価が最も高い{ranked[0]['マンション名']}では約{sqm(10000, ranked[0]['stats']['tsubo'])}㎡、最も低い{ranked[-1]['マンション名']}では約{sqm(10000, ranked[-1]['stats']['tsubo'])}㎡が目安です。過去の取引にもとづく参考値です。"),
-        ("武蔵小杉の中古マンションは高くなりすぎていませんか。",
-         f"タワーマンションの直近1年の坪単価は、3年前の同じ時期と比べて{town['chg_txt']}です。"
-         "過去と比べて高い位置にあることは確かですが、この先の動きは誰にも分かりません。価格が妥当かどうかは、同じ建物の成約事例と比べて判断します。"),
+        ("気になる住戸の価格が妥当かどうかは、どう判断すればいいですか。",
+         "同じ建物の成約価格と、階数・向き・広さの近い住戸の成約事例と並べて判断します。各マンションのページに、直近2年の成約価格と取引価格の幅と中央値をまとめています。"),
         ("買う棟はどう選べばいいですか。",
          "予算で買える広さ、駅までの距離、築年と大規模修繕の時期、修繕積立金の水準を比べ、将来売るときにどの棟と比べられるかも想定して選びます。"
          "気になる棟の売出は、無料会員の売出アラートで受け取れます。"),
     ]
     render("kounyu.html", "kounyu/", "kounyu", jsonld(website, crumbs(("武蔵小杉のマンション購入相場", SITE["base"] + "kounyu/")), faq_ld(faq_buy)),
-           faq=faq_buy, budgets=budgets, budget_rows=budget_rows, areas=areas, area_rows=area_rows, area_min=min(a1), area_max=max(a1))
+           faq=faq_buy, budgets=budgets, budget_rows=budget_rows, area_min=min(a1), area_max=max(a1))
     render("baikyaku.html", "baikyaku/", "baikyaku", jsonld(website, crumbs(("武蔵小杉のマンション売却相場", SITE["base"] + "baikyaku/")), faq_ld(faq_sell)), faq=faq_sell)
     render("sodan.html", "soudan/", "sodan", jsonld(website, crumbs(("購入・売却の相談", SITE["base"] + "soudan/"))))
     render("guide.html", "guide/", "guide", jsonld(website, crumbs(("住み替えの準備", SITE["base"] + "guide/"))))
@@ -649,19 +639,18 @@ def build(out_dir, origin, base):
         name = b["マンション名"]
         faq = []
         if s:
-            faq.append((f"{name}の相場はいくらですか。", f"直近2年の取引で坪単価{s['tsubo_txt']}、70㎡に換算すると{s['p70_txt']}です。中央の半数は{s['range_txt']}の範囲に入ります。"))
-            if b["chg3"] is not None:
-                faq.append((f"{name}の価格は上がっていますか。", f"直近1年の坪単価は、3年前の同じ時期と比べて{pct(b['chg3'])}です。過去の取引の推移で、将来の価格を示すものではありません。"))
-            faq.append((f"{name}を売るといくらになりますか。", f"70㎡の部屋なら、取引データの中央の半数で{s['p70_lo']}〜{s['p70_hi']}が目安です。階数・方位・眺望・室内の状態で変わるため、正確な価格は査定で確認します。"))
+            faq.append((f"{name}の相場はいくらですか。", f"直近2年の取引{s['n']}件で、坪単価の中央値は{s['tsubo_txt']}です。中央の半数は{s['range_txt']}の範囲に入ります。"))
+            c = b["closed"]
+            if c:
+                faq.append((f"{name}の成約価格はいくらですか。", f"{period}の成約価格は{round(c['p_lo']):,}万円〜{round(c['p_hi']):,}万円（{c['n']}件）で、中央値は{round(c['p_med']):,}万円です。成約単価の中央値は{c['t_med']:.1f}万円／坪です。"))
             merged = f"（{'・'.join(b['members'])}と合わせた件数）" if b["members"] else ""
             faq.append((f"{name}は売れにくいですか。",
                         f"直近2年（{common['recent_from_q']}〜{q_label(latest_q)}）で{s['n']}件の取引があり{merged}、売買は続いています。"
                         "売れにくくなるのは、同じ建物や近くの棟で同時に出ている売出と比べて、価格や条件が見劣りするときです。"
                         "売り出す前に、同じ建物の売出と、階数・向きの近い成約事例を並べて価格を決めます。"))
         faq.append((f"{name}は築何年・何戸のマンションですか。", f"{b['built_txt']}、総戸数{b['総戸数']}戸、地上{b['地上階数']}階建てです。最寄りは{b['walk_txt']}です。"))
-        chart = {"labels": [q_label(q) for q in quarters], "series": [
-            {"label": name, "data": b["chart"]},
-            {"label": "武蔵小杉のタワーマンション", "data": tower_series}]}
+        qx = lambda q: round(int(q[:4]) + (int(q[-1]) - 0.5) / 4, 3)
+        chart = {"plot": b["plot"], "median": [{"x": qx(q), "y": v} for q, v in zip(quarters, b["chart"]) if v is not None]}
         render("building.html", f'mansion/{b["slug"]}/', "building", jsonld(ld, crumbs((name, b["url"])), faq_ld(faq)),
                ogp=f'{b["slug"]}.jpg', b=b, faq=faq, chart=json.dumps(chart, ensure_ascii=False))
 
@@ -679,7 +668,7 @@ def build(out_dir, origin, base):
                        "floors": int(b["地上階数"]),
                        "tsubo": round(b["stats"]["tsubo"]) if b["stats"] else None, "lo": round(b["stats"]["lo"]) if b["stats"] else None,
                        "hi": round(b["stats"]["hi"]) if b["stats"] else None, "n": b["stats"]["n"] if b["stats"] else 0,
-                       "chg3": round(b["chg3"]) if b["chg3"] is not None else None} for b in buildings],
+                       } for b in buildings],
     }, ensure_ascii=False), encoding="utf-8")
     for b in buildings:
         (api / "b" / f'{b["slug"]}.json').write_text(json.dumps({
@@ -699,7 +688,7 @@ def build(out_dir, origin, base):
         nf = env.get_template("404.html").render(**common, page="404", path=SITE["base"] + "404.html", jsonld=jsonld(website), ads_here=[], ogp="site.jpg")
         (out / "404.html").write_text(nf, encoding="utf-8")
     patch_hp_bands(env, town, ranked, q_label(latest_q), len(buildings))
-    print(f"built {len(urls)} pages -> {out}  （最新 {q_label(latest_q)}、タワー坪単価 {town['tsubo_txt']} {town['chg_txt']}、広告 {len(ads)}件、売出物件 {len(listings)}件）")
+    print(f"built {len(urls)} pages -> {out}  （最新 {q_label(latest_q)}、タワー坪単価 {town['tsubo_txt']}、広告 {len(ads)}件、売出物件 {len(listings)}件）")
 
 
 # ---- speard.jp 本体のバナー ------------------------------------------------
@@ -710,13 +699,13 @@ HP_BAND_COPY = {
              "sub": "棟ごとの相場を、国土交通省の取引データから集計して公開しています。面積を入れるだけで、価格の目安がその場でわかります。",
              "sub_label": "自分の部屋の査定を依頼する", "sub_path": "satei/", "compact": True, "mini": "武蔵小杉のマンションの相場を、棟ごとに公開しています。買う前の比較にも、売る前の価格確認にも。", "chips": 8},
     "sell": {"title": "売り出す前に、同じ建物の相場を確認する",
-             "sub": "タワーマンションの価格は、同じ建物の過去の取引で大きく決まります。棟ごとの坪単価と推移を公開しています。",
-             "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "compact": True, "main_path": "baikyaku/", "mini": "売り出す前に、棟ごとの売却相場（70㎡の目安）を一覧で確認できます。", "chips": 8},
+             "sub": "タワーマンションの価格は、同じ建物の過去の取引で大きく決まります。棟ごとの成約価格・取引価格と坪単価をまとめています。",
+             "sub_label": "根拠つきの査定を依頼する", "sub_path": "satei/", "compact": True, "main_path": "baikyaku/", "mini": "売り出す前に、棟ごとの成約価格と坪単価を一覧で確認できます。", "chips": 8},
     "buy":  {"title": "買う前に、棟ごとの相場を比べる",
-             "sub": "同じ武蔵小杉でも、棟によって坪単価は{lo}から{hi}まで開きがあります。気になるマンションの相場と推移を確認できます。",
+             "sub": "同じ武蔵小杉でも、棟によって坪単価は{lo}から{hi}まで開きがあります。気になるマンションの成約価格を確認できます。",
              "sub_label": "購入の相談をする", "sub_path": "soudan/", "compact": True, "main_path": "kounyu/", "mini": "予算から、棟ごとに買える広さを一覧で確認できます。", "chips": 8},
     "area": {"title": "武蔵小杉のマンション相場を、棟ごとに見る",
-             "sub": "タワーマンションの坪単価・推移・ランキングを、国土交通省の取引データから集計して公開しています。",
+             "sub": "マンションの成約価格・取引価格・坪単価を、国土交通省の取引データから集計して公開しています。",
              "sub_label": "無料で査定を依頼する", "sub_path": "satei/", "chips": 16},
 }
 HP_FILES = ["index.html", "sell.html", "buy.html", "area/musashikosugi/index.html"]

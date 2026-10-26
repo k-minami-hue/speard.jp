@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from "macros.html" import faq_list %}
+{% from "macros.html" import faq_list, closed_table %}
 {% block title %}武蔵小杉のマンション購入相場｜予算でいくらの広さが買えるか、棟ごとの価格の目安｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉でマンションを買う前に。予算8,000万円・1億円・1億2,000万円・1億5,000万円で買える広さと、60㎡・70㎡・80㎡の価格の目安を{{ ranked|length }}棟分まとめました。タワーの坪単価は直近1年で{{ town.tsubo_txt }}前後。買う前に確認すること、売るときを見据えた選び方。{% endblock %}
+{% block description %}武蔵小杉でマンションを買う前に。予算8,000万円・1億円・1億2,000万円・1億5,000万円で買える広さと、{{ ranked|length }}棟の成約価格（中央値と幅）をまとめました。買う前に確認すること。{% endblock %}
 {% block main %}
 <div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 武蔵小杉のマンション購入相場</p>
@@ -9,9 +9,8 @@
 <section class="intro">
   <h1>武蔵小杉のマンション購入相場</h1>
   <p class="answer">予算1億円で買える広さは、武蔵小杉のマンションでは棟によって約{{ area_min }}㎡から約{{ area_max }}㎡まで違います。</p>
-  <p>タワーマンションの坪単価は、直近1年の取引で{{ town.tsubo_txt }}前後、70㎡に換算すると{{ town.p70_txt }}前後です（3年前比{{ town.chg_txt }}）。<br>
-  同じ1億円でも、どの棟を選ぶかで手に入る広さは約{{ area_max - area_min }}㎡変わります。<br>
-  下の表で、予算と広さの両方から候補の棟を絞り込んでください。</p>
+  <p>同じ1億円でも、どの棟を選ぶかで手に入る広さは約{{ area_max - area_min }}㎡変わります。<br>
+  予算で買える広さと、棟ごとの成約価格を一覧にしました。</p>
 </section>
 
 <section aria-labelledby="b-ttl">
@@ -21,24 +20,18 @@
     <thead><tr><th>マンション</th>{% for v in budgets %}<th class="num">{{ v.label }}</th>{% endfor %}</tr></thead>
     <tbody>{% for r in budget_rows %}<tr>
       <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.built_txt }}・{{ r.b['総戸数'] }}戸・徒歩{{ r.b['徒歩分'] }}分{% if r.b.struct %}・{{ r.b.struct }}{% endif %}</span></th>
-      {% for c in r.cells %}<td class="num{% if c >= 70 %} kt-ok{% endif %}" data-label="{{ budgets[loop.index0].label }}">約{{ c }}㎡</td>{% endfor %}
+      {% for c in r.cells %}<td class="num" data-label="{{ budgets[loop.index0].label }}">約{{ c }}㎡</td>{% endfor %}
     </tr>{% endfor %}</tbody>
   </table></div>
-  <p class="note">色のついたマスは、70㎡以上が買える目安です。同じ棟でも階数・向き・眺望で価格は変わり、高層階は目安より狭くなります。</p>
+  <p class="note">同じ棟でも階数・向き・眺望で価格は変わり、高層階は目安より狭くなります。</p>
   <p class="note">1億円でどの棟を選ぶかは、コラム<a href="{{ site.speard_url }}columns/kosugi-ichioku/">武蔵小杉で1億円で買えるマンションの広さ</a>で、駅・築年・売るときの比べられ方から整理しています。</p>
 </section>
 
 <section aria-labelledby="a-ttl">
-  <h2 id="a-ttl">広さごとの価格の目安（棟ごと）</h2>
-  <p class="note">坪単価の中央値×専有面積で計算した目安です。マンション名の下は坪単価です。</p>
-  <div class="tbl-wrap kt-wrap"><table class="kt">
-    <thead><tr><th>マンション</th>{% for a in areas %}<th class="num">{{ a }}㎡</th>{% endfor %}</tr></thead>
-    <tbody>{% for r in area_rows %}<tr>
-      <th><a href="{{ r.b.url }}">{{ r.b['マンション名'] }}</a><span class="sub">{{ r.b.stats.tsubo_txt }}</span></th>
-      {% for c in r.cells %}<td class="num" data-label="{{ areas[loop.index0] }}㎡">{{ c }}</td>{% endfor %}
-    </tr>{% endfor %}</tbody>
-  </table></div>
-  <p class="note">価格は国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計した、過去の取引にもとづく参考値です。現在の売出価格や将来の価格を示すものではありません。</p>
+  <h2 id="a-ttl">棟ごとの成約価格</h2>
+  <p class="note">{{ period }}に成約した取引（レインズの成約情報を国土交通省が公表したもの）の中央値と幅です。</p>
+  {{ closed_table(site, ranked, period) }}
+  <p class="note">国土交通省 不動産情報ライブラリの成約価格情報をもとに株式会社スピアードが集計した、過去の取引価格の参考値です。現在の売出価格や将来の価格を示すものではなく、購入や投資をすすめるものでもありません。</p>
   <div class="actions"><a class="btn" href="{{ site.base }}member/?from=kounyu#register" data-ev="member_cta">条件に合う売出をメールで受け取る（無料）</a><a class="btn btn-ghost" href="{{ site.base }}compare/" data-ev="buy_compare">気になる棟を並べて比べる</a></div>
 </section>
 

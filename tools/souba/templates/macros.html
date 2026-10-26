@@ -14,7 +14,7 @@
 {%- endmacro %}
 
 {% macro card(site, b, rank=None) -%}
-<li class="card" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-chg="{{ b.chg3|round|int if b.chg3 is not none else -999 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
+<li class="card" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
   <a class="cover" href="{{ b.url }}" aria-label="{{ b['マンション名'] }}の相場を見る"></a>
   <div class="card-top">
     {% if rank %}<span class="rank-no">{{ rank }}位</span>{% endif %}
@@ -24,9 +24,8 @@
     <p class="card-name">{{ b['マンション名'] }}</p>
     <p class="card-meta">{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</p>
     {% if b.stats %}
-    <div class="card-price"><span class="t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span>{% if b.chg3 is not none %}<span class="c {{ 'up' if b.chg3 >= 0 else 'down' }}">3年 {{ '%+.0f' % b.chg3 }}%</span>{% endif %}</div>
-    <p class="card-p70">70㎡なら <b>{{ b.stats.p70_txt }}</b></p>
-    {% if b.spark %}<svg class="spark" viewBox="0 0 {{ b.spark.w }} {{ b.spark.h }}" preserveAspectRatio="none" aria-hidden="true"><path d="{{ b.spark.d }}"/><circle cx="{{ b.spark.end[0] }}" cy="{{ b.spark.end[1] }}" r="3.5"/></svg>{% endif %}
+    <div class="card-price"><span class="t">{{ '{:,}'.format(b.stats.tsubo|round|int) }}<small>万円／坪</small></span></div>
+    <p class="card-p70">価格の中央値 <b>{{ b.stats.p_med_txt }}</b>（{{ b.stats.n }}件）</p>
     {% else %}
     <p class="card-empty">{{ b.nodata_txt }}</p>
     {% endif %}
@@ -79,7 +78,6 @@
   <dl class="lst-spec">
     <div class="lst-price"><dt>価格</dt><dd>{{ x.price_txt }}</dd></div>
     <div><dt>坪単価</dt><dd>{{ x.tsubo_txt }}</dd></div>
-    <div><dt>70㎡換算</dt><dd>{{ x.p70_txt }}</dd></div>
     <div><dt>専有面積</dt><dd>{{ x.area_txt }}{% if x.balcony %}<span class="sub">バルコニー {{ x.balcony }}㎡</span>{% endif %}</dd></div>
     <div><dt>間取り</dt><dd>{{ x.plan }}</dd></div>
     <div><dt>所在階・向き</dt><dd>{{ x.floor }}階・{{ x.dir }}</dd></div>
@@ -115,15 +113,13 @@
 {%- endmacro %}
 
 {% macro row(site, b, rank=None) -%}
-<li class="brow" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-chg="{{ b.chg3|round|int if b.chg3 is not none else -999 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
+<li class="brow" data-t="{{ b.stats.tsubo|round|int if b.stats else 0 }}" data-walk="{{ b['徒歩分'] }}" data-year="{{ b.year }}" data-units="{{ b['総戸数'] }}">
   <a href="{{ b.url }}">
     <span class="br-name">{% if rank %}<em class="br-rank">{{ rank }}</em>{% endif %}<b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
     {% if b.stats %}
-    <span class="br-v br-t"><small>坪単価</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
-    <span class="br-v br-p"><small>70㎡なら</small><b>{{ b.stats.p70_txt|replace('万円','') }}<i>万円</i></b></span>
-    <span class="br-v br-c"><small>3年前比</small>{% if b.chg3 is not none %}<b class="{{ 'up' if b.chg3 >= 0 else 'down' }}">{{ '%+.0f' % b.chg3 }}%</b>{% else %}<b>―</b>{% endif %}</span>
-    <span class="br-v br-a"><small>1億円なら</small><b>約{{ (10000 / (b.stats.tsubo * 0.3025))|round|int }}<i>㎡</i></b></span>
-    {% if b.spark %}<svg class="br-spark" viewBox="0 0 {{ b.spark.w }} {{ b.spark.h }}" preserveAspectRatio="none" aria-hidden="true"><path d="{{ b.spark.d }}"/><circle cx="{{ b.spark.end[0] }}" cy="{{ b.spark.end[1] }}" r="3.5"/></svg>{% else %}<span class="br-spark"></span>{% endif %}
+    <span class="br-v br-t"><small>坪単価（中央値）</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
+    <span class="br-v br-p"><small>成約価格（中央値）</small>{% if b.closed %}<b>{{ '{:,}'.format(b.closed.p_med|round|int) }}<i>万円</i></b>{% else %}<b>―</b>{% endif %}</span>
+    <span class="br-v br-c"><small>取引件数</small><b>{{ b.stats.n }}<i>件</i></b></span>
     {% else %}
     <span class="br-empty">{{ b.nodata_txt }}</span>
     {% endif %}
@@ -148,7 +144,7 @@
     <div class="tool-out" aria-live="polite" data-bud-out></div>
     <div class="tool-acts">
       <a class="btn btn-block" href="{{ site.base }}member/{% if preset %}?b={{ preset }}{% endif %}#register" data-bud-alert data-ev="member_cta">この予算の売出をメールで受け取る（無料）</a>
-      <a class="btn btn-ghost btn-block" href="{{ site.base }}{% if b %}loan/?b={{ b.id }}&amp;a=70{% else %}kounyu/{% endif %}" data-ev="buy_more">{% if b %}70㎡で住宅ローンを計算する{% else %}全棟の購入相場を表で見る{% endif %}</a>
+      <a class="btn btn-ghost btn-block" href="{{ site.base }}{% if b %}loan/?b={{ b.id }}{% else %}kounyu/{% endif %}" data-ev="buy_more">{% if b %}住宅ローンの返済額を計算する{% else %}全棟の購入相場を表で見る{% endif %}</a>
     </div>
   </div>
   <div class="tool-pan" role="tabpanel" id="panSell{{ preset or '' }}" aria-labelledby="tabSell{{ preset or '' }}" data-pan="sell" hidden>
@@ -169,4 +165,18 @@
     </div>
   </div>
 </div>
+{%- endmacro %}
+
+{% macro closed_table(site, rows, period) -%}
+<div class="tbl-wrap kt-wrap"><table class="kt kt-sell">
+  <thead><tr><th>マンション</th><th class="num">成約価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">成約件数</th><th class="num">成約価格の幅</th></tr></thead>
+  <tbody>{% for b in rows %}{% set c = b.closed %}<tr>
+    <th><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.year }}年築・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分</span></th>
+    {% if c %}<td class="num" data-label="成約価格（中央値）">{{ '{:,}'.format(c.p_med|round|int) }}万円</td>
+    <td class="num" data-label="坪単価（中央値）">{{ c.t_med|round|int }}万円</td>
+    <td class="num" data-label="成約件数">{{ c.n }}件</td>
+    <td class="num kt-wide" data-label="成約価格の幅">{{ '{:,}'.format(c.p_lo|round|int) }}万円〜{{ '{:,}'.format(c.p_hi|round|int) }}万円</td>
+    {% else %}<td class="num" data-label="成約価格（中央値）">―</td><td class="num" data-label="坪単価（中央値）">―</td><td class="num" data-label="成約件数">0件</td><td class="num kt-wide" data-label="成約価格の幅">{{ period }}の成約データなし</td>{% endif %}
+  </tr>{% endfor %}</tbody>
+</table></div>
 {%- endmacro %}

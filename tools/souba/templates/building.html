@@ -1,173 +1,159 @@
 {% extends "base.html" %}
-{% from "macros.html" import ad_cards, tool, rep, faq_list, img, listing_card, notify %}
-{% set s = b.stats %}
-{% block title %}{{ b['マンション名'] }}の相場・売却価格｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}・推移｜{{ site.name }}{% endblock %}
-{% block description %}{% if s %}{{ b['マンション名'] }}の相場は直近2年の取引で坪単価{{ s.tsubo_txt }}、70㎡換算{{ s.p70_txt }}{% if b.chg3 is not none %}（3年前比{{ '%+.0f' % b.chg3 }}%）{% endif %}。{{ b.built_txt }}・{{ b['総戸数'] }}戸。坪単価の推移、面積ごとの価格、取引事例、近くのマンションとの比較、売却価格の目安。{% else %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の概要と、近くのマンションの相場。{% endif %}{% endblock %}
-{% block head %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
+{% from "macros.html" import ad_cards, tool, faq_list, img, listing_card, notify %}
+{% set s = b.stats %}{% set cl = b.closed %}{% set tr = b.traded %}
+{% block title %}{{ b['マンション名'] }}の成約価格・相場｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}｜{{ site.name }}{% endblock %}
+{% block description %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場価格。{% if cl %}{{ period }}の成約価格は{{ '{:,}'.format(cl.p_lo|round|int) }}万円〜{{ '{:,}'.format(cl.p_hi|round|int) }}万円、中央値{{ '{:,}'.format(cl.p_med|round|int) }}万円（成約単価の中央値{{ '%.1f' % cl.t_med }}万円／坪）。{% elif s %}直近2年の坪単価の中央値{{ s.tsubo_txt }}。{% endif %}成約価格・取引価格、坪単価の推移、取引履歴、物件概要と地図。{% endblock %}
 {% block main %}
-<div class="wrap">
-  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}#list">マンション一覧</a> › {{ b['マンション名'] }}</p>
-  <div class="bhero">
-    <figure>{% if b.photo %}{{ img(site, b.photo.key, b.photo.caption, eager=True) }}<figcaption>{{ b.photo.caption }}（写真：{{ b.photo.author }}{% if b.photo.license %}／<a href="{{ b.photo.license_url }}" target="_blank" rel="noopener">{{ b.photo.license }}</a>{% endif %}）</figcaption>{% else %}<div class="plate"><b>{{ b.short }}</b><span>{{ b.built_txt }}・{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階</span></div>{% endif %}</figure>
-    <div>
-      <h1>{{ b['マンション名'] }}の相場</h1>
-      <p class="bmeta">{{ b.built_txt }}・総戸数{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階{% if b.struct %}・{{ b.struct }}{% endif %}・{{ b.walk_txt }}</p>
-      {% if s %}
-      <dl class="bfigs">
-        <div class="fig"><dt>坪単価</dt><dd>{{ '{:,}'.format(s.tsubo|round|int) }}<small>万円</small></dd></div>
-        <div class="fig"><dt>70㎡なら</dt><dd>{{ s.p70_txt|replace('万円','') }}<small>万円</small></dd></div>
-        <div class="fig"><dt>3年前比（直近1年）</dt><dd class="{{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}<small>%</small>{% else %}―{% endif %}</dd></div>
-      </dl>
-      <p class="bnote">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引{{ s.n }}件の中央値。{% if b.rank %}掲載{{ ranked|length }}棟中{{ b.rank }}位。{% endif %}{% if b.members %}{{ b.members|join('、') }}と合わせた値です。{% endif %}</p>
-      {% else %}
-      <p class="bmeta" style="margin-top:16px">{{ b.nodata_txt }}武蔵小杉のタワーマンションは、直近1年で坪単価{{ town.tsubo_txt }}前後です。</p>
-      {% endif %}
-      {% set share_url = site.origin ~ b.url %}{% set share_txt = b['マンション名'] ~ 'の相場' ~ ('（坪単価' ~ s.tsubo_txt ~ '）' if s else '') %}
-      <div class="share" aria-label="このページを共有">
-        <span>共有</span>
-        <a href="https://social-plugins.line.me/lineit/share?url={{ share_url|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="line">LINE</a>
-        <a href="https://x.com/intent/post?url={{ share_url|urlencode }}&amp;text={{ share_txt|urlencode }}" target="_blank" rel="noopener" data-ev="share" data-ad="x">X</a>
-        <button type="button" data-copy="{{ share_url }}" data-ev="share" data-ad="copy">リンクをコピー</button>
-      </div>
-      {{ tool(site, buildings, preset=b.id, b=b) }}
+<div class="pbar">
+  <div class="wrap pbar-in">
+    <h1>{{ b['マンション名'] }}</h1>
+    <div class="pbar-chips">
+      {% if b.rank %}<span class="pchip">武蔵小杉 掲載{{ ranked|length }}棟中 <b>{{ b.rank }}</b>位<small>坪単価</small></span>{% endif %}
+      <span class="pchip">直近2年の取引 <b>{{ s.n if s else 0 }}</b>件</span>
     </div>
   </div>
 </div>
-
-<nav class="jump" aria-label="このページの内容">
-  <div class="wrap"><ul>
-    {% if b.stats %}<li><a href="#t-ttl">相場の推移</a></li>{% endif %}
+<div class="wrap">
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}#list">マンション一覧</a> › {{ b['マンション名'] }}</p>
+  <table class="ptable"><tbody>
+    <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
+    <tr><th>交通</th><td>{{ b.walk_txt }}</td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
+  </tbody></table>
+  <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}分まで（国土交通省の公表は四半期ごと）</p>
+  <nav class="ptabs" aria-label="このページの内容"><ul>
+    <li><a href="#p-ttl">相場価格</a></li>
+    {% if s %}<li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
-    <li><a href="#n-ttl">近くと比べる</a></li>
-    {% if b.stats %}<li><a href="#a-ttl">広さ・取引事例</a></li>{% endif %}
+    <li><a href="#g-ttl">周辺地図</a></li>
     <li><a href="#s-ttl">物件概要</a></li>
-    <li><a href="#q-ttl">よくある質問</a></li>
-  </ul></div>
-</nav>
+  </ul></nav>
+  {% if b.photo %}<figure class="pphoto">{{ img(site, b.photo.key, b.photo.caption, eager=True) }}<figcaption>{{ b.photo.caption }}（写真：{{ b.photo.author }}{% if b.photo.license %}／<a href="{{ b.photo.license_url }}" target="_blank" rel="noopener">{{ b.photo.license }}</a>{% endif %}）</figcaption></figure>{% endif %}
+</div>
 
 {% if b.listings %}<section class="sec" aria-labelledby="l-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="l-ttl">{{ b.short }}の売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。</p></div></div>
+    <h2 class="hbar" id="l-ttl">{{ b['マンション名'] }}の売出中住戸</h2>
     <ul class="lsts">{% for x in b.listings %}{{ listing_card(site, x, show_name=False) }}{% endfor %}</ul>
   </div>
 </section>{% endif %}
 
+<section class="sec" aria-labelledby="p-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="p-ttl">{{ b['マンション名'] }}の相場価格</h2>
+    {% if s %}
+    {% for st, label, note in [(cl, '成約価格', '不動産会社がレインズに登録した、売買が成立したときの価格です。'), (tr, '取引価格', '国土交通省が、買った人へのアンケートで集めた価格です（面積と価格は丸めた値）。')] %}
+    <div class="pblock">
+      <h3>{{ period }}の{{ label }}</h3>
+      {% if st %}
+      <dl class="prow">
+        <div><dt>{{ label }}</dt><dd><span class="pr">{{ '{:,}'.format(st.p_lo|round|int) }}</span>万円 〜 <span class="pr">{{ '{:,}'.format(st.p_hi|round|int) }}</span>万円<span class="pmed">中央値：<b>{{ '{:,}'.format(st.p_med|round|int) }}</b>万円</span></dd></div>
+        <div><dt>{{ label|replace('価格', '単価') }}</dt><dd>{{ '%.1f' % st.t_lo }}万円/坪 〜 {{ '%.1f' % st.t_hi }}万円/坪<span class="psub">（{{ '%.1f' % st.m_lo }}万円/㎡ 〜 {{ '%.1f' % st.m_hi }}万円/㎡）</span><span class="pmed">中央値：{{ '%.1f' % st.t_med }}万円/坪<span class="psub">（{{ '%.1f' % st.m_med }}万円/㎡）</span></span></dd></div>
+        <div><dt>件数</dt><dd>{{ st.n }}件</dd></div>
+      </dl>
+      {% else %}<p class="muted">この期間の{{ label }}のデータはありません。</p>{% endif %}
+      <p class="pnote">{{ note }}</p>
+    </div>
+    {% endfor %}
+    {% if b.members %}<p class="pnote">国土交通省のデータでは{{ b.members|join('・') }}と区別できないため、合わせた値です。</p>{% endif %}
+    <p class="pnote">国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計しています。過去の取引価格をまとめた参考値で、現在の売出価格や将来の価格を示すものではありません。不動産の購入や投資をすすめるものでもありません。</p>
+    {% else %}
+    <p>{{ b.nodata_txt }}</p>
+    {% endif %}
+  </div>
+</section>
+
 {% if s %}<section class="sec" aria-labelledby="t-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="t-ttl">坪単価の推移</h2><p>四半期ごとの中央値（万円／坪）。紺が{{ b.short }}、灰色が武蔵小杉のタワーマンション全体</p></div></div>
-    <div class="chart-box"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の坪単価推移グラフ"></canvas></div>
+    <h2 class="hbar" id="t-ttl">相場推移グラフ</h2>
+    <p class="muted" style="margin-bottom:10px">1つの点が1件の取引です（坪単価）。灰色の線は四半期ごとの中央値。点を押すと時期・広さ・価格が出ます。</p>
+    <div class="chart-box chart-tall"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の取引の坪単価のグラフ"></canvas></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="h-ttl">取引履歴</h2>
+    <div class="tbl-wrap"><table class="htable">
+      <thead><tr><th>時期</th><th>種別</th><th>間取り</th><th>専有面積</th><th>価格</th><th>坪単価</th></tr></thead>
+      <tbody>{% for c in b.cases[:10] %}<tr><td class="nw">{{ c.q }}</td><td class="nw">{{ c.kind }}</td><td class="nw">{{ c.plan }}</td><td class="nw">{{ c.area }}</td><td class="nw">{{ c.price }}</td><td class="nw">{{ c.tsubo }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <p class="pnote">直近2年の新しい順に10件。面積と価格は国土交通省の公表値（丸めた値）です。</p>
+    {% if b.all_cases %}<div class="m-gate" id="members" data-members="{{ b.slug }}">
+      <div class="m-gate-lock">
+        <div class="m-gate-msg">
+          <p><b>2015年以降の全{{ b.all_cases|length }}件の取引履歴は、無料会員の方が見られます。</b><br>売出・値下げのお知らせも受け取れます。</p>
+          <a class="btn" href="{{ site.base }}member/?b={{ b.id }}#register" data-ev="member_cta">無料会員登録</a>
+          <a class="more" href="{{ site.base }}member/#login">登録済みの方はこちら</a>
+        </div>
+      </div>
+      <div class="m-gate-open" hidden></div>
+    </div>{% endif %}
   </div>
 </section>{% endif %}
 
 {% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="c-ttl">担当者の見方</h2><p>武蔵小杉のタワーマンションの売買を担当する株式会社スピアードの見方です</p></div></div>
+    <h2 class="hbar" id="c-ttl">担当者の見方</h2>
     <div class="comment">
       <div><h3>アピールポイント</h3><ul>{% for c in b.comments['アピール'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
       <div><h3>ウィークポイント</h3><ul>{% for c in b.comments['ウィーク'] %}<li>{{ c }}</li>{% endfor %}</ul></div>
     </div>
-    {% if b.column %}<p class="c-result">あわせて読む：<a href="{{ b.column.url }}?from=souba-{{ b.slug }}">{{ b.column.title }}</a></p>{% endif %}
     {% if b.result %}<p class="c-result">株式会社スピアードは、{{ b['マンション名'] }}{% if b.result.floor %}の{{ b.result.floor }}の住戸{% endif %}でお取引をお手伝いしました（価格・お部屋の詳細は非公開）。<a href="{{ b.result.url }}?from=souba">成約実績を見る</a></p>{% endif %}
-    <div class="c-cta">
-      <p>買うなら、ウィークポイントを知ったうえで価格が妥当かを判断できます。売るなら、ウィークポイントを先に潰した売り方で価格は変わります。どちらも根拠つきでお答えします。</p>
-      <div class="actions"><a class="btn" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=comment" data-ev="cta_satei">{{ b.short }}の査定を依頼する（無料）</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=comment" data-ev="cta_sodan">{{ b.short }}の購入を相談する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
-    </div>
+    {% if b.column %}<p class="c-result">あわせて読む：<a href="{{ b.column.url }}?from=souba-{{ b.slug }}">{{ b.column.title }}</a></p>{% endif %}
   </div>
 </section>{% endif %}
 
-{% if b.dpoints['アピール'] or b.dpoints['ウィーク'] %}<section class="sec" aria-labelledby="d-ttl">
+<section class="sec" aria-label="{{ b['マンション名'] }}の売却・購入のご相談">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="d-ttl">データで見る{{ b.short }}の特徴</h2><p>取引データと物件概要から機械的に整理したものです（{{ latest_q }}時点）</p></div></div>
-    <div class="comment">
-      <div><h3>アピールポイント</h3><ul>{% for c in b.dpoints['アピール'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
-      <div><h3>ウィークポイント</h3><ul>{% for c in b.dpoints['ウィーク'] %}<li>{{ c }}</li>{% else %}<li class="muted">データから言える目立った点はありません</li>{% endfor %}</ul></div>
+    <h2 class="hbar">{{ b['マンション名'] }}の売却・購入に関するお問い合わせ</h2>
+    <div class="pcta">
+      <div><p class="pcta-ttl">このマンションを購入・住み替えしたい方</p><p>売出中の住戸の確認から、価格の妥当性の判断までお手伝いします。</p><a class="btn btn-block" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage" data-ev="cta_sodan">購入の相談をする（無料）</a></div>
+      <div><p class="pcta-ttl">このマンションを売却したい方</p><p>同じ建物の成約事例をもとに、根拠つきの査定価格をお出しします。</p><a class="btn btn-gold btn-block" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage" data-ev="cta_satei">無料査定を依頼する</a></div>
     </div>
-  </div>
-</section>{% endif %}
-
-<section class="sec" aria-labelledby="n-ttl">
-  <div class="wrap split">
-    <div>
-      <div class="sec-head"><div><h2 id="n-ttl">近くのマンションと比べる</h2><p>直線距離と坪単価の差</p></div></div>
-      <ul class="near">
-        {% for n in b.near %}<li><a href="{{ n.b.url }}"><span class="n-name">{{ n.b['マンション名'] }}<span class="n-dist">約{{ n.m }}m・{{ n.b.built_txt }}・{{ n.b['総戸数'] }}戸</span></span>
-          <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% if n.diff is not none %}<span class="sub {{ 'up' if n.diff > 0 else 'down' if n.diff < 0 else '' }}">{{ b.short }}より{{ '%+.0f' % n.diff }}万円</span>{% endif %}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
-        {% endfor %}
-      </ul>
-      <p style="margin-top:12px"><a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a>{% if s %}　<a class="more" href="{{ site.base }}loan/?b={{ b.id }}&amp;a=70">70㎡で住宅ローンを計算する</a>{% endif %}</p>
-    </div>
-    <div class="mapbox short" id="map" data-map="self" data-self="{{ b.id }}" role="region" aria-label="{{ b['マンション名'] }}と周辺の地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
+    <p class="pcta-tel">お電話：<a href="tel:{{ site.tel|replace('-','') }}">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></p>
   </div>
 </section>
 
-{% if s %}<section class="sec" aria-labelledby="a-ttl">
-  <div class="wrap split">
-    <div>
-      <div class="sec-head"><div><h2 id="a-ttl">広さごとの価格</h2><p>直近2年の取引</p></div></div>
-      <div class="tbl-wrap"><table>
-        <thead><tr><th>専有面積</th><th>件数</th><th>坪単価</th><th>価格</th></tr></thead>
-        <tbody>{% for r in b.bands %}<tr><th class="nw">{{ r.label }}</th><td class="nw">{{ r.n }}件</td><td class="nw">{{ r.tsubo_txt }}</td><td class="nw">{{ r.price_txt }}</td></tr>{% endfor %}</tbody>
-      </table></div>
-    </div>
-    <div>
-      <div class="sec-head"><div><h2>最近の取引</h2><p>国土交通省の公表値（面積と価格は丸めた値）</p></div></div>
-      <div class="tbl-wrap"><table>
-        <thead><tr><th>時期</th><th>広さ・間取り</th><th>価格<span class="sub">坪単価</span></th></tr></thead>
-        <tbody>{% for c in b.cases[:8] %}<tr><td class="nw">{{ c.q }}<span class="sub">{{ c.kind }}</span></td><td class="nw">{{ c.area }}<span class="sub">{{ c.plan }}</span></td><td class="nw">{{ c.price }}<span class="sub">{{ c.tsubo }}</span></td></tr>{% endfor %}</tbody>
-      </table></div>
-    </div>
-  </div>
-</section>{% endif %}
-
-{% if b.all_cases %}<section class="sec" id="members" aria-labelledby="m-ttl">
+<section class="sec" aria-labelledby="g-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="m-ttl">{{ b.short }}の全取引明細<span class="m-badge">会員限定</span></h2><p>2015年以降の取引{{ b.all_cases|length }}件と、四半期ごとの取引件数・坪単価（国土交通省の公表値）</p></div></div>
-    <div class="m-gate" data-members="{{ b.slug }}">
-      <div class="m-gate-lock">
-        <div class="tbl-wrap m-blur" aria-hidden="true"><table><thead><tr><th>時期</th><th>広さ・間取り</th><th>価格</th><th>坪単価</th></tr></thead>
-        <tbody>{% for c in b.all_cases[:5] %}<tr><td>{{ c.q }}</td><td>{{ c.area }}㎡ {{ c.plan }}</td><td>{{ '{:,}'.format(c.price) }}万円</td><td>{{ c.tsubo }}万円</td></tr>{% endfor %}</tbody></table></div>
-        <div class="m-gate-msg">
-          <p><b>無料会員になると、{{ b.all_cases|length }}件すべての取引明細を見られます。</b><br>売出・値下げのお知らせも受け取れます。</p>
-          <a class="btn" href="{{ site.base }}member/?b={{ b.id }}#register" data-ev="member_cta">無料で会員登録</a>
-          <a class="more" href="{{ site.base }}member/#login">登録済みの方はこちら</a>
-        </div>
-      </div>
-      <div class="m-gate-open" hidden></div>
-    </div>
-  </div>
-</section>{% endif %}
-
-
-
-
-
-<section class="sec" aria-labelledby="k-ttl">
-  <div class="wrap split">
-    <div>
-      <div class="sec-head"><div><h2 id="k-ttl">売る前・買う前に確認したいこと</h2></div></div>
-      <ul class="checks">{% for p in b.points %}<li>{{ p }}</li>{% endfor %}
-        <li>同じ建物と近くのタワーで、同じ条件の売出がどれだけ出ているか</li>
-      </ul>
-    </div>
-    <div>
-      <div class="sec-head"><div><h2 id="s-ttl">物件概要</h2></div></div>
-      <table class="spec"><tbody>
-        <tr><th>所在地</th><td>{{ b['所在地'] }}</td></tr>
-        <tr><th>交通</th><td>{{ b.walk_txt }}</td></tr>
-        <tr><th>竣工</th><td>{{ b.built_txt }}</td></tr>
-        <tr><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
-        <tr><th>構造・階数</th><td>{{ b['構造'] }} 地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}・地下{{ b['地下階数'] }}階{% endif %}{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
-        <tr><th>分譲会社</th><td>{{ b['分譲会社'] }}</td></tr>
-        <tr><th>管理会社</th><td>{{ b['管理会社'] or '―' }}</td></tr>
-      </tbody></table>
-      {% if b['備考'] %}<p class="note" style="margin-top:8px">{{ b['備考'] }}</p>{% endif %}
-    </div>
+    <h2 class="hbar" id="g-ttl">周辺地図</h2>
+    <div class="gframe"><iframe title="{{ b['マンション名'] }}の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+      src="{% if site.gmaps_key %}https://www.google.com/maps/embed/v1/place?key={{ site.gmaps_key }}&amp;q={{ b.lat }},{{ b.lng }}&amp;zoom=16&amp;language=ja{% else %}https://maps.google.com/maps?q={{ b.lat }},{{ b.lng }}&amp;z=16&amp;hl=ja&amp;output=embed{% endif %}"></iframe></div>
+    <h3 class="near-ttl">近くのマンション</h3>
+    <ul class="near">
+      {% for n in b.near %}<li><a href="{{ n.b.url }}"><span class="n-name">{{ n.b['マンション名'] }}<span class="n-dist">約{{ n.m }}m・{{ n.b.built_txt }}・{{ n.b['総戸数'] }}戸</span></span>
+        <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
+      {% endfor %}
+    </ul>
+    <p style="margin-top:12px"><a class="more" href="{{ site.base }}map/">マップから探す</a>　<a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a></p>
   </div>
 </section>
+
+<section class="sec" aria-labelledby="s-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="s-ttl">物件概要</h2>
+    <table class="spec"><tbody>
+      <tr><th>マンション名</th><td>{{ b['マンション名'] }}</td></tr>
+      <tr><th>所在地</th><td>{{ b['所在地'] }}</td></tr>
+      <tr><th>交通</th><td>{{ b.walk_txt }}</td></tr>
+      <tr><th>建築年月</th><td>{{ b.built_txt }}</td></tr>
+      <tr><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
+      <tr><th>構造・階数</th><td>{{ b['構造'] }} 地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}・地下{{ b['地下階数'] }}階{% endif %}{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
+      <tr><th>分譲会社</th><td>{{ b['分譲会社'] }}</td></tr>
+      <tr><th>管理会社</th><td>{{ b['管理会社'] or '―' }}</td></tr>
+    </tbody></table>
+    {% if b['備考'] %}<p class="note" style="margin-top:8px">{{ b['備考'] }}</p>{% endif %}
+    <p class="pnote">分譲時の資料や公開情報をもとにしています。現況と異なる場合があります。</p>
+  </div>
+</section>
+
+{% if s %}<section class="sec" aria-label="価格の目安を出す">
+  <div class="wrap narrow">{{ tool(site, buildings, preset=b.id, b=b) }}</div>
+</section>{% endif %}
 
 <section class="sec" aria-labelledby="q-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="q-ttl">{{ b.short }}のよくある質問</h2></div></div>
+    <h2 class="hbar" id="q-ttl">{{ b['マンション名'] }}のよくある質問</h2>
     {{ faq_list(faq) }}
   </div>
 </section>
@@ -178,9 +164,8 @@
   {{ ad_cards(my_ads[:2]) }}
 </div></section>{% endif %}
 
-<section class="sec" aria-label="相場の更新のお知らせ"><div class="wrap">{{ notify(site, b) }}</div></section>
+<section class="sec" aria-label="売出のお知らせ"><div class="wrap">{{ notify(site, b) }}</div></section>
 
 {% endblock %}
 {% block data %}<script>window.ATLAS = {{ atlas_json | safe }};{% if s %} window.CHART = {{ chart | safe }};{% endif %}</script>
-{% if s %}<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endif %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>{% endblock %}
+{% if s %}<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endif %}{% endblock %}

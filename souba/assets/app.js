@@ -120,7 +120,7 @@
   const initSorter = () => {
     const list = $("#cards");
     if (!list) return;
-    const keys = { t: (c) => -num(c.dataset.t), chg: (c) => -num(c.dataset.chg), walk: (c) => num(c.dataset.walk) * 1000 - num(c.dataset.t), year: (c) => -num(c.dataset.year), units: (c) => -num(c.dataset.units) };
+    const keys = { t: (c) => -num(c.dataset.t), walk: (c) => num(c.dataset.walk) * 1000 - num(c.dataset.t), year: (c) => -num(c.dataset.year), units: (c) => -num(c.dataset.units) };
     $$(".sorter button").forEach((btn) => btn.addEventListener("click", () => {
       $$(".sorter button").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
       const k = keys[btn.dataset.sort];
@@ -152,98 +152,127 @@
       },
     });
   };
+  const plotChart = (canvas, d) => {
+    const muted = "#6b7484", rule = css("--rule");
+    const col = { 成約価格: "rgba(18,41,84,.72)", 取引価格: "rgba(199,163,77,.85)" };
+    const ds = Object.entries(d.plot).filter(([, pts]) => pts.length).map(([k, pts]) => ({ type: "scatter", label: k, data: pts, backgroundColor: col[k] || "#888", borderWidth: 0, pointRadius: 3.6, pointHoverRadius: 5.5 }));
+    if (d.median.length > 1) ds.push({ type: "line", label: "四半期の中央値", data: d.median, borderColor: "#8a93a3", backgroundColor: "#8a93a3", borderWidth: 1.6, pointRadius: 0, tension: 0.15 });
+    const qOf = (x) => `${Math.floor(x)}年${Math.round((x % 1) * 4 + 0.5)}Q`;
+    return new window.Chart(canvas, {
+      data: { datasets: ds },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+        plugins: {
+          legend: { position: "top", align: "start", labels: { color: muted, boxWidth: 12, boxHeight: 12, font: { size: 12 } } },
+          tooltip: { callbacks: { label: (c) => { const r = c.raw; return r.a ? `${c.dataset.label} ${qOf(r.x)}：${r.a}㎡ ${r.p.toLocaleString("ja-JP")}万円（${r.y}万円／坪）` : `${c.dataset.label} ${qOf(r.x)}：${r.y}万円／坪`; } } },
+        },
+        scales: {
+          x: { type: "linear", ticks: { color: muted, stepSize: 1, precision: 0, callback: (v) => `${v}年`, font: { size: 11 }, maxRotation: 0 }, grid: { display: false } },
+          y: { ticks: { color: muted, font: { size: 11 }, callback: (v) => `${v.toLocaleString("ja-JP")}万` }, grid: { color: rule }, title: { display: true, text: "坪単価（万円）", color: muted, font: { size: 11 } } },
+        },
+      },
+    });
+  };
   const drawChart = () => {
     const canvas = $("#chart"), data = window.CHART;
     if (!canvas || !data || document.body.classList.contains("p-compare")) return;
-    whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
+    if (data.plot) whenChart(() => plotChart(canvas, data));
+    else whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
   };
 
-  /* ---------- 地図 ---------- */
-  const TILE = "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png";
-  const TILE_ATTR = '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
-  const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
-  const pinIcon = (b, cls = "") => window.L.divIcon({
-    className: "pin-wrap", iconSize: [0, 0],
-    html: `<div class="pin pin-b${b.t ? b.band : 0} ${cls}" data-id="${b.id}"><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? b.t : esc(b.nodata)}</b></span></div>`,
+  /* ---------- 地図（Googleマップ。キーが未設定のときは国土地理院の淡色地図） ---------- */
+  const PIN = (hot) => {
+    const c = hot ? "#C7A34D" : "#122954";
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="34" height="44" viewBox="0 0 34 44"><path d="M17 1.5C8.4 1.5 1.5 8.3 1.5 16.7 1.5 28.2 17 42.5 17 42.5s15.5-14.3 15.5-25.8C32.5 8.3 25.6 1.5 17 1.5z" fill="${c}" stroke="#fff" stroke-width="1.5"/><rect x="10.5" y="8" width="13" height="18" rx="1" fill="#fff"/><g fill="${c}"><rect x="12.8" y="10.5" width="3.2" height="2.8"/><rect x="18" y="10.5" width="3.2" height="2.8"/><rect x="12.8" y="15" width="3.2" height="2.8"/><rect x="18" y="15" width="3.2" height="2.8"/><rect x="15.4" y="19.8" width="3.2" height="6.2"/></g></svg>`;
+  };
+  const pinUrl = (hot) => "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(PIN(hot));
+  const mapCard = (b) => `<div class="mcard"><p class="mc-name">${esc(b.name)}</p>` +
+    `<p class="mc-row">${esc(b.addr)}</p><p class="mc-row">${esc(b.line)}「${esc(b.stn)}」駅 徒歩${b.walk}分</p><p class="mc-row">${esc(b.built)}・総戸数${b.units.toLocaleString("ja-JP")}戸・地上${b.floors}階</p>` +
+    (b.t ? `<dl class="mc-price"><div><dt>坪単価（中央値）</dt><dd>${b.t.toLocaleString("ja-JP")}<small>万円</small></dd></div>${b.cm ? `<div><dt>成約価格（中央値）</dt><dd>${b.cm.toLocaleString("ja-JP")}<small>万円</small></dd></div>` : ""}</dl><p class="mc-note">直近2年の取引${b.n}件から集計</p>`
+      : `<p class="mc-note">${b.pre ? "竣工前のため、" : ""}取引データはまだありません</p>`) +
+    `<a class="mc-go" href="${b.url}" data-ev="map_detail">詳細を見る</a></div>`;
+  const loadGoogle = () => new Promise((res, rej) => {
+    if (window.google && window.google.maps && window.google.maps.Map) { res(); return; }
+    window.__soubaMaps = res;
+    const sc = document.createElement("script");
+    sc.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(SITE.gmaps_key)}&language=ja&region=JP&loading=async&callback=__soubaMaps`;
+    sc.async = true; sc.onerror = rej; document.head.appendChild(sc);
   });
-  const popup = (b) => `<p class="pop-name">${esc(b.name)}</p><p class="pop-meta">${esc(b.built)}・${b.units}戸・${esc(b.line)} 徒歩${b.walk}分</p>` +
-    (b.t ? `<p class="pop-t">${b.t.toLocaleString("ja-JP")}<small>万円／坪</small></p><p class="pop-meta">70㎡なら ${man(b.p70)}${b.chg != null ? `・3年 ${b.chg > 0 ? "+" : ""}${b.chg}%` : ""}</p>` : `<p class="pop-meta" style="margin-top:6px">${b.pre ? "竣工前のため" : ""}取引データなし</p>`) +
-    `<p class="pop-row"><a href="${b.url}">相場を見る</a><a class="p" href="${SITE.base}satei/?b=${b.id}" data-ev="cta_satei_map">査定する</a></p>`;
-  // 値札が重なるときは縦にずらす（ズームのたびに計算し直す）
-  const spread = (map, markers) => {
-    const run = () => {
-      const pts = markers.map((m) => ({ p: map.latLngToLayerPoint(m.getLatLng()), el: m.getElement() && m.getElement().querySelector(".pin") })).filter((x) => x.el);
-      pts.forEach((x) => { const t = x.el.querySelector(".tag"); x.dy = 0; x.w = t.offsetWidth || 70; x.h = t.offsetHeight + 7; });
-      pts.sort((a, b) => a.p.y - b.p.y);
-      for (let i = 0; i < pts.length; i++) for (let j = 0; j < i; j++) {
-        const a = pts[j], b = pts[i];
-        const hgt = (b.h || 40) + 4; if (Math.abs(a.p.x - b.p.x) < (a.w + b.w) / 2 + 2 && Math.abs((a.p.y + a.dy) - (b.p.y + b.dy)) < hgt) b.dy = (a.p.y + a.dy) - b.p.y + hgt + 2;
-      }
-      pts.forEach((x) => x.el.style.setProperty("--dy", `${x.dy}px`));
-    };
-    map.on("zoomend", run); run();
-  };
-  const baseMap = (el, opts) => {
-    const fb = el.querySelector(".map-fallback"); if (fb) fb.remove();
-    const map = window.L.map(el, { scrollWheelZoom: false, zoomSnap: 0.5, zoomDelta: 0.5, ...opts });
-    window.L.tileLayer(TILE, { attribution: TILE_ATTR, maxZoom: 18, minZoom: 12 }).addTo(map);
-    (A.stations || []).forEach((s) => window.L.marker([s.lat, s.lng], { interactive: false, zIndexOffset: -2000, icon: window.L.divIcon({ className: "pin-wrap", iconSize: [0, 0], html: `<div class="stn">${esc(s.name)}</div>` }) }).addTo(map));
-    return map;
-  };
-  const addPins = (map, selfId) => {
-    const pins = {};
+  const gMap = async (el) => {
+    await loadGoogle();
+    const g = window.google.maps;
+    const map = new g.Map(el, { center: { lat: 35.5755, lng: 139.6595 }, zoom: 15, mapTypeControl: true, streetViewControl: true, fullscreenControl: true,
+      gestureHandling: "cooperative", clickableIcons: false });
+    const info = new g.InfoWindow({ maxWidth: 300 });
+    const icon = (hot) => ({ url: pinUrl(hot), scaledSize: new g.Size(34, 44), anchor: new g.Point(17, 43) });
+    const mk = {};
     A.buildings.forEach((b) => {
-      const m = window.L.marker([b.lat, b.lng], { icon: pinIcon(b, b.id === selfId ? "is-self" : ""), title: b.name, riseOnHover: true, zIndexOffset: b.id === selfId ? 1000 : 0 }).addTo(map);
-      m.bindPopup(popup(b), { offset: [0, -44], maxWidth: 280 });
-      m.on("popupopen", () => track("map_pin_open", { building: b.name }));
-      pins[b.id] = m;
+      const m = new g.Marker({ position: { lat: b.lat, lng: b.lng }, map, title: b.name, icon: icon(false) });
+      m.addListener("click", () => { info.setContent(mapCard(b)); info.open({ anchor: m, map }); track("map_pin_open", { building: b.name }); });
+      mk[b.id] = m;
     });
-    return pins;
+    return {
+      fit: (ids) => { const bd = new g.LatLngBounds(); ids.forEach((id) => bd.extend(mk[id].getPosition())); map.fitBounds(bd, 48); },
+      show: (id, on) => mk[id].setVisible(on),
+      hot: (id, on) => { mk[id].setIcon(icon(on)); mk[id].setZIndex(on ? 999 : null); },
+      open: (id) => { map.panTo(mk[id].getPosition()); if (map.getZoom() < 16) map.setZoom(16); g.event.trigger(mk[id], "click"); },
+    };
   };
-  const initMaps = () => {
+  const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
+  const lMap = async (el) => {
+    await new Promise((r) => whenLeaflet(r));
+    const L = window.L;
+    const map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.5, tap: false }).setView([35.5755, 139.6595], 15);
+    L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", { maxZoom: 18, minZoom: 11,
+      attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>' }).addTo(map);
+    const icon = (hot) => L.icon({ iconUrl: pinUrl(hot), iconSize: [34, 44], iconAnchor: [17, 43], popupAnchor: [0, -40] });
+    const mk = {};
+    A.buildings.forEach((b) => {
+      const m = L.marker([b.lat, b.lng], { icon: icon(false), title: b.name, riseOnHover: true }).addTo(map);
+      m.bindPopup(mapCard(b), { maxWidth: 300, minWidth: 240 });
+      m.on("popupopen", () => track("map_pin_open", { building: b.name }));
+      mk[b.id] = m;
+    });
+    return {
+      fit: (ids) => map.fitBounds(L.latLngBounds(ids.map((id) => mk[id].getLatLng())), { padding: [36, 36] }),
+      show: (id, on) => { if (on) mk[id].addTo(map); else mk[id].remove(); },
+      hot: (id, on) => { mk[id].setIcon(icon(on)); mk[id].setZIndexOffset(on ? 1000 : 0); },
+      open: (id) => { map.setView(mk[id].getLatLng(), Math.max(map.getZoom(), 16)); mk[id].openPopup(); },
+    };
+  };
+  const initMaps = async () => {
     const el = $("#map");
     if (!el || !A) return;
-    const mode = el.dataset.map;
-    whenLeaflet(() => {
-      const coarse = window.matchMedia("(pointer: coarse)").matches;
-      const map = baseMap(el, { center: [35.5755, 139.6595], zoom: 16, dragging: !coarse || mode === "atlas", tap: false });
-      const pins = addPins(map, el.dataset.self);
-      if (mode === "self") {
-        const self = byId[el.dataset.self];
-        const near = A.buildings.filter((b) => b.id !== self.id).sort((a, b) => map.distance([self.lat, self.lng], [a.lat, a.lng]) - map.distance([self.lat, self.lng], [b.lat, b.lng])).slice(0, 4);
-        map.fitBounds(window.L.latLngBounds([self, ...near].map((b) => [b.lat, b.lng])).pad(0.3), { maxZoom: 17 });
-      } else {
-        const core = A.buildings.filter((b) => b.id !== "k16" && b.id !== "k13");
-        map.fitBounds(window.L.latLngBounds(core.map((b) => [b.lat, b.lng])), { paddingTopLeft: [60, 70], paddingBottomRight: [60, 10] });
-      }
-      spread(map, Object.values(pins));
-      if (mode === "atlas") initAtlas(map, pins);
-    });
+    const fb = el.querySelector(".map-fallback");
+    let m;
+    try {
+      if (SITE.gmaps_key) m = await gMap(el);
+      else { if (fb) fb.remove(); m = await lMap(el); }
+    } catch { if (fb) fb.textContent = "地図を読み込めませんでした。時間をおいて開き直してください。"; return; }
+    m.fit(A.buildings.map((b) => b.id));
+    if (el.dataset.map === "atlas") initAtlas(m);
   };
 
-  /* ---------- 相場マップ：絞り込み・一覧・比較 ---------- */
-  const initAtlas = (map, pins) => {
+  /* ---------- マップから探す：絞り込み・一覧 ---------- */
+  const initAtlas = (m) => {
     const items = $$("#blist .bl");
-    const state = { age: null, walk: null, band: null, struct: null, units: null };
+    const state = { age: null, walk: null, tower: null, struct: null, units: null };
     const NOW = new Date().getFullYear();
-    const pinEl = (id) => pins[id] && pins[id].getElement() && pins[id].getElement().querySelector(".pin");
-    const hot = (id, on) => {
-      const li = items.find((x) => x.dataset.id === id); if (li) li.classList.toggle("is-hot", on);
-      const p = pinEl(id); if (p) p.classList.toggle("is-hot", on);
-      if (pins[id]) pins[id].setZIndexOffset(on ? 1000 : 0);
-    };
-    items.forEach((li) => { li.addEventListener("mouseenter", () => hot(li.dataset.id, true)); li.addEventListener("mouseleave", () => hot(li.dataset.id, false)); });
-    Object.entries(pins).forEach(([id, m]) => { m.on("mouseover", () => hot(id, true)); m.on("mouseout", () => hot(id, false)); });
+    items.forEach((li) => {
+      li.addEventListener("mouseenter", () => m.hot(li.dataset.id, true));
+      li.addEventListener("mouseleave", () => m.hot(li.dataset.id, false));
+      $(".bl-go", li).addEventListener("click", () => { m.open(li.dataset.id); if (window.matchMedia("(max-width: 900px)").matches) $("#map").scrollIntoView({ behavior: "smooth", block: "center" }); });
+    });
     const pass = (b) => (!state.age || (b.year <= NOW && NOW - b.year <= state.age)) && (!state.walk || b.walk <= state.walk) &&
-      (!state.band || (b.t && String(b.band) === state.band)) && (!state.struct || b.struct === state.struct) && (!state.units || b.units >= state.units);
-    const sorters = { t: (a, b) => (b.t || 0) - (a.t || 0), chg: (a, b) => (b.chg ?? -999) - (a.chg ?? -999), year: (a, b) => b.year - a.year, walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0), units: (a, b) => b.units - a.units };
+      (!state.tower || b.tower) && (!state.struct || b.struct === state.struct) && (!state.units || b.units >= state.units);
+    const sorters = { t: (a, b) => (b.t || 0) - (a.t || 0), year: (a, b) => b.year - a.year, walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0), units: (a, b) => b.units - a.units };
     const apply = () => {
       let n = 0; const list = $("#blist");
       A.buildings.slice().sort(sorters[$("#sort").value] || sorters.t).forEach((b) => {
         const li = items.find((x) => x.dataset.id === b.id), ok = pass(b);
         if (ok) n++;
         if (li) { li.hidden = !ok; list.appendChild(li); }
-        const p = pinEl(b.id); if (p) p.classList.toggle("is-dim", !ok);
+        m.show(b.id, ok);
       });
       $("#count").textContent = `${n}棟`;
       const empty = $("#blEmpty");
@@ -254,24 +283,11 @@
       const f = c.dataset.f, on = c.getAttribute("aria-pressed") !== "true";
       $$(`#filters .chip[data-f="${f}"]`).forEach((x) => x.setAttribute("aria-pressed", "false"));
       c.setAttribute("aria-pressed", String(on));
-      state[f] = on ? (["struct", "band"].includes(f) ? c.dataset.v : Number(c.dataset.v)) : null;
+      state[f] = on ? (f === "struct" ? c.dataset.v : Number(c.dataset.v)) : null;
       apply(); track("filter", { filter: f, value: on ? c.dataset.v : "off" });
     }));
     $("#sort").addEventListener("change", apply);
     apply();
-    const tray = $("#tray"), picked = [];
-    const sync = () => {
-      items.forEach((li) => li.classList.toggle("is-picked", picked.includes(li.dataset.id)));
-      tray.classList.toggle("is-on", picked.length > 0); document.body.classList.toggle("has-tray", picked.length > 0);
-      $("#trayNames").textContent = picked.length ? `比較：${picked.map((id) => byId[id].short).join("、")}` : "";
-      $("#trayGo").href = `${SITE.base}compare/?ids=${picked.join(",")}`; $("#trayGo").textContent = `${picked.length}棟を比べる`;
-    };
-    $$("#blist .bl-pick input").forEach((cb) => cb.addEventListener("change", () => {
-      if (cb.checked) { if (picked.length >= 3) { cb.checked = false; $("#trayNames").textContent = "比べられるのは3棟までです。"; return; } picked.push(cb.value); }
-      else picked.splice(picked.indexOf(cb.value), 1);
-      sync();
-    }));
-    $("#trayClear").addEventListener("click", () => { picked.splice(0); $$("#blist .bl-pick input").forEach((cb) => { cb.checked = false; }); sync(); });
   };
 
   /* ---------- 比べる ---------- */
@@ -284,12 +300,12 @@
     sels.forEach((s, i) => { s.value = init[i] || ""; });
     let chart = null;
     const fmt = {
-      t: (b) => (b.t ? tsuboTxt(b.t) : "―"), p70: (b) => (b.p70 ? man(b.p70) : "―"),
-      range: (b) => (b.lo ? `${b.lo}〜${b.hi}万円／坪` : "―"), chg: (b) => (b.chg != null ? `${b.chg > 0 ? "+" : ""}${b.chg}%` : "―"),
+      t: (b) => (b.t ? tsuboTxt(b.t) : "―"), cm: (b) => (b.cm ? `${b.cm.toLocaleString("ja-JP")}万円` : "―"),
+      range: (b) => (b.lo ? `${b.lo}〜${b.hi}万円／坪` : "―"),
       n: (b) => `${b.n}件`, built: (b) => b.built, units: (b) => `${b.units.toLocaleString("ja-JP")}戸`, floors: (b) => `${b.floors}階`,
       walk: (b) => `${b.line} 徒歩${b.walk}分`, struct: (b) => b.struct || "―", dev: (b) => b.dev || "―", mgr: (b) => b.mgr || "―",
     };
-    const best = { t: (v) => v.t, p70: null, chg: (v) => v.chg, units: (v) => v.units, walk: (v) => -v.walk, n: (v) => v.n };
+    const best = {};
     const render = () => {
       const picked = sels.map((s) => byId[s.value]).filter(Boolean);
       const cols = sels.map((s) => byId[s.value] || null);
@@ -347,10 +363,9 @@
     calc();
     const conv = () => {
       const p = num($("#cPrice").value), a = num($("#cArea").value);
-      if (!(p > 0 && a > 0)) { ["#cTsubo", "#cP70", "#cDiff"].forEach((id) => { $(id).textContent = "―"; }); return; }
+      if (!(p > 0 && a > 0)) { ["#cTsubo", "#cDiff"].forEach((id) => { $(id).textContent = "―"; }); return; }
       const t = p / (a * TSUBO);
       $("#cTsubo").textContent = tsuboTxt(t);
-      $("#cP70").textContent = man(t * 70 * TSUBO);
       const base = window.AREA_NOW;
       $("#cDiff").textContent = base ? `${t >= base ? "+" : "−"}${Math.abs(Math.round(t - base)).toLocaleString("ja-JP")}万円／坪（${t >= base ? "+" : "−"}${Math.abs(Math.round((t / base - 1) * 100))}%）` : "―";
     };
@@ -424,7 +439,7 @@
       const price = num($("#lPrice").value), down = num($("#lDown").value) || 0;
       if (autoAmt && price > 0) $("#lAmt").value = Math.max(Math.round(price - down), 0);
       const amt = num($("#lAmt").value), rate = num($("#lRate").value), years = num($("#lYears").value), inc = num($("#lIncome").value), type = $("#lType").value;
-      $("#oTsubo").textContent = price > 0 && area > 0 ? `${tsuboTxt(price / (area * TSUBO))}（70㎡換算 ${man(price / (area * TSUBO) * 70 * TSUBO)}）` : "物件価格と面積を入れると表示";
+      $("#oTsubo").textContent = price > 0 && area > 0 ? tsuboTxt(price / (area * TSUBO)) : "物件価格と面積を入れると表示";
       const ids = ["#oAmt", "#oMonth", "#oYear", "#oTotal", "#oInt", "#oRatio", "#oMult"];
       if (!(amt > 0 && rate >= 0 && $("#lRate").value !== "" && years > 0)) {
         ids.forEach((id) => { $(id).textContent = "―"; }); if (amt > 0) $("#oAmt").textContent = man1(amt);

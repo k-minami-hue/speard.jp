@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% from "macros.html" import card, row, tool, rep, faq_list, img, listing_card, notify %}
 {% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・価格・推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。タワーマンションの直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後（3年前比{{ town.chg_txt }}）。予算から棟ごとに買える広さ、{{ n_buildings }}棟の坪単価・推移・ランキング、部屋の価格の目安。購入・売却どちらの比較にも。{% endblock %}
+{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。タワーマンションの直近1年の坪単価の中央値は{{ town.tsubo_txt }}。地図、ランキング、部屋の価格の目安。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endblock %}
+{% include "map_css.html" %}{% endblock %}
 {% block main %}
 <section class="hero">
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
   <div class="wrap hero-in">
     <div>
       <h1>武蔵小杉のマンション相場を、<br>棟ごとに。</h1>
-      <p class="hero-lead">買う前の比較にも、売る前の価格確認にも。<br>国土交通省の取引データから、{{ n_buildings }}棟の坪単価と推移を棟ごとに集計しています。</p>
+      <p class="hero-lead">買う前の比較にも、売る前の価格確認にも。<br>国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。</p>
       <ul class="hero-points">
         <li>予算から、棟ごとに買える広さがわかる</li>
-        <li>棟ごとの坪単価・3年前比・取引件数を比べられる</li>
+        <li>棟ごとの成約価格・坪単価・取引件数を比べられる</li>
         <li>自分の部屋の価格の目安がその場で出る</li>
       </ul>
     </div>
@@ -25,8 +25,8 @@
 <div class="wrap ribbon">
   <dl>
     <div class="fig"><dt>タワーマンションの坪単価</dt><dd>{{ '{:,}'.format(town.tsubo|round|int) }}<small>万円</small></dd><span class="s">直近1年・{{ town.n }}件の中央値</span></div>
-    <div class="fig"><dt>70㎡に換算すると</dt><dd>{{ town.p70_txt|replace('万円','') }}<small>万円</small></dd><span class="s">坪単価×70㎡</span></div>
-    <div class="fig"><dt>3年前と比べて</dt><dd class="{{ 'up' if (town.chg3 or 0) >= 0 else 'down' }}">{{ town.chg_txt }}</dd><span class="s">同じ時期の坪単価の比較</span></div>
+    {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ '{:,}'.format(town_closed.p_med|round|int) }}<small>万円</small></dd><span class="s">直近1年・{{ town_closed.n }}件の中央値</span></div>{% endif %}
+    <div class="fig"><dt>掲載マンション</dt><dd>{{ n_buildings }}<small>棟</small></dd><span class="s">{{ latest_q }}分までのデータ</span></div>
     <div class="fig"><dt>いちばん高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small></dd><span class="s">{{ ranked[0]['マンション名'] }}</span></div>
   </dl>
 </div>
@@ -34,10 +34,9 @@
 <section class="sec" id="list" aria-labelledby="list-ttl">
   <div class="wrap">
     <div class="sec-head">
-      <div><h2 id="list-ttl">マンションごとの相場</h2><p>直近2年の取引の中央値。線は過去5年の推移です。</p></div>
+      <div><h2 id="list-ttl">マンションごとの相場</h2><p>{{ period }}の取引の中央値</p></div>
       <div class="sorter" role="group" aria-label="並べ替え">
         <button type="button" data-sort="t" aria-pressed="true">坪単価</button>
-        <button type="button" data-sort="chg" aria-pressed="false">値上がり率</button>
         <button type="button" data-sort="walk" aria-pressed="false">駅近</button>
         <button type="button" data-sort="year" aria-pressed="false">築浅</button>
         <button type="button" data-sort="units" aria-pressed="false">戸数</button>
@@ -47,7 +46,7 @@
       {% for b in ranked %}{{ row(site, b) }}{% endfor %}
       {% for b in nodata %}{{ row(site, b) }}{% endfor %}
     </ol>
-    <p class="note" style="margin-top:12px">70㎡の価格と1億円で買える広さは、坪単価の中央値から計算した目安です。過去の取引にもとづく参考値で、将来の価格を示すものではありません。</p>
+    <p class="note" style="margin-top:12px">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに集計した、過去の取引価格の参考値です。将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
   </div>
 </section>
 
@@ -59,7 +58,7 @@
         <h3>買う・住み替え先を探す</h3>
         <ul>
           <li><a href="{{ site.base }}kounyu/">武蔵小杉のマンション購入相場</a><span>予算ごとに、棟ごとに買える広さ</span></li>
-          <li><a href="{{ site.base }}compare/">マンションを比べる</a><span>最大3棟の相場と推移を並べる</span></li>
+          <li><a href="{{ site.base }}compare/">マンションを比べる</a><span>最大3棟の価格と物件概要を並べる</span></li>
           <li><a href="{{ site.base }}loan/">住宅ローン返済シミュレーション</a><span>棟と広さから月々の返済額</span></li>
           <li><a href="{{ site.base }}member/#register">売出・値下げアラート</a><span>条件に合う売出をメールで受け取る</span></li>
         </ul>
@@ -67,7 +66,7 @@
       <div class="goal">
         <h3>売る・価格を知る</h3>
         <ul>
-          <li><a href="{{ site.base }}baikyaku/">武蔵小杉のマンション売却相場</a><span>棟ごとの70㎡の価格の目安</span></li>
+          <li><a href="{{ site.base }}baikyaku/">武蔵小杉のマンション売却相場</a><span>棟ごとの成約価格と坪単価</span></li>
           <li><a href="{{ site.base }}satei/">無料査定</a><span>階数・向き・眺望を加えた価格</span></li>
           <li><a href="{{ site.base }}tetori/">売却の手取り・税金の計算</a><span>手元に残る額の目安</span></li>
           <li><a href="{{ site.base }}member/#register">自宅価格ウォッチ</a><span>相場の更新ごとに価格の目安が届く</span></li>
@@ -86,19 +85,15 @@
 
 {% endif %}<section class="sec-wash" aria-labelledby="map-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="map-ttl">地図で見る相場</h2><p>値札は坪単価（万円）。タップすると詳しい数字が出ます。</p></div><a class="more" href="{{ site.base }}map/">条件で絞り込む</a></div>
-    <div class="mapbox" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの坪単価の地図">
-      <p class="map-fallback">地図を読み込んでいます。</p>
-      <p class="legend" aria-hidden="true">坪単価<i style="background:var(--b1)"></i>〜449万<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜</p>
-    </div>
+    <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>ピンを押すと、マンションの概要と価格が出ます。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
+    <div class="gmap" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
   </div>
 </section>
 
 <section class="sec" aria-labelledby="trend-ttl">
   <div class="wrap">
     <div class="trend-head">
-      <div class="sec-head" style="margin:0"><div><h2 id="trend-ttl">武蔵小杉のタワーマンションの坪単価の動き</h2><p>四半期ごとの坪単価の中央値（万円／坪）</p></div></div>
-      <p class="big-chg">{{ town.chg_txt }}<small>3年前比</small></p>
+      <div class="sec-head" style="margin:0"><div><h2 id="trend-ttl">武蔵小杉のタワーマンションの坪単価</h2><p>四半期ごとの取引の中央値（万円／坪）</p></div></div>
     </div>
     <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉のタワーマンションの坪単価の推移グラフ"></canvas></div>
     <p class="note" style="margin-top:10px">紺がタワーマンション（掲載棟の取引）、灰色が武蔵小杉周辺の中古マンション全体です。<a href="{{ site.base }}trend/">四半期ごとの表を見る</a></p>
@@ -109,9 +104,9 @@
   <div class="wrap">
     <div class="sec-head"><div><h2 id="rank-ttl">ランキング</h2><p>直近の取引データから</p></div><a class="more" href="{{ site.base }}ranking/">すべて見る</a></div>
     <div class="ranks">
-      <div class="rank"><h3>値上がり率<span>3年前の同じ時期との比較</span></h3><ol>{% for b in rank_up[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv up">{{ '%+.0f' % b.chg3 }}%</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>坪単価<span>直近2年の中央値</span></h3><ol>{% for b in ranked[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ '{:,}'.format(b.stats.tsubo|round|int) }}万円</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
+      <div class="rank"><h3>築年が新しい<span>竣工年月の新しい順</span></h3><ol>{% for b in rank_new[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
     </div>
   </div>
 </section>
@@ -123,7 +118,7 @@
       <li><b>売出アラート</b><span>棟・間取り・広さ・階数・予算に合う住戸の売出をお知らせ</span></li>
       <li><b>値下げアラート</b><span>登録した棟で値下げがあれば、変更前後の価格をお知らせ</span></li>
       <li><b>自宅価格ウォッチ</b><span>自分の部屋の価格の目安を、相場の更新ごとにお届け</span></li>
-      <li><b>会員限定データ</b><span>棟ごとの全取引明細と、四半期ごとの取引件数・坪単価</span></li>
+      <li><b>会員限定データ</b><span>棟ごとの全取引明細（2015年以降）と、四半期ごとの取引件数・坪単価</span></li>
     </ul>
     <div style="margin-top:20px">{{ notify(site) }}</div>
   </div>
@@ -157,4 +152,4 @@
 {% endblock %}
 {% block data %}<script>window.CHART = {{ chart | safe }}; window.ATLAS = {{ atlas_json | safe }};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>{% endblock %}
+{% include "map_js.html" %}{% endblock %}

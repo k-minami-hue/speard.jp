@@ -113,7 +113,7 @@
   </div>
 </footer>
 
-<script>window.SITE = {{ {"form_endpoint": site.form_endpoint, "member_api": site.member_api, "base": site.base, "line_url": site.line_url} | tojson }};</script>
+<script>window.SITE = {{ {"form_endpoint": site.form_endpoint, "member_api": site.member_api, "base": site.base, "line_url": site.line_url, "gmaps_key": site.gmaps_key} | tojson }};</script>
 {% block data %}{% endblock %}
 <script src="{{ site.base }}assets/app.js?v={{ ver }}" defer></script>
 </body>

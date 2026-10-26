@@ -1,25 +1,24 @@
 {% extends "base.html" %}
 {% from "macros.html" import row %}
-{% block title %}武蔵小杉のマンション ランキング｜坪単価・値上がり率・駅近｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンション{{ n_buildings }}棟を、坪単価、3年間の値上がり率、駅からの近さ、築年でランキング。国土交通省の取引データから集計しています。{% endblock %}
+{% block title %}武蔵小杉のマンション ランキング｜坪単価・駅近・築年｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンション{{ n_buildings }}棟を、坪単価、駅からの近さ、築年で並べました。国土交通省の取引データから集計しています。{% endblock %}
 {% block main %}
 <div class="wrap page">
   <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › ランキング</p>
   <section>
     <h1>武蔵小杉のマンション ランキング</h1>
-    <p class="lead">坪単価が最も高いのは{{ ranked[0]['マンション名'] }}（{{ ranked[0].stats.tsubo_txt }}）、3年間で最も上がったのは{{ rank_up[0]['マンション名'] }}（{{ '%+.0f' % rank_up[0].chg3 }}%）です。</p>
+    <p class="lead">坪単価が最も高いのは{{ ranked[0]['マンション名'] }}（{{ ranked[0].stats.tsubo_txt }}）です（{{ period }}の取引の中央値）。</p>
   </section>
   <section>
-    <div class="sec-head"><div><h2>坪単価ランキング</h2><p>直近2年の取引の中央値</p></div></div>
+    <div class="sec-head"><div><h2>坪単価ランキング</h2><p>{{ period }}の取引の中央値</p></div></div>
     <ol class="blist blist-rank">{% for b in ranked %}{{ row(site, b, rank=loop.index) }}{% endfor %}</ol>
   </section>
   <section>
     <div class="ranks">
-      <div class="rank"><h3>値上がり率<span>3年前の同じ時期との比較</span></h3><ol>{% for b in rank_up %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv {{ 'up' if b.chg3 >= 0 else 'down' }}">{{ '%+.0f' % b.chg3 }}%</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>築年が新しい<span>竣工年</span></h3><ol>{% for b in rank_new %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
     </div>
-    <p class="note">データは{{ latest_q }}まで。取引データがまだないマンション（竣工前など）は含めていません。</p>
+    <p class="note">データは{{ latest_q }}分まで。過去の取引価格をまとめたもので、購入や投資をすすめるものではありません。取引データがまだないマンション（竣工前など）は含めていません。</p>
   </section>
 </div>
 {% endblock %}

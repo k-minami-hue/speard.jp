@@ -2,10 +2,10 @@
 <aside class="souba-mini" aria-label="武蔵小杉マンション相場帳">
   <a class="sm-in" href="{{ root }}{{ copy.main_path or '' }}?from=hp-{{ v }}">
     <span class="sm-label">武蔵小杉マンション相場帳</span>
-    <span class="sm-text">{{ copy.mini }}<span class="sm-num">タワーの坪単価 {{ town.tsubo_txt }}（70㎡換算 {{ town.p70_txt }}）</span></span>
+    <span class="sm-text">{{ copy.mini }}<span class="sm-num">タワーの坪単価 {{ town.tsubo_txt }}（直近1年の中央値）</span></span>
     <span class="sm-go">相場を見る</span>
   </a>
-  <p class="sm-note">国土交通省 不動産情報ライブラリの取引データをもとに集計（{{ latest_q }}分まで、直近1年の中央値）。過去の取引にもとづく参考値で、将来の価格を示すものではありません。</p>
+  <p class="sm-note">国土交通省 不動産情報ライブラリの取引データをもとに集計（{{ latest_q }}分まで、直近1年の中央値）。過去の取引価格をまとめた参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
 </aside>
 {%- else %}
 <section class="souba-band" aria-labelledby="souba-band-{{ v }}">
@@ -23,8 +23,8 @@
     <div class="sb-data">
       <dl class="sb-stats">
         <div><dt>タワーの坪単価</dt><dd>{{ town.tsubo_txt }}</dd><small>直近1年・{{ town.n }}件の中央値</small></div>
-        <div><dt>70㎡に換算すると</dt><dd>{{ town.p70_txt }}</dd></div>
-        <div><dt>3年前と比べて</dt><dd>{{ town.chg_txt }}</dd></div>
+        <div><dt>掲載マンション</dt><dd>{{ n_all }}棟</dd></div>
+        <div><dt>データ</dt><dd>{{ latest_q }}分まで</dd></div>
       </dl>
       <p class="sb-chips-ttl">マンションごとの坪単価（直近2年の中央値）</p>
       <ul class="sb-chips">
@@ -35,6 +35,6 @@
       </ul>
     </div>
   </div>
-  <p class="sb-note">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに株式会社スピアードが集計（{{ latest_q }}分まで）。過去の取引にもとづく参考値で、将来の価格を示すものではありません。</p>
+  <p class="sb-note">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに株式会社スピアードが集計（{{ latest_q }}分まで）。過去の取引価格をまとめた参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
 </section>
 {%- endif %}

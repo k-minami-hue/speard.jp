@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}武蔵小杉のタワーマンション相場の推移｜2015年からの坪単価｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のタワーマンションの坪単価を2015年から四半期ごとに掲載。直近1年は{{ town.tsubo_txt }}前後で、3年前比{{ town.chg_txt }}。周辺の中古マンション全体の取引・成約価格とも比較できます。{% endblock %}
+{% block description %}武蔵小杉のタワーマンションの坪単価を2015年から四半期ごとに掲載。直近1年の中央値は{{ town.tsubo_txt }}。周辺の中古マンション全体の取引価格・成約価格も掲載しています。{% endblock %}
 {% block main %}
 <div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 相場の推移</p>
 <section>
   <h1>武蔵小杉のタワーマンション相場の推移</h1>
-  <p class="lead">直近1年の坪単価は{{ town.tsubo_txt }}前後、70㎡換算で{{ town.p70_txt }}前後です。3年前の同じ時期と比べて{{ town.chg_txt }}です。</p>
+  <p class="lead">直近1年の取引の坪単価の中央値は{{ town.tsubo_txt }}です。過去の取引価格をまとめたもので、将来の価格を示すものではありません。</p>
 </section>
 <section>
   <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉のタワーマンションの坪単価推移グラフ"></canvas></div>

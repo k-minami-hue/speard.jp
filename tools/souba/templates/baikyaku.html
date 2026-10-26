@@ -1,33 +1,24 @@
 {% extends "base.html" %}
-{% from "macros.html" import faq_list %}
+{% from "macros.html" import faq_list, closed_table %}
 {% block title %}武蔵小杉のマンション売却相場｜棟ごとの売却価格の目安と高く売る進め方｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションを売る前に。{{ ranked|length }}棟の売却相場を棟ごとに一覧にしました。タワーの坪単価は直近1年で{{ town.tsubo_txt }}前後、70㎡換算{{ town.p70_txt }}前後。70㎡の価格の目安、3年前比、売り出し価格の決め方、手取りの計算、無料査定。{% endblock %}
+{% block description %}武蔵小杉のマンションを売る前に。{{ ranked|length }}棟の成約価格（中央値と幅）を一覧にしました。売り出し価格の決め方、手取りの計算、無料査定。{% endblock %}
 {% block main %}
 <div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 武蔵小杉のマンション売却相場</p>
 
 <section class="intro">
   <h1>武蔵小杉のマンション売却相場</h1>
-  <p class="answer">武蔵小杉のタワーマンションの坪単価は、直近1年の取引で{{ town.tsubo_txt }}前後、70㎡に換算すると{{ town.p70_txt }}前後です（3年前比{{ town.chg_txt }}）。</p>
+  <p class="answer">武蔵小杉のタワーマンションの直近1年の坪単価の中央値は{{ town.tsubo_txt }}{% if town_closed %}、成約価格の中央値は{{ '{:,}'.format(town_closed.p_med|round|int) }}万円{% endif %}です。</p>
   <p>同じ武蔵小杉でも、棟によって坪単価は{{ ranked[-1].stats.tsubo_txt }}から{{ ranked[0].stats.tsubo_txt }}まで開きがあります。<br>
   売却価格は「武蔵小杉の相場」ではなく、同じ建物の取引と、同時に出ている売出で決まります。<br>
   下の表で自分の棟の位置を確認してから、売り出し価格を決めてください。</p>
 </section>
 
 <section aria-labelledby="t-ttl">
-  <h2 id="t-ttl">棟ごとの売却相場（70㎡の目安）</h2>
-  <p class="note">直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引の中央値。「70㎡の目安」は取引の中央の半数が入る範囲です。</p>
-  <div class="tbl-wrap kt-wrap"><table class="kt kt-sell">
-    <thead><tr><th>マンション</th><th class="num">坪単価</th><th class="num">70㎡の目安</th><th class="num">3年前比</th><th class="num">取引件数</th></tr></thead>
-    <tbody>{% for b in ranked %}<tr>
-      <th><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.year }}年築・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分</span></th>
-      <td class="num" data-label="坪単価">{{ b.stats.tsubo_txt }}</td>
-      <td class="num kt-wide" data-label="70㎡の目安">{{ b.stats.p70_lo }}〜{{ b.stats.p70_hi }}</td>
-      <td class="num {{ 'up' if (b.chg3 or 0) >= 0 else 'down' }}" data-label="3年前比">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}%{% else %}―{% endif %}</td>
-      <td class="num" data-label="取引件数">{{ b.stats.n }}件</td>
-    </tr>{% endfor %}</tbody>
-  </table></div>
-  <p class="note">価格は国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計した、過去の取引にもとづく参考値です。現在の売出価格や将来の価格を示すものではありません。階数・方位・眺望・室内の状態で価格は変わります。</p>
+  <h2 id="t-ttl">棟ごとの成約価格</h2>
+  <p class="note">{{ period }}に成約した取引の中央値と幅です。</p>
+  {{ closed_table(site, ranked, period) }}
+  <p class="note">国土交通省 不動産情報ライブラリの成約価格情報をもとに株式会社スピアードが集計した、過去の取引価格の参考値です。現在の売出価格や将来の価格を示すものではありません。階数・方位・眺望・室内の状態で価格は変わります。</p>
   <div class="actions"><a class="btn" href="{{ site.base }}satei/?from=baikyaku" data-ev="cta_satei">自分の部屋の査定を依頼する（無料）</a><a class="btn btn-ghost" href="{{ site.base }}#est" data-ev="est_jump">面積を入れて目安を出す</a></div>
 </section>
 

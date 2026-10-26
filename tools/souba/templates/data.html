@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}武蔵小杉のマンション相場データ（CSV）｜棟別の坪単価・四半期の推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンション{{ n_buildings }}棟の坪単価中央値・70㎡換算・取引件数・3年前比と、四半期ごとの坪単価の推移をCSVでダウンロードできます。出典を書けば、記事や資料に引用・利用できます。{% endblock %}
+{% block description %}武蔵小杉のマンション{{ n_buildings }}棟の坪単価中央値・成約価格中央値・取引件数と、四半期ごとの坪単価をCSVでダウンロードできます。出典を書けば、記事や資料に引用・利用できます。{% endblock %}
 {% block main %}
 <div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 相場データのダウンロード</p>
@@ -9,7 +9,7 @@
   <p class="answer">このサイトで集計した武蔵小杉のマンションの相場を、CSVファイルで公開しています。<br>
   ブログや資料、ご自身の分析に使っていただけます。</p>
   <div class="dl-list">
-    <a class="dl" href="{{ site.base }}data/souba-buildings.csv" download data-ev="data_download" data-ad="buildings"><b>棟別の相場</b><span>{{ n_buildings }}棟・坪単価の中央値と幅、70㎡換算、取引件数、3年前比</span><i>CSV</i></a>
+    <a class="dl" href="{{ site.base }}data/souba-buildings.csv" download data-ev="data_download" data-ad="buildings"><b>棟別の相場</b><span>{{ n_buildings }}棟・坪単価の中央値と幅、成約価格の中央値、取引件数</span><i>CSV</i></a>
     <a class="dl" href="{{ site.base }}data/souba-quarterly.csv" download data-ev="data_download" data-ad="quarterly"><b>四半期ごとの推移</b><span>タワーマンションと周辺の中古マンション全体の坪単価</span><i>CSV</i></a>
   </div>
   <p class="note">最新のデータは{{ latest_q }}分（更新日 {{ updated }}）。文字コードはUTF-8（BOM付き）で、Excelでそのまま開けます。</p>
@@ -18,10 +18,9 @@
 <section>
   <div class="sec-head"><div><h2>棟別の相場</h2><p>直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引</p></div></div>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>マンション</th><th>坪単価</th><th>70㎡換算</th><th>件数</th><th>3年前比</th></tr></thead>
+    <thead><tr><th>マンション</th><th>坪単価</th><th>成約価格（中央値）</th><th>件数</th></tr></thead>
     <tbody>{% for b in ranked %}<tr><td><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸</span></td>
-      <td class="nw">{{ b.stats.tsubo_txt }}<span class="sub">{{ b.stats.range_txt }}</span></td><td class="nw">{{ b.stats.p70_txt }}</td><td class="nw">{{ b.stats.n }}件</td>
-      <td class="nw">{% if b.chg3 is not none %}{{ '%+.0f' % b.chg3 }}%{% else %}―{% endif %}</td></tr>{% endfor %}</tbody>
+      <td class="nw">{{ b.stats.tsubo_txt }}<span class="sub">{{ b.stats.range_txt }}</span></td><td class="nw">{% if b.closed %}{{ '{:,}'.format(b.closed.p_med|round|int) }}万円{% else %}―{% endif %}</td><td class="nw">{{ b.stats.n }}件</td></tr>{% endfor %}</tbody>
   </table></div>
 </section>
 

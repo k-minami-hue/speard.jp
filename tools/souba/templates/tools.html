@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}マンション売却の手取り計算｜仲介手数料・ローン残高・譲渡所得税から試算｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。譲渡所得税（3,000万円特別控除・10年超の軽減税率）の概算と、価格と面積から坪単価・70㎡換算も計算できます。{% endblock %}
+{% block description %}武蔵小杉のマンションを売ったら手元にいくら残るかを計算。売却価格、仲介手数料（上限額を自動計算）、住宅ローン残高、その他の費用から手取りを試算します。譲渡所得税（3,000万円特別控除・10年超の軽減税率）の概算と、価格と面積から坪単価も計算できます。{% endblock %}
 {% block main %}
 <div class="wrap page">
 <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › 売却の手取り計算</p>
@@ -80,7 +80,7 @@
 </section>
 
 <section>
-  <div class="sec-head"><h2>坪単価と70㎡換算を計算する</h2></div>
+  <div class="sec-head"><h2>坪単価を計算する</h2></div>
   <div class="calc-grid">
     <div>
       <div class="row2">
@@ -92,7 +92,6 @@
     <div class="result" aria-live="polite">
       <dl>
         <dt>坪単価</dt><dd id="cTsubo">―</dd>
-        <dt>70㎡換算</dt><dd id="cP70">―</dd>
         <dt class="total">武蔵小杉のタワマン相場との差</dt><dd class="total" id="cDiff">―</dd>
       </dl>
       <p class="note" style="margin-top:10px">比較の基準は、武蔵小杉のタワーマンションの直近1年の坪単価{{ town.tsubo_txt }}です。</p>
