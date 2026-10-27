@@ -6,6 +6,7 @@
  *   2. 売出・値下げアラート：「物件」シートに1行入れると、条件に合う会員へ1時間以内に自動でメール
  *   3. 自宅価格ウォッチ：相場帳の相場が更新されたら、登録された部屋の価格の目安を自動でメール
  *   4. マイページ（登録中の条件の確認・削除）
+ *   5. アクセス数ランキング：マンションページの閲覧数を「アクセス」シートに日別で数え、サイトに上位を返す
  *
  * 初回の設定は tools/souba/gas/README.md の手順どおり。コードの書き換えは不要（設定は下の CONFIG だけ）。
  */
@@ -30,8 +31,9 @@ const SHEETS = {
             '管理費（円/月）', '修繕積立金（円/月）', '取引態様', '掲載ページURL', '広告の承諾', '通知状態', '通知日時', '通知件数', '送信済み会員ID'],
   log: ['日時', '種類', '宛先', '件名', '結果'],
   building: ['棟ID', 'マンション名', '坪単価（万円）', '下位25%', '上位25%', '取引件数'],
+  pv: ['日付', 'ページ', '閲覧数'],
 };
-const NAMES = { member: '会員', alert: '条件', watch: '自宅', listing: '物件', log: 'ログ', building: '棟' };
+const NAMES = { member: '会員', alert: '条件', watch: '自宅', listing: '物件', log: 'ログ', building: '棟', pv: 'アクセス' };
 const PLANS = ['1R・1K', '1LDK', '2LDK', '3LDK', '4LDK以上'];
 
 /* ============ 初回の設定（メニューから1回だけ実行） ============ */
@@ -78,6 +80,7 @@ function syncBuildings() {
 function doPost(e) {
   let req = {};
   try { req = JSON.parse(e.postData.contents || '{}'); } catch (err) { return json_({ ok: false, error: 'bad_request' }); }
+  if (req.action === 'pv') return json_({ ok: countPv_(req.slug) });   // 閲覧数は会員の処理を待たせない
   const lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
@@ -95,6 +98,7 @@ function doPost(e) {
 // メールの「配信を停止する」リンク
 function doGet(e) {
   const p = (e && e.parameter) || {};
+  if (p.action === 'ranking') return json_(Object.assign({ ok: true }, ranking_(Number(p.days) || 30)));
   if (p.action === 'unsub' && p.token) {
     const m = findMember_('トークン', p.token);
     if (m) leaveMember_(m);
@@ -418,3 +422,56 @@ function man_(v) {
 }
 function fmt_(v) { return String(Math.round(Number(v))).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }   // 3桁区切り（GASのtoLocaleStringは区切らないことがある）
 function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+
+/* ============ アクセス数ランキング ============ */
+// 1行＝1日×1ページ。同じブラウザの同じ日の閲覧はサイト側で1回にまとめてから送られてくる。
+function countPv_(slug) {
+  slug = String(slug || '');
+  if (!/^[a-z0-9-]{3,80}$/.test(slug)) return false;
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return false;                 // 混んでいるときは数えない（会員の処理を優先）
+  try {
+    const ss = SpreadsheetApp.getActive();
+    let sh = ss.getSheetByName(NAMES.pv);
+    if (!sh) { sh = ss.insertSheet(NAMES.pv); sh.getRange(1, 1, 1, 3).setValues([SHEETS.pv]).setFontWeight('bold').setBackground('#122954').setFontColor('#ffffff'); sh.setFrozenRows(1); }
+    const day = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd');
+    const cache = CacheService.getScriptCache(), ck = 'pvrow_' + day + '_' + slug;
+    let row = Number(cache.get(ck)) || 0;
+    if (row && String(sh.getRange(row, 2).getValue()) !== slug) row = 0;
+    if (!row) {
+      const last = sh.getLastRow();
+      if (last > 1) {
+        const n = Math.min(last - 1, 600);                 // 直近の行だけ探す（1日ぶん）
+        const vals = sh.getRange(last - n + 1, 1, n, 2).getDisplayValues();
+        for (let i = vals.length - 1; i >= 0; i--) if (vals[i][0] === day && vals[i][1] === slug) { row = last - n + 1 + i; break; }
+      }
+    }
+    if (row) sh.getRange(row, 3).setValue(Number(sh.getRange(row, 3).getValue() || 0) + 1);
+    else { sh.appendRow([day, slug, 1]); row = sh.getLastRow(); sh.getRange(row, 1).setNumberFormat('yyyy-mm-dd'); }
+    cache.put(ck, String(row), 21600);
+    return true;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function ranking_(days) {
+  days = Math.max(7, Math.min(days, 184));
+  const cache = CacheService.getScriptCache(), ck = 'ranking_' + days;
+  const hit = cache.get(ck);
+  if (hit) return JSON.parse(hit);
+  const sh = SpreadsheetApp.getActive().getSheetByName(NAMES.pv);
+  const to = new Date(), from = new Date(to.getTime() - (days - 1) * 86400000);
+  const fmt = (d) => Utilities.formatDate(d, 'Asia/Tokyo', 'yyyy-MM-dd');
+  const lo = fmt(from), hi = fmt(to), sum = {};
+  if (sh && sh.getLastRow() > 1) {
+    sh.getRange(2, 1, sh.getLastRow() - 1, 3).getDisplayValues().forEach((r) => {
+      if (r[0] >= lo && r[0] <= hi) sum[r[1]] = (sum[r[1]] || 0) + (Number(r[2]) || 0);
+    });
+  }
+  const items = Object.keys(sum).map((k) => ({ slug: k, n: sum[k] })).sort((a, b) => b.n - a.n).slice(0, 20);
+  const label = (d) => Utilities.formatDate(d, 'Asia/Tokyo', 'M月d日');
+  const out = { days: days, from: label(from), to: label(to), items: items.map((x) => ({ slug: x.slug })) };   // 閲覧数そのものは出さない
+  cache.put(ck, JSON.stringify(out), 3600);
+  return out;
+}

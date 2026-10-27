@@ -180,6 +180,43 @@
     else whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
   };
 
+
+  /* ---------- アクセス数ランキング（集計は GAS。棟ページを開いたら1日1回だけ数える） ---------- */
+  const optout = () => { try { return localStorage.getItem("speard_optout") === "1"; } catch { return false; } };
+  const countView = () => {
+    const m = location.pathname.match(/\/mansion\/([a-z0-9-]{3,80})\/?$/);
+    if (!m || !SITE.member_api || optout() || /bot|crawl|spider|slurp|headless/i.test(navigator.userAgent)) return;
+    const d = new Date(), key = `pv_${m[1]}_${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`;
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, "1"); } catch { /* 数えるだけなので無視 */ }
+    const body = JSON.stringify({ action: "pv", slug: m[1] });
+    try {
+      if (!(navigator.sendBeacon && navigator.sendBeacon(SITE.member_api, new Blob([body], { type: "text/plain;charset=utf-8" }))))
+        fetch(SITE.member_api, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body });
+    } catch { /* 無視 */ }
+  };
+  const initAccessRank = async () => {
+    const sec = $("#accessRank");
+    if (!sec || !SITE.member_api) return;
+    let info = {};
+    try { info = JSON.parse($("#arankData").textContent); } catch { return; }
+    const limit = Number(sec.dataset.limit) || 10;
+    try {
+      const res = await fetch(`${SITE.member_api}?action=ranking&days=30`);
+      const d = await res.json();
+      const items = (d.items || []).filter((x) => info[x.slug]).slice(0, limit);
+      if (items.length < 3) return;
+      $("#arankList").innerHTML = items.map((x, i) => {
+        const b = info[x.slug];
+        return `<li><a href="${b.url}" data-ev="access_rank"><span class="ar-no">${i + 1}</span>` +
+          (b.img ? `<img class="ar-img" src="${b.img}" alt="" loading="lazy" width="96" height="72">` : '<span class="ar-img ar-noimg" aria-hidden="true"></span>') +
+          `<span class="ar-txt"><span class="ar-name">${esc(b.name)}</span><span class="ar-meta">${esc(b.meta)}</span></span>` +
+          `<span class="ar-val">${b.t ? `坪単価<b>${b.t}</b>万円` : "竣工前"}</span></a></li>`;
+      }).join("");
+      if (d.from && d.to) $("#arankPeriod").textContent = `${d.from}〜${d.to}のマンションページの閲覧数`;
+      sec.hidden = false;
+    } catch { /* 取れないときは出さない */ }
+  };
+
   /* ---------- 地図（Googleマップ。キーが未設定のときは国土地理院の淡色地図） ---------- */
   const PIN = (hot) => {
     const c = hot ? "#C7A34D" : "#122954";
@@ -222,22 +259,61 @@
   const lMap = async (el) => {
     await new Promise((r) => whenLeaflet(r));
     const L = window.L;
-    const map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.5, tap: false }).setView([35.5755, 139.6595], 15);
-    L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", { maxZoom: 18, minZoom: 11,
+    const atlas = el.dataset.map === "atlas";
+    const map = L.map(el, { scrollWheelZoom: atlas, zoomSnap: 0.5, tap: false }).setView([35.5755, 139.6595], 15);
+    L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", { maxZoom: 18, minZoom: 12,
       attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>' }).addTo(map);
-    const icon = (hot) => L.icon({ iconUrl: pinUrl(hot), iconSize: [34, 44], iconAnchor: [17, 43], popupAnchor: [0, -40] });
-    const mk = {};
+    // 駅の位置
+    (A.stations || []).forEach((st) => L.marker([st.lat, st.lng], { interactive: false, keyboard: false, zIndexOffset: -1000,
+      icon: L.divIcon({ className: "pin-wrap", html: `<span class="stn">${esc(st.name)}</span>`, iconSize: [0, 0] }) }).addTo(map));
+    // ピン＝坪単価の値札（色は坪単価の帯）
+    const tag = (b) => `<div class="pin pin-b${b.t ? b.band : 0}"><svg class="lead" width="1" height="1" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="-8"/></svg><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? `${b.t}万` : (b.pre ? "竣工前" : "―")}</b></span><span class="dot"></span></div>`;
+    const mk = {}, on = {};
     A.buildings.forEach((b) => {
-      const m = L.marker([b.lat, b.lng], { icon: icon(false), title: b.name, riseOnHover: true }).addTo(map);
-      m.bindPopup(mapCard(b), { maxWidth: 300, minWidth: 240 });
+      const m = L.marker([b.lat, b.lng], { icon: L.divIcon({ className: "pin-wrap", html: tag(b), iconSize: [0, 0] }), title: b.name, riseOnHover: true,
+        zIndexOffset: (b.t || 0) });
+      m.bindPopup(mapCard(b), { maxWidth: 300, minWidth: 240, offset: [0, -44] });
       m.on("popupopen", () => track("map_pin_open", { building: b.name }));
-      mk[b.id] = m;
+      m.addTo(map); mk[b.id] = m; on[b.id] = true;
     });
+    // 値札どうしが重なったら、坪単価の低い方を空いている場所へずらし、細い線で元の位置とつなぐ
+    const declutter = () => {
+      el.classList.toggle("z-lo", map.getZoom() < 15.5);
+      const pins = [];
+      A.buildings.filter((b) => on[b.id]).sort((a, b) => (b.t || 0) - (a.t || 0)).forEach((b) => {
+        const e = mk[b.id].getElement(), pin = e && e.querySelector(".pin");
+        if (!pin) return;
+        pin.style.setProperty("--dx", "0px"); pin.style.setProperty("--dy", "0px");
+        pins.push([b, pin, pin.querySelector(".tag").getBoundingClientRect()]);
+      });
+      const fixed = [];
+      pins.forEach(([b, pin, t]) => {
+        const w = t.width, h = t.height, cand = [];
+        [0, -1, 1, -2, 2].forEach((i) => [0, -1, -2, -3, 1, 2].forEach((j) => cand.push([i * (w * 0.55 + 3), j * (h + 4) + (j > 0 ? h + 14 : 0)])));
+        cand.sort((p, q) => Math.hypot(p[0], p[1] * 1.2) - Math.hypot(q[0], q[1] * 1.2));
+        const hit = (x) => fixed.some((p) => x.l < p.r + 2 && x.r > p.l - 2 && x.t < p.b + 2 && x.b > p.t - 2);
+        let best = cand[0];
+        for (const c of cand) { const x = { l: t.left + c[0], r: t.right + c[0], t: t.top + c[1], b: t.bottom + c[1] }; if (!hit(x)) { best = c; break; } }
+        const [dx, dy] = best;
+        pin.style.setProperty("--dx", `${dx}px`); pin.style.setProperty("--dy", `${dy}px`);
+        const ln = pin.querySelector("line");
+        ln.setAttribute("x2", dx); ln.setAttribute("y2", dy > 0 ? dy : dy - 8);
+        fixed.push({ l: t.left + dx, r: t.right + dx, t: t.top + dy, b: t.bottom + dy });
+      });
+    };
+    let raf = 0;
+    const later = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(declutter); };
+    map.on("zoomend moveend resize", later);
+    // 凡例
+    const lg = document.createElement("div");
+    lg.className = "legend";
+    lg.innerHTML = '坪単価（直近2年の中央値）<i style="background:var(--b1)"></i>450万未満<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜';
+    el.appendChild(lg);
     return {
-      fit: (ids) => map.fitBounds(L.latLngBounds(ids.map((id) => mk[id].getLatLng())), { padding: [36, 36] }),
-      show: (id, on) => { if (on) mk[id].addTo(map); else mk[id].remove(); },
-      hot: (id, on) => { mk[id].setIcon(icon(on)); mk[id].setZIndexOffset(on ? 1000 : 0); },
-      open: (id) => { map.setView(mk[id].getLatLng(), Math.max(map.getZoom(), 16)); mk[id].openPopup(); },
+      fit: (ids) => { map.fitBounds(L.latLngBounds(ids.map((id) => mk[id].getLatLng())), { padding: [40, 40], maxZoom: 16.5 }); later(); },
+      show: (id, v) => { on[id] = v; if (v) mk[id].addTo(map); else mk[id].remove(); later(); },
+      hot: (id, v) => { const e = mk[id].getElement(); if (e) { const p = e.querySelector(".pin"); if (p) p.classList.toggle("is-hot", v); } mk[id].setZIndexOffset(v ? 100000 : (byId[id].t || 0)); },
+      open: (id) => { map.setView(mk[id].getLatLng(), Math.max(map.getZoom(), 16.5)); mk[id].openPopup(); },
     };
   };
   const initMaps = async () => {
@@ -249,7 +325,8 @@
       if (SITE.gmaps_key) m = await gMap(el);
       else { if (fb) fb.remove(); m = await lMap(el); }
     } catch { if (fb) fb.textContent = "地図を読み込めませんでした。時間をおいて開き直してください。"; return; }
-    m.fit(A.buildings.map((b) => b.id));
+    const core = A.buildings.filter((b) => b.walk <= 7).map((b) => b.id);
+    m.fit(el.dataset.map === "atlas" && core.length > 3 ? core : A.buildings.map((b) => b.id));
     if (el.dataset.map === "atlas") initAtlas(m);
   };
 
@@ -777,6 +854,6 @@
     }));
   };
 
-  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); countView(); initAccessRank(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

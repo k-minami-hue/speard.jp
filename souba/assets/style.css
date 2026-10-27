@@ -186,17 +186,23 @@ h3 { font-size: 1.05rem; }
 .mapbox { position: relative; height: 700px; border: 1px solid var(--rule); background: var(--wash); }
 .mapbox.short { height: 420px; }
 @media (max-width: 760px) { .mapbox { height: 74vh; min-height: 480px; max-height: 640px; } .mapbox.short { height: 380px; min-height: 0; } }
-@media (max-width: 760px) { .pin .tag { padding: 3px 6px; } .pin .tag i { display: none; } .pin .tag b { font-size: 13px; } .stn { font-size: 10.5px; } }
+@media (max-width: 760px) { .pin .tag { padding: 3px 6px; } .pin .tag i { font-size: 9.5px; } .pin .tag b { font-size: 13px; } .stn { font-size: 10.5px; } }
 .leaflet-container { font-family: var(--font); background: var(--wash); }
-.leaflet-tile-pane { filter: contrast(1.12) saturate(1.1); }
+.leaflet-container.leaflet-container { background: #fff; }
+.leaflet-tile-pane { filter: saturate(.35); opacity: .62; }
 .map-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; padding: 16px; text-align: center; }
 .pin-wrap { background: none; border: 0; }
-.pin { position: absolute; left: 0; top: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-100% + var(--dy, 0px))); display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.pin { position: absolute; left: 0; top: 0; width: 0; height: 0; cursor: pointer; }
+.pin .tag { position: absolute; left: 0; top: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-100% - 8px + var(--dy, 0px))); }
+.pin .lead { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.pin .lead line { stroke: var(--ink); stroke-width: 1.5; stroke-opacity: .75; }
+.pin .dot { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); border: 1.5px solid #fff; box-shadow: 0 0 0 1px rgba(18,41,84,.35); }
+.z-lo .pin .tag i { display: none; }
 .pin .tag { display: flex; flex-direction: column; align-items: center; padding: 4px 8px 5px; border-radius: 4px; white-space: nowrap; line-height: 1.15;
   border: 1px solid rgba(18,41,84,.45); box-shadow: 0 2px 6px rgba(12,29,62,.25); }
 .pin .tag i { font-style: normal; font-size: 10.5px; font-weight: 500; opacity: .9; }
 .pin .tag b { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.pin::after { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 7px solid var(--pin-bg, var(--ink)); }
+
 .pin:hover .tag, .pin.is-hot .tag { outline: 2px solid var(--gold); outline-offset: 1px; }
 .pin.is-dim { opacity: .2; }
 .pin.is-self .tag { outline: 3px solid var(--gold); outline-offset: 2px; }
@@ -205,7 +211,7 @@ h3 { font-size: 1.05rem; }
 .pin-b3 { --pin-bg: var(--b3); } .pin-b3 .tag { background: var(--b3); color: var(--b3t); }
 .pin-b4 { --pin-bg: var(--b4); } .pin-b4 .tag { background: var(--b4); color: var(--b4t); }
 .pin-b0 { --pin-bg: #fff; } .pin-b0 .tag { background: #fff; color: var(--muted); border-style: dashed; }
-.stn { position: absolute; transform: translate(-10%, 4px); font-size: 12px; font-weight: 700; color: #fff; background: #3c4656; padding: 2px 10px; border-radius: 999px; white-space: nowrap; box-shadow: 0 0 0 2px #fff; }
+.stn { position: absolute; transform: translate(-50%, -50%); font-size: 12px; font-weight: 700; color: #fff; background: #3c4656; padding: 2px 10px; border-radius: 999px; white-space: nowrap; box-shadow: 0 0 0 2px #fff; }
 .legend { position: absolute; left: 10px; bottom: 22px; z-index: 500; background: rgba(255,255,255,.97); border: 1px solid var(--rule); padding: 7px 11px; font-size: 11.5px; color: var(--muted); display: flex; align-items: center; flex-wrap: wrap; gap: 2px 6px; pointer-events: none; max-width: calc(100% - 20px); }
 .legend i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; border: 1px solid rgba(18,41,84,.3); margin-left: 6px; vertical-align: -1px; }
 .leaflet-popup-content-wrapper { border-radius: 4px; border-top: 3px solid var(--gold); box-shadow: 0 10px 30px rgba(12,29,62,.25); }
@@ -800,3 +806,23 @@ table.kt td.kt-ok { background: var(--gold-wash); font-weight: 700; color: var(-
 .leaflet-container { font-family: var(--font); }
 .m-gate-lock .m-gate-msg:only-child { position: static; background: var(--wash); border: 1px solid var(--rule); margin-top: 14px; padding: 18px 16px; }
 @media (max-width: 600px) { .pphoto img { max-height: 260px; } }
+/* アクセス数ランキング */
+.arank { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--ink); }
+.arank li { border-bottom: 1px solid var(--rule); }
+.arank li a { display: grid; grid-template-columns: 30px 96px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 16px; text-decoration: none; color: var(--text); }
+.arank li a:hover { background: var(--wash); }
+.ar-no { font-weight: 700; font-size: 1.05rem; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; line-height: 28px; }
+.arank li:nth-child(-n+3) .ar-no { color: var(--ink-deep); background: var(--gold); border-radius: 2px; }
+.ar-img { width: 96px; height: 72px; object-fit: cover; display: block; background: var(--wash); border: 1px solid var(--rule); }
+.ar-noimg { background: linear-gradient(180deg, #eef1f6, #dfe5ee); }
+.ar-name { display: block; font-weight: 700; color: var(--ink); line-height: 1.45; }
+.ar-meta { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ar-val { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.ar-val b { font-size: 1.1rem; color: var(--ink); margin: 0 1px 0 4px; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .arank { grid-template-columns: 1fr; }
+  .arank li a { grid-template-columns: 26px 72px minmax(0, 1fr); padding: 10px 12px; gap: 10px; }
+  .ar-img { width: 72px; height: 54px; }
+  .ar-val { grid-column: 3; }
+}
+@media (min-width: 761px) { .arank li:nth-child(odd) { border-right: 1px solid var(--rule); } }

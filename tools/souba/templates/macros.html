@@ -180,3 +180,13 @@
   </tr>{% endfor %}</tbody>
 </table></div>
 {%- endmacro %}
+
+{% macro access_rank(site, access_json, limit=10, more=True) -%}
+<section class="sec arank-sec" id="accessRank" data-limit="{{ limit }}" hidden aria-labelledby="arank-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="arank-ttl">アクセス数ランキング</h2><p id="arankPeriod">直近30日によく見られているマンション</p></div>{% if more %}<a class="more" href="{{ site.base }}ranking/#accessRank">すべて見る</a>{% endif %}</div>
+    <ol class="arank" id="arankList"></ol>
+  </div>
+  <script type="application/json" id="arankData">{{ access_json | safe }}</script>
+</section>
+{%- endmacro %}

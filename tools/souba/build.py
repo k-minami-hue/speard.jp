@@ -503,6 +503,12 @@ def build(out_dir, origin, base):
         "speard_link": SITE["speard_url"] + "?from=souba",
         "ads": ads, "ad": {a["id"]: a for a in ads}, "ver": ver, "town": town, "town_closed": town_closed, "photos": photos, "hero_photo": hero_photo,
         "buildings": buildings, "listings": listings, "ranked": ranked, "nodata": nodata, "n_buildings": len(buildings), "town_facts": TOWN_FACTS,
+        # アクセス数ランキング（ブラウザで GAS から順位を取り、ここの棟情報で表示する）
+        "access_json": json.dumps({b["slug"]: {"name": b["マンション名"], "url": b["url"],
+                                             "meta": f'{b["built_txt"]}・{b["総戸数"]}戸・{b["最寄駅"]}駅 徒歩{b["徒歩分"]}分',
+                                             "t": round(b["stats"]["tsubo"]) if b["stats"] else None,
+                                             "img": f'{SITE["base"]}assets/img/{b["photo"]["key"]}.webp' if b["photo"] else None}
+                                   for b in buildings}, ensure_ascii=False).replace("</", "<\\/"),
         "atlas_json": json.dumps({"buildings": atlas, "labels": [q_label(q) for q in quarters], "fallback": est_fallback,
                                   "stations": [{"name": "武蔵小杉駅", "lat": 35.57593, "lng": 139.65988}]}, ensure_ascii=False).replace("</", "<\\/"),
     }

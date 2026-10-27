@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import row %}
+{% from "macros.html" import row, access_rank %}
 {% block title %}武蔵小杉のマンション ランキング｜坪単価・駅近・築年｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のマンション{{ n_buildings }}棟を、坪単価、駅からの近さ、築年で並べました。国土交通省の取引データから集計しています。{% endblock %}
 {% block main %}
@@ -9,6 +9,9 @@
     <h1>武蔵小杉のマンション ランキング</h1>
     <p class="lead">坪単価が最も高いのは{{ ranked[0]['マンション名'] }}（{{ ranked[0].stats.tsubo_txt }}）です（{{ period }}の取引の中央値）。</p>
   </section>
+</div>
+{{ access_rank(site, access_json, 10, False) }}
+<div class="wrap page">
   <section>
     <div class="sec-head"><div><h2>坪単価ランキング</h2><p>{{ period }}の取引の中央値</p></div></div>
     <ol class="blist blist-rank">{% for b in ranked %}{{ row(site, b, rank=loop.index) }}{% endfor %}</ol>
