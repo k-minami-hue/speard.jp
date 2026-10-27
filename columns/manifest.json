@@ -1,19 +1,19 @@
 {
  "columns": [
   {
-   "id": "kosugi-ichioku",
+   "id": "kosugi-sagashikata",
    "category": "buy",
    "tags": [
     "購入編"
    ],
    "tag": "購入編",
-   "title": "武蔵小杉で1億円で買えるマンションの広さ——24棟の坪単価で比べる棟の選び方",
-   "date": "2026.10.26",
-   "hero": "/columns/hero/kosugi-ichioku.jpg",
-   "thumb": "/columns/hero/kosugi-ichioku-thumb.jpg",
-   "file": "columns/purchase/column_kosugi_ichioku.html",
-   "description": "武蔵小杉で予算1億円なら、買える広さは棟によって約54㎡から約134㎡。駅前の大規模タワーは50〜60㎡台、2008〜2009年築のタワーは約69〜81㎡。24棟の坪単価で広さを一覧にし、駅・築年・規模と出口から棟の選び方を整理。",
-   "seo_title": "武蔵小杉で1億円で買えるマンション｜24棟の広さと選び方",
+   "title": "武蔵小杉の中古タワマンの探し方——希望の棟で住戸を逃さない準備と待ち方",
+   "date": "2026.10.27",
+   "hero": "/columns/hero/kosugi-sagashikata.jpg",
+   "thumb": "/columns/hero/kosugi-sagashikata-thumb.jpg",
+   "file": "columns/purchase/column_kosugi_sagashikata.html",
+   "description": "武蔵小杉で棟を決めて中古タワマンを探すなら、条件に合う住戸は年に1〜2件。事前審査・資金・今の住まいの段取りを先に済ませ、公開前の売り物を拾い、同じ棟の中で出口に強い中間の住戸を取る方法を整理。",
+   "seo_title": "武蔵小杉の中古タワマンの探し方｜希望の棟で住戸を逃さない方法",
    "hero_credit": {
     "author": "Asanagi",
     "license": "CC0",
