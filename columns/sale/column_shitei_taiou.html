@@ -1,0 +1,322 @@
+<h1>売却中に購入申込みが入ったら——指値の返し方と、断って待つときの費用の見積り</h1>
+<style>
+#col-art-body .lead-box { background:#eef3fb; border:1px solid #c2cfe8; border-left:5px solid #0E3273; padding:22px 26px; margin:26px 0; border-radius:0 6px 6px 0; }
+#col-art-body .lead-box p { margin:0; font-size:.95rem; line-height:1.95; color:#22304f; }
+#col-art-body .lead-box .lead-ttl { font-weight:700; color:#0E3273; font-size:1rem; }
+#col-art-body .info-box { background:#f4f6fb; border-left:4px solid #0E3273; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .info-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .info-box p:last-child { margin-bottom:0; }
+#col-art-body .warn-box { background:#fff8f0; border-left:4px solid #D85A30; padding:20px 24px; margin:28px 0; border-radius:0 4px 4px 0; }
+#col-art-body .warn-box p { margin-bottom:8px; font-size:.92rem; line-height:1.85; }
+#col-art-body .warn-box p:last-child { margin-bottom:0; }
+#col-art-body .price-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:.88rem; }
+#col-art-body .price-table th, #col-art-body .price-table td { border:1px solid #e0e0e0; padding:10px 12px; text-align:left; vertical-align:top; line-height:1.7; }
+#col-art-body .price-table th { background:#0E3273; color:#fff; font-weight:600; }
+#col-art-body .price-table td.num { text-align:right; white-space:nowrap; }
+#col-art-body .price-table tr:nth-child(even) td { background:#f7f8fa; }
+#col-art-body .price-table tr.hl td { background:#eef3fb; font-weight:700; color:#0E3273; }
+#col-art-body .check-item { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; margin-bottom:12px; background:#fafbfd; border:1px solid #e8ecf5; border-radius:6px; }
+#col-art-body .check-num { width:34px; height:34px; border-radius:50%; background:#0E3273; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; margin-top:2px; }
+#col-art-body .check-text strong { display:block; margin-bottom:4px; background:none; }
+#col-art-body .check-text p { font-size:.86rem; color:#555; margin:0; }
+#col-art-body .src-box { background:#f7f8fa; border-left:3px solid #8aa0c8; padding:14px 18px; margin:20px 0 28px; font-size:.8rem; color:#666; line-height:1.8; border-radius:0 4px 4px 0; word-break:break-all; }
+#col-art-body .col-faq-item { border:1px solid #e3e7f0; border-radius:6px; padding:16px 20px; margin-bottom:12px; background:#fafbfd; }
+#col-art-body .col-faq-q { font-size:1rem; color:#0E3273; margin:0 0 8px; padding-left:1.6em; text-indent:-1.6em; line-height:1.6; }
+#col-art-body .col-faq-q::before { content:"Q. "; font-weight:700; }
+#col-art-body .col-faq-a p { margin:0; font-size:.9rem; line-height:1.85; padding-left:1.6em; text-indent:-1.6em; }
+#col-art-body .col-faq-a p::before { content:"A. "; font-weight:700; color:#C7A34D; }
+#col-art-body figure { margin:30px 0; }
+#col-art-body figure svg { width:100%; height:auto; display:block; }
+#col-art-body figure img { width:100%; height:auto; border-radius:6px; }
+#col-art-body figcaption { font-size:.8rem; color:#888; margin-top:12px; line-height:1.7; padding:0 8px; text-align:center; }
+#col-art-body .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+@media (max-width:600px) { #col-art-body .price-table { font-size:.78rem; } #col-art-body .price-table th, #col-art-body .price-table td { padding:7px 6px; } }
+</style>
+<p>売り出して数週間、ようやく購入申込みが入ったと思ったら、希望より300万円低い価格が書かれていた。<br>
+マンション売却では、こうした場面が珍しくありません。<br>
+結論から言うと、指値（希望価格より低い価格での申込み）は、断っても受けても構いません。<br>
+ただし、その場で決めず、待った場合の費用と、次の申込みが来るまでの見通しを数字にしてから返すほうが、手取りの失敗は減ります。</p>
+
+<div class="lead-box">
+  <p><span class="lead-ttl">■ 30秒で分かる結論</span><br>
+　・購入申込書は、価格だけでなく手付金、引渡し時期、ローン特約、設備の条件まで読む<br>
+　・指値には「受ける」「条件を付けて返す」「断る」の3つの返し方がある<br>
+　・断って3か月待つ費用は、例の条件で約21.8万円。損益分岐の価格は約6,222.5万円<br>
+　・値引きより、引渡し時期や設備の条件で譲るほうが手取りを守れる場合がある<br>
+　・契約後は手付解除やローン特約で白紙になる場面があり、確認項目を事前に押さえる</p>
+</div>
+
+<hr>
+
+<h2>購入申込みが入ったら、最初に読む5項目</h2>
+
+<p>購入申込書（買付証明書）は、買主が「この条件で買いたい」と意思を示す書面です。<br>
+一般に、これを出しただけで売買契約が成立するわけではなく、売主が承諾しなければ何も決まりません。<br>
+売主側にも、受け入れる義務はありません。<br>
+目が行きやすいのは価格ですが、実際に手取りと日程を左右するのは、価格以外の項目も含めた全体の条件です。</p>
+
+<p>担当者から申込みの連絡があったら、次の5項目を確認します。<br>
+同じ価格でも、買主が現金で買うのか、ローンを使うのかで、契約後に白紙になる確率は変わります。<br>
+引渡し時期が半年先なら、その間の管理費やローンの返済は売主が払い続けます。</p>
+
+<figure>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>確認する項目</th><th>見るポイント</th></tr>
+  <tr><td>購入希望価格</td><td>売り出し価格との差額と、坪単価（70㎡基準）での差</td></tr>
+  <tr><td>支払い方法</td><td>現金か、ローンか。ローンなら事前審査の結果と借入額</td></tr>
+  <tr><td>手付金の額</td><td>契約時に預かる額。小さいと買主は解除しやすい</td></tr>
+  <tr><td>引渡し希望時期</td><td>売主の転居や住み替えの日程と合うか</td></tr>
+  <tr><td>その他の希望</td><td>設備の残置、補修の要望、契約までの期限</td></tr>
+</table>
+</div>
+<figcaption>図1：購入申込書で読む5項目。価格は1項目にすぎず、支払い方法と日程で条件の重さが変わる。</figcaption>
+</figure>
+
+<p>事前審査が通っているかどうかは、必ず聞いてください。<br>
+通っていない状態の申込みは、契約後にローンが通らず白紙になるおそれが残ります。<br>
+売る側の価格設定の考え方は<a href="/columns/uridashi-kakaku/">売り出し価格の決め方</a>で整理しています。</p>
+
+<hr>
+
+<h2>指値は断ってよいのか——市況から考える</h2>
+
+<p>指値が入ったとき、「最初の申込みを逃すと次が来ない」という不安から、すぐ受けてしまう売主がいます。<br>
+反対に、「安く買い叩かれた」と感じて断り、そのまま売れ残る例もあります。<br>
+どちらも、判断の材料が感情になっている点が問題です。</p>
+
+<p>材料として、まず市況を見ます。<br>
+東日本レインズの発表によると、2026年9月の首都圏の中古マンションは、成約件数が3,457件（前年同月比22.7%減）、在庫件数が50,450件（同15.1%増）でした。<br>
+成約価格は5,111万円（同4.5%減）、成約平米単価は81.07万円（同4.8%減）です。<br>
+売り物が増え、成約が減っている局面では、買主は選べる物件が多く、価格の交渉もしやすくなります。<br>
+つまり、指値は例外ではなく、通常の動きとして入ると考えておいたほうが現実に合います。</p>
+
+<div class="warn-box">
+  <p>首都圏全体の数字は、売ろうとしている建物や駅の動きと同じとは限りません。<br>
+  武蔵小杉のように棟ごとに売り物の数が違うエリアでは、同じ建物で今出ている売り物の数のほうが、判断に近い材料になります。<br>
+  同じ建物の売り物が少ないなら、断って待つ価値は上がります。</p>
+</div>
+
+<p>次に、指値の幅を手取りで見ます。<br>
+70㎡（約21.2坪）の部屋を6,500万円（坪単価307.0万円）で売り出し、6,200万円（坪単価292.8万円）の申込みが入ったとします。<br>
+差は300万円ですが、仲介手数料の上限は「価格×3%＋6万円」に消費税を加えた額です。<br>
+価格が下がれば手数料も下がるため、手取りの差は300万円より少し小さくなります。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" role="img" aria-label="仲介手数料を引いた手取りは、6,500万円で売ると6,278.9万円、6,400万円で売ると6,182.2万円、6,200万円で売ると5,988.8万円。6,200万円と6,500万円の差は290.1万円" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="34" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">売却価格別の手取り（例）</text>
+<text x="40" y="76" font-size="16" fill="#333" font-weight="700">6,500万円で売る</text>
+<rect x="40" y="86" width="440" height="38" rx="2" fill="#0E3273"/>
+<text x="54" y="112" font-size="16" fill="#fff">6,278.9万円</text>
+<text x="40" y="160" font-size="16" fill="#333" font-weight="700">6,400万円で売る</text>
+<rect x="40" y="170" width="433.2" height="38" rx="2" fill="#3d5da8"/>
+<text x="54" y="196" font-size="16" fill="#fff">6,182.2万円</text>
+<text x="40" y="244" font-size="16" fill="#333" font-weight="700">6,200万円で売る</text>
+<rect x="40" y="254" width="419.7" height="38" rx="2" fill="#3d5da8"/>
+<text x="54" y="280" font-size="16" fill="#fff">5,988.8万円</text>
+<text x="40" y="318" font-size="14" fill="#777">仲介手数料（上限、税込）を引いた額。ローン残債や他の費用は除く。棒は金額に比例</text>
+</g>
+</svg>
+<figcaption>図2：300万円の指値でも、手数料が減る分、手取りの差は290.1万円になる例（数字は仮定）。</figcaption>
+</figure>
+
+<p>手数料は、6,500万円で221.1万円、6,400万円で217.8万円、6,200万円で211.2万円です。<br>
+手取りの全体像は<a href="/columns/tedori-keisan/">マンション売却の手取りはいくら残るか</a>で、残債や税金まで含めて計算しています。<br>
+指値を受けるか断るかは、この手取りの差と、次の項で扱う待つ費用を並べて決めます。</p>
+
+<hr>
+
+<h2>返し方は3つ——受ける・条件を付けて返す・断る</h2>
+
+<p>指値への返事は、大きく3つに分かれます。<br>
+1つ目は、そのまま受ける返事です。<br>
+手取りは減りますが、売却の時期が確定し、住み替えの資金計画が立てやすくなります。<br>
+売却と購入の時期がそろっていて、日程を動かせない人に向いています。</p>
+
+<p>2つ目は、条件を付けて返す方法です。<br>
+たとえば6,200万円の申込みに対し、6,400万円（坪単価302.2万円）で返します。<br>
+買主が本当に買いたいなら、間を取った価格や、価格を下げる代わりの条件を出してくることが多くあります。<br>
+3つ目は、断って売り出しを続ける方法です。<br>
+価格に自信があり、同じ建物に競合の売り物が少ないときに成り立ちます。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-label="指値が入ったときの判断の流れ。事前審査が通っていない場合は条件を確認する。通っていて日程が動かせないなら受ける、同じ建物の競合が少ないなら断って待つ、それ以外は条件を付けて返す" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="32" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">指値への返し方の判断</text>
+<rect x="40" y="48" width="520" height="52" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="56" y="80" font-size="16" fill="#0E3273" font-weight="700">1　事前審査と資金の裏付けを確認する</text>
+<rect x="40" y="116" width="520" height="52" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="56" y="148" font-size="16" fill="#0E3273" font-weight="700">2　日程が動かせないなら　受ける</text>
+<rect x="40" y="184" width="520" height="52" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="56" y="216" font-size="16" fill="#0E3273" font-weight="700">3　同じ建物の競合が少ないなら　断って待つ</text>
+<rect x="40" y="252" width="520" height="52" rx="4" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<text x="56" y="284" font-size="16" fill="#a67c1a" font-weight="700">4　どちらでもなければ　条件を付けて返す</text>
+</g>
+</svg>
+<figcaption>図3：指値への返事は、資金の裏付け、日程、競合の数の順に確認して決める。</figcaption>
+</figure>
+
+<p>どの返事でも共通するのは、期限を切って返すことです。<br>
+返事が遅れると、買主が他の物件へ移る可能性があります。<br>
+一方で、その日のうちに決める必要はありません。<br>
+翌日までに担当者と手取りを計算し直すだけで、判断の質は変わります。</p>
+
+<hr>
+
+<h2>断って待つと、いくらかかるか</h2>
+
+<p>断る判断をするとき、待つ間の費用を数字にしている人は多くありません。<br>
+前の例で、住宅ローンの残債が3,000万円、金利が年1.5%、管理費と修繕積立金が合わせて月3.5万円とします（いずれも仮定）。<br>
+ローンの利息は月に約3.75万円、管理費等と合わせて、待つ費用は月約7.25万円です。<br>
+3か月待つと21.75万円がかかります。</p>
+
+<p>この費用を踏まえ、6,200万円で今売る場合と同じ手取りになる価格を求めます。<br>
+価格をPとすると、手取りは「P−手数料（0.033P＋6.6万円）−21.75万円」です。<br>
+これが今売る場合の5,988.8万円と等しくなるのは、Pが約6,222.5万円（坪単価293.9万円）のときです。<br>
+つまり、3か月待って6,222.5万円以上で売れれば、今受けるより手取りが増えます。</p>
+
+<figure>
+<div class="tbl-wrap">
+<table class="price-table">
+  <tr><th>選択</th><th>売却価格</th><th>待つ費用</th><th>手取り</th></tr>
+  <tr><td>今、指値を受ける</td><td class="num">6,200万円</td><td class="num">0円</td><td class="num">5,988.8万円</td></tr>
+  <tr><td>3か月待って6,400万円で売る</td><td class="num">6,400万円</td><td class="num">21.75万円</td><td class="num">6,160.5万円</td></tr>
+  <tr><td>3か月待って6,200万円で売る</td><td class="num">6,200万円</td><td class="num">21.75万円</td><td class="num">5,967.1万円</td></tr>
+  <tr class="hl"><td>損益分岐（今受けるのと同じ）</td><td class="num">約6,222.5万円</td><td class="num">21.75万円</td><td class="num">5,988.8万円</td></tr>
+</table>
+</div>
+<figcaption>図4：3か月待つ費用は21.75万円。6,222.5万円以上で売れるかどうかが分かれ目になる例（数字は仮定）。</figcaption>
+</figure>
+
+<p>この計算から分かるのは、待つ費用そのものは、300万円の差に比べて小さいということです。<br>
+本当のリスクは、待っても同じ価格か、それより低い価格の申込みしか来ない場合です。<br>
+3か月後に6,200万円で売れても、手取りは今より21.75万円減ります。<br>
+さらに売り出しが長引くと、「売れ残り物件」として扱われ、再び価格を下げる流れになりやすくなります。</p>
+
+<div class="warn-box">
+  <p>待つ判断が向かないのは、住み替え先の購入日が決まっている人、残債が売却価格に近く、返済が重い人、相続などで期限のある売却です。<br>
+  これらの条件では、待つ費用の計算以前に、日程の余裕がありません。</p>
+</div>
+
+<p>税金の面では、自宅を売る場合に3,000万円の特別控除などの特例があり、利益の大きさで手取りへの影響が変わります。<br>
+詳しくは<a href="/columns/baikyaku-zeikin/">マンション売却の税金</a>にまとめています。<br>
+個別の税額は、税務署や税理士に確認してください。</p>
+
+<hr>
+
+<h2>価格より、条件で譲るほうが手取りを守れる</h2>
+
+<p>買主が価格を下げたいと言うとき、実際に求めているのは「総額の納得感」であることがあります。<br>
+その場合、価格を譲る前に、価格以外で動かせる条件を探します。<br>
+売主にとって負担の少ない譲歩には、次のようなものがあります。<br>
+引渡し時期を買主の希望に合わせる、カーテンや照明などを残す、契約から決済までの間に内見の日程を取る、などです。</p>
+
+<p>反対に、安易に譲るべきではない条件もあります。<br>
+契約不適合責任を免除する特約は、買主が嫌がることが多い項目ですが、個人が売主の場合は、責任を負う期間を契約で区切る例もあります。<br>
+その範囲は、担当者と事前に整理してください。<br>
+設備の故障や雨漏りなど、売主が知っている不具合は、契約前に書面で伝えておくことが前提です。<br>
+伝えないまま売ると、後で減額や修理を求められる原因になります。</p>
+
+<p>査定額が会社ごとに違うように、指値への助言も会社ごとに違います。<br>
+<a href="/columns/satei-chigai/">マンションの査定額が会社ごとに違う理由</a>で触れたとおり、売主の手取りより早く契約を決める動機が担当者にある場合もあります。<br>
+返事を決める前に、最悪のケースと最良のケースを担当者に数字で出してもらうと、助言の質が見えます。</p>
+
+<hr>
+
+<h2>契約までと契約後に押さえる確認事項</h2>
+
+<p>価格が決まれば売買契約へ進みます。<br>
+ここから決済までの間に、白紙になる場面が3つあります。<br>
+手付解除、住宅ローン特約による解除、そして買主の事情による契約違反です。<br>
+どこで白紙になりうるかを知っておけば、住み替えの日程に余裕を持たせられます。</p>
+
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-label="売買契約までの流れ。購入申込み、条件交渉、売買契約と手付金、ローン本審査、決済と引渡しの順に進み、手付解除は契約から相手が履行に着手するまで、ローン特約による解除は本審査の期限まで" style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;">
+<g font-family="'Noto Sans JP',sans-serif">
+<text x="300" y="32" font-size="20" fill="#0E3273" text-anchor="middle" font-weight="700">申込みから引渡しまでの流れ</text>
+<rect x="30" y="56" width="108" height="74" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="84" y="88" font-size="15" fill="#0E3273" text-anchor="middle" font-weight="700">購入申込み</text>
+<text x="84" y="110" font-size="13" fill="#0E3273" text-anchor="middle">価格・条件</text>
+<rect x="146" y="56" width="108" height="74" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="200" y="88" font-size="15" fill="#0E3273" text-anchor="middle" font-weight="700">条件交渉</text>
+<text x="200" y="110" font-size="13" fill="#0E3273" text-anchor="middle">返事の期限</text>
+<rect x="262" y="56" width="108" height="74" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="316" y="88" font-size="15" fill="#0E3273" text-anchor="middle" font-weight="700">売買契約</text>
+<text x="316" y="110" font-size="13" fill="#0E3273" text-anchor="middle">手付金</text>
+<rect x="378" y="56" width="108" height="74" rx="4" fill="#eef3fb" stroke="#0E3273" stroke-width="1.5"/>
+<text x="432" y="88" font-size="15" fill="#0E3273" text-anchor="middle" font-weight="700">ローン本審査</text>
+<text x="432" y="110" font-size="13" fill="#0E3273" text-anchor="middle">特約の期限</text>
+<rect x="494" y="56" width="80" height="74" rx="4" fill="#0E3273"/>
+<text x="534" y="88" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">決済</text>
+<text x="534" y="110" font-size="13" fill="#fff" text-anchor="middle">引渡し</text>
+<rect x="262" y="160" width="224" height="46" rx="4" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<text x="374" y="188" font-size="14" fill="#a67c1a" text-anchor="middle" font-weight="700">手付解除は相手の履行着手まで</text>
+<rect x="378" y="222" width="108" height="46" rx="4" fill="#fff" stroke="#a67c1a" stroke-width="1.5"/>
+<text x="432" y="250" font-size="14" fill="#a67c1a" text-anchor="middle" font-weight="700">特約解除の期限</text>
+</g>
+</svg>
+<figcaption>図5：申込みから引渡しまでの流れと、白紙になりうる2つの場面（手付解除、ローン特約による解除）。</figcaption>
+</figure>
+
+<p>手付解除は、民法557条の定めです。<br>
+相手方が契約の履行に着手するまでの間は、買主は交付した手付金を放棄し、売主は手付金の倍額を現実に提供して、契約を解除できます。<br>
+手付金の額は、売主と買主の合意で決まります。<br>
+手付金が少額だと、買主は少ない負担で解除でき、売主は住み替えの計画が崩れやすくなります。</p>
+
+<p>住宅ローン特約は、買主のローンが承認されなかったとき、契約を白紙に戻せる取り決めです。<br>
+宅地建物取引業法35条により、不動産会社はローンが成立しない場合の措置を、重要事項として説明する必要があります。<br>
+売主にとっては、特約の期限が過ぎるまで売却が確定しない点が負担です。<br>
+事前審査の内容と、特約の期限を、契約前に必ず確認してください。</p>
+
+<div class="src-box">出典：民法557条（手付）、宅地建物取引業法35条（e-Gov法令検索）／東日本不動産流通機構「月例マーケットウォッチ」2026年9月分（東急リバブル不動産市況レポートより確認）</div>
+
+<hr>
+
+<h3>売却を急ぐ人が受けやすい失敗</h3>
+
+<p>最後に、指値への対応で起こりやすい失敗を3つ挙げます。<br>
+1つ目は、口頭の合意だけで話を進めてしまうことです。<br>
+価格や引渡し時期、残置物の範囲は、申込書や覚書に書いてもらわないと、契約の場で食い違いが出ます。<br>
+2つ目は、申込みが入った安心から、売り出しの活動を止めてしまうことです。<br>
+契約が済むまで、他の申込みを受けられる状態を保つかどうかは、担当者と相談して決めます。<br>
+3つ目は、残債より低い価格で受けてしまうことです。<br>
+残債が売却額を上回ると、差額を自己資金で埋めることになります。<br>
+<a href="/columns/zansai-baikyaku/">住宅ローンが残っていても家は売れるか</a>で、足りない場合の選択肢を整理しています。</p>
+
+<p>自分の部屋の価格の目安を継続的に見ておくと、指値が入ったときに高いのか妥当なのかを判断しやすくなります。<br>
+過去の取引にもとづく参考値が届く<a href="/souba/member/">自宅価格ウォッチ</a>も、判断材料のひとつになります。<br>
+具体的な売り出し価格や指値の返し方は、<a href="/satei/">無料売却査定</a>の場で、物件ごとに数字を出してお伝えします。<br>
+代表の経歴や考え方は<a href="/profile/">プロフィール</a>に載せています。</p>
+
+<hr>
+
+<h3>よくある質問</h3>
+
+<section class="col-faq">
+<div class="col-faq-item"><h3 class="col-faq-q">最初に入った申込みは、安くても受けたほうがいいですか</h3><div class="col-faq-a"><p>そう決めつける必要はありません。<br>
+手取りの差と、待つ費用、今後の売り物の数を並べて判断してください。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">指値を断ると、その買主は戻ってきませんか</h3><div class="col-faq-a"><p>条件を付けて返しておけば、再度の申込みに進む買主もいます。<br>
+断る場合も、理由と、受けられる価格の目安を伝えておくと話が続きやすくなります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">申込みが2件同時に入ったらどうしますか</h3><div class="col-faq-a"><p>価格だけでなく、支払い方法、事前審査、引渡し時期を比べます。<br>
+現金でも条件の厳しい申込みと、ローンでも条件のそろった申込みでは、後者が安心な場合もあります。</p></div></div>
+<div class="col-faq-item"><h3 class="col-faq-q">契約後に買主から値引きを求められたら</h3><div class="col-faq-a"><p>契約後の値引きは、設備の故障など契約時に分からなかった事情がある場合を除き、応じる必要はありません。<br>
+応じる前に、書面の内容と担当者の見解を確認してください。</p></div></div>
+</section>
+
+<h2>まとめ</h2>
+
+<div class="info-box">
+  <p>指値が入ったときの要点</p>
+  <p>・申込書は価格だけでなく、支払い方法、手付金、引渡し時期、特約まで読む</p>
+  <p>・返し方は、受ける、条件を付けて返す、断るの3つから、手取りと日程で選ぶ</p>
+  <p>・3か月待つ費用は例で21.75万円。損益分岐は約6,222.5万円で、待てば上がるかが焦点</p>
+  <p>・価格より、引渡し時期や設備の条件で譲るほうが手取りを守れることがある</p>
+  <p>・契約後は手付解除とローン特約で白紙になりうるため、期限と事前審査を確認する</p>
+</div>
+
+<p>指値が入ったときは、感情ではなく数字で返すのが基本です。<br>
+手取りの差、待つ費用、同じ建物の競合の数を並べれば、受けるか断るかは自然に見えてきます。<br>
+税務や住宅ローンの個別の判断は、税理士や金融機関、当社にご相談ください。</p>
+
+<div class="src-box">参考資料：民法557条（e-Gov法令検索）／宅地建物取引業法35条（e-Gov法令検索）／東日本不動産流通機構（東日本レインズ）月例マーケットウォッチ2026年9月分（東急リバブル不動産市況レポートより確認）／国土交通省「宅地建物取引業者が宅地又は建物の売買等に関して受けることができる報酬の額」</div>

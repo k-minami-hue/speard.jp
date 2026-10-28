@@ -1,6 +1,21 @@
 {
  "columns": [
   {
+   "id": "shitei-taiou",
+   "category": "sell",
+   "tags": [
+    "売却編"
+   ],
+   "tag": "売却編",
+   "title": "売却中に購入申込みが入ったら——指値の返し方と、断って待つときの費用の見積り",
+   "date": "2026.10.28",
+   "hero": "/columns/hero/shitei-taiou.jpg",
+   "thumb": "/columns/hero/shitei-taiou-thumb.jpg",
+   "file": "columns/sale/column_shitei_taiou.html",
+   "description": "購入申込みで指値が入ったら、受ける・条件を付けて返す・断るの3択。70㎡6,500万円の例で手取りの差290.1万円、3か月待つ費用21.75万円と損益分岐の価格、手付解除とローン特約の確認点を整理する。",
+   "seo_title": "マンション売却の指値への返し方｜断って待つ費用と損益分岐"
+  },
+  {
    "id": "kosugi-sagashikata",
    "category": "buy",
    "tags": [
