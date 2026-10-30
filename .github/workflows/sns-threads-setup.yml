@@ -1,0 +1,58 @@
+# Threads（@speard_jp）の連携設定と、トークンの定期更新。
+# 初回：url を空で実行 → 実行結果に出る認可URLを開いて「許可」→ 開いたページ（speard.jp）のURLを url に貼ってもう一度実行。
+# 以後は毎週月曜に自動でトークンを更新する（60日で切れるのを防ぐ）。
+name: SNS Threads setup
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'   # 毎週月曜 10:00（日本時間）にトークン更新
+  workflow_dispatch:
+    inputs:
+      url:
+        description: '「許可」のあとに開いたページのURLを貼る（空なら認可URLを表示するだけ）'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sns-post
+  cancel-in-progress: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: sns-queue
+          path: q
+      - run: pip install -q cryptography
+      - name: 設定・更新
+        env:
+          THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}
+          THREADS_APP_SECRET: ${{ secrets.THREADS_APP_SECRET }}
+          AUTH_URL: ${{ inputs.url }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python3 tools/sns_post.py q threads-refresh
+          elif [ -z "$AUTH_URL" ]; then
+            python3 tools/sns_post.py q threads-url
+          else
+            python3 tools/sns_post.py q threads-auth "$AUTH_URL"
+          fi
+      - name: 保存
+        if: always()
+        working-directory: q
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add -A
+            git commit -m "Threads 連携情報を更新（暗号化済み）"
+            git pull --rebase -X theirs origin sns-queue
+            git push
+          fi

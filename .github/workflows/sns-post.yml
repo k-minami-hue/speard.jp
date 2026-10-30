@@ -1,0 +1,62 @@
+# 会社SNS（X @spe_estate、Threads @speard_jp）の毎日の自動投稿。PCを開いていなくても GitHub 上で動く。
+# 投稿内容は sns-queue ブランチの queue/next.json（朝 9:05 に sns-draft.yml が作成）。
+# Actions の定時起動は遅れることがあるため 16:40 に起動し、スクリプト内で X 17:15、Threads 17:20 まで待って投稿する。
+# 失敗すると GitHub から通知メールが届く。
+name: SNS daily post
+
+on:
+  schedule:
+    - cron: '40 7 * * *'   # 毎日 16:40（日本時間）
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'post＝時刻どおり投稿 / now＝今すぐ投稿（本日分が ready のときだけ） / check＝投稿せず認証だけ確認'
+        type: choice
+        options: [check, now, post]
+        default: check
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sns-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: sns-queue
+          path: q
+      - run: pip install -q cryptography
+      - name: 投稿
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}
+          THREADS_APP_SECRET: ${{ secrets.THREADS_APP_SECRET }}
+        run: |
+          MODE="${{ inputs.mode || 'post' }}"
+          case "$MODE" in
+            check) python3 tools/sns_post.py q check ;;
+            now)   python3 tools/sns_post.py q post --now ;;
+            *)     python3 tools/sns_post.py q post ;;
+          esac
+      - name: 投稿記録を保存
+        if: always()
+        working-directory: q
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add -A
+            git commit -m "SNS投稿記録を更新：$(TZ=Asia/Tokyo date +%F)"
+            git pull --rebase -X theirs origin sns-queue
+            git push
+          fi

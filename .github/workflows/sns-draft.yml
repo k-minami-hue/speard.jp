@@ -1,0 +1,68 @@
+# 会社SNS（X・Threads）の毎日の投稿文作成（毎朝 9:05 日本時間）。PCを開いていなくても GitHub 上で完結する。
+# Claude（claude-code-action、代表の Claude サブスクリプションの枠を使用）が本文を作り、sns-queue ブランチの queue/next.json に置く。
+# 投稿は 17:15（X）・17:20（Threads）に sns-post.yml が行う。手順書：.github/prompts/sns.md
+name: SNS daily draft
+
+on:
+  schedule:
+    - cron: '5 0 * * *'   # 毎日 9:05（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: sns-draft
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: sns-queue
+          path: q
+      - name: 今日の日付と曜日
+        run: |
+          echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
+          echo "WEEKDAY=$(TZ=Asia/Tokyo date +%u | sed 's/1/月/;s/2/火/;s/3/水/;s/4/木/;s/5/金/;s/6/土/;s/7/日/')" >> "$GITHUB_ENV"
+
+      - name: 自動投稿が有効か確認（sns-queue の config.json）
+        run: echo "ENABLED=$(python3 -c "import json;print(str(json.load(open('q/config.json')).get('enabled', False)).lower())" 2>/dev/null || echo false)" >> "$GITHUB_ENV"
+
+      - name: Claude が投稿文を作る
+        if: env.ENABLED == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            リポジトリ直下の .github/prompts/sns.md を読み、その手順どおりに本日分の会社SNS投稿文を作って q/queue/next.json に書いてください。
+            今日の日付（日本時間）は ${{ env.TODAY }}、曜日は ${{ env.WEEKDAY }}曜日です。git の commit・push はしないでください。
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 80
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python3:*),Bash(cat:*),Bash(ls:*)"
+
+      - name: 投稿文を検査（NGなら投稿しない）
+        if: env.ENABLED == 'true'
+        run: |
+          set -o pipefail
+          python3 tools/sns_check.py q/queue/next.json --today "$TODAY" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat q/queue/next.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 投稿予定に置く（sns-queue に push）
+        if: env.ENABLED == 'true'
+        working-directory: q
+        run: |
+          git config user.name "speard-bot"
+          git config user.email "info@speard.jp"
+          git add queue/next.json
+          git commit -m "SNS投稿予定：${TODAY}" || exit 0
+          git push
