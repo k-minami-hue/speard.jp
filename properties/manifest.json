@@ -17,16 +17,6 @@
       "map_query": "赤坂グリーンハイツ 東京都港区赤坂2丁目",
       "access": [
         {
-          "line": "東京メトロ千代田線",
-          "station": "赤坂",
-          "walk_min": 6
-        },
-        {
-          "line": "東京メトロ南北線",
-          "station": "六本木一丁目",
-          "walk_min": 6
-        },
-        {
           "line": "東京メトロ銀座線",
           "station": "溜池山王",
           "walk_min": 5
@@ -35,6 +25,16 @@
           "line": "東京メトロ南北線",
           "station": "溜池山王",
           "walk_min": 5
+        },
+        {
+          "line": "東京メトロ千代田線",
+          "station": "赤坂",
+          "walk_min": 6
+        },
+        {
+          "line": "東京メトロ南北線",
+          "station": "六本木一丁目",
+          "walk_min": 6
         }
       ],
       "management_fee": 16580,
@@ -52,7 +52,7 @@
         ],
         [
           "リフォーム",
-          "2023年4月内装リフォーム完了（キッチン・浴室・トイレ・洗面化粧台を新規交換、クロス張替、フローリング新規）"
+          "2023年4月内装リフォーム完了"
         ]
       ],
       "features": [
@@ -64,7 +64,7 @@
         "南西向き",
         "エレベーター"
       ],
-      "comment": "赤坂駅から徒歩6分、港区赤坂2丁目の1LDKです。\n2023年にフルリフォームを済ませているので、手を入れずにそのまま住み始められます。\n\nおすすめのポイント\n・千代田線「赤坂」駅・南北線「六本木一丁目」駅徒歩6分、銀座線・南北線「溜池山王」駅徒歩5分の3駅3路線\n・登記簿面積30㎡超で、住宅ローンを利用しやすい面積\n・キッチン・浴室・トイレ・洗面化粧台を新規交換、クロス張替、フローリング新規\n・トイレ・洗面室・浴室がそれぞれ独立していて、水回りが使いやすい間取り\n・洋室にクローゼットが2か所、洗濯機置場は室内\n・管理は全部委託\n・スーパーやコンビニが徒歩圏、赤坂サカスや東京ミッドタウンへも歩いて行けます\n\n都心に通勤する方の住まいとしてはもちろん、将来賃貸に出す場合も借り手を見つけやすい立地です。\n内見の日程はご都合に合わせて調整しますので、お気軽にご連絡ください。",
+      "comment": "溜池山王駅徒歩5分・赤坂駅/六本木一丁目駅徒歩6分。2023年リフォーム済の1LDK\n\n■千代田線「赤坂」駅・南北線「六本木一丁目」駅徒歩6分、銀座線・南北線「溜池山王」駅徒歩5分。3駅3路線が使える港区赤坂2丁目の1LDK\n■登記簿面積30㎡超で、住宅ローンを利用しやすい面積\n■2023年フルリフォーム済。キッチン・浴室・トイレ・洗面化粧台を新規交換、クロス張替・フローリング新規\n■トイレ・洗面室・浴室がそれぞれ独立、洋室にクローゼット2か所、室内洗濯機置場付\n■管理は全部委託。スーパー・コンビニが徒歩圏、赤坂サカスや東京ミッドタウンへも徒歩圏",
       "transaction_type": "仲介",
       "broker": {
         "name": "株式会社スピアード",
@@ -73,7 +73,7 @@
       "photos": [
         {
           "src": "properties/akasaka-green-heights/01.jpg",
-          "caption": "外観"
+          "caption": "現地（2026年10月）撮影"
         },
         {
           "src": "properties/akasaka-green-heights/15.jpg",
@@ -81,58 +81,57 @@
         },
         {
           "src": "properties/akasaka-green-heights/04.jpg",
-          "caption": "LDK"
+          "caption": "LDK（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/02.jpg",
-          "caption": "LDK（キッチン側）"
+          "caption": "LDK キッチン側（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/03.jpg",
-          "caption": "LDK（入口側）"
+          "caption": "LDK 入口側（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/05.jpg",
-          "caption": "キッチン"
+          "caption": "キッチン。2023年4月に新規交換（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/06.jpg",
-          "caption": "洋室（窓側）"
+          "caption": "洋室（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/07.jpg",
-          "caption": "洋室（収納側）"
+          "caption": "洋室 クローゼット側（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/08.jpg",
-          "caption": "浴室"
+          "caption": "浴室（2026年10月撮影）"
         },
         {
           "src": "properties/akasaka-green-heights/09.jpg",
-          "caption": "洗面化粧台"
+          "caption": "洗面化粧台（2026年10月撮影）"
         },
         {
           "src": "properties/akasaka-green-heights/10.jpg",
-          "caption": "トイレ"
+          "caption": "トイレ。温水洗浄便座付（2026年10月撮影）"
         },
         {
           "src": "properties/akasaka-green-heights/11.jpg",
-          "caption": "洗濯機置場"
+          "caption": "室内洗濯機置場（2026年10月撮影）"
         },
         {
           "src": "properties/akasaka-green-heights/12.jpg",
-          "caption": "廊下"
+          "caption": "廊下（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/13.jpg",
-          "caption": "玄関"
+          "caption": "玄関（2026年10月撮影）。生活用品の一部を画像加工で消去しています。"
         },
         {
           "src": "properties/akasaka-green-heights/14.jpg",
-          "caption": "メールボックス"
+          "caption": "メールボックス（2026年10月撮影）。他住戸の表示を画像加工で消去しています。"
         }
       ],
-      "photos_note": "LDKの写真は生活用品の一部を画像加工で消去しています。",
       "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_minato/nc_22055717/"
     },
     {
