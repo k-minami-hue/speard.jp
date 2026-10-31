@@ -1,6 +1,135 @@
 {
   "properties": [
     {
+      "id": "akasaka-green-heights",
+      "status": "販売中",
+      "name": "赤坂グリーンハイツ",
+      "price": 41800000,
+      "layout": "1LDK",
+      "area_m2": 33.21,
+      "balcony_m2": 2.94,
+      "floor": 3,
+      "total_floors": "地上6階地下1",
+      "structure": "RC造",
+      "direction": "南西",
+      "built": "1976-04",
+      "address": "東京都港区赤坂2丁目",
+      "map_query": "赤坂グリーンハイツ 東京都港区赤坂2丁目",
+      "access": [
+        {
+          "line": "東京メトロ千代田線",
+          "station": "赤坂",
+          "walk_min": 6
+        },
+        {
+          "line": "東京メトロ南北線",
+          "station": "六本木一丁目",
+          "walk_min": 6
+        },
+        {
+          "line": "東京メトロ銀座線",
+          "station": "溜池山王",
+          "walk_min": 5
+        }
+      ],
+      "management_fee": 16580,
+      "repair_reserve": 17000,
+      "total_units": 15,
+      "land_rights": "所有権",
+      "management": "委託（巡回）",
+      "parking": "空無",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "商業地域"
+        ],
+        [
+          "リフォーム",
+          "2023年4月内装リフォーム完了（キッチン・浴室・トイレ・洗面化粧台を新規交換、クロス張替、フローリング上張り）"
+        ]
+      ],
+      "features": [
+        "3駅3路線利用可",
+        "2023年フルリフォーム済",
+        "システムキッチン",
+        "温水洗浄便座",
+        "バス・トイレ・洗面室独立",
+        "室内洗濯機置場",
+        "洋室クローゼット2か所",
+        "南西向き",
+        "エレベーター",
+        "スーパー徒歩10分以内",
+        "管理全部委託"
+      ],
+      "comment": "千代田線「赤坂」駅徒歩6分、南北線「六本木一丁目」と銀座線「溜池山王」も徒歩圏で、3駅3路線が使える港区赤坂2丁目の1LDKです。2023年にフルリフォーム済みで、キッチン・浴室・トイレ・洗面化粧台を新規交換し、クロス張替とフローリング上張りも完了しています。トイレ・洗面室・浴室がそれぞれ独立し、洋室にはクローゼットが2か所、室内に洗濯機置場もあります。管理は全部委託です。スーパーやコンビニが徒歩圏にあり、赤坂サカスや東京ミッドタウンへも歩いて行ける立地です。",
+      "transaction_type": "仲介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事（1）第112752号"
+      },
+      "photos": [
+        {
+          "src": "properties/akasaka-green-heights/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/akasaka-green-heights/02.jpg",
+          "caption": "LDK（キッチン側）"
+        },
+        {
+          "src": "properties/akasaka-green-heights/03.jpg",
+          "caption": "LDK（入口側）"
+        },
+        {
+          "src": "properties/akasaka-green-heights/04.jpg",
+          "caption": "LDK"
+        },
+        {
+          "src": "properties/akasaka-green-heights/05.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/akasaka-green-heights/06.jpg",
+          "caption": "洋室（窓側）"
+        },
+        {
+          "src": "properties/akasaka-green-heights/07.jpg",
+          "caption": "洋室（収納側）"
+        },
+        {
+          "src": "properties/akasaka-green-heights/08.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/akasaka-green-heights/09.jpg",
+          "caption": "洗面化粧台"
+        },
+        {
+          "src": "properties/akasaka-green-heights/10.jpg",
+          "caption": "トイレ"
+        },
+        {
+          "src": "properties/akasaka-green-heights/11.jpg",
+          "caption": "洗濯機置場"
+        },
+        {
+          "src": "properties/akasaka-green-heights/12.jpg",
+          "caption": "廊下"
+        },
+        {
+          "src": "properties/akasaka-green-heights/13.jpg",
+          "caption": "玄関"
+        },
+        {
+          "src": "properties/akasaka-green-heights/14.jpg",
+          "caption": "メールボックス"
+        }
+      ],
+      "photos_note": "LDKの写真は生活用品の一部を画像加工で消去しています。"
+    },
+    {
       "id": "brillia-ariake-skytower",
       "status": "販売中",
       "name": "ブリリア有明スカイタワー",
