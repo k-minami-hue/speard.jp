@@ -672,7 +672,7 @@ def p_area(n): return '-' if n is None else f'{float(n):.2f}㎡'
 def p_floor(p):
     if p.get('floor') is None: return '-'
     return f'{p["floor"]}階' + (f'／{p["total_floors"]}階建' if p.get('total_floors') else '')
-def p_yen(n): return '-' if n is None else f'{int(n):,}円／月'
+def p_yen(n): return '-' if n is None else (esc(n) if isinstance(n, str) else f'{int(n):,}円／月')
 def p_access(a):
     if not a: return ''
     if isinstance(a, str): return a
