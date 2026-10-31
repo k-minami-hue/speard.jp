@@ -84,16 +84,16 @@
           "caption": "間取り図"
         },
         {
+          "src": "properties/akasaka-green-heights/04.jpg",
+          "caption": "LDK"
+        },
+        {
           "src": "properties/akasaka-green-heights/02.jpg",
           "caption": "LDK（キッチン側）"
         },
         {
-          "src": "properties/akasaka-green-heights/03.jpg",
-          "caption": "LDK（入口側）"
-        },
-        {
-          "src": "properties/akasaka-green-heights/04.jpg",
-          "caption": "LDK"
+          "src": "properties/akasaka-green-heights/08.jpg",
+          "caption": "浴室"
         },
         {
           "src": "properties/akasaka-green-heights/05.jpg",
@@ -104,12 +104,8 @@
           "caption": "洋室（窓側）"
         },
         {
-          "src": "properties/akasaka-green-heights/07.jpg",
-          "caption": "洋室（収納側）"
-        },
-        {
-          "src": "properties/akasaka-green-heights/08.jpg",
-          "caption": "浴室"
+          "src": "properties/akasaka-green-heights/13.jpg",
+          "caption": "玄関"
         },
         {
           "src": "properties/akasaka-green-heights/09.jpg",
@@ -120,20 +116,24 @@
           "caption": "トイレ"
         },
         {
+          "src": "properties/akasaka-green-heights/14.jpg",
+          "caption": "メールボックス"
+        },
+        {
           "src": "properties/akasaka-green-heights/11.jpg",
           "caption": "洗濯機置場"
         },
         {
+          "src": "properties/akasaka-green-heights/03.jpg",
+          "caption": "LDK（入口側）"
+        },
+        {
+          "src": "properties/akasaka-green-heights/07.jpg",
+          "caption": "洋室（収納側）"
+        },
+        {
           "src": "properties/akasaka-green-heights/12.jpg",
           "caption": "廊下"
-        },
-        {
-          "src": "properties/akasaka-green-heights/13.jpg",
-          "caption": "玄関"
-        },
-        {
-          "src": "properties/akasaka-green-heights/14.jpg",
-          "caption": "メールボックス"
         }
       ],
       "photos_note": "LDKの写真は生活用品の一部を画像加工で消去しています。"
