@@ -702,7 +702,8 @@ def prop_card(p):
 def build_properties():
     props = json.load(open(P('properties/manifest.json'), encoding='utf-8')).get('properties', [])
     order = {'販売中': 0, '商談中': 1, '成約済': 2}
-    props = [x for _, x in sorted(enumerate(props), key=lambda t: ((order.get(t[1].get('status'), 1) == 2), t[0]))]
+    # 成約済は末尾。それ以外は価格の高い順（同額は manifest の記載順）
+    props = [x for _, x in sorted(enumerate(props), key=lambda t: ((order.get(t[1].get('status'), 1) == 2), -(t[1].get('price') or 0), t[0]))]
     for p in props:
         sold = p.get('status') == '成約済'
         url = f'/properties/{p["id"]}/'
