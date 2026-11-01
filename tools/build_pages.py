@@ -760,7 +760,7 @@ def reserve_html(p, oc):
     return (f'<div class="prop-sec prop-reserve" id="reserve" data-id="{esc(p["id"])}" data-name="{esc(p["name"])}" data-cta="{"資料請求" if oc else "内見予約"}">'
             f'<h2 class="prop-sec-title">{title}</h2><div class="rv-card">{tabs}{visit}{doc}{done}</div></div>')
 
-def prop_card(p):
+def prop_card(p, stats=True):
     sold = p.get('status') == '成約済'
     ph = p_photos(p)
     img = (f'<img src="/{esc((p.get("thumb") or ph[0]["src"]).lstrip("/"))}" alt="{esc(p["name"])}" loading="lazy" decoding="async"><span class="prop-photo-count">写真 {len(ph)}枚</span>'
@@ -771,7 +771,30 @@ def prop_card(p):
             f'<div class="prop-thumb"><span class="prop-status {STATUS_CLASS.get(p.get("status"), "ps-selling")}">{esc(p.get("status"))}</span>{img}</div>'
             f'<div class="prop-body"><div class="prop-name">{esc(p["name"])}</div><div class="prop-price-row">{price}</div>'
             f'<div class="prop-spec"><span>{esc(p.get("layout"))}</span><span>{p_area(p.get("area_m2"))}</span><span>{p_floor(p)}</span></div>'
-            f'<div class="prop-access">{esc(acc)}</div>{"" if sold else p_stats(p["id"], card=True)}<div class="prop-more">詳細を見る →</div></div></a>')
+            f'<div class="prop-access">{esc(acc)}</div>{"" if sold or not stats else p_stats(p["id"], card=True)}<div class="prop-more">詳細を見る →</div></div></a>')
+
+def build_sell_props(props):
+    """売却ページ（sell.html）の <!-- PROPS:sell --> 〜 <!-- /PROPS --> に、トップページと同じ販売中の物件カードを入れる。
+    成約済は出さない。並びは販売物件一覧と同じ（価格の高い順）。掲載物件がなければセクションごと出さない。"""
+    if not os.path.exists(P('sell.html')):
+        return 0
+    live = [p for p in props if p.get('status') != '成約済']
+    if live:
+        cards = ''.join(prop_card(p, stats=False) for p in live)
+        sec = ('<section class="sell-props" id="sell-properties">\n  <div class="container">\n'
+               '    <div class="sec-head">\n      <span class="sec-en">Properties for Sale</span>\n'
+               '      <h2 class="sec-title">スピアードが販売中の物件</h2>\n'
+               '      <p class="sec-lead">売主様からお預かりし、現在販売活動を行っている物件です。</p>\n    </div>\n'
+               f'    <div class="prop-grid">{cards}</div>\n'
+               '    <div style="text-align:center;margin-top:44px;"><a href="/properties/" class="sell-props-more">販売物件一覧を見る →</a></div>\n'
+               '  </div>\n</section>')
+    else:
+        sec = ''
+    src = read('sell.html')
+    out = re.sub(r'<!-- PROPS:sell -->.*?<!-- /PROPS -->', lambda m: f'<!-- PROPS:sell -->\n{sec}\n<!-- /PROPS -->' if sec else '<!-- PROPS:sell -->\n<!-- /PROPS -->', src, count=1, flags=re.S)
+    if out != src:
+        open(P('sell.html'), 'w', encoding='utf-8').write(out)
+    return len(live)
 
 def build_properties():
     props = json.load(open(P('properties/manifest.json'), encoding='utf-8')).get('properties', [])
@@ -1313,6 +1336,7 @@ if __name__ == '__main__':
     build_base_css()
     cols = build_columns()
     props = build_properties()
+    build_sell_props(props)
     res = build_results()
     nq, nv = build_faq_voices()
     extra = ['/faq/', '/voices/'] + build_result_pages(res) + build_areas(cols) + build_column_hubs(cols) + build_tool_pages()

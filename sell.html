@@ -520,6 +520,48 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
   .mobile-menu{top:88px;}
   .hero-actions .btn{width:100%;max-width:360px;}
 }
+
+/* ===== 販売物件（トップページと同じカード。中身は tools/build_pages.py が properties/manifest.json から自動生成） ===== */
+.sell-props{background:var(--bg);--beige:#EDE8DC;--text:#1a1a1a;--text-mid:#555;--text-light:#888;--border:#D8D0C0;}
+.sell-props .prop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,340px));justify-content:center;gap:28px;}
+.prop-card{background:#fff;border:1px solid var(--beige);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+.prop-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.prop-thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);}
+.prop-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.prop-noimg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#fff;text-align:center;padding:0 20px;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:28px 28px;}
+.prop-noimg-en{font-family:'Playfair Display',serif;font-style:italic;font-size:.72rem;color:var(--gold);letter-spacing:.16em;}
+.prop-noimg-name{font-family:'Noto Serif JP',serif;font-size:1.05rem;letter-spacing:.08em;line-height:1.5;}
+.prop-status{position:absolute;top:12px;left:12px;z-index:2;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:2px;color:#fff;}
+.ps-selling{background:var(--gold);}
+.ps-nego{background:var(--navy-mid);}
+.ps-sold{background:#7a7a7a;}
+.prop-photo-count{position:absolute;right:10px;bottom:10px;z-index:2;background:rgba(13,34,56,.78);color:#fff;font-size:.7rem;padding:3px 9px;border-radius:2px;letter-spacing:.06em;}
+.prop-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.prop-name{font-family:'Noto Serif JP',serif;font-size:1.05rem;font-weight:500;color:var(--navy-dark);line-height:1.55;letter-spacing:.04em;}
+.prop-price-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.prop-price{font-size:1.45rem;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1.2;}
+.prop-tsubo{display:inline-block;font-size:.74rem;color:var(--text-light);letter-spacing:.02em;white-space:nowrap;}
+.prop-spec{display:flex;flex-wrap:wrap;gap:4px 0;font-size:.82rem;color:var(--text);}
+.prop-spec span + span::before{content:'｜';color:var(--border);margin:0 6px;}
+.prop-access{font-size:.78rem;color:var(--text-mid);line-height:1.7;}
+.prop-more{margin-top:auto;padding-top:12px;border-top:1px solid var(--beige);font-size:.8rem;color:var(--gold);font-weight:600;letter-spacing:.06em;text-align:right;}
+.sell-props-more{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:15px 38px;font-size:.92rem;letter-spacing:.08em;border-radius:30px;transition:background .2s,transform .2s;}
+.sell-props-more:hover{background:var(--navy-mid);transform:translateY(-2px);}
+@media(max-width:600px){
+  .sell-props .prop-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .prop-card .prop-body{padding:12px 10px 14px;gap:6px;}
+  .prop-card .prop-name{font-size:.86rem;line-height:1.45;letter-spacing:.02em;}
+  .prop-card .prop-price-row{gap:4px;}
+  .prop-card .prop-price{font-size:1.08rem;}
+  .prop-card .prop-tsubo{font-size:.62rem;letter-spacing:0;}
+  .prop-card .prop-spec{font-size:.7rem;gap:2px 8px;}
+  .prop-card .prop-spec span + span::before{content:none;}
+  .prop-card .prop-access{font-size:.66rem;line-height:1.55;}
+  .prop-card .prop-more{font-size:.7rem;padding-top:8px;}
+  .prop-card .prop-status{top:8px;left:8px;font-size:.6rem;padding:3px 8px;}
+  .prop-card .prop-photo-count{right:6px;bottom:6px;font-size:.6rem;padding:2px 6px;}
+  .prop-card .prop-noimg-name{font-size:.82rem;}
+}
 </style>
 <link rel="stylesheet" href="/assets/site.css?v=20261024s2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "マンション売却仲介", "serviceType": "不動産売却サポート", "description": "成約事例に基づく根拠ある査定と、囲い込みをしない透明な販売活動で売却を仲介するサービス。", "provider": {"@id": "https://speard.jp/#organization"}, "areaServed": ["東京都", "神奈川県", "埼玉県", "千葉県"], "url": "https://speard.jp/sell.html"}</script>
@@ -954,6 +996,21 @@ footer{background:var(--navy-dark);color:rgba(255,255,255,.42);text-align:center
     </div>
   </div>
 </section>
+
+<!-- ===== 販売物件（properties/manifest.json から自動生成。手で編集しない） ===== -->
+<!-- PROPS:sell -->
+<section class="sell-props" id="sell-properties">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-en">Properties for Sale</span>
+      <h2 class="sec-title">スピアードが販売中の物件</h2>
+      <p class="sec-lead">売主様からお預かりし、現在販売活動を行っている物件です。</p>
+    </div>
+    <div class="prop-grid"><a href="/properties/the-parkhouse-kameido/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/the-parkhouse-kameido/02.webp" alt="ザ・パークハウス亀戸" loading="lazy" decoding="async" width="596" height="963"><span class="prop-photo-count">写真 1枚</span></div><div class="prop-body"><div class="prop-name">ザ・パークハウス亀戸</div><div class="prop-price-row"><span class="prop-price">1億290万円</span><span class="prop-tsubo">坪単価：514万／坪</span></div><div class="prop-spec"><span>3LDK</span><span>66.11㎡</span><span>4階／13階建</span></div><div class="prop-access">JR総武線「亀戸」駅 徒歩11分</div><div class="prop-more">詳細を見る →</div></div></a><a href="/properties/brillia-ariake-skytower/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/brillia-ariake-skytower/01.webp" alt="ブリリア有明スカイタワー" loading="lazy" decoding="async" width="1000" height="843"><span class="prop-photo-count">写真 13枚</span></div><div class="prop-body"><div class="prop-name">ブリリア有明スカイタワー</div><div class="prop-price-row"><span class="prop-price">7,680万円</span><span class="prop-tsubo">坪単価：634万／坪</span></div><div class="prop-spec"><span>1LDK</span><span>40.02㎡</span><span>28階／33階建</span></div><div class="prop-access">新交通ゆりかもめ「有明テニスの森」駅 徒歩5分</div><div class="prop-more">詳細を見る →</div></div></a><a href="/properties/nice-urban-musashishinjo/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/nice-urban-musashishinjo/02.webp" alt="ナイスアーバン武蔵新城" loading="lazy" decoding="async" width="771" height="963"><span class="prop-photo-count">写真 1枚</span></div><div class="prop-body"><div class="prop-name">ナイスアーバン武蔵新城</div><div class="prop-price-row"><span class="prop-price">5,490万円</span><span class="prop-tsubo">坪単価：292万／坪</span></div><div class="prop-spec"><span>3LDK</span><span>62.10㎡</span><span>4階／5階建</span></div><div class="prop-access">JR南武線「武蔵新城」駅 徒歩12分</div><div class="prop-more">詳細を見る →</div></div></a><a href="/properties/akasaka-green-heights/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/akasaka-green-heights/01.webp" alt="赤坂グリーンハイツ" loading="lazy" decoding="async" width="658" height="560"><span class="prop-photo-count">写真 15枚</span></div><div class="prop-body"><div class="prop-name">赤坂グリーンハイツ</div><div class="prop-price-row"><span class="prop-price">4,180万円</span><span class="prop-tsubo">坪単価：416万／坪</span></div><div class="prop-spec"><span>1LDK</span><span>33.21㎡</span><span>3階／地上6階地下1階建</span></div><div class="prop-access">東京メトロ銀座線「溜池山王」駅 徒歩5分</div><div class="prop-more">詳細を見る →</div></div></a><a href="/properties/sunsara-azumabashi/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/sunsara-azumabashi/01.webp" alt="サンサーラ吾妻橋" loading="lazy" decoding="async" width="1000" height="1333"><span class="prop-photo-count">写真 12枚</span></div><div class="prop-body"><div class="prop-name">サンサーラ吾妻橋</div><div class="prop-price-row"><span class="prop-price">3,500万円</span><span class="prop-tsubo">坪単価：208万／坪</span></div><div class="prop-spec"><span>2LDK</span><span>55.47㎡</span><span>2階／10階建</span></div><div class="prop-access">都営浅草線「本所吾妻橋」駅 徒歩4分</div><div class="prop-more">詳細を見る →</div></div></a><a href="/properties/tiara-meguro-senzoku/" class="prop-card"><div class="prop-thumb"><span class="prop-status ps-selling">販売中</span><img src="/properties/tiara-meguro-senzoku/01.webp" alt="ティアラ目黒洗足" loading="lazy" decoding="async" width="968" height="692"><span class="prop-photo-count">写真 2枚</span></div><div class="prop-body"><div class="prop-name">ティアラ目黒洗足</div><div class="prop-price-row"><span class="prop-price">2,850万円</span><span class="prop-tsubo">坪単価：433万／坪</span></div><div class="prop-spec"><span>1K</span><span>21.73㎡</span><span>2階／7階建</span></div><div class="prop-access">東急目黒線「洗足」駅 徒歩4分</div><div class="prop-more">詳細を見る →</div></div></a></div>
+    <div style="text-align:center;margin-top:44px;"><a href="/properties/" class="sell-props-more">販売物件一覧を見る →</a></div>
+  </div>
+</section>
+<!-- /PROPS -->
 
 <!-- ===== Voices ===== -->
 <section class="voices">
