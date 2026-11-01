@@ -1,11 +1,12 @@
-<!--META {"path":"/simulator/","crumb":"諸費用・ローンシミュレーター","en":"Simulator","h1":"購入・売却の諸費用シミュレーター","sub":"金利と返済期間を選んで、購入の諸費用と月々の支払い、売却の手残り、借入可能額をその場で計算できます。","title":"マンション購入・売却の諸費用シミュレーター｜月々の返済額・売却の手取り・借入可能額","desc":"マンションの購入諸費用と住宅ローンの月々の返済額、売却時の仲介手数料・税金・手残り、年収から見た借入可能額を、金利と返済期間を選んで計算できる無料シミュレーター。","cta_title":"計算結果をもとに、個別にご相談いただけます","cta_sub":"実際の物件・ご自宅の条件で、諸費用と手取りを正確にお出しします。","cta_url":"/?inquiry=sell&amp;from=simulator#contact","jsonld":[{"@context":"https://schema.org","@type":"WebApplication","name":"マンション購入・売却の諸費用シミュレーター","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://speard.jp/simulator/","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"provider":{"@id":"https://speard.jp/#organization"}}]} -->
+<!--META {"path":"/simulator/","crumb":"資金計画表シミュレーター","en":"Simulator","h1":"購入・売却の資金計画表","sub":"物件価格と自己資金を入れるだけで、諸費用・お借入れ額・月々のお支払い、売却時の手取りまでを資金計画表にまとめます。印刷・PDF保存もできます。","title":"資金計画表シミュレーター｜マンション購入の諸費用・月々の支払い、売却の手取りを無料で作成","desc":"物件価格と自己資金を入れるだけで、マンション購入の諸費用・お借入れ額・月々のお支払いを資金計画表にまとめます。売却時の仲介手数料・税金・手取りも同じ形式で計算。印刷・PDF保存に対応した無料シミュレーター。","cta_title":"資金計画表をもとに、個別にご相談いただけます","cta_sub":"実際の物件・ご自宅の条件で、諸費用と手取りを正確にお出しします。","cta_url":"/?inquiry=buy&amp;from=simulator#contact","jsonld":[{"@context":"https://schema.org","@type":"WebApplication","name":"資金計画表シミュレーター（マンション購入・売却）","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://speard.jp/simulator/","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"provider":{"@id":"https://speard.jp/#organization"}}]} -->
 <style>
-.sim{max-width:980px;margin:0 auto}
+.sim{max-width:980px;margin:0 auto;--fp-ink:#16294f;--fp-ink2:#3d4f73;--fp-rule:#b9c1cf;--fp-hair:#dde2ea;--fp-band:#f3f5f8;--fp-gold:#a8843a;--fp-muted:#5f6878;--fp-text:#1b2130}
 .sim-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
 .sim-tab{flex:1 1 0;min-width:0;font:inherit;font-weight:700;font-size:.95rem;padding:14px 10px;border:2px solid #d6dce6;background:#fff;color:#0E3273;border-radius:8px;cursor:pointer}
 .sim-tab.on{background:#0E3273;border-color:#0E3273;color:#fff}
 .sim-panel{display:none}
-.sim-panel.on{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.sim-panel.on{display:block}
+.sim-panel.two.on{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
 .sim-box{background:#fff;border:1px solid #e1e6ee;border-radius:10px;padding:22px}
 .sim-box h2{font-family:'Noto Serif JP',serif;font-size:1.1rem;color:#0E3273;margin:0 0 14px;padding:0;border:0}
 .sim-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed #e6e9ef}
@@ -13,19 +14,16 @@
 .sim-row label{font-size:.9rem;color:#2b3445;line-height:1.5}
 .sim-row label small{display:block;font-size:.74rem;color:#8a919c}
 .sim-in{display:flex;align-items:center;gap:6px}
-.sim-in input,.sim-in select{width:100%;font:inherit;font-size:1rem;padding:10px;border:2px solid #d6dce6;border-radius:6px;text-align:right;background:#fff;min-height:46px}
+.sim-in input,.sim-in select{width:100%;font:inherit;font-size:1rem;padding:10px;border:2px solid #d6dce6;border-radius:6px;text-align:right;background:#fff;min-height:46px;color:#1b2130}
 .sim-in select{text-align:left}
 .sim-in input:focus,.sim-in select:focus{outline:none;border-color:#0E3273}
 .sim-in span{font-size:.82rem;color:#5b6472;white-space:nowrap}
-.sim-check{display:flex;gap:8px;align-items:center;font-size:.9rem}
-.sim-check input{width:20px;height:20px}
 .sim-res{position:sticky;top:96px}
 .sim-big{background:#0E3273;color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:14px}
 .sim-big .l{font-size:.85rem;opacity:.85}
 .sim-big .v{font-size:2rem;font-weight:700;line-height:1.3;font-family:'Noto Sans JP',sans-serif}
 .sim-big .v small{font-size:.5em;font-weight:400}
 .sim-big .s{font-size:.82rem;opacity:.85;margin-top:2px}
-.sim-big.gold{background:#a67c1a}
 .sim-tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .sim-tbl th,.sim-tbl td{padding:8px 6px;border-bottom:1px solid #edf0f4;text-align:left;background:none!important;color:#2b3445;font-weight:400;width:auto!important}
 .sim-tbl th{width:56%!important;white-space:normal!important;word-break:normal}
@@ -35,68 +33,153 @@
 .sim-cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .sim-cta a{flex:1 1 180px;display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:6px;font-weight:700;text-decoration:none;font-size:.92rem;color:#fff}
 .sim-cta .g{background:#C9A84C}.sim-cta .n{background:#0E3273}.sim-cta .l{background:#06C755}
-.sim-warn{font-size:.82rem;color:#b45309;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:8px 10px;margin-top:10px;display:none}
-@media(max-width:820px){.sim-tab{font-size:.85rem;padding:12px 4px}.sim-panel.on{grid-template-columns:1fr}.sim-res{position:static}.sim-row{grid-template-columns:1fr 140px}}
+
+/* 入力欄 */
+.fp-in{background:#fff;border:1px solid #e1e6ee;border-radius:10px;padding:20px 22px}
+.fp-in h2{font-family:'Noto Serif JP',serif;font-size:1.1rem;color:#0E3273;margin:0 0 12px;padding:0;border:0}
+.fp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px 20px}
+.fp-f label{display:block;font-size:.86rem;font-weight:700;color:#2b3445;margin-bottom:4px;line-height:1.5}
+.fp-f label small{font-weight:400;color:#8a919c;font-size:.74rem;margin-left:4px}
+.fp-fixed{margin:14px 0 0;padding:10px 12px;background:#f5f7fa;border-radius:6px;font-size:.8rem;color:#4b5563;line-height:1.8}
+.fp-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 10px}
+.fp-tools p{margin:0;font-size:.82rem;color:#5b6472}
+.fp-print{font:inherit;font-weight:700;font-size:.9rem;padding:10px 18px;min-height:44px;border:2px solid #0E3273;background:#fff;color:#0E3273;border-radius:6px;cursor:pointer}
+.fp-print:hover{background:#0E3273;color:#fff}
+
+/* 資金計画表（帳票） */
+.fp-sheet{background:#fff;color:var(--fp-text);border:1px solid #e1e6ee;box-shadow:0 1px 4px rgba(22,41,79,.12);padding:28px 32px 22px;font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.6;font-variant-numeric:tabular-nums}
+.fp-top{display:flex;justify-content:flex-end;font-size:.9em;color:var(--fp-muted)}
+.fp-title{margin:.1em 0 .2em;text-align:center;font-family:'Noto Serif JP',serif;font-weight:600;font-size:1.75em;letter-spacing:.2em;color:var(--fp-ink)}
+.fp-sum{display:grid;grid-template-columns:1fr auto 1fr auto 1.1fr 1.3fr;align-items:stretch;margin-top:1em;border:1px solid var(--fp-rule)}
+.fp-sum.sell{grid-template-columns:1fr auto 1fr auto 1fr auto 1.3fr}
+.fp-sum .c{padding:.7em .9em .65em;display:flex;flex-direction:column;gap:.1em;min-width:0}
+.fp-sum .op{display:flex;align-items:center;color:var(--fp-muted);font-size:1.3em;padding:0 .1em}
+.fp-sum .k{font-size:.88em;color:var(--fp-muted)}
+.fp-sum .v{font-size:1.55em;font-weight:700;line-height:1.25;white-space:nowrap}
+.fp-sum .v small{font-size:.5em;font-weight:500;margin-left:.15em}
+.fp-sum .d{font-size:.8em;color:var(--fp-muted)}
+.fp-sum .total{background:var(--fp-band)}
+.fp-sum .total .v{border-bottom:2px solid var(--fp-gold);align-self:flex-start}
+.fp-sum .month{border-left:2px solid var(--fp-ink)}
+.fp-sum .month .k{color:var(--fp-ink);font-weight:700}
+.fp-sum .minus .v{color:#b3261e}
+.fp-h{margin:1.4em 0 .45em;font-size:1.06em;font-weight:700;color:var(--fp-ink);display:flex;align-items:baseline;gap:.5em;border-bottom:1px solid var(--fp-ink);padding-bottom:.2em;flex-wrap:wrap}
+.fp-h .no{display:inline-block;min-width:1.4em;height:1.4em;line-height:1.4em;text-align:center;background:var(--fp-ink);color:#fff;font-size:.82em;border-radius:2px}
+.fp-h .side{margin-left:auto;font-weight:400;font-size:.8em;color:var(--fp-muted)}
+.fp-two{display:grid;grid-template-columns:1fr 1fr;gap:2em;align-items:start}
+.fp-t{width:100%;border-collapse:collapse}
+.fp-t th,.fp-t td{border-bottom:1px solid var(--fp-hair);padding:.34em .6em;text-align:left;font-weight:400;vertical-align:middle;background:none;color:var(--fp-text)}
+.fp-t .n{text-align:right;white-space:nowrap}
+.fp-t .u{width:1.6em;color:var(--fp-muted);padding-left:0;font-size:.9em}
+.fp-t tr.strong th,.fp-t tr.strong td{font-weight:700;font-size:1.05em;border-top:1.5px solid var(--fp-ink);border-bottom:1.5px solid var(--fp-ink)}
+.fp-t caption{caption-side:top;text-align:left;font-size:.88em;color:var(--fp-muted);padding:0 0 .2em .1em}
+.fp-cost col.c1{width:27%}.fp-cost col.c2{width:17%}.fp-cost col.c3{width:4%}
+.fp-cost tr.g td{font-weight:700;color:var(--fp-ink2);background:var(--fp-band);padding-top:.18em;padding-bottom:.18em;font-size:.9em}
+.fp-cost td.ds{color:var(--fp-muted);font-size:.88em}
+.fp-cost tr.tot td{font-weight:700;border-top:1.5px solid var(--fp-ink);border-bottom:1.5px solid var(--fp-ink)}
+.fp-cost tr.tot td.ds{font-weight:400}
+.fp-loan thead th{font-size:.85em;color:var(--fp-muted);border-bottom:1px solid var(--fp-rule);padding-top:0;text-align:right}
+.fp-loan thead th:first-child{text-align:left}
+.fp-loan td{text-align:right;white-space:nowrap}
+.fp-loan td:first-child{text-align:left;white-space:normal}
+.fp-loan tr.tot td{font-weight:700;font-size:1.08em;border-top:1.5px solid var(--fp-ink);border-bottom:1.5px solid var(--fp-ink)}
+.fp-loan td.note{color:var(--fp-muted);font-size:.88em;text-align:left;white-space:normal}
+.fp-warn{margin-top:.8em;padding:.6em .9em;border:1px solid #f0b8b3;background:#fdecea;color:#8a1c14;font-size:.9em;border-radius:3px}
+.fp-note{margin-top:1.2em;font-size:.8em;color:var(--fp-muted);line-height:1.7}
+.fp-note .h{font-weight:700;color:var(--fp-text);font-size:1.05em;margin-bottom:.2em}
+.fp-note p{margin:0;padding-left:1em;text-indent:-1em}
+.fp-foot{margin-top:.9em;border-top:1.5px solid var(--fp-ink);padding-top:.6em;display:flex;justify-content:space-between;align-items:flex-end;gap:1em;font-size:.86em;flex-wrap:wrap}
+.fp-foot .co{font-weight:700;font-size:1.2em;color:var(--fp-ink)}
+.fp-foot .r{text-align:right;color:var(--fp-muted)}
+.fp-foot .r b{color:var(--fp-text);font-size:1.1em}
+
+@media(max-width:820px){.sim-tab{font-size:.85rem;padding:12px 4px}.sim-panel.two.on{grid-template-columns:1fr}.sim-res{position:static}.sim-row{grid-template-columns:1fr 140px}}
+@media(max-width:760px){
+  .fp-sheet{padding:18px 14px 16px;font-size:12.5px}
+  .fp-title{font-size:1.4em;letter-spacing:.12em}
+  .fp-sum,.fp-sum.sell{grid-template-columns:1fr 1fr}
+  .fp-sum .op{display:none}
+  .fp-sum .c{border-bottom:1px solid var(--fp-hair)}
+  .fp-sum .month{border-left:none;border-top:2px solid var(--fp-ink);grid-column:1/-1}
+  .fp-sum .v{font-size:1.35em}
+  .fp-two{grid-template-columns:1fr;gap:.8em}
+  .fp-cost td.ds{display:none}
+  .fp-cost col.c1{width:auto}
+  .fp-sum .total{grid-column:1/-1}
+  .fp-loan{font-size:.92em}
+  .fp-loan th,.fp-loan td{padding-left:.3em;padding-right:.3em}
+  .fp-in{padding:16px}
+}
+@media print{
+  @page{size:A4 portrait;margin:9mm}
+  html,body{background:#fff!important}
+  body>*:not(main){display:none!important}
+  .breadcrumb,.col-hero,.column-bottom-cta,.sim-tabs,.fp-in,.fp-tools,.sim-cta,.sim-panel:not(.on){display:none!important}
+  .subpage-wrap,.subpage-content{padding:0!important;margin:0!important;max-width:none!important}
+  .sim{max-width:none}
+  .fp-sheet{border:none;box-shadow:none;padding:0;font-size:11.5px}
+  .fp-sum{grid-template-columns:1fr auto 1fr auto 1.1fr 1.3fr!important}
+  .fp-sum.sell{grid-template-columns:1fr auto 1fr auto 1fr auto 1.3fr!important}
+  .fp-sum .op{display:flex!important}
+  .fp-sum .c{border-bottom:none!important}
+  .fp-sum .month{border-left:2px solid var(--fp-ink)!important;border-top:none!important;grid-column:auto!important}
+  .fp-two{grid-template-columns:1fr 1fr!important}
+  .fp-cost td.ds{display:table-cell!important}
+  .fp-sum .total{grid-column:auto!important}
+  .fp-sum .total,.fp-cost tr.g td,.fp-h .no,.fp-warn{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 
 <div class="sim" id="sim">
   <div class="sim-tabs" role="tablist">
-    <button class="sim-tab on" data-t="buy" role="tab">購入する</button>
-    <button class="sim-tab" data-t="sell" role="tab">売却する</button>
-    <button class="sim-tab" data-t="limit" role="tab">借入可能額</button>
+    <button class="sim-tab on" data-t="buy" role="tab" type="button">購入の資金計画表</button>
+    <button class="sim-tab" data-t="sell" role="tab" type="button">売却の資金計画表</button>
+    <button class="sim-tab" data-t="limit" role="tab" type="button">借入可能額</button>
   </div>
 
   <!-- 購入 -->
   <div class="sim-panel on" id="p-buy">
-    <div class="sim-box">
-      <h2>購入の条件</h2>
-      <div class="sim-row"><label for="b-price">物件価格</label><div class="sim-in"><input id="b-price" type="number" inputmode="decimal" value="7000" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="b-area">専有面積<small>坪単価の表示用（任意）</small></label><div class="sim-in"><input id="b-area" type="number" inputmode="decimal" value="70" step="0.1"><span>㎡</span></div></div>
-      <div class="sim-row"><label for="b-down">頭金</label><div class="sim-in"><input id="b-down" type="number" inputmode="decimal" value="500" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="b-rate">金利（年）<small>変動・固定の実際の金利を選ぶ</small></label><div class="sim-in"><select id="b-rate"></select></div></div>
-      <div class="sim-row"><label for="b-years">返済期間</label><div class="sim-in"><select id="b-years"></select></div></div>
-      <div class="sim-row"><label for="b-fee">ローン事務手数料<small>借入額に対する割合</small></label><div class="sim-in"><input id="b-fee" type="number" inputmode="decimal" value="2.2" step="0.1"><span>%</span></div></div>
-      <div class="sim-row"><label for="b-kanri">管理費・修繕積立金<small>月々の合計</small></label><div class="sim-in"><input id="b-kanri" type="number" inputmode="decimal" value="3.5" step="0.1"><span>万円</span></div></div>
-      <div class="sim-row"><label for="b-ins">火災保険・地震保険<small>5年一括の目安</small></label><div class="sim-in"><input id="b-ins" type="number" inputmode="decimal" value="20" step="1"><span>万円</span></div></div>
-      <div class="sim-row"><label for="b-include">諸費用もローンに含める</label><div class="sim-in"><label class="sim-check"><input id="b-include" type="checkbox"> 含める</label></div></div>
-    </div>
-    <div class="sim-res">
-      <div class="sim-big"><div class="l">月々の返済額</div><div class="v" id="r-monthly">-</div><div class="s" id="r-monthly-s"></div></div>
-      <div class="sim-big gold"><div class="l">購入時に用意する現金（頭金＋諸費用）</div><div class="v" id="r-cash">-</div><div class="s" id="r-cash-s"></div></div>
-      <div class="sim-box">
-        <table class="sim-tbl" id="t-buy"></table>
-        <p class="sim-note">諸費用は目安です。登記費用は固定資産税評価額を物件価格の50%と仮定し、所有権移転を評価額の1.0%、抵当権設定を借入額の0.1%、司法書士報酬を10万円として計算しています。印紙税は売買契約書の軽減税率（2027年3月31日まで）と、書面で結ぶ場合の金銭消費貸借契約書の税額です。中古住宅の不動産取得税は、要件を満たすと軽減で0円になることが多いため含めていません。返済額は元利均等返済・ボーナス払いなしで計算しています。</p>
-        <div class="sim-cta"><a class="n" href="/?inquiry=buy&amp;from=simulator-buy#contact">この条件で物件を相談する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
+    <div class="fp-in">
+      <h2>条件を入力</h2>
+      <div class="fp-grid">
+        <div class="fp-f"><label for="b-price">物件価格</label><div class="sim-in"><input id="b-price" type="number" inputmode="decimal" value="6000" step="10" min="0"><span>万円</span></div></div>
+        <div class="fp-f"><label for="b-own">自己資金<small>頭金として入れる額</small></label><div class="sim-in"><input id="b-own" type="number" inputmode="decimal" value="0" step="10" min="0"><span>万円</span></div></div>
+        <div class="fp-f"><label for="b-kanri">管理費・修繕積立金<small>月額の合計</small></label><div class="sim-in"><input id="b-kanri" type="number" inputmode="numeric" value="30000" step="1000" min="0"><span>円</span></div></div>
+        <div class="fp-f"><label for="b-rate">金利（年）</label><div class="sim-in"><select id="b-rate"></select></div></div>
+        <div class="fp-f"><label for="b-years">返済期間</label><div class="sim-in"><select id="b-years"></select></div></div>
+        <div class="fp-f"><label for="b-kotei">固定資産税等清算金</label><div class="sim-in"><select id="b-kotei"></select></div></div>
+        <div class="fp-f"><label for="b-disc">仲介手数料の割引率<small>正規手数料からの割引</small></label><div class="sim-in"><input id="b-disc" type="number" inputmode="decimal" value="10" step="1" min="0" max="100"><span>%</span></div></div>
+        <div class="fp-f"><label for="b-denshi">売買契約の方法</label><div class="sim-in"><select id="b-denshi"><option value="0">書面で契約（印紙代あり）</option><option value="1">電子契約（印紙代なし）</option></select></div></div>
       </div>
+      <p class="fp-fixed">次の費用は固定で計算しています：登記費用 60万円／火災保険・地震保険 10万円／ローン事務手数料 借入額の2.2%／管理費等清算金 管理費等の2か月分。仲介手数料は「物件価格×3%＋6万円＋消費税」から割引率を差し引いた額です。</p>
     </div>
+    <div class="fp-tools"><p>入力すると下の資金計画表がすぐに変わります。</p><button class="fp-print" type="button" data-print="buy">印刷・PDFで保存</button></div>
+    <div class="fp-sheet" id="sheet-buy"></div>
+    <div class="sim-cta"><a class="n" href="/?inquiry=buy&amp;from=simulator-buy#contact">この資金計画で物件を相談する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
   </div>
 
   <!-- 売却 -->
   <div class="sim-panel" id="p-sell">
-    <div class="sim-box">
-      <h2>売却の条件</h2>
-      <div class="sim-row"><label for="s-price">売却価格</label><div class="sim-in"><input id="s-price" type="number" inputmode="decimal" value="8000" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="s-loan">ローン残高</label><div class="sim-in"><input id="s-loan" type="number" inputmode="decimal" value="4500" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="s-buy">購入したときの価格<small>分からなければ空欄（売却価格の5%で計算）</small></label><div class="sim-in"><input id="s-buy" type="number" inputmode="decimal" value="6000" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="s-buycost">購入時の諸費用</label><div class="sim-in"><input id="s-buycost" type="number" inputmode="decimal" value="360" step="10"><span>万円</span></div></div>
-      <div class="sim-row"><label for="s-bldg">建物の割合<small>購入価格のうち建物部分</small></label><div class="sim-in"><input id="s-bldg" type="number" inputmode="decimal" value="40" step="1"><span>%</span></div></div>
-      <div class="sim-row"><label for="s-years">所有期間<small>売却した年の1月1日時点</small></label><div class="sim-in"><select id="s-years"></select></div></div>
-      <div class="sim-row"><label for="s-home">住まいとして使っていた<small>3,000万円特別控除・軽減税率</small></label><div class="sim-in"><label class="sim-check"><input id="s-home" type="checkbox" checked> 使っていた</label></div></div>
-      <div class="sim-row"><label for="s-move">引越し・処分費など</label><div class="sim-in"><input id="s-move" type="number" inputmode="decimal" value="30" step="1"><span>万円</span></div></div>
-    </div>
-    <div class="sim-res">
-      <div class="sim-big gold"><div class="l">手元に残るお金（手残り）</div><div class="v" id="r-net">-</div><div class="s" id="r-net-s"></div></div>
-      <div class="sim-box">
-        <table class="sim-tbl" id="t-sell"></table>
-        <div class="sim-warn" id="w-sell">手残りがマイナスです。売却代金だけではローンを完済できないため、差額を現金で用意するか、住み替えローンなどの検討が必要です。</div>
-        <p class="sim-note">仲介手数料は宅地建物取引業法の上限額（税込）で計算しています。税金は譲渡所得税・住民税・復興特別所得税の合計で、所有5年超は20.315%、5年以下は39.63%。住まいとして使っていた場合は3,000万円特別控除を差し引き、所有10年超なら6,000万円以下の部分に14.21%の軽減税率を適用しています。建物の減価償却は、鉄筋コンクリート造のマンション（非事業用）の計算式（建物価格×0.9×0.015×所有年数）で計算しています。特例には要件があり、住み替え先の住宅ローン控除と併用できない期間があります。実際の税額は税理士・税務署でご確認ください。</p>
-        <div class="sim-cta"><a class="g" href="/satei/">正確な売却査定を依頼する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
+    <div class="fp-in">
+      <h2>条件を入力</h2>
+      <div class="fp-grid">
+        <div class="fp-f"><label for="s-price">売却価格</label><div class="sim-in"><input id="s-price" type="number" inputmode="decimal" value="8000" step="10" min="0"><span>万円</span></div></div>
+        <div class="fp-f"><label for="s-loan">ローン残高<small>なければ0</small></label><div class="sim-in"><input id="s-loan" type="number" inputmode="decimal" value="4500" step="10" min="0"><span>万円</span></div></div>
+        <div class="fp-f"><label for="s-disc">仲介手数料の割引率<small>正規手数料からの割引</small></label><div class="sim-in"><input id="s-disc" type="number" inputmode="decimal" value="10" step="1" min="0" max="100"><span>%</span></div></div>
+        <div class="fp-f"><label for="s-denshi">売買契約の方法</label><div class="sim-in"><select id="s-denshi"><option value="0">書面で契約（印紙代あり）</option><option value="1">電子契約（印紙代なし）</option></select></div></div>
+        <div class="fp-f"><label for="s-buy">購入したときの価格<small>分からなければ空欄</small></label><div class="sim-in"><input id="s-buy" type="number" inputmode="decimal" value="6000" step="10" min="0"><span>万円</span></div></div>
+        <div class="fp-f"><label for="s-years">所有期間<small>売却した年の1月1日時点</small></label><div class="sim-in"><select id="s-years"></select></div></div>
+        <div class="fp-f"><label for="s-home">ご自宅として住んでいた</label><div class="sim-in"><select id="s-home"><option value="1">はい（3,000万円控除を使う）</option><option value="0">いいえ（投資用など）</option></select></div></div>
       </div>
+      <p class="fp-fixed">次の費用は固定で計算しています：抵当権抹消費用 3万円（ローン残高がある場合）。仲介手数料は「売却価格×3%＋6万円＋消費税」から割引率を差し引いた額です。税金は購入したときの価格・所有期間・ご自宅かどうかから概算します。</p>
     </div>
+    <div class="fp-tools"><p>入力すると下の資金計画表がすぐに変わります。</p><button class="fp-print" type="button" data-print="sell">印刷・PDFで保存</button></div>
+    <div class="fp-sheet" id="sheet-sell"></div>
+    <div class="sim-cta"><a class="g" href="/satei/">正確な売却査定を依頼する</a><a class="l" href="https://line.me/R/ti/p/%40xef5208i" target="_blank" rel="noopener">LINEで相談</a></div>
   </div>
 
   <!-- 借入可能額 -->
-  <div class="sim-panel" id="p-limit">
+  <div class="sim-panel two" id="p-limit">
     <div class="sim-box">
       <h2>年収と条件</h2>
       <div class="sim-row"><label for="l-income">年収（額面）<small>収入合算する場合は合計</small></label><div class="sim-in"><input id="l-income" type="number" inputmode="decimal" value="800" step="10"><span>万円</span></div></div>
@@ -119,99 +202,204 @@
 
 <script>
 (function(){
+  /* ===== ここだけ直せば初期値が変わります ===== */
+  var RATE_DEFAULT=1.40;        // 金利の初期値（年%）。政策金利が変わったらこの数字を更新
+  var RATE_ASOF='2026年11月';   // 上の金利がいつ時点の目安か
+  var TOUKI=600000;             // 登記費用（円）
+  var KASAI=100000;             // 火災保険・地震保険（円）
+  var JIMU_RATE=2.2;            // ローン事務手数料（借入額に対する%）
+  var MASSHO=30000;             // 売却時の抵当権抹消費用（円）
+  var CO={name:'株式会社スピアード',addr:'〒107-0062 東京都港区南青山2-2-8 DFビル10F',lic:'宅地建物取引業 東京都知事（1）第112752号',tel:'050-7109-3701'};
+  /* ========================================= */
+
   var $=function(id){return document.getElementById(id);};
-  function opts(sel,list,def,fmt){var s=$(sel);s.innerHTML=list.map(function(v){return '<option value="'+v+'"'+(v==def?' selected':'')+'>'+fmt(v)+'</option>';}).join('');}
-  var rates=[];for(var r=0.3;r<=4.001;r+=0.05)rates.push(Math.round(r*100)/100);
+  function opts(sel,list,def,fmt){$(sel).innerHTML=list.map(function(v){return '<option value="'+v+'"'+(Math.abs(v-def)<1e-9?' selected':'')+'>'+fmt(v)+'</option>';}).join('');}
+  var rates=[];for(var r=30;r<=400;r+=5)rates.push(r/100);
+  if(rates.every(function(x){return Math.abs(x-RATE_DEFAULT)>1e-9;})){rates.push(RATE_DEFAULT);rates.sort(function(a,b){return a-b;});}
   var pct=function(v){return v.toFixed(2)+'%';};
-  opts('b-rate',rates,1.0,pct);opts('l-rate',rates,1.0,pct);opts('l-test',rates,3.5,pct);
-  var yrs=[];for(var y=10;y<=50;y++)yrs.push(y);
-  opts('b-years',yrs,35,function(v){return v+'年';});opts('l-years',yrs,35,function(v){return v+'年';});
+  opts('b-rate',rates,RATE_DEFAULT,pct);opts('l-rate',rates,RATE_DEFAULT,pct);opts('l-test',rates,3.5,pct);
+  var yrs=[];for(var y=35;y<=50;y++)yrs.push(y);
+  var yfmt=function(v){return v+'年';};
+  opts('b-years',yrs,35,yfmt);opts('l-years',yrs,35,yfmt);
+  opts('b-kotei',[100000,150000,200000,250000,300000],100000,function(v){return (v/10000)+'万円';});
   var own=[];for(var o=1;o<=30;o++)own.push(o);
-  opts('s-years',own,8,function(v){return v+'年';});
-  function n(id){var v=parseFloat(($(id).value||'').toString().replace(/,/g,''));return isNaN(v)?0:v;}
-  function man(v,d){d=d==null?0:d;var s=(Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});return s+'万円';}
-  function yen(v){return Math.round(v*10000).toLocaleString('ja-JP')+'円';}
-  function brokerage(p){if(p<=0)return 0;var f=p>400?p*0.03+6:(p>200?p*0.04+2:p*0.05);return f*1.1;}
-  function stampSale(p){return p>50000?16:p>10000?6:p>5000?3:p>1000?1:p>500?0.5:p>100?0.1:0;}
-  function stampLoan(p){return p>50000?40:p>10000?10:p>5000?6:p>1000?2:p>500?1:p>100?0.2:0;}
-  function pmt(P,ratePct,years){var r=ratePct/100/12,k=years*12;if(P<=0)return 0;if(r===0)return P/k;return P*r/(1-Math.pow(1+r,-k));}
-  function pv(M,ratePct,years){var r=ratePct/100/12,k=years*12;if(M<=0)return 0;if(r===0)return M*k;return M*(1-Math.pow(1+r,-k))/r;}
-  function rows(id,list){$(id).innerHTML=list.map(function(x){return '<tr'+(x[2]?' class="t"':'')+'><th>'+x[0]+'</th><td>'+x[1]+'</td></tr>';}).join('');}
+  opts('s-years',own,8,function(v){return v+'年'+(v===30?'以上':'');});
 
+  function n(id){var v=parseFloat(String($(id).value||'').replace(/[,，]/g,''));return isNaN(v)?0:v;}
+  function has(id){return String($(id).value||'').trim()!=='';}
+  function ceilTo(x,u){return Math.ceil(x/u-1e-9)*u;}
+  function yen(v){return Math.round(v).toLocaleString('ja-JP');}
+  function man(v){return (Math.round(v*10)/10).toLocaleString('ja-JP');}
+  function man0(v){return Math.round(v).toLocaleString('ja-JP');}
+  function today(){var d=new Date();return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';}
+  // 仲介手数料（税込・円）：400万円超は「価格×3%＋6万円」＋消費税
+  function brokerage(p){var b;if(p<=0)return 0;if(p>4000000)b=p*0.03+60000;else if(p>2000000)b=p*0.04+20000;else b=p*0.05;return Math.floor(b*1.1);}
+  // 売買契約書の印紙税（軽減税率・2027年3月31日まで）
+  function saleStamp(p){if(p<10000)return 0;if(p<=500000)return 200;if(p<=1000000)return 500;if(p<=5000000)return 1000;if(p<=10000000)return 5000;if(p<=50000000)return 10000;if(p<=100000000)return 30000;if(p<=500000000)return 60000;if(p<=1000000000)return 160000;return 320000;}
+  function pmt(P,ratePct,years){var k=years*12;if(P<=0)return 0;var i=ratePct/100/12;if(i===0)return P/k;return P*i/(1-Math.pow(1+i,-k));}
+  function pv(M,ratePct,years){var i=ratePct/100/12,k=years*12;if(M<=0)return 0;if(i===0)return M*k;return M*(1-Math.pow(1+i,-k))/i;}
+  function row(label,val,note,cls){return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+label+'</td><td class="n">'+val+'</td><td class="u">円</td><td class="ds">'+(note||'')+'</td></tr>';}
+  function foot(){return '<div class="fp-foot"><div><div class="co">'+CO.name+'</div><div>'+CO.addr+'</div><div>'+CO.lic+'</div></div><div class="r">TEL　<b>'+CO.tel+'</b><br>https://speard.jp/</div></div>';}
+
+  /* ---------- 購入 ---------- */
   function buy(){
-    var price=n('b-price'),area=n('b-area'),down=Math.min(n('b-down'),price),rate=parseFloat($('b-rate').value),years=parseInt($('b-years').value,10);
-    var base=Math.max(price-down,0),feeRate=n('b-fee')/100,inc=$('b-include').checked;
-    var broker=brokerage(price),sSale=stampSale(price);
-    var other=broker+sSale+price*0.5*0.01+10+n('b-ins')+10; // 登記（移転）＋司法書士＋保険＋精算目安
-    var loan=base, fee, sLoan, mort, costs;
-    for(var i=0;i<3;i++){fee=loan*feeRate;sLoan=stampLoan(loan);mort=loan*0.001;costs=other+fee+sLoan+mort;loan=inc?base+costs:base;}
-    var M=pmt(loan,rate,years),tot=M*years*12,kanri=n('b-kanri');
-    var tsubo=area>0?price/(area/3.30578):0;
-    $('r-monthly').innerHTML=yen(M).replace('円','<small>円</small>');
-    $('r-monthly-s').textContent='管理費等を含めると月 '+yen(M+kanri)+'　／　借入額 '+man(loan)+'　／　金利'+rate.toFixed(2)+'%・'+years+'年';
-    var cash=down+(inc?0:costs);
-    $('r-cash').innerHTML=man(cash).replace('万円','<small>万円</small>');
-    $('r-cash-s').textContent='諸費用 '+man(costs,1)+'（物件価格の約'+(price>0?(costs/price*100).toFixed(1):0)+'%）'+(inc?'はローンに含めています':'');
-    var up=pmt(loan,rate+1,years);
-    rows('t-buy',[
-      ['物件価格',man(price)+(tsubo?'（坪単価 '+Math.round(tsubo).toLocaleString()+'万円／坪）':'')],
-      ['仲介手数料（法定上限・税込）',man(broker,1)],
-      ['売買契約書の印紙税',man(sSale,1)],
-      ['登記費用（移転・抵当権・司法書士）',man(price*0.5*0.01+mort+10,1)],
-      ['ローン事務手数料',man(fee,1)],
-      ['金銭消費貸借契約書の印紙税',man(sLoan,1)],
-      ['火災保険・地震保険',man(n('b-ins'),1)],
-      ['固定資産税・管理費の精算など',man(10,1)],
-      ['諸費用の合計',man(costs,1),1],
-      ['総返済額',man(tot/1,0)+'（うち利息 '+man(tot-loan)+'）'],
-      ['金利が1%上がった場合の月々',yen(up)]
-    ]);
+    var price=Math.max(n('b-price'),0),A=Math.round(price*10000),ownMan=Math.max(n('b-own'),0);
+    var rate=parseFloat($('b-rate').value),years=parseInt($('b-years').value,10);
+    var kanri=Math.max(Math.round(n('b-kanri')),0),kotei=parseInt($('b-kotei').value,10);
+    var disc=Math.min(Math.max(n('b-disc'),0),100),denshi=$('b-denshi').value==='1';
+    var tetsuke=price>0?Math.ceil(price*0.05/10-1e-9)*10*10000:0;
+    var stamp=denshi?0:saleStamp(A);
+    var kanriSeisan=kanri*2;
+    var feeFull=brokerage(A),fee=Math.floor(feeFull*(1-disc/100));
+    var C=stamp+TOUKI+kotei+kanriSeisan+fee;
+    // 借入額 ＝ 物件価格＋諸経費（十万円単位で切上げ）−自己資金。事務手数料が借入額で変わるので収束するまで繰り返す
+    function costs(Lman){var jimu=Math.floor(Lman*10000*JIMU_RATE/100);var B=C+jimu+KASAI;return {jimu:jimu,B:B,B10:ceilTo(B,100000)};}
+    var L=Math.max(0,Math.ceil(price-ownMan-1e-9)),c=costs(L);
+    for(var k=0;k<30;k++){var nx=Math.max(0,Math.ceil((A+c.B10)/10000-ownMan-1e-9));if(nx===L)break;L=nx;c=costs(L);}
+    var total10=A+c.B10;
+    var ownYen=Math.round(ownMan*10000),loanYen=L*10000,fund=ownYen+loanYen;
+    var monthly=L>0?ceilTo(pmt(loanYen,rate,years),100):0,mTotal=monthly+kanri;
+    var rateTxt=rate.toFixed(3).replace(/0$/,'')+'%';
+    var discNote=disc>0?'正規手数料から'+(Math.round(disc*10)/10)+'%割引（正規 '+yen(feeFull)+'円）':'物件価格×3%＋6万円＋消費税';
+    var h='';
+    h+='<div class="fp-top">作成日　'+today()+'</div>';
+    h+='<div class="fp-title">購入資金計画表（概算）</div>';
+    h+='<div class="fp-sum">'
+      +'<div class="c"><div class="k">物件価格（A）</div><div class="v">'+man(price)+'<small>万円</small></div><div class="d">手付金 '+man0(tetsuke/10000)+'万円（ご契約時）</div></div>'
+      +'<div class="op">＋</div>'
+      +'<div class="c"><div class="k">諸経費（B）概算</div><div class="v">約'+man0(c.B10/10000)+'<small>万円</small></div><div class="d">十万円単位で切上げ</div></div>'
+      +'<div class="op">＝</div>'
+      +'<div class="c total"><div class="k">お支払総額（A＋B）</div><div class="v">約'+man(total10/10000)+'<small>万円</small></div><div class="d">自己資金'+man(ownMan)+'万円＋お借入れ'+man0(L)+'万円</div></div>'
+      +'<div class="c month"><div class="k">月々のお支払い（目安）</div><div class="v">約'+yen(mTotal)+'<small>円</small></div><div class="d">返済 '+yen(monthly)+'円＋管理費等 '+yen(kanri)+'円</div><div class="d">'+man0(L)+'万円・'+years+'年・金利'+rateTxt+'</div></div>'
+      +'</div>';
+    h+='<div class="fp-h"><span class="no">1</span>お支払いの時期と資金の内訳</div>';
+    h+='<div class="fp-two"><table class="fp-t"><caption>お支払いの時期</caption>'
+      +'<tr><th>手付金（ご契約時）</th><td class="n">'+yen(tetsuke)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>残代金（お引渡し時）</th><td class="n">'+yen(A-tetsuke)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>諸経費（主にお引渡し時）</th><td class="n">約 '+yen(c.B10)+'</td><td class="u">円</td></tr></table>'
+      +'<table class="fp-t"><caption>資金の内訳</caption>'
+      +'<tr><th>自己資金</th><td class="n">'+yen(ownYen)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>銀行ローン</th><td class="n">'+yen(loanYen)+'</td><td class="u">円</td></tr>'
+      +'<tr class="strong"><th>合計</th><td class="n">'+yen(fund)+'</td><td class="u">円</td></tr></table></div>';
+    h+='<div class="fp-h"><span class="no">2</span>諸経費の内訳<span class="side">金額はすべて税込の概算です</span></div>';
+    h+='<table class="fp-t fp-cost"><colgroup><col class="c1"><col class="c2"><col class="c3"><col></colgroup><tbody>'
+      +'<tr class="g"><td colspan="4">ご契約・登記にかかる費用</td></tr>'
+      +row('売買契約書の印紙代',yen(stamp),denshi?'電子契約のためかかりません':'電子契約ならかかりません')
+      +row('登記費用',yen(TOUKI),'登録免許税・司法書士報酬')
+      +row('固定資産税等清算金',yen(kotei),'お引渡し日から日割りで精算')
+      +row('管理費等清算金',yen(kanriSeisan),'管理費等の2か月分')
+      +row('仲介手数料',yen(fee),discNote)
+      +row('不動産取得税','0','築年数・面積によっては軽減特例あり。詳細は税理士へ')
+      +'<tr class="g"><td colspan="4">住宅ローンにかかる費用</td></tr>'
+      +row('事務手数料',yen(c.jimu),'借入金額の'+JIMU_RATE+'%')
+      +'<tr class="g"><td colspan="4">その他の費用</td></tr>'
+      +row('火災保険・地震保険',yen(KASAI),'プランにより前後')
+      +row('諸経費の合計',yen(c.B),'計画表では約'+yen(c.B10)+'円（十万円単位で切上げ）','tot')
+      +'</tbody></table>';
+    h+='<div class="fp-h"><span class="no">3</span>月々のお支払い（返済計画の目安）<span class="side">返済額は百円単位で切上げ</span></div>';
+    h+='<table class="fp-t fp-loan"><thead><tr><th>借入先</th><th>借入金額</th><th>借入期間</th><th>金利</th><th>毎月の返済額</th></tr></thead><tbody>'
+      +'<tr><td>銀行ローン</td><td>'+man0(L)+'万円</td><td>'+years+'年</td><td>'+rateTxt+'</td><td>'+yen(monthly)+'円</td></tr>'
+      +'<tr><td>管理費等（月額）</td><td colspan="3" class="note">管理費・修繕積立金</td><td>'+yen(kanri)+'円</td></tr>'
+      +'<tr class="tot"><td>月々のお支払い合計</td><td colspan="3" class="note">返済額＋管理費等</td><td>'+yen(mTotal)+'円</td></tr>'
+      +'</tbody></table>';
+    if(price>0&&L===0&&ownYen>total10)h+='<div class="fp-warn">自己資金がお支払総額を上回っているため、お借入れなしで計算しています。</div>';
+    h+='<div class="fp-note"><div class="h">ご確認ください</div>'
+      +'<p>・金利・返済額・諸費用は目安です。実際の金額は金融機関・司法書士・保険会社等からのご請求により異なります。</p>'
+      +'<p>・金利の初期値は'+RATE_ASOF+'時点の目安です。元利均等返済・ボーナス払いなしで計算しています。</p>'
+      +'<p>・本表は融資の実行や金額・金利を保証するものではありません。固定資産税・都市計画税（毎年）は含めていません。</p></div>';
+    h+=foot();
+    $('sheet-buy').innerHTML=h;
   }
 
+  /* ---------- 売却 ---------- */
   function sell(){
-    var price=n('s-price'),loan=n('s-loan'),buyP=n('s-buy'),buyCost=n('s-buycost'),bldg=n('s-bldg')/100,years=parseInt($('s-years').value,10),home=$('s-home').checked;
-    var broker=brokerage(price),stamp=stampSale(price),release=3,move=n('s-move');
-    var dep=buyP>0?Math.min(buyP*bldg*0.9*0.015*years,buyP*bldg*0.95):0;
-    var acq=buyP>0?buyP+buyCost-dep:price*0.05;
-    var cost=broker+stamp;
-    var gain=Math.max(price-acq-cost,0);
-    var taxable=Math.max(gain-(home?3000:0),0);
-    var tax;
+    var price=Math.max(n('s-price'),0),A=Math.round(price*10000),loanMan=Math.max(n('s-loan'),0),loanYen=Math.round(loanMan*10000);
+    var disc=Math.min(Math.max(n('s-disc'),0),100),denshi=$('s-denshi').value==='1';
+    var buyKnown=has('s-buy')&&n('s-buy')>0,buyP=Math.max(n('s-buy'),0)*10000;
+    var years=parseInt($('s-years').value,10),home=$('s-home').value==='1';
+    var tetsuke=price>0?Math.ceil(price*0.05/10-1e-9)*10*10000:0;
+    var feeFull=brokerage(A),fee=Math.floor(feeFull*(1-disc/100));
+    var stamp=denshi?0:saleStamp(A);
+    var massho=loanYen>0?MASSHO:0;
+    var B=fee+stamp+massho;
+    // 譲渡所得税の概算：取得費＝購入価格＋購入時諸費用（7%）−建物の減価償却（建物40%・RC非事業用）。不明なら売却価格の5%
+    var dep=buyKnown?Math.min(buyP*0.4*0.9*0.015*years,buyP*0.4*0.95):0;
+    var acq=buyKnown?buyP*1.07-dep:A*0.05;
+    var gain=Math.max(A-acq-(fee+stamp),0);
+    var ded=home?Math.min(gain,30000000):0;
+    var taxable=Math.max(gain-ded,0);
+    var tax,rateNote;
     if(years>5){
-      if(home&&years>10){tax=Math.min(taxable,6000)*0.1421+Math.max(taxable-6000,0)*0.20315;}else{tax=taxable*0.20315;}
-    }else{tax=taxable*0.3963;}
-    var net=price-loan-cost-release-move-tax;
-    $('r-net').innerHTML=man(net).replace('万円','<small>万円</small>');
-    $('r-net-s').textContent='売却価格 '+man(price)+' − ローン残高 '+man(loan)+' − 費用・税金 '+man(cost+release+move+tax,1);
-    $('w-sell').style.display=net<0?'block':'none';
-    rows('t-sell',[
-      ['売却価格',man(price)],
-      ['ローン残高',man(loan)],
-      ['仲介手数料（法定上限・税込）',man(broker,1)],
-      ['売買契約書の印紙税',man(stamp,1)],
-      ['抵当権抹消・司法書士',man(release,1)],
-      ['引越し・処分費など',man(move,1)],
-      ['取得費'+(buyP>0?'（減価償却 '+man(dep,1)+' を差し引き後）':'（売却価格の5%）'),man(acq,1)],
-      ['売却益（譲渡所得）',man(gain,1)],
-      ['税金'+(home?'（3,000万円控除後）':''),man(tax,1)],
-      ['手残り',man(net,1),1]
-    ]);
+      if(home&&years>10){tax=Math.min(taxable,60000000)*0.1421+Math.max(taxable-60000000,0)*0.20315;rateNote='10年超所有の軽減税率 14.21%（6,000万円以下の部分）';}
+      else{tax=taxable*0.20315;rateNote='長期譲渡 20.315%';}
+    }else{tax=taxable*0.3963;rateNote='短期譲渡 39.63%';}
+    tax=Math.floor(tax/100)*100;
+    var net=A-B-loanYen-tax;
+    var discNote=disc>0?'正規手数料から'+(Math.round(disc*10)/10)+'%割引（正規 '+yen(feeFull)+'円）':'売却価格×3%＋6万円＋消費税';
+    var h='';
+    h+='<div class="fp-top">作成日　'+today()+'</div>';
+    h+='<div class="fp-title">売却資金計画表（概算）</div>';
+    h+='<div class="fp-sum sell">'
+      +'<div class="c"><div class="k">売却価格（A）</div><div class="v">'+man(price)+'<small>万円</small></div><div class="d">手付金 '+man0(tetsuke/10000)+'万円（ご契約時）</div></div>'
+      +'<div class="op">－</div>'
+      +'<div class="c"><div class="k">諸費用・税金（B）</div><div class="v">約'+man((B+tax)/10000)+'<small>万円</small></div><div class="d">うち税金 約'+man(tax/10000)+'万円</div></div>'
+      +'<div class="op">－</div>'
+      +'<div class="c"><div class="k">ローン残高（C）</div><div class="v">'+man(loanMan)+'<small>万円</small></div><div class="d">お引渡し時に一括返済</div></div>'
+      +'<div class="op">＝</div>'
+      +'<div class="c month'+(net<0?' minus':'')+'"><div class="k">お手元に残る金額（目安）</div><div class="v">約'+man(net/10000)+'<small>万円</small></div><div class="d">A－B－C</div></div>'
+      +'</div>';
+    h+='<div class="fp-h"><span class="no">1</span>お受取りの時期とお金の行き先</div>';
+    h+='<div class="fp-two"><table class="fp-t"><caption>お受取りの時期</caption>'
+      +'<tr><th>手付金（ご契約時）</th><td class="n">'+yen(tetsuke)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>残代金（お引渡し時）</th><td class="n">'+yen(A-tetsuke)+'</td><td class="u">円</td></tr>'
+      +'<tr class="strong"><th>合計</th><td class="n">'+yen(A)+'</td><td class="u">円</td></tr></table>'
+      +'<table class="fp-t"><caption>お金の行き先</caption>'
+      +'<tr><th>ローンの返済</th><td class="n">'+yen(loanYen)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>諸費用（主にお引渡し時）</th><td class="n">'+yen(B)+'</td><td class="u">円</td></tr>'
+      +'<tr><th>税金（翌年の確定申告後）</th><td class="n">'+yen(tax)+'</td><td class="u">円</td></tr>'
+      +'<tr class="strong"><th>お手元に残る金額</th><td class="n">'+yen(net)+'</td><td class="u">円</td></tr></table></div>';
+    if(net<0)h+='<div class="fp-warn">お手元に残る金額がマイナスです。売却代金だけではローンを完済できないため、差額を現金で用意するか、住み替えローンなどの検討が必要です。</div>';
+    h+='<div class="fp-h"><span class="no">2</span>諸費用の内訳<span class="side">金額はすべて税込の概算です</span></div>';
+    h+='<table class="fp-t fp-cost"><colgroup><col class="c1"><col class="c2"><col class="c3"><col></colgroup><tbody>'
+      +row('売買契約書の印紙代',yen(stamp),denshi?'電子契約のためかかりません':'電子契約ならかかりません')
+      +row('仲介手数料',yen(fee),discNote)
+      +row('抵当権抹消費用',yen(massho),loanYen>0?'登録免許税・司法書士報酬':'ローン残高がないためかかりません')
+      +row('諸費用の合計',yen(B),'','tot')
+      +'</tbody></table>';
+    h+='<div class="fp-h"><span class="no">3</span>税金の目安（譲渡所得税・住民税）<span class="side">翌年の確定申告で納付</span></div>';
+    h+='<table class="fp-t fp-cost"><colgroup><col class="c1"><col class="c2"><col class="c3"><col></colgroup><tbody>'
+      +row('売却価格',yen(A),'')
+      +row('取得費',yen(acq),buyKnown?'購入価格＋購入時の諸費用（7%）－建物の減価償却':'購入価格が不明のため売却価格の5%')
+      +row('譲渡費用',yen(fee+stamp),'仲介手数料・印紙代')
+      +row('売却益（譲渡所得）',yen(gain),gain>0?'':'売却益がないため税金はかかりません')
+      +row('特別控除',yen(ded),home?'マイホームを売ったときの3,000万円特別控除':'控除なし')
+      +row('税金（所得税・住民税）',yen(tax),taxable>0?rateNote:'控除後の売却益が0円のためかかりません','tot')
+      +'</tbody></table>';
+    h+='<div class="fp-note"><div class="h">ご確認ください</div>'
+      +'<p>・諸費用・税金は目安です。実際の金額は司法書士・金融機関・税務署等により異なります。ローンの一括返済手数料は金融機関によりかかる場合があります。</p>'
+      +'<p>・建物の減価償却は、建物部分を購入価格の40%、鉄筋コンクリート造（非事業用）として計算しています。特例には要件があり、住み替え先の住宅ローン控除と併用できない場合があります。詳細は税理士・税務署でご確認ください。</p></div>';
+    h+=foot();
+    $('sheet-sell').innerHTML=h;
   }
 
+  /* ---------- 借入可能額 ---------- */
+  function manTxt(v){return Math.round(v).toLocaleString('ja-JP')+'万円';}
+  function yenTxt(v){return Math.round(v*10000).toLocaleString('ja-JP')+'円';}
+  function rows(id,list){$(id).innerHTML=list.map(function(x){return '<tr'+(x[2]?' class="t"':'')+'><th>'+x[0]+'</th><td>'+x[1]+'</td></tr>';}).join('');}
   function limit(){
     var inc=n('l-income'),ratio=parseFloat($('l-ratio').value)/100,test=parseFloat($('l-test').value),rate=parseFloat($('l-rate').value),years=parseInt($('l-years').value,10),other=n('l-other');
     var Mmax=Math.max(inc*ratio/12-other,0);
     var L=pv(Mmax,test,years);
     var M=pmt(L,rate,years);
     var take=inc*0.75,safeM=Math.max(take*0.25/12-other,0),safeL=pv(safeM,rate,years);
-    $('r-limit').innerHTML=man(L).replace('万円','<small>万円</small>');
+    $('r-limit').innerHTML=manTxt(L).replace('万円','<small>万円</small>');
     $('r-limit-s').textContent='年収の約'+(inc>0?(L/inc).toFixed(1):0)+'倍　／　審査金利'+test.toFixed(2)+'%・返済負担率'+Math.round(ratio*100)+'%・'+years+'年';
     rows('t-limit',[
-      ['審査で見られる返済額の上限',yen(Mmax)+'／月'],
-      ['借りられる額の目安',man(L),1],
-      ['その額を実際の金利で借りた場合の月々',yen(M)],
-      ['無理なく返せる額の目安（手取りの25%）',man(safeL)],
-      ['そのときの月々の返済',yen(safeM)]
+      ['審査で見られる返済額の上限',yenTxt(Mmax)+'／月'],
+      ['借りられる額の目安',manTxt(L),1],
+      ['その額を実際の金利で借りた場合の月々',yenTxt(M)],
+      ['無理なく返せる額の目安（手取りの25%）',manTxt(safeL)],
+      ['そのときの月々の返済',yenTxt(safeM)]
     ]);
   }
 
@@ -221,6 +409,10 @@
     document.querySelectorAll('.sim-tab').forEach(function(x){x.classList.toggle('on',x===b);});
     document.querySelectorAll('.sim-panel').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t);});
     if(window.gtag)gtag('event','simulator_tab',{tab:b.dataset.t});
+  });});
+  document.querySelectorAll('.fp-print').forEach(function(b){b.addEventListener('click',function(){
+    if(window.gtag)gtag('event','simulator_print',{tab:b.dataset.print});
+    window.print();
   });});
   var h=(location.hash||'').replace('#','');if(['buy','sell','limit'].indexOf(h)>-1){var t=document.querySelector('.sim-tab[data-t="'+h+'"]');if(t)t.click();}
   all();

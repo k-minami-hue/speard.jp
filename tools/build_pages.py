@@ -130,7 +130,7 @@ def header():
   <a href="/area/">対応エリア</a>
   <a href="{SOUBA_URL}?from=hp-menu">武蔵小杉マンション相場帳</a>
   <a href="/profile/">代表プロフィール</a>
-  <a href="/simulator/">諸費用・ローンシミュレーター</a>
+  <a href="/simulator/">資金計画表シミュレーター</a>
   <a href="/satei/">無料売却査定</a>
   <a href="/line/">公式LINEで相談</a>
   <div class="mm-group">Property</div>
@@ -170,7 +170,7 @@ FOOTER = f'''<footer class="site-footer">
         <li><a href="/sell.html">売却について</a></li>
         <li><a href="/consulting.html">不動産コンサルティング</a></li>
         <li><a href="/area/">対応エリア</a></li>
-        <li><a href="/simulator/">諸費用シミュレーター</a></li>
+        <li><a href="/simulator/">資金計画表シミュレーター</a></li>
         <li><a href="/satei/">無料売却査定</a></li>
         <li><a href="/#contact">無料相談</a></li>
         <li><a href="/line/">公式LINE相談</a></li>
@@ -535,7 +535,7 @@ def related_cols(c, cols, n=6):
     pool.sort(key=score, reverse=True)
     return pool[:n]
 
-AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">計算してみる</div><ul class="cs-recent"><li><a href="/simulator/#buy">購入の諸費用と月々の返済額</a></li><li><a href="/simulator/#sell">売却の手取り（税金・手数料込み）</a></li><li><a href="/simulator/#limit">住宅ローンの借入可能額</a></li></ul></div>'
+AREA_SIDE = ('<div class="cs-section"><div class="cs-section-head">計算してみる</div><ul class="cs-recent"><li><a href="/simulator/#buy">購入の資金計画表（諸費用・月々の返済）</a></li><li><a href="/simulator/#sell">売却の資金計画表（手取り・税金）</a></li><li><a href="/simulator/#limit">住宅ローンの借入可能額</a></li></ul></div>'
              '<div class="cs-section"><div class="cs-section-head">エリア別のご相談</div><ul class="cs-recent">'
              '<li><a href="/area/musashikosugi/">武蔵小杉のマンション売買</a></li><li><a href="/area/wangan/">湾岸エリアのマンション売買</a></li>'
              '<li><a href="/area/tokyo23/">東京23区のマンション売買</a></li><li><a href="/area/kanagawa/">横浜・神奈川のマンション売買</a></li>'
