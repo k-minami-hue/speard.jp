@@ -720,9 +720,9 @@ def reserve_html(p, oc):
                 f'<label class="rv-field">電話番号{tel}<input type="tel" name="phone" autocomplete="tel" placeholder="090-1234-5678"></label></div>'
                 '<label class="rv-field">メールアドレス<span>必須</span><input type="email" name="email" autocomplete="email" placeholder="example@email.com"></label>')
     if oc:
-        docs = ['販売図面・間取図', '賃貸借契約の概要（賃料・契約期間）', '収支シミュレーション', '管理費・修繕積立金・修繕履歴がわかる資料', '長期修繕計画']
+        docs = ['販売図面・間取図', '賃貸借契約の概要（賃料・契約期間）', '収支シミュレーション', '管理費・修繕積立金・修繕履歴がわかる資料']
     else:
-        docs = ['販売図面・間取図', '管理費・修繕積立金・修繕履歴がわかる資料', '長期修繕計画', '資金計画書（月々のお支払い試算）']
+        docs = ['販売図面・間取図', '管理費・修繕積立金・修繕履歴がわかる資料', '資金計画書（月々のお支払い試算）']
     checks = ''.join(f'<label class="rv-check"><input type="checkbox" name="docs" value="{esc(d)}"{" checked" if i == 0 else ""}><span>{esc(d)}</span></label>'
                      for i, d in enumerate(docs))
     visit = ''
