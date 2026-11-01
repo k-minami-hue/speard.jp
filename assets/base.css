@@ -927,7 +927,21 @@
     /* ===== PROPERTIES (販売物件) ===== */
     .prop-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
     @media(max-width:900px){ .prop-grid{ grid-template-columns:repeat(2,1fr); gap:20px; } }
-    @media(max-width:600px){ .prop-grid{ grid-template-columns:1fr; gap:18px; } }
+    @media(max-width:600px){
+      .prop-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+      .prop-card .prop-body{ padding:12px 10px 14px; gap:6px; }
+      .prop-card .prop-name{ font-size:.86rem; line-height:1.45; letter-spacing:.02em; }
+      .prop-card .prop-price-row{ gap:4px; }
+      .prop-card .prop-price{ font-size:1.08rem; }
+      .prop-card .prop-tsubo{ font-size:.62rem; letter-spacing:0; }
+      .prop-card .prop-spec{ font-size:.7rem; gap:2px 8px; }
+      .prop-card .prop-spec span + span::before{ content:none; }
+      .prop-card .prop-access{ font-size:.66rem; line-height:1.55; }
+      .prop-card .prop-more{ font-size:.7rem; padding-top:8px; }
+      .prop-card .prop-status{ top:8px; left:8px; font-size:.6rem; padding:3px 8px; }
+      .prop-card .prop-photo-count{ right:6px; bottom:6px; font-size:.6rem; padding:2px 6px; }
+      .prop-card .prop-noimg-name{ font-size:.82rem; }
+    }
     .prop-card { background:white; border:1px solid var(--beige); border-radius:6px; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:inherit; cursor:pointer; transition:transform .2s,box-shadow .2s; }
     .prop-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.08); }
     .prop-thumb { aspect-ratio:16/10; position:relative; overflow:hidden; background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%); }
@@ -943,7 +957,8 @@
     .prop-name { font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:500; color:var(--navy-dark); line-height:1.55; letter-spacing:.04em; }
     .prop-price-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
     .prop-price { font-size:1.45rem; font-weight:700; color:var(--navy); letter-spacing:.02em; line-height:1.2; }
-    .prop-tsubo { display:inline-block; font-size:.74rem; font-weight:700; color:white; background:var(--navy-dark); border:1px solid var(--gold); padding:3px 9px; border-radius:2px; letter-spacing:.04em; white-space:nowrap; }
+    .prop-tsubo { display:inline-block; font-size:.74rem; font-weight:400; color:var(--text-light); background:none; border:none; padding:0; border-radius:0; letter-spacing:.02em; white-space:nowrap; }
+    .prop-side-card .prop-tsubo { font-size:.78rem!important; padding:0!important; }
     .prop-sold-label { font-size:1.1rem; font-weight:700; color:#7a7a7a; letter-spacing:.14em; }
     .prop-spec { display:flex; flex-wrap:wrap; gap:4px 0; font-size:.82rem; color:var(--text); }
     .prop-spec span + span::before { content:'｜'; color:var(--border); margin:0 6px; }
@@ -952,7 +967,7 @@
     .prop-card.is-sold { opacity:.72; }
     .prop-card.is-sold .prop-thumb { filter:grayscale(.7); }
     #home-prop-grid { grid-template-columns:repeat(auto-fit,minmax(280px,340px)); justify-content:center; }
-    @media(max-width:600px){ #home-prop-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px){ #home-prop-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     .prop-home-more { display:inline-flex; align-items:center; gap:10px; background:var(--navy); color:white; padding:15px 38px; text-decoration:none; font-size:.92rem; letter-spacing:.08em; border-radius:30px; transition:background .2s,transform .2s; }
     .prop-home-more:hover { background:var(--navy-mid); transform:translateY(-2px); }
     .prop-photo-count { position:absolute; right:10px; bottom:10px; z-index:2; background:rgba(13,34,56,.78); color:white; font-size:.7rem; padding:3px 9px; border-radius:2px; letter-spacing:.06em; }
