@@ -37,7 +37,12 @@
     document.body.appendChild(bar);
     // コラム・エリアページでは、記事の種別（売却・購入）に合わせた問い合わせ先にする
     var tailored = document.querySelector('.col-inline-cta .cic-main');
-    if (tailored) bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href'));
+    var rv = document.getElementById('reserve');
+    if (rv) { // 販売物件ページ：内見予約・資料請求フォームへ
+      var cf = bar.querySelector('.cta-form'); cf.setAttribute('href', '#reserve');
+      cf.lastChild.textContent = rv.getAttribute('data-cta') || '内見予約';
+    }
+    else if (tailored) bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href'));
     else {
       if (location.pathname === '/satei/') { bar.querySelector('.cta-form').setAttribute('href', '#satei-form'); }
       var PAGE = { '/sell.html': 'sell', '/buy.html': 'buy', '/consulting.html': 'consult' }[location.pathname];

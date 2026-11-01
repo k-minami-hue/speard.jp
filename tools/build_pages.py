@@ -686,6 +686,80 @@ def p_built(s):
 def p_photos(p):
     return [x if isinstance(x, dict) else {'src': x, 'caption': ''} for x in (p.get('photos') or []) if x]
 
+def p_owner_change(p):
+    """オーナーチェンジ（賃貸中のまま引渡し）か。manifest の owner_change を優先し、なければ概要・特徴の記載で判定"""
+    if 'owner_change' in p: return bool(p['owner_change'])
+    return 'オーナーチェンジ' in json.dumps([p.get('extra_rows'), p.get('features')], ensure_ascii=False)
+
+def p_stats(pid, card=False):
+    """閲覧数・お気に入り数（assets/prop.js が実数＋50で表示する）"""
+    eye = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+    heart = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>'
+    return (f'<div class="prop-stats{" is-card" if card else ""}" data-prop-stats="{esc(pid)}">'
+            f'<span class="ps-item">{eye}閲覧数<b data-stat="v">-</b>件</span>'
+            f'<span class="ps-item">{heart}お気に入り<b data-stat="f">-</b>件</span></div>')
+
+RV_TIMES = ['10:00〜12:00', '12:00〜15:00', '15:00〜18:00', '18:00以降']
+RV_TIMING = ['すぐにでも', '3ヶ月以内', '半年以内', '1年以内', '情報収集中']
+
+def reserve_html(p, oc):
+    """内見予約（オーナーチェンジ以外）と資料請求のフォーム"""
+    def sel(name, opts, ph='選択してください', req=False):
+        return (f'<select name="{name}"{" required" if req else ""}><option value="">{ph}</option>' +
+                ''.join(f'<option>{esc(o)}</option>' for o in opts) + '</select>')
+    def slot(i):
+        req = i == 1
+        mark = '<span>必須</span>' if req else '<em>任意</em>'
+        return (f'<div class="rv-slot"><div class="rv-slot-label">第{i}希望{mark}</div>'
+                f'<div class="rv-slot-row"><input type="date" name="d{i}" aria-label="第{i}希望の日付"{" required" if req else ""}>'
+                f'{sel(f"t{i}", RV_TIMES, "時間帯", req)}</div><div class="rv-day"></div></div>')
+    def base(tel_req):
+        tel = '<span>必須</span>' if tel_req else '<em>任意</em>'
+        return ('<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden aria-hidden="true">'
+                '<div class="rv-grid"><label class="rv-field">お名前<span>必須</span><input type="text" name="name" autocomplete="name" placeholder="山田 太郎"></label>'
+                f'<label class="rv-field">電話番号{tel}<input type="tel" name="phone" autocomplete="tel" placeholder="090-1234-5678"></label></div>'
+                '<label class="rv-field">メールアドレス<span>必須</span><input type="email" name="email" autocomplete="email" placeholder="example@email.com"></label>')
+    if oc:
+        docs = ['販売図面・間取図', '賃貸借契約の概要（賃料・契約期間）', '収支シミュレーション', '管理費・修繕積立金・修繕履歴がわかる資料', '長期修繕計画']
+    else:
+        docs = ['販売図面・間取図', '管理費・修繕積立金・修繕履歴がわかる資料', '長期修繕計画', '資金計画書（月々のお支払い試算）']
+    checks = ''.join(f'<label class="rv-check"><input type="checkbox" name="docs" value="{esc(d)}"{" checked" if i == 0 else ""}><span>{esc(d)}</span></label>'
+                     for i, d in enumerate(docs))
+    visit = ''
+    if not oc:
+        visit = ('<form class="rv-form" data-kind="visit" novalidate>'
+                 '<p class="rv-lead">ご希望の日時を第3希望まで選べます。担当者が日程を確認し、原則24時間以内に確定のご連絡をします。</p>'
+                 + base(True) +
+                 f'<div class="rv-slots">{slot(1)}{slot(2)}{slot(3)}</div>'
+                 f'<div class="rv-grid"><label class="rv-field">ご購入の検討時期<em>任意</em>{sel("timing", RV_TIMING)}</label>'
+                 f'<label class="rv-field">住宅ローンの事前審査<em>任意</em>{sel("loan", ["承認済み", "申込中", "まだ（相談したい）", "現金で購入予定"])}</label></div>'
+                 '<label class="rv-field">ご質問・ご要望<em>任意</em><textarea name="message" rows="3" placeholder="例：駐車場の空き状況を知りたい／オンライン内見を希望"></textarea></label>'
+                 '<p class="rv-err" role="alert" hidden></p>'
+                 '<button type="submit" class="prop-btn prop-btn-contact rv-submit">この日程で内見を申し込む</button>'
+                 '<p class="rv-note">火曜・水曜は定休日ですが、ご希望があれば調整します。いただいた情報は本物件のご案内のためにのみ利用します。</p>'
+                 '</form>')
+    lead = '賃貸中のため室内のご見学はできません。' if oc else ''
+    doc = (f'<form class="rv-form" data-kind="docs" novalidate{"" if oc else " hidden"}>'
+           f'<p class="rv-lead">{lead}ご希望の資料を選んでください。原則24時間以内にメールでお送りします。</p>'
+           + base(False) +
+           f'<div class="rv-field">ご希望の資料<span>必須</span><div class="rv-checks">{checks}</div></div>'
+           f'<label class="rv-field">ご購入の検討時期<em>任意</em>{sel("timing", RV_TIMING)}</label>'
+           '<label class="rv-field">ご質問・ご要望<em>任意</em><textarea name="message" rows="3" placeholder="例：修繕履歴を詳しく知りたい"></textarea></label>'
+           '<p class="rv-err" role="alert" hidden></p>'
+           '<button type="submit" class="prop-btn prop-btn-docs rv-submit">資料を請求する</button>'
+           '<p class="rv-note">いただいた情報は本物件のご案内のためにのみ利用します。</p>'
+           '</form>')
+    tabs = '' if oc else ('<div class="rv-tabs" role="tablist">'
+                          '<button type="button" class="rv-tab is-on" data-kind="visit" role="tab" aria-selected="true">内見を予約する</button>'
+                          '<button type="button" class="rv-tab" data-kind="docs" role="tab" aria-selected="false">資料を請求する</button></div>')
+    done = ('<div class="rv-done" data-kind="visit" hidden><div class="rv-done-title">内見のご希望を受け付けました</div>'
+            '<p>ご希望の日程で調整し、原則24時間以内に担当者より確定のご連絡をいたします。この時点では予約は確定していません。</p></div>'
+            '<div class="rv-done" data-kind="docs" hidden><div class="rv-done-title">資料請求を受け付けました</div>'
+            '<p>資料を準備のうえ、原則24時間以内にメールでお送りします。</p></div>')
+    title = '資料請求' if oc else '内見予約・資料請求'
+    return (f'<div class="prop-sec prop-reserve" id="reserve" data-id="{esc(p["id"])}" data-name="{esc(p["name"])}" data-cta="{"資料請求" if oc else "内見予約"}">'
+            f'<h2 class="prop-sec-title">{title}</h2><div class="rv-card">{tabs}{visit}{doc}{done}</div></div>')
+
 def prop_card(p):
     sold = p.get('status') == '成約済'
     ph = p_photos(p)
@@ -697,7 +771,7 @@ def prop_card(p):
             f'<div class="prop-thumb"><span class="prop-status {STATUS_CLASS.get(p.get("status"), "ps-selling")}">{esc(p.get("status"))}</span>{img}</div>'
             f'<div class="prop-body"><div class="prop-name">{esc(p["name"])}</div><div class="prop-price-row">{price}</div>'
             f'<div class="prop-spec"><span>{esc(p.get("layout"))}</span><span>{p_area(p.get("area_m2"))}</span><span>{p_floor(p)}</span></div>'
-            f'<div class="prop-access">{esc(acc)}</div><div class="prop-more">詳細を見る →</div></div></a>')
+            f'<div class="prop-access">{esc(acc)}</div>{"" if sold else p_stats(p["id"], card=True)}<div class="prop-more">詳細を見る →</div></div></a>')
 
 def build_properties():
     props = json.load(open(P('properties/manifest.json'), encoding='utf-8')).get('properties', [])
@@ -757,6 +831,11 @@ m.addEventListener('touchend',function(e){{var d=e.changedTouches[0].clientX-sx;
 m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0);}})();
 </script>'''
         contact = f'/?property={p["id"]}#contact'
+        oc = p_owner_change(p)
+        fav_svg = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>'
+        stats_row = '' if sold else (f'<div class="prop-stats-row">{p_stats(p["id"])}<button type="button" class="prop-fav" data-fav="{esc(p["id"])}" aria-pressed="false">{fav_svg}<span class="pf-label">お気に入りに登録</span></button></div>')
+        reserve = '' if sold else reserve_html(p, oc)
+        side_btns = ('' if sold or oc else '<a class="prop-btn prop-btn-contact" href="#reserve" data-rv="visit">内見を予約する（日程を選ぶ）</a>') + ('' if sold else f'<a class="prop-btn {"prop-btn-contact" if oc else "prop-btn-docs"}" href="#reserve" data-rv="docs">資料を請求する</a>')
         price_html = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span><span class="prop-tsubo">{p_tsubo(p)}</span>'
         crumbs = [('トップ', '/'), ('販売物件', '/properties/'), (p['name'], url)]
         title = f'{p["name"]} {p_floor(p).split("／")[0]} {p.get("layout","")}' + ('' if sold else f'（{p_price(p.get("price"))}）')
@@ -775,12 +854,14 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
     <div class="prop-detail-head"><span class="prop-status {STATUS_CLASS.get(p.get("status"), "ps-selling")}">{esc(p.get("status"))}</span><span class="prop-type">取引態様：{esc(p.get("transaction_type"))}</span></div>
     <h1 class="prop-detail-title">{esc(p["name"])}</h1>
     <div class="prop-sp-price">{price_html}</div>
+    {stats_row}
     {gallery}
     {f'<div class="prop-sec" style="margin-top:32px;"><h2 class="prop-sec-title">所在地・周辺地図</h2><div class="prop-map-addr"><span>{esc(p.get("address"))}</span><a class="prop-map-link" href="https://www.google.com/maps/search/?api=1&amp;query={quote(q)}" target="_blank" rel="noopener">Googleマップで開く ↗</a></div><div class="prop-map"><iframe title="周辺地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q={quote(q)}&amp;hl=ja&amp;z=16&amp;output=embed"></iframe></div><p class="prop-map-note">地図上の位置はおおよその所在地を示すものです。</p></div>' if q else ''}
     {f'<div class="prop-sec"><h2 class="prop-sec-title">物件の特徴</h2><ul class="prop-features">{feats}</ul></div>' if feats else ''}
     {f'<div class="prop-sec"><h2 class="prop-sec-title">スタッフコメント</h2><div class="prop-comment"><div class="prop-comment-avatar"><img src="/president.jpg" alt="担当 南 和希" loading="lazy" decoding="async"></div><div><div class="prop-comment-name">担当：南 和希（宅地建物取引士）</div><p class="prop-comment-text">{esc(p["comment"])}</p></div></div></div>' if p.get('comment') else ''}
     <div class="prop-sec"><h2 class="prop-sec-title">物件概要</h2><table class="prop-table"><tbody>{table}</tbody></table>
       <div class="prop-legal"><strong>取引態様：{esc(p.get("transaction_type"))}</strong><br>掲載情報と現況が異なる場合は現況を優先します。</div></div>
+    {reserve}
   </div>
   <aside class="prop-side">
     <div class="prop-side-card">
@@ -792,12 +873,14 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
     </div>
     {'<div class="prop-sold-notice">本物件は成約済です。同マンション・近隣の類似物件のご紹介を承ります。</div>' if sold else ''}
     {f'<a class="prop-btn prop-btn-suumo" href="{esc(p["suumo_url"])}" target="_blank" rel="noopener">SUUMOで詳細を見る <span aria-hidden="true">↗</span></a>' if p.get('suumo_url') and not sold else ''}
-    <a class="prop-btn prop-btn-contact" href="{contact}">{'類似物件について問い合わせる' if sold else 'この物件について問い合わせる'}</a>
+    {side_btns}
+    <a class="prop-btn {'prop-btn-contact' if sold else 'prop-btn-sub'}" href="{contact}">{'類似物件について問い合わせる' if sold else 'その他のお問い合わせ'}</a>
     <a class="prop-btn prop-btn-line" href="{LINE_URL}" target="_blank" rel="noopener">{LINE_SVG}公式LINEで相談する</a>
   </aside>
 </div>
-{CTA_BOTTOM('内見・資料請求のご依頼', '資金計画・住宅ローンのご相談も含め、担当者が直接ご対応します。', contact)}
-</div>'''
+{CTA_BOTTOM('内見・資料請求のご依頼', '資金計画・住宅ローンのご相談も含め、担当者が直接ご対応します。', contact if sold else '#reserve')}
+</div>
+<script src="/assets/prop.js?v={VER}" defer></script>'''
         og = SITE + '/' + ph[0]['src'].lstrip('/') if ph else None
         write(f'properties/{p["id"]}/index.html', page(url, title, desc, body, og_image=og, jsonld=[offer_ld], breadcrumbs=crumbs))
 
@@ -810,7 +893,8 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
   {f'<div class="prop-grid">{cards}</div>' if props else '<div class="prop-empty" style="display:block">現在公開中の販売物件はありません。非公開物件のご紹介も可能ですので、お気軽にお問合せください。</div>'}
 </div>
 {CTA_BOTTOM('物件のご相談・内見のご予約', '掲載物件の詳細資料・内見のご予約、未公開物件のご紹介も承ります。')}
-</div>'''
+</div>
+<script src="/assets/prop.js?v={VER}" defer></script>'''
     write('properties/index.html', page('/properties/', '販売物件一覧｜首都圏の分譲マンション',
                                         '株式会社スピアードが取り扱う首都圏の分譲マンション販売物件の一覧です。価格・坪単価・間取り・最寄駅を掲載。未公開物件のご紹介も承ります。',
                                         lst, breadcrumbs=crumbs))

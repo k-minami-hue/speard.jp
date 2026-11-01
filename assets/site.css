@@ -345,3 +345,63 @@ a.res-card:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.
 a.hm-res{ display:block; color:inherit; text-decoration:none; }
 .rb-cta-sp{ display:none; }
 @media (max-width:900px){ .rb-cta-sp{ display:grid; gap:10px; margin:22px 0 8px; } }
+
+/* ===== 販売物件：閲覧数・お気に入り（assets/prop.js） ===== */
+.prop-stats{ display:flex; flex-wrap:wrap; gap:6px 16px; font-size:.82rem; color:var(--text-mid,#555); opacity:0; transition:opacity .3s; }
+.prop-stats.is-ready{ opacity:1; }
+.prop-stats .ps-item{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+.prop-stats .ps-item svg{ color:var(--gold,#C49A30); flex:none; }
+.prop-stats b{ font-size:1.02rem; font-weight:700; color:var(--navy,#1B3A5C); margin:0 1px 0 3px; font-variant-numeric:tabular-nums; }
+.prop-stats.is-card{ font-size:.72rem; gap:4px 12px; margin-top:8px; }
+.prop-stats.is-card b{ font-size:.86rem; }
+.prop-stats-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px 16px; margin:4px 0 18px; padding:12px 16px; background:var(--off-white,#F7F5F0); border:1px solid var(--beige,#EDE8DC); border-radius:6px; }
+.prop-fav{ display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border:1.5px solid var(--gold,#C49A30); background:#fff; color:var(--gold-hover,#A87E22); border-radius:999px; font-size:.82rem; font-weight:600; letter-spacing:.04em; cursor:pointer; font-family:'Noto Sans JP',sans-serif; transition:background .2s,color .2s; }
+.prop-fav svg{ fill:none; stroke:currentColor; stroke-width:2; }
+.prop-fav:hover{ background:#FBF6EA; }
+.prop-fav.is-on{ background:var(--gold,#C49A30); color:#fff; }
+.prop-fav.is-on svg{ fill:currentColor; }
+@media (max-width:600px){ .prop-stats-row{ padding:10px 12px; } .prop-fav{ width:100%; justify-content:center; } }
+
+/* ===== 販売物件：内見予約・資料請求フォーム ===== */
+.prop-btn-docs{ background:var(--navy,#1B3A5C); color:#fff; }
+.prop-btn-docs:hover{ background:var(--navy-mid,#254E7A); }
+.prop-btn-sub{ background:#fff; color:var(--navy,#1B3A5C); border:1px solid var(--border,#D8D0C0); font-weight:500; font-size:.82rem; padding:11px 16px; }
+.prop-btn-sub:hover{ border-color:var(--navy,#1B3A5C); }
+.prop-reserve{ scroll-margin-top:96px; }
+.rv-card{ background:#fff; border:1px solid var(--beige,#EDE8DC); border-radius:6px; box-shadow:0 2px 16px rgba(0,0,0,.05); padding:24px 26px 22px; }
+.rv-tabs{ display:grid; grid-template-columns:1fr 1fr; gap:0; margin:-24px -26px 22px; border-bottom:1px solid var(--beige,#EDE8DC); }
+.rv-tabs[hidden]{ display:none; }
+.rv-tab{ padding:15px 10px; background:var(--off-white,#F7F5F0); border:none; border-bottom:3px solid transparent; font-family:'Noto Sans JP',sans-serif; font-size:.9rem; font-weight:600; color:var(--text-mid,#555); cursor:pointer; letter-spacing:.05em; }
+.rv-tab:first-child{ border-radius:6px 0 0 0; } .rv-tab:last-child{ border-radius:0 6px 0 0; }
+.rv-tab.is-on{ background:#fff; color:var(--navy,#1B3A5C); border-bottom-color:var(--gold,#C49A30); }
+.rv-form[hidden], .rv-done[hidden], .rv-err[hidden]{ display:none; }
+.rv-lead{ font-size:.86rem; color:var(--text-mid,#555); line-height:1.85; margin:0 0 18px; }
+.rv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+.rv-field{ display:block; font-size:.8rem; font-weight:600; color:var(--navy,#1B3A5C); letter-spacing:.04em; margin-bottom:16px; }
+.rv-field span, .rv-slot-label span{ display:inline-block; margin-left:6px; padding:1px 6px; font-size:.66rem; font-weight:700; color:#fff; background:var(--gold,#C49A30); border-radius:2px; vertical-align:1px; }
+.rv-field em, .rv-slot-label em{ margin-left:6px; font-style:normal; font-size:.7rem; font-weight:500; color:var(--text-light,#888); }
+.rv-field input[type="text"], .rv-field input[type="tel"], .rv-field input[type="email"], .rv-field select, .rv-field textarea, .rv-slot input, .rv-slot select{
+  display:block; width:100%; margin-top:6px; padding:11px 12px; font-size:16px; font-family:'Noto Sans JP',sans-serif; color:var(--text,#1a1a1a); background:#fff; border:1px solid var(--border,#D8D0C0); border-radius:4px; box-sizing:border-box; }
+.rv-field textarea{ resize:vertical; line-height:1.7; }
+.rv-field input:focus, .rv-field select:focus, .rv-field textarea:focus, .rv-slot input:focus, .rv-slot select:focus{ outline:none; border-color:var(--gold,#C49A30); box-shadow:0 0 0 3px rgba(196,154,48,.15); }
+.rv-slots{ display:grid; gap:12px; margin-bottom:18px; padding:16px; background:var(--off-white,#F7F5F0); border-radius:6px; }
+.rv-slot-label{ font-size:.8rem; font-weight:600; color:var(--navy,#1B3A5C); }
+.rv-slot-row{ display:grid; grid-template-columns:1.2fr 1fr; gap:10px; }
+.rv-slot-row input, .rv-slot-row select{ margin-top:6px; }
+.rv-day{ font-size:.74rem; color:var(--gold-hover,#A87E22); margin-top:4px; min-height:1em; }
+.rv-checks{ display:grid; gap:8px; margin-top:8px; }
+.rv-check{ display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--border,#D8D0C0); border-radius:4px; font-weight:500; color:var(--text,#1a1a1a); cursor:pointer; }
+.rv-check input{ width:18px; height:18px; accent-color:var(--gold,#C49A30); flex:none; }
+.rv-err{ color:#c0392b; font-size:.84rem; margin:0 0 12px; }
+.rv-submit{ margin-top:4px; padding:16px; font-size:.95rem; }
+.rv-note{ font-size:.74rem; color:var(--text-light,#888); line-height:1.8; margin:10px 0 0; }
+.rv-done{ text-align:center; padding:20px 4px; }
+.rv-done-title{ font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:600; color:var(--navy,#1B3A5C); margin-bottom:10px; }
+.rv-done p{ font-size:.88rem; color:var(--text-mid,#555); line-height:1.9; margin:0; }
+@media (max-width:600px){
+  .rv-card{ padding:20px 16px 18px; }
+  .rv-tabs{ margin:-20px -16px 18px; }
+  .rv-tab{ font-size:.84rem; padding:13px 6px; }
+  .rv-grid{ grid-template-columns:1fr; }
+  .rv-slots{ padding:12px; }
+}

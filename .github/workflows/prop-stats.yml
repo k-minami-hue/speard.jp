@@ -1,0 +1,34 @@
+# 自社HPの販売物件の反響（閲覧数・お気に入り・内見予約・資料請求）を毎週月曜 6:00（日本時間）に記録する。
+# 結果：tools/prop_stats/history.json（累計の実数）と tools/prop_stats/latest.md（前週比の表）。売主様への定期連絡で使う。
+name: property stats snapshot
+
+on:
+  schedule:
+    - cron: '0 21 * * 0'   # 毎週日曜 21:00 UTC ＝ 月曜 6:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prop-stats
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/prop_stats.py
+      - name: commit if changed
+        run: |
+          if [ -n "$(git status --porcelain tools/prop_stats)" ]; then
+            git config user.name "speard-bot"
+            git config user.email "info@speard.jp"
+            git add tools/prop_stats
+            git commit -m "販売物件の反響を記録（$(TZ=Asia/Tokyo date +%Y-%m-%d)）"
+            for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
+          fi
