@@ -1,0 +1,58 @@
+{
+ "note": "累計の実数（HP表示の+50は含まない）",
+ "snapshots": [
+  {
+   "date": "2026-11-02",
+   "props": {
+    "nice-urban-musashishinjo": {
+     "name": "ナイスアーバン武蔵新城",
+     "status": "販売中",
+     "views": 0,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    },
+    "the-parkhouse-kameido": {
+     "name": "ザ・パークハウス亀戸",
+     "status": "販売中",
+     "views": 2,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    },
+    "akasaka-green-heights": {
+     "name": "赤坂グリーンハイツ",
+     "status": "販売中",
+     "views": 0,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    },
+    "brillia-ariake-skytower": {
+     "name": "ブリリア有明スカイタワー",
+     "status": "販売中",
+     "views": 0,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    },
+    "sunsara-azumabashi": {
+     "name": "サンサーラ吾妻橋",
+     "status": "販売中",
+     "views": 3,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    },
+    "tiara-meguro-senzoku": {
+     "name": "ティアラ目黒洗足",
+     "status": "販売中",
+     "views": 1,
+     "favs": 0,
+     "visit_req": 0,
+     "doc_req": 0
+    }
+   }
+  }
+ ]
+}
