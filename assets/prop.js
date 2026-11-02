@@ -1,10 +1,11 @@
-/* prop.js ― 販売物件ページ用（閲覧数・お気に入り数の表示／お気に入り登録／内見予約・資料請求フォーム）
+/* prop.js ― 販売物件ページ用（お気に入り数の表示／お気に入り登録／閲覧数の計測／内見予約・資料請求フォーム）
    カウンターは Abacus（https://abacus.jasoncameron.dev、無料・CORS対応）に保存する。
    キー：v-物件ID＝閲覧数、f-物件ID＝お気に入り登録数、vr-物件ID＝内見予約数、dr-物件ID＝資料請求数
-   表示値＝実数＋BASE（50件スタート）。売主様への定期連絡では実数（tools/prop_stats/history.json）を使う。
+   お気に入りは実数をそのまま表示する（2026-11-02 に上乗せの50件を廃止）。閲覧数は計測だけ行い、画面には表示しない。
+   売主様への定期連絡では実数（tools/prop_stats/history.json）を使う。
    社内の閲覧を数えないようにするには、一度だけ https://speard.jp/properties/?staff=1 を開く（解除は ?staff=0）。 */
 (function () {
-  var API = 'https://abacus.jasoncameron.dev', NS = 'speard-jp', BASE = 50;
+  var API = 'https://abacus.jasoncameron.dev', NS = 'speard-jp';
 
   var q = new URLSearchParams(location.search);
   try {
@@ -23,16 +24,15 @@
   }
   var get = function (k) { return call('get', k); };
   var hit = function (k) { return call('hit', k); };
-  function fmt(n) { return (n + BASE).toLocaleString('ja-JP'); }
+  function fmt(n) { return n.toLocaleString('ja-JP'); }
 
   function lsList(k) { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) { return []; } }
   function lsSave(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
   function paint(box, v, f) {
-    if (v === null && f === null) { box.hidden = true; return; }
-    var a = box.querySelector('[data-stat="v"]'), b = box.querySelector('[data-stat="f"]');
-    if (a && v !== null) a.textContent = fmt(v);
-    if (b && f !== null) b.textContent = fmt(f);
+    if (f === null) { box.hidden = true; return; }
+    var b = box.querySelector('[data-stat="f"]');
+    if (b) b.textContent = fmt(f);
     box.classList.add('is-ready');
   }
 
@@ -47,7 +47,7 @@
   // ---- 一覧カード：表示のみ ----
   function cardStats(box) {
     var id = box.getAttribute('data-prop-stats');
-    Promise.all([get('v-' + id), get('f-' + id)]).then(function (r) { paint(box, r[0], r[1]); });
+    get('f-' + id).then(function (f) { paint(box, null, f); });
   }
 
   // ---- お気に入り（同じブラウザからは1回だけ加算） ----

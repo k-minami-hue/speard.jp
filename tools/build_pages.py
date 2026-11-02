@@ -692,11 +692,9 @@ def p_owner_change(p):
     return 'オーナーチェンジ' in json.dumps([p.get('extra_rows'), p.get('features')], ensure_ascii=False)
 
 def p_stats(pid, card=False):
-    """閲覧数・お気に入り数（assets/prop.js が実数＋50で表示する）"""
-    eye = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+    """お気に入り数（assets/prop.js が実数で表示する）。閲覧数は計測のみで表示しない"""
     heart = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>'
     return (f'<div class="prop-stats{" is-card" if card else ""}" data-prop-stats="{esc(pid)}">'
-            f'<span class="ps-item">{eye}閲覧数<b data-stat="v">-</b>件</span>'
             f'<span class="ps-item">{heart}お気に入り<b data-stat="f">-</b>件</span></div>')
 
 RV_TIMES = ['10:00〜12:00', '12:00〜15:00', '15:00〜18:00', '18:00以降']
