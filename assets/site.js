@@ -151,3 +151,34 @@ window.SPEARD_GAS_URL = window.SPEARD_GAS_URL || '';
     try { fetch(u, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p) }); } catch (e) {}
   };
 })();
+
+/* ---- 問い合わせメールの送信（info@speard.jp に届ける） ----
+   FormSubmit と Web3Forms に同時に送り、どちらか一方が受け付ければ成功とする（片方が止まっても届く）。
+   p は FormSubmit 形式（_subject・_autoresponse など先頭が _ の項目は設定値）。
+   戻り値は fetch と同じく {ok:true/false} を返す Promise。各送信先は15秒で打ち切る。 */
+window.SPEARD_W3F_KEY = window.SPEARD_W3F_KEY || '5268c498-3e71-4a9e-ac7f-6aa7dc428f4e';
+window.spSend = function (p) {
+  return new Promise(function (resolve) {
+    var left = 2, done = false;
+    function fin(ok) {
+      if (done) return;
+      if (ok) { done = true; resolve({ ok: true }); return; }
+      if (--left <= 0) { done = true; resolve({ ok: false }); }
+    }
+    function post(url, body, check) {
+      var over = false, ctl = window.AbortController ? new AbortController() : null;
+      var t = setTimeout(function () { if (over) return; over = true; try { ctl && ctl.abort(); } catch (e) {} fin(false); }, 15000);
+      try {
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body), signal: ctl ? ctl.signal : undefined })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (over) return; over = true; clearTimeout(t); fin(r.ok && check(d)); }); })
+          .catch(function () { if (over) return; over = true; clearTimeout(t); fin(false); });
+      } catch (e) { if (!over) { over = true; clearTimeout(t); fin(false); } }
+    }
+    // FormSubmit（お客様への自動返信あり）
+    post('https://formsubmit.co/ajax/info@speard.jp', p, function (d) { return d.success === true || d.success === 'true'; });
+    // Web3Forms（予備の送信経路）
+    var w = { access_key: window.SPEARD_W3F_KEY, subject: p._subject || 'speard.jp からのお問い合わせ', from_name: 'speard.jp' };
+    Object.keys(p).forEach(function (k) { if (k.charAt(0) !== '_') w[k] = p[k]; });
+    post('https://api.web3forms.com/submit', w, function (d) { return d.success === true || d.success === 'true'; });
+  });
+};

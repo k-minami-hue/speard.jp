@@ -119,7 +119,7 @@
     var done=false,fail=function(){if(done)return;done=true;btn.disabled=false;btn.textContent='無料で査定を依頼する';
       err.innerHTML='送信できませんでした。お手数ですが、お電話（050-7109-3701）か<a href="mailto:info@speard.jp">メール</a>でご連絡ください。';err.style.display='block';};
     var t=setTimeout(fail,20000);
-    fetch('https://formsubmit.co/ajax/info@speard.jp',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(p)})
+    (window.spSend?window.spSend(p):fetch('https://formsubmit.co/ajax/info@speard.jp',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(p)}))
     .then(function(r){clearTimeout(t);if(!r.ok)return fail();if(done)return;done=true;
       f.style.display='none';document.getElementById('st-ok').style.display='block';
       document.getElementById('satei-form').scrollIntoView({behavior:'smooth',block:'start'});

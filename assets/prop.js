@@ -153,9 +153,9 @@
           if (confirm('オンライン送信に失敗しました。メールアプリで送信しますか？')) location.href = 'mailto:info@speard.jp?subject=' + encodeURIComponent(p._subject) + '&body=' + encodeURIComponent(body);
         }
         var w = setTimeout(ng, 20000);
-        fetch('https://formsubmit.co/ajax/info@speard.jp', {
+        (window.spSend ? window.spSend(p) : fetch('https://formsubmit.co/ajax/info@speard.jp', {
           method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(p)
-        }).then(function (r) { clearTimeout(w); r.ok ? ok() : ng(); }).catch(function () { clearTimeout(w); ng(); });
+        })).then(function (r) { clearTimeout(w); r.ok ? ok() : ng(); }).catch(function () { clearTimeout(w); ng(); });
       });
     });
   }

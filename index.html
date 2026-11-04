@@ -3192,15 +3192,15 @@ if (contactForm) {
     // 8 second timeout to mailto
     const watchdog = setTimeout(finishFail, 20000); // 20s for slow mobile networks
 
-    fetch('https://formsubmit.co/ajax/info@speard.jp', {
+    (window.spSend ? window.spSend(payload) : fetch('https://formsubmit.co/ajax/info@speard.jp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
-    })
+    }))
     .then(r => {
       clearTimeout(watchdog);
       // Any 2xx response from FormSubmit means email was queued
-      if (r.ok || r.status === 200) {
+      if (r.ok) {
         finishOK();
       } else {
         finishFail();
