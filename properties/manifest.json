@@ -638,6 +638,137 @@
           "caption": "間取り図"
         }
       ]
+    },
+    {
+      "id": "clevia-nihonbashi",
+      "status": "販売中",
+      "name": "クレヴィア日本橋",
+      "price": 75900000,
+      "layout": "1LDK",
+      "area_m2": 34.65,
+      "balcony_m2": 3.74,
+      "floor": 4,
+      "total_floors": 10,
+      "structure": "RC造・地下1階付",
+      "direction": "北",
+      "built": "2022-02",
+      "address": "東京都中央区日本橋蛎殻町1丁目",
+      "map_query": "クレヴィア日本橋 東京都中央区日本橋蛎殻町1丁目",
+      "access": [
+        {
+          "line": "東京メトロ半蔵門線",
+          "station": "水天宮前",
+          "walk_min": 3
+        },
+        {
+          "line": "東京メトロ日比谷線／東西線",
+          "station": "茅場町",
+          "walk_min": 5
+        },
+        {
+          "line": "東京メトロ日比谷線／都営浅草線",
+          "station": "人形町",
+          "walk_min": 6
+        }
+      ],
+      "management_fee": 14200,
+      "repair_reserve": 5200,
+      "other_fees": "インターネット定額料金：1,100円／月",
+      "total_units": 36,
+      "land_rights": "所有権",
+      "management": "委託（通勤）",
+      "parking": "空き無し",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "商業地域"
+        ],
+        [
+          "分譲会社",
+          "伊藤忠都市開発株式会社"
+        ],
+        [
+          "施工会社",
+          "株式会社松尾工務店"
+        ],
+        [
+          "ペット",
+          "飼育可（細則あり）"
+        ]
+      ],
+      "features": [
+        "3駅4路線利用可",
+        "水天宮前駅 徒歩3分",
+        "2022年2月築",
+        "伊藤忠都市開発「クレヴィア」シリーズ",
+        "設計・建設住宅性能評価書取得",
+        "床暖房",
+        "対面式キッチン",
+        "食器洗い乾燥機",
+        "浴室乾燥機",
+        "オートバス",
+        "ウォークインクローゼット",
+        "シューズインクローゼット",
+        "TVモニタ付インターホン",
+        "宅配ボックス",
+        "24時間ゴミ出し可",
+        "ペット飼育可（細則あり）"
+      ],
+      "comment": "半蔵門線「水天宮前」駅徒歩3分、2022年2月築の「クレヴィア」シリーズの1LDKです。\n日比谷線・東西線「茅場町」駅徒歩5分、日比谷線・都営浅草線「人形町」駅徒歩6分と3駅4路線が使え、大手町・表参道・銀座方面へ乗り換えなしで移動できます。\n\n【この物件の魅力】\n■水天宮前・茅場町・人形町の3駅4路線が徒歩6分圏。銀座線「日本橋」駅も徒歩10分です。\n■2022年2月竣工の築浅物件。伊藤忠都市開発の分譲で、設計・建設住宅性能評価書を取得しています。\n■LDK約10.5帖と洋室約3.5帖。LDKは床暖房付き、キッチンは食器洗い乾燥機付きの対面式です。\n■ウォークインクローゼット、可動棚付きのシューズインクローゼット、カウンター収納、リネン庫と、1LDKでも収納を確保しています。\n■浴室乾燥機・オートバス、手洗いカウンター付きのタンクレストイレ。\n■総戸数36戸・10階建。宅配ボックス、24時間ゴミ出し可、ペット飼育可（細則あり）。\n\n【暮らしのイメージ】\n日本橋三越本店やCOREDO室町など、日本橋の商業施設も生活圏に入ります。\n大手町へは半蔵門線で直通のため、都心勤務の方が通勤しやすい立地です。\n\n【担当からひとこと】\n北向き・4階の住戸のため、日当たりや眺望を最優先する方には向きません。\n一方で、駅距離・築年数・設備を重視する方には条件のそろった1LDKです。\n修繕積立金は月5,200円で、今後の長期修繕計画で見直される可能性があります。計画の内容は資料でご説明しますので、お気軽にお問い合わせください。",
+      "transaction_type": "仲介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事（1）第112752号"
+      },
+      "photos": [
+        {
+          "src": "properties/clevia-nihonbashi/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/02.jpg",
+          "caption": "エントランス"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/03.jpg",
+          "caption": "間取り図"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/04.jpg",
+          "caption": "LDK"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/05.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/06.jpg",
+          "caption": "キッチン（洗面室側）"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/07.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/08.jpg",
+          "caption": "洗面化粧台"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/09.jpg",
+          "caption": "トイレ"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/10.jpg",
+          "caption": "シューズインクローゼット"
+        },
+        {
+          "src": "properties/clevia-nihonbashi/11.jpg",
+          "caption": "バルコニー"
+        }
+      ],
+      "photos_note": null
     }
   ]
 }
