@@ -265,10 +265,59 @@
       },
       "photos": [
         {
+          "src": "properties/the-parkhouse-kameido/01.jpg",
+          "caption": "外観"
+        },
+        {
           "src": "properties/the-parkhouse-kameido/02.jpg",
           "caption": "間取り図"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/03.jpg",
+          "caption": "住戸からの眺望"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/04.jpg",
+          "caption": "バルコニー"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/05.jpg",
+          "caption": "玄関"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/06.jpg",
+          "caption": "リビング"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/07.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/08.jpg",
+          "caption": "洗面所"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/09.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/10.jpg",
+          "caption": "エントランス"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/11.jpg",
+          "caption": "共用部（宅配ボックス）"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/12.jpg",
+          "caption": "共用部（ラウンジ）"
+        },
+        {
+          "src": "properties/the-parkhouse-kameido/13.jpg",
+          "caption": "外観"
         }
-      ]
+      ],
+      "photos_note": "外観写真（1枚目）は通行人をCG加工で消去しています。"
     },
     {
       "id": "akasaka-green-heights",
