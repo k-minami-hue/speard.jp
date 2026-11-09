@@ -1407,7 +1407,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
   function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   // WebP版があれば使い、なければ元の画像に戻す（tools/make_webp.py が同名の .webp を作る）
   function img(src,alt){var w=String(src).replace(/\.(jpe?g|png)$/i,'.webp');return '<img src="'+esc(w)+'" alt="'+esc(alt)+'" loading="lazy" decoding="async"'+(w!==src?' data-fb="'+esc(src)+'" onerror="this.onerror=null;this.src=this.dataset.fb"':'')+'>';}
-  fetch('results/manifest.json').then(function(r){return r.ok?r.json():{results:[]};}).then(function(d){
+  fetch('results/manifest.json?v='+Date.now()).then(function(r){return r.ok?r.json():{results:[]};}).then(function(d){
     var list=(d.results||[]), g=document.getElementById('hm-res-grid');
     if(!g) return;
     if(!list.length){document.getElementById('home-results').style.display='none';return;}
@@ -1415,7 +1415,7 @@ var to=m[h]||(h.indexOf('column-')===0?'/columns/'+h.slice(7)+'/':h.indexOf('pro
       var tg=x.building?'a href="/results/'+esc(x.slug||x.id)+'/"':'div',te=x.building?'a':'div';return '<'+tg+' class="hm-res"><div class="hm-res-img">'+(x.image?img(x.image,x.name+' 外観'):'')+'<span class="hm-res-badge">成約</span></div><div class="hm-res-body"><p class="hm-res-name">'+esc(x.name)+'</p>'+(x.floor?'<p class="hm-res-floor">'+esc(x.floor)+'</p>':'')+'</div></'+te+'>';
     }).join('');
   }).catch(function(){});
-  fetch('columns/manifest.json').then(function(r){return r.ok?r.json():{columns:[]};}).then(function(d){
+  fetch('columns/manifest.json?v='+Date.now()).then(function(r){return r.ok?r.json():{columns:[]};}).then(function(d){
     var g=document.getElementById('hm-col-grid'); if(!g) return;
     var list=(d.columns||[]).slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).slice(0,3);
     if(!list.length){document.getElementById('home-columns').style.display='none';return;}
