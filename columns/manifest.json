@@ -1,21 +1,6 @@
 {
  "columns": [
   {
-   "id": "naiken-taiou",
-   "category": "sell",
-   "tags": [
-    "売却編"
-   ],
-   "tag": "売却編",
-   "title": "マンション売却の内覧対応——申込みにつながる準備と、売主がやらなくていいこと",
-   "date": "2026.11.09",
-   "hero": "/columns/hero/naiken-taiou.jpg",
-   "thumb": "/columns/hero/naiken-taiou-thumb.jpg",
-   "file": "columns/sale/column_naiken_taiou.html",
-   "description": "売却中の内覧で買主が見るのは収納・水回り・におい・明るさ。費用をかけずにできる準備、居住中の振る舞い、70㎡6,000万円の例で値下げと保有費用が手取りを302.1万円減らす計算を整理する。",
-   "seo_title": "マンション売却の内覧対応｜申込みにつながる準備と注意点"
-  },
-  {
    "id": "shitei-taiou",
    "category": "sell",
    "tags": [
