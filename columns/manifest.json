@@ -1,6 +1,21 @@
 {
  "columns": [
   {
+   "id": "shin-jusho-touki",
+   "category": "buy",
+   "tags": [
+    "購入編"
+   ],
+   "tag": "購入編",
+   "title": "新住所登記と旧住所登記はどちらがいいか——登録免許税の軽減と、2026年4月からの住所変更の仕組みで比べる",
+   "date": "2026.11.09",
+   "hero": "/columns/hero/tokibo.jpg",
+   "thumb": "/columns/hero/tokibo-thumb.jpg",
+   "file": "columns/purchase/column_shin_jusho_touki.html",
+   "description": "マンション購入時の新住所登記と旧住所登記の違いを整理。登録免許税の軽減はどちらでも受けられ、2026年4月からは引越し後の住所を法務局が無料で書き換える。必要書類、金消契約との関係、向かないケースと選び方まで整理する。",
+   "seo_title": "新住所登記と旧住所登記の違い｜メリット・デメリットと選び方"
+  },
+  {
    "id": "shitei-taiou",
    "category": "sell",
    "tags": [
