@@ -21,12 +21,12 @@
 <link rel="icon" href="{{ site.base }}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=optional" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=optional"></noscript>
 {% block head %}{% endblock %}
 <link rel="stylesheet" href="{{ site.base }}assets/style.css?v={{ ver }}">
 <script type="application/ld+json">{{ jsonld | safe }}</script>
-{% if site.ga_id %}<script>(function(){var d=false;function g(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}';document.head.appendChild(s);}window.addEventListener('load',function(){setTimeout(g,2500);});['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,g,{once:true,passive:true});});})();</script>
+{% if site.ga_id %}<script>(function(){var d=false;function g(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}';document.head.appendChild(s);}window.addEventListener('load',function(){setTimeout(g,6500);});['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,g,{once:true,passive:true});});})();</script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){try{var m=location.search.match(/[?&]speard_optout=([01])/);if(m)localStorage.setItem('speard_optout',m[1]);if(localStorage.getItem('speard_optout')==='1')window['ga-disable-{{ site.ga_id }}']=true;}catch(e){} })();gtag('config','{{ site.ga_id }}',{content_group:'kosugi-souba'});</script>
 {% endif %}</head>
 <body class="p-{{ page }}">
