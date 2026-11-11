@@ -18,7 +18,7 @@
   <a class="cover" href="{{ b.url }}" aria-label="{{ b['マンション名'] }}の相場を見る"></a>
   <div class="card-top">
     {% if rank %}<span class="rank-no">{{ rank }}位</span>{% endif %}
-    {% if b.photo %}{{ img(site, b.photo.key, b.photo.caption) }}{% else %}<div class="plate"><b>{{ b.short }}</b><span>{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階</span></div>{% endif %}
+    {% if b.photo %}{{ img(site, b.photo.key, b.photo.caption) }}{% else %}<div class="plate"><b>{{ b['マンション名'] }}</b><span>{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階</span></div>{% endif %}
   </div>
   <div class="card-body">
     <p class="card-name">{{ b['マンション名'] }}</p>
@@ -96,8 +96,8 @@
 {% macro notify(site, b=None) -%}
 <div class="notify">
   <div>
-    <h2>{% if b %}{{ b.short }}の売出・値下げをメールで受け取る{% else %}売出・値下げをメールで受け取る{% endif %}</h2>
-    <p>{% if b %}{{ b.short }}{% else %}掲載マンション{% endif %}に新しい売出や値下げが出たら、メールでお知らせします（無料会員）。相場を更新したときのお知らせも届きます。<br>
+    <h2>{% if b %}{{ b['マンション名'] }}の売出・値下げをメールで受け取る{% else %}売出・値下げをメールで受け取る{% endif %}</h2>
+    <p>{% if b %}{{ b['マンション名'] }}{% else %}掲載マンション{% endif %}に新しい売出や値下げが出たら、メールでお知らせします（無料会員）。相場を更新したときのお知らせも届きます。<br>
     <a href="{{ site.base }}member/{% if b %}?b={{ b.id }}{% endif %}#register">間取り・広さ・予算の条件や、自宅価格ウォッチも登録できます</a></p>
   </div>
   <form class="notify-form" data-notify novalidate>
@@ -134,7 +134,7 @@
     <button type="button" role="tab" id="tabSell{{ preset or '' }}" aria-controls="panSell{{ preset or '' }}" aria-selected="false" data-tab="sell" tabindex="-1">売る・価格を知る</button>
   </div>
   <div class="tool-pan" role="tabpanel" id="panBuy{{ preset or '' }}" aria-labelledby="tabBuy{{ preset or '' }}" data-pan="buy">
-    <h2>{% if b %}{{ b.short }}を予算から見る{% else %}予算からマンションを探す{% endif %}</h2>
+    <h2>{% if b %}{{ b['マンション名'] }}を予算から見る{% else %}予算からマンションを探す{% endif %}</h2>
     <p class="est-sub">予算を入れると、{% if b %}この棟で{% else %}棟ごとに{% endif %}買える広さの目安をすぐに表示します。</p>
     <label for="bud{{ preset or '' }}" class="tool-lbl">予算（ボタンで選ぶか、万円で入力）</label>
     <div class="tool-chips" role="group" aria-label="よく使う予算">
@@ -149,7 +149,7 @@
   </div>
   <div class="tool-pan" role="tabpanel" id="panSell{{ preset or '' }}" aria-labelledby="tabSell{{ preset or '' }}" data-pan="sell" hidden>
     <div class="est" data-est>
-      <h2>{% if b %}{{ b.short }}の部屋はいくら？{% else %}あなたの部屋はいくら？{% endif %}</h2>
+      <h2>{% if b %}{{ b['マンション名'] }}の部屋はいくら？{% else %}あなたの部屋はいくら？{% endif %}</h2>
       <p class="est-sub">マンションと専有面積を入れると、取引データから価格の目安をすぐに表示します。</p>
       <div class="est-form">
         <div><label for="eB{{ preset or '' }}" class="sr">マンション</label>

@@ -574,7 +574,7 @@ def build(out_dir, origin, base):
     rank_new = sorted([b for b in ranked], key=lambda b: -b["year"])
 
     atlas = [{
-        "id": b["id"], "name": b["マンション名"], "short": b["short"], "url": b["url"], "lat": b["lat"], "lng": b["lng"], "band": b["band"],
+        "id": b["id"], "name": b["マンション名"], "short": b["マンション名"], "url": b["url"], "lat": b["lat"], "lng": b["lng"], "band": b["band"],
         "t": round(b["stats"]["tsubo"]) if b["stats"] else None, "pm": round(b["stats"]["p_med"]) if b["stats"] else None,
         "lo": round(b["stats"]["lo"]) if b["stats"] else None, "hi": round(b["stats"]["hi"]) if b["stats"] else None,
         "n": b["stats"]["n"] if b["stats"] else 0, "addr": b["所在地"], "tower": b["tower"], "stn": b["最寄駅"],

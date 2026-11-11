@@ -18,8 +18,8 @@
     <div><dt>取引件数<small>直近2年</small></dt><dd><b>{{ s.n }}<i>件</i></b><span>{{ period }}</span></dd></div>
   </dl>{% endif %}
   <div class="ask">
-    <div class="ask-sell"><p class="ask-ttl">{{ b.short }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
-    <div class="ask-buy"><p class="ask-ttl">{{ b.short }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
+    <div class="ask-sell"><p class="ask-ttl">{{ b['マンション名'] }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
+    <div class="ask-buy"><p class="ask-ttl">{{ b['マンション名'] }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
     <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
   </div>
   <table class="ptable"><tbody>
@@ -75,7 +75,7 @@
     {% endif %}
     {% if not b.pre %}<div class="latest">
       <div><p class="latest-ttl">{{ latest_q_months }}より新しい成約は、無料査定でお伝えします</p>
-      <p>国土交通省の公表は{{ latest_q }}（{{ latest_q_months }}）分までです。それ以降の{{ b.short }}の成約事例と、階数・向きを反映した価格は、査定の中で根拠としてお出しします。売却を決めていなくても依頼できます。</p></div>
+      <p>国土交通省の公表は{{ latest_q }}（{{ latest_q_months }}）分までです。それ以降の{{ b['マンション名'] }}の成約事例と、階数・向きを反映した価格は、査定の中で根拠としてお出しします。売却を決めていなくても依頼できます。</p></div>
       <a class="btn btn-gold" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_latest" data-ev="cta_satei_latest">無料査定を依頼する</a>
     </div>{% endif %}
   </div>

@@ -1174,3 +1174,8 @@ table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: botto
 @media (max-width: 760px) { .tray { bottom: calc(56px + env(safe-area-inset-bottom)); } body.has-tray { padding-bottom: calc(126px + env(safe-area-inset-bottom)); } }
 @media (max-width: 600px) { .pt2 td { white-space: nowrap; font-size: 12.5px; } .pt2 th, .pt2 td { padding-inline: 4px; } }
 @media (max-width: 380px) { .pt2 td { white-space: normal; } }
+/* マンション名は正式名称で出す（省略しない） */
+.tool-list a { grid-template-columns: minmax(0, 1fr) 4.6em; gap: 2px 10px; padding: 8px 0; }
+.tl-n { grid-column: 1 / -1; white-space: normal; overflow: visible; font-size: 13.5px; line-height: 1.5; }
+.pin .tag { padding-inline: 8px; }
+.ask > div, .tool > div, .notify > div { min-width: 0; } .ask-ttl, .tool h2, .notify h2, .latest p { overflow-wrap: anywhere; }

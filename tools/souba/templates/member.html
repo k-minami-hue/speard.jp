@@ -27,7 +27,7 @@
     <ul class="m-list" id="mpWatches"><li class="muted">読み込んでいます。</li></ul>
     <h3>会員限定データ</h3>
     <p>各マンションのページの「全取引明細」が、このブラウザで見られるようになっています。</p>
-    <ul class="m-links">{% for b in buildings if b.stats %}<li><a href="{{ b.url }}#members">{{ b.short }}</a></li>{% endfor %}</ul>
+    <ul class="m-links">{% for b in buildings if b.stats %}<li><a href="{{ b.url }}#members">{{ b['マンション名'] }}</a></li>{% endfor %}</ul>
     <div class="m-actions">
       <a class="btn btn-ghost btn-sm" href="#register" id="mpAdd">条件を追加する</a>
       <button type="button" class="btn btn-ghost btn-sm" id="mpLogout">このブラウザでログアウト</button>

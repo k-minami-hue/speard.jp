@@ -281,7 +281,7 @@
     if (false) (A.stations || []).forEach((st) => L.marker([st.lat, st.lng], { interactive: false, keyboard: false, zIndexOffset: -1000,
       icon: L.divIcon({ className: "pin-wrap", html: `<span class="stn">${esc(st.name)}</span>`, iconSize: [0, 0] }) }).addTo(map));
     // ピン＝坪単価の値札（色は坪単価の帯）
-    const tag = (b) => `<div class="pin pin-b${b.t ? b.band : 0}"><svg class="lead" width="1" height="1" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="-8"/></svg><span class="tag"><i>${esc(b.short)}</i><b>${b.t ? `${b.t}万` : (b.pre ? "竣工前" : "―")}</b></span><span class="dot"></span></div>`;
+    const tag = (b) => `<div class="pin pin-b${b.t ? b.band : 0}"><svg class="lead" width="1" height="1" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="-8"/></svg><span class="tag"><b>${b.t ? `${b.t}万` : (b.pre ? "竣工前" : "―")}</b></span><span class="dot"></span></div>`;
     const mk = {}, on = {};
     A.buildings.forEach((b) => {
       const m = L.marker([b.lat, b.lng], { icon: L.divIcon({ className: "pin-wrap", html: tag(b), iconSize: [0, 0] }), title: b.name, riseOnHover: true,
@@ -889,7 +889,7 @@
         const urls = r ? new Set(r.b.map((x) => x.u)) : null; let n = 0;
         $$(".brow", list).forEach((li) => { const ok = !urls || urls.has($("a", li).getAttribute("href")); li.hidden = !ok; if (ok) n++; });
         $("#kempty").hidden = n > 0;
-        $("#kcount").textContent = r ? `「${input.value.trim()}」に合うマンションは${n}棟です。` : `掲載${$$(".brow", list).length}棟を表示しています。ひらがな・略称でも探せます。`;
+        $("#kcount").textContent = r ? `「${input.value.trim()}」に合うマンションは${n}棟です。` : `掲載${$$(".brow", list).length}棟を表示しています。ひらがなでも探せます。`;
       };
       input.addEventListener("focus", kLoad, { once: true });
       input.addEventListener("input", suggest);
