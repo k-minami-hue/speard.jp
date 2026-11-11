@@ -31,7 +31,7 @@
 <div class="wrap ribbon">
   <dl>
     <div class="fig"><dt>タワーマンションの坪単価</dt><dd>{{ '{:,}'.format(town.tsubo|round|int) }}<small>万円</small><span class="s">直近2年・{{ town.n }}件の中央値</span></dd></div>
-    {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ '{:,}'.format(town_closed.p_med|round|int) }}<small>万円</small><span class="s">直近2年・{{ town_closed.n }}件の中央値</span></dd></div>{% endif %}
+    {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ town_closed.p_med|okuh }}<span class="s">直近2年・{{ town_closed.n }}件の中央値</span></dd></div>{% endif %}
     <div class="fig"><dt>掲載マンション</dt><dd>{{ n_buildings }}<small>棟</small><span class="s">{{ latest_q }}分までのデータ</span></dd></div>
     <div class="fig"><dt>坪単価が最も高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small><span class="s">{{ ranked[0]['マンション名'] }}</span></dd></div>
   </dl>

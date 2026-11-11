@@ -394,12 +394,12 @@ def build(out_dir, origin, base):
                        "t_med": statistics.median([t["tsubo"] for t in g]) if len(g) >= MIN_N else None,
                        "p_med": statistics.median([t["price"] for t in g]) if len(g) >= MIN_N else None,
                        "partial": y == latest_q[:4] and not latest_q.endswith("Q4")} for y, g in sorted(yr.items(), reverse=True)]
-        b["all_cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": round(t["area"]), "plan": t["間取り"] or "",
+        b["all_cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": round(t["area"]), "plan": unicodedata.normalize("NFKC", t["間取り"] or ""),
                            "price": round(t["price"]), "tsubo": round(t["tsubo"])} for t in sorted(mine, key=lambda t: (-t["qi"], -t["tsubo"]))]
         b["q_table"] = [{"q": q_label(q), "n": len(g2), "med": round(statistics.median(g2))}
                         for q in reversed(quarters) for g2 in [[t["tsubo"] for t in mine if t["時期"] == q]] if g2]
         b["cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": f'{t["area"]:.0f}㎡',
-                       "plan": t["間取り"] or "―", "price": man(t["price"]), "tsubo": tsubo_txt(t["tsubo"])}
+                       "plan": unicodedata.normalize("NFKC", t["間取り"] or "―"), "price": man(t["price"]), "tsubo": tsubo_txt(t["tsubo"])}
                       for t in sorted(recent, key=lambda t: (-t["qi"], -t["tsubo"]))[:10]]
         g = {}
         for t in mine:
@@ -611,6 +611,9 @@ def build(out_dir, origin, base):
     ogp_dir = ROOT / "assets" / "ogp"
 
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
+    from markupsafe import Markup
+    env.filters["oku"] = man                       # 13000 → 1億3,000万円
+    env.filters["okuh"] = lambda v: Markup(re.sub(r"(億円|億|万円)", r"<i>\1</i>", man(v)))   # 単位だけ小さく見せるための印つき
     today = dt.date.fromisoformat(SITE["updated"]) if SITE["updated"] else dt.date.today()
     ver = hashlib.md5(b"".join((ROOT / "assets" / f).read_bytes() for f in ("app.js", "style.css"))).hexdigest()[:8]
     common = {

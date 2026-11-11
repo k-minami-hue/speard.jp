@@ -17,10 +17,10 @@
 
 <section>
   <div class="sec-head"><div><h2>棟別の相場</h2><p>直近2年（{{ recent_from_q }}〜{{ latest_q }}）の取引</p></div></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>マンション</th><th>坪単価</th><th>成約価格（中央値）</th><th>件数</th></tr></thead>
-    <tbody>{% for b in ranked %}<tr><td><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸</span></td>
-      <td class="nw">{{ b.stats.tsubo_txt }}<span class="sub">{{ b.stats.range_txt }}</span></td><td class="nw">{% if b.closed %}{{ '{:,}'.format(b.closed.p_med|round|int) }}万円{% else %}―{% endif %}</td><td class="nw">{{ b.stats.n }}件</td></tr>{% endfor %}</tbody>
+  <div class="tbl-wrap kt-wrap"><table class="kt">
+    <thead><tr><th>マンション</th><th class="num">坪単価（中央値）</th><th class="num">成約価格（中央値）</th><th class="num">取引件数</th><th class="num">坪単価の幅</th></tr></thead>
+    <tbody>{% for b in ranked %}<tr><th><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸</span></th>
+      <td class="num" data-label="坪単価（中央値）">{{ '{:,}'.format(b.stats.tsubo|round|int) }}万円</td><td class="num" data-label="成約価格（中央値）">{% if b.closed %}{{ b.closed.p_med|oku }}{% else %}―{% endif %}</td><td class="num" data-label="取引件数">{{ b.stats.n }}件</td><td class="num kt-wide" data-label="坪単価の幅">{{ b.stats.range_txt|replace('／坪', '') }}</td></tr>{% endfor %}</tbody>
   </table></div>
 </section>
 

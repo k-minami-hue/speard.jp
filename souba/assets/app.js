@@ -238,7 +238,7 @@
   const pinUrl = (hot) => "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(PIN(hot));
   const mapCard = (b) => `<div class="mcard"><p class="mc-name">${esc(b.name)}</p>` +
     `<p class="mc-row">${esc(b.addr)}</p><p class="mc-row">${esc(b.line)}「${esc(b.stn)}」駅 徒歩${b.walk}分</p><p class="mc-row">${esc(b.built)}・総戸数${b.units.toLocaleString("ja-JP")}戸・地上${b.floors}階</p>` +
-    (b.t ? `<dl class="mc-price"><div><dt>坪単価（中央値）</dt><dd>${b.t.toLocaleString("ja-JP")}<small>万円</small></dd></div>${b.cm ? `<div><dt>成約価格（中央値）</dt><dd>${b.cm.toLocaleString("ja-JP")}<small>万円</small></dd></div>` : ""}</dl><p class="mc-note">直近2年の取引${b.n}件から集計</p>`
+    (b.t ? `<dl class="mc-price"><div><dt>坪単価（中央値）</dt><dd>${b.t.toLocaleString("ja-JP")}<small>万円</small></dd></div>${b.cm ? `<div><dt>成約価格（中央値）</dt><dd>${man(b.cm)}</dd></div>` : ""}</dl><p class="mc-note">直近2年の取引${b.n}件から集計</p>`
       : `<p class="mc-note">${b.pre ? "竣工前のため、" : ""}取引データはまだありません</p>`) +
     `<a class="mc-go" href="${b.url}" data-ev="map_detail">詳細を見る</a></div>`;
   const loadGoogle = () => new Promise((res, rej) => {
@@ -391,7 +391,7 @@
     sels.forEach((s, i) => { s.value = init[i] || ""; });
     let chart = null;
     const fmt = {
-      t: (b) => (b.t ? tsuboTxt(b.t) : "―"), cm: (b) => (b.cm ? `${b.cm.toLocaleString("ja-JP")}万円` : "―"),
+      t: (b) => (b.t ? tsuboTxt(b.t) : "―"), cm: (b) => (b.cm ? man(b.cm) : "―"),
       range: (b) => (b.lo ? `${b.lo}〜${b.hi}万円／坪` : "―"),
       n: (b) => `${b.n}件`, built: (b) => b.built, units: (b) => `${b.units.toLocaleString("ja-JP")}戸`, floors: (b) => `${b.floors}階`,
       walk: (b) => `${b.line} 徒歩${b.walk}分`, struct: (b) => b.struct || "―", dev: (b) => b.dev || "―", mgr: (b) => b.mgr || "―",

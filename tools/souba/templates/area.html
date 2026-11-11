@@ -13,11 +13,11 @@
 </section>
 <section>
   <div class="sec-head"><div><h2>四半期ごとの坪単価</h2><p>中央値（万円／坪）</p></div></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>時期</th><th>タワーマンション</th><th>周辺全体（成約）</th><th>周辺全体（取引）</th></tr></thead>
+  <div class="tbl-wrap"><table class="qt">
+    <thead><tr><th>時期</th><th>タワー<wbr>マンション</th><th>周辺全体<wbr>（成約）</th><th>周辺全体<wbr>（取引）</th></tr></thead>
     <tbody>{% for r in table %}<tr><td class="nw">{{ r.q }}</td>
       <td class="nw">{% if r.tower %}{{ '{:,}'.format(r.tower) }}万円<span class="sub">{{ r.tower_n }}件</span>{% else %}―{% endif %}</td>
-      {% for k in ('closed', 'trade') %}<td class="nw">{% if r[k] %}{{ r[k].t }}<span class="sub">{{ r[k].n }}件</span>{% else %}―{% endif %}</td>{% endfor %}
+      {% for k in ('closed', 'trade') %}<td class="nw">{% if r[k] %}{{ r[k].t|replace('／坪', '') }}<span class="sub">{{ r[k].n }}件</span>{% else %}―{% endif %}</td>{% endfor %}
     </tr>{% endfor %}</tbody>
   </table></div>
   <p class="note">成約価格は2021年以降。件数が少ない四半期はグラフに表示していません。</p>

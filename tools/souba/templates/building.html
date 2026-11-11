@@ -2,7 +2,7 @@
 {% from "macros.html" import ad_cards, tool, faq_list, img, listing_card, notify %}
 {% set s = b.stats %}{% set cl = b.closed %}{% set tr = b.traded %}
 {% block title %}{{ b['マンション名'] }}の成約価格・相場｜坪単価{% if s %}{{ s.tsubo|round|int }}万円{% endif %}｜{{ site.name }}{% endblock %}
-{% block description %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場価格。{% if cl %}{{ period }}の成約価格は{{ '{:,}'.format(cl.p_lo|round|int) }}万円〜{{ '{:,}'.format(cl.p_hi|round|int) }}万円、中央値{{ '{:,}'.format(cl.p_med|round|int) }}万円（成約単価の中央値{{ '%.1f' % cl.t_med }}万円／坪）。{% elif s %}直近2年の坪単価の中央値{{ s.tsubo_txt }}。{% endif %}成約価格・取引価格、坪単価の推移、取引履歴、物件概要と地図。{% endblock %}
+{% block description %}{{ b['マンション名'] }}（{{ b.built_txt }}・{{ b['総戸数'] }}戸）の相場価格。{% if cl %}{{ period }}の成約価格は{{ cl.p_lo|oku }}〜{{ cl.p_hi|oku }}、中央値{{ cl.p_med|oku }}（成約単価の中央値{{ '%.1f' % cl.t_med }}万円／坪）。{% elif s %}直近2年の坪単価の中央値{{ s.tsubo_txt }}。{% endif %}成約価格・取引価格、坪単価の推移、取引履歴、物件概要と地図。{% endblock %}
 {% block main %}
 <div class="pbar">
   <div class="wrap pbar-in">
@@ -16,6 +16,11 @@
 </div>
 <div class="wrap">
   <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}search/">マンションを探す</a> › {% if b.g_town %}<a href="{{ b.g_town.url }}">{{ b.town }}</a> › {% endif %}{{ b['マンション名'] }}</p>
+  {% if s %}<dl class="kfig" aria-label="{{ b['マンション名'] }}の相場の要点">
+    <div><dt>坪単価<small>中央値</small></dt><dd><b>{{ '{:,}'.format(s.tsubo|round|int) }}<i>万円</i></b><span>㎡単価 {{ '%.1f' % (s.tsubo / 3.30579) }}万円</span></dd></div>
+    <div><dt>成約価格<small>中央値</small></dt><dd>{% if cl %}<b>{{ cl.p_med|okuh }}</b><span>{{ cl.p_lo|oku }}〜{{ cl.p_hi|oku }}</span>{% else %}<b>―</b><span>この期間の成約データなし</span>{% endif %}</dd></div>
+    <div><dt>取引件数<small>直近2年</small></dt><dd><b>{{ s.n }}<i>件</i></b><span>{{ period }}</span></dd></div>
+  </dl>{% endif %}
   <table class="ptable"><tbody>
     <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
     <tr><th>交通</th><td>{{ b.walk_txt }}<span class="psub2">利用路線：{{ b.lines_all }}</span></td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
@@ -44,19 +49,24 @@
   <div class="wrap">
     <h2 class="hbar" id="p-ttl">{{ b['マンション名'] }}の相場価格</h2>
     {% if s %}
+    <div class="pblocks">
     {% for st, label, note in [(cl, '成約価格', '不動産会社がレインズに登録した、売買が成立したときの価格です。'), (tr, '取引価格', '国土交通省が、買った人へのアンケートで集めた価格です（面積と価格は丸めた値）。')] %}
     <div class="pblock">
-      <h3>{{ period }}の{{ label }}</h3>
+      <h3>{{ label }}<small>{{ period }}・{{ st.n if st else 0 }}件</small></h3>
+      <p class="pdef">{{ note }}</p>
       {% if st %}
-      <dl class="prow">
-        <div><dt>{{ label }}</dt><dd><span class="pr">{{ '{:,}'.format(st.p_lo|round|int) }}</span>万円 〜 <span class="pr">{{ '{:,}'.format(st.p_hi|round|int) }}</span>万円<span class="pmed">中央値：<b>{{ '{:,}'.format(st.p_med|round|int) }}</b>万円</span></dd></div>
-        <div><dt>{{ label|replace('価格', '単価') }}</dt><dd>{{ '%.1f' % st.t_lo }}万円/坪 〜 {{ '%.1f' % st.t_hi }}万円/坪<span class="psub">（{{ '%.1f' % st.m_lo }}万円/㎡ 〜 {{ '%.1f' % st.m_hi }}万円/㎡）</span><span class="pmed">中央値：{{ '%.1f' % st.t_med }}万円/坪<span class="psub">（{{ '%.1f' % st.m_med }}万円/㎡）</span></span></dd></div>
-        <div><dt>件数</dt><dd>{{ st.n }}件</dd></div>
-      </dl>
-      {% else %}<p class="muted">この期間の{{ label }}のデータはありません。</p>{% endif %}
-      <p class="pnote">{{ note }}</p>
+      <table class="pt2">
+        <thead><tr><th scope="col"><span class="sr">項目</span></th><th scope="col">中央値</th><th scope="col">最小 〜 最大</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">価格</th><td class="pt2-m"><b>{{ st.p_med|okuh }}</b></td><td>{{ st.p_lo|oku }} 〜 {{ st.p_hi|oku }}</td></tr>
+          <tr><th scope="row">坪単価</th><td class="pt2-m"><b>{{ '%.1f' % st.t_med }}<i>万円</i></b></td><td>{{ '%.1f' % st.t_lo }}万円 〜 {{ '%.1f' % st.t_hi }}万円</td></tr>
+          <tr><th scope="row">㎡単価</th><td class="pt2-m"><b>{{ '%.1f' % st.m_med }}<i>万円</i></b></td><td>{{ '%.1f' % st.m_lo }}万円 〜 {{ '%.1f' % st.m_hi }}万円</td></tr>
+        </tbody>
+      </table>
+      {% else %}<p class="pnone">この期間の{{ label }}のデータはありません。</p>{% endif %}
     </div>
     {% endfor %}
+    </div>
     {% if b.members %}<p class="pnote">国土交通省のデータでは{{ b.members|join('・') }}と区別できないため、合わせた値です。</p>{% endif %}
     <p class="pnote">国土交通省 不動産情報ライブラリの取引価格・成約価格情報をもとに株式会社スピアードが集計しています。過去の取引価格をまとめた参考値で、現在の売出価格や将来の価格を示すものではありません。不動産の購入や投資をすすめるものでもありません。</p>
     {% else %}
@@ -76,15 +86,15 @@
     <p class="muted" style="margin-bottom:10px">{{ period }}の取引（成約価格・取引価格の合計）を、専有面積と間取りで分けた中央値です。</p>
     <h3 class="sub-ttl">広さ別</h3>
     <div class="tbl-wrap"><table class="kt kt-band">
-      <thead><tr><th>専有面積</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">価格の幅</th><th class="num">件数</th></tr></thead>
+      <thead><tr><th>専有面積</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num kt-wide">価格の幅</th><th class="num">件数</th></tr></thead>
       <tbody>{% for z in b.sizes %}<tr><th>{{ z.label }}</th>
-        {% if z.st %}<td class="num" data-label="価格（中央値）">{{ '{:,}'.format(z.st.p_med|round|int) }}万円</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ '{:,}'.format(z.st.p_lo|round|int) }}万円〜{{ '{:,}'.format(z.st.p_hi|round|int) }}万円</td><td class="num" data-label="件数">{{ z.n }}件</td>
-        {% else %}<td class="kt-none" colspan="3">{% if z.n %}件数が少ないため非表示{% else %}この期間の取引なし{% endif %}</td><td class="num" data-label="件数">{{ z.n }}件</td>{% endif %}</tr>{% endfor %}</tbody>
+        {% if z.st %}<td class="num" data-label="価格（中央値）">{{ z.st.p_med|oku }}</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ z.st.p_lo|oku }}〜{{ z.st.p_hi|oku }}</td><td class="num" data-label="件数">{{ z.n }}件</td>
+        {% else %}<td class="kt-none" colspan="2">{% if z.n %}件数が少ないため非表示{% else %}この期間の取引なし{% endif %}</td><td class="kt-wide"></td><td class="num" data-label="件数">{{ z.n }}件</td>{% endif %}</tr>{% endfor %}</tbody>
     </table></div>
     {% if b.plans %}<h3 class="sub-ttl">間取り別</h3>
     <div class="tbl-wrap"><table class="kt kt-band">
-      <thead><tr><th>間取り</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">価格の幅</th><th class="num">件数</th></tr></thead>
-      <tbody>{% for z in b.plans %}<tr><th>{{ z.label }}</th><td class="num" data-label="価格（中央値）">{{ '{:,}'.format(z.st.p_med|round|int) }}万円</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ '{:,}'.format(z.st.p_lo|round|int) }}万円〜{{ '{:,}'.format(z.st.p_hi|round|int) }}万円</td><td class="num" data-label="件数">{{ z.n }}件</td></tr>{% endfor %}</tbody>
+      <thead><tr><th>間取り</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num kt-wide">価格の幅</th><th class="num">件数</th></tr></thead>
+      <tbody>{% for z in b.plans %}<tr><th>{{ z.label }}</th><td class="num" data-label="価格（中央値）">{{ z.st.p_med|oku }}</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ z.st.p_lo|oku }}〜{{ z.st.p_hi|oku }}</td><td class="num" data-label="件数">{{ z.n }}件</td></tr>{% endfor %}</tbody>
     </table></div>{% endif %}
     <p class="pnote">件数が{{ 3 }}件未満の区分は、数字がぶれるため表示していません。国土交通省のデータには所在階が含まれないため、階数別の集計はありません。階数・向きによる価格の違いは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_floor">無料査定</a>でお伝えします。{% if b.members %}{{ b.members|join('・') }}と合わせた値です。{% endif %}過去の取引価格をまとめた参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
   </div>
@@ -102,8 +112,8 @@
   <div class="wrap">
     <h2 class="hbar" id="h-ttl">取引履歴</h2>
     <div class="tbl-wrap"><table class="htable">
-      <thead><tr><th>時期</th><th>種別</th><th>間取り</th><th>専有面積</th><th>価格</th><th>坪単価</th></tr></thead>
-      <tbody>{% for c in b.cases[:10] %}<tr><td class="nw">{{ c.q }}</td><td class="nw">{{ c.kind }}</td><td class="nw">{{ c.plan }}</td><td class="nw">{{ c.area }}</td><td class="nw">{{ c.price }}</td><td class="nw">{{ c.tsubo }}</td></tr>{% endfor %}</tbody>
+      <thead><tr><th>時期</th><th class="h-kind">種別</th><th>間取り</th><th>専有面積</th><th>価格</th><th>坪単価</th></tr></thead>
+      <tbody>{% for c in b.cases[:10] %}<tr><td class="nw">{{ c.q }}<span class="hk">{{ c.kind }}</span></td><td class="nw h-kind">{{ c.kind }}</td><td class="nw">{{ c.plan }}</td><td class="nw">{{ c.area }}</td><td class="nw">{{ c.price }}</td><td class="nw">{{ c.tsubo|replace('／坪', '') }}</td></tr>{% endfor %}</tbody>
     </table></div>
     <p class="pnote">直近2年の新しい順に10件。面積と価格は国土交通省の公表値（丸めた値）です。</p>
     {% if b.all_cases %}<div class="m-gate" id="members" data-members="{{ b.slug }}">
@@ -118,8 +128,8 @@
     </div>{% endif %}
     {% if b.years %}<h3 class="sub-ttl" id="y-ttl">年ごとの取引件数</h3>
     <div class="tbl-wrap"><table class="kt kt-band">
-      <thead><tr><th>年</th><th class="num">件数</th><th class="num">うち成約価格</th><th class="num">うち取引価格</th><th class="num">坪単価（中央値）</th></tr></thead>
-      <tbody>{% for y in b.years %}<tr><th>{{ y.y }}年{% if y.partial %}<span class="sub">{{ latest_q }}分まで</span>{% endif %}</th><td class="num" data-label="件数">{{ y.n }}件</td><td class="num" data-label="うち成約価格">{{ y.closed }}件</td><td class="num" data-label="うち取引価格">{{ y.traded }}件</td><td class="num" data-label="坪単価（中央値）">{% if y.t_med %}{{ y.t_med|round|int }}万円{% else %}―{% endif %}</td></tr>{% endfor %}</tbody>
+      <thead><tr><th>年</th><th class="num">件数</th><th class="num kt-wide">うち成約価格</th><th class="num kt-wide">うち取引価格</th><th class="num">坪単価（中央値）</th></tr></thead>
+      <tbody>{% for y in b.years %}<tr><th>{{ y.y }}年{% if y.partial %}<span class="sub">{{ latest_q }}分まで</span>{% endif %}</th><td class="num" data-label="件数">{{ y.n }}件</td><td class="num kt-wide" data-label="うち成約価格">{{ y.closed }}件</td><td class="num kt-wide" data-label="うち取引価格">{{ y.traded }}件</td><td class="num" data-label="坪単価（中央値）">{% if y.t_med %}{{ y.t_med|round|int }}万円{% else %}―{% endif %}</td></tr>{% endfor %}</tbody>
     </table></div>
     <p class="pnote">国土交通省が公表している取引の件数です（成約価格は2021年以降）。実際の売買のすべてを含むものではありません。</p>{% endif %}
   </div>
@@ -151,7 +161,7 @@
 {% if b.similar %}<section class="sec" aria-labelledby="n-ttl">
   <div class="wrap">
     <h2 class="hbar" id="n-ttl">{{ b['最寄駅'] }}駅で築年が近いマンション</h2>
-    <ul class="simi">{% for o in b.similar %}<li><a href="{{ o.url }}"><b>{{ o['マンション名'] }}</b><span>{{ o.built_txt }}・{{ o['総戸数'] }}戸・徒歩{{ o['徒歩分'] }}分</span><span class="simi-v">坪単価（中央値）<em>{{ '{:,}'.format(o.stats.tsubo|round|int) }}</em>万円</span><span>成約価格（中央値）{% if o.closed %}{{ '{:,}'.format(o.closed.p_med|round|int) }}万円{% else %}―{% endif %}・取引{{ o.stats.n }}件</span></a></li>{% endfor %}</ul>
+    <ul class="simi">{% for o in b.similar %}<li><a href="{{ o.url }}"><b>{{ o['マンション名'] }}</b><span>{{ o.built_txt }}・{{ o['総戸数'] }}戸・徒歩{{ o['徒歩分'] }}分</span><span class="simi-v">坪単価（中央値）<em>{{ '{:,}'.format(o.stats.tsubo|round|int) }}</em>万円</span><span>成約価格（中央値）{% if o.closed %}{{ o.closed.p_med|oku }}{% else %}―{% endif %}・取引{{ o.stats.n }}件</span></a></li>{% endfor %}</ul>
     <p class="pnote">{{ period }}の取引の中央値です。<a href="{{ site.base }}compare/?ids={{ b.id }}{% for o in b.similar[:2] %},{{ o.id }}{% endfor %}">並べて比べる</a>{% if b.g_town %}　<a href="{{ b.g_town.url }}">{{ b.town }}のマンション一覧</a>{% endif %}{% if b.g_brand %}　<a href="{{ b.g_brand.url }}">{{ b.brand }}の一覧</a>{% endif %}</p>
   </div>
 </section>{% endif %}

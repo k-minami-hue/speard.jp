@@ -118,7 +118,7 @@
     <span class="br-name">{% if rank %}<em class="br-rank">{{ rank }}</em>{% endif %}<b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
     {% if b.stats %}
     <span class="br-v br-t"><small>坪単価（中央値）</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
-    <span class="br-v br-p"><small>成約価格（中央値）</small>{% if b.closed %}<b>{{ '{:,}'.format(b.closed.p_med|round|int) }}<i>万円</i></b>{% else %}<b>―</b>{% endif %}</span>
+    <span class="br-v br-p"><small>成約価格（中央値）</small>{% if b.closed %}<b>{{ b.closed.p_med|okuh }}</b>{% else %}<b>―</b>{% endif %}</span>
     <span class="br-v br-c"><small>取引件数</small><b>{{ b.stats.n }}<i>件</i></b></span>
     {% else %}
     <span class="br-empty">{{ b.nodata_txt }}</span>
@@ -172,10 +172,10 @@
   <thead><tr><th>マンション</th><th class="num">成約価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">成約件数</th><th class="num">成約価格の幅</th></tr></thead>
   <tbody>{% for b in rows %}{% set c = b.closed %}<tr>
     <th><a href="{{ b.url }}">{{ b['マンション名'] }}</a><span class="sub">{{ b.year }}年築・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分</span></th>
-    {% if c %}<td class="num" data-label="成約価格（中央値）">{{ '{:,}'.format(c.p_med|round|int) }}万円</td>
+    {% if c %}<td class="num" data-label="成約価格（中央値）">{{ c.p_med|oku }}</td>
     <td class="num" data-label="坪単価（中央値）">{{ c.t_med|round|int }}万円</td>
     <td class="num" data-label="成約件数">{{ c.n }}件</td>
-    <td class="num kt-wide" data-label="成約価格の幅">{{ '{:,}'.format(c.p_lo|round|int) }}万円〜{{ '{:,}'.format(c.p_hi|round|int) }}万円</td>
+    <td class="num kt-wide" data-label="成約価格の幅">{{ c.p_lo|oku }}〜{{ c.p_hi|oku }}</td>
     {% else %}<td class="num" data-label="成約価格（中央値）">―</td><td class="num" data-label="坪単価（中央値）">―</td><td class="num" data-label="成約件数">0件</td><td class="num kt-wide" data-label="成約価格の幅">{{ period }}の成約データなし</td>{% endif %}
   </tr>{% endfor %}</tbody>
 </table></div>

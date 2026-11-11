@@ -931,3 +931,160 @@ img { height: auto; }
 @media (max-width: 900px) { .hero-in { grid-template-columns: minmax(0, 1fr); } .hero-in > * { min-width: 0; } }
 .pbar h1 { min-width: 0; overflow-wrap: anywhere; } .btn-block { max-width: 100%; padding-inline: 12px; } @media (max-width: 380px) { .btn-block { font-size: 14px; } }
 .sec-wash + .sec[hidden] + .sec { padding-top: 64px; }
+
+/* ================= 2026-11 見やすさの作り直し =================
+   方針：本文16px、補足は13px以上、数字は大きく単位は小さく、価格は億表記、表はスマホでも表のまま */
+:root { --muted: #4a5466; --rule: #d5dbe4; }
+body { font-size: 16px; line-height: 1.8; }
+.note, .pnote, .bnote { font-size: 13.5px; line-height: 1.8; color: var(--muted); max-width: 62em; }
+.crumbs, .pupd, .psub2, .sub, .br-name small, .br-v small, .fig dt, .fig .s, .gstats dt, .gstats dd span, .card-meta, .bl-meta, .n-dist, .ks-m, .axis-list small,
+.est-out .lbl, .est-out .why, .est-foot, .tool-cap, .tool-why, .lst-spec dt, .facts dt, .facts dd span, .cols span, .ar-meta, .ar-val, .mc-row, .mc-note, .pop-meta, .rank h3 span, .pphoto figcaption { font-size: 13px; }
+thead th, .f-label, .mc-price dt, .legend, .legend-m { font-size: 12.5px; }
+.lead { font-size: 1.05rem; line-height: 1.9; }
+.page > section > p, .sec .wrap > p:not(.note):not(.pnote):not(.more-row):not(.crumbs) { max-width: 62em; }
+.sec { padding-block: 56px; }
+.sec-head { margin-bottom: 20px; }
+.sec-head p { font-size: 14.5px; }
+
+/* 数字：大きく、単位は小さく */
+.kfig b i, .pt2 b i, .br-v b i, .gstats dd i, .simi em + i { font-style: normal; font-size: .5em; font-weight: 500; color: var(--muted); margin: 0 1px 0 2px; }
+.gstats dd i { font-size: .55em; }
+
+/* 棟ページ：まず見る3つの数字 */
+.kfig { display: grid; grid-template-columns: 1.15fr 1.4fr 1fr; margin: 14px 0 0; border: 1px solid var(--rule); border-top: 4px solid var(--ink); background: #fff; }
+.kfig > div { padding: 16px 20px 14px; border-left: 1px solid var(--rule); min-width: 0; }
+.kfig > div:first-child { border-left: 0; background: var(--gold-wash); }
+.kfig dt { font-size: 14px; font-weight: 700; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+.kfig dt small { font-size: 12.5px; font-weight: 400; color: var(--muted); }
+.kfig dd { margin: 2px 0 0; }
+.kfig dd b { display: block; font-size: clamp(1.7rem, 1.2rem + 1.9vw, 2.35rem); line-height: 1.25; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: .01em; white-space: nowrap; }
+.kfig dd span { display: block; font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 2px; }
+@media (max-width: 700px) {
+  .kfig { grid-template-columns: 1fr 1fr; }
+  .kfig > div { padding: 12px 14px; }
+  .kfig > div:nth-child(2) { grid-column: 1 / -1; grid-row: 1; border-left: 0; border-bottom: 1px solid var(--rule); background: #fff; }
+  .kfig > div:first-child { grid-row: 2; }
+  .kfig > div:nth-child(3) { grid-row: 2; }
+  .kfig dd b { font-size: 1.75rem; }
+}
+
+/* 棟ページ：概要の表 */
+.ptable { font-size: 14.5px; margin-top: 14px; }
+.ptable th { background: var(--wash); font-size: 13.5px; }
+.ptable th, .ptable td { padding: 10px 14px; }
+.pupd { text-align: left; margin-top: 10px; }
+.ptags { margin-top: 12px; gap: 8px; }
+.ptags a { font-size: 13.5px; min-height: 34px; padding: 4px 14px; }
+.ptabs a { font-size: 14.5px; padding: 12px 18px; color: var(--ink); }
+.pchip { font-size: 13.5px; }
+@media (max-width: 700px) {
+  .pbar-in, .pbar .wrap { padding-block: 16px; gap: 10px; }
+  .pbar h1 { font-size: 1.3rem; }
+  .pbar-chips { gap: 6px; width: 100%; }
+  .pchip { padding: 3px 10px; border-width: 1px; }
+  .pchip b { font-size: 1.15rem; }
+  a.pchip-cta { display: none; }
+  .ptable tr { grid-template-columns: 5.6em minmax(0, 1fr); }
+  .ptable th { width: auto; }
+}
+
+/* 棟ページ：成約価格・取引価格の表 */
+.pblock { margin-top: 26px; }
+.pblock:first-of-type { margin-top: 6px; }
+.pblock h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; font-size: 1.15rem; padding-left: 12px; border-left: 4px solid var(--gold); margin: 0; }
+.pblock h3 small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.pdef { font-size: 13.5px; color: var(--muted); margin: 6px 0 8px; }
+.pnone { color: var(--muted); padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.pt2 { width: 100%; border-collapse: collapse; border-top: 2px solid var(--ink); }
+.pt2 th, .pt2 td { padding: 12px 10px; border-bottom: 1px solid var(--rule); text-align: right; vertical-align: baseline; font-variant-numeric: tabular-nums; }
+.pt2 thead th { font-size: 12.5px; font-weight: 400; color: var(--muted); padding-block: 6px; border-bottom: 1px solid var(--rule); background: var(--wash); }
+.pt2 tbody th { text-align: left; width: 5.5em; font-weight: 700; color: var(--ink); font-size: 14.5px; white-space: nowrap; }
+.pt2 td { font-size: 14.5px; color: var(--text); }
+.pt2-m b { font-size: 1.45rem; color: var(--ink); line-height: 1.3; white-space: nowrap; }
+.pt2 tbody tr:first-child .pt2-m b { font-size: 1.75rem; color: var(--down); }
+@media (max-width: 600px) {
+  .pt2 th, .pt2 td { padding: 11px 6px; }
+  .pt2 tbody th { width: 4.2em; }
+  .pt2 td { font-size: 13px; }
+  .pt2-m b { font-size: 1.2rem; }
+  .pt2 tbody tr:first-child .pt2-m b { font-size: 1.4rem; }
+}
+
+/* 帯の表（広さ別・間取り別・年ごと）：スマホでも表のまま読む */
+table.kt-band { width: 100%; border-collapse: collapse; border-top: 2px solid var(--ink); }
+table.kt-band thead th { background: var(--wash); padding-block: 7px; border-bottom: 1px solid var(--rule); }
+table.kt-band th, table.kt-band td { padding: 12px 10px; font-size: 15px; }
+table.kt-band tbody th { text-align: left; }
+table.kt-band td.num:nth-child(2), table.kt-band td.num:nth-child(3) { font-weight: 700; color: var(--ink); }
+@media (max-width: 640px) {
+  table.kt.kt-band { display: table; }
+  table.kt.kt-band thead { display: table-header-group; }
+  table.kt.kt-band tbody { display: table-row-group; }
+  table.kt.kt-band tr { display: table-row; padding: 0; }
+  table.kt.kt-band th, table.kt.kt-band td { display: table-cell; padding: 11px 6px; border-bottom: 1px solid var(--rule); font-size: 14.5px; text-align: right; }
+  table.kt.kt-band thead th { font-size: 12px; white-space: nowrap; }
+  table.kt.kt-band tbody th, table.kt.kt-band thead th:first-child { text-align: left; }
+  table.kt.kt-band td::before { content: none; }
+  table.kt.kt-band .kt-wide { display: none; }
+  table.kt.kt-band td.kt-none { text-align: left; font-size: 13px; }
+  table.kt.kt-band .sub { font-size: 11.5px; }
+}
+
+/* 取引履歴の表 */
+.htable th, .htable td { padding: 11px 10px; font-size: 14.5px; }
+.htable thead th { font-size: 12.5px; }
+.htable th:first-child, .htable td:first-child { padding-left: 12px; text-align: left; }
+
+/* 一覧の行 */
+.br-name b { font-size: 1.05rem; }
+.br-v b { font-size: 1.3rem; white-space: nowrap; }
+.brow a { padding: 16px 8px; }
+.simi a { font-size: 13.5px; padding: 16px 18px; }
+.simi b { font-size: 1rem; }
+.near a { padding: 13px 0; }
+
+/* 見出しの帯 */
+.hbar { padding: 12px 18px; border-radius: 6px 6px 0 0; margin-bottom: 18px; letter-spacing: .03em; }
+.sub-ttl { font-size: 1.05rem; margin: 26px 0 10px; }
+
+/* よくある質問・本文 */
+.faq summary { font-size: 1rem; }
+.pcta p:not(.pcta-ttl) { font-size: 14.5px; }
+.latest p, .gcta p, .consult p { font-size: 14.5px; line-height: 1.8; }
+.pblocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 40px; align-items: start; }
+.pblocks .pblock, .pblocks .pblock:first-of-type { margin-top: 6px; }
+.pblocks + .pnote, .pblocks ~ .pnote { margin-top: 14px; }
+@media (max-width: 900px) { .pblocks { grid-template-columns: 1fr; gap: 22px; } }
+table.kt-band { max-width: 900px; }
+table.kt-band td.kt-none { text-align: left; }
+@media (max-width: 640px) {
+  .htable th, .htable td { padding: 10px 4px; font-size: 13px; white-space: nowrap; }
+  .htable thead th { font-size: 11.5px; }
+  .htable th:first-child, .htable td:first-child { padding-left: 6px; }
+  .htable th:last-child, .htable td:last-child { padding-right: 6px; }
+}
+.fig dd i { font-style: normal; font-size: .48em; font-weight: 500; color: var(--muted); margin: 0 1px 0 3px; }
+/* 相場の表（購入相場・売却相場など）：スマホでは3つの数字を1行に、幅は下に */
+@media (max-width: 640px) {
+  table.kt:not(.kt-band) tr:has(td.kt-wide) { grid-template-columns: 1.35fr 1fr .8fr; gap: 6px 10px; padding: 14px 0; }
+  table.kt:not(.kt-band) th { padding-bottom: 6px; }
+  table.kt:not(.kt-band) th a { font-size: 1.02rem; }
+  table.kt:not(.kt-band) td { padding: 0; font-size: 1.05rem; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  table.kt:not(.kt-band) td::before { font-size: 12px; white-space: nowrap; }
+  table.kt:not(.kt-band) tr:has(td.kt-wide) td.kt-wide { grid-column: 1 / -1; flex-direction: row; align-items: baseline; gap: 10px; font-size: .95rem; font-weight: 500; color: var(--text); background: var(--wash); padding: 6px 10px; border-radius: 4px; }
+  table.kt:not(.kt-band) td.kt-ok { background: var(--gold-wash); }
+}
+.kfig b i, .pt2 b i, .br-v b i, .gstats dd i, .fig dd i { font-size: .6em; }
+@media (max-width: 640px) {
+  table.kt:not(.kt-band) tr:has(td.kt-wide) { grid-template-columns: max-content max-content minmax(0, 1fr); gap: 6px 18px; }
+}
+.hk { display: none; }
+@media (max-width: 640px) {
+  .htable .h-kind { display: none; }
+  .hk { display: block; font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+  .htable th, .htable td { padding: 9px 5px; font-size: 13.5px; }
+  .tbl-wrap table:not(.kt):not(.htable):not(.cmp) th, .tbl-wrap table:not(.kt):not(.htable):not(.cmp) td { padding: 9px 5px; font-size: 13px; }
+}
+@media (max-width: 380px) { .htable th, .htable td { padding: 9px 3px; font-size: 13px; } .tbl-wrap table:not(.kt):not(.htable):not(.cmp) th, .tbl-wrap table:not(.kt):not(.htable):not(.cmp) td { padding: 8px 3px; font-size: 12.5px; } }
+table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: bottom; }
+@media (max-width: 640px) { table.qt th, table.qt td { padding: 9px 5px !important; font-size: 13.5px !important; } table.qt thead th { font-size: 12px !important; } }
