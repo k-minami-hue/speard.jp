@@ -20,7 +20,7 @@
     <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
     <tr><th>交通</th><td>{{ b.walk_txt }}<span class="psub2">利用路線：{{ b.lines_all }}</span></td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
   </tbody></table>
-  <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}（{{ latest_q_months }}）分まで。国土交通省の公表は四半期ごと</p>
+  <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}（{{ latest_q_months }}）分まで</p>
   <p class="ptags">{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>

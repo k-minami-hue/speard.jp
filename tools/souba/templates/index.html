@@ -48,10 +48,11 @@
         <button type="button" data-sort="units" aria-pressed="false">戸数</button>
       </div>
     </div>
-    <ol class="blist" id="cards">
+    <ol class="blist is-short" id="cards">
       {% for b in ranked %}{{ row(site, b) }}{% endfor %}
       {% for b in nodata %}{{ row(site, b) }}{% endfor %}
     </ol>
+    <p class="more-row"><button type="button" class="btn btn-ghost" id="moreRows" aria-controls="cards" aria-expanded="false">残りのマンションも表示する（全{{ n_buildings }}棟）</button></p>
     <p class="note" style="margin-top:12px">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに集計した、過去の取引価格の参考値です。将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
   </div>
 </section>
@@ -75,6 +76,7 @@
   <div class="wrap">
     <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>値札を押すと、マンションの概要と成約価格が出ます。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
     <div class="gmap" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
+    <p class="legend-m" aria-hidden="true">値札の色＝坪単価<i style="background:var(--b1)"></i>450万未満<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜</p>
   </div>
 </section>
 

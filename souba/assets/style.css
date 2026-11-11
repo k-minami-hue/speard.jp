@@ -914,3 +914,19 @@ img { height: auto; }
 .fig dd .s { font-weight: 400; line-height: 1.6; }
 .btn-line { background: #04803a; border-color: #04803a; }
 .btn-line:hover { background: #036a30; border-color: #036a30; }
+/* 2026-11 仕上げ */
+:root { --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif; }
+.logo-mark { flex: none; }
+@media (max-width: 1040px) { .ksearch-head { display: none; } :root { --head-h: 104px; } }
+.blist.is-short > li:nth-child(n+13) { display: none; }
+.more-row { margin-top: 18px; text-align: center; }
+.more-row .btn { min-width: min(100%, 360px); }
+.legend-m { display: none; }
+@media (max-width: 760px) { .legend { display: none; } .legend-m { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; font-size: 11.5px; color: var(--muted); padding: 8px 2px 0; } .legend-m i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; border: 1px solid rgba(18,41,84,.3); margin-left: 8px; } }
+.logo-txt { min-width: 0; }
+.logo b { white-space: nowrap; }
+.pupd { text-align: left; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .head-row { gap: 0 8px; } .logo { gap: 7px; overflow: hidden; } .logo b { font-size: .93rem; letter-spacing: 0; } .logo small { display: none; } .logo-mark { width: 26px; height: 26px; font-size: 13px; } }
+@media (max-width: 380px) { .logo b { font-size: .84rem; } }
+@media (max-width: 900px) { .hero-in { grid-template-columns: minmax(0, 1fr); } .hero-in > * { min-width: 0; } }
+.pbar h1 { min-width: 0; overflow-wrap: anywhere; } .btn-block { max-width: 100%; padding-inline: 12px; } @media (max-width: 380px) { .btn-block { font-size: 14px; } }
