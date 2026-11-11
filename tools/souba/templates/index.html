@@ -110,7 +110,7 @@
 {% if cols %}<section class="sec" aria-labelledby="col-ttl">
   <div class="wrap">
     <div class="sec-head"><div><h2 id="col-ttl">武蔵小杉で買う・売る前に読むコラム</h2><p>株式会社スピアードのコラムから</p></div><a class="more" href="https://speard.jp/columns/" target="_blank" rel="noopener">コラム一覧</a></div>
-    <ul class="cols">{% for c in cols %}<li><a href="{{ c.url }}" target="_blank" rel="noopener"><img src="{{ c.img }}" alt="" loading="lazy" decoding="async" width="640" height="360"><b>{{ c.title }}</b><span>{{ c.date }}</span></a></li>{% endfor %}</ul>
+    <ul class="cols">{% for c in cols[:6] %}<li><a href="{{ c.url }}" target="_blank" rel="noopener"><img src="{{ c.img }}" alt="" loading="lazy" decoding="async" width="640" height="360"><b>{{ c.title }}</b><span>{{ c.date }}</span></a></li>{% endfor %}</ul>
   </div>
 </section>{% endif %}
 
