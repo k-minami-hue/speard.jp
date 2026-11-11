@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "macros.html" import row %}
+{% block title %}武蔵小杉のマンションを探す｜名前・町名・駅・ブランド・条件｜{{ site.name }}{% endblock %}
+{% block description %}武蔵小杉のマンション{{ n_buildings }}棟を、マンション名、町名、駅、ブランド、築年や構造の条件から探せます。棟ごとの坪単価・成約価格・取引件数を一覧で比べられます。{% endblock %}
+{% block main %}
+<div class="pbar"><div class="wrap"><h1>マンションを探す</h1></div></div>
+<div class="wrap page">
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › マンションを探す</p>
+  <section>
+    <form class="ksearch ksearch-lg" role="search" action="{{ site.base }}search/" data-ksearch="page">
+      <label class="sr" for="kq">マンション名・町名・駅・ブランド</label>
+      <input id="kq" name="q" type="search" autocomplete="off" placeholder="マンション名・町名・駅・ブランドで探す（例：パークシティ、こすぎ、中丸子）">
+      <button type="submit" class="btn">探す</button>
+    </form>
+    <p class="note" id="kcount" aria-live="polite">掲載{{ n_buildings }}棟を表示しています。ひらがな・略称でも探せます。</p>
+  </section>
+  <section aria-labelledby="ax-ttl">
+    <h2 id="ax-ttl" class="sr">探し方を選ぶ</h2>
+    {% for k, label, gs in group_kinds %}{% if gs %}<div class="axis"><p class="axis-ttl">{{ label }}</p><ul class="axis-list">{% for o in gs %}<li><a href="{{ o.url }}">{{ o.name }}<small>{{ o.n }}棟</small></a></li>{% endfor %}</ul></div>{% endif %}{% endfor %}
+    <div class="axis"><p class="axis-ttl">地図から探す</p><ul class="axis-list"><li><a href="{{ site.base }}map/">相場マップを開く</a></li><li><a href="{{ site.base }}ranking/">ランキングを見る</a></li></ul></div>
+  </section>
+  <section aria-labelledby="sl-ttl">
+    <div class="sec-head"><div><h2 id="sl-ttl">マンション一覧</h2><p>{{ period }}の取引の中央値</p></div></div>
+    <ol class="blist" id="kresults">{% for b in ranked + nodata %}{{ row(site, b) }}{% endfor %}</ol>
+    <p class="note" id="kempty" hidden>条件に合うマンションが見つかりませんでした。別の言葉で探すか、<a href="{{ site.base }}soudan/?from=search_empty">掲載のないマンションの相場を問い合わせる</a>こともできます。</p>
+    <p class="note">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに集計した、過去の取引価格の参考値です。将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  </section>
+</div>
+{% endblock %}

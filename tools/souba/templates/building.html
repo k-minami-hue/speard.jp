@@ -10,20 +10,23 @@
     <div class="pbar-chips">
       {% if b.rank %}<span class="pchip">武蔵小杉 掲載{{ ranked|length }}棟中 <b>{{ b.rank }}</b>位<small>坪単価</small></span>{% endif %}
       <span class="pchip">直近2年の取引 <b>{{ s.n if s else 0 }}</b>件</span>
+      <a class="pchip pchip-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_head" data-ev="cta_satei_head">無料査定</a>
     </div>
   </div>
 </div>
 <div class="wrap">
-  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}#list">マンション一覧</a> › {{ b['マンション名'] }}</p>
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}search/">マンションを探す</a> › {% if b.g_town %}<a href="{{ b.g_town.url }}">{{ b.town }}</a> › {% endif %}{{ b['マンション名'] }}</p>
   <table class="ptable"><tbody>
     <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
-    <tr><th>交通</th><td>{{ b.walk_txt }}</td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
+    <tr><th>交通</th><td>{{ b.walk_txt }}<span class="psub2">利用路線：{{ b.lines_all }}</span></td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
   </tbody></table>
-  <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}分まで（国土交通省の公表は四半期ごと）</p>
+  <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}（{{ latest_q_months }}）分まで。国土交通省の公表は四半期ごと</p>
+  <p class="ptags">{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>
-    {% if s %}<li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
+    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
+    {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
     <li><a href="#g-ttl">周辺地図</a></li>
     <li><a href="#s-ttl">物件概要</a></li>
   </ul></nav>
@@ -59,8 +62,33 @@
     {% else %}
     <p>{{ b.nodata_txt }}</p>
     {% endif %}
+    {% if not b.pre %}<div class="latest">
+      <div><p class="latest-ttl">{{ latest_q_months }}より新しい成約は、無料査定でお伝えします</p>
+      <p>国土交通省の公表は{{ latest_q }}（{{ latest_q_months }}）分までです。それ以降の{{ b.short }}の成約事例と、階数・向きを反映した価格は、査定の中で根拠としてお出しします。売却を決めていなくても依頼できます。</p></div>
+      <a class="btn btn-gold" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_latest" data-ev="cta_satei_latest">無料査定を依頼する</a>
+    </div>{% endif %}
   </div>
 </section>
+
+{% if s %}<section class="sec" aria-labelledby="z-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="z-ttl">広さ別・間取り別の価格</h2>
+    <p class="muted" style="margin-bottom:10px">{{ period }}の取引（成約価格・取引価格の合計）を、専有面積と間取りで分けた中央値です。</p>
+    <h3 class="sub-ttl">広さ別</h3>
+    <div class="tbl-wrap"><table class="kt kt-band">
+      <thead><tr><th>専有面積</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">価格の幅</th><th class="num">件数</th></tr></thead>
+      <tbody>{% for z in b.sizes %}<tr><th>{{ z.label }}</th>
+        {% if z.st %}<td class="num" data-label="価格（中央値）">{{ '{:,}'.format(z.st.p_med|round|int) }}万円</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ '{:,}'.format(z.st.p_lo|round|int) }}万円〜{{ '{:,}'.format(z.st.p_hi|round|int) }}万円</td><td class="num" data-label="件数">{{ z.n }}件</td>
+        {% else %}<td class="kt-none" colspan="3">{% if z.n %}件数が少ないため非表示{% else %}この期間の取引なし{% endif %}</td><td class="num" data-label="件数">{{ z.n }}件</td>{% endif %}</tr>{% endfor %}</tbody>
+    </table></div>
+    {% if b.plans %}<h3 class="sub-ttl">間取り別</h3>
+    <div class="tbl-wrap"><table class="kt kt-band">
+      <thead><tr><th>間取り</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">価格の幅</th><th class="num">件数</th></tr></thead>
+      <tbody>{% for z in b.plans %}<tr><th>{{ z.label }}</th><td class="num" data-label="価格（中央値）">{{ '{:,}'.format(z.st.p_med|round|int) }}万円</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ '{:,}'.format(z.st.p_lo|round|int) }}万円〜{{ '{:,}'.format(z.st.p_hi|round|int) }}万円</td><td class="num" data-label="件数">{{ z.n }}件</td></tr>{% endfor %}</tbody>
+    </table></div>{% endif %}
+    <p class="pnote">件数が{{ 3 }}件未満の区分は、数字がぶれるため表示していません。国土交通省のデータには所在階が含まれないため、階数別の集計はありません。階数・向きによる価格の違いは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_floor">無料査定</a>でお伝えします。{% if b.members %}{{ b.members|join('・') }}と合わせた値です。{% endif %}過去の取引価格をまとめた参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  </div>
+</section>{% endif %}
 
 {% if s %}<section class="sec" aria-labelledby="t-ttl">
   <div class="wrap">
@@ -88,6 +116,12 @@
       </div>
       <div class="m-gate-open" hidden></div>
     </div>{% endif %}
+    {% if b.years %}<h3 class="sub-ttl" id="y-ttl">年ごとの取引件数</h3>
+    <div class="tbl-wrap"><table class="kt kt-band">
+      <thead><tr><th>年</th><th class="num">件数</th><th class="num">うち成約価格</th><th class="num">うち取引価格</th><th class="num">坪単価（中央値）</th></tr></thead>
+      <tbody>{% for y in b.years %}<tr><th>{{ y.y }}年{% if y.partial %}<span class="sub">{{ latest_q }}分まで</span>{% endif %}</th><td class="num" data-label="件数">{{ y.n }}件</td><td class="num" data-label="うち成約価格">{{ y.closed }}件</td><td class="num" data-label="うち取引価格">{{ y.traded }}件</td><td class="num" data-label="坪単価（中央値）">{% if y.t_med %}{{ y.t_med|round|int }}万円{% else %}―{% endif %}</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <p class="pnote">国土交通省が公表している取引の件数です（成約価格は2021年以降）。実際の売買のすべてを含むものではありません。</p>{% endif %}
   </div>
 </section>{% endif %}
 
@@ -114,6 +148,14 @@
   </div>
 </section>
 
+{% if b.similar %}<section class="sec" aria-labelledby="n-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="n-ttl">{{ b['最寄駅'] }}駅で築年が近いマンション</h2>
+    <ul class="simi">{% for o in b.similar %}<li><a href="{{ o.url }}"><b>{{ o['マンション名'] }}</b><span>{{ o.built_txt }}・{{ o['総戸数'] }}戸・徒歩{{ o['徒歩分'] }}分</span><span class="simi-v">坪単価（中央値）<em>{{ '{:,}'.format(o.stats.tsubo|round|int) }}</em>万円</span><span>成約価格（中央値）{% if o.closed %}{{ '{:,}'.format(o.closed.p_med|round|int) }}万円{% else %}―{% endif %}・取引{{ o.stats.n }}件</span></a></li>{% endfor %}</ul>
+    <p class="pnote">{{ period }}の取引の中央値です。<a href="{{ site.base }}compare/?ids={{ b.id }}{% for o in b.similar[:2] %},{{ o.id }}{% endfor %}">並べて比べる</a>{% if b.g_town %}　<a href="{{ b.g_town.url }}">{{ b.town }}のマンション一覧</a>{% endif %}{% if b.g_brand %}　<a href="{{ b.g_brand.url }}">{{ b.brand }}の一覧</a>{% endif %}</p>
+  </div>
+</section>{% endif %}
+
 <section class="sec" aria-labelledby="g-ttl">
   <div class="wrap">
     <h2 class="hbar" id="g-ttl">周辺地図</h2>
@@ -135,12 +177,16 @@
     <table class="spec"><tbody>
       <tr><th>マンション名</th><td>{{ b['マンション名'] }}</td></tr>
       <tr><th>所在地</th><td>{{ b['所在地'] }}</td></tr>
-      <tr><th>交通</th><td>{{ b.walk_txt }}</td></tr>
+      <tr><th>交通</th><td>{{ b.walk_txt }}<br>{{ b['最寄駅'] }}駅の利用路線：{{ b.lines_all }}</td></tr>
       <tr><th>建築年月</th><td>{{ b.built_txt }}</td></tr>
       <tr><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
-      <tr><th>構造・階数</th><td>{{ b['構造'] }} 地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}・地下{{ b['地下階数'] }}階{% endif %}{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
-      <tr><th>分譲会社</th><td>{{ b['分譲会社'] }}</td></tr>
-      <tr><th>管理会社</th><td>{{ b['管理会社'] or '―' }}</td></tr>
+      <tr><th>構造・階数</th><td>{{ b['構造'] }} 地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}・地下{{ b['地下階数'] }}階{% endif %}</td></tr>
+      {% if b.struct %}<tr><th>免震・制震</th><td>{{ b.struct }}構造</td></tr>{% endif %}
+      <tr><th>分譲主</th><td>{{ b['分譲会社'] }}</td></tr>
+      {% if b['施工会社'] %}<tr><th>施工</th><td>{{ b['施工会社'] }}</td></tr>{% endif %}
+      {% if b['管理会社'] %}<tr><th>管理会社</th><td>{{ b['管理会社'] }}</td></tr>{% endif %}
+      {% if b['敷地の権利'] %}<tr><th>敷地の権利</th><td>{{ b['敷地の権利'] }}</td></tr>{% endif %}
+      {% if b['用途地域'] %}<tr><th>用途地域</th><td>{{ b['用途地域'] }}</td></tr>{% endif %}
     </tbody></table>
     {% if b['備考'] %}<p class="note" style="margin-top:8px">{{ b['備考'] }}</p>{% endif %}
     <p class="pnote">分譲時の資料や公開情報をもとにしています。現況と異なる場合があります。</p>
@@ -167,5 +213,4 @@
 <section class="sec" aria-label="売出のお知らせ"><div class="wrap">{{ notify(site, b) }}</div></section>
 
 {% endblock %}
-{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};{% if s %} window.CHART = {{ chart | safe }};{% endif %}</script>
-{% if s %}<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>{% endif %}{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};{% if s %} window.CHART = {{ chart | safe }};{% endif %}</script>{% endblock %}

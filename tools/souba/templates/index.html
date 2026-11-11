@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% from "macros.html" import card, row, tool, rep, faq_list, img, listing_card, notify, access_rank %}
 {% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・価格・推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。タワーマンションの直近1年の坪単価の中央値は{{ town.tsubo_txt }}。地図、ランキング、部屋の価格の目安。{% endblock %}
+{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。タワーマンションの直近2年の坪単価の中央値は{{ town.tsubo_txt }}。地図、ランキング、部屋の価格の目安。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
-{% include "map_css.html" %}{% endblock %}
+{% endblock %}
 {% block main %}
 <section class="hero">
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
@@ -11,10 +11,16 @@
     <div>
       <h1>武蔵小杉のマンション相場を、<br>棟ごとに。</h1>
       <p class="hero-lead">買う前の比較にも、売る前の価格確認にも。<br>国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。</p>
-      <ul class="hero-points">
-        <li>予算から、棟ごとに買える広さがわかる</li>
-        <li>棟ごとの成約価格・坪単価・取引件数を比べられる</li>
-        <li>自分の部屋の価格の目安がその場で出る</li>
+      <form class="ksearch ksearch-hero" role="search" action="{{ site.base }}search/" data-ksearch>
+        <label class="sr" for="tq">マンション名・町名・駅・ブランドで探す</label>
+        <input id="tq" name="q" type="search" autocomplete="off" placeholder="マンション名・町名・駅で探す（例：パークシティ）">
+        <button type="submit" class="btn btn-gold">探す</button>
+      </form>
+      <ul class="hero-chips">
+        {% for g in groups if g.kind == 'station' %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
+        {% for g in groups if g.kind == 'brand' %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
+        {% for g in groups if g.kind == 'feature' and g.slug in ('tower', 'menshin', 'chiku-10') %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
+        <li><a href="{{ site.base }}map/">地図から探す</a></li>
       </ul>
     </div>
     {{ tool(site, buildings) }}
@@ -24,10 +30,10 @@
 
 <div class="wrap ribbon">
   <dl>
-    <div class="fig"><dt>タワーマンションの坪単価</dt><dd>{{ '{:,}'.format(town.tsubo|round|int) }}<small>万円</small></dd><span class="s">直近1年・{{ town.n }}件の中央値</span></div>
-    {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ '{:,}'.format(town_closed.p_med|round|int) }}<small>万円</small></dd><span class="s">直近1年・{{ town_closed.n }}件の中央値</span></div>{% endif %}
-    <div class="fig"><dt>掲載マンション</dt><dd>{{ n_buildings }}<small>棟</small></dd><span class="s">{{ latest_q }}分までのデータ</span></div>
-    <div class="fig"><dt>いちばん高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small></dd><span class="s">{{ ranked[0]['マンション名'] }}</span></div>
+    <div class="fig"><dt>タワーマンションの坪単価</dt><dd>{{ '{:,}'.format(town.tsubo|round|int) }}<small>万円</small><span class="s">直近2年・{{ town.n }}件の中央値</span></dd></div>
+    {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ '{:,}'.format(town_closed.p_med|round|int) }}<small>万円</small><span class="s">直近2年・{{ town_closed.n }}件の中央値</span></dd></div>{% endif %}
+    <div class="fig"><dt>掲載マンション</dt><dd>{{ n_buildings }}<small>棟</small><span class="s">{{ latest_q }}分までのデータ</span></dd></div>
+    <div class="fig"><dt>坪単価が最も高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small><span class="s">{{ ranked[0]['マンション名'] }}</span></dd></div>
   </dl>
 </div>
 
@@ -47,6 +53,81 @@
       {% for b in nodata %}{{ row(site, b) }}{% endfor %}
     </ol>
     <p class="note" style="margin-top:12px">国土交通省 不動産情報ライブラリの取引価格・成約価格をもとに集計した、過去の取引価格の参考値です。将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  </div>
+</section>
+
+
+<section class="sec" aria-labelledby="ax-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="ax-ttl">町名・駅・ブランド・条件から探す</h2></div><a class="more" href="{{ site.base }}search/">マンションを探す</a></div>
+    {% for k, label, gs in group_kinds %}{% if gs %}<div class="axis"><p class="axis-ttl">{{ label }}</p><ul class="axis-list">{% for o in gs %}<li><a href="{{ o.url }}">{{ o.name }}<small>{{ o.n }}棟</small></a></li>{% endfor %}</ul></div>{% endif %}{% endfor %}
+  </div>
+</section>
+
+{% if listings %}<section class="sec" id="listings" aria-labelledby="lst-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="lst-ttl">売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。坪単価と、その棟の相場との差を並べています。</p></div></div>
+    <ul class="lsts">{% for x in listings %}{{ listing_card(site, x) }}{% endfor %}</ul>
+  </div>
+</section>
+
+{% endif %}<section class="sec-wash" aria-labelledby="map-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>値札を押すと、マンションの概要と成約価格が出ます。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
+    <div class="gmap" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
+  </div>
+</section>
+
+
+{{ access_rank(site, access_json, 6) }}
+
+<section class="sec" aria-labelledby="rank-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="rank-ttl">ランキング</h2><p>直近の取引データから</p></div><a class="more" href="{{ site.base }}ranking/">すべて見る</a></div>
+    <div class="ranks">
+      <div class="rank"><h3>坪単価<span>直近2年の中央値</span></h3><ol>{% for b in ranked[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ '{:,}'.format(b.stats.tsubo|round|int) }}万円</span></a></li>{% endfor %}</ol></div>
+      <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
+      <div class="rank"><h3>築年が新しい<span>竣工年月の新しい順</span></h3><ol>{% for b in rank_new[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="mem-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="mem-ttl">無料会員でできること</h2><p>メールアドレスだけで登録できます。配信はいつでも止められます。</p></div><a class="more" href="{{ site.base }}member/">会員について詳しく</a></div>
+    <ul class="m-feats m-feats-4">
+      <li><b>売出アラート</b><span>棟・間取り・広さ・階数・予算に合う住戸の売出をお知らせ</span></li>
+      <li><b>値下げアラート</b><span>登録した棟で値下げがあれば、変更前後の価格をお知らせ</span></li>
+      <li><b>自宅価格ウォッチ</b><span>自分の部屋の価格の目安を、相場の更新ごとにお届け</span></li>
+      <li><b>会員限定データ</b><span>棟ごとの全取引明細（2015年以降）と、四半期ごとの取引件数・坪単価</span></li>
+    </ul>
+    <div style="margin-top:20px">{{ notify(site) }}</div>
+  </div>
+</section>
+
+{% if cols %}<section class="sec" aria-labelledby="col-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="col-ttl">武蔵小杉で買う・売る前に読むコラム</h2><p>株式会社スピアードのコラムから</p></div><a class="more" href="https://speard.jp/columns/" target="_blank" rel="noopener">コラム一覧</a></div>
+    <ul class="cols">{% for c in cols %}<li><a href="{{ c.url }}" target="_blank" rel="noopener"><img src="{{ c.img }}" alt="" loading="lazy" decoding="async" width="640" height="360"><b>{{ c.title }}</b><span>{{ c.date }}</span></a></li>{% endfor %}</ul>
+  </div>
+</section>{% endif %}
+
+
+<section class="sec" aria-labelledby="news-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="news-ttl">お知らせ</h2></div><a class="more" href="{{ site.base }}news/">すべて見る</a></div>
+    <ul class="news">{% for n in news[:5] %}<li><time datetime="{{ n['日付'] }}">{{ n['日付']|replace('-', '.') }}</time><span class="news-k">{{ n['区分'] }}</span>{% if n['リンク'] %}<a href="{{ site.base }}{{ n['リンク'] }}">{{ n['内容'] }}</a>{% else %}<span>{{ n['内容'] }}</span>{% endif %}</li>{% endfor %}</ul>
+  </div>
+</section>
+
+<section class="sec-wash" aria-labelledby="co-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="co-ttl">運営会社</h2><p>{{ site.company }}（宅地建物取引業 {{ site.license }}）</p></div><a class="more" href="{{ site.base }}about/">運営会社について</a></div>
+    {{ rep(site, speard_link) }}
+    <div class="consult">
+      <div><p class="consult-ttl">個別相談を予約する（無料）</p><p>売却の時期、住み替えの順番、気になる住戸の価格の妥当性など、決める前の相談をお受けしています。オンラインでも対応します。</p></div>
+      <div class="actions"><a class="btn" href="{{ site.base }}soudan/?from=top_consult" data-ev="cta_consult">個別相談を予約する</a><a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a></div>
+    </div>
   </div>
 </section>
 
@@ -76,20 +157,6 @@
   </div>
 </section>
 
-{% if listings %}<section class="sec" id="listings" aria-labelledby="lst-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="lst-ttl">売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。坪単価と、その棟の相場との差を並べています。</p></div></div>
-    <ul class="lsts">{% for x in listings %}{{ listing_card(site, x) }}{% endfor %}</ul>
-  </div>
-</section>
-
-{% endif %}<section class="sec-wash" aria-labelledby="map-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>ピンを押すと、マンションの概要と価格が出ます。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
-    <div class="gmap" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
-  </div>
-</section>
-
 <section class="sec" aria-labelledby="trend-ttl">
   <div class="wrap">
     <div class="trend-head">
@@ -100,49 +167,12 @@
   </div>
 </section>
 
-{{ access_rank(site, access_json, 6) }}
-
-<section class="sec" aria-labelledby="rank-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="rank-ttl">ランキング</h2><p>直近の取引データから</p></div><a class="more" href="{{ site.base }}ranking/">すべて見る</a></div>
-    <div class="ranks">
-      <div class="rank"><h3>坪単価<span>直近2年の中央値</span></h3><ol>{% for b in ranked[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ '{:,}'.format(b.stats.tsubo|round|int) }}万円</span></a></li>{% endfor %}</ol></div>
-      <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
-      <div class="rank"><h3>築年が新しい<span>竣工年月の新しい順</span></h3><ol>{% for b in rank_new[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="mem-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="mem-ttl">無料会員でできること</h2><p>メールアドレスだけで登録できます。配信はいつでも止められます。</p></div><a class="more" href="{{ site.base }}member/">会員について詳しく</a></div>
-    <ul class="m-feats m-feats-4">
-      <li><b>売出アラート</b><span>棟・間取り・広さ・階数・予算に合う住戸の売出をお知らせ</span></li>
-      <li><b>値下げアラート</b><span>登録した棟で値下げがあれば、変更前後の価格をお知らせ</span></li>
-      <li><b>自宅価格ウォッチ</b><span>自分の部屋の価格の目安を、相場の更新ごとにお届け</span></li>
-      <li><b>会員限定データ</b><span>棟ごとの全取引明細（2015年以降）と、四半期ごとの取引件数・坪単価</span></li>
-    </ul>
-    <div style="margin-top:20px">{{ notify(site) }}</div>
-  </div>
-</section>
-
-<section class="sec-wash" aria-label="ご相談">
-  <div class="wrap">{{ rep(site, speard_link) }}</div>
-</section>
-
 <section class="sec" aria-labelledby="town-ttl">
   <div class="wrap">
     <div class="sec-head"><div><h2 id="town-ttl">武蔵小杉という街のデータ</h2></div></div>
     <dl class="facts">{% for k, v, s in town_facts %}<div><dt>{{ k }}</dt><dd>{{ v }}<span>{{ s }}</span></dd></div>{% endfor %}</dl>
   </div>
 </section>
-
-{% if cols %}<section class="sec" aria-labelledby="col-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="col-ttl">武蔵小杉で買う・売る前に読むコラム</h2><p>株式会社スピアードのコラムから</p></div><a class="more" href="https://speard.jp/columns/" target="_blank" rel="noopener">コラム一覧</a></div>
-    <ul class="cols">{% for c in cols %}<li><a href="{{ c.url }}" target="_blank" rel="noopener"><img src="{{ c.img }}" alt="" loading="lazy" decoding="async"><b>{{ c.title }}</b><span>{{ c.date }}</span></a></li>{% endfor %}</ul>
-  </div>
-</section>{% endif %}
 
 <section class="sec" aria-labelledby="faq-ttl">
   <div class="wrap">
@@ -152,6 +182,4 @@
   </div>
 </section>
 {% endblock %}
-{% block data %}<script>window.CHART = {{ chart | safe }}; window.ATLAS = {{ atlas_json | safe }};</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
-{% include "map_js.html" %}{% endblock %}
+{% block data %}<script>window.CHART = {{ chart | safe }}; window.ATLAS = {{ atlas_json | safe }};</script>{% endblock %}

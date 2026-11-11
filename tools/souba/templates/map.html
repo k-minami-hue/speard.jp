@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}マップから探す｜武蔵小杉のマンション{{ n_buildings }}棟の地図｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンション{{ n_buildings }}棟を地図で表示。ピンを押すと所在地・交通・築年月・坪単価・成約価格が出ます。築年数・駅徒歩・構造で絞り込めます。{% endblock %}
-{% block head %}{% include "map_css.html" %}{% endblock %}
+{% block description %}武蔵小杉のマンション{{ n_buildings }}棟を地図で表示。ピンを押すと所在地・交通・築年月・坪単価・成約価格が出ます。駅・ブランド・坪単価・築年数・駅徒歩・構造で絞り込めます。{% endblock %}
+{% block head %}{% endblock %}
 {% block main %}
 <div class="pbar"><div class="wrap"><h1>マップから探す</h1></div></div>
 <div class="wrap">
@@ -10,6 +10,15 @@
     <aside class="panel">
       <div class="filters" id="filters">
         <p class="f-ttl">絞り込み</p>
+        <div class="f-row" role="group" aria-label="駅"><span class="f-label">駅</span>
+          {% for g in groups if g.kind == 'station' %}<button type="button" class="chip" data-f="stn" data-v="{{ g.name|replace('駅', '') }}" aria-pressed="false">{{ g.name|replace('駅', '') }}</button>{% endfor %}</div>
+        <div class="f-row" role="group" aria-label="ブランド"><span class="f-label">ブランド</span>
+          {% for g in groups if g.kind == 'brand' %}<button type="button" class="chip" data-f="brand" data-v="{{ g.name }}" aria-pressed="false">{{ g.name }}</button>{% endfor %}</div>
+        <div class="f-row" role="group" aria-label="坪単価"><span class="f-label">坪単価</span>
+          <button type="button" class="chip" data-f="band" data-v="1" aria-pressed="false">450万未満</button>
+          <button type="button" class="chip" data-f="band" data-v="2" aria-pressed="false">450万〜</button>
+          <button type="button" class="chip" data-f="band" data-v="3" aria-pressed="false">500万〜</button>
+          <button type="button" class="chip" data-f="band" data-v="4" aria-pressed="false">550万〜</button></div>
         <div class="f-row" role="group" aria-label="築年数"><span class="f-label">築年数</span>
           <button type="button" class="chip" data-f="age" data-v="10" aria-pressed="false">10年以内</button>
           <button type="button" class="chip" data-f="age" data-v="15" aria-pressed="false">15年以内</button>
@@ -36,8 +45,8 @@
     </aside>
     <div class="gmap gmap-tall" id="map" data-map="atlas" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
   </div>
-  <p class="note" style="margin:12px 0 40px">坪単価は{{ period }}の取引の中央値です。過去の取引価格をまとめたもので、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  <p class="note" style="margin:12px 0 0">地図の値札は、マンションの略称と坪単価の中央値です。値札を押すと概要と成約価格が出ます。</p>
+  <p class="note" style="margin:4px 0 40px">坪単価は{{ period }}の取引の中央値です。過去の取引価格をまとめたもので、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
 </div>
 {% endblock %}
-{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>
-{% include "map_js.html" %}{% endblock %}
+{% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>{% endblock %}

@@ -35,7 +35,7 @@ jobs:
           python3 tools/souba/scripts/candidates.py
       - name: 相場帳を再生成
         run: |
-          if git diff --quiet -- tools/souba/data/trades.csv tools/souba/data/area_quarterly.csv; then echo "データの変更なし"; exit 0; fi
+          if git diff --quiet -- tools/souba/data/trades.csv tools/souba/data/area_quarterly.csv tools/souba/data/news.csv; then echo "データの変更なし"; exit 0; fi
           python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
           python3 tools/make_webp.py
       - name: commit if changed

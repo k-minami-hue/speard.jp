@@ -38,7 +38,7 @@
   const rangeFor = (b) => {
     if (b && b.n >= 5 && Number.isFinite(b.lo)) return { lo: b.lo, hi: b.hi, why: `${b.short}の直近2年の取引${b.n}件の中央の半数の範囲` };
     if (b && !b.n) return null;
-    if (A && Number.isFinite(A.fallback.lo)) return { lo: A.fallback.lo, hi: A.fallback.hi, why: "武蔵小杉のタワーマンションの直近1年の取引の中央の半数の範囲" };
+    if (A && Number.isFinite(A.fallback.lo)) return { lo: A.fallback.lo, hi: A.fallback.hi, why: "武蔵小杉のタワーマンションの直近2年の取引の中央の半数の範囲" };
     return null;
   };
   const initEstimators = () => {
@@ -130,7 +130,18 @@
   };
 
   /* ---------- グラフ ---------- */
-  const whenChart = (fn) => { if (window.Chart) fn(); else setTimeout(() => whenChart(fn), 120); };
+  /* 外部ライブラリは、使う場所が画面に近づいてから読み込む（最初の表示を軽くするため） */
+  const CDN = "https://cdnjs.cloudflare.com/ajax/libs/";
+  const loaded = {};
+  const loadJs = (src) => loaded[src] || (loaded[src] = new Promise((res, rej) => { const sc = document.createElement("script"); sc.src = src; sc.async = true; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); }));
+  const loadCss = (href) => { if (loaded[href]) return; loaded[href] = true; const l = document.createElement("link"); l.rel = "stylesheet"; l.href = href; document.head.appendChild(l); };
+  const whenNear = (el, fn) => {
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) { fn(); return; }
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); fn(); } }, { rootMargin: "600px 0px" });
+    io.observe(el);
+  };
+  const whenChart = (fn) => { if (window.Chart) fn(); else loadJs(CDN + "Chart.js/4.4.1/chart.umd.min.js").then(fn).catch(() => {}); };
   const lineChart = (canvas, labels, series, colors) => {
     const muted = "#6b7484", rule = css("--rule");
     return new window.Chart(canvas, {
@@ -176,8 +187,10 @@
   const drawChart = () => {
     const canvas = $("#chart"), data = window.CHART;
     if (!canvas || !data || document.body.classList.contains("p-compare")) return;
-    if (data.plot) whenChart(() => plotChart(canvas, data));
-    else whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
+    whenNear(canvas, () => {
+      if (data.plot) whenChart(() => plotChart(canvas, data));
+      else whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
+    });
   };
 
 
@@ -255,14 +268,15 @@
       open: (id) => { map.panTo(mk[id].getPosition()); if (map.getZoom() < 16) map.setZoom(16); g.event.trigger(mk[id], "click"); },
     };
   };
-  const whenLeaflet = (fn) => { if (window.L) fn(); else setTimeout(() => whenLeaflet(fn), 120); };
   const lMap = async (el) => {
-    await new Promise((r) => whenLeaflet(r));
+    loadCss(CDN + "leaflet/1.9.4/leaflet.min.css");
+    await loadJs(CDN + "leaflet/1.9.4/leaflet.min.js");
     const L = window.L;
     const atlas = el.dataset.map === "atlas";
     const map = L.map(el, { scrollWheelZoom: atlas, zoomSnap: 0.5, tap: false }).setView([35.5755, 139.6595], 15);
-    L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", { maxZoom: 18, minZoom: 12,
-      attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>' }).addTo(map);
+    // 道路・駅・公園が色分けされた地図（Googleマップに近い見た目）。Google Maps のキーを設定すると Google マップに切り替わる
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, minZoom: 12,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors' }).addTo(map);
     // 駅の位置
     (A.stations || []).forEach((st) => L.marker([st.lat, st.lng], { interactive: false, keyboard: false, zIndexOffset: -1000,
       icon: L.divIcon({ className: "pin-wrap", html: `<span class="stn">${esc(st.name)}</span>`, iconSize: [0, 0] }) }).addTo(map));
@@ -316,9 +330,8 @@
       open: (id) => { map.setView(mk[id].getLatLng(), Math.max(map.getZoom(), 16.5)); mk[id].openPopup(); },
     };
   };
-  const initMaps = async () => {
-    const el = $("#map");
-    if (!el || !A) return;
+  const initMaps = () => { const el = $("#map"); if (el && A) whenNear(el, () => initMapNow(el)); };
+  const initMapNow = async (el) => {
     const fb = el.querySelector(".map-fallback");
     let m;
     try {
@@ -333,7 +346,7 @@
   /* ---------- マップから探す：絞り込み・一覧 ---------- */
   const initAtlas = (m) => {
     const items = $$("#blist .bl");
-    const state = { age: null, walk: null, tower: null, struct: null, units: null };
+    const state = { age: null, walk: null, tower: null, struct: null, units: null, stn: null, brand: null, band: null };
     const NOW = new Date().getFullYear();
     items.forEach((li) => {
       li.addEventListener("mouseenter", () => m.hot(li.dataset.id, true));
@@ -341,7 +354,8 @@
       $(".bl-go", li).addEventListener("click", () => { m.open(li.dataset.id); if (window.matchMedia("(max-width: 900px)").matches) $("#map").scrollIntoView({ behavior: "smooth", block: "center" }); });
     });
     const pass = (b) => (!state.age || (b.year <= NOW && NOW - b.year <= state.age)) && (!state.walk || b.walk <= state.walk) &&
-      (!state.tower || b.tower) && (!state.struct || b.struct === state.struct) && (!state.units || b.units >= state.units);
+      (!state.tower || b.tower) && (!state.struct || b.struct === state.struct) && (!state.units || b.units >= state.units) &&
+      (!state.stn || b.stn === state.stn) && (!state.brand || b.brand === state.brand) && (!state.band || (b.t && b.band === state.band));
     const sorters = { t: (a, b) => (b.t || 0) - (a.t || 0), year: (a, b) => b.year - a.year, walk: (a, b) => a.walk - b.walk || (b.t || 0) - (a.t || 0), units: (a, b) => b.units - a.units };
     const apply = () => {
       let n = 0; const list = $("#blist");
@@ -360,7 +374,7 @@
       const f = c.dataset.f, on = c.getAttribute("aria-pressed") !== "true";
       $$(`#filters .chip[data-f="${f}"]`).forEach((x) => x.setAttribute("aria-pressed", "false"));
       c.setAttribute("aria-pressed", String(on));
-      state[f] = on ? (f === "struct" ? c.dataset.v : Number(c.dataset.v)) : null;
+      state[f] = on ? (["struct", "stn", "brand"].includes(f) ? c.dataset.v : Number(c.dataset.v)) : null;
       apply(); track("filter", { filter: f, value: on ? c.dataset.v : "off" });
     }));
     $("#sort").addEventListener("change", apply);
@@ -553,7 +567,7 @@
   const initSatei = () => {
     const form = $("#sateiForm"), A = window.ATLAS;
     if (!form || !A) return;
-    const data = { buildings: A.buildings, area: { lo: A.fallback.lo, hi: A.fallback.hi, label: "武蔵小杉のタワーマンションの直近1年の取引" } };
+    const data = { buildings: A.buildings, area: { lo: A.fallback.lo, hi: A.fallback.hi, label: "武蔵小杉のタワーマンションの直近2年の取引" } };
     const sel = $("#fBuilding");
     const qs = new URLSearchParams(location.search);
     const pre = qs.get("b") || location.hash.replace("#", "");
@@ -844,6 +858,48 @@
     }));
   };
 
+  /* ---------- キーワード検索（棟名・略称・読み・町名・駅・ブランド。サーバーは使わない） ---------- */
+  const kana = (t) => String(t || "").normalize("NFKC").toLowerCase()
+    .replace(/武蔵小杉/g, "むさしこすぎ").replace(/新丸子/g, "しんまるこ").replace(/多摩川/g, "たまがわ").replace(/小杉/g, "こすぎ")
+    .replace(/ヴェ/g, "べ").replace(/ヴァ/g, "ば").replace(/ヴィ/g, "び").replace(/ヴ/g, "ぶ")
+    .replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60)).replace(/[\s・　\-]/g, "");
+  let kIndex = null;
+  const kLoad = () => kIndex || (kIndex = fetch(`${SITE.base}api/search.json`).then((r) => r.json()).catch(() => ({ b: [], g: [] })));
+  const kFind = (idx, q) => {
+    const words = String(q || "").trim().split(/[\s　]+/).map(kana).filter(Boolean);
+    if (!words.length) return null;
+    const hit = (k) => words.every((w) => k.includes(w));
+    return { b: idx.b.filter((x) => hit(x.k)), g: idx.g.filter((x) => hit(x.k)) };
+  };
+  const initSearch = () => {
+    $$("[data-ksearch]").forEach((form) => {
+      const input = $("input[type=search]", form), page = form.dataset.ksearch === "page";
+      const box = document.createElement("div"); box.className = "ksug"; box.hidden = true; form.appendChild(box);
+      const suggest = async () => {
+        const r = kFind(await kLoad(), input.value);
+        if (page) { applyPage(r); return; }
+        if (!r) { box.hidden = true; return; }
+        const rows = r.g.slice(0, 3).map((x) => `<a href="${x.u}" data-ev="search_pick"><span class="ks-n">${esc(x.n)}のマンション</span><span class="ks-m">${esc(x.l)}・${x.c}棟</span></a>`)
+          .concat(r.b.slice(0, 7).map((x) => `<a href="${x.u}" data-ev="search_pick"><span class="ks-n">${esc(x.n)}</span><span class="ks-m">${esc(x.m)}${x.t ? `・坪単価${x.t}万円` : ""}</span></a>`));
+        box.innerHTML = rows.length ? rows.join("") : '<p class="ks-none">該当するマンションがありません。</p>';
+        box.hidden = false;
+      };
+      const applyPage = (r) => {
+        const list = $("#kresults"); if (!list) return;
+        const urls = r ? new Set(r.b.map((x) => x.u)) : null; let n = 0;
+        $$(".brow", list).forEach((li) => { const ok = !urls || urls.has($("a", li).getAttribute("href")); li.hidden = !ok; if (ok) n++; });
+        $("#kempty").hidden = n > 0;
+        $("#kcount").textContent = r ? `「${input.value.trim()}」に合うマンションは${n}棟です。` : `掲載${$$(".brow", list).length}棟を表示しています。ひらがな・略称でも探せます。`;
+      };
+      input.addEventListener("focus", kLoad, { once: true });
+      input.addEventListener("input", suggest);
+      form.addEventListener("submit", (e) => { track("search", { search_term: input.value.trim() }); if (page) { e.preventDefault(); suggest(); history.replaceState(null, "", input.value.trim() ? `?q=${encodeURIComponent(input.value.trim())}` : location.pathname); } });
+      document.addEventListener("click", (e) => { if (!form.contains(e.target)) box.hidden = true; });
+      input.addEventListener("keydown", (e) => { if (e.key === "Escape") box.hidden = true; });
+      if (page) { const q = new URLSearchParams(location.search).get("q"); if (q) { input.value = q; suggest(); } }
+    });
+  };
+
   /* ---------- リンクのコピー ---------- */
   const initShare = () => {
     $$("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
@@ -854,6 +910,6 @@
     }));
   };
 
-  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); countView(); initAccessRank(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); initSearch(); countView(); initAccessRank(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

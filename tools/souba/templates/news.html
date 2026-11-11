@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}お知らせ｜データ更新・掲載追加・機能追加｜{{ site.name }}{% endblock %}
+{% block description %}{{ site.name }}のお知らせ。国土交通省データの更新、掲載マンションの追加、機能の追加を日付順にまとめています。{% endblock %}
+{% block main %}
+<div class="wrap page">
+  <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › お知らせ</p>
+  <section>
+    <h1>お知らせ</h1>
+    <ul class="news">{% for n in news %}<li><time datetime="{{ n['日付'] }}">{{ n['日付']|replace('-', '.') }}</time><span class="news-k">{{ n['区分'] }}</span>{% if n['リンク'] %}<a href="{{ site.base }}{{ n['リンク'] }}">{{ n['内容'] }}</a>{% else %}<span>{{ n['内容'] }}</span>{% endif %}</li>{% endfor %}</ul>
+    <p class="note">相場データは、国土交通省の公表（四半期ごと）に合わせて更新しています。現在のデータは{{ latest_q }}（{{ latest_q_months }}）分までです。</p>
+  </section>
+</div>
+{% endblock %}

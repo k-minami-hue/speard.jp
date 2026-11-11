@@ -141,6 +141,16 @@ def main():
         w = csv.writer(f)
         w.writerow(["時期", "系列", "件数", "中央値", "下位25", "上位25"])
         w.writerows(rows)
+    # お知らせ（data/news.csv）に、新しい四半期を反映した日を1行だけ足す
+    latest = max((r[3] for r in trades), key=qi)
+    label = f"{latest[:4]}年{latest[-1]}Q"
+    news = DATA / "news.csv"
+    old = news.read_text(encoding="utf-8-sig") if news.exists() else "日付,区分,内容,リンク\n"
+    if f"{label}分" not in old:
+        import datetime
+        today = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
+        with open(news, "w", encoding="utf-8-sig", newline="") as f:
+            f.write(old.rstrip("\n") + f"\n{today},データ更新,国土交通省の{label}分の取引データを反映しました,\n")
     print(f"trades.csv {len(trades)}件 / trades_area.csv {len(area_trades)}件 / area_quarterly.csv {len(rows)}行 を書き出しました")
 
 

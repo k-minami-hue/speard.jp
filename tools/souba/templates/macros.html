@@ -10,7 +10,7 @@
 {%- endmacro %}
 
 {% macro img(site, key, alt, cls='', eager=False) -%}
-<picture><source type="image/webp" srcset="{{ site.base }}assets/img/{{ key }}.webp"><img src="{{ site.base }}assets/img/{{ key }}.jpg" alt="{{ alt }}" class="{{ cls }}"{% if not eager %} loading="lazy"{% endif %} decoding="async"></picture>
+<picture><source type="image/webp" srcset="{{ site.base }}assets/img/{{ key }}.webp"><img src="{{ site.base }}assets/img/{{ key }}.jpg" alt="{{ alt }}" class="{{ cls }}"{% if site.img_dims and site.img_dims[key] %} width="{{ site.img_dims[key][0] }}" height="{{ site.img_dims[key][1] }}"{% endif %}{% if eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async"></picture>
 {%- endmacro %}
 
 {% macro card(site, b, rank=None) -%}
