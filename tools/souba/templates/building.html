@@ -7,11 +7,7 @@
 <div class="pbar">
   <div class="wrap pbar-in">
     <h1>{{ b['マンション名'] }}</h1>
-    <div class="pbar-chips">
-      {% if b.rank %}<span class="pchip">武蔵小杉 掲載{{ ranked|length }}棟中 <b>{{ b.rank }}</b>位<small>坪単価</small></span>{% endif %}
-      <span class="pchip">直近2年の取引 <b>{{ s.n if s else 0 }}</b>件</span>
-      <a class="pchip pchip-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_head" data-ev="cta_satei_head">無料査定</a>
-    </div>
+    <p class="pbar-sub">{% if b.rank %}坪単価は掲載{{ ranked|length }}棟中{{ b.rank }}位{% endif %}{% if s %}・直近2年の取引{{ s.n }}件{% endif %}・{{ b.walk_txt }}</p>
   </div>
 </div>
 <div class="wrap">
@@ -21,15 +17,20 @@
     <div><dt>成約価格<small>中央値</small></dt><dd>{% if cl %}<b>{{ cl.p_med|okuh }}</b><span>{{ cl.p_lo|oku }}〜{{ cl.p_hi|oku }}</span>{% else %}<b>―</b><span>この期間の成約データなし</span>{% endif %}</dd></div>
     <div><dt>取引件数<small>直近2年</small></dt><dd><b>{{ s.n }}<i>件</i></b><span>{{ period }}</span></dd></div>
   </dl>{% endif %}
+  <div class="ask">
+    <div class="ask-sell"><p class="ask-ttl">{{ b.short }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
+    <div class="ask-buy"><p class="ask-ttl">{{ b.short }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
+    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+  </div>
   <table class="ptable"><tbody>
     <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
     <tr><th>交通</th><td>{{ b.walk_txt }}<span class="psub2">利用路線：{{ b.lines_all }}</span></td><th>構造</th><td colspan="3">{{ b['構造'] }}・地上{{ b['地上階数'] }}階{% if b['地下階数'] and b['地下階数'] != '0' %}地下{{ b['地下階数'] }}階{% endif %}建{% if b.struct %}（{{ b.struct }}）{% endif %}</td></tr>
   </tbody></table>
   <p class="pupd">更新日：{{ updated }}／データ：{{ latest_q }}（{{ latest_q_months }}）分まで</p>
-  <p class="ptags">{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
+  <p class="ptags">同じ条件のマンション：{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>
-    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
+    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li><li><a href="#m-ttl">お金の目安</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
     {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
     <li><a href="#g-ttl">周辺地図</a></li>
@@ -96,11 +97,40 @@
       <thead><tr><th>間取り</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num kt-wide">価格の幅</th><th class="num">件数</th></tr></thead>
       <tbody>{% for z in b.plans %}<tr><th>{{ z.label }}</th><td class="num" data-label="価格（中央値）">{{ z.st.p_med|oku }}</td><td class="num" data-label="坪単価（中央値）">{{ z.st.t_med|round|int }}万円</td><td class="num kt-wide" data-label="価格の幅">{{ z.st.p_lo|oku }}〜{{ z.st.p_hi|oku }}</td><td class="num" data-label="件数">{{ z.n }}件</td></tr>{% endfor %}</tbody>
     </table></div>{% endif %}
-    <p class="pnote">件数が{{ 3 }}件未満の区分は、数字がぶれるため表示していません。国土交通省のデータには所在階が含まれないため、階数別の集計はありません。階数・向きによる価格の違いは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_floor">無料査定</a>でお伝えします。{% if b.members %}{{ b.members|join('・') }}と合わせた値です。{% endif %}過去の取引価格をまとめた参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+    <p class="pnote">件数が{{ 3 }}件未満の区分は、数字がぶれるため表示していません。国土交通省のデータには所在階が含まれないため、階数別の集計はありません。階数・向きによる価格の違いは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_floor">無料査定</a>でお伝えします。{% if b.members %}{{ b.members|join('・') }}と合わせた値です。{% endif %}</p>
   </div>
 </section>{% endif %}
 
-{% if s %}<section class="sec" aria-labelledby="t-ttl">
+{% if s %}{% if b.buy_guide or b.sell_guide %}<section class="sec" aria-labelledby="m-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="m-ttl">買う場合・売る場合のお金の目安</h2>
+    <div class="guide">
+      {% if b.buy_guide %}<div>
+        <h3 class="sub-ttl">買う場合：毎月の返済額</h3>
+        <div class="tbl-wrap"><table class="kt kt-band">
+          <thead><tr><th>間取り</th><th class="num">価格（中央値）</th><th class="num">金利0.8%</th><th class="num">金利1.5%</th><th class="num kt-wide">仲介手数料の上限</th></tr></thead>
+          <tbody>{% for g in b.buy_guide %}<tr><th>{{ g.label }}</th><td class="num">{{ g.p|oku }}</td><td class="num">月{{ '%.1f' % g.m1 }}万円</td><td class="num">月{{ '%.1f' % g.m2 }}万円</td><td class="num kt-wide">{{ '{:,}'.format(g.fee|round|int) }}万円</td></tr>{% endfor %}</tbody>
+        </table></div>
+        <p class="pnote">{{ period }}の取引の中央値を、頭金なし・35年・元利均等で全額借りた場合の計算です。管理費・修繕積立金・固定資産税、登記費用やローンの手数料は含みません。金利は金融機関と借りる方の条件で変わります。</p>
+        <p class="guide-act"><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_buyguide" data-ev="cta_sodan">この予算で買えるか相談する</a><a href="{{ site.base }}loan/?b={{ b.id }}">頭金・金利を変えて計算する</a></p>
+      </div>{% endif %}
+      {% if b.sell_guide %}<div>
+        <h3 class="sub-ttl">売る場合：手元に残る額</h3>
+        <table class="pt2 pt2-l">
+          <tbody>
+            <tr><th scope="row">{% if b.sell_guide.closed %}成約価格の中央値{% else %}取引価格の中央値{% endif %}</th><td class="pt2-m"><b>{{ b.sell_guide.p|okuh }}</b></td></tr>
+            <tr><th scope="row">仲介手数料の上限<small>価格×3%＋6万円＋消費税</small></th><td>− {{ '{:,}'.format(b.sell_guide.fee|round|int) }}万円</td></tr>
+            <tr><th scope="row">差し引き</th><td class="pt2-m"><b>{{ b.sell_guide.net|okuh }}</b></td></tr>
+          </tbody>
+        </table>
+        <p class="pnote">中央値で売れた場合の計算です。住宅ローンの残り、抵当権の抹消費用、印紙税（電子契約なら不要）、譲渡所得税は含みません。実際の売出価格は階数・向き・室内の状態で変わります。</p>
+        <p class="guide-act"><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_sellguide" data-ev="cta_satei">自分の部屋の査定価格を知る</a><a href="{{ site.base }}tetori/?b={{ b.id }}">ローン残債を入れて手取りを計算する</a></p>
+      </div>{% endif %}
+    </div>
+  </div>
+</section>{% endif %}
+
+<section class="sec" aria-labelledby="t-ttl">
   <div class="wrap">
     <h2 class="hbar" id="t-ttl">相場推移グラフ</h2>
     <p class="muted" style="margin-bottom:10px">1つの点が1件の取引です（坪単価）。灰色の線は四半期ごとの中央値。点を押すと時期・広さ・価格が出ます。</p>

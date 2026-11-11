@@ -28,6 +28,10 @@
 {% endif %}</head>
 <body class="p-{{ page }}">
 <a class="skip" href="#main">本文へ移動</a>
+<div class="topbar"><div class="wrap topbar-in">
+  <span>武蔵小杉のマンションの売却・購入のご相談（無料）</span>
+  <span class="topbar-r"><a href="tel:{{ site.tel|replace('-', '') }}" data-ev="tel_click">電話 {{ site.tel }}</a><small>9:30〜18:00（火・水定休）</small><a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談</a><a href="{{ site.base }}soudan/?from=topbar" data-ev="cta_sodan">メールで相談</a></span>
+</div></div>
 <header class="site-head">
   <div class="wrap head-row">
     <a class="logo" href="{{ site.base }}"><span class="logo-mark" aria-hidden="true">杉</span><span class="logo-txt"><b>{{ site.name }}</b><small>武蔵小杉のマンション相場</small></span></a>
@@ -71,6 +75,12 @@
   </div>
 </section>{% endif %}{% endblock %}
 </main>
+{% if page not in ('satei', 'sodan', 'member', 'member_terms') %}{% set q = ('b=' ~ b.id ~ '&amp;') if (page == 'building' and b) else '' %}<nav class="cbar" aria-label="お問い合わせ">
+  <a class="cbar-main" href="{{ site.base }}satei/?{{ q }}from=bar" data-ev="cta_satei_bar"><b>売却の無料査定</b><small>相場と成約事例から</small></a>
+  <a href="{{ site.base }}soudan/?kind=購入&amp;{{ q }}from=bar" data-ev="cta_sodan_bar"><b>購入の相談</b><small>価格の妥当性など</small></a>
+  <a class="cbar-s" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click"><b>LINE</b></a>
+  <a class="cbar-s" href="tel:{{ site.tel|replace('-', '') }}" data-ev="tel_click"><b>電話</b></a>
+</nav>{% endif %}
 
 <footer class="site-foot">
   <div class="wrap foot-grid">

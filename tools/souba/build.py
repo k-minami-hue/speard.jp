@@ -394,6 +394,17 @@ def build(out_dir, origin, base):
                        "t_med": statistics.median([t["tsubo"] for t in g]) if len(g) >= MIN_N else None,
                        "p_med": statistics.median([t["price"] for t in g]) if len(g) >= MIN_N else None,
                        "partial": y == latest_q[:4] and not latest_q.endswith("Q4")} for y, g in sorted(yr.items(), reverse=True)]
+        # 買う場合・売る場合の目安（計算の前提はページに明記する）
+        def monthly(price_man, rate_pct, years=35):
+            r, n = rate_pct / 100 / 12, years * 12
+            return price_man * r / (1 - (1 + r) ** -n)
+        def fee_cap(price_man):   # 仲介手数料の上限（税込・万円）。400万円超の速算式
+            return (price_man * 0.03 + 6) * 1.1
+        allp = pstats(recent)
+        b["buy_guide"] = [{"label": lab, "n": st["n"], "p": st["p_med"], "m1": monthly(st["p_med"], 0.8), "m2": monthly(st["p_med"], 1.5), "fee": fee_cap(st["p_med"])}
+                          for lab, st in ([("全体", allp)] if allp else []) + [(z["label"], z["st"]) for z in b["plans"][:4]]]
+        sp = (b.get("closed") or {}).get("p_med") if b.get("closed") else (allp["p_med"] if allp else None)
+        b["sell_guide"] = {"p": sp, "fee": fee_cap(sp), "net": sp - fee_cap(sp), "closed": bool(b.get("closed"))} if sp else None
         b["all_cases"] = [{"q": q_label(t["時期"]), "kind": t["種別"].replace("価格", ""), "area": round(t["area"]), "plan": unicodedata.normalize("NFKC", t["間取り"] or ""),
                            "price": round(t["price"]), "tsubo": round(t["tsubo"])} for t in sorted(mine, key=lambda t: (-t["qi"], -t["tsubo"]))]
         b["q_table"] = [{"q": q_label(q), "n": len(g2), "med": round(statistics.median(g2))}

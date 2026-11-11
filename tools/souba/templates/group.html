@@ -3,7 +3,7 @@
 {% block title %}{{ g.title }}｜{{ g.n }}棟の相場・成約価格・坪単価｜{{ site.name }}{% endblock %}
 {% block description %}{{ g.title }}{{ g.n }}棟の相場を一覧で。{% if g.all %}{{ period }}の取引{{ g.all.n }}件の坪単価の中央値は{{ g.all.t_med|round|int }}万円、価格の中央値は{{ g.all.p_med|oku }}。{% endif %}棟ごとの成約価格・坪単価・取引件数を比べられます。{% endblock %}
 {% block main %}
-<div class="pbar"><div class="wrap pbar-in"><h1>{{ g.title }}の相場</h1><div class="pbar-chips"><span class="pchip">掲載 <b>{{ g.n }}</b>棟</span>{% if g.all %}<span class="pchip">直近2年の取引 <b>{{ g.all.n }}</b>件</span>{% endif %}</div></div></div>
+<div class="pbar"><div class="wrap pbar-in"><h1>{{ g.title }}の相場</h1><p class="pbar-sub">掲載{{ g.n }}棟{% if g.all %}・直近2年の取引{{ g.all.n }}件{% endif %}</p></div></div>
 <div class="wrap page">
   <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}search/">マンションを探す</a> › {{ g.name }}</p>
   <section>
@@ -22,10 +22,11 @@
     <ol class="blist">{% for b in g.members %}{{ row(site, b) }}{% endfor %}</ol>
     <p><a class="more" href="{{ site.base }}compare/?ids={% for b in g.members[:3] %}{{ b.id }}{% if not loop.last %},{% endif %}{% endfor %}">上位の棟を並べて比べる</a>　<a class="more" href="{{ site.base }}map/">マップから探す</a></p>
   </section>
-  <section class="gcta" aria-label="査定と相談">
-    <div><h2>{{ g.name }}のマンションの売却・購入を相談する</h2><p>売るなら、同じ建物の成約事例をもとに根拠つきの査定価格をお出しします。買うなら、気になる住戸の価格が相場に照らして妥当かをお答えします。</p></div>
-    <div class="actions"><a class="btn btn-gold" href="{{ site.base }}satei/?from=group_{{ g.slug }}" data-ev="cta_satei">無料査定を依頼する</a><a class="btn btn-ghost" href="{{ site.base }}soudan/?kind=購入&amp;from=group_{{ g.slug }}" data-ev="cta_sodan">購入の相談をする</a></div>
-  </section>
+  <section aria-label="査定と相談"><div class="ask">
+    <div class="ask-sell"><p class="ask-ttl">{{ g.name }}のマンションを売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?from=group_{{ g.slug }}" data-ev="cta_satei">無料査定を依頼する</a></div>
+    <div class="ask-buy"><p class="ask-ttl">{{ g.name }}のマンションを買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;from=group_{{ g.slug }}" data-ev="cta_sodan">購入の相談をする</a></div>
+    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+  </div></section>
   {% if faq %}<section aria-labelledby="gq-ttl"><h2 id="gq-ttl">よくある質問</h2>{{ faq_list(faq) }}</section>{% endif %}
   <section aria-labelledby="go-ttl">
     <h2 id="go-ttl">ほかの探し方</h2>

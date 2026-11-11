@@ -9,19 +9,13 @@
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
   <div class="wrap hero-in">
     <div>
-      <h1>武蔵小杉のマンション相場を、<br>棟ごとに。</h1>
-      <p class="hero-lead">買う前の比較にも、売る前の価格確認にも。<br>国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。</p>
+      <h1>武蔵小杉のマンション相場<br>成約価格・坪単価を棟ごとに掲載</h1>
+      <p class="hero-lead">国土交通省の取引データをもとに、武蔵小杉の{{ n_buildings }}棟の成約価格・取引価格・坪単価・取引件数を掲載しています。データは{{ latest_q }}（{{ latest_q_months }}）分まで。</p>
       <form class="ksearch ksearch-hero" role="search" action="{{ site.base }}search/" data-ksearch>
         <label class="sr" for="tq">マンション名・町名・駅・ブランドで探す</label>
         <input id="tq" name="q" type="search" autocomplete="off" placeholder="マンション名・町名・駅で探す（例：パークシティ）">
         <button type="submit" class="btn btn-gold">探す</button>
       </form>
-      <ul class="hero-chips">
-        {% for g in groups if g.kind == 'station' %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
-        {% for g in groups if g.kind == 'brand' %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
-        {% for g in groups if g.kind == 'feature' and g.slug in ('tower', 'menshin', 'chiku-10') %}<li><a href="{{ g.url }}">{{ g.name }}</a></li>{% endfor %}
-        <li><a href="{{ site.base }}map/">地図から探す</a></li>
-      </ul>
     </div>
     {{ tool(site, buildings) }}
   </div>
@@ -36,6 +30,12 @@
     <div class="fig"><dt>坪単価が最も高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small><span class="s">{{ ranked[0]['マンション名'] }}</span></dd></div>
   </dl>
 </div>
+
+<div class="wrap"><div class="ask">
+    <div class="ask-sell"><p class="ask-ttl">武蔵小杉のマンションを売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?from=top_ask" data-ev="cta_satei">無料査定を依頼する</a></div>
+    <div class="ask-buy"><p class="ask-ttl">武蔵小杉のマンションを買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;from=top_ask" data-ev="cta_sodan">購入の相談をする</a></div>
+    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+  </div></div>
 
 <section class="sec" id="list" aria-labelledby="list-ttl">
   <div class="wrap">
