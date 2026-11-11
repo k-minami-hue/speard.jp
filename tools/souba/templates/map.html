@@ -2,6 +2,10 @@
 {% block title %}マップから探す｜武蔵小杉のマンション{{ n_buildings }}棟の地図｜{{ site.name }}{% endblock %}
 {% block description %}武蔵小杉のマンション{{ n_buildings }}棟を地図で表示。ピンを押すと所在地・交通・築年月・坪単価・成約価格が出ます。駅・ブランド・坪単価・築年数・駅徒歩・構造で絞り込めます。{% endblock %}
 {% block head %}{% if not site.gmaps_key %}<link rel="preconnect" href="https://tile.openstreetmap.org">
+<link rel="preload" as="image" href="https://tile.openstreetmap.org/15/29095/12914.png" media="(max-width: 760px)">
+<link rel="preload" as="image" href="https://tile.openstreetmap.org/15/29095/12915.png" media="(max-width: 760px)">
+<link rel="preload" as="image" href="https://tile.openstreetmap.org/15/29096/12914.png" media="(max-width: 760px)">
+<link rel="preload" as="image" href="https://tile.openstreetmap.org/15/29096/12915.png" media="(max-width: 760px)">
 <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endif %}{% endblock %}
 {% block main %}
