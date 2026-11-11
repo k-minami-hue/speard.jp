@@ -1,6 +1,21 @@
 {
  "columns": [
   {
+   "id": "uri-keiyaku-futekigo",
+   "category": "sell",
+   "tags": [
+    "売却編"
+   ],
+   "tag": "売却編",
+   "title": "マンション売却後に設備の不具合を言われたら——売主の契約不適合責任の期間と、設備表・告知書の書き方",
+   "date": "2026.11.11",
+   "hero": "/columns/hero/uri-keiyaku-futekigo.jpg",
+   "thumb": "/columns/hero/uri-keiyaku-futekigo-thumb.jpg",
+   "file": "columns/sale/column_uri_keiyaku_futekigo.html",
+   "description": "マンション売却後に買主から設備の不具合を指摘されたとき、個人売主はどこまで責任を負うのか。民法の期間、免責特約の限界、設備表と物件状況確認書の書き方を、6,000万円の例で手取りへの影響とあわせて整理する。",
+   "seo_title": "マンション売却の契約不適合責任｜期間・免責特約・設備表の書き方"
+  },
+  {
    "id": "shin-jusho-touki",
    "category": "buy",
    "tags": [
