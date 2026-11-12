@@ -16,6 +16,7 @@ import json
 import math
 import shutil
 import statistics
+import urllib.parse
 import unicodedata
 import sys
 from pathlib import Path
@@ -532,6 +533,9 @@ def build(out_dir, origin, base):
     town["tsubo_txt"] = tsubo_txt(town["tsubo"])
     for b in buildings:
         b["dpoints"] = data_points(b, ranked, town, buildings)
+        # 売出中の住戸は自社で集めず、ポータルの検索結果へ案内する（掲載内容の転載はしない）
+        b["suumo_url"] = "https://suumo.jp/jj/bukken/ichiran/JJ012FC001/?" + urllib.parse.urlencode(
+            {"ar": "030", "bs": "011", "ta": "14", "fw": b["マンション名"]})
     tq = {}
     for t in tw:
         tq.setdefault(t["時期"], []).append(t["tsubo"])

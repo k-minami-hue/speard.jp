@@ -13,10 +13,11 @@
 <div class="wrap">
   <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}search/">マンションを探す</a> › {% if b.g_town %}<a href="{{ b.g_town.url }}">{{ b.town }}</a> › {% endif %}{{ b['マンション名'] }}</p>
   {% if s %}<dl class="kfig" aria-label="{{ b['マンション名'] }}の相場の要点">
-    <div><dt>坪単価<small>中央値</small></dt><dd><b>{{ '{:,}'.format(s.tsubo|round|int) }}<i>万円</i></b><span>㎡単価 {{ '%.1f' % (s.tsubo / 3.30579) }}万円</span></dd></div>
+    <div><dt>坪単価の幅<small>取引の半数が入る範囲</small></dt><dd><b>{{ '{:,}'.format(s.lo|round|int) }}〜{{ '{:,}'.format(s.hi|round|int) }}<i>万円</i></b><span>真ん中の値 {{ '{:,}'.format(s.tsubo|round|int) }}万円（㎡単価 {{ '%.1f' % (s.tsubo / 3.30579) }}万円）</span></dd></div>
     <div><dt>成約価格<small>中央値</small></dt><dd>{% if cl %}<b>{{ cl.p_med|okuh }}</b><span>{{ cl.p_lo|oku }}〜{{ cl.p_hi|oku }}</span>{% else %}<b>―</b><span>この期間の成約データなし</span>{% endif %}</dd></div>
     <div><dt>取引件数<small>直近2年</small></dt><dd><b>{{ s.n }}<i>件</i></b><span>{{ period }}</span></dd></div>
-  </dl>{% endif %}
+  </dl>
+  <p class="knote">坪単価は階数・向き・広さ・室内の状態で変わります。国土交通省のデータには階数と向きが含まれないため、1つの数字ではなく幅で示しています。ご自宅や検討中の住戸がこの幅のどこに当たるかは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_range" data-ev="cta_satei">無料査定</a>でお答えします。</p>{% endif %}
   <div class="ask">
     <div class="ask-sell"><p class="ask-ttl">{{ b['マンション名'] }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
     <div class="ask-buy"><p class="ask-ttl">{{ b['マンション名'] }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
@@ -39,6 +40,13 @@
   {% if b.photo %}<figure class="pphoto">{{ img(site, b.photo.key, b.photo.caption, eager=True) }}<figcaption>{{ b.photo.caption }}（写真：{{ b.photo.author }}{% if b.photo.license %}／<a href="{{ b.photo.license_url }}" target="_blank" rel="noopener">{{ b.photo.license }}</a>{% endif %}）</figcaption></figure>{% endif %}
 </div>
 
+{% if not b.pre %}<section class="sec" aria-labelledby="x-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="x-ttl">{{ b['マンション名'] }}のいま売りに出ている住戸</h2>
+    <p class="xlead">売出中の住戸と売出価格は、不動産ポータルサイトで確認できます。売出価格は売主の希望価格で、実際に成立した価格とは異なります。このページの成約価格・取引価格と見比べてご覧ください。</p>
+    <p class="xlinks"><a class="btn" href="{{ b.suumo_url }}" target="_blank" rel="noopener nofollow" data-ev="suumo_click">SUUMOで売出中の住戸を見る（外部サイト）</a><a class="btn btn-cta" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_onsale" data-ev="cta_sodan">売出価格が妥当か相談する（無料）</a></p>
+  </div>
+</section>{% endif %}
 {% if b.listings %}<section class="sec" aria-labelledby="l-ttl">
   <div class="wrap">
     <h2 class="hbar" id="l-ttl">{{ b['マンション名'] }}の売出中住戸</h2>

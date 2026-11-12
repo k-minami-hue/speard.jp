@@ -1285,3 +1285,14 @@ table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: botto
   .ribbon .fig { padding: 14px 14px 12px; }
   .hero.hero-c .ksearch-hero .btn { padding-inline: 16px; }
 }
+
+/* 2026-11-12 坪単価を幅で見せる・売出中住戸の案内 */
+.knote { margin: 10px 0 0; font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+.knote a { font-weight: 700; }
+.kfig { grid-template-columns: 1.5fr 1.3fr .8fr; }
+@media (max-width: 700px) { .kfig { grid-template-columns: 1fr 1fr; } .kfig > div:first-child { grid-column: 1 / -1; grid-row: 1; border-bottom: 1px solid var(--rule); } .kfig > div:nth-child(2) { grid-column: auto; grid-row: 2; border-bottom: 0; } .kfig > div:nth-child(2) b { font-size: 1.35rem; } }
+.br-t b { font-size: 1.3rem; white-space: nowrap; }
+.br-rng i { background: var(--num); }
+.xlead { margin: 0 0 14px; line-height: 1.8; }
+.xlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+@media (max-width: 656px) { .br-t b { font-size: 1.15rem; } .xlinks .btn { width: 100%; text-align: center; } }
