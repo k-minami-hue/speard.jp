@@ -32,6 +32,7 @@
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>
     {% if s %}<li><a href="#t-ttl">推移グラフ</a></li><li><a href="#z-ttl">広さ・間取り別</a></li>{% if b.ended %}<li><a href="#e-ttl">掲載終了の価格</a></li>{% endif %}<li><a href="#m-ttl">お金の目安</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
+    {% if not b.pre %}<li><a href="#f-ttl">売却の流れ</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
     {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
     <li><a href="#g-ttl">周辺地図</a></li>
@@ -186,6 +187,30 @@
   </div>
 </section>{% endif %}
 
+{% if b.own_cases %}<section class="sec" aria-labelledby="o-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="o-ttl">階数・向きがわかる成約事例</h2>
+    <p class="xlead">株式会社スピアードが取り扱った成約のうち、売主様・買主様の承諾を得たものです。住戸が特定されないよう、階数と面積は幅で示しています。</p>
+    <div class="tbl-wrap"><table class="kt"><thead><tr><th>成約時期</th><th>階数</th><th>向き</th><th>間取り・広さ</th><th>坪単価</th></tr></thead><tbody>
+      {% for c in b.own_cases %}<tr><td class="nw">{{ c.month }}</td><td class="nw">{{ c.floor }}</td><td class="nw">{{ c.dir }}</td><td class="nw">{{ c.plan }} {{ c.area }}</td><td class="nw"><b>{{ '{:,}'.format(c.tsubo|round|int) }}</b>万円</td></tr>{% endfor %}
+    </tbody></table></div>
+    <p class="pnote">過去の取引の記録で、将来の価格を示すものではありません。</p>
+  </div>
+</section>{% endif %}
+{% if not b.pre %}<section class="sec" aria-labelledby="f-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="f-ttl">{{ b['マンション名'] }}を売るときの流れ</h2>
+    <ol class="flow">
+      <li><b>査定</b><span>同じ建物の成約事例に、階数・向き・室内の状態を反映して査定価格を出します。訪問なしの机上査定から始められます。</span></li>
+      <li><b>媒介契約</b><span>売出価格と販売の進め方を決めて、売却を依頼する契約を結びます。</span></li>
+      <li><b>販売</b><span>ポータルサイトとレインズに掲載し、内覧に対応します。反響の状況は定期的に報告します。</span></li>
+      <li><b>売買契約</b><span>購入の申込みを受けて条件を調整し、契約を結びます。手付金を受け取ります。</span></li>
+      <li><b>引渡し</b><span>残代金を受け取り、住宅ローンの完済と抵当権の抹消、鍵の引渡しを同じ日に行います。</span></li>
+    </ol>
+    <p class="pnote">売出から引渡しまでの期間は、売出価格の設定と住戸の条件で変わります。住み替えで購入が先に決まっている場合や、引渡しの時期に希望がある場合は、査定の際にお伝えください。</p>
+    <p class="xlinks"><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_flow" data-ev="cta_satei">無料査定を依頼する</a><a class="btn" href="{{ site.base }}tetori/">売ったときの手取りを計算する</a></p>
+  </div>
+</section>{% endif %}
 {% if b.comments['アピール'] or b.comments['ウィーク'] %}<section class="sec" aria-labelledby="c-ttl">
   <div class="wrap">
     <h2 class="hbar" id="c-ttl">担当者の見方</h2>
@@ -246,6 +271,11 @@
       <tr><th>分譲主</th><td>{{ b['分譲会社'] }}</td></tr>
       {% if b['施工会社'] %}<tr><th>施工</th><td>{{ b['施工会社'] }}</td></tr>{% endif %}
       {% if b['管理会社'] %}<tr><th>管理会社</th><td>{{ b['管理会社'] }}</td></tr>{% endif %}
+      {% if b.cost %}<tr><th>管理費・修繕積立金</th><td>{% if b.cost.kanri %}管理費 {{ '{:,}'.format(b.cost.kanri|round|int) }}円／㎡{% endif %}{% if b.cost.kanri and b.cost.shuzen %}・{% endif %}{% if b.cost.shuzen %}修繕積立金 {{ '{:,}'.format(b.cost.shuzen|round|int) }}円／㎡{% endif %}（月額{% if b.cost.asof %}・{{ b.cost.asof }}時点{% endif %}）<br><small>住戸や時期によって異なります。改定されている場合があります。</small></td></tr>{% endif %}
+      {% if b['共用施設'] %}<tr><th>共用施設</th><td>{{ b['共用施設'] }}</td></tr>{% endif %}
+      {% if b['駐車場'] %}<tr><th>駐車場</th><td>{{ b['駐車場'] }}</td></tr>{% endif %}
+      {% if b['ペット'] %}<tr><th>ペット</th><td>{{ b['ペット'] }}</td></tr>{% endif %}
+      {% if b['小学校区'] or b['中学校区'] %}<tr><th>通学区域</th><td>{{ b['小学校区'] }}{% if b['小学校区'] and b['中学校区'] %}・{% endif %}{{ b['中学校区'] }}<br><small>通学区域は変更されることがあります。川崎市の案内でご確認ください。</small></td></tr>{% endif %}
       {% if b['敷地の権利'] %}<tr><th>敷地の権利</th><td>{{ b['敷地の権利'] }}</td></tr>{% endif %}
       {% if b['用途地域'] %}<tr><th>用途地域</th><td>{{ b['用途地域'] }}</td></tr>{% endif %}
     </tbody></table>

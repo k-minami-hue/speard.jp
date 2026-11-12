@@ -502,6 +502,27 @@ def build(out_dir, origin, base):
             "url": f'{SITE["origin"]}/properties/{pr["id"]}/',
             "diff": (t - base) if base else None, "diff_pct": (t / base - 1) * 100 if base else None,
         })
+    # 自社で取り扱った成約のうち、売主・買主の承諾を得たもの（data/cases_own.csv）。住戸が特定できないよう階数帯・面積帯で持つ
+    own = read_csv("cases_own.csv") if (ROOT / "data" / "cases_own.csv").exists() else []
+    for b in buildings:
+        oc = []
+        for r in own:
+            if r.get("棟id") != b["id"] or not r.get("坪単価"):
+                continue
+            ym = (r.get("成約年月") or "").split("-")
+            oc.append({"sort": r.get("成約年月", ""), "month": f"{ym[0]}年{int(ym[1])}月" if len(ym) == 2 else r.get("成約年月", ""),
+                       "floor": r.get("階数帯", ""), "dir": r.get("向き", ""), "plan": r.get("間取り", ""), "area": r.get("専有面積帯", ""),
+                       "tsubo": float(r["坪単価"])})
+        b["own_cases"] = sorted(oc, key=lambda x: x["sort"], reverse=True)
+        # 費用・共用施設など（一次資料で確認できた棟だけ記入する。空なら表示しない）
+        b["cost"] = None
+        try:
+            k, sh = float(b.get("管理費㎡単価") or 0), float(b.get("修繕積立金㎡単価") or 0)
+            if k or sh:
+                b["cost"] = {"kanri": k, "shuzen": sh, "m70": round((k + sh) * 70 / 100) * 100 if k and sh else None, "asof": b.get("費用の基準", "")}
+        except ValueError:
+            pass
+
     # 掲載が終了した売出価格（data/ended.csv）。自社で扱った物件・掲載の承諾を得た物件だけ。成約価格ではない
     ended = []
     for r in read_csv("ended.csv") if (ROOT / "data" / "ended.csv").exists() else []:

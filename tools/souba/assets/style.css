@@ -1296,3 +1296,39 @@ table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: botto
 .xlead { margin: 0 0 14px; line-height: 1.8; }
 .xlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
 @media (max-width: 656px) { .br-t b { font-size: 1.15rem; } .xlinks .btn { width: 100%; text-align: center; } }
+
+/* 2026-11-12 売却の流れ・会員登録の作り直し */
+.flow { list-style: none; margin: 0 0 12px; padding: 0; counter-reset: fl; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.flow li { counter-increment: fl; background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--ink); padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.flow b { color: var(--ink); font-size: 16px; }
+.flow b::before { content: counter(fl); display: inline-block; width: 1.6em; height: 1.6em; line-height: 1.6em; margin-right: 8px; text-align: center; background: var(--ink); color: #fff; border-radius: 50%; font-size: 13px; }
+.flow span { font-size: 13.5px; line-height: 1.7; color: #333; }
+@media (max-width: 900px) { .flow { grid-template-columns: 1fr; gap: 0; } .flow li { border-top: 1px solid var(--rule); margin-top: -1px; padding: 12px 14px; } .flow li:first-child { border-top: 3px solid var(--ink); margin-top: 0; } }
+.spec td small { color: var(--muted); font-size: 12.5px; }
+.member { max-width: 760px; }
+.m-hero2 h1 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem); margin-bottom: 6px; }
+.m-lead { font-size: 16px; line-height: 1.8; }
+.m-steps { list-style: none; margin: 14px 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--ink); font-weight: 700; }
+.m-steps li { display: flex; align-items: center; gap: 8px; }
+.m-steps b { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; }
+.m-already { font-size: 14px; margin: 4px 0 0; }
+.m-form { margin-top: 20px; }
+.m-quick { border: 1px solid var(--rule); border-top: 4px solid var(--cta, #c5161d); background: #fff; padding: 20px 20px 16px; box-shadow: 0 4px 16px rgba(9,24,52,.07); border-radius: 0 0 6px 6px; display: flex; flex-direction: column; gap: 10px; margin: 0; }
+.m-quick input[type=email] { font-size: 18px; min-height: 54px; }
+.m-quick .btn { min-height: 56px; font-size: 17px; }
+.m-quick .note { margin: 0; }
+.m-form .form-msg { margin: 12px 0 0; }
+.m-form .form-msg.ok, .m-form .form-msg.err { padding: 14px 16px; border: 1px solid currentColor; border-radius: 6px; background: #fff; font-size: 15px; line-height: 1.8; }
+.m-opt { border: 1px solid var(--rule); background: #fff; margin-top: 12px; border-radius: 6px; }
+.m-opt > summary { cursor: pointer; padding: 14px 44px 14px 16px; font-weight: 700; color: var(--ink); list-style: none; position: relative; }
+.m-opt > summary::-webkit-details-marker { display: none; }
+.m-opt > summary::after { content: "＋"; position: absolute; right: 16px; top: 14px; font-weight: 400; }
+.m-opt[open] > summary::after { content: "－"; }
+.m-opt > summary small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; line-height: 1.6; margin-top: 2px; }
+.m-opt > *:not(summary) { margin-left: 16px; margin-right: 16px; }
+.m-opt > *:last-child { margin-bottom: 16px; }
+.m-btn2 { display: none; margin-top: 14px; }
+.m-form:has(.m-opt[open]) .m-btn2, .m-form:has(#regContact[hidden]) .m-btn2 { display: flex; }
+.m-what { margin-top: 36px; }
+.m-what h2 { font-size: 1.2rem; margin-bottom: 10px; }
+.pnote + .xlinks { margin-top: 14px; }

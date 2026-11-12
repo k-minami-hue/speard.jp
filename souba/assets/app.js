@@ -756,6 +756,7 @@
     if (!form) return;
     const qs = new URLSearchParams(location.search), pre = qs.get("b");
     if (pre) { const c = form.querySelector(`[name="bld"][value="${CSS.escape(pre)}"]`); if (c) c.checked = true; }
+    if (pre || qs.get("p")) { const o = $("#optCond"); if (o) o.open = true; }
     if (num(qs.get("p")) >= 1000) $("#mPmax").value = String(Math.round(num(qs.get("p"))));
     const all = $("#bldAll");
     all.addEventListener("change", () => { if (all.checked) $$('[name="bld"]', form).forEach((c) => { c.checked = false; }); });
@@ -776,6 +777,7 @@
       if (!m) return;
       mp.hidden = false; $("#regTtl").textContent = "通知の条件を追加する"; $("#regContact").hidden = true; $("#mEmail").required = false;
       $("#regBtn").textContent = "この条件を追加する"; $("#login").hidden = true;
+      const oc = $("#optCond"); if (oc) oc.open = true; $$(".m-hero2 .m-steps, .m-hero2 .m-already").forEach((x) => { x.hidden = true; });
       $("#mpWho").textContent = m.email ? `${m.email} でログイン中` : "";
       try {
         const j = await mApi("me", { token: m.t });
@@ -809,22 +811,25 @@
       if (!d.alert.kinds.length && !d.watch) { msg.classList.add("err"); msg.textContent = "通知の種類か、自宅価格ウォッチのどちらかを選んでください。"; return; }
       if (d.watch && !d.watch.area) { msg.classList.add("err"); msg.textContent = "自宅価格ウォッチには専有面積を入れてください。"; return; }
       if (!m && (!$("#mEmail").checkValidity() || !$("#mAgree").checked)) { msg.classList.add("err"); msg.textContent = "メールアドレスを入れ、会員規約と個人情報の取扱いに同意してください。"; return; }
-      const btn = $("#regBtn"); btn.disabled = true;
+      const btns = $$(".reg-btn", form); btns.forEach((x) => { x.disabled = true; });
+      const mailIt = () => fallbackSend("【相場帳】会員登録", { email: d.email, 通知の条件: payload.alerts.map(alertTxt).join(" ｜ ") || "なし",
+        自宅価格ウォッチ: d.watch ? `${bName(d.watch.building)} ${d.watch.floor || ""}階 ${d.watch.area}㎡ ${d.watch.dir}` : "なし" });
       const payload = { alerts: d.alert.kinds.length ? [d.alert] : [], watch: d.watch, source: qs.get("from") || document.referrer || "" };
       try {
         if (m) { await mApi("add", { token: m.t, ...payload }); msg.classList.add("ok"); msg.textContent = "追加しました。"; form.reset(); await showMypage(); }
         else if (SITE.member_api) {
-          await mApi("register", { email: d.email, ...payload });
-          msg.classList.add("ok"); msg.textContent = "確認のメールを送りました。メールのリンクを開くと登録が完了します（届かない場合は迷惑メールフォルダもご確認ください）。";
+          let viaMail = false;
+          try { await mApi("register", { email: d.email, ...payload }); }
+          catch { await mailIt(); viaMail = true; }   // 受付の仕組みが応答しないときはメールで受け付け、登録を取りこぼさない
+          msg.classList.add("ok"); msg.textContent = viaMail ? "登録を受け付けました。開始のご案内をメールでお送りします。" : `${d.email} に確認のメールを送りました。メールのリンクを開くと登録が完了します。数分たっても届かない場合は、迷惑メールフォルダをご確認ください。`;
           track("generate_lead", { form: "member" }); form.reset();
         } else {
-          await fallbackSend("【相場帳】会員登録", { email: d.email, 通知の条件: payload.alerts.map(alertTxt).join(" ｜ ") || "なし",
-            自宅価格ウォッチ: d.watch ? `${bName(d.watch.building)} ${d.watch.floor || ""}階 ${d.watch.area}㎡ ${d.watch.dir}` : "なし" });
+          await mailIt();
           msg.classList.add("ok"); msg.textContent = "登録を受け付けました。開始のご案内をメールでお送りします。";
           track("generate_lead", { form: "member" }); form.reset();
         }
-      } catch { msg.classList.add("err"); msg.textContent = "登録できませんでした。時間をおいてもう一度お試しください。"; }
-      finally { btn.disabled = false; }
+      } catch { msg.classList.add("err"); msg.textContent = `登録できませんでした。時間をおいてもう一度お試しいただくか、お電話（${SITE.tel || ""}）・LINEでご連絡ください。`; }
+      finally { btns.forEach((x) => { x.disabled = false; }); msg.scrollIntoView({ block: "center", behavior: "smooth" }); }
     });
 
     const lf = $("#loginForm");
@@ -851,7 +856,10 @@
       try {
         const m = mGet();
         if (m) { await mApi("add", { token: m.t, alerts, source: location.pathname }); msg.classList.add("ok"); msg.textContent = "通知の条件に追加しました。"; }
-        else if (SITE.member_api) { await mApi("register", { email: d.email, alerts, source: location.pathname }); msg.classList.add("ok"); msg.textContent = "確認のメールを送りました。メールのリンクを開くと登録が完了します。"; }
+        else if (SITE.member_api) {
+          try { await mApi("register", { email: d.email, alerts, source: location.pathname }); msg.classList.add("ok"); msg.textContent = `${d.email} に確認のメールを送りました。メールのリンクを開くと登録が完了します。`; }
+          catch { await fallbackSend(`【相場帳】会員登録：${d.building_name}`, { email: d.email, 通知の条件: `売出・値下げ／${d.building_name}` }); msg.classList.add("ok"); msg.textContent = "登録を受け付けました。開始のご案内をメールでお送りします。"; }
+        }
         else { await fallbackSend(`【相場帳】会員登録：${d.building_name}`, { email: d.email, 通知の条件: `売出・値下げ／${d.building_name}` }); msg.classList.add("ok"); msg.textContent = "登録を受け付けました。開始のご案内をメールでお送りします。"; }
         form.reset(); track("generate_lead", { form: "notify", building: d.building_name });
       } catch { msg.classList.add("err"); msg.textContent = "登録できませんでした。時間をおいてもう一度お試しください。"; }
