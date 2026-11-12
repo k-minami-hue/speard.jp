@@ -480,8 +480,41 @@ def build(out_dir, origin, base):
             "url": r.get("詳細URL", "").strip(),
             "diff": (t - base) if base else None, "diff_pct": (t / base - 1) * 100 if base else None,
         })
+    # speard.jp の販売物件（properties/manifest.json）のうち、掲載マンションに当たる販売中の住戸を自動で載せる
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import sync_listings
+    today = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date()
+    have = {x["id"] for x in listings}
+    for x in sync_listings.current(buildings):
+        pr, b = x["p"], by_id[x["building_id"]]
+        if pr["id"] in have or not pr.get("transaction_type"):
+            continue
+        price, area = pr["price"] / 10000, float(pr["area_m2"])
+        t = price / (area * TSUBO)
+        base = b["stats"]["tsubo"] if b["stats"] else None
+        listings.append({
+            "id": pr["id"], "b": b, "status": "販売中", "price_txt": man(price), "tsubo_txt": tsubo_txt(t),
+            "area_txt": f"{area:.2f}㎡", "balcony": str(pr.get("balcony_m2") or ""), "plan": pr.get("layout", ""),
+            "floor": str(pr.get("floor", "")), "dir": pr.get("direction") or "―",
+            "kanri": yen(pr.get("management_fee", "")), "shuzen": yen(pr.get("repair_reserve", "")),
+            "taiyo": pr["transaction_type"], "updated": today.isoformat(), "next": (today + dt.timedelta(days=14)).isoformat(),
+            "url": f'{SITE["origin"]}/properties/{pr["id"]}/',
+            "diff": (t - base) if base else None, "diff_pct": (t / base - 1) * 100 if base else None,
+        })
+    # 掲載が終了した売出価格（data/ended.csv）。自社で扱った物件・掲載の承諾を得た物件だけ。成約価格ではない
+    ended = []
+    for r in read_csv("ended.csv") if (ROOT / "data" / "ended.csv").exists() else []:
+        b = by_id.get(r["building_id"].strip())
+        if not b or not r.get("価格", "").strip() or not r.get("専有面積", "").strip():
+            continue
+        price, area = float(r["価格"]), float(r["専有面積"])
+        y, m = r["掲載終了月"].split("-")[:2]
+        ended.append({"b": b, "month": f"{y}年{int(m)}月", "sort": r["掲載終了月"], "plan": r.get("間取り", ""), "area": f"{area:g}㎡",
+                      "floor": (r.get("所在階", "").strip() + "階") if r.get("所在階", "").strip() else "―", "dir": r.get("向き", "").strip() or "―",
+                      "price": price, "tsubo": price / (area * TSUBO), "kind": r.get("区分", "").strip()})
     for b in buildings:
         b["listings"] = [x for x in listings if x["b"]["id"] == b["id"]]
+        b["ended"] = sorted([x for x in ended if x["b"]["id"] == b["id"]], key=lambda x: x["sort"], reverse=True)
 
     ranked = sorted([b for b in buildings if b["stats"]], key=lambda b: -b["stats"]["tsubo"])
     nodata = [b for b in buildings if not b["stats"]]

@@ -21,6 +21,8 @@ on:
       - '**.jpg'
       - '**.jpeg'
       - '**.png'
+  schedule:
+    - cron: '23 0 * * 1'   # 毎週月曜 9:23（日本時間）。相場帳の売出中住戸の情報更新日を新しくし、掲載終了を記録する
   workflow_dispatch:
 
 permissions:
@@ -48,6 +50,8 @@ jobs:
             python3 tools/make_col_ogp.py
           fi
       - run: python3 tools/build_pages.py
+      - name: 相場帳：販売物件の控えと掲載終了の記録
+        run: python3 tools/souba/scripts/sync_listings.py
       - name: 武蔵小杉マンション相場帳（/souba/）
         run: python3 tools/souba/build.py --out souba --origin https://speard.jp --base /souba/
       - name: commit if changed

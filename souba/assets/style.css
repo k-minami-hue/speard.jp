@@ -1179,3 +1179,4 @@ table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: botto
 .tl-n { grid-column: 1 / -1; white-space: normal; overflow: visible; font-size: 13.5px; line-height: 1.5; }
 .pin .tag { padding-inline: 8px; }
 .ask > div, .tool > div, .notify > div { min-width: 0; } .ask-ttl, .tool h2, .notify h2, .latest p { overflow-wrap: anywhere; }
+@media (max-width: 640px) { table.kt.kt-band.kt-e th, table.kt.kt-band.kt-e td { padding: 10px 4px; font-size: 13.5px; } table.kt.kt-band.kt-e thead th { white-space: normal; font-size: 11.5px; line-height: 1.35; } }

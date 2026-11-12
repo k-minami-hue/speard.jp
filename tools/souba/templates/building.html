@@ -30,7 +30,7 @@
   <p class="ptags">同じ条件のマンション：{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>
-    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li><li><a href="#m-ttl">お金の目安</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
+    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li>{% if b.ended %}<li><a href="#e-ttl">掲載終了の価格</a></li>{% endif %}<li><a href="#m-ttl">お金の目安</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
     {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
     <li><a href="#g-ttl">周辺地図</a></li>
@@ -45,6 +45,18 @@
     <ul class="lsts">{% for x in b.listings %}{{ listing_card(site, x, show_name=False) }}{% endfor %}</ul>
   </div>
 </section>{% endif %}
+
+{% if b.ended %}<section class="sec" aria-labelledby="e-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="e-ttl">掲載が終了した売出価格</h2>
+    <div class="tbl-wrap"><table class="kt kt-band kt-e">
+      <thead><tr><th>掲載終了</th><th class="num">間取り</th><th class="num">専有面積</th><th class="num kt-wide">所在階・向き</th><th class="num">最終の<wbr>売出価格</th><th class="num">坪単価</th></tr></thead>
+      <tbody>{% for x in b.ended %}<tr><th>{{ x.month }}</th><td class="num">{{ x.plan }}</td><td class="num">{{ x.area }}</td><td class="num kt-wide">{{ x.floor }}・{{ x.dir }}</td><td class="num">{{ x.price|oku }}</td><td class="num">{{ x.tsubo|round|int }}万円</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <p class="pnote">株式会社スピアードが取り扱った物件、または掲載の承諾を得た物件の、掲載を終えた時点の売出価格です。成約価格ではありません。実際の成約価格は、売出価格と異なる場合があります。</p>
+  </div>
+</section>{% endif %}
+
 
 <section class="sec" aria-labelledby="p-ttl">
   <div class="wrap">
