@@ -45,15 +45,16 @@
           <button type="button" class="bl-go" data-go="{{ b.id }}" aria-label="{{ b['マンション名'] }}を地図で表示"></button>
           <span class="bl-name">{{ b['マンション名'] }}</span>
           <span class="bl-meta">{{ b.built_txt }}・{{ b['総戸数'] }}戸・{{ b['最寄駅'] }}駅 徒歩{{ b['徒歩分'] }}分</span>
-          <span class="bl-val">{% if b.stats %}坪単価 <b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}</b>万円{% else %}{{ b.nodata_short }}{% endif %}</span>
+          <span class="bl-val">{% if b.closed %}成約 <b>{{ b.closed.p_med|oku }}</b>{% elif b.stats %}取引 <b>{{ b.stats.p_med|oku }}</b>{% else %}{{ b.nodata_short }}{% endif %}</span>
         </li>{% endfor %}
       </ul>
     </aside>
-    <div class="gmap gmap-tall" id="map" data-map="atlas" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
+    <div class="map-col"><div class="mtog" role="group" aria-label="地図の表示"><button type="button" data-mview="2d" aria-pressed="true">平面の地図</button><button type="button" data-mview="3d" aria-pressed="false">立体の地図</button></div>
+    <div class="gmap gmap-tall" id="map3d" hidden role="region" aria-label="武蔵小杉の立体地図"></div>
+    <div class="gmap gmap-tall" id="map" data-map="atlas" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div></div>
   </div>
-  <p class="legend-m" aria-hidden="true">値札の色＝坪単価<i style="background:var(--b1)"></i>450万未満<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜</p>
-  <p class="note" style="margin:12px 0 0">地図の値札は坪単価の中央値です。値札を押すと、マンション名・概要・成約価格が出ます。</p>
-  <p class="note" style="margin:4px 0 40px">坪単価は{{ period }}の取引の中央値です。過去の取引価格をまとめたもので、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  <p class="note" style="margin:12px 0 0">地図の札は成約価格の中央値（成約がない棟は取引価格の中央値）です。札を押すと、マンション名・概要・価格が出ます。立体の地図は建物の高さと位置関係がわかります。絞り込みは平面の地図に反映されます。</p>
+  <p class="note" style="margin:4px 0 40px">価格は{{ period }}の取引から集計しています。過去の取引価格をまとめたもので、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
 </div>
 {% endblock %}
 {% block data %}<script>window.ATLAS = {{ atlas_json | safe }};</script>{% endblock %}

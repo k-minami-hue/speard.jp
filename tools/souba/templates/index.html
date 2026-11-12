@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "macros.html" import card, row, tool, rep, faq_list, img, listing_card, notify, access_rank %}
 {% block title %}武蔵小杉のマンション相場｜{{ n_buildings }}棟の坪単価・価格・推移｜{{ site.name }}{% endblock %}
-{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。タワーマンションの直近2年の坪単価の中央値は{{ town.tsubo_txt }}。地図、ランキング、部屋の価格の目安。{% endblock %}
+{% block description %}武蔵小杉のマンションの相場を棟ごとに掲載。国土交通省の取引データから、{{ n_buildings }}棟の成約価格・取引価格・坪単価を棟ごとにまとめています。地図、ランキング、部屋の価格の目安。{% endblock %}
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
 {% endblock %}
 {% block main %}
@@ -23,10 +23,9 @@
 
 <div class="wrap ribbon">
   <dl>
-    <div class="fig"><dt>タワーマンションの坪単価</dt><dd>{{ '{:,}'.format(town.lo|round|int) }}〜{{ '{:,}'.format(town.hi|round|int) }}<small>万円</small><span class="s">直近2年・{{ town.n }}件の半数が入る範囲</span></dd></div>
     {% if town_closed %}<div class="fig"><dt>タワーマンションの成約価格</dt><dd>{{ town_closed.p_med|okuh }}<span class="s">直近2年・{{ town_closed.n }}件の中央値</span></dd></div>{% endif %}
     <div class="fig"><dt>掲載マンション</dt><dd>{{ n_buildings }}<small>棟</small><span class="s">{{ latest_q }}分までのデータ</span></dd></div>
-    <div class="fig"><dt>坪単価が最も高い棟</dt><dd>{{ '{:,}'.format(ranked[0].stats.tsubo|round|int) }}<small>万円</small><span class="s">{{ ranked[0]['マンション名'] }}</span></dd></div>
+    <div class="fig"><dt>直近2年の取引</dt><dd>{{ town.n }}<small>件</small><span class="s">タワーマンション（地上20階以上）</span></dd></div>
   </dl>
 </div>
 
@@ -85,25 +84,15 @@
   </div>
 </section>
 
-<section class="sec" aria-labelledby="ax-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="ax-ttl">町名・駅・ブランド・条件から探す</h2></div><a class="more" href="{{ site.base }}search/">マンションを探す</a></div>
-    {% for k, label, gs in group_kinds %}{% if gs %}<div class="axis"><p class="axis-ttl">{{ label }}</p><ul class="axis-list">{% for o in gs %}<li><a href="{{ o.url }}">{{ o.name }}<small>{{ o.n }}棟</small></a></li>{% endfor %}</ul></div>{% endif %}{% endfor %}
-  </div>
-</section>
 
-{% if listings %}<section class="sec" id="listings" aria-labelledby="lst-ttl">
-  <div class="wrap">
-    <div class="sec-head"><div><h2 id="lst-ttl">売出中の住戸</h2><p>株式会社スピアードが取り扱う住戸です。坪単価と、その棟の相場との差を並べています。</p></div></div>
-    <ul class="lsts">{% for x in listings %}{{ listing_card(site, x) }}{% endfor %}</ul>
-  </div>
-</section>
 
-{% endif %}<section class="sec-wash" aria-labelledby="map-ttl">
+<section class="sec-wash" aria-labelledby="map-ttl">
   <div class="wrap">
-    <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>値札を押すと、マンションの概要と成約価格が出ます。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
+    <div class="sec-head"><div><h2 id="map-ttl">マップから探す</h2><p>札を押すと、マンションの概要と成約価格が出ます。立体地図は建物の高さがわかります。</p></div><a class="more" href="{{ site.base }}map/">大きな地図で見る</a></div>
+    <div class="mtog" role="group" aria-label="地図の表示"><button type="button" data-mview="2d" aria-pressed="true">平面の地図</button><button type="button" data-mview="3d" aria-pressed="false">立体の地図</button></div>
+    <div class="gmap" id="map3d" hidden role="region" aria-label="武蔵小杉の立体地図"></div>
     <div class="gmap" id="map" data-map="all" role="region" aria-label="武蔵小杉のマンションの地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
-    <p class="legend-m" aria-hidden="true">値札の色＝坪単価<i style="background:var(--b1)"></i>450万未満<i style="background:var(--b2)"></i>450万〜<i style="background:var(--b3)"></i>500万〜<i style="background:var(--b4)"></i>550万〜</p>
+    <p class="note" style="margin-top:8px">札の金額は成約価格の中央値（直近2年）です。過去の取引の記録で、将来の価格を示すものではありません。</p>
   </div>
 </section>
 
@@ -114,7 +103,6 @@
   <div class="wrap">
     <div class="sec-head"><div><h2 id="rank-ttl">ランキング</h2><p>直近の取引データから</p></div><a class="more" href="{{ site.base }}ranking/">すべて見る</a></div>
     <div class="ranks">
-      <div class="rank"><h3>坪単価<span>直近2年の中央値</span></h3><ol>{% for b in ranked[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ '{:,}'.format(b.stats.tsubo|round|int) }}万円</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>駅に近い<span>徒歩分数、同じなら坪単価順</span></h3><ol>{% for b in rank_walk[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">徒歩{{ b['徒歩分'] }}分</span></a></li>{% endfor %}</ol></div>
       <div class="rank"><h3>築年が新しい<span>竣工年月の新しい順</span></h3><ol>{% for b in rank_new[:5] %}<li><a href="{{ b.url }}"><span class="rn">{{ b['マンション名'] }}</span><span class="rv">{{ b.year }}年</span></a></li>{% endfor %}</ol></div>
     </div>

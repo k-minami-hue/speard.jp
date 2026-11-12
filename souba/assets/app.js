@@ -237,9 +237,10 @@
     return `<svg xmlns="http://www.w3.org/2000/svg" width="34" height="44" viewBox="0 0 34 44"><path d="M17 1.5C8.4 1.5 1.5 8.3 1.5 16.7 1.5 28.2 17 42.5 17 42.5s15.5-14.3 15.5-25.8C32.5 8.3 25.6 1.5 17 1.5z" fill="${c}" stroke="#fff" stroke-width="1.5"/><rect x="10.5" y="8" width="13" height="18" rx="1" fill="#fff"/><g fill="${c}"><rect x="12.8" y="10.5" width="3.2" height="2.8"/><rect x="18" y="10.5" width="3.2" height="2.8"/><rect x="12.8" y="15" width="3.2" height="2.8"/><rect x="18" y="15" width="3.2" height="2.8"/><rect x="15.4" y="19.8" width="3.2" height="6.2"/></g></svg>`;
   };
   const pinUrl = (hot) => "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(PIN(hot));
+  const pinTxt = (b) => { const v = b.cm || b.pm; return v ? (v >= 10000 ? `${(Math.round(v / 1000) / 10).toFixed(1)}億` : `${Math.round(v / 100) * 100}万`) : (b.pre ? "竣工前" : "―"); };
   const mapCard = (b) => `<div class="mcard"><p class="mc-name">${esc(b.name)}</p>` +
     `<p class="mc-row">${esc(b.addr)}</p><p class="mc-row">${esc(b.line)}「${esc(b.stn)}」駅 徒歩${b.walk}分</p><p class="mc-row">${esc(b.built)}・総戸数${b.units.toLocaleString("ja-JP")}戸・地上${b.floors}階</p>` +
-    (b.t ? `<dl class="mc-price"><div><dt>坪単価（中央値）</dt><dd>${b.t.toLocaleString("ja-JP")}<small>万円</small></dd></div>${b.cm ? `<div><dt>成約価格（中央値）</dt><dd>${man(b.cm)}</dd></div>` : ""}</dl><p class="mc-note">直近2年の取引${b.n}件から集計</p>`
+    (b.t ? `<dl class="mc-price">${b.cm ? `<div><dt>成約価格（中央値）</dt><dd>${man(b.cm)}</dd></div>` : (b.pm ? `<div><dt>取引価格（中央値）</dt><dd>${man(b.pm)}</dd></div>` : "")}<div><dt>坪単価（参考）</dt><dd class="mc-sub">${b.lo && b.hi ? `${b.lo.toLocaleString("ja-JP")}〜${b.hi.toLocaleString("ja-JP")}` : b.t.toLocaleString("ja-JP")}<small>万円</small></dd></div></dl><p class="mc-note">直近2年の取引${b.n}件から集計</p>`
       : `<p class="mc-note">${b.pre ? "竣工前のため、" : ""}取引データはまだありません</p>`) +
     `<a class="mc-go" href="${b.url}" data-ev="map_detail">詳細を見る</a></div>`;
   const loadGoogle = () => new Promise((res, rej) => {
@@ -275,6 +276,7 @@
     const L = window.L;
     const atlas = el.dataset.map === "atlas";
     const map = L.map(el, { scrollWheelZoom: atlas, zoomSnap: 0.5, tap: false }).setView([35.5755, 139.6595], 15);
+    map.on("click", () => map.scrollWheelZoom.enable());
     // 道路・駅・公園が色分けされた地図（Googleマップに近い見た目）。Google Maps のキーを設定すると Google マップに切り替わる
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, minZoom: 12,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors' }).addTo(map);
@@ -282,7 +284,7 @@
     if (false) (A.stations || []).forEach((st) => L.marker([st.lat, st.lng], { interactive: false, keyboard: false, zIndexOffset: -1000,
       icon: L.divIcon({ className: "pin-wrap", html: `<span class="stn">${esc(st.name)}</span>`, iconSize: [0, 0] }) }).addTo(map));
     // ピン＝坪単価の値札（色は坪単価の帯）
-    const tag = (b) => `<div class="pin pin-b${b.t ? b.band : 0}"><svg class="lead" width="1" height="1" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="-8"/></svg><span class="tag"><b>${b.t ? `${b.t}万` : (b.pre ? "竣工前" : "―")}</b></span><span class="dot"></span></div>`;
+    const tag = (b) => `<div class="pin pin-b${b.t ? b.band : 0}"><svg class="lead" width="1" height="1" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="-8"/></svg><span class="tag"><b>${pinTxt(b)}</b></span><span class="dot"></span></div>`;
     const mk = {}, on = {};
     A.buildings.forEach((b) => {
       const m = L.marker([b.lat, b.lng], { icon: L.divIcon({ className: "pin-wrap", html: tag(b), iconSize: [0, 0] }), title: b.name, riseOnHover: true,
@@ -331,6 +333,75 @@
       open: (id) => { map.setView(mk[id].getLatLng(), Math.max(map.getZoom(), 16.5)); mk[id].openPopup(); },
     };
   };
+  /* ---------- 立体地図（MapLibre＋OpenFreeMap。建物の形と高さは OpenStreetMap） ---------- */
+  const ML = CDN + "maplibre-gl/5.6.0/";
+  let mlStyle;
+  const ml3 = async (el, o) => {
+    loadCss(ML + "maplibre-gl.min.css");
+    await loadJs(ML + "maplibre-gl.min.js");
+    const gl = window.maplibregl;
+    if (!mlStyle) {
+      const st = await (await fetch("https://tiles.openfreemap.org/styles/liberty")).json();
+      st.layers.forEach((l) => {
+        if (l.layout && l.layout["text-field"]) l.layout["text-field"] = ["coalesce", ["get", "name:ja"], ["get", "name"]];
+        if (l.type === "fill-extrusion") l.paint = { ...l.paint, "fill-extrusion-opacity": 1, "fill-extrusion-color": ["interpolate", ["linear"], ["get", "render_height"], 0, "#e9e6df", 60, "#d5dbe4", 160, "#b9c4d4"] };
+      });
+      st.sky = { "sky-color": "#9cc6ee", "horizon-color": "#e6f0f8", "fog-color": "#eef2f6", "sky-horizon-blend": 0.6, "horizon-fog-blend": 0.7, "fog-ground-blend": 0.5 };
+      mlStyle = st;
+    }
+    const map = new gl.Map({ container: el, style: mlStyle, center: [o.lng, o.lat], zoom: o.zoom || 15.4, pitch: 58, bearing: o.bearing || -25, maxPitch: 88,
+      cooperativeGestures: !!o.coop, attributionControl: { compact: true }, locale: { "CooperativeGesturesHandler.WindowsHelpText": "Ctrl キーを押しながらスクロールすると拡大・縮小できます", "CooperativeGesturesHandler.MacHelpText": "⌘ キーを押しながらスクロールすると拡大・縮小できます", "CooperativeGesturesHandler.MobileHelpText": "2本の指で地図を動かせます" } });
+    map.addControl(new gl.NavigationControl({ visualizePitch: true }), "top-right");
+    map.addControl(new gl.FullscreenControl(), "top-right");
+    await new Promise((r) => map.once("load", r));
+    return { gl, map };
+  };
+  const nameMark = (gl, map, b, cur) => {
+    const d = document.createElement("div"); d.className = "m3-pin" + (cur ? " is-cur" : ""); d.textContent = b.name;
+    const mk = new gl.Marker({ element: d, anchor: "bottom" }).setLngLat([b.lng, b.lat]).addTo(map);
+    if (b.url && !cur) mk.setPopup(new gl.Popup({ offset: 18, maxWidth: "300px" }).setHTML(mapCard(b)));
+    return mk;
+  };
+  // 一覧の地図：平面と立体の切り替え
+  const initMapToggle = () => {
+    const tg = $(".mtog"), flat = $("#map"), solid = $("#map3d");
+    if (!tg || !flat || !solid || !A) return;
+    let made = false;
+    $$("button", tg).forEach((bt) => bt.addEventListener("click", async () => {
+      const v3 = bt.dataset.mview === "3d";
+      $$("button", tg).forEach((x) => x.setAttribute("aria-pressed", String(x === bt)));
+      flat.hidden = v3; solid.hidden = !v3;
+      if (v3 && !made) {
+        made = true; track("map_3d_open", {});
+        try { const { gl, map } = await ml3(solid, { lat: 35.5755, lng: 139.6605, zoom: 15.3, coop: flat.dataset.map !== "atlas" }); A.buildings.forEach((b) => nameMark(gl, map, b)); }
+        catch { solid.innerHTML = '<p class="map-fallback">立体の地図を読み込めませんでした。平面の地図をご利用ください。</p>'; }
+      }
+    }));
+  };
+  // 棟ページ：立体地図と眺望の目安
+  const DIRS = { 北: 0, 北東: 45, 東: 90, 南東: 135, 南: 180, 南西: 225, 西: 270, 北西: 315 };
+  const initMap3d = () => {
+    const box = $("[data-map3d]");
+    if (!box) return;
+    const el = $(".m3-map", box), lat = num(box.dataset.lat), lng = num(box.dataset.lng), floors = num(box.dataset.floors) || 20, f = $(".m3-ctl", box);
+    let ready;
+    const boot = () => ready || (ready = (async () => { el.innerHTML = ""; const r = await ml3(el, { lat, lng, zoom: 16.3, coop: true }); nameMark(r.gl, r.map, { name: box.dataset.name, lat, lng }, true); return r; })()
+      .catch(() => { el.innerHTML = '<p class="map-fallback">地図を読み込めませんでした。時間をおいて開き直してください。</p>'; return null; }));
+    whenNear(box, boot);
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const r = await boot(); if (!r) return;
+      const floor = Math.max(2, Math.min(num(f.floor.value) || 20, floors)), dir = f.dir.value, brg = DIRS[dir] ?? 180, q = brg * Math.PI / 180;
+      // 自分の建物の壁が視界をふさがないよう、向いている方向へ45mだけ前に出た位置から見る
+      const la = lat + (45 * Math.cos(q)) / 111320, lo = lng + (45 * Math.sin(q)) / (111320 * Math.cos(lat * Math.PI / 180));
+      try { r.map.jumpTo(r.map.calculateCameraOptionsFromCameraLngLatAltRotation(new r.gl.LngLat(lo, la), floor * 3.2, brg, 84, 0)); }
+      catch { r.map.jumpTo({ center: [lo + Math.sin(q) * 0.004, la + Math.cos(q) * 0.004], zoom: 17, pitch: 80, bearing: brg }); }
+      el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      track("view_sim", { building: box.dataset.name, floor, dir });
+    });
+    $("[data-m3-reset]", f).addEventListener("click", async () => { const r = await boot(); if (r) r.map.flyTo({ center: [lng, lat], zoom: 16.3, pitch: 58, bearing: -25, duration: 900 }); });
+  };
+
   const initMaps = () => { const el = $("#map"); if (el && A) whenNear(el, () => initMapNow(el)); };
   const initMapNow = async (el) => {
     const fb = el.querySelector(".map-fallback");
@@ -953,6 +1024,6 @@
     }));
   };
 
-  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); initSearch(); initMoreRows(); initMiniCharts(); countView(); initAccessRank(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initMapToggle(); initMap3d(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); initSearch(); initMoreRows(); initMiniCharts(); countView(); initAccessRank(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

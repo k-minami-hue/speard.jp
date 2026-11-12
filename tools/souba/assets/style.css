@@ -1332,3 +1332,33 @@ table.qt thead th { white-space: normal; line-height: 1.4; vertical-align: botto
 .m-what { margin-top: 36px; }
 .m-what h2 { font-size: 1.2rem; margin-bottom: 10px; }
 .pnote + .xlinks { margin-top: 14px; }
+
+/* 2026-11-12 立体地図・眺望、坪単価を控えめに、飾りを減らす */
+.mtog { display: inline-flex; margin: 0 0 10px; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; }
+.mtog button { min-height: 40px; padding: 0 16px; border: 0; background: #fff; color: var(--ink); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.mtog button[aria-pressed=true] { background: var(--ink); color: #fff; }
+.map-col { min-width: 0; }
+#map3d[hidden], #map[hidden] { display: none; }
+.m3-map { height: min(68vh, 560px); min-height: 380px; }
+.m3-pin { background: #fff; color: var(--ink); border: 1px solid var(--ink); border-radius: 3px; padding: 2px 7px; font-size: 12px; font-weight: 700; line-height: 1.5; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.25); cursor: pointer; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+.m3-pin.is-cur { background: var(--ink); color: #fff; font-size: 13px; }
+.m3-ctl { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 14px; margin: 12px 0 8px; }
+.m3-ctl label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 700; color: var(--ink); }
+.m3-ctl input, .m3-ctl select { min-height: 46px; width: 96px; font-size: 16px; padding: 0 10px; border: 1px solid #9aa5b5; border-radius: 4px; background: #fff; }
+.m3-ctl .btn { min-height: 46px; }
+.maplibregl-ctrl-group button { width: 38px; height: 38px; }
+.leaflet-touch .leaflet-bar a, .leaflet-bar a { width: 38px; height: 38px; line-height: 38px; font-size: 22px; }
+.kfig { grid-template-columns: 1.5fr .8fr 1fr; }
+.kfig .kf-sub dd b { font-size: 1.25rem; color: var(--ink); font-weight: 700; }
+@media (max-width: 700px) { .kfig { grid-template-columns: 1fr 1fr; } .kfig > div:first-child { grid-column: 1 / -1; grid-row: 1; border-bottom: 1px solid var(--rule); } .kfig > div:nth-child(2), .kfig > div:nth-child(3) { grid-column: auto; grid-row: 2; border-bottom: 0; } .kfig .kf-sub dd b { font-size: 1.05rem; } }
+.br-p b { color: var(--num); font-size: 1.5rem; }
+.br-p em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); }
+.br-t2 span { font-size: 14px; color: var(--ink); white-space: nowrap; }
+.mc-price .mc-sub { font-size: 15px; font-weight: 400; }
+.flow-t th { width: 7.5em; }
+.m-steps { display: block; font-weight: 400; font-size: 14px; color: var(--muted); margin: 8px 0 4px; }
+
+.atlas .map-col { order: 2; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.atlas .map-col .mtog { margin: 8px; align-self: flex-start; }
+.atlas .map-col .gmap { flex: 1; min-height: 0; height: auto; }
+@media (max-width: 980px) { .atlas .map-col { order: 1; } .atlas .map-col .gmap { height: 62vh; min-height: 380px; flex: none; } }

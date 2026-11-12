@@ -7,17 +7,17 @@
 <div class="pbar">
   <div class="wrap pbar-in">
     <h1>{{ b['マンション名'] }}</h1>
-    <p class="pbar-sub">{% if b.rank %}坪単価は掲載{{ ranked|length }}棟中{{ b.rank }}位{% endif %}{% if s %}・直近2年の取引{{ s.n }}件{% endif %}・{{ b.walk_txt }}</p>
+    <p class="pbar-sub">{{ b.built_txt }}・{{ b['総戸数'] }}戸・地上{{ b['地上階数'] }}階{% if s %}・直近2年の取引{{ s.n }}件{% endif %}・{{ b.walk_txt }}</p>
   </div>
 </div>
 <div class="wrap">
   <p class="crumbs"><a href="{{ site.base }}">{{ site.name }}</a> › <a href="{{ site.base }}search/">マンションを探す</a> › {% if b.g_town %}<a href="{{ b.g_town.url }}">{{ b.town }}</a> › {% endif %}{{ b['マンション名'] }}</p>
   {% if s %}<dl class="kfig" aria-label="{{ b['マンション名'] }}の相場の要点">
-    <div><dt>坪単価の幅<small>取引の半数が入る範囲</small></dt><dd><b>{{ '{:,}'.format(s.lo|round|int) }}〜{{ '{:,}'.format(s.hi|round|int) }}<i>万円</i></b><span>真ん中の値 {{ '{:,}'.format(s.tsubo|round|int) }}万円（㎡単価 {{ '%.1f' % (s.tsubo / 3.30579) }}万円）</span></dd></div>
     <div><dt>成約価格<small>中央値</small></dt><dd>{% if cl %}<b>{{ cl.p_med|okuh }}</b><span>{{ cl.p_lo|oku }}〜{{ cl.p_hi|oku }}</span>{% else %}<b>―</b><span>この期間の成約データなし</span>{% endif %}</dd></div>
     <div><dt>取引件数<small>直近2年</small></dt><dd><b>{{ s.n }}<i>件</i></b><span>{{ period }}</span></dd></div>
+    <div class="kf-sub"><dt>坪単価<small>参考</small></dt><dd><b>{{ '{:,}'.format(s.lo|round|int) }}〜{{ '{:,}'.format(s.hi|round|int) }}<i>万円</i></b><span>取引の半数が入る範囲</span></dd></div>
   </dl>
-  <p class="knote">坪単価は階数・向き・広さ・室内の状態で変わります。国土交通省のデータには階数と向きが含まれないため、1つの数字ではなく幅で示しています。ご自宅や検討中の住戸がこの幅のどこに当たるかは、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_range" data-ev="cta_satei">無料査定</a>でお答えします。</p>{% endif %}
+  <p class="knote">価格は階数・向き・広さ・室内の状態で変わります。坪単価は指標の1つで、国土交通省のデータには階数と向きが含まれません。ご自宅や検討中の住戸の価格は、<a href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_range" data-ev="cta_satei">無料査定</a>でお答えします。</p>{% endif %}
   <div class="ask">
     <div class="ask-sell"><p class="ask-ttl">{{ b['マンション名'] }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
     <div class="ask-buy"><p class="ask-ttl">{{ b['マンション名'] }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
@@ -35,7 +35,7 @@
     {% if not b.pre %}<li><a href="#f-ttl">売却の流れ</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
     {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
-    <li><a href="#g-ttl">周辺地図</a></li>
+    <li><a href="#g-ttl">立体地図・眺望</a></li>
     <li><a href="#s-ttl">物件概要</a></li>
   </ul></nav>
   {% if b.photo %}<figure class="pphoto">{{ img(site, b.photo.key, b.photo.caption, eager=True) }}<figcaption>{{ b.photo.caption }}（写真：{{ b.photo.author }}{% if b.photo.license %}／<a href="{{ b.photo.license_url }}" target="_blank" rel="noopener">{{ b.photo.license }}</a>{% endif %}）</figcaption></figure>{% endif %}
@@ -48,13 +48,6 @@
     <p class="xlinks"><a class="btn" href="{{ b.suumo_url }}" target="_blank" rel="noopener nofollow" data-ev="suumo_click">SUUMOで売出中の住戸を見る（外部サイト）</a><a class="btn btn-cta" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_onsale" data-ev="cta_sodan">売出価格が妥当か相談する（無料）</a></p>
   </div>
 </section>{% endif %}
-{% if b.listings %}<section class="sec" aria-labelledby="l-ttl">
-  <div class="wrap">
-    <h2 class="hbar" id="l-ttl">{{ b['マンション名'] }}の売出中住戸</h2>
-    <ul class="lsts">{% for x in b.listings %}{{ listing_card(site, x, show_name=False) }}{% endfor %}</ul>
-  </div>
-</section>{% endif %}
-
 {% if b.ended %}<section class="sec" aria-labelledby="e-ttl">
   <div class="wrap">
     <h2 class="hbar" id="e-ttl">掲載が終了した売出価格</h2>
@@ -200,13 +193,13 @@
 {% if not b.pre %}<section class="sec" aria-labelledby="f-ttl">
   <div class="wrap">
     <h2 class="hbar" id="f-ttl">{{ b['マンション名'] }}を売るときの流れ</h2>
-    <ol class="flow">
-      <li><b>査定</b><span>同じ建物の成約事例に、階数・向き・室内の状態を反映して査定価格を出します。訪問なしの机上査定から始められます。</span></li>
-      <li><b>媒介契約</b><span>売出価格と販売の進め方を決めて、売却を依頼する契約を結びます。</span></li>
-      <li><b>販売</b><span>ポータルサイトとレインズに掲載し、内覧に対応します。反響の状況は定期的に報告します。</span></li>
-      <li><b>売買契約</b><span>購入の申込みを受けて条件を調整し、契約を結びます。手付金を受け取ります。</span></li>
-      <li><b>引渡し</b><span>残代金を受け取り、住宅ローンの完済と抵当権の抹消、鍵の引渡しを同じ日に行います。</span></li>
-    </ol>
+    <table class="spec flow-t"><tbody>
+      <tr><th>査定</th><td>同じ建物の成約事例に、階数・向き・室内の状態を反映して査定価格を出します。訪問なしの机上査定から始められます。</td></tr>
+      <tr><th>媒介契約</th><td>売出価格と販売の進め方を決めて、売却を依頼する契約を結びます。</td></tr>
+      <tr><th>販売</th><td>ポータルサイトとレインズに掲載し、内覧に対応します。反響の状況は定期的に報告します。</td></tr>
+      <tr><th>売買契約</th><td>購入の申込みを受けて条件を調整し、契約を結びます。手付金を受け取ります。</td></tr>
+      <tr><th>引渡し</th><td>残代金を受け取り、住宅ローンの完済と抵当権の抹消、鍵の引渡しを同じ日に行います。</td></tr>
+    </tbody></table>
     <p class="pnote">売出から引渡しまでの期間は、売出価格の設定と住戸の条件で変わります。住み替えで購入が先に決まっている場合や、引渡しの時期に希望がある場合は、査定の際にお伝えください。</p>
     <p class="xlinks"><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_flow" data-ev="cta_satei">無料査定を依頼する</a><a class="btn" href="{{ site.base }}tetori/">売ったときの手取りを計算する</a></p>
   </div>
@@ -244,13 +237,21 @@
 
 <section class="sec" aria-labelledby="g-ttl">
   <div class="wrap">
-    <h2 class="hbar" id="g-ttl">周辺地図</h2>
-    <div class="gframe"><iframe title="{{ b['マンション名'] }}の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
-      src="{% if site.gmaps_key %}https://www.google.com/maps/embed/v1/place?key={{ site.gmaps_key }}&amp;q={{ b.lat }},{{ b.lng }}&amp;zoom=16&amp;language=ja{% else %}https://maps.google.com/maps?q={{ b.lat }},{{ b.lng }}&amp;z=16&amp;hl=ja&amp;output=embed{% endif %}"></iframe></div>
+    <h2 class="hbar" id="g-ttl">立体地図と眺望の目安</h2>
+    <div class="m3" data-map3d data-lat="{{ b.lat }}" data-lng="{{ b.lng }}" data-name="{{ b['マンション名'] }}" data-floors="{{ b['地上階数'] }}">
+      <div class="m3-map gmap" role="region" aria-label="{{ b['マンション名'] }}の立体地図"><p class="map-fallback">地図を読み込んでいます。</p></div>
+      <form class="m3-ctl" novalidate>
+        <label>階<input type="number" name="floor" inputmode="numeric" min="2" max="{{ b['地上階数'] }}" value="{{ [20, b['地上階数']|int]|min }}"></label>
+        <label>向き<select name="dir">{% for d in ['南', '南東', '東', '北東', '北', '北西', '西', '南西'] %}<option>{{ d }}</option>{% endfor %}</select></label>
+        <button type="submit" class="btn">この階・向きの眺めを見る</button>
+        <button type="button" class="btn btn-ghost" data-m3-reset>建物を外から見る</button>
+      </form>
+    </div>
+    <p class="pnote">地図は拡大・縮小、回転、傾きの変更ができます。眺めは、建物の位置と高さ（階数×約3.2m）から周りの建物の形を簡易に描いたものです。建物の形と高さは OpenStreetMap のデータによるもので、実際の眺望とは異なります。<a href="https://www.google.com/maps/search/?api=1&amp;query={{ b.lat }},{{ b.lng }}" target="_blank" rel="noopener">Googleマップで開く</a></p>
     <h3 class="near-ttl">近くのマンション</h3>
     <ul class="near">
       {% for n in b.near %}<li><a href="{{ n.b.url }}"><span class="n-name">{{ n.b['マンション名'] }}<span class="n-dist">約{{ n.m }}m・{{ n.b.built_txt }}・{{ n.b['総戸数'] }}戸</span></span>
-        <span class="n-val">{% if n.b.stats %}{{ n.b.stats.tsubo_txt }}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
+        <span class="n-val">{% if n.b.closed %}{{ n.b.closed.p_med|oku }}{% elif n.b.stats %}{{ n.b.stats.p_med|oku }}{% else %}{{ n.b.nodata_short }}{% endif %}</span></a></li>
       {% endfor %}
     </ul>
     <p style="margin-top:12px"><a class="more" href="{{ site.base }}map/">マップから探す</a>　<a class="more" href="{{ site.base }}compare/?ids={{ b.id }}{% for n in b.near[:2] %},{{ n.b.id }}{% endfor %}">近くの2棟と並べて比べる</a></p>
