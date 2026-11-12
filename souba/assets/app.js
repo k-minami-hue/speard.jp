@@ -677,7 +677,7 @@
       msg.className = "form-msg";
       if (!form.checkValidity() || !$("#fAgree").checked) {
         msg.classList.add("err");
-        msg.textContent = "マンション名・所在階・面積・お名前・メールアドレスを入れ、個人情報の取扱いに同意してください。";
+        msg.textContent = "マンション名・お名前・メールアドレスを入れ、個人情報の取扱いに同意してください。階と面積はわかる範囲で構いません。";
         return;
       }
       const d = Object.fromEntries(new FormData(form).entries());

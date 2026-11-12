@@ -597,15 +597,16 @@ def build_columns():
     <div class="column-meta">{tags}<time class="column-meta-date" datetime="{iso(c['date'])}">{esc(c['date'])}</time>{(f'<span class="column-meta-date column-meta-mod">更新 <time datetime="{iso(c["modified"])}">{esc(c["modified"])}</time></span>') if c.get('modified') and c['modified'] != c['date'] else ''}</div>
     <h1 class="column-h1">{esc(c['title'])}</h1>
     <figure class="column-hero-fig"><img src="{esc(c['hero'])}" alt="{esc((c.get('hero_credit') or {}).get('caption') or c['title'])}" width="1600" height="900" decoding="async" fetchpriority="high">{hero_credit_html(c)}</figure>
+    <p class="column-byline">監修：<a href="#col-author">南 和希（宅地建物取引士・2級FP技能士）</a></p>
+    <article class="column" id="col-art-body">
+{body}
+    </article>
     <div class="column-share">
       <a class="cs-x" href="https://twitter.com/intent/tweet?text={stxt}&amp;url={share}" target="_blank" rel="noopener">Xでシェア</a>
       <a class="cs-fb" href="https://www.facebook.com/sharer/sharer.php?u={share}" target="_blank" rel="noopener">Facebookでシェア</a>
       <a class="cs-line-share" href="https://social-plugins.line.me/lineit/share?url={share}" target="_blank" rel="noopener">LINEで送る</a>
     </div>
-    {AUTHOR_BOX}
-    <article class="column" id="col-art-body">
-{body}
-    </article>
+    <div id="col-author">{AUTHOR_BOX}</div>
     {('<section class="column-related"><h2>関連するコラム</h2><div class="col-grid">' + ''.join(col_card(x) for x in related) + '</div></section>') if related else ''}
   </div>
   <aside class="column-side">

@@ -405,3 +405,9 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
   .rv-grid{ grid-template-columns:1fr; }
   .rv-slots{ padding:12px; }
 }
+
+/* 2026-11-12 コラムは本文を先に。監修者は1行で示し、紹介は記事の後ろへ */
+.column-byline{ font-size:.82rem; color:#5b6472; margin:14px 0 18px; }
+.column-byline a{ color:inherit; text-decoration:underline; text-underline-offset:3px; }
+#col-author{ margin-top:36px; scroll-margin-top:90px; }
+.column-main > .column-share{ margin-top:32px; }

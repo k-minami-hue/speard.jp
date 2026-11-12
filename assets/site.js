@@ -42,11 +42,14 @@
       var cf = bar.querySelector('.cta-form'); cf.setAttribute('href', '#reserve');
       cf.lastChild.textContent = rv.getAttribute('data-cta') || '内見予約';
     }
-    else if (tailored) bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href'));
+    else if (tailored) { bar.querySelector('.cta-form').setAttribute('href', tailored.getAttribute('href')); if (/\/satei\//.test(tailored.getAttribute('href'))) bar.querySelector('.cta-form').lastChild.textContent = '無料で売却査定'; }
     else {
-      if (location.pathname === '/satei/') { bar.querySelector('.cta-form').setAttribute('href', '#satei-form'); }
+      if (location.pathname === '/satei/') { bar.querySelector('.cta-form').setAttribute('href', '#satei-form'); bar.querySelector('.cta-form').lastChild.textContent = '査定フォームへ'; }
+      // 成約実績の建物ページ：その建物名を入れた査定フォームへ
+      var rm = location.pathname.match(/^\/results\/[^/]+\/$/), rh = document.querySelector('h1');
+      if (rm && rh) { var nm = (rh.textContent || '').replace(/の売却.*$/, '').trim(); var rf = bar.querySelector('.cta-form'); rf.setAttribute('href', '/satei/?m=' + encodeURIComponent(nm) + '&from=results-bar'); rf.lastChild.textContent = '無料で売却査定'; }
       var PAGE = { '/sell.html': 'sell', '/buy.html': 'buy', '/consulting.html': 'consult' }[location.pathname];
-      if (PAGE) bar.querySelector('.cta-form').setAttribute('href', PAGE === 'sell' ? '/satei/?from=sell-page-bar' : '/?inquiry=' + PAGE + '&from=' + PAGE + '-page-bar#contact');
+      if (PAGE) { bar.querySelector('.cta-form').setAttribute('href', PAGE === 'sell' ? '/satei/?from=sell-page-bar' : '/?inquiry=' + PAGE + '&from=' + PAGE + '-page-bar#contact'); if (PAGE === 'sell') bar.querySelector('.cta-form').lastChild.textContent = '無料で売却査定'; }
     }
 
     // お問合せフォーム表示中は重複するので隠す
