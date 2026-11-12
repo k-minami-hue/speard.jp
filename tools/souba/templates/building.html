@@ -20,7 +20,7 @@
   <div class="ask">
     <div class="ask-sell"><p class="ask-ttl">{{ b['マンション名'] }}を売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?b={{ b.id }}&amp;from=bpage_top" data-ev="cta_satei">無料査定を依頼する</a></div>
     <div class="ask-buy"><p class="ask-ttl">{{ b['マンション名'] }}を買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;b={{ b.id }}&amp;from=bpage_top" data-ev="cta_sodan">購入の相談をする</a></div>
-    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+    <p class="ask-foot">お電話：<a href="tel:{{ site.tel|replace('-', '') }}" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
   </div>
   <table class="ptable"><tbody>
     <tr><th>所在地</th><td>{{ b['所在地'] }}</td><th>建築年月</th><td>{{ b.built_txt }}</td><th>総戸数</th><td>{{ b['総戸数'] }}戸</td></tr>
@@ -30,7 +30,7 @@
   <p class="ptags">同じ条件のマンション：{% for g in b.groups %}<a href="{{ g.url }}">{{ g.name }}</a>{% endfor %}</p>
   <nav class="ptabs" aria-label="このページの内容"><ul>
     <li><a href="#p-ttl">相場価格</a></li>
-    {% if s %}<li><a href="#z-ttl">広さ・間取り別</a></li>{% if b.ended %}<li><a href="#e-ttl">掲載終了の価格</a></li>{% endif %}<li><a href="#m-ttl">お金の目安</a></li><li><a href="#t-ttl">推移グラフ</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
+    {% if s %}<li><a href="#t-ttl">推移グラフ</a></li><li><a href="#z-ttl">広さ・間取り別</a></li>{% if b.ended %}<li><a href="#e-ttl">掲載終了の価格</a></li>{% endif %}<li><a href="#m-ttl">お金の目安</a></li><li><a href="#h-ttl">取引履歴</a></li>{% endif %}
     {% if b.comments['アピール'] %}<li><a href="#c-ttl">担当者の見方</a></li>{% endif %}
     {% if b.similar %}<li><a href="#n-ttl">近い棟</a></li>{% endif %}
     <li><a href="#g-ttl">周辺地図</a></li>
@@ -93,6 +93,14 @@
   </div>
 </section>
 
+{% if s %}<section class="sec sec-chart" aria-labelledby="t-ttl">
+  <div class="wrap">
+    <h2 class="hbar" id="t-ttl">相場推移グラフ</h2>
+    <p class="muted" style="margin-bottom:10px">点は1件ごとの取引の坪単価です（橙が成約価格、青が取引価格）。紺の線はこのマンションの四半期ごとの中央値、緑の点線は武蔵小杉のタワー全体の中央値。点を押すと時期・広さ・価格が出ます。</p>
+    <div class="chart-box chart-tall"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の取引の坪単価のグラフ"></canvas></div>
+  </div>
+</section>{% endif %}
+
 {% if s %}<section class="sec" aria-labelledby="z-ttl">
   <div class="wrap">
     <h2 class="hbar" id="z-ttl">広さ別・間取り別の価格</h2>
@@ -142,14 +150,6 @@
   </div>
 </section>{% endif %}
 
-<section class="sec" aria-labelledby="t-ttl">
-  <div class="wrap">
-    <h2 class="hbar" id="t-ttl">相場推移グラフ</h2>
-    <p class="muted" style="margin-bottom:10px">1つの点が1件の取引です（坪単価）。灰色の線は四半期ごとの中央値。点を押すと時期・広さ・価格が出ます。</p>
-    <div class="chart-box chart-tall"><canvas id="chart" role="img" aria-label="{{ b['マンション名'] }}の取引の坪単価のグラフ"></canvas></div>
-  </div>
-</section>
-
 <section class="sec" aria-labelledby="h-ttl">
   <div class="wrap">
     <h2 class="hbar" id="h-ttl">取引履歴</h2>
@@ -169,6 +169,7 @@
       <div class="m-gate-open" hidden></div>
     </div>{% endif %}
     {% if b.years %}<h3 class="sub-ttl" id="y-ttl">年ごとの取引件数</h3>
+    <div class="chart-box chart-s chart-y"><canvas data-bar='{{ b.bar_years }}' role="img" aria-label="{{ b['マンション名'] }}の年ごとの取引件数の棒グラフ"></canvas></div>
     <div class="tbl-wrap"><table class="kt kt-band">
       <thead><tr><th>年</th><th class="num">件数</th><th class="num kt-wide">うち成約価格</th><th class="num kt-wide">うち取引価格</th><th class="num">坪単価（中央値）</th></tr></thead>
       <tbody>{% for y in b.years %}<tr><th>{{ y.y }}年{% if y.partial %}<span class="sub">{{ latest_q }}分まで</span>{% endif %}</th><td class="num" data-label="件数">{{ y.n }}件</td><td class="num kt-wide" data-label="うち成約価格">{{ y.closed }}件</td><td class="num kt-wide" data-label="うち取引価格">{{ y.traded }}件</td><td class="num" data-label="坪単価（中央値）">{% if y.t_med %}{{ y.t_med|round|int }}万円{% else %}―{% endif %}</td></tr>{% endfor %}</tbody>

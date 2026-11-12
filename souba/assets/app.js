@@ -148,7 +148,7 @@
       type: "line",
       data: { labels, datasets: series.map((s, i) => ({
         label: s.label, data: s.data, borderColor: colors[i], backgroundColor: colors[i],
-        borderWidth: i === 0 ? 2.5 : 1.6, pointRadius: 0, pointHoverRadius: 4, tension: 0.15, spanGaps: true,
+        borderWidth: i === 0 ? 3 : 2.2, pointRadius: 0, pointHoverRadius: 4, tension: 0.15, spanGaps: true,
       })) },
       options: {
         responsive: true, maintainAspectRatio: false, animation: { duration: 500 }, interaction: { mode: "index", intersect: false },
@@ -165,9 +165,10 @@
   };
   const plotChart = (canvas, d) => {
     const muted = "#6b7484", rule = css("--rule");
-    const col = { 成約価格: "rgba(18,41,84,.72)", 取引価格: "rgba(199,163,77,.85)" };
+    const col = { 成約価格: "rgba(232,89,12,.78)", 取引価格: "rgba(28,126,214,.72)" };
     const ds = Object.entries(d.plot).filter(([, pts]) => pts.length).map(([k, pts]) => ({ type: "scatter", label: k, data: pts, backgroundColor: col[k] || "#888", borderWidth: 0, pointRadius: 3.6, pointHoverRadius: 5.5 }));
-    if (d.median.length > 1) ds.push({ type: "line", label: "四半期の中央値", data: d.median, borderColor: "#8a93a3", backgroundColor: "#8a93a3", borderWidth: 1.6, pointRadius: 0, tension: 0.15 });
+    if (d.median.length > 1) ds.push({ type: "line", label: "このマンションの中央値（四半期）", data: d.median, borderColor: "#122954", backgroundColor: "#122954", borderWidth: 3, pointRadius: 0, tension: 0.2 });
+    if (d.area && d.area.length > 1) ds.push({ type: "line", label: "武蔵小杉のタワー全体の中央値", data: d.area, borderColor: "#2f9e44", backgroundColor: "#2f9e44", borderWidth: 2, borderDash: [6, 4], pointRadius: 0, tension: 0.2 });
     const qOf = (x) => `${Math.floor(x)}年${Math.round((x % 1) * 4 + 0.5)}Q`;
     return new window.Chart(canvas, {
       data: { datasets: ds },
@@ -189,7 +190,7 @@
     if (!canvas || !data || document.body.classList.contains("p-compare")) return;
     whenNear(canvas, () => {
       if (data.plot) whenChart(() => plotChart(canvas, data));
-      else whenChart(() => lineChart(canvas, data.labels, data.series, [css("--ink"), "#a3abb8", css("--gold")]));
+      else whenChart(() => lineChart(canvas, data.labels, data.series, ["#e8590c", "#1c7ed6", "#2f9e44"]));
     });
   };
 
@@ -417,7 +418,7 @@
       history.replaceState(null, "", ids ? `?ids=${ids}` : location.pathname);
       whenChart(() => {
         if (chart) chart.destroy();
-        chart = lineChart($("#chart"), A.labels, picked.map((b) => ({ label: b.name, data: b.chart })), [css("--ink"), css("--gold"), "#8a93a3"]);
+        chart = lineChart($("#chart"), A.labels, picked.map((b) => ({ label: b.name, data: b.chart })), ["#e8590c", "#1c7ed6", "#2f9e44"]);
       });
     };
     sels.forEach((s) => s.addEventListener("change", () => { render(); track("compare_change", {}); }));
@@ -900,6 +901,31 @@
     });
   };
 
+  /* ---------- 棒グラフと散布図（data-bar / data-scatter に入れたJSONから描く） ---------- */
+  const initMiniCharts = () => {
+    const muted = "#4a5466", rule = "#e3e7ee";
+    $$("canvas[data-bar]").forEach((cv) => whenNear(cv, () => whenChart(() => {
+      const d = JSON.parse(cv.dataset.bar);
+      new window.Chart(cv, { type: "bar",
+        data: { labels: d.labels, datasets: d.sets.map((x) => ({ label: x.label, data: x.data, backgroundColor: x.color, borderRadius: 2, maxBarThickness: 44 })) },
+        options: { responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+          plugins: { legend: { display: d.sets.length > 1, position: "top", align: "start", labels: { color: muted, boxWidth: 12, boxHeight: 12, font: { size: 12 } } },
+            tooltip: { callbacks: { label: (c) => `${c.dataset.label}：${c.parsed.y}${d.unit || ""}` } } },
+          scales: { x: { stacked: !!d.stacked, ticks: { color: muted, font: { size: 11 }, maxRotation: 0, autoSkipPadding: 6 }, grid: { display: false } },
+            y: { stacked: !!d.stacked, ticks: { color: muted, font: { size: 11 }, precision: 0, callback: (v) => `${v}${d.unit || ""}` }, grid: { color: rule } } } } });
+    })));
+    $$("canvas[data-scatter]").forEach((cv) => whenNear(cv, () => whenChart(() => {
+      const d = JSON.parse(cv.dataset.scatter), col = { 成約価格: "rgba(232,89,12,.7)", 取引価格: "rgba(28,126,214,.65)" };
+      new window.Chart(cv, { type: "scatter",
+        data: { datasets: Object.entries(d).filter(([, p]) => p.length).map(([k, p]) => ({ label: k, data: p, backgroundColor: col[k], pointRadius: 4, pointHoverRadius: 6.5 })) },
+        options: { responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+          plugins: { legend: { position: "top", align: "start", labels: { color: muted, boxWidth: 12, boxHeight: 12, font: { size: 12 } } },
+            tooltip: { callbacks: { label: (c) => { const r = c.raw; return [`${c.dataset.label}：${r.x}㎡ ${man(r.y)}（坪${r.t}万円）`, r.n || ""]; } } } },
+          scales: { x: { title: { display: true, text: "専有面積（㎡）", color: muted, font: { size: 11 } }, ticks: { color: muted, font: { size: 11 }, callback: (v) => `${v}㎡` }, grid: { color: rule } },
+            y: { title: { display: true, text: "価格", color: muted, font: { size: 11 } }, ticks: { color: muted, font: { size: 11 }, callback: (v) => (v >= 10000 ? `${v / 10000}億` : `${v.toLocaleString("ja-JP")}万`) }, grid: { color: rule } } } } });
+    })));
+  };
+
   /* ---------- トップの一覧：残りを開く ---------- */
   const initMoreRows = () => {
     const btn = $("#moreRows"), list = $("#cards");
@@ -919,6 +945,6 @@
     }));
   };
 
-  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); initSearch(); initMoreRows(); countView(); initAccessRank(); };
+  const start = async () => { await mFromUrl(); initMemberNav(); initGate(); initMemberPage(); initTool(); initEstimators(); initSorter(); drawChart(); initMaps(); initCompare(); initTools(); initLoan(); initSatei(); initSodan(); initNotify(); initShare(); initSearch(); initMoreRows(); initMiniCharts(); countView(); initAccessRank(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

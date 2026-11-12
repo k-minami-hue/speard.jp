@@ -117,7 +117,7 @@
   <a href="{{ b.url }}">
     <span class="br-name">{% if rank %}<em class="br-rank">{{ rank }}</em>{% endif %}<b>{{ b['マンション名'] }}</b><small>{{ b.year }}年{% if b.pre %}竣工予定{% else %}築{% endif %}・{{ b['総戸数'] }}戸・徒歩{{ b['徒歩分'] }}分{% if b.struct %}・{{ b.struct }}{% endif %}</small></span>
     {% if b.stats %}
-    <span class="br-v br-t"><small>坪単価（中央値）</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b></span>
+    <span class="br-v br-t"><small>坪単価（中央値）</small><b>{{ '{:,}'.format(b.stats.tsubo|round|int) }}<i>万円</i></b><span class="br-bar" aria-hidden="true"><i style="width:{{ [100, (b.stats.tsubo / 6.5)|round|int]|min }}%"></i></span></span>
     <span class="br-v br-p"><small>成約価格（中央値）</small>{% if b.closed %}<b>{{ b.closed.p_med|okuh }}</b>{% else %}<b>―</b>{% endif %}</span>
     <span class="br-v br-c"><small>取引件数</small><b>{{ b.stats.n }}<i>件</i></b></span>
     {% else %}

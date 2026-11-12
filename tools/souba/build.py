@@ -545,6 +545,23 @@ def build(out_dir, origin, base):
         {"label": "武蔵小杉周辺の中古マンション全体", "data": [int(whole[q]["中央値"]) if q in whole and int(whole[q]["件数"]) >= 5 else None for q in quarters]},
     ]}
 
+    # トップのグラフ用：タワーの年ごとの取引件数、直近2年の広さと価格
+    ty = {}
+    for t in tw:
+        ty.setdefault(t["時期"][:4], {"成約価格": 0, "取引価格": 0})[t["種別"]] += 1
+    yrs = sorted(y for y in ty if int(y) >= int(latest_q[:4]) - 9)
+    bar_years = {"labels": [f"{y}年" for y in yrs], "unit": "件", "stacked": True, "sets": [
+        {"label": "成約価格", "data": [ty[y]["成約価格"] for y in yrs], "color": "#e8590c"},
+        {"label": "取引価格", "data": [ty[y]["取引価格"] for y in yrs], "color": "#1c7ed6"}]}
+    name_by_key = {}
+    for b in buildings:
+        if b["key"]:
+            name_by_key.setdefault(b["key"], []).append(b["マンション名"])
+    scatter_town = {"成約価格": [], "取引価格": []}
+    for t in tw:
+        if t["qi"] >= recent_from:
+            scatter_town[t["種別"]].append({"x": round(t["area"]), "y": round(t["price"]), "t": round(t["tsubo"]), "n": "・".join(name_by_key.get(t["key"], []))[:40]})
+
     # 探す軸ごとの一覧（町名・駅・ブランド・条件）。棟が1つしかない区分はページを作らない
     def make_group(kind, kind_label, slug, name, title, members, lead):
         keys = {b["key"] for b in members if b["key"]}
@@ -719,7 +736,8 @@ def build(out_dir, origin, base):
         shutil.copytree(ogp_dir, out / "assets" / "ogp", dirs_exist_ok=True)
 
     render("index.html", "", "index", jsonld(website, org, crumbs(), faq_ld(faq_top)),
-           chart=json.dumps(chart_town, ensure_ascii=False), faq=faq_top, rank_walk=rank_walk, rank_new=rank_new, cols=cols)
+           chart=json.dumps(chart_town, ensure_ascii=False), faq=faq_top, rank_walk=rank_walk, rank_new=rank_new, cols=cols,
+           bar_years=json.dumps(bar_years, ensure_ascii=False), scatter=json.dumps(scatter_town, ensure_ascii=False), t_max=max(b["stats"]["tsubo"] for b in ranked))
     render("map.html", "map/", "map", jsonld(website, crumbs(("相場マップ", SITE["base"] + "map/"))))
     render("search.html", "search/", "search", jsonld(website, crumbs(("マンションを探す", SITE["base"] + "search/"))))
     (out / "api").mkdir(parents=True, exist_ok=True)
@@ -842,7 +860,12 @@ def build(out_dir, origin, base):
                         "売り出す前に、同じ建物の売出と、階数・向きの近い成約事例を並べて価格を決めます。"))
         faq.append((f"{name}は築何年・何戸のマンションですか。", f"{b['built_txt']}、総戸数{b['総戸数']}戸、地上{b['地上階数']}階建てです。最寄りは{b['walk_txt']}です。"))
         qx = lambda q: round(int(q[:4]) + (int(q[-1]) - 0.5) / 4, 3)
-        chart = {"plot": b["plot"], "median": [{"x": qx(q), "y": v} for q, v in zip(quarters, b["chart"]) if v is not None]}
+        chart = {"plot": b["plot"], "median": [{"x": qx(q), "y": v} for q, v in zip(quarters, b["chart"]) if v is not None],
+                 "area": [{"x": qx(q), "y": v} for q, v in zip(quarters, tower_series) if v is not None]}
+        ys = list(reversed(b.get("years") or []))[-10:]
+        b["bar_years"] = json.dumps({"labels": [f'{y["y"]}年' for y in ys], "unit": "件", "stacked": True, "sets": [
+            {"label": "成約価格", "data": [y["closed"] for y in ys], "color": "#e8590c"},
+            {"label": "取引価格", "data": [y["traded"] for y in ys], "color": "#1c7ed6"}]}, ensure_ascii=False)
         render("building.html", f'mansion/{b["slug"]}/', "building", jsonld(ld, crumbs(*([(b["g_town"]["title"], b["g_town"]["url"])] if b["g_town"] else []), (name, b["url"])), faq_ld(faq)),
                ogp=f'{b["slug"]}.jpg', b=b, faq=faq, chart=json.dumps(chart, ensure_ascii=False))
 

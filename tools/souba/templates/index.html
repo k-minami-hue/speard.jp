@@ -5,19 +5,18 @@
 {% block head %}<link rel="preload" as="image" href="{{ site.base }}assets/img/skyline.webp" type="image/webp">
 {% endblock %}
 {% block main %}
-<section class="hero">
+<section class="hero hero-c">
   <div class="hero-bg">{{ img(site, 'skyline', '多摩川の河川敷から見た武蔵小杉のタワーマンション群', eager=True) }}</div>
   <div class="wrap hero-in">
-    <div>
-      <h1>武蔵小杉のマンション相場<br>成約価格・坪単価を棟ごとに掲載</h1>
-      <p class="hero-lead">国土交通省の取引データをもとに、武蔵小杉の{{ n_buildings }}棟の成約価格・取引価格・坪単価・取引件数を掲載しています。データは{{ latest_q }}（{{ latest_q_months }}）分まで。</p>
-      <form class="ksearch ksearch-hero" role="search" action="{{ site.base }}search/" data-ksearch>
-        <label class="sr" for="tq">マンション名・町名・駅・ブランドで探す</label>
-        <input id="tq" name="q" type="search" autocomplete="off" placeholder="マンション名・町名・駅で探す（例：パークシティ）">
-        <button type="submit" class="btn btn-gold">探す</button>
-      </form>
-    </div>
-    {{ tool(site, buildings) }}
+    <p class="hero-kicker">武蔵小杉のマンション {{ n_buildings }}棟の相場データ</p>
+    <h1>武蔵小杉のマンション、<br>いくらで売れている？</h1>
+    <p class="hero-lead">成約価格・坪単価・取引件数を、棟ごとにグラフと表で。{{ latest_q }}（{{ latest_q_months }}）分までの国土交通省データを掲載しています。</p>
+    <form class="ksearch ksearch-hero" role="search" action="{{ site.base }}search/" data-ksearch>
+      <label class="sr" for="tq">マンション名・町名・駅・ブランドで探す</label>
+      <input id="tq" name="q" type="search" autocomplete="off" placeholder="マンション名を入れてください（例：パークシティ）">
+      <button type="submit" class="btn btn-cta">相場を見る</button>
+    </form>
+    <p class="hero-links"><a href="#list">棟の一覧から選ぶ</a><a href="{{ site.base }}map/">地図から選ぶ</a><a href="{{ site.base }}satei/?from=hero">自分の部屋を査定する</a></p>
   </div>
   {% if hero_photo %}<p class="credit">写真：{{ hero_photo.author }}（{{ hero_photo.license }}）</p>{% endif %}
 </section>
@@ -31,10 +30,31 @@
   </dl>
 </div>
 
+<section class="sec dash" aria-labelledby="dash-ttl">
+  <div class="wrap">
+    <div class="sec-head"><div><h2 id="dash-ttl">グラフで見る武蔵小杉の相場</h2><p>タワーマンション（地上20階以上の掲載棟）の取引</p></div><a class="more" href="{{ site.base }}trend/">四半期ごとの表を見る</a></div>
+    <div class="dash-grid">
+      <figure class="dcard dcard-w">
+        <figcaption><b>坪単価の推移</b><span>四半期ごとの中央値（万円／坪）</span></figcaption>
+        <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉のタワーマンションの坪単価の推移グラフ"></canvas></div>
+      </figure>
+      <figure class="dcard">
+        <figcaption><b>年ごとの取引件数</b><span>成約価格は2021年以降</span></figcaption>
+        <div class="chart-box chart-s"><canvas data-bar='{{ bar_years }}' role="img" aria-label="年ごとの取引件数の棒グラフ"></canvas></div>
+      </figure>
+      <figure class="dcard">
+        <figcaption><b>広さと価格</b><span>{{ period }}の取引。点を押すとマンション名が出ます</span></figcaption>
+        <div class="chart-box chart-s"><canvas data-scatter='{{ scatter }}' role="img" aria-label="専有面積と価格の散布図"></canvas></div>
+      </figure>
+    </div>
+    <p class="note" style="margin-top:12px">出典：国土交通省 不動産情報ライブラリ（取引価格・成約価格）をもとに株式会社スピアードが集計。過去の取引価格の参考値で、将来の価格を示すものでも、購入や投資をすすめるものでもありません。</p>
+  </div>
+</section>
+
 <div class="wrap"><div class="ask">
     <div class="ask-sell"><p class="ask-ttl">武蔵小杉のマンションを売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?from=top_ask" data-ev="cta_satei">無料査定を依頼する</a></div>
     <div class="ask-buy"><p class="ask-ttl">武蔵小杉のマンションを買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;from=top_ask" data-ev="cta_sodan">購入の相談をする</a></div>
-    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+    <p class="ask-foot">お電話：<a href="tel:{{ site.tel|replace('-', '') }}" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
   </div></div>
 
 <section class="sec" id="list" aria-labelledby="list-ttl">
@@ -57,6 +77,13 @@
   </div>
 </section>
 
+
+<section class="sec-wash" aria-labelledby="tool-ttl">
+  <div class="wrap tool-sec">
+    <div class="sec-head"><div><h2 id="tool-ttl">予算・広さから調べる</h2><p>買う方は予算から買える広さを、売る方は広さから価格の目安を出せます。</p></div></div>
+    {{ tool(site, buildings) }}
+  </div>
+</section>
 
 <section class="sec" aria-labelledby="ax-ttl">
   <div class="wrap">
@@ -159,15 +186,6 @@
   </div>
 </section>
 
-<section class="sec" aria-labelledby="trend-ttl">
-  <div class="wrap">
-    <div class="trend-head">
-      <div class="sec-head" style="margin:0"><div><h2 id="trend-ttl">武蔵小杉のタワーマンションの坪単価</h2><p>四半期ごとの取引の中央値（万円／坪）</p></div></div>
-    </div>
-    <div class="chart-box"><canvas id="chart" role="img" aria-label="武蔵小杉のタワーマンションの坪単価の推移グラフ"></canvas></div>
-    <p class="note" style="margin-top:10px">紺がタワーマンション（掲載棟の取引）、灰色が武蔵小杉周辺の中古マンション全体です。<a href="{{ site.base }}trend/">四半期ごとの表を見る</a></p>
-  </div>
-</section>
 
 <section class="sec" aria-labelledby="town-ttl">
   <div class="wrap">

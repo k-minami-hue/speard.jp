@@ -25,7 +25,7 @@
   <section aria-label="査定と相談"><div class="ask">
     <div class="ask-sell"><p class="ask-ttl">{{ g.name }}のマンションを売りたい方</p><p>同じ建物の成約事例をもとに、階数・向き・室内の状態を反映した査定価格を根拠つきでお出しします。売却を決めていなくても依頼できます。</p><a class="btn btn-cta" href="{{ site.base }}satei/?from=group_{{ g.slug }}" data-ev="cta_satei">無料査定を依頼する</a></div>
     <div class="ask-buy"><p class="ask-ttl">{{ g.name }}のマンションを買いたい方</p><p>売出中の住戸の有無の確認、気になる住戸の価格が相場に照らして妥当かの判断、資金計画までお答えします。</p><a class="btn" href="{{ site.base }}soudan/?kind=購入&amp;from=group_{{ g.slug }}" data-ev="cta_sodan">購入の相談をする</a></div>
-    <p class="ask-foot">お電話：<a href="tel:{ site.tel|replace('-', '') }" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
+    <p class="ask-foot">お電話：<a href="tel:{{ site.tel|replace('-', '') }}" data-ev="tel_click">{{ site.tel }}</a>（9:30〜18:00・火水定休）　<a href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click">LINEで相談する</a>　相談・査定は無料です。</p>
   </div></section>
   {% if faq %}<section aria-labelledby="gq-ttl"><h2 id="gq-ttl">よくある質問</h2>{{ faq_list(faq) }}</section>{% endif %}
   <section aria-labelledby="go-ttl">
