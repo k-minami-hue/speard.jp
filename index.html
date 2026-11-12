@@ -3484,7 +3484,7 @@ function propPhotos(p) {
 function propThumbHtml(p, big) {
   const ph = propPhotos(p);
   const photo = ph[0] && (p.thumb || ph[0].src);
-  if (photo) { var pw = String(photo).replace(/\.(jpe?g|png)$/i, '.webp'); return '<img src="' + propEsc(pw) + '" alt="' + propEsc(p.name) + '" loading="lazy" decoding="async"' + (pw !== photo ? ' onerror="this.onerror=null;this.src=\'' + propEsc(photo) + '\'"' : '') + '>' + (big ? '' : '<span class="prop-photo-count">写真 ' + ph.length + '枚</span>');
+  if (photo) { var pw = String(photo).replace(/\.(jpe?g|png)$/i, '.webp'); return '<img src="' + propEsc(pw) + '" alt="' + propEsc(p.name) + '" loading="lazy" decoding="async"' + (pw !== photo ? ' onerror="this.onerror=null;this.src=\'' + propEsc(photo) + '\'"' : '') + '>' + (big ? '' : '<span class="prop-photo-count">写真 ' + ph.length + '枚</span>'); }
   return '<div class="prop-noimg"><span class="prop-noimg-en">Speard Selection</span><span class="prop-noimg-name"' + (big ? ' style="font-size:1.5rem"' : '') + '>' + propEsc(p.name) + '</span></div>';
 }
 
