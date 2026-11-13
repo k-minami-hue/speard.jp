@@ -75,7 +75,7 @@
   </div>
 </section>{% endif %}{% endblock %}
 </main>
-{% if page not in ('satei', 'sodan', 'member', 'member_terms') %}{% set q = ('b=' ~ b.id ~ '&amp;') if (page == 'building' and b) else '' %}<nav class="cbar" aria-label="お問い合わせ">
+{% if page not in ('satei', 'sodan', 'member', 'member_terms') %}{% set q = ('b=' ~ b.id ~ '&') if (page == 'building' and b) else '' %}<nav class="cbar" aria-label="お問い合わせ">
   <a class="cbar-main" href="{{ site.base }}satei/?{{ q }}from=bar" data-ev="cta_satei_bar"><b>売却の無料査定</b><small>相場と成約事例から</small></a>
   <a href="{{ site.base }}soudan/?kind=購入&amp;{{ q }}from=bar" data-ev="cta_sodan_bar"><b>購入の相談</b><small>価格の妥当性など</small></a>
   <a class="cbar-s" href="{{ site.line_url }}" target="_blank" rel="noopener" data-ev="line_click"><b>LINE</b></a>
