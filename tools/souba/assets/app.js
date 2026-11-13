@@ -24,6 +24,36 @@
   const A = window.ATLAS || null;
   const byId = A ? Object.fromEntries(A.buildings.map((b) => [b.id, b])) : {};
 
+  /* ---------- メール送信（本体サイトの spSend と同じ二重送信） ----------
+     FormSubmit と Web3Forms に同時に送り、どちらか一方が受け付ければ成功とする。各送信先は15秒で打ち切る。
+     d は FormSubmit 形式（_subject など先頭が _ の項目は設定値）。成功なら true を返す。 */
+  const W3F_KEY = SITE.w3f_key || "5268c498-3e71-4a9e-ac7f-6aa7dc428f4e";
+  const FS_URL = SITE.form_endpoint || "https://formsubmit.co/ajax/info@speard.jp";
+  const sendMail = (d) => new Promise((resolve) => {
+    let left = 2, done = false;
+    const fin = (ok) => {
+      if (done) return;
+      if (ok) { done = true; resolve(true); return; }
+      if (--left <= 0) { done = true; resolve(false); }
+    };
+    const post = (url, body) => {
+      let over = false;
+      const ctl = window.AbortController ? new AbortController() : null;
+      const t = setTimeout(() => { if (over) return; over = true; try { ctl && ctl.abort(); } catch { /* 無視 */ } fin(false); }, 15000);
+      try {
+        fetch(url, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(body), signal: ctl ? ctl.signal : undefined })
+          .then((r) => r.json().catch(() => ({})).then((j) => { if (over) return; over = true; clearTimeout(t); fin(r.ok && String(j.success) === "true"); }))
+          .catch(() => { if (over) return; over = true; clearTimeout(t); fin(false); });
+      } catch { if (!over) { over = true; clearTimeout(t); fin(false); } }
+    };
+    // FormSubmit（お客様への自動返信あり）
+    post(FS_URL, d);
+    // Web3Forms（予備の送信経路）
+    const w = { access_key: W3F_KEY, subject: d._subject || "武蔵小杉マンション相場帳からのお問い合わせ", from_name: "speard.jp 相場帳" };
+    Object.keys(d).forEach((k) => { if (k.charAt(0) !== "_") w[k] = d[k]; });
+    post("https://api.web3forms.com/submit", w);
+  });
+
   /* ---------- 計測（GA4があるときだけ） ---------- */
   const track = (name, params = {}) => { try { if (typeof window.gtag === "function") window.gtag("event", name, params); } catch { /* 無視 */ } };
   document.addEventListener("click", (e) => {
@@ -695,9 +725,7 @@
       const btn = form.querySelector("button[type=submit]");
       btn.disabled = true;
       try {
-        const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(d) });
-        const j = await res.json().catch(() => ({}));
-        if (!res.ok || String(j.success) === "false") throw new Error(j.message || String(res.status));
+        if (!(await sendMail(d))) throw new Error("send_failed");
         form.reset(); update();
         track("generate_lead", { form: "satei", building: d.building_name });
         msg.classList.add("ok");
@@ -749,9 +777,7 @@
       const btn = form.querySelector("button[type=submit]");
       btn.disabled = true;
       try {
-        const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify(d) });
-        const j = await res.json().catch(() => ({}));
-        if (!res.ok || String(j.success) === "false") throw new Error(j.message || String(res.status));
+        if (!(await sendMail(d))) throw new Error("send_failed");
         form.reset(); sync();
         track("generate_lead", { form: "sodan", kind: d.kind });
         msg.classList.add("ok"); msg.textContent = "送信しました。担当者からご連絡します。";
@@ -794,10 +820,8 @@
     catch { /* 期限切れ等。ログインフォームから再送できる */ }
   };
   const fallbackSend = async (subject, d) => {
-    const res = await fetch(SITE.form_endpoint, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ ...d, _subject: subject, _template: "table", _captcha: "false", page: location.pathname }) });
-    const j = await res.json().catch(() => ({}));
-    if (!res.ok || String(j.success) === "false") throw new Error(String(res.status));
+    const ok = await sendMail({ ...d, _subject: subject, _template: "table", _captcha: "false", page: location.pathname });
+    if (!ok) throw new Error("send_failed");
   };
   const initMemberNav = () => {
     if (!mGet()) return;
