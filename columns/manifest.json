@@ -1,6 +1,21 @@
 {
  "columns": [
   {
+   "id": "tetsukekin-kaiyaku",
+   "category": "buy",
+   "tags": [
+    "購入編"
+   ],
+   "tag": "購入編",
+   "title": "中古マンションの手付金はいくら払うか——解除できる期限と、ローン特約との違いを5,600万円の例で見る",
+   "date": "2026.11.13",
+   "hero": "/columns/hero/tetsukekin-kaiyaku.jpg",
+   "thumb": "/columns/hero/tetsukekin-kaiyaku-thumb.jpg",
+   "file": "columns/purchase/column_tetsukekin_kaiyaku.html",
+   "description": "中古マンションの手付金は、いくら払えば解除の権利を持てるのか。個人売主と不動産会社売主の上限の違い、手付解除の期限、ローン特約との違いを、価格5,600万円・手付560万円の例で整理する。",
+   "seo_title": "中古マンションの手付金｜相場・解除の期限・ローン特約の違い"
+  },
+  {
    "id": "uri-keiyaku-futekigo",
    "category": "sell",
    "tags": [
