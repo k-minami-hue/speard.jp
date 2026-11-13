@@ -210,7 +210,13 @@ ORG_ID = SITE + '/#organization'
 
 def page(path, title, desc, body, og_image=None, og_type='website', jsonld=None, breadcrumbs=None):
     url = SITE + path
-    full_title = title if '株式会社スピアード' in title else f'{title} | 株式会社スピアード'
+    # 検索結果で社名が切れないよう、長いタイトルは社名を短く付ける
+    if 'スピアード' in title:
+        full_title = title
+    elif len(title) <= 26:
+        full_title = f'{title} | 株式会社スピアード'
+    else:
+        full_title = f'{title} | スピアード'
     blocks = list(jsonld or [])
     if breadcrumbs:
         blocks.append({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
@@ -795,6 +801,17 @@ def build_sell_props(props):
         open(P('sell.html'), 'w', encoding='utf-8').write(out)
     return len(live)
 
+# 物件情報の次回更新予定日：毎週月曜の自動再生成（build-pages.yml の schedule）に合わせ、次の月曜日
+_today = datetime.date.today()
+NEXT_UPDATE = (_today + datetime.timedelta(days=(7 - _today.weekday()) or 7)).isoformat()
+
+def jp_date(s):  # '2026-11-14' -> '2026年11月14日'
+    try:
+        d = datetime.date.fromisoformat(str(s)[:10])
+        return f'{d.year}年{d.month}月{d.day}日'
+    except ValueError:
+        return esc(s)
+
 def build_properties():
     props = json.load(open(P('properties/manifest.json'), encoding='utf-8')).get('properties', [])
     order = {'販売中': 0, '商談中': 1, '成約済': 2}
@@ -828,8 +845,11 @@ def build_properties():
             *[(esc(r[0]), esc(r[1])) for r in (p.get('extra_rows') or []) if r and r[0]],
             ('取引態様', esc(p.get('transaction_type'))),
             ('情報提供会社', esc(broker.get('name') or '-') + (f'<small>{esc(broker["license"])}</small>' if broker.get('license') else '')),
+            # 表示規約（インターネット広告）：情報更新日と次回更新予定日。manifest の updated / next_update があればそれを使う
+            None if sold else ('情報更新日', jp_date(p.get('updated') or TODAY)),
+            None if sold else ('次回更新予定日', jp_date(p.get('next_update') or NEXT_UPDATE)),
         ]
-        table = ''.join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k, v in filter(None, rows))
+        table =''.join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k, v in filter(None, rows))
         feats = ''.join(f'<li>{esc(f)}</li>' for f in (p.get('features') or []))
         q = p.get('map_query') or ' '.join(filter(None, [p['name'], p.get('address')]))
         from urllib.parse import quote
