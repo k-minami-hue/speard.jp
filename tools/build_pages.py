@@ -258,7 +258,9 @@ def page(path, title, desc, body, og_image=None, og_type='website', jsonld=None,
 <meta name="twitter:image" content="{esc(img)}">
 {ld}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/assets/base.css?v={VER}">
 <link rel="stylesheet" href="/assets/site.css?v={VER}">
 </head>
@@ -968,7 +970,7 @@ def build_results():
 {CTA_BOTTOM('購入・売却のご相談', '同じマンション・近隣エリアでのご購入、ご売却のご相談も承ります。')}
 </div>'''
     names = '、'.join(x['name'] for x in res[:6])
-    write('results/index.html', page('/results/', '成約実績｜武蔵小杉・湾岸・都心のタワーマンション',
+    write('results/index.html', page('/results/', '成約実績｜分譲マンション・タワーマンションの売買事例',
                                      f'株式会社スピアードの成約実績（一例）。{names}など、首都圏のタワーマンションを中心に売買をお手伝いしています。',
                                      body, breadcrumbs=crumbs))
     return res
