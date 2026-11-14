@@ -1,6 +1,322 @@
 {
   "properties": [
     {
+      "id": "proud-tower-kameido-cross",
+      "status": "販売中",
+      "name": "プラウドタワー亀戸クロス ゲートタワー",
+      "price": 127900000,
+      "layout": "2LDK+SIC",
+      "area_m2": 56.29,
+      "balcony_m2": 14.04,
+      "floor": 21,
+      "total_floors": 25,
+      "structure": "RC造",
+      "direction": "北",
+      "built": "2021-12",
+      "address": "東京都江東区亀戸6丁目",
+      "map_query": "プラウドタワー亀戸クロス ゲートタワー 東京都江東区亀戸6丁目31-1",
+      "access": [
+        {
+          "line": "JR総武線",
+          "station": "亀戸",
+          "walk_min": 2
+        },
+        {
+          "line": "都営新宿線",
+          "station": "西大島",
+          "walk_min": 10
+        }
+      ],
+      "management_fee": 20600,
+      "repair_reserve": 7920,
+      "other_fees": "住宅enecoQシステム料金：1,562円／月、スマートマンションサービスシステム：880円／月",
+      "total_units": 452,
+      "land_rights": "所有権",
+      "management": "委託（通勤）",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "商業地域・準工業地域"
+        ],
+        [
+          "構造",
+          "地上25階・地下2階建・免震構造"
+        ],
+        [
+          "分譲会社",
+          "野村不動産・三菱地所レジデンス"
+        ],
+        [
+          "施工会社",
+          "前田建設工業株式会社"
+        ],
+        [
+          "専有面積の注記",
+          "専有面積56.29㎡はトランクルーム面積（2.87㎡）を含みます"
+        ]
+      ],
+      "features": [
+        "JR総武線「亀戸」駅徒歩2分",
+        "KAMEIDO CLOCK（4階）に直結",
+        "2021年12月築・総戸数452戸",
+        "免震構造",
+        "野村不動産×三菱地所レジデンス分譲",
+        "21階・スカイツリー方面の眺望",
+        "全館空調「床快full」",
+        "食器洗い乾燥機",
+        "ディスポーザー",
+        "シューズインクローゼット",
+        "使用料無償のトランクルーム",
+        "内廊下",
+        "各階ゴミ置場",
+        "各階宅配ボックス"
+      ],
+      "comment": "野村不動産と三菱地所レジデンスが分譲した、2021年12月築・総戸数452戸のタワーレジデンス。\nJR総武線「亀戸」駅徒歩2分、21階の2LDK＋SICです。\n\n【この物件の魅力】\n■JR総武線「亀戸」駅徒歩2分。錦糸町へ1駅、秋葉原・新宿方面へ乗り換えなしです。\n■4階で商業施設「KAMEIDO CLOCK」に直結。雨の日も濡れずに買い物ができます。\n■敷地約2.3万㎡の大規模再開発。建物は揺れを抑える免震構造です。\n■全館空調「床快full」を採用。壁掛けエアコンや床暖房がなくても、廊下や水回りまで室温が整います。\n■食器洗い乾燥機と内部流水式ディスポーザー付きのキッチン。\n■シューズインクローゼットに加え、使用料無償のトランクルーム付き。内廊下・各階ゴミ置場・各階宅配ボックスで日々の動線もスムーズです。\n\n【眺望】\n21階・北面。スカイツリー方面を望みます。\n花火大会の日には、スカイツリーと花火を一緒に眺められます（撮影日の写真を掲載しています）。\n\n【担当からひとこと】\n駅徒歩2分・商業施設直結という立地は、住む人だけでなく次に買う人にも伝わりやすい強みです。\n北向きのため直射日光は入りにくい一方、眺望は安定して楽しめます。日当たりと眺望のバランスは、内見で一緒に確認しましょう。\n資金計画や住宅ローンのご相談も含め、まずはお気軽にお問い合わせください。",
+      "transaction_type": "仲介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事（1）第112752号"
+      },
+      "photos": [
+        {
+          "src": "properties/proud-tower-kameido-cross/01.jpg",
+          "caption": "外観（KAMEIDO CLOCKとゲートタワー）"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/02.jpg",
+          "caption": "間取り図"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/04.jpg",
+          "caption": "バルコニー方向のLDK"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/03.jpg",
+          "caption": "LDK約13.2帖"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/05.jpg",
+          "caption": "21階からの眺望（スカイツリー方面）"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/06.jpg",
+          "caption": "バルコニーからの眺望"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/07.jpg",
+          "caption": "スカイツリー方向の眺望"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/08.jpg",
+          "caption": "住戸からの夜景（花火大会開催日に撮影）"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/09.jpg",
+          "caption": "食洗機・ディスポーザー付キッチン"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/10.jpg",
+          "caption": "キッチン背面"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/11.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/12.jpg",
+          "caption": "三面鏡付洗面化粧台"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/13.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/14.jpg",
+          "caption": "手洗いカウンター付トイレ"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/15.jpg",
+          "caption": "使用料無償のトランクルーム"
+        },
+        {
+          "src": "properties/proud-tower-kameido-cross/16.jpg",
+          "caption": "各階の宅配ボックス"
+        }
+      ],
+      "photos_note": "室内・眺望写真の一部は画像加工しています。"
+    },
+    {
+      "id": "atlas-tower-gotanda",
+      "status": "販売中",
+      "name": "アトラスタワー五反田",
+      "price": 178800000,
+      "layout": "2LDK",
+      "area_m2": 53.96,
+      "balcony_m2": 8.66,
+      "floor": 23,
+      "total_floors": 30,
+      "structure": "RC造",
+      "direction": "北西",
+      "built": "2024-01",
+      "address": "東京都品川区西五反田2丁目",
+      "map_query": "アトラスタワー五反田 東京都品川区西五反田2丁目22-6",
+      "access": [
+        {
+          "line": "都営浅草線",
+          "station": "五反田",
+          "walk_min": 3
+        },
+        {
+          "line": "JR山手線",
+          "station": "五反田",
+          "walk_min": 4
+        },
+        {
+          "line": "東急池上線",
+          "station": "五反田",
+          "walk_min": 5
+        }
+      ],
+      "management_fee": 29030,
+      "repair_reserve": 7280,
+      "other_fees": "町会費：200円／月、インターネット利用料：1,980円／月",
+      "total_units": 213,
+      "land_rights": "所有権",
+      "management": "委託（通勤）",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "商業地域"
+        ],
+        [
+          "構造",
+          "地上30階・地下1階建"
+        ],
+        [
+          "分譲会社",
+          "旭化成不動産レジデンス"
+        ],
+        [
+          "施工会社",
+          "西松建設株式会社"
+        ],
+        [
+          "ペット",
+          "飼育可（管理規約による制限あり）"
+        ]
+      ],
+      "features": [
+        "五反田駅徒歩3分・3路線利用可",
+        "2024年1月築・総戸数213戸",
+        "23階・北西向き",
+        "ゲート付きのゲーテッドマンション",
+        "旭化成不動産レジデンス分譲",
+        "天井カセット型エアコン（LD）",
+        "床暖房",
+        "食器洗い乾燥機",
+        "ディスポーザー",
+        "浴室乾燥機",
+        "カップボード設置済み",
+        "ステップインクローゼット",
+        "シューズインクローゼット",
+        "ラウンジ・ゲストルーム・パーティールーム・ライブラリー",
+        "ペット飼育可"
+      ],
+      "comment": "旭化成不動産レジデンス分譲・西松建設施工、2024年1月築・地上30階建のタワーレジデンス。\n都営浅草線「五反田」駅徒歩3分、23階・北西向きの2LDKです。\n\n【この物件の魅力】\n■都営浅草線「五反田」駅徒歩3分、JR山手線「五反田」駅徒歩4分、東急池上線「五反田」駅徒歩5分。3路線が使えます。\n■ゲート付きのゲーテッドマンション。外部からの立ち入りを抑えた、プライバシー性の高い住環境です。\n■LD約12.0帖＋K約3.1帖、洋室2室（約5.0帖・約4.6帖）。ステップインクローゼット・シューズインクローゼット付き。\n■LDは天井カセット型エアコンですっきり。床暖房・食器洗い乾燥機・ディスポーザー・浴室乾燥機を備えています。\n■新築時にカップボードを設置済み。食器棚を買い足さずにキッチン収納が整います。\n■共用部にラウンジ・ゲストルーム・パーティールーム・ライブラリー・スタディルーム・スカイデッキ。ペットは管理規約の範囲で飼育できます。\n\n【眺望】\n23階・北西向き。目黒川方面と都心のビル群を望みます。\n\n【担当からひとこと】\n駅徒歩3分・築浅タワー・ゲーテッドという条件がそろう物件は、五反田でも限られます。\n専有面積は53.96㎡のコンパクトな2LDKなので、収納と家具の置き方は内見で一緒に確認しましょう。\n資金計画や住宅ローンのご相談も含め、まずはお気軽にお問い合わせください。",
+      "transaction_type": "仲介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事（1）第112752号"
+      },
+      "photos": [
+        {
+          "src": "properties/atlas-tower-gotanda/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/02.jpg",
+          "caption": "間取り図"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/03.jpg",
+          "caption": "リビング・ダイニング"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/04.jpg",
+          "caption": "リビング・ダイニング（キッチン方向）"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/05.jpg",
+          "caption": "バルコニーからの眺望"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/06.jpg",
+          "caption": "住戸からの眺望"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/07.jpg",
+          "caption": "洋室（寝室）"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/08.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/09.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/10.jpg",
+          "caption": "キッチン背面収納"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/11.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/12.jpg",
+          "caption": "トイレ"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/13.jpg",
+          "caption": "エントランスゲート"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/14.jpg",
+          "caption": "エントランスアプローチ"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/15.jpg",
+          "caption": "アートオブジェ"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/16.jpg",
+          "caption": "エントランスホール"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/17.jpg",
+          "caption": "パーティールーム"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/18.jpg",
+          "caption": "ライブラリー"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/19.jpg",
+          "caption": "スカイテラスからの眺望"
+        },
+        {
+          "src": "properties/atlas-tower-gotanda/20.jpg",
+          "caption": "スカイテラスからの夜景（2024年撮影）"
+        }
+      ],
+      "photos_note": "一部の写真はCG加工により家具・生活用品等を消去しています。"
+    },
+    {
       "id": "the-parkhouse-musashikosugi-towers-south-7f",
       "status": "販売中",
       "name": "ザ・パークハウス 武蔵小杉タワーズ サウス",
