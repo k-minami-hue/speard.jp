@@ -1,6 +1,28 @@
 {
  "columns": [
   {
+   "id": "kosugi-urenai",
+   "category": "sell",
+   "tags": [
+    "売却編"
+   ],
+   "tag": "売却編",
+   "title": "武蔵小杉のタワマンが売れないときの見直し——値下げの前に確認する順番と、1回の改定幅を70㎡で見る",
+   "date": "2026.11.18",
+   "hero": "/columns/hero/kosugi-urenai.jpg",
+   "thumb": "/columns/hero/kosugi-urenai-thumb.jpg",
+   "file": "columns/sale/column_kosugi_urenai.html",
+   "description": "武蔵小杉のタワマンが売れないときは、反響なし・内見止まり・価格交渉止まりの3つに分けて診断する。棟ごとの坪単価の帯との比べ方、70㎡での値下げ幅と手取りへの影響、専任媒介3か月の見直し、買取の使いどころを整理。",
+   "hero_credit": {
+    "author": "インターネット川崎ガイド",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/deed.ja",
+    "source": "https://commons.wikimedia.org/wiki/File%3A%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89%E9%A7%85%E6%9D%B1%E5%8F%A3_-_panoramio.jpg",
+    "caption": "武蔵小杉駅東口"
+   },
+   "seo_title": "武蔵小杉のタワマンが売れない｜値下げ前の確認と改定幅"
+  },
+  {
    "id": "tetsukekin-kaiyaku",
    "category": "buy",
    "tags": [
