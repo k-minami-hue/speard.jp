@@ -3547,15 +3547,16 @@ function propCardHtml(p) {
       ? '<span class="prop-sold-label">成約済</span>'
       : '<span class="prop-price">' + propFormatPrice(p.price) + '</span>' + (propTsuboLabel(p) ? '<span class="prop-tsubo">' + propTsuboLabel(p) + '</span>' : '');
     const acc = Array.isArray(p.access) && p.access[0] ? propAccessText(p.access[0]) : '';
-    return '<a href="/properties/' + propEsc(p.id) + '/" class="prop-card' + (sold ? ' is-sold' : '') + '">' +
+    const suumo = (p.suumo_url && !sold) ? '<a class="prop-link-suumo" href="' + propEsc(p.suumo_url) + '" target="_blank" rel="noopener">SUUMOで見る <span aria-hidden="true">↗</span></a>' : '';
+    return '<div class="prop-card' + (sold ? ' is-sold' : '') + '"><a class="prop-main" href="/properties/' + propEsc(p.id) + '/">' +
       '<div class="prop-thumb"><span class="prop-status ' + (PROP_STATUS_CLASS[p.status] || 'ps-selling') + '">' + propEsc(p.status) + '</span>' + propThumbHtml(p) + '</div>' +
       '<div class="prop-body">' +
         '<div class="prop-name">' + propEsc(p.name) + '</div>' +
         '<div class="prop-price-row">' + priceHtml + '</div>' +
         '<div class="prop-spec"><span>' + propEsc(p.layout) + '</span><span>' + propArea(p.area_m2) + '</span><span>' + propFloor(p) + '</span></div>' +
         '<div class="prop-access">' + propEsc(acc) + '</div>' +
-        '<div class="prop-more">詳細を見る →</div>' +
-      '</div></a>';
+      '</div></a>' +
+      '<div class="prop-links"><a class="prop-link-detail" href="/properties/' + propEsc(p.id) + '/">詳細を見る →</a>' + suumo + '</div></div>';
   }
 }
 

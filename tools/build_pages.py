@@ -776,11 +776,13 @@ def prop_card(p, stats=True):
            if ph else f'<div class="prop-noimg"><span class="prop-noimg-en">Speard Selection</span><span class="prop-noimg-name">{esc(p["name"])}</span></div>')
     price = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span>' + (f'<span class="prop-tsubo">{p_tsubo(p)}</span>' if p_tsubo(p) else '')
     acc = p_access((p.get('access') or [None])[0])
-    return (f'<a href="/properties/{p["id"]}/" class="prop-card{" is-sold" if sold else ""}">'
+    suumo = f'<a class="prop-link-suumo" href="{esc(p["suumo_url"])}" target="_blank" rel="noopener">SUUMOで見る <span aria-hidden="true">↗</span></a>' if p.get('suumo_url') and not sold else ''
+    return (f'<div class="prop-card{" is-sold" if sold else ""}"><a class="prop-main" href="/properties/{p["id"]}/">'
             f'<div class="prop-thumb"><span class="prop-status {STATUS_CLASS.get(p.get("status"), "ps-selling")}">{esc(p.get("status"))}</span>{img}</div>'
             f'<div class="prop-body"><div class="prop-name">{esc(p["name"])}</div><div class="prop-price-row">{price}</div>'
             f'<div class="prop-spec"><span>{esc(p.get("layout"))}</span><span>{p_area(p.get("area_m2"))}</span><span>{p_floor(p)}</span></div>'
-            f'<div class="prop-access">{esc(acc)}</div>{"" if sold or not stats else p_stats(p["id"], card=True)}<div class="prop-more">詳細を見る →</div></div></a>')
+            f'<div class="prop-access">{esc(acc)}</div>{p_stats(p["id"], card=True) if stats and not sold else ""}</div></a>'
+            f'<div class="prop-links"><a class="prop-link-detail" href="/properties/{p["id"]}/">詳細を見る →</a>{suumo}</div></div>')
 
 def build_sell_props(props):
     """売却ページ（sell.html）の <!-- PROPS:sell --> 〜 <!-- /PROPS --> に、トップページと同じ販売中の物件カードを入れる。

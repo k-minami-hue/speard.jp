@@ -145,7 +145,8 @@
           "caption": "各階の宅配ボックス"
         }
       ],
-      "photos_note": "室内・眺望写真の一部は画像加工しています。"
+      "photos_note": "室内・眺望写真の一部は画像加工しています。",
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_koto/nc_22182454/"
     },
     {
       "id": "atlas-tower-gotanda",
@@ -314,7 +315,8 @@
           "caption": "スカイテラスからの夜景（2024年撮影）"
         }
       ],
-      "photos_note": "一部の写真はCG加工により家具・生活用品等を消去しています。"
+      "photos_note": "一部の写真はCG加工により家具・生活用品等を消去しています。",
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_shinagawa/nc_22091945/"
     },
     {
       "id": "the-parkhouse-musashikosugi-towers-south-7f",
@@ -418,7 +420,8 @@
           "caption": "間取り図"
         }
       ],
-      "photos_note": "外観写真は2026年11月に撮影した建築工事中のものです。完成時とは異なります。"
+      "photos_note": "外観写真は2026年11月に撮影した建築工事中のものです。完成時とは異なります。",
+      "suumo_url": "https://suumo.jp/ms/shinchiku/kanagawa/sc_kawasakishinakahara/nc_22104481/"
     },
     {
       "id": "nice-urban-musashishinjo",
@@ -633,7 +636,8 @@
           "caption": "外観"
         }
       ],
-      "photos_note": "外観写真（1枚目）は通行人をCG加工で消去しています。"
+      "photos_note": "外観写真（1枚目）は通行人をCG加工で消去しています。",
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_koto/nc_22063774/"
     },
     {
       "id": "akasaka-green-heights",
@@ -1242,7 +1246,8 @@
           "caption": "バルコニー"
         }
       ],
-      "photos_note": null
+      "photos_note": null,
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_chuo/nc_22065403/"
     },
     {
       "id": "park-tower-kachidoki-south-39f",
@@ -1552,7 +1557,8 @@
       "hide_update_dates": true,
       "seo_title": "Brillia日本橋人形町 3階 1LDK＋納戸 9,980万円｜株式会社スピアード",
       "seo_description": "Brillia日本橋人形町の販売情報。3階・1LDK＋納戸・45.19㎡、価格9,980万円。東京メトロ日比谷線・都営浅草線「人形町」駅 徒歩4分、都営新宿線「浜町」駅 徒歩4分、東京メトロ半蔵門線「水天宮前」駅 徒歩5分。株式会社スピアードが専任媒介で仲介します。",
-      "line_url": "https://lin.ee/ntcemZY"
+      "line_url": "https://lin.ee/ntcemZY",
+      "suumo_url": "https://suumo.jp/ms/chuko/tokyo/sc_chuo/nc_22100300/"
     }
   ]
 }

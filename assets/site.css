@@ -541,3 +541,17 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
   .flow-step{ padding:22px 20px; }
   .page-home .section-header{ margin-bottom:32px; }
 }
+
+/* 物件カード：詳細リンクとSUUMOリンク（全ページ共通） */
+.prop-main{ display:flex; flex-direction:column; flex:1; text-decoration:none; color:inherit; }
+.prop-main .prop-body{ flex:1; }
+.prop-links{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 22px 18px; }
+.prop-link-detail{ font-size:.8rem; font-weight:600; letter-spacing:.06em; color:var(--sp-gold-dark,#9a7b1e); text-decoration:none; white-space:nowrap; }
+.prop-link-detail:hover{ text-decoration:underline; text-underline-offset:3px; }
+.prop-link-suumo{ font-size:.8rem; font-weight:700; color:var(--sp-navy-dark,#0d2238); border:1.5px solid var(--sp-navy-dark,#0d2238); border-radius:999px; padding:6px 14px; text-decoration:none; white-space:nowrap; transition:background .2s,color .2s; }
+.prop-link-suumo:hover{ background:var(--sp-navy-dark,#0d2238); color:#fff; }
+@media (max-width:600px){
+  .prop-links{ padding:10px 10px 12px; }
+  .prop-link-detail{ font-size:.7rem; }
+  .prop-link-suumo{ font-size:.68rem; padding:5px 9px; }
+}
