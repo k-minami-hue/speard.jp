@@ -3438,10 +3438,11 @@ function propTsubo(p) {
   return Math.floor(p.price * 3.30578 / p.area_m2 / 10000 + 1e-9);
 }
 function propTsuboLabel(p) {
+  if (p.hide_tsubo) return '';
   const t = propTsubo(p);
   return t == null ? '' : '坪単価：' + t.toLocaleString('ja-JP') + '万／坪';
 }
-function propYen(n) { return n == null ? '-' : Number(n).toLocaleString('ja-JP') + '円／月'; }
+function propYen(n) { return n == null ? '-' : (typeof n === 'string' ? propEsc(n) : Number(n).toLocaleString('ja-JP') + '円／月'); }
 function propDate(s) {
   if (!s) return '-';
   const m = String(s).match(/^(\d{4})[-.\/](\d{1,2})(?:[-.\/](\d{1,2}))?/);
@@ -3514,7 +3515,7 @@ function propCardHtml(p) {
     const sold = propIsSold(p);
     const priceHtml = sold
       ? '<span class="prop-sold-label">成約済</span>'
-      : '<span class="prop-price">' + propFormatPrice(p.price) + '</span><span class="prop-tsubo">' + propTsuboLabel(p) + '</span>';
+      : '<span class="prop-price">' + propFormatPrice(p.price) + '</span>' + (propTsuboLabel(p) ? '<span class="prop-tsubo">' + propTsuboLabel(p) + '</span>' : '');
     const acc = Array.isArray(p.access) && p.access[0] ? propAccessText(p.access[0]) : '';
     return '<a href="/properties/' + propEsc(p.id) + '/" class="prop-card' + (sold ? ' is-sold' : '') + '">' +
       '<div class="prop-thumb"><span class="prop-status ' + (PROP_STATUS_CLASS[p.status] || 'ps-selling') + '">' + propEsc(p.status) + '</span>' + propThumbHtml(p) + '</div>' +
@@ -3636,8 +3637,8 @@ async function showPropertyDetail(id, noPush) {
 
   // 価格サイド
   set('pd-price', sold ? '<span class="prop-sold-label" style="font-size:1.5rem">成約済</span>' : propFormatPrice(p.price));
-  set('pd-tsubo', sold ? '' : '<span class="prop-tsubo" style="font-size:.84rem;padding:5px 12px">' + propTsuboLabel(p) + '</span>');
-  set('pd-sp-price', sold ? '<span class="prop-sold-label">成約済</span>' : '<span class="prop-price">' + propFormatPrice(p.price) + '</span><span class="prop-tsubo">' + propTsuboLabel(p) + '</span>');
+  set('pd-tsubo', sold || !propTsuboLabel(p) ? '' : '<span class="prop-tsubo" style="font-size:.84rem;padding:5px 12px">' + propTsuboLabel(p) + '</span>');
+  set('pd-sp-price', sold ? '<span class="prop-sold-label">成約済</span>' : '<span class="prop-price">' + propFormatPrice(p.price) + '</span>' + (propTsuboLabel(p) ? '<span class="prop-tsubo">' + propTsuboLabel(p) + '</span>' : ''));
   set('pd-side-spec', propEsc(p.layout) + '｜' + propArea(p.area_m2) + '（壁芯）｜' + propFloor(p) + '<br>' + propEsc(Array.isArray(p.access) && p.access[0] ? propAccessText(p.access[0]) : ''));
   set('pd-side-meta', '取引態様：' + propEsc(p.transaction_type));
   set('pd-sold-notice', sold ? '<div class="prop-sold-notice">本物件は成約済です。同マンション・近隣の類似物件のご紹介を承ります。</div>' : '');
@@ -3658,7 +3659,7 @@ async function showPropertyDetail(id, noPush) {
   const broker = p.broker || {};
   const rows = [
     ['物件名', propEsc(p.name)],
-    ['価格', sold ? '成約済' : propFormatPrice(p.price) + '<small>' + propTsuboLabel(p) + '</small>'],
+    ['価格', sold ? '成約済' : propFormatPrice(p.price) + (propTsuboLabel(p) ? '<small>' + propTsuboLabel(p) + '</small>' : '')],
     ['間取り', propEsc(p.layout)],
     ['専有面積', propArea(p.area_m2) + '（壁芯）' + (p.area_registered_m2 ? '<small>登記簿面積：' + propArea(p.area_registered_m2) + '</small>' : '')],
     p.balcony_m2 != null ? ['バルコニー面積', propArea(p.balcony_m2)] : null,
@@ -3667,8 +3668,10 @@ async function showPropertyDetail(id, noPush) {
     ['築年月', propBuilt(p.built)],
     ['所在地', propEsc(p.address)],
     ['交通', (Array.isArray(p.access) ? p.access : []).map(a => propEsc(propAccessText(a))).join('<br>') || '-'],
-    ['管理費', propYen(p.management_fee) + (p.management ? '<small>管理形態：' + propEsc(p.management) + '</small>' : '')],
-    ['修繕積立金', propYen(p.repair_reserve)],
+    ...(typeof p.management_fee === 'string' || typeof p.repair_reserve === 'string'
+      ? [['管理費・修繕積立金', [p.management_fee, p.repair_reserve].filter(x => typeof x === 'string').map(propEsc).join('／') + (p.management ? '<small>管理形態：' + propEsc(p.management) + '</small>' : '')]]
+      : [['管理費', propYen(p.management_fee) + (p.management ? '<small>管理形態：' + propEsc(p.management) + '</small>' : '')],
+         ['修繕積立金', propYen(p.repair_reserve)]]),
     p.other_fees ? ['その他費用', propEsc(p.other_fees)] : null,
     ['総戸数', p.total_units ? propEsc(p.total_units) + '戸' : '-'],
     p.land_rights ? ['敷地の権利形態', propEsc(p.land_rights)] : null,

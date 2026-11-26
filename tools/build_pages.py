@@ -194,14 +194,15 @@ FOOTER = f'''<footer class="site-footer">
   <div class="ft-bottom"><span>株式会社スピアード</span><span>&copy; 2026 Speard Inc. All Rights Reserved.</span></div>
 </footer>'''
 
-CTA_BOTTOM = lambda title, sub, contact='/#contact': f'''<section class="column-bottom-cta">
+def CTA_BOTTOM(title, sub, contact='/#contact', line_url=None):
+    return f'''<section class="column-bottom-cta">
   <div class="column-bottom-cta-inner">
     <span class="column-bottom-cta-en">Contact Us</span>
     <h2 class="column-bottom-cta-ja">{title}</h2>
     <p class="column-bottom-cta-sub">{sub}</p>
     <div class="column-bottom-cta-btns">
       <a href="{contact}" class="column-bottom-cta-btn-gold">お問合せはこちら</a>
-      <a href="{LINE_URL}" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">公式LINEで相談する</a>
+      <a href="{line_url or LINE_URL}" target="_blank" rel="noopener" class="column-bottom-cta-btn-line">公式LINEで相談する</a>
     </div>
   </div>
 </section>'''
@@ -674,6 +675,7 @@ def p_price(yen):
     if oku: return f'{oku}億' + (f'{rest:,}万円' if rest else '円')
     return f'{man:,}万円'
 def p_tsubo(p):
+    if p.get('hide_tsubo'): return ''
     if not p.get('price') or not p.get('area_m2'): return ''
     t = int(p['price'] * 3.30578 / p['area_m2'] / 10000 + 1e-9)
     return f'坪単価：{t:,}万／坪'
@@ -772,7 +774,7 @@ def prop_card(p, stats=True):
     ph = p_photos(p)
     img = (f'<img src="/{esc((p.get("thumb") or ph[0]["src"]).lstrip("/"))}" alt="{esc(p["name"])}" loading="lazy" decoding="async"><span class="prop-photo-count">写真 {len(ph)}枚</span>'
            if ph else f'<div class="prop-noimg"><span class="prop-noimg-en">Speard Selection</span><span class="prop-noimg-name">{esc(p["name"])}</span></div>')
-    price = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span><span class="prop-tsubo">{p_tsubo(p)}</span>'
+    price = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span>' + (f'<span class="prop-tsubo">{p_tsubo(p)}</span>' if p_tsubo(p) else '')
     acc = p_access((p.get('access') or [None])[0])
     return (f'<a href="/properties/{p["id"]}/" class="prop-card{" is-sold" if sold else ""}">'
             f'<div class="prop-thumb"><span class="prop-status {STATUS_CLASS.get(p.get("status"), "ps-selling")}">{esc(p.get("status"))}</span>{img}</div>'
@@ -825,9 +827,19 @@ def build_properties():
         ph = p_photos(p)
         acc0 = p_access((p.get('access') or [None])[0])
         broker = p.get('broker') or {}
+        tsubo = p_tsubo(p)
+        # 管理費・修繕積立金が文字列（「お問い合わせください」等）のときは合算行で出す
+        if isinstance(p.get('management_fee'), str) or isinstance(p.get('repair_reserve'), str):
+            fee_txt = '／'.join(x for x in [p.get('management_fee'), p.get('repair_reserve')] if isinstance(x, str))
+            fee_rows = [('管理費・修繕積立金', esc(fee_txt) + (f'<small>管理形態：{esc(p["management"])}</small>' if p.get('management') else ''))]
+        else:
+            fee_rows = [
+                ('管理費', p_yen(p.get('management_fee')) + (f'<small>管理形態：{esc(p["management"])}</small>' if p.get('management') else '')),
+                ('修繕積立金', p_yen(p.get('repair_reserve'))),
+            ]
         rows = [
             ('物件名', esc(p['name'])),
-            ('価格', '成約済' if sold else f'{p_price(p.get("price"))}<small>{p_tsubo(p)}</small>'),
+            ('価格', '成約済' if sold else f'{p_price(p.get("price"))}' + (f'<small>{tsubo}</small>' if tsubo else '')),
             ('間取り', esc(p.get('layout'))),
             ('専有面積', p_area(p.get('area_m2')) + '（壁芯）' + (f'<small>登記簿面積：{p_area(p["area_registered_m2"])}</small>' if p.get('area_registered_m2') else '')),
             ('バルコニー面積', p_area(p['balcony_m2'])) if p.get('balcony_m2') is not None else None,
@@ -836,8 +848,7 @@ def build_properties():
             ('築年月', p_built(p.get('built'))),
             ('所在地', esc(p.get('address'))),
             ('交通', '<br>'.join(esc(p_access(a)) for a in (p.get('access') or [])) or '-'),
-            ('管理費', p_yen(p.get('management_fee')) + (f'<small>管理形態：{esc(p["management"])}</small>' if p.get('management') else '')),
-            ('修繕積立金', p_yen(p.get('repair_reserve'))),
+            *fee_rows,
             ('その他費用', esc(p['other_fees'])) if p.get('other_fees') else None,
             ('総戸数', f'{esc(p["total_units"])}戸' if p.get('total_units') else '-'),
             ('敷地の権利形態', esc(p['land_rights'])) if p.get('land_rights') else None,
@@ -848,8 +859,9 @@ def build_properties():
             ('取引態様', esc(p.get('transaction_type'))),
             ('情報提供会社', esc(broker.get('name') or '-') + (f'<small>{esc(broker["license"])}</small>' if broker.get('license') else '')),
             # 表示規約（インターネット広告）：情報更新日と次回更新予定日。manifest の updated / next_update があればそれを使う
-            None if sold else ('情報更新日', jp_date(p.get('updated') or TODAY)),
-            None if sold else ('次回更新予定日', jp_date(p.get('next_update') or NEXT_UPDATE)),
+            # hide_update_dates の物件は社内ルールで出さない
+            None if sold or p.get('hide_update_dates') else ('情報更新日', jp_date(p.get('updated') or TODAY)),
+            None if sold or p.get('hide_update_dates') else ('次回更新予定日', jp_date(p.get('next_update') or NEXT_UPDATE)),
         ]
         table =''.join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k, v in filter(None, rows))
         feats = ''.join(f'<li>{esc(f)}</li>' for f in (p.get('features') or []))
@@ -880,11 +892,13 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
         stats_row = '' if sold else (f'<div class="prop-stats-row">{p_stats(p["id"])}<button type="button" class="prop-fav" data-fav="{esc(p["id"])}" aria-pressed="false">{fav_svg}<span class="pf-label">お気に入りに登録</span></button></div>')
         reserve = '' if sold else reserve_html(p, oc)
         side_btns = ('' if sold or oc else '<a class="prop-btn prop-btn-contact" href="#reserve" data-rv="visit">内見を予約する（日程を選ぶ）</a>') + ('' if sold else f'<a class="prop-btn {"prop-btn-contact" if oc else "prop-btn-docs"}" href="#reserve" data-rv="docs">資料を請求する</a>')
-        price_html = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span><span class="prop-tsubo">{p_tsubo(p)}</span>'
+        price_html = '<span class="prop-sold-label">成約済</span>' if sold else f'<span class="prop-price">{p_price(p.get("price"))}</span>' + (f'<span class="prop-tsubo">{tsubo}</span>' if tsubo else '')
         crumbs = [('トップ', '/'), ('販売物件', '/properties/'), (p['name'], url)]
         title = f'{p["name"]} {p_floor(p).split("／")[0]} {p.get("layout","")}' + ('' if sold else f'（{p_price(p.get("price"))}）')
-        desc = (f'{p["name"]}の販売情報。' + ('' if sold else f'価格{p_price(p.get("price"))}（{p_tsubo(p)}）、') +
+        desc = (f'{p["name"]}の販売情報。' + ('' if sold else f'価格{p_price(p.get("price"))}' + (f'（{tsubo}）' if tsubo else '') + '、') +
                 f'{p.get("layout","")}・{p_area(p.get("area_m2"))}・{p_floor(p)}、{acc0}。株式会社スピアードが仲介します。')
+        page_title = p.get('seo_title') or title
+        page_desc = p.get('seo_description') or desc
         offer_ld = {'@context': 'https://schema.org', '@type': 'RealEstateListing', 'name': title, 'url': SITE + url,
                     'description': desc, 'image': [SITE + '/' + x['src'].lstrip('/') for x in ph[:5]],
                     'offers': {'@type': 'Offer', 'price': p.get('price'), 'priceCurrency': 'JPY',
@@ -911,7 +925,7 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
     <div class="prop-side-card">
       <div class="prop-side-label">価格</div>
       <div class="prop-side-price">{'<span class="prop-sold-label" style="font-size:1.5rem">成約済</span>' if sold else p_price(p.get('price'))}</div>
-      {'' if sold else f'<div><span class="prop-tsubo" style="font-size:.84rem;padding:5px 12px">{p_tsubo(p)}</span></div>'}
+      {'' if sold or not tsubo else f'<div><span class="prop-tsubo" style="font-size:.84rem;padding:5px 12px">{tsubo}</span></div>'}
       <div class="prop-side-spec">{esc(p.get("layout"))}｜{p_area(p.get("area_m2"))}（壁芯）｜{p_floor(p)}<br>{esc(acc0)}</div>
       <div class="prop-side-meta">取引態様：{esc(p.get("transaction_type"))}</div>
     </div>
@@ -919,14 +933,14 @@ m.addEventListener('click',function(){{window.open(P[i].src,'_blank');}});show(0
     {f'<a class="prop-btn prop-btn-suumo" href="{esc(p["suumo_url"])}" target="_blank" rel="noopener">SUUMOで詳細を見る <span aria-hidden="true">↗</span></a>' if p.get('suumo_url') and not sold else ''}
     {side_btns}
     <a class="prop-btn {'prop-btn-contact' if sold else 'prop-btn-sub'}" href="{contact}">{'類似物件について問い合わせる' if sold else 'その他のお問い合わせ'}</a>
-    <a class="prop-btn prop-btn-line" href="{LINE_URL}" target="_blank" rel="noopener">{LINE_SVG}公式LINEで相談する</a>
+    <a class="prop-btn prop-btn-line" href="{p.get('line_url') or LINE_URL}" target="_blank" rel="noopener">{LINE_SVG}公式LINEで相談する</a>
   </aside>
 </div>
-{CTA_BOTTOM('内見・資料請求のご依頼', '資金計画・住宅ローンのご相談も含め、担当者が直接ご対応します。', contact if sold else '#reserve')}
+{CTA_BOTTOM('内見・資料請求のご依頼', '資金計画・住宅ローンのご相談も含め、担当者が直接ご対応します。', contact if sold else '#reserve', line_url=p.get('line_url'))}
 </div>
 <script src="/assets/prop.js?v={VER}" defer></script>'''
         og = SITE + '/' + ph[0]['src'].lstrip('/') if ph else None
-        write(f'properties/{p["id"]}/index.html', page(url, title, desc, body, og_image=og, jsonld=[offer_ld], breadcrumbs=crumbs))
+        write(f'properties/{p["id"]}/index.html', page(url, page_title, page_desc, body, og_image=og, jsonld=[offer_ld], breadcrumbs=crumbs))
 
     crumbs = [('トップ', '/'), ('販売物件', '/properties/')]
     cards = ''.join(prop_card(p) for p in props)

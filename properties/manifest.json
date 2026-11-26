@@ -1396,6 +1396,162 @@
         }
       ],
       "photos_note": "写真の一部は明るさ・色味の補正や拡大処理をしています。"
+    },
+    {
+      "id": "brillia-nihonbashi-ningyocho",
+      "status": "販売中",
+      "name": "Brillia日本橋人形町",
+      "price": 99800000,
+      "layout": "1LDK＋納戸",
+      "area_m2": 45.19,
+      "area_registered_m2": 41.77,
+      "balcony_m2": 7.93,
+      "floor": 3,
+      "total_floors": 11,
+      "structure": "鉄筋コンクリート造",
+      "direction": "北東",
+      "built": "2011-02",
+      "address": "東京都中央区日本橋人形町2丁目",
+      "map_query": "Brillia日本橋人形町 東京都中央区日本橋人形町2丁目",
+      "access": [
+        {
+          "line": "東京メトロ日比谷線・都営浅草線",
+          "station": "人形町",
+          "walk_min": 4
+        },
+        {
+          "line": "都営新宿線",
+          "station": "浜町",
+          "walk_min": 4
+        },
+        {
+          "line": "東京メトロ半蔵門線",
+          "station": "水天宮前",
+          "walk_min": 5
+        }
+      ],
+      "management_fee": "お問い合わせください（現在確認中）",
+      "repair_reserve": null,
+      "other_fees": null,
+      "total_units": 50,
+      "land_rights": "所有権",
+      "management": "全部委託・日勤",
+      "delivery": "相談",
+      "restrictions": null,
+      "extra_rows": [
+        [
+          "用途地域",
+          "商業地域"
+        ],
+        [
+          "分譲会社",
+          "東京建物株式会社"
+        ],
+        [
+          "施工会社",
+          "株式会社淺沼組"
+        ],
+        [
+          "管理会社",
+          "東京建物アメニティサポート"
+        ],
+        [
+          "ペット",
+          "可（規約による細則有）"
+        ],
+        [
+          "現況",
+          "居住中"
+        ]
+      ],
+      "features": [
+        "「日本橋」の名を冠する中央区のアドレス",
+        "老舗と甘酒横丁が息づく、江戸情緒の残る街",
+        "浜町緑道に面し、春は桜並木を楽しめる",
+        "人形町・浜町・水天宮前、3駅4路線が徒歩5分圏",
+        "日比谷線で銀座・六本木へ、半蔵門線で大手町・表参道・渋谷へ乗換なし",
+        "東京建物のブランドマンション「Brillia」、総戸数50戸・内廊下設計",
+        "天井高2,600mm・二重床二重天井・LD床暖房",
+        "カスタムクロゼット・納戸・リネン庫で収納充実"
+      ],
+      "comment": "人形町・浜町・水天宮前、3駅4路線が徒歩5分圏。東京建物「Brillia」シリーズの1LDK＋納戸、45.19㎡です。\n日比谷線で銀座・六本木へ、半蔵門線で大手町・表参道・渋谷へ、乗り換えなしで移動できます。\n\n【アクセス】\n■日比谷線・都営浅草線「人形町」駅 徒歩4分。銀座・六本木・新橋へ乗り換えなし。浅草線は羽田空港・成田空港への直通列車も走っています。\n■都営新宿線「浜町」駅 徒歩4分。新宿へ直通です。\n■半蔵門線「水天宮前」駅 徒歩5分。大手町・表参道・渋谷へ乗り換えなし。\n■行き先に合わせて3つの駅を使い分けられるので、通勤も休日の移動も乗り換えを減らせます。\n\n【この物件の魅力】\n■東京建物のブランドマンション「Brillia」。総戸数50戸・内廊下設計の落ち着いた佇まいです。\n■天井高2,600mm、二重床・二重天井、LDには床暖房を備えています。\n■カスタムクロゼット・納戸・リネン庫と、1LDK＋納戸でも収納を確保しています。\n■浜町緑道に面し、春は桜並木を楽しめます。\n■ペット飼育可（規約による細則あり）。\n\n【暮らしのイメージ】\n老舗と甘酒横丁が息づく、江戸情緒の残る街です。\n日本橋の商業施設も生活圏で、買い物や食事の選択肢が広がります。\n\n【担当からひとこと】\n「日本橋」の名を冠する中央区のアドレスで、3駅4路線を徒歩5分圏で使える立地です。\n駅距離と使える路線の数は、住み替えや賃貸を考えるときにも重視される条件です。\n駅までの近さと浜町緑道の桜並木は、ぜひ現地で確かめてください。内見のご予約をお待ちしています。",
+      "transaction_type": "専任媒介",
+      "broker": {
+        "name": "株式会社スピアード",
+        "license": "東京都知事(1)第112752号"
+      },
+      "photos": [
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/01.jpg",
+          "caption": "外観"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/02.jpg",
+          "caption": "間取図"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/03.jpg",
+          "caption": "リビング・ダイニング"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/04.jpg",
+          "caption": "リビング・ダイニング（洋室方向）"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/05.jpg",
+          "caption": "眺望（桜並木）"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/06.jpg",
+          "caption": "キッチン"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/07.jpg",
+          "caption": "キッチン（カップボード・冷蔵庫置場）"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/08.jpg",
+          "caption": "洋室"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/09.jpg",
+          "caption": "ウォークインクローゼット"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/10.jpg",
+          "caption": "洗面化粧台"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/11.jpg",
+          "caption": "浴室"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/12.jpg",
+          "caption": "トイレ"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/13.jpg",
+          "caption": "エントランス"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/14.jpg",
+          "caption": "エントランスホール"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/15.jpg",
+          "caption": "建物遠景"
+        },
+        {
+          "src": "properties/brillia-nihonbashi-ningyocho/16.jpg",
+          "caption": "周辺の桜並木"
+        }
+      ],
+      "photos_note": null,
+      "hide_tsubo": true,
+      "hide_update_dates": true,
+      "seo_title": "Brillia日本橋人形町 3階 1LDK＋納戸 9,980万円｜株式会社スピアード",
+      "seo_description": "Brillia日本橋人形町の販売情報。3階・1LDK＋納戸・45.19㎡、価格9,980万円。東京メトロ日比谷線・都営浅草線「人形町」駅 徒歩4分、都営新宿線「浜町」駅 徒歩4分、東京メトロ半蔵門線「水天宮前」駅 徒歩5分。株式会社スピアードが専任媒介で仲介します。",
+      "line_url": "https://lin.ee/ntcemZY"
     }
   ]
 }
