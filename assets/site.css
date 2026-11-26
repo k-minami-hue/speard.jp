@@ -492,3 +492,52 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
 @media (prefers-reduced-motion: reduce){
   .page-home .hero-en, .page-home .hero-title, .page-home .hero-sub, .page-home .hero-btns, .page-home .hero-trust{ animation:none !important; opacity:1 !important; transform:none !important; }
 }
+
+/* =========================================================
+   2026-11-26 トップページ ガラッと一新 v2（.page-home 限定）
+   写真ヒーロー／見出し左寄せ／お客様の声は濃紺／ご相談の流れ
+   ========================================================= */
+.page-home #home{
+  background-image:linear-gradient(100deg, rgba(13,34,56,.94) 0%, rgba(13,34,56,.82) 48%, rgba(13,34,56,.42) 100%), url('/results/park-city-musashikosugi-midsky.webp') !important;
+  background-size:cover !important; background-position:center 38% !important;
+}
+.page-home #home::before{ opacity:.35; }
+.page-home #home::after{ content:none; }
+.page-home .hero-content{ max-width:1120px; width:100%; text-align:left; }
+.page-home .hero-en{ color:#E9C767; }
+.page-home .hero-title{ max-width:700px; text-shadow:0 2px 18px rgba(0,0,0,.35); }
+.page-home .hero-sub{ max-width:620px; margin-left:0 !important; margin-right:0 !important; }
+.page-home .hero-btns{ justify-content:flex-start; }
+.page-home .hero-trust{ justify-content:flex-start; margin-left:0; margin-right:0; }
+.page-home .hero-cap{ position:absolute; right:14px; bottom:10px; z-index:2; font-size:.68rem; color:rgba(255,255,255,.75); letter-spacing:.04em; }
+/* 見出しは左寄せに統一（お問合せのみ中央） */
+.page-home .section-header{ text-align:left; max-width:760px; }
+.page-home .section-line{ margin-left:0; margin-right:0; }
+.page-home .section-desc{ margin-left:0; margin-right:0; }
+.page-home #contact .section-header{ text-align:center; margin-left:auto; margin-right:auto; }
+.page-home #contact .section-line{ margin-left:auto; margin-right:auto; }
+.page-home #contact .section-desc{ margin-left:auto; margin-right:auto; }
+/* お客様の声：濃紺セクションに白カード */
+.page-home #home-voices{ background:var(--sp-navy-dark); }
+.page-home #home-voices .section-title{ color:#fff; }
+.page-home #home-voices .section-desc{ color:rgba(255,255,255,.82) !important; }
+.page-home #home-voices .hm-voice{ background:#fff; border:none; }
+.page-home #home-voices .hm-more-btn{ background:var(--sp-gold); }
+.page-home #home-voices .hm-more-btn:hover{ background:var(--sp-gold-dark); }
+.page-home #home-voices .hm-greview a, .page-home #home-voices .gmap-reviews-top a{ color:#fff !important; }
+/* ご相談の流れ */
+.flow-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:flow; }
+.flow-step{ position:relative; background:#fff; border:1px solid var(--sp-beige); border-top:3px solid var(--sp-gold); border-radius:12px; padding:28px 24px 26px; }
+.flow-num{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:var(--sp-navy-dark); color:#fff; font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; margin-bottom:16px; }
+.flow-title{ font-family:'Noto Serif JP',serif; font-size:1.05rem; font-weight:700; color:var(--sp-navy-dark); line-height:1.6; margin:0 0 10px; }
+.flow-text{ font-size:.92rem; line-height:1.95; color:var(--sp-text); margin:0; }
+@media (min-width:641px) and (max-width:900px){ .flow-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:640px){
+  .page-home #home{ background-position:62% 38% !important; }
+  .page-home .hero-content{ text-align:left; }
+  .page-home .hero-btns{ align-items:stretch; }
+  .page-home .hero-trust{ align-items:flex-start; }
+  .flow-grid{ grid-template-columns:1fr; gap:14px; }
+  .flow-step{ padding:22px 20px; }
+  .page-home .section-header{ margin-bottom:32px; }
+}
