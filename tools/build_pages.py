@@ -26,7 +26,7 @@ TODAY = datetime.date.today().isoformat()
 OG_DEFAULT = SITE + '/assets/ogp.jpg'
 LINE_URL = 'https://line.me/R/ti/p/%40xef5208i'
 # Googleビジネスプロフィール（店舗ID 0xe74192b0ae010d88）
-GMAP_URL = 'https://www.google.com/maps/place/?q=place_id:ChIJA81eNwCNGGARiA0BrrCSQec'
+GMAP_URL = 'https://www.google.com/maps/search/?api=1&query=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E3%82%B9%E3%83%94%E3%82%A2%E3%83%BC%E3%83%89&query_place_id=ChIJA81eNwCNGGARiA0BrrCSQec'
 GREVIEW_URL = 'https://g.page/r/CYgNAa6wkkHnEBM/review'
 
 def P(*a): return os.path.join(ROOT, *a)
