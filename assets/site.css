@@ -411,3 +411,84 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
 .column-byline a{ color:inherit; text-decoration:underline; text-underline-offset:3px; }
 #col-author{ margin-top:36px; scroll-margin-top:90px; }
 .column-main > .column-share{ margin-top:32px; }
+
+/* =========================================================
+   2026-11-26 トップページ見やすさ一新（.page-home 限定）
+   目的：文字を大きく、余白と階層をはっきり、スマホは1カラムで読める形に
+   ========================================================= */
+.page-home{ line-height:1.85; }
+.page-home section{ scroll-margin-top:132px; }
+.page-home .section-header{ margin-bottom:52px; }
+.page-home .section-en{ color:var(--sp-gold-dark); font-size:.95rem; margin-bottom:12px; }
+.page-home .section-title{ font-weight:700; font-size:clamp(1.75rem,3.4vw,2.4rem); line-height:1.4; letter-spacing:.04em; margin-bottom:18px; }
+.page-home .section-line{ width:56px; height:3px; border-radius:2px; margin-bottom:20px; }
+.page-home .section-desc{ font-size:1rem !important; line-height:1.95 !important; max-width:700px; margin-left:auto; margin-right:auto; }
+/* ヒーロー */
+.page-home #home{ padding-top:132px !important; }
+.page-home .hero-en{ font-size:1rem; margin-bottom:20px; }
+.page-home .hero-title{ font-weight:700; font-size:clamp(2.1rem,5vw,3.4rem) !important; line-height:1.4 !important; letter-spacing:.03em; }
+.page-home .hero-sub{ font-size:1.02rem !important; line-height:2 !important; color:rgba(255,255,255,.88) !important; }
+.page-home .btn-primary, .page-home .btn-outline{ border-radius:999px; min-height:56px; display:inline-flex; align-items:center; justify-content:center; font-weight:700; }
+.page-home .hero-trust{ gap:10px; }
+.page-home .hero-trust li{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:7px 16px; font-size:.85rem; color:rgba(255,255,255,.95); }
+.page-home .hero-trust li::before{ content:none; }
+/* ページ内クイックメニュー（ヒーロー直下・追従） */
+.home-quicknav{ position:sticky; top:76px; z-index:80; display:flex; gap:4px; align-items:center; justify-content:center; background:rgba(255,255,255,.97); border-bottom:1px solid var(--sp-beige); padding:10px 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.home-quicknav::-webkit-scrollbar{ display:none; }
+.home-quicknav a{ flex:none; color:var(--sp-navy-dark); text-decoration:none; font-size:.9rem; font-weight:600; padding:9px 14px; border-radius:999px; white-space:nowrap; }
+.home-quicknav a:hover{ background:var(--sp-off); }
+.home-quicknav a.hq-cta{ background:var(--sp-gold); color:#fff; font-weight:700; }
+.home-quicknav a.hq-cta:hover{ background:var(--sp-gold-dark); }
+/* サービス */
+.page-home .service-card{ border-radius:12px; border:1px solid var(--sp-beige); box-shadow:0 4px 24px rgba(13,34,56,.07); }
+.page-home .sc-hero{ height:176px; padding:24px 28px; }
+.page-home .sc-label-ja{ font-size:1.55rem; font-weight:700; }
+.page-home .sc-body{ padding:30px 30px 34px; }
+.page-home .sc-tagline{ font-size:1.05rem; line-height:1.8; }
+.page-home .sc-list{ gap:12px; }
+.page-home .sc-list li{ font-size:.95rem; line-height:1.85; color:var(--sp-text); }
+.page-home .stat-card{ border-radius:12px; padding:36px 24px; }
+.page-home .stat-num{ font-size:3.2rem; }
+/* 成約実績・お客様の声・コラムのカード */
+.page-home .hm-res, .page-home .hm-voice, .page-home .hm-col{ border-radius:12px; }
+.page-home .hm-res{ border:1px solid var(--sp-beige); box-shadow:0 4px 20px rgba(13,34,56,.06); }
+.page-home .hm-res-body{ padding:16px 18px 18px; }
+.page-home .hm-res-name{ font-size:1rem; font-weight:600; }
+.page-home .hm-res-floor{ font-size:.85rem; }
+.page-home .hm-voice{ border:1px solid var(--sp-beige); padding:30px 28px; }
+.page-home .hm-voice-title{ font-size:1.08rem; }
+.page-home .hm-voice-text{ font-size:.97rem; line-height:2; }
+.page-home .hm-col{ border:1px solid var(--sp-beige); box-shadow:0 4px 20px rgba(13,34,56,.05); }
+.page-home .hm-col-title{ font-size:1rem; }
+.page-home .hm-greview a, .page-home .gmap-reviews-top a{ font-size:.95rem; font-weight:600; }
+/* 代表挨拶・会社概要・お問合せ */
+.page-home .president-message p{ font-size:1rem !important; line-height:2.1 !important; color:var(--sp-text); }
+.page-home .company-table th, .page-home .company-table td{ font-size:.95rem; }
+.page-home #contact .section-desc{ color:rgba(255,255,255,.85) !important; }
+.page-home a:focus-visible, .page-home button:focus-visible{ outline:3px solid rgba(196,154,48,.65); outline-offset:2px; }
+@media (max-width:640px){
+  .page-home section{ scroll-margin-top:118px; }
+  .page-home .section-header{ margin-bottom:36px; }
+  .page-home .section-title{ font-size:1.6rem; }
+  .page-home .section-desc{ text-align:center !important; }
+  .home-quicknav{ top:64px; justify-content:flex-start; padding:8px 12px; }
+  .home-quicknav a{ font-size:.88rem; padding:9px 12px; }
+  .page-home #home{ padding-top:104px !important; }
+  .page-home .hero-title{ font-size:1.95rem !important; }
+  .page-home .hero-trust li{ font-size:.82rem; }
+  .page-home .sc-body{ padding:24px 22px 28px; }
+  .page-home .sc-hero{ height:148px; }
+  .page-home .stat-num{ font-size:2.6rem; }
+  /* 成約実績：スマホは横型カードで文字を大きく */
+  .page-home .hm-res-grid{ grid-template-columns:1fr; gap:14px; }
+  .page-home a.hm-res, .page-home .hm-res{ display:grid; grid-template-columns:132px 1fr; }
+  .page-home .hm-res-img{ aspect-ratio:auto; height:100%; min-height:104px; }
+  .page-home .hm-res-body{ padding:14px 16px; display:flex; flex-direction:column; justify-content:center; }
+  .page-home .hm-res-name{ font-size:.98rem; }
+  .page-home .hm-res-floor{ font-size:.84rem; margin-top:6px; }
+  .page-home .hm-voice{ padding:24px 22px; }
+  .page-home .president-message p{ text-align:left; }
+}
+@media (prefers-reduced-motion: reduce){
+  .page-home .hero-en, .page-home .hero-title, .page-home .hero-sub, .page-home .hero-btns, .page-home .hero-trust{ animation:none !important; opacity:1 !important; transform:none !important; }
+}
