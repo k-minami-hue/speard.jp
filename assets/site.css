@@ -498,8 +498,8 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
    写真ヒーロー／見出し左寄せ／お客様の声は濃紺／ご相談の流れ
    ========================================================= */
 .page-home #home{
-  background-image:linear-gradient(100deg, rgba(13,34,56,.94) 0%, rgba(13,34,56,.82) 48%, rgba(13,34,56,.42) 100%), url('/results/park-city-musashikosugi-midsky.webp') !important;
-  background-size:cover !important; background-position:center 38% !important;
+  background-image:linear-gradient(100deg, rgba(13,34,56,.94) 0%, rgba(13,34,56,.82) 48%, rgba(13,34,56,.42) 100%), url('/results/deux-tours.webp') !important;
+  background-size:cover !important; background-position:center !important;
 }
 .page-home #home::before{ opacity:.35; }
 .page-home #home::after{ content:none; }
@@ -533,7 +533,7 @@ a.hm-res{ display:block; color:inherit; text-decoration:none; }
 .flow-text{ font-size:.92rem; line-height:1.95; color:var(--sp-text); margin:0; }
 @media (min-width:641px) and (max-width:900px){ .flow-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:640px){
-  .page-home #home{ background-position:62% 38% !important; }
+  .page-home #home{ background-position:58% center !important; }
   .page-home .hero-content{ text-align:left; }
   .page-home .hero-btns{ align-items:stretch; }
   .page-home .hero-trust{ align-items:flex-start; }
